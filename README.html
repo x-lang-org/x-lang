@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X语言 - 官方文档</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 标题 */
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid #3498db;
+        }
+
+        h3 {
+            color: #4a6785;
+            font-size: 1.4em;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+        }
+
+        /* 代码块 */
+        pre {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* 列表 */
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 2em;
+        }
+
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* 引用 */
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin: 1em 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 链接 */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 页脚 */
+        footer {
+            margin-top: 3em;
+            padding: 1em 0;
+            border-top: 1px solid #ddd;
+            color: #666;
+            text-align: center;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            h3 {
+                font-size: 1.2em;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* 自定义样式 */
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0 5px;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 1em 0;
+            color: #856404;
+        }
+
+        .important {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 10px;
+            margin: 1em 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>X语言 - 官方文档</h1>
+
+        <p>X语言是一门现代编程语言，设计遵循自然语言语法、数学直觉和Perceus内存管理，支持四种编程范式：函数式、面向对象、过程式和声明式。</p>
+
+        <h2>设计哲学</h2>
+        <p>X语言的设计遵循以下核心原则：</p>
+        <ul>
+            <li><strong>自然语言语法</strong>：使用<code>needs</code>、<code>given</code>、<code>wait</code>、<code>when/is</code>、<code>can</code>、<code>atomic</code>等自然语言关键字，代码读起来像英文句子</li>
+            <li><strong>数学直觉</strong>：支持数学风格的函数定义和集合表示法</li>
+            <li><strong>副作用可见</strong>：函数类型签名包含R·E·A，依赖、错误、返回值一目了然</li>
+            <li><strong>Perceus内存管理</strong>：编译期精确插入dup/drop，垃圾即时回收，重用分析让函数式代码原地更新</li>
+            <li><strong>无null·无异常</strong>：Option代替null，Result代替异常，编译器强制处理</li>
+            <li><strong>不可变优先</strong>：绑定默认不可变，Perceus的重用分析依赖不可变性——唯一引用才能原地更新</li>
+        </ul>
+
+        <h2>四种编程范式</h2>
+        <p>X语言支持四种编程范式，开发者可以根据场景选择最适合的方式：</p>
+
+        <h3>函数式（数学 + 管道）</h3>
+        <pre><code>val topUsers = users |> filter(.active) |> sortBy(.score) |> take(10)</code></pre>
+
+        <h3>声明式（自然语言 where/sort by）</h3>
+        <pre><code>val topUsers = users
+  where   .active and .score > 80
+  sort by .score descending
+  take    10
+  select  .name</code></pre>
+
+        <h3>面向对象（方法链）</h3>
+        <pre><code>val topUsers = users.filter(.active).sortBy(.score).take(10)</code></pre>
+
+        <h3>过程式（var + for）</h3>
+        <pre><code>fun getTopUsers() {
+  var result = []
+  for u in users {
+    if u.active and u.score > 80 { result.add(u) }
+  }
+  result |> sortBy(.score) |> take(10)
+}</code></pre>
+
+        <h2>词法结构</h2>
+        <p>X语言的词法结构包括标识符、数字字面量、字符串字面量、布尔值和特殊字符等。</p>
+
+        <h3>标识符</h3>
+        <p>标识符由字母、数字、下划线和连字符组成，但不能以数字或连字符开头。X语言是大小写敏感的。</p>
+        <pre><code>validName      // 合法
+user_name      // 合法
+user-name      // 合法（推荐）
+123name        // 非法（以数字开头）
+-user          // 非法（以连字符开头）</code></pre>
+
+        <h3>数字字面量</h3>
+        <p>X语言支持十进制、十六进制（<code>0x</code>前缀）、八进制（<code>0o</code>前缀）、二进制（<code>0b</code>前缀）和浮点数。</p>
+        <pre><code>42              // 十进制
+0x2A            // 十六进制
+0o52            // 八进制
+0b101010        // 二进制
+3.14            // 浮点数
+6.02e23         // 科学计数法
+1_000_000       // 数字分隔符（提高可读性）</code></pre>
+
+        <h3>字符串字面量</h3>
+        <p>X语言支持普通字符串、多行字符串和插值字符串。</p>
+        <pre><code>"Hello, World!"             // 普通字符串
+"""
+多行字符串
+保留格式
+"""
+"Hello, {name}!"            // 字符串插值</code></pre>
+
+        <h3>布尔值</h3>
+        <p>X语言支持<code>true</code>和<code>false</code>两个布尔字面量。</p>
+        <pre><code>val isActive = true
+val hasError = false</code></pre>
+
+        <h3>特殊字符</h3>
+        <p>X语言支持单行注释和多行注释。</p>
+        <pre><code>-- 单行注释
+{- 多行注释 -}</code></pre>
+
+        <h2>类型系统</h2>
+        <p>X语言的类型系统包括基本类型、复合类型和高级类型。</p>
+
+        <h3>基本类型</h3>
+        <pre><code>Int         // 整数类型（任意精度）
+Float       // 浮点数类型（双精度）
+Bool        // 布尔类型
+Char        // 字符类型
+String      // 字符串类型
+Unit        // 单元类型（无返回值）
+Never       // 永不存在的类型（永不返回）</code></pre>
+
+        <h3>复合类型</h3>
+        <p>X语言支持记录类型、联合类型、列表和字典。</p>
+        <pre><code>type Point = {
+  x: Float,
+  y: Float
+}
+
+type Shape =
+  | Circle  { radius: Float }
+  | Rect    { width: Float, height: Float }
+  | Point
+
+type Color = Red | Green | Blue | Custom { r: Int, g: Int, b: Int }</code></pre>
+
+        <h3>高级类型</h3>
+        <p>X语言支持选项类型、结果类型、函数类型和异步类型。</p>
+        <pre><code>Option&lt;T&gt;    // Some(v) | None
+Result&lt;T, E&gt;   // Ok(v) | Err(e)
+(T1, T2) -> T3 // 接受T1和T2，返回T3的函数
+async&lt;T&gt;     // 异步计算结果</code></pre>
+
+        <h2>变量</h2>
+        <p>X语言使用<code>val</code>定义值（不可变绑定），使用<code>var</code>定义变量（可变绑定）。</p>
+
+        <h3>变量声明</h3>
+        <pre><code>// 不可变绑定（值）
+val name = "Alice"
+val age = 30
+
+// 显式类型标注
+val name: String = "Alice"
+val age: Int = 30
+
+// 可变变量
+var count = 0
+var isActive: Bool = true</code></pre>
+
+        <h3>变量解构</h3>
+        <p>X语言支持元组解构、记录解构和列表解构。</p>
+        <pre><code>// 元组解构
+val (x, y) = (10, 20)
+
+// 记录解构
+val { name, age } = user
+
+// 列表解构
+val [first, ...rest] = [1, 2, 3, 4]</code></pre>
+
+        <h3>变量作用域</h3>
+        <p>X语言支持全局作用域、模块作用域、函数作用域和块作用域。</p>
+        <pre><code>fun example() {
+  val x = 10  // 函数作用域
+
+  if true {
+    val y = 20  // 块作用域
+  }
+
+  // 错误：y在此处不可见
+  // print(y)
+}</code></pre>
+
+        <h2>函数</h2>
+        <p>X语言使用<code>fun</code>定义函数。</p>
+
+        <h3>函数定义</h3>
+        <p>X语言支持数学风格函数、多行函数和异步函数。</p>
+        <pre><code>// 数学风格函数
+add(a, b) = a + b
+square(x) = x ^ 2
+
+// 显式类型标注
+add(a: Int, b: Int): Int = a + b
+square(x: Float): Float = x ^ 2
+
+// 多行函数
+fun factorial(n: Int): Int {
+  if n <= 1 {
+    1
+  } else {
+    n * factorial(n - 1)
+  }
+}
+
+// 异步函数
+async fun fetchData(): String {
+  wait delay(1000)
+  "Data"
+}</code></pre>
+
+        <h3>函数参数</h3>
+        <p>X语言支持默认参数、可变参数和具名参数。</p>
+        <pre><code>// 默认参数
+fun greet(name: String = "World") = "Hello, {name}!"
+
+// 可变参数
+fun sum(...numbers: Int[]): Int {
+  numbers |> reduce(0, (acc, x) -> acc + x)
+}
+
+// 具名参数
+greet(name: "Alice")
+sum(1, 2, 3)</code></pre>
+
+        <h3>函数返回</h3>
+        <p>X语言支持隐式返回和显式返回。</p>
+        <pre><code>// 隐式返回（最后一个表达式的值）
+fun add(a, b) = a + b
+
+// 显式返回
+fun findUser(id: Int): Option<User> {
+  val user = database.query(id)
+  if user != null {
+    return Some(user)
+  }
+  None
+}</code></pre>
+
+        <h3>Lambda函数</h3>
+        <p>X语言支持Lambda函数。</p>
+        <pre><code>// 简单lambda
+(x) -> x * 2
+
+// 多行lambda
+(x, y) -> {
+  val z = x + y
+  z * z
+}
+
+// 点语法简写
+users |> map(.name)    // 等价于 map((u) -> u.name)</code></pre>
+
+        <h2>类和接口</h2>
+        <p>X语言支持面向对象编程，包括类、继承、接口和抽象类。</p>
+
+        <h3>类定义</h3>
+        <pre><code>class Animal {
+  name: String
+  age: Int
+
+  // 主构造函数
+  new(name: String, age: Int) {
+    this.name = name
+    this.age = age
+  }
+
+  // 方法
+  greet() = "I'm {name}"
+
+  // 可重写方法
+  virtual birthday() = this with { age: age + 1 }
+}
+
+// 创建实例
+val animal = Animal("Bob", 3)</code></pre>
+
+        <h3>继承</h3>
+        <pre><code>class Dog extends Animal {
+  breed: String
+
+  // 子构造函数
+  new(name: String, age: Int, breed: String) {
+    super(name, age)
+    this.breed = breed
+  }
+
+  // 重写方法
+  override greet() = "Woof! I'm {name}, a {breed}"
+}</code></pre>
+
+        <h3>接口</h3>
+        <pre><code>trait Printable {
+  fun show(): String
+}
+
+trait Comparable&lt;T&gt; {
+  fun compare(other: T): Int
+}
+
+// 实现接口
+class User implements Printable, Comparable<User> {
+  name: String
+  age: Int
+
+  fun show(): String = "User: {name}"
+
+  fun compare(other: User): Int {
+    if age < other.age { -1 }
+    else if age > other.age { 1 }
+    else { 0 }
+  }
+}</code></pre>
+
+        <h3>抽象类</h3>
+        <pre><code>abstract class Shape {
+  abstract fun area(): Float
+  abstract fun perimeter(): Float
+
+  fun description() = "A shape"
+}
+
+class Circle extends Shape {
+  radius: Float
+
+  fun area(): Float = pi * radius ^ 2
+  fun perimeter(): Float = 2 * pi * radius
+}</code></pre>
+
+        <h2>Perceus内存模型</h2>
+        <p>X语言使用Perceus内存模型，通过编译期精确插入dup/drop操作，实现垃圾即时回收和重用分析。</p>
+
+        <h3>什么是Perceus</h3>
+        <p>Perceus是由Microsoft Research的Daan Leijen团队开发的精确引用计数算法，具有以下特点：</p>
+        <ul>
+            <li>精确性：所有中间状态都不持有多余引用</li>
+            <li>垃圾自由：对象在不可能再被引用的那一刻立即释放</li>
+            <li>重用分析：当对象引用计数恰好为1时，下一次同形状分配可以直接复用该内存块</li>
+            <li>FBIP范式：纯函数式代码在对象唯一时自动原地执行</li>
+        </ul>
+
+        <h3>精确dup/drop插入</h3>
+        <p>Perceus编译器通过线性资源演算分析每个变量的使用情况，在最晚时刻插入dup（引用+1），在最早时刻插入drop（引用-1直至释放）。</p>
+        <pre><code>fun map(f, xs):
+  when xs is
+    []    -> drop(f); []
+    x::xs ->
+      dup(f)             // f 被用两次，延迟到此处 dup
+      val head = f(x)        // x 在这里消费，无需额外操作
+      val tail = map(f, xs)  // xs 在这里消费
+                         // 注意：原来的 cons 节点（x::xs）已被析构
+                         // 若 rc == 1，可以重用该内存！（见重用分析）
+      head :: tail</code></pre>
+
+        <h3>重用分析</h3>
+        <p>Perceus重用分析可以将函数式代码的堆分配降至零。</p>
+        <pre><code>-- 传统 RC 执行（每个节点都要 free + malloc）
+[1, 2, 3]  →  free(node1)  →  malloc()  →  [2, 3, 4]
+               free(node2)     malloc()
+               free(node3)     malloc()
+3 次 free + 3 次 malloc = 6 次堆操作
+
+-- Perceus 重用分析（rc=1 → 直接复用节点内存）
+[1, 2, 3]  →  node1.rc=1  →  原地写入 2  →  [2, 3, 4]
+               node2.rc=1     原地写入 3
+               node3.rc=1     原地写入 4
+0 次 free + 0 次 malloc = 0 次堆操作 ✓</code></pre>
+
+        <h2>完整示例</h2>
+        <p>下面是一个完整的X语言示例，展示了如何创建一个简单的Web服务。</p>
+        <pre><code>use http, db, log
+
+type Item  = { id: Int, price: Float }
+type Order = { id: Int, userId: Int, items: [Item] }
+type OrderError =
+  | UserNotFound       { id: Int }
+  | InsufficientFunds  { needed: Float }
+  | OutOfStock         { itemId: Int }
+
+-- 纯函数（Perceus FBIP 下原地执行）
+total(items: [Item]): Float = [i.price | i in items] |> sum
+
+-- 业务逻辑（过程式 + Effect）
+async fun placeOrder(userId: Int, items: [Item]): Order
+    needs Database, Http, Logger {
+
+  val (user, stockOk) = wait together {
+    Database.findUser(userId),
+    Http.checkStock(items)
+  }?
+
+  log("Order for {user.name}: {items.count} items")
+  if not stockOk { fail(OutOfStock { itemId: items[0].id }) }
+
+  val order = atomic {
+    deductBalance(userId, total(items))
+    reserveStock(items)
+    createOrder(userId, items)
+  }?
+
+  Database.save(order)?
+  order
+}
+
+-- 路由（声明式）
+async fun main() needs Nothing {
+  val app = HttpServer.new()
+  app.post("/orders", (req) ->
+    req.json&lt;OrderRequest&gt;()?
+      |>> (r) -> placeOrder(r.userId, r.items)
+      |>> map(Response.ok)
+      |>> catch((e) -> when e is
+        UserNotFound { id }          -> Response.notFound("User {id}")
+        InsufficientFunds { needed } -> Response.badRequest("需要 {needed}")
+        OutOfStock { itemId }        -> Response.badRequest("{itemId} 缺货")
+      )
+  )
+  wait app.listen(8080) given {
+    Database <- PostgresDatabase.live
+    Http     <- HttpClient.live
+    Logger   <- ConsoleLogger.live
+  }
+}</code></pre>
+
+        <footer>
+            <p>X语言规格说明书 v0.4 · Draft · 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

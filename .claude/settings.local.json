@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.ai)",
+      "Bash(git init)",
+      "Bash(git add .)",
+      "Bash(git commit -m \"Initial commit of X language specification\")",
+      "Bash(git remote add origin git@github.com:xiongdi/x-lang.git)",
+      "Bash(git branch -M main)",
+      "Bash(git push -u origin main)"
+    ]
+  }
+}
