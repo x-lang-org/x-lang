@@ -1,0 +1,24 @@
+[section]
+id = "expressions.basic"
+name = "Expressions and statements"
+spec_chapter = "6"
+
+[[case]]
+name = "parse_fail_unclosed_brace"
+spec = ["1.1"]
+compile_fail = true
+error_contains = ["语法错误"]
+source = """
+fun main() {
+  val x = 1
+"""
+
+[[case]]
+name = "parse_fail_expect_name"
+spec = ["7.1"]
+compile_fail = true
+error_contains = ["语法错误"]
+source = """
+fun () {
+}
+"""

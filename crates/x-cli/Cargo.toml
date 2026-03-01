@@ -1,0 +1,42 @@
+[package]
+name = "x-cli"
+version = "0.1.0"
+edition = "2021"
+description = "X语言命令行工具"
+license = "MIT"
+
+default-run = "x"
+
+[features]
+default = []
+# 启用后可编译到目标文件/可执行文件（需本机安装 LLVM 21 并设置 LLVM_SYS_211_PREFIX）
+codegen = ["x-codegen"]
+
+[dependencies]
+# 流水线 crates
+x-lexer = { path = "../x-lexer" }
+x-parser = { path = "../x-parser" }
+x-typechecker = { path = "../x-typechecker" }
+x-hir = { path = "../x-hir" }
+x-perceus = { path = "../x-perceus" }
+x-codegen = { path = "../x-codegen", optional = true }
+x-interpreter = { path = "../x-interpreter" }
+
+# CLI库
+clap = { version = "4.5", features = ["derive"] }
+colored = "2.1"
+
+# 错误处理
+thiserror = "1.0"
+
+# 日志
+log = "0.4"
+env_logger = "0.10"
+
+[[bin]]
+name = "x"
+path = "src/main.rs"
+
+[[bin]]
+name = "debug-lexer"
+path = "../../debug_lexer.rs"

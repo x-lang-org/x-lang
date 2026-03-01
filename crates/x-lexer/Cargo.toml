@@ -1,0 +1,13 @@
+[package]
+name = "x-lexer"
+version = "0.1.0"
+edition = "2021"
+description = "X语言词法分析器"
+license = "MIT"
+
+[dependencies]
+# 错误处理
+thiserror = "1.0"
+
+# 日志
+log = "0.4"

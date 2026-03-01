@@ -1,0 +1,21 @@
+[section]
+id = "lexical.basic"
+name = "Lexical structure"
+spec_chapter = "1"
+
+[[case]]
+name = "main_empty"
+spec = ["1.1", "7.1"]
+source = """
+fun main() {
+}
+"""
+
+[[case]]
+name = "single_line_comment_dash"
+spec = ["1.5"]
+source = """
+-- single line comment per README
+fun main() {
+}
+"""

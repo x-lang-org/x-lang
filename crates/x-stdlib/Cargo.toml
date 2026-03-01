@@ -1,0 +1,22 @@
+[package]
+name = "x-stdlib"
+version = "0.1.0"
+edition = "2021"
+description = "X语言标准库"
+license = "MIT"
+
+[dependencies]
+# 依赖其他crates
+x-interpreter = { path = "../x-interpreter" }
+
+# 不可变数据结构
+im = "15.1"
+
+# 异步运行时
+tokio = { version = "1.35", features = ["full"] }
+
+# 错误处理
+thiserror = "1.0"
+
+# 日志
+log = "0.4"

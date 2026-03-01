@@ -1,0 +1,44 @@
+[workspace]
+members = [
+    "crates/x-lexer",
+    "crates/x-parser",
+    "crates/x-typechecker",
+    "crates/x-hir",
+    "crates/x-perceus",
+    "crates/x-codegen",
+    "crates/x-interpreter",
+    "crates/x-stdlib",
+    "crates/x-spec",
+    "crates/x-cli"
+]
+
+[workspace.dependencies]
+# 常用依赖
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.10"
+
+# 解析和生成相关依赖
+logos = "0.13"
+lalrpop = "0.20"
+lalrpop-util = "0.20"
+
+# 类型检查相关依赖
+im = "15.1"
+
+# 代码生成相关依赖（需本机安装对应 LLVM 版本，如 LLVM 21）
+inkwell = { version = "0.8", features = ["llvm21-1"] }
+wasm-bindgen = "0.2"
+wasmtime = "11.0"
+
+# CLI相关依赖
+clap = { version = "4.5", features = ["derive"] }
+colored = "2.1"
+
+# 异步和并发相关依赖
+tokio = { version = "1.35", features = ["full"] }
+
+[patch.crates-io]
+# Windows 官方 LLVM 安装包不含 llvm-config.exe；使用本仓库内补丁版 llvm-sys，
+# 在设置 LLVM_SYS_211_PREFIX 时根据 include/lib 直接配置，不依赖 llvm-config。
+llvm-sys = { path = "vendor/llvm-sys" }
