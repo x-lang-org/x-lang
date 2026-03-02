@@ -17,6 +17,10 @@ pub enum Target {
     Wasm,
     /// LLVM IR - 中间表示（用于调试）
     LlvmIr,
+    /// Python 字节码 - .pyc 文件
+    Pyc,
+    /// Python 源代码 - .py 文件
+    Python,
 }
 
 impl Target {
@@ -30,6 +34,8 @@ impl Target {
             Target::TypeScript => "typescript",
             Target::Wasm => "wasm",
             Target::LlvmIr => "llvm-ir",
+            Target::Pyc => "pyc",
+            Target::Python => "python",
         }
     }
 
@@ -43,6 +49,8 @@ impl Target {
             "ts" | "typescript" => Some(Target::TypeScript),
             "wasm" => Some(Target::Wasm),
             "llvm-ir" => Some(Target::LlvmIr),
+            "pyc" | "pyo3" => Some(Target::Pyc),
+            "python" | "py" => Some(Target::Python),
             _ => None,
         }
     }
@@ -57,6 +65,8 @@ impl Target {
             Target::TypeScript => "ts",
             Target::Wasm => "wasm",
             Target::LlvmIr => "ll",
+            Target::Pyc => "pyc",
+            Target::Python => "py",
         }
     }
 
@@ -69,8 +79,13 @@ impl Target {
     pub fn requires_runtime(&self) -> bool {
         matches!(
             self,
-            Target::Jvm | Target::DotNet | Target::JavaScript | Target::TypeScript | Target::Wasm
+            Target::Jvm | Target::DotNet | Target::JavaScript | Target::TypeScript | Target::Wasm | Target::Pyc | Target::Python
         )
+    }
+
+    /// 检查目标平台是否有 Python 虚拟机
+    pub fn is_python(&self) -> bool {
+        matches!(self, Target::Pyc | Target::Python)
     }
 }
 
@@ -99,6 +114,10 @@ pub enum FileType {
     Wasm,
     /// WebAssembly文本（.wat）
     Wat,
+    /// Python 字节码（.pyc）
+    Pyc,
+    /// Python 源代码（.py）
+    Python,
 }
 
 impl FileType {
@@ -116,6 +135,8 @@ impl FileType {
             FileType::TypeScript => "ts",
             FileType::Wasm => "wasm",
             FileType::Wat => "wat",
+            FileType::Pyc => "pyc",
+            FileType::Python => "py",
         }
     }
 
@@ -133,6 +154,8 @@ impl FileType {
             FileType::TypeScript => "TypeScript",
             FileType::Wasm => "WebAssembly",
             FileType::Wat => "WebAssembly text",
+            FileType::Pyc => "Python bytecode",
+            FileType::Python => "Python source",
         }
     }
 }

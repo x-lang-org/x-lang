@@ -9,7 +9,13 @@
       "Bash(git branch -M main)",
       "Bash(git push -u origin main)",
       "Bash(git add README.md docs/index.html)",
-      "Bash(git add -u)"
+      "Bash(git add -u)",
+      "Bash(cargo build:*)",
+      "Bash(cargo check:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ]
   }
 }

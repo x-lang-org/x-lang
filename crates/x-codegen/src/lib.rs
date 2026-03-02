@@ -136,6 +136,23 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                 "JavaScript backend not enabled. Build with --features js.".to_string(),
             ))
         }
+        Target::Pyc | Target::Python => {
+            #[cfg(feature = "python")]
+            Ok(Box::new(PythonCodeGenerator::new(PythonConfig {
+                output_dir: config.output_dir,
+                optimize: config.optimize,
+                debug_info: config.debug_info,
+                output_format: match target {
+                    Target::Pyc => PythonOutputFormat::Bytecode,
+                    Target::Python => PythonOutputFormat::Source,
+                    _ => unreachable!(),
+                },
+            })))
+            #[cfg(not(feature = "python"))]
+            Err(CodeGenError::UnsupportedFeature(
+                "Python backend not enabled. Build with --features python.".to_string(),
+            ))
+        }
     }
 }
 
