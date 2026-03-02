@@ -10,7 +10,7 @@ use x_parser::ast::{
     BinaryOp, Block, Expression, Literal, Program, Statement,
 };
 
-use crate::{CodeGenConfig, CodeGenError, write_object_or_ir};
+use crate::{CodeGenConfig, CodeGenError};
 
 pub fn generate_code(program: &Program, config: &CodeGenConfig) -> Result<Vec<u8>, CodeGenError> {
     let context = Context::create();
@@ -126,6 +126,44 @@ pub fn generate_code(program: &Program, config: &CodeGenConfig) -> Result<Vec<u8
     // pass_manager.run_on(&module);
 
     write_object_or_ir(&module, config)
+}
+
+fn write_object_or_ir(module: &Module, config: &CodeGenConfig) -> Result<Vec<u8>, CodeGenError> {
+    use inkwell::targets::{FileType, RelocMode, CodeModel, Target as LlvmTarget, TargetMachine};
+
+    match config.target {
+        crate::Target::LlvmIr => {
+            let ir = module.to_string();
+            Ok(ir.as_bytes().to_vec())
+        }
+        crate::Target::Native => {
+            LlvmTarget::initialize_native(&inkwell::targets::InitializationConfig::default())
+                .map_err(|e| CodeGenError::GenerationError(e.to_string()))?;
+            let target_triple = TargetMachine::get_default_triple();
+            let cpu = TargetMachine::get_host_cpu_name().to_str().unwrap().to_string();
+            let features = TargetMachine::get_host_cpu_features().to_str().unwrap().to_string();
+
+            let target = LlvmTarget::from_triple(&target_triple)
+                .map_err(|e| CodeGenError::GenerationError(e.to_string()))?;
+            let target_machine = target
+                .create_target_machine(
+                    &target_triple,
+                    &cpu,
+                    &features,
+                    inkwell::OptimizationLevel::Default,
+                    RelocMode::Default,
+                    CodeModel::Default,
+                )
+                .ok_or_else(|| CodeGenError::GenerationError("create_target_machine failed".to_string()))?;
+            let object_code = target_machine
+                .write_to_memory_buffer(module, FileType::Object)
+                .map_err(|e: inkwell::support::LLVMString| CodeGenError::GenerationError(e.to_string()))?;
+            Ok(object_code.as_slice().to_vec())
+        }
+        _ => Err(CodeGenError::UnsupportedFeature(
+            "仅支持 Native 与 LlvmIr 目标".to_string(),
+        )),
+    }
 }
 
 fn lower_block<'ctx>(

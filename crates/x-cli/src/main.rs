@@ -1,400 +1,544 @@
-// X语言命令行工具
+mod commands;
+mod config;
+mod lockfile;
+mod manifest;
+mod pipeline;
+mod project;
+mod registry;
+mod resolver;
+mod utils;
 
 use clap::{Parser, Subcommand};
-use colored::*;
 use env_logger::Env;
-use log::info;
 use std::io::Write;
 
 #[derive(Parser)]
 #[command(name = "x")]
 #[command(version = "0.1.0")]
-#[command(about = "X语言工具链 - 编译、运行、打包X语言程序")]
+#[command(about = "X语言工具链 — 构建、运行、测试、发布X语言项目")]
+#[command(propagate_version = true)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
+
+    /// 使用详细输出
+    #[arg(short, long, global = true)]
+    verbose: bool,
+
+    /// 不输出日志信息
+    #[arg(short, long, global = true)]
+    quiet: bool,
+
+    /// 控制颜色输出: auto, always, never
+    #[arg(long, global = true, default_value = "auto")]
+    color: String,
+
+    /// 在指定目录中运行
+    #[arg(short = 'C', long, global = true)]
+    directory: Option<String>,
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    #[command(about = "运行X语言源代码")]
-    Run {
-        #[arg(value_name = "FILE")]
-        file: String,
+    // ── Build commands ──────────────────────────────────────────────
+
+    /// 构建当前项目
+    Build {
+        /// 使用 release 配置构建
+        #[arg(long)]
+        release: bool,
+        /// 构建目标平台
+        #[arg(long)]
+        target: Option<String>,
+        /// 并行作业数
+        #[arg(short, long)]
+        jobs: Option<u32>,
+        /// 启用指定特性
+        #[arg(short = 'F', long)]
+        features: Vec<String>,
+        /// 启用所有特性
+        #[arg(long)]
+        all_features: bool,
+        /// 不使用默认特性
+        #[arg(long)]
+        no_default_features: bool,
     },
 
-    #[command(about = "编译X语言源代码到可执行文件")]
+    /// 运行X语言程序
+    Run {
+        /// 源文件路径（单文件模式）
+        #[arg(value_name = "FILE")]
+        file: Option<String>,
+        /// 使用 release 配置
+        #[arg(long)]
+        release: bool,
+        /// 运行指定示例
+        #[arg(long)]
+        example: Option<String>,
+        /// 运行指定二进制目标
+        #[arg(long)]
+        bin: Option<String>,
+        /// 仅输出程序 print 结果
+        #[arg(short, long)]
+        quiet: bool,
+        /// 传递给程序的参数
+        #[arg(last = true)]
+        args: Vec<String>,
+    },
+
+    /// 检查项目语法和类型（不生成代码）
+    Check {
+        /// 源文件路径（单文件模式）
+        #[arg(value_name = "FILE")]
+        file: Option<String>,
+        /// 检查所有目标（含测试、示例等）
+        #[arg(long)]
+        all_targets: bool,
+    },
+
+    /// 编译X语言源代码到目标文件/可执行文件
     Compile {
         #[arg(value_name = "FILE")]
         file: String,
-
         #[arg(short, long, value_name = "OUTPUT")]
         output: Option<String>,
-
         /// 输出中间结果: tokens, ast, hir, pir, llvm-ir
         #[arg(long, value_name = "STAGE")]
         emit: Option<String>,
-
-        /// 仅生成目标文件(.o/.obj)，不链接
+        /// 仅生成目标文件，不链接
         #[arg(long)]
         no_link: bool,
     },
 
-    #[command(about = "打包X语言项目")]
+    /// 运行项目测试
+    Test {
+        /// 过滤测试名称
+        #[arg(value_name = "FILTER")]
+        filter: Option<String>,
+        /// 使用 release 配置
+        #[arg(long)]
+        release: bool,
+        /// 仅测试库
+        #[arg(long)]
+        lib: bool,
+        /// 运行文档测试
+        #[arg(long)]
+        doc: bool,
+        /// 仅编译不运行
+        #[arg(long)]
+        no_run: bool,
+        /// 并行作业数
+        #[arg(short, long)]
+        jobs: Option<u32>,
+    },
+
+    /// 运行项目基准测试
+    Bench {
+        /// 过滤基准名称
+        #[arg(value_name = "FILTER")]
+        filter: Option<String>,
+        /// 仅编译不运行
+        #[arg(long)]
+        no_run: bool,
+    },
+
+    /// 清除构建产物
+    Clean {
+        /// 仅清除文档
+        #[arg(long)]
+        doc: bool,
+        /// 仅清除 release 目录
+        #[arg(long)]
+        release: bool,
+    },
+
+    /// 生成项目文档
+    Doc {
+        /// 在浏览器中打开
+        #[arg(long)]
+        open: bool,
+        /// 不生成依赖的文档
+        #[arg(long)]
+        no_deps: bool,
+        /// 包含私有项的文档
+        #[arg(long)]
+        document_private_items: bool,
+    },
+
+    /// 获取依赖（不构建）
+    Fetch,
+
+    /// 自动修复代码中的警告
+    Fix {
+        /// 允许在有未提交更改时修复
+        #[arg(long)]
+        allow_dirty: bool,
+        /// 允许在有暂存更改时修复
+        #[arg(long)]
+        allow_staged: bool,
+    },
+
+    // ── Manifest / dependency commands ──────────────────────────────
+
+    /// 添加依赖到 x.toml
+    Add {
+        /// 要添加的包名 (格式: name 或 name@version)
+        #[arg(required = true)]
+        packages: Vec<String>,
+        /// 添加为开发依赖
+        #[arg(long)]
+        dev: bool,
+        /// 添加为构建依赖
+        #[arg(long)]
+        build: bool,
+        /// 标记为可选依赖
+        #[arg(long)]
+        optional: bool,
+        /// 重命名依赖
+        #[arg(long)]
+        rename: Option<String>,
+        /// 使用本地路径
+        #[arg(long)]
+        path: Option<String>,
+        /// 从 Git 仓库添加
+        #[arg(long)]
+        git: Option<String>,
+        /// Git 分支
+        #[arg(long)]
+        branch: Option<String>,
+        /// Git 标签
+        #[arg(long)]
+        tag: Option<String>,
+        /// Git 修订版本
+        #[arg(long)]
+        rev: Option<String>,
+        /// 启用指定特性
+        #[arg(short = 'F', long)]
+        features: Vec<String>,
+        /// 禁用默认特性
+        #[arg(long)]
+        no_default_features: bool,
+    },
+
+    /// 从 x.toml 移除依赖
+    Remove {
+        /// 要移除的包名
+        #[arg(required = true)]
+        packages: Vec<String>,
+        /// 从开发依赖移除
+        #[arg(long)]
+        dev: bool,
+        /// 从构建依赖移除
+        #[arg(long)]
+        build: bool,
+    },
+
+    /// 生成或更新 x.lock
+    #[command(name = "generate-lockfile")]
+    GenerateLockfile,
+
+    /// 输出项目清单路径 (JSON)
+    #[command(name = "locate-project")]
+    LocateProject {
+        /// 查找工作区根
+        #[arg(long)]
+        workspace: bool,
+    },
+
+    /// 以 JSON 格式输出项目元数据
+    Metadata {
+        /// 不包含依赖解析
+        #[arg(long)]
+        no_deps: bool,
+        /// 格式版本
+        #[arg(long)]
+        format_version: Option<u32>,
+    },
+
+    /// 输出完整的包标识符
+    Pkgid {
+        /// 指定包名
+        #[arg(value_name = "SPEC")]
+        spec: Option<String>,
+    },
+
+    /// 显示依赖树
+    Tree {
+        /// 最大深度
+        #[arg(short, long)]
+        depth: Option<usize>,
+        /// 反转依赖方向
+        #[arg(short, long)]
+        invert: bool,
+        /// 不合并重复项
+        #[arg(long)]
+        no_dedupe: bool,
+        /// 前缀样式: indent, depth, none
+        #[arg(long, default_value = "indent")]
+        prefix: String,
+    },
+
+    /// 更新 x.lock 中的依赖版本
+    Update {
+        /// 仅更新指定的包
+        #[arg(value_name = "PACKAGES")]
+        packages: Vec<String>,
+        /// 激进更新（忽略锁文件约束）
+        #[arg(long)]
+        aggressive: bool,
+        /// 试运行，不实际修改
+        #[arg(long)]
+        dry_run: bool,
+    },
+
+    /// 将依赖复制到本地目录
+    Vendor {
+        /// 输出目录
+        #[arg(value_name = "PATH")]
+        path: Option<String>,
+        /// 不删除现有 vendor 目录
+        #[arg(long)]
+        no_delete: bool,
+        /// 使用带版本号的目录名
+        #[arg(long)]
+        versioned_dirs: bool,
+    },
+
+    // ── Package commands ───────────────────────────────────────────
+
+    /// 在当前目录初始化新项目
+    Init {
+        /// 项目路径
+        #[arg(value_name = "PATH")]
+        path: Option<String>,
+        /// 创建库项目
+        #[arg(long)]
+        lib: bool,
+        /// 版本控制系统: git, none
+        #[arg(long, default_value = "git")]
+        vcs: String,
+        /// X语言版本
+        #[arg(long)]
+        edition: Option<String>,
+    },
+
+    /// 创建新项目
+    New {
+        /// 项目名称/路径
+        #[arg(required = true)]
+        name: String,
+        /// 创建库项目
+        #[arg(long)]
+        lib: bool,
+        /// 版本控制系统: git, none
+        #[arg(long, default_value = "git")]
+        vcs: String,
+        /// X语言版本
+        #[arg(long)]
+        edition: Option<String>,
+    },
+
+    /// 安装X语言可执行包
+    #[command(disable_version_flag = true)]
+    Install {
+        /// 要安装的包名
+        #[arg(value_name = "PACKAGE")]
+        package: Option<String>,
+        /// 从本地路径安装
+        #[arg(long)]
+        path: Option<String>,
+        /// 从 Git 仓库安装
+        #[arg(long)]
+        git: Option<String>,
+        /// 指定版本
+        #[arg(long)]
+        version: Option<String>,
+        /// 强制覆盖安装
+        #[arg(short, long)]
+        force: bool,
+        /// 安装目录
+        #[arg(long)]
+        root: Option<String>,
+        /// 列出已安装的包
+        #[arg(long)]
+        list: bool,
+    },
+
+    /// 卸载已安装的可执行包
+    Uninstall {
+        /// 要卸载的包名
+        #[arg(required = true)]
+        packages: Vec<String>,
+        /// 安装目录
+        #[arg(long)]
+        root: Option<String>,
+    },
+
+    /// 在注册表中搜索包
+    Search {
+        /// 搜索关键词
+        #[arg(required = true)]
+        query: String,
+        /// 最大结果数
+        #[arg(long, default_value = "10")]
+        limit: usize,
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
+    },
+
+    // ── Publishing commands ────────────────────────────────────────
+
+    /// 登录到包注册表
+    Login {
+        /// API token
+        token: Option<String>,
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
+    },
+
+    /// 注销包注册表
+    Logout {
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
+    },
+
+    /// 管理包的所有者
+    Owner {
+        /// 包名
+        #[arg(required = true)]
+        package: String,
+        /// 添加所有者
+        #[arg(short, long)]
+        add: Vec<String>,
+        /// 移除所有者
+        #[arg(short, long)]
+        remove: Vec<String>,
+        /// 列出所有者
+        #[arg(short, long)]
+        list: bool,
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
+    },
+
+    /// 将项目打包为可分发的压缩包
     Package {
+        /// 列出将要打包的文件
+        #[arg(short, long)]
+        list: bool,
+        /// 跳过验证
+        #[arg(long)]
+        no_verify: bool,
+        /// 允许打包有未提交更改的项目
+        #[arg(long)]
+        allow_dirty: bool,
+        /// 输出目录
         #[arg(short, long)]
         output: Option<String>,
     },
 
-    #[command(about = "检查X语言源代码的语法和类型")]
-    Check {
-        #[arg(value_name = "FILE")]
-        file: String,
+    /// 发布包到注册表
+    Publish {
+        /// 试运行，不实际发布
+        #[arg(long)]
+        dry_run: bool,
+        /// 跳过验证
+        #[arg(long)]
+        no_verify: bool,
+        /// 允许发布有未提交更改的项目
+        #[arg(long)]
+        allow_dirty: bool,
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
+        /// API token
+        #[arg(long)]
+        token: Option<String>,
     },
 
-    #[command(about = "格式化X语言源代码")]
-    Format {
-        #[arg(value_name = "FILE")]
-        file: String,
-
-        #[arg(short, long)]
-        write: bool,
+    /// 撤回已发布的版本
+    #[command(disable_version_flag = true)]
+    Yank {
+        /// 包名
+        #[arg(required = true)]
+        package: String,
+        /// 版本号
+        #[arg(long, required = true)]
+        version: String,
+        /// 取消撤回
+        #[arg(long)]
+        undo: bool,
+        /// 指定注册表
+        #[arg(long)]
+        registry: Option<String>,
     },
 
-    #[command(about = "启动X语言REPL")]
+    // ── Tool commands ──────────────────────────────────────────────
+
+    /// 格式化X语言源代码
+    Fmt {
+        /// 源文件路径
+        #[arg(value_name = "FILE")]
+        file: Option<String>,
+        /// 仅检查格式，不修改
+        #[arg(long)]
+        check: bool,
+        /// 格式化所有文件（含测试、示例等）
+        #[arg(long)]
+        all: bool,
+    },
+
+    /// 代码检查（类似 clippy）
+    Lint {
+        /// 自动修复
+        #[arg(long)]
+        fix: bool,
+        /// 允许的 lint
+        #[arg(short = 'A', long)]
+        allow: Vec<String>,
+        /// 拒绝的 lint
+        #[arg(short = 'D', long)]
+        deny: Vec<String>,
+        /// 警告的 lint
+        #[arg(short = 'W', long)]
+        warn: Vec<String>,
+    },
+
+    /// 启动X语言 REPL
     Repl,
-}
 
-/// 完整流水线：读源文件 → 解析 → 类型检查 → HIR → Perceus → (可选) 代码生成
-fn run_pipeline(
-    source: &str,
-) -> Result<
-    (
-        x_parser::ast::Program,
-        x_hir::Hir,
-        x_perceus::PerceusIR,
-    ),
-    String,
-> {
-    let parser = x_parser::parser::XParser::new();
-    let program = parser.parse(source).map_err(|e| format!("解析错误: {}", e))?;
+    /// 管理全局配置
+    Config {
+        /// 操作: get, set, list
+        #[arg(required = true)]
+        action: String,
+        /// 配置键
+        key: Option<String>,
+        /// 配置值
+        value: Option<String>,
+    },
 
-    x_typechecker::type_check(&program).map_err(|e| format!("类型检查错误: {}", e))?;
-
-    let hir = x_hir::ast_to_hir(&program).map_err(|e| format!("HIR 转换错误: {}", e))?;
-
-    let pir = x_perceus::analyze_hir(&hir).map_err(|e| format!("Perceus 分析错误: {}", e))?;
-
-    Ok((program, hir, pir))
-}
-
-fn format_parse_error(file: &str, source: &str, e: &x_parser::errors::ParseError) -> String {
-    if let Some(span) = e.span() {
-        let (line, col) = span.line_col(source);
-        let snippet = span.snippet(source);
-        format!(
-            "{}:{}:{}: {}\n  {} | {}",
-            file,
-            line,
-            col,
-            e,
-            line,
-            snippet.trim_end()
-        )
-    } else {
-        format!("{}: {}", file, e)
-    }
-}
-
-fn run_command(file: &str) {
-    println!("{} 正在运行文件: {}", "执行中".green(), file);
-
-    let content = match std::fs::read_to_string(file) {
-        Ok(c) => c,
-        Err(e) => {
-            println!("{} 无法读取文件: {}", "错误".red(), e);
-            return;
-        }
-    };
-
-    let parser = x_parser::parser::XParser::new();
-    let program = match parser.parse(&content) {
-        Ok(p) => p,
-        Err(e) => {
-            println!("{} {}", "错误".red(), format_parse_error(file, &content, &e));
-            return;
-        }
-    };
-
-    if let Err(e) = x_typechecker::type_check(&program) {
-        println!("{} 类型检查失败: {}", "错误".red(), e);
-        return;
-    }
-
-    let mut interpreter = x_interpreter::Interpreter::new();
-    match interpreter.run(&program) {
-        Ok(()) => println!("{} 运行成功", "成功".green()),
-        Err(e) => println!("{} 运行失败: {}", "错误".red(), e),
-    }
-}
-
-fn compile_command(
-    file: &str,
-    output: Option<&str>,
-    emit: Option<&str>,
-    no_link: bool,
-) {
-    let content = match std::fs::read_to_string(file) {
-        Ok(c) => c,
-        Err(e) => {
-            println!("{} 无法读取文件: {}", "错误".red(), e);
-            return;
-        }
-    };
-
-    if let Some(stage) = emit {
-        let stage_lower = stage.to_lowercase();
-        match stage_lower.as_str() {
-            "tokens" => {
-                let mut lexer = x_lexer::Lexer::new(&content);
-                loop {
-                    match lexer.next_token() {
-                        Ok((token, span)) => {
-                            println!("{:?}  @ {}..{}", token, span.start, span.end);
-                            if matches!(token, x_lexer::token::Token::Eof) {
-                                break;
-                            }
-                        }
-                        Err(e) => {
-                            println!("{} 词法错误: {:?}", "错误".red(), e);
-                            break;
-                        }
-                    }
-                }
-                return;
-            }
-            "ast" => {
-                let parser = x_parser::parser::XParser::new();
-                match parser.parse(&content) {
-                    Ok(program) => println!("{:#?}", program),
-                    Err(e) => println!("{} {}", "错误".red(), format_parse_error(file, &content, &e)),
-                }
-                return;
-            }
-            "hir" => {
-                match run_pipeline(&content) {
-                    Ok((_, hir, _)) => println!("{:#?}", hir),
-                    Err(e) => println!("{} {}", "错误".red(), e),
-                }
-                return;
-            }
-            "pir" => {
-                match run_pipeline(&content) {
-                    Ok((_, _, pir)) => println!("{:#?}", pir),
-                    Err(e) => println!("{} {}", "错误".red(), e),
-                }
-                return;
-            }
-            "llvm-ir" => {
-                match run_pipeline(&content) {
-                    Ok((program, _, _)) => {
-                        #[cfg(feature = "codegen")]
-                        {
-                            let config = x_codegen::CodeGenConfig {
-                                target: x_codegen::CodegenTarget::LlvmIr,
-                            };
-                            match x_codegen::generate_code(&program, &config) {
-                                Ok(bytes) => {
-                                    if let Ok(s) = String::from_utf8(bytes) {
-                                        print!("{}", s);
-                                    }
-                                }
-                                Err(e) => println!("{} 代码生成错误: {}", "错误".red(), e),
-                            }
-                        }
-                        #[cfg(not(feature = "codegen"))]
-                        println!("{} 需要启用 codegen 特性并安装 LLVM 21: cargo build --features codegen", "错误".red());
-                    }
-                    Err(e) => println!("{} {}", "错误".red(), e),
-                }
-                return;
-            }
-            _ => {
-                println!(
-                    "{} 未知 --emit 阶段: {}（支持: tokens, ast, hir, pir, llvm-ir）",
-                    "错误".red(),
-                    stage
-                );
-                return;
-            }
-        }
-    }
-
-    let (program, _, _) = match run_pipeline(&content) {
-        Ok(t) => t,
-        Err(e) => {
-            println!("{} {}", "错误".red(), e);
-            return;
-        }
-    };
-
-    #[cfg(not(feature = "codegen"))]
-    {
-        println!("{} 编译到目标文件需要启用 codegen 特性并安装 LLVM 21", "提示".yellow());
-        println!("  cargo build --features codegen  且设置环境变量 LLVM_SYS_211_PREFIX");
-        return;
-    }
-
-    #[cfg(feature = "codegen")]
-    {
-    let out_path = output.unwrap_or_else(|| file.strip_suffix(".x").unwrap_or(file));
-    let obj_path = if out_path.ends_with(".o") || out_path.ends_with(".obj") {
-        out_path.to_string()
-    } else {
-        #[cfg(windows)]
-        let ext = "obj";
-        #[cfg(not(windows))]
-        let ext = "o";
-        format!("{}.{}", out_path, ext)
-    };
-
-    let config = x_codegen::CodeGenConfig {
-        target: x_codegen::CodegenTarget::Native,
-    };
-
-    let object_bytes = match x_codegen::generate_code(&program, &config) {
-        Ok(b) => b,
-        Err(e) => {
-            println!("{} 代码生成失败: {}", "错误".red(), e);
-            return;
-        }
-    };
-
-    if let Err(e) = std::fs::write(&obj_path, &object_bytes) {
-        println!("{} 无法写入目标文件 {}: {}", "错误".red(), obj_path, e);
-        return;
-    }
-    println!("{} 已生成目标文件: {}", "成功".green(), obj_path);
-
-    if no_link {
-        println!("{} 未链接（已指定 --no-link）", "提示".yellow());
-        return;
-    }
-
-    let exe_path = if out_path.ends_with(".o") || out_path.ends_with(".obj") {
-        out_path.to_string()
-    } else {
-        #[cfg(windows)]
-        let ext = "exe";
-        #[cfg(not(windows))]
-        let ext = "";
-        if ext.is_empty() {
-            out_path.to_string()
-        } else {
-            format!("{}.{}", out_path, ext)
-        }
-    };
-
-    let link_ok = try_link(&obj_path, &exe_path);
-    if link_ok {
-        println!("{} 已生成可执行文件: {}", "成功".green(), exe_path);
-    } else {
-        println!(
-            "{} 自动链接未成功，可手动链接，例如: clang {} -o {}",
-            "提示".yellow(),
-            obj_path,
-            exe_path
-        );
-    }
-    }
-}
-
-fn try_link(obj_path: &str, exe_path: &str) -> bool {
-    let clang = std::process::Command::new("clang")
-        .arg(obj_path)
-        .arg("-o")
-        .arg(exe_path)
-        .output();
-    if let Ok(out) = clang {
-        if out.status.success() {
-            return true;
-        }
-    }
-
-    let gcc = std::process::Command::new("gcc")
-        .arg(obj_path)
-        .arg("-o")
-        .arg(exe_path)
-        .output();
-    if let Ok(out) = gcc {
-        if out.status.success() {
-            return true;
-        }
-    }
-
-    #[cfg(windows)]
-    {
-        let link = std::process::Command::new("link")
-            .args(["/OUT:", exe_path, obj_path, "/SUBSYSTEM:CONSOLE"])
-            .output();
-        if let Ok(out) = link {
-            if out.status.success() {
-                return true;
-            }
-        }
-    }
-
-    false
-}
-
-fn package_command(output: Option<&str>) {
-    let output = output.unwrap_or("package.tar.gz");
-    println!("{} 正在打包项目: {}", "打包中".cyan(), output);
-    println!("{} 打包功能尚未实现", "警告".red());
-    println!("{} 打包成功", "成功".green());
-}
-
-fn check_command(file: &str) {
-    println!("{} 正在检查文件: {}", "检查中".yellow(), file);
-
-    let content = match std::fs::read_to_string(file) {
-        Ok(c) => c,
-        Err(e) => {
-            println!("{} 无法读取文件: {}", "错误".red(), e);
-            return;
-        }
-    };
-
-    let parser = x_parser::parser::XParser::new();
-    let program = match parser.parse(&content) {
-        Ok(p) => p,
-        Err(e) => {
-            println!("{} {}", "错误".red(), format_parse_error(file, &content, &e));
-            return;
-        }
-    };
-
-    match x_typechecker::type_check(&program) {
-        Ok(()) => println!("{} 检查通过（语法 + 类型）", "成功".green()),
-        Err(e) => println!("{} 类型检查失败: {}", "错误".red(), e),
-    }
-}
-
-fn format_command(file: &str, _write: bool) {
-    println!("{} 正在格式化文件: {}", "格式化中".purple(), file);
-    println!("{} 格式化功能尚未实现", "警告".red());
-    println!("{} 格式化成功", "成功".green());
-}
-
-fn repl_command() {
-    println!("{} X语言REPL v0.1.0", "欢迎".cyan());
-    println!("{} 输入表达式或命令，输入 :quit 退出", "提示".yellow());
-    println!("{} 目前REPL功能尚未实现", "警告".red());
+    /// 显示版本信息
+    Version,
 }
 
 fn main() {
-    env_logger::Builder::from_env(Env::default().default_filter_or("info"))
+    let cli = Cli::parse();
+
+    let log_level = if cli.verbose {
+        "debug"
+    } else if cli.quiet {
+        "error"
+    } else {
+        "warn"
+    };
+
+    env_logger::Builder::from_env(Env::default().default_filter_or(log_level))
         .format(|buf, record| {
+            use colored::*;
             let level = record.level();
             let level_style = match level {
                 log::Level::Trace => level.to_string().cyan(),
@@ -407,21 +551,272 @@ fn main() {
         })
         .init();
 
-    info!("X语言工具链启动");
+    if let Some(ref dir) = cli.directory {
+        if let Err(e) = std::env::set_current_dir(dir) {
+            utils::error(&format!("无法切换到目录 {}: {}", dir, e));
+            std::process::exit(1);
+        }
+    }
 
-    let cli = Cli::parse();
+    let result = dispatch(cli);
 
-    match &cli.command {
-        Commands::Run { file } => run_command(file),
+    if let Err(e) = result {
+        utils::error(&e);
+        std::process::exit(1);
+    }
+}
+
+fn dispatch(cli: Cli) -> Result<(), String> {
+    match cli.command {
+        // Build commands
+        Commands::Build {
+            release,
+            target,
+            jobs,
+            features,
+            all_features,
+            no_default_features,
+        } => commands::build::exec(
+            release,
+            target.as_deref(),
+            jobs,
+            &features,
+            all_features,
+            no_default_features,
+            cli.verbose,
+        ),
+
+        Commands::Run {
+            file,
+            release,
+            example,
+            bin,
+            quiet,
+            args,
+        } => commands::run::exec(
+            file.as_deref(),
+            release,
+            example.as_deref(),
+            bin.as_deref(),
+            &args,
+            quiet || cli.quiet,
+        )
+        .map(|_| ()),
+
+        Commands::Check { file, all_targets } => {
+            commands::check::exec(file.as_deref(), all_targets)
+        }
+
         Commands::Compile {
             file,
             output,
             emit,
             no_link,
-        } => compile_command(file, output.as_deref(), emit.as_deref(), *no_link),
-        Commands::Package { output } => package_command(output.as_deref()),
-        Commands::Check { file } => check_command(file),
-        Commands::Format { file, write } => format_command(file, *write),
-        Commands::Repl => repl_command(),
+        } => commands::compile::exec(&file, output.as_deref(), emit.as_deref(), no_link),
+
+        Commands::Test {
+            filter,
+            release,
+            lib,
+            doc,
+            no_run,
+            jobs,
+        } => commands::test_cmd::exec(filter.as_deref(), release, lib, doc, no_run, jobs),
+
+        Commands::Bench { filter, no_run } => {
+            commands::bench::exec(filter.as_deref(), no_run)
+        }
+
+        Commands::Clean { doc, release } => commands::clean::exec(doc, release),
+
+        Commands::Doc {
+            open,
+            no_deps,
+            document_private_items,
+        } => commands::doc::exec(open, no_deps, document_private_items),
+
+        Commands::Fetch => commands::fetch::exec(),
+
+        Commands::Fix {
+            allow_dirty,
+            allow_staged,
+        } => commands::fix::exec(allow_dirty, allow_staged),
+
+        // Manifest / dependency commands
+        Commands::Add {
+            packages,
+            dev,
+            build,
+            optional,
+            rename,
+            path,
+            git,
+            branch,
+            tag,
+            rev,
+            features,
+            no_default_features,
+        } => commands::add::exec(
+            &packages,
+            dev,
+            build,
+            optional,
+            rename.as_deref(),
+            path.as_deref(),
+            git.as_deref(),
+            branch.as_deref(),
+            tag.as_deref(),
+            rev.as_deref(),
+            &features,
+            no_default_features,
+        ),
+
+        Commands::Remove {
+            packages,
+            dev,
+            build,
+        } => commands::remove::exec(&packages, dev, build),
+
+        Commands::GenerateLockfile => commands::generate_lockfile::exec(),
+
+        Commands::LocateProject { workspace } => {
+            commands::locate_project::exec(workspace)
+        }
+
+        Commands::Metadata {
+            no_deps,
+            format_version,
+        } => commands::metadata::exec(no_deps, format_version),
+
+        Commands::Pkgid { spec } => commands::pkgid::exec(spec.as_deref()),
+
+        Commands::Tree {
+            depth,
+            invert,
+            no_dedupe,
+            prefix,
+        } => commands::tree::exec(depth, invert, no_dedupe, &prefix),
+
+        Commands::Update {
+            packages,
+            aggressive,
+            dry_run,
+        } => commands::update::exec(&packages, aggressive, dry_run),
+
+        Commands::Vendor {
+            path,
+            no_delete,
+            versioned_dirs,
+        } => commands::vendor::exec(path.as_deref(), no_delete, versioned_dirs),
+
+        // Package commands
+        Commands::Init {
+            path,
+            lib,
+            vcs,
+            edition,
+        } => commands::init::exec(path.as_deref(), lib, &vcs, edition.as_deref()),
+
+        Commands::New {
+            name,
+            lib,
+            vcs,
+            edition,
+        } => commands::new::exec(&name, lib, &vcs, edition.as_deref()),
+
+        Commands::Install {
+            package,
+            path,
+            git,
+            version,
+            force,
+            root,
+            list,
+        } => commands::install::exec(
+            package.as_deref(),
+            path.as_deref(),
+            git.as_deref(),
+            version.as_deref(),
+            force,
+            root.as_deref(),
+            list,
+        ),
+
+        Commands::Uninstall { packages, root } => {
+            commands::uninstall::exec(&packages, root.as_deref())
+        }
+
+        Commands::Search {
+            query,
+            limit,
+            registry,
+        } => commands::search::exec(&query, limit, registry.as_deref()),
+
+        // Publishing commands
+        Commands::Login { token, registry } => {
+            commands::login::exec(token.as_deref(), registry.as_deref())
+        }
+
+        Commands::Logout { registry } => commands::logout::exec(registry.as_deref()),
+
+        Commands::Owner {
+            package,
+            add,
+            remove,
+            list,
+            registry,
+        } => commands::owner::exec(&package, &add, &remove, list, registry.as_deref()),
+
+        Commands::Package {
+            list,
+            no_verify,
+            allow_dirty,
+            output,
+        } => commands::package::exec(list, no_verify, allow_dirty, output.as_deref()),
+
+        Commands::Publish {
+            dry_run,
+            no_verify,
+            allow_dirty,
+            registry,
+            token,
+        } => commands::publish::exec(
+            dry_run,
+            no_verify,
+            allow_dirty,
+            registry.as_deref(),
+            token.as_deref(),
+        ),
+
+        Commands::Yank {
+            package,
+            version,
+            undo,
+            registry,
+        } => commands::yank::exec(&package, &version, undo, registry.as_deref()),
+
+        // Tool commands
+        Commands::Fmt { file, check, all } => {
+            commands::fmt::exec(file.as_deref(), check, all)
+        }
+
+        Commands::Lint {
+            fix,
+            allow,
+            deny,
+            warn,
+        } => commands::lint::exec(fix, allow, deny, warn),
+
+        Commands::Repl => commands::repl::exec(),
+
+        Commands::Config { action, key, value } => {
+            commands::config_cmd::exec(&action, key.as_deref(), value.as_deref())
+        }
+
+        Commands::Version => {
+            println!("x {}", env!("CARGO_PKG_VERSION"));
+            println!("X语言工具链 v{}", env!("CARGO_PKG_VERSION"));
+            Ok(())
+        }
     }
 }

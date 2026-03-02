@@ -1,4 +1,6 @@
 /target/
+/target_examples_test/
+examples/out/
 **/*.exe
 **/*.pdb
 **/*.o

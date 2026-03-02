@@ -16,6 +16,11 @@ im = "15.1"
 # 异步运行时
 tokio = { version = "1.35", features = ["full"] }
 
+# 大整数（pidigits等需要）
+num-bigint = "0.4"
+num-traits = "0.2"
+num-integer = "0.1"
+
 # 错误处理
 thiserror = "1.0"
 

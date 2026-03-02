@@ -136,11 +136,54 @@ impl<'a> Lexer<'a> {
             "fun" => Ok(Token::Fun),
             "async" => Ok(Token::Async),
             "class" => Ok(Token::Class),
+            "extends" => Ok(Token::Extends),
+            "trait" => Ok(Token::Trait),
+            "type" => Ok(Token::Type),
+            "new" => Ok(Token::New),
+            "virtual" => Ok(Token::Virtual),
+            "override" => Ok(Token::Override),
+            "final" => Ok(Token::Final),
+            "private" => Ok(Token::Private),
+            "public" => Ok(Token::Public),
+            "protected" => Ok(Token::Protected),
+            "module" => Ok(Token::Module),
+            "internal" => Ok(Token::Internal),
+            "import" => Ok(Token::Import),
+            "export" => Ok(Token::Export),
             "return" => Ok(Token::Return),
             "if" => Ok(Token::If),
             "else" => Ok(Token::Else),
+            "for" => Ok(Token::For),
+            "in" => Ok(Token::In),
+            "while" => Ok(Token::While),
+            "when" => Ok(Token::When),
+            "is" => Ok(Token::Is),
+            "where" => Ok(Token::Where),
+            "and" => Ok(Token::And),
+            "or" => Ok(Token::Or),
+            "not" => Ok(Token::Not),
             "true" => Ok(Token::True),
             "false" => Ok(Token::False),
+            "null" => Ok(Token::Null),
+            "none" => Ok(Token::NoneKeyword),
+            "some" => Ok(Token::Some),
+            "ok" => Ok(Token::Ok),
+            "err" => Ok(Token::Err),
+            "needs" => Ok(Token::Needs),
+            "given" => Ok(Token::Given),
+            "wait" => Ok(Token::Wait),
+            "together" => Ok(Token::Together),
+            "race" => Ok(Token::Race),
+            "timeout" => Ok(Token::Timeout),
+            "atomic" => Ok(Token::Atomic),
+            "retry" => Ok(Token::Retry),
+            "use" => Ok(Token::Use),
+            "with" => Ok(Token::With),
+            "throws" => Ok(Token::Throws),
+            "try" => Ok(Token::Try),
+            "catch" => Ok(Token::Catch),
+            "finally" => Ok(Token::Finally),
+            "throw" => Ok(Token::Throw),
             _ => Ok(Token::Ident(ident)),
         }
     }
@@ -180,14 +223,46 @@ impl<'a> Lexer<'a> {
                     }
                     Ok(Token::GreaterThan)
                 }
-                '+' => Ok(Token::Plus),
-                '-' => Ok(Token::Minus),
-                '*' => Ok(Token::Asterisk),
-                '/' => Ok(Token::Slash),
-                '%' => Ok(Token::Percent),
-                '^' => Ok(Token::Caret),
-                ':' => Ok(Token::Colon),
-                '.' => Ok(Token::Dot),
+                '+' => {
+                    if next == Some('=') { self.next_char(); return Ok(Token::PlusEquals); }
+                    Ok(Token::Plus)
+                }
+                '-' => {
+                    if next == Some('>') { self.next_char(); return Ok(Token::Arrow); }
+                    if next == Some('=') { self.next_char(); return Ok(Token::MinusEquals); }
+                    Ok(Token::Minus)
+                }
+                '*' => {
+                    if next == Some('=') { self.next_char(); return Ok(Token::AsteriskEquals); }
+                    Ok(Token::Asterisk)
+                }
+                '/' => {
+                    if next == Some('=') { self.next_char(); return Ok(Token::SlashEquals); }
+                    Ok(Token::Slash)
+                }
+                '%' => {
+                    if next == Some('=') { self.next_char(); return Ok(Token::PercentEquals); }
+                    Ok(Token::Percent)
+                }
+                '^' => {
+                    if next == Some('=') { self.next_char(); return Ok(Token::CaretEquals); }
+                    Ok(Token::Caret)
+                }
+                ':' => {
+                    if next == Some(':') { self.next_char(); return Ok(Token::DoubleColon); }
+                    Ok(Token::Colon)
+                }
+                '.' => {
+                    if next == Some('.') {
+                        self.next_char();
+                        if self.current_char() == Some('=') {
+                            self.next_char();
+                            return Ok(Token::RangeInclusive);
+                        }
+                        return Ok(Token::RangeExclusive);
+                    }
+                    Ok(Token::Dot)
+                }
                 ',' => Ok(Token::Comma),
                 ';' => Ok(Token::Semicolon),
                 '(' => Ok(Token::LeftParen),
@@ -196,8 +271,15 @@ impl<'a> Lexer<'a> {
                 '}' => Ok(Token::RightBrace),
                 '[' => Ok(Token::LeftBracket),
                 ']' => Ok(Token::RightBracket),
-                '|' => Ok(Token::VerticalBar),
-                '&' => Ok(Token::Ampersand),
+                '|' => {
+                    if next == Some('|') { self.next_char(); return Ok(Token::OrOr); }
+                    if next == Some('>') { self.next_char(); return Ok(Token::Pipe); }
+                    Ok(Token::VerticalBar)
+                }
+                '&' => {
+                    if next == Some('&') { self.next_char(); return Ok(Token::AndAnd); }
+                    Ok(Token::Ampersand)
+                }
                 '~' => Ok(Token::Tilde),
                 '?' => Ok(Token::QuestionMark),
                 '@' => Ok(Token::AtSign),
@@ -288,8 +370,8 @@ impl<'a> Lexer<'a> {
     /// 解析字符串
     fn parse_string(&mut self) -> Result<Token, LexError> {
         self.next_char(); // 跳过第一个 "
-        if self.current_char() == Some('"') && self.chars.peek().is_some() && self.chars.peek().unwrap() == &'"' {
-            // 解析多行字符串
+        // Check for """ (multiline string): current is " AND the char after it is also "
+        if self.current_char() == Some('"') && self.input.as_bytes().get(self.position + 1) == Some(&b'"') {
             self.next_char(); // 跳过第二个 "
             self.next_char(); // 跳过第三个 "
             self.state = LexerState::MultilineString;
@@ -413,11 +495,11 @@ impl<'a> TokenIterator<'a> {
         }
     }
 
-    /// 查看下一个 (token, span) 而不消耗
+    /// 查看下一个 (token, span) 而不消耗；到达 EOF 返回 None
     pub fn peek(&mut self) -> Option<&Result<(Token, Span), LexError>> {
         if self.peeked.is_none() {
             self.peeked = match self.lexer.next_token() {
-                Ok((Token::Eof, span)) => Some(Ok((Token::Eof, span))),
+                Ok((Token::Eof, _)) => None,
                 Ok(ok) => Some(Ok(ok)),
                 Err(e) => Some(Err(e)),
             };
@@ -431,18 +513,18 @@ impl<'a> Iterator for TokenIterator<'a> {
 
     fn next(&mut self) -> Option<Self::Item> {
         let item = if let Some(peeked) = self.peeked.take() {
-            peeked
+            Some(peeked)
         } else {
             match self.lexer.next_token() {
-                Ok((Token::Eof, span)) => Ok((Token::Eof, span)),
-                Ok(ok) => Ok(ok),
-                Err(e) => Err(e),
+                Ok((Token::Eof, _)) => None,
+                Ok(ok) => Some(Ok(ok)),
+                Err(e) => Some(Err(e)),
             }
         };
-        if let Ok((_, span)) = item.as_ref() {
+        if let Some(Ok((_, span))) = item.as_ref() {
             self.last_span = Some(*span);
         }
-        Some(item)
+        item
     }
 }
 

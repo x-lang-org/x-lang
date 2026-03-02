@@ -5,9 +5,11 @@ use std::path::PathBuf;
 use x_parser::ast::Program;
 
 pub mod error;
+pub mod lower;
 pub mod target;
 
 pub use error::{CodeGenError, CodeGenResult};
+pub use lower::generate_code;
 pub use target::{Target, FileType};
 
 /// 代码生成配置
@@ -78,7 +80,7 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
         Target::Native | Target::Wasm | Target::LlvmIr => {
             #[cfg(feature = "llvm")]
             {
-                Ok(Box::new(LlvmCodeGenerator::new(LlvmConfig {
+                return Ok(Box::new(LlvmCodeGenerator::new(LlvmConfig {
                     target: match target {
                         Target::Native => LlvmTarget::Native,
                         Target::Wasm => LlvmTarget::Wasm,
@@ -88,40 +90,40 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })))
+                })));
             }
             #[cfg(not(feature = "llvm"))]
-            Err(CodeGenError::UnsupportedFeature(
+            return Err(CodeGenError::UnsupportedFeature(
                 "LLVM backend not enabled. Build with --features llvm.".to_string(),
-            ))
+            ));
         }
         Target::Jvm => {
             #[cfg(feature = "jvm")]
-            Ok(Box::new(JvmCodeGenerator::new(JvmConfig {
+            return Ok(Box::new(JvmCodeGenerator::new(JvmConfig {
                 output_dir: config.output_dir,
                 optimize: config.optimize,
                 debug_info: config.debug_info,
-            })))
+            })));
             #[cfg(not(feature = "jvm"))]
-            Err(CodeGenError::UnsupportedFeature(
+            return Err(CodeGenError::UnsupportedFeature(
                 "JVM backend not enabled. Build with --features jvm.".to_string(),
-            ))
+            ));
         }
         Target::DotNet => {
             #[cfg(feature = "dotnet")]
-            Ok(Box::new(DotNetCodeGenerator::new(DotNetConfig {
+            return Ok(Box::new(DotNetCodeGenerator::new(DotNetConfig {
                 output_dir: config.output_dir,
                 optimize: config.optimize,
                 debug_info: config.debug_info,
-            })))
+            })));
             #[cfg(not(feature = "dotnet"))]
-            Err(CodeGenError::UnsupportedFeature(
+            return Err(CodeGenError::UnsupportedFeature(
                 ".NET backend not enabled. Build with --features dotnet.".to_string(),
-            ))
+            ));
         }
         Target::JavaScript | Target::TypeScript => {
             #[cfg(feature = "js")]
-            Ok(Box::new(JavaScriptCodeGenerator::new(JavaScriptConfig {
+            return Ok(Box::new(JavaScriptCodeGenerator::new(JavaScriptConfig {
                 output_dir: config.output_dir,
                 optimize: config.optimize,
                 debug_info: config.debug_info,
@@ -130,15 +132,15 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                     Target::TypeScript => TargetLanguage::TypeScript,
                     _ => unreachable!(),
                 },
-            })))
+            })));
             #[cfg(not(feature = "js"))]
-            Err(CodeGenError::UnsupportedFeature(
+            return Err(CodeGenError::UnsupportedFeature(
                 "JavaScript backend not enabled. Build with --features js.".to_string(),
-            ))
+            ));
         }
         Target::Pyc | Target::Python => {
             #[cfg(feature = "python")]
-            Ok(Box::new(PythonCodeGenerator::new(PythonConfig {
+            return Ok(Box::new(PythonCodeGenerator::new(PythonConfig {
                 output_dir: config.output_dir,
                 optimize: config.optimize,
                 debug_info: config.debug_info,
@@ -147,11 +149,11 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                     Target::Python => PythonOutputFormat::Source,
                     _ => unreachable!(),
                 },
-            })))
+            })));
             #[cfg(not(feature = "python"))]
-            Err(CodeGenError::UnsupportedFeature(
+            return Err(CodeGenError::UnsupportedFeature(
                 "Python backend not enabled. Build with --features python.".to_string(),
-            ))
+            ));
         }
     }
 }
