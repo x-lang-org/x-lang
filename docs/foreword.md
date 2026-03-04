@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # 前言
 
 欢迎阅读《The X Programming Language》！

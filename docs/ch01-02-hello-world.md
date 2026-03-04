@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 # Hello, World!
 
 现在你已经安装了 X 语言，让我们编写第一个程序！按照传统，我们将从 "Hello, World!" 开始。

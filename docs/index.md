@@ -1,3 +1,8 @@
+---
+layout: default
+title: X 编程语言
+---
+
 # The X Programming Language - 目录
 
 - [前言](foreword.md)

@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+
+# Use the GitHub Pages gem so local builds match the production environment.
+gem "github-pages", group: :jekyll_plugins
+
+# Required to run `bundle exec jekyll serve` on Ruby 3+.
+gem "webrick", "~> 1.8"
+
