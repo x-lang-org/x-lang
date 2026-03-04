@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: X 编程语言
 ---
 
