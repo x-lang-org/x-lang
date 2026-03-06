@@ -1,5 +1,0 @@
-# Directories ignored by Bazel
-target/
-examples/out/
-build/
-.git/
