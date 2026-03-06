@@ -4,7 +4,7 @@
 use std::fmt::Write;
 use std::path::PathBuf;
 use x_parser::ast::{self, Program as AstProgram};
-use x_codegen::{CodeGenerator, CodegenOutput, CodegenResult, Target};
+use x_codegen::{CodeGenerator, CodegenOutput, CodeGenResult};
 
 /// JavaScript/TypeScript代码生成器配置
 #[derive(Debug, Clone)]
@@ -275,12 +275,11 @@ impl JavaScriptCodeGenerator {
                 let e = self.emit_expr(else_e)?;
                 Ok(format!("({} ? {} : {})", c, t, e))
             }
-            ast::Expression::Lambda(params, body) => {
+            ast::Expression::Lambda(params, _body) => {
                 let param_str = params.iter()
                     .map(|p| p.name.clone())
                     .collect::<Vec<_>>()
                     .join(", ");
-                // 简化：把 body 当表达式处理
                 Ok(format!("({}) => {{ /* TODO */ }}", param_str))
             }
             ast::Expression::Parenthesized(inner) => {
@@ -426,7 +425,7 @@ impl CodeGenerator for JavaScriptCodeGenerator {
     }
 
     fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
-        let js_code = self.generate_js_from_ast(program)?;
+        let _js_code = self.generate_js_from_ast(program)?;
         Ok(CodegenOutput {
             files: vec![],
             dependencies: vec![],
@@ -465,130 +464,5 @@ impl From<x_codegen::CodeGenError> for JavaScriptCodeGenError {
             x_codegen::CodeGenError::IoError(e) => JavaScriptCodeGenError::IoError(e),
             _ => JavaScriptCodeGenError::GenerationError(format!("{:?}", err)),
         }
-    }
-}
-
-// ========== REPL 相关 ==========
-
-use rquickjs::{Context, Runtime, Function, Value as JsValue};
-
-/// JavaScript REPL 引擎
-pub struct JavaScriptRepl {
-    runtime: Runtime,
-    context: Context,
-    // 保存历史声明 (JS 代码)
-    accumulated_js: String,
-}
-
-impl JavaScriptRepl {
-    pub fn new() -> Result<Self, JavaScriptCodeGenError> {
-        let runtime = Runtime::new()?;
-        let context = Context::new(&runtime)?;
-
-        // 设置全局环境
-        context.with(|ctx| {
-            let global = ctx.globals();
-            // 添加 println 函数
-            let println_func = Function::new(ctx, |s: String| {
-                println!("{}", s);
-            })?;
-            global.set("println", println_func)?;
-
-            // 添加 print 函数
-            let print_func = Function::new(ctx, |s: String| {
-                print!("{}", s);
-                let _ = std::io::Write::flush(&mut std::io::stdout());
-            })?;
-            global.set("print", print_func)?;
-
-            Ok::<_, rquickjs::Error>(())
-        })?;
-
-        Ok(Self {
-            runtime,
-            context,
-            accumulated_js: String::new(),
-        })
-    }
-
-    /// 评估一行 X 代码（先编译到 JS，再执行）
-    pub fn eval(&mut self, x_code: &str) -> Result<String, JavaScriptCodeGenError> {
-        use x_parser::parser::XParser;
-
-        // 解析为 X AST
-        let parser = XParser::new();
-
-        // 判断是声明还是表达式
-        let trimmed = x_code.trim();
-        let is_declaration = trimmed.starts_with("fun ") ||
-                             trimmed.starts_with("var ") ||
-                             trimmed.starts_with("val ") ||
-                             trimmed.starts_with("class ");
-
-        // 包装代码以便解析
-        let wrapped_code = if is_declaration {
-            x_code.to_string()
-        } else {
-            // 表达式包装在 main 函数中
-            format!("fun main() {{\n{}\n}}", x_code)
-        };
-
-        match parser.parse(&wrapped_code) {
-            Ok(program) => {
-                // 生成 JavaScript
-                let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
-                let mut js_code = gen.generate_js_from_ast(&program)?;
-
-                // 如果是表达式，修改生成的代码来捕获返回值
-                if !is_declaration {
-                    // 将 main() 的调用结果赋给 __temp_result
-                    js_code.push_str("\nvar __temp_result = main();\n");
-                }
-
-                // 累加之前的代码
-                let full_js = format!("{}\n{}", self.accumulated_js, js_code);
-
-                // 执行 JavaScript
-                let result = self.context.with(|ctx| {
-                    // 先执行所有累积的代码
-                    let _: JsValue = ctx.eval(&full_js)?;
-
-                    // 如果有临时结果，获取它
-                    if !is_declaration {
-                        if let Ok(temp) = ctx.globals().get::<_, JsValue>("__temp_result") {
-                            Ok(temp.to_string()?)
-                        } else {
-                            Ok("undefined".to_string())
-                        }
-                    } else {
-                        Ok("undefined".to_string())
-                    }
-                })?;
-
-                // 保存声明的 JS 代码（去掉临时的 main 函数）
-                if is_declaration {
-                    self.accumulated_js.push_str(&js_code);
-                    self.accumulated_js.push('\n');
-                }
-
-                Ok(result)
-            }
-            Err(e) => Err(JavaScriptCodeGenError::GenerationError(format!("Parse error: {}", e))),
-        }
-    }
-
-    /// 直接评估 JavaScript 代码
-    pub fn eval_js(&mut self, js_code: &str) -> Result<String, JavaScriptCodeGenError> {
-        let result = self.context.with(|ctx| {
-            let value: JsValue = ctx.eval(js_code)?;
-            Ok(value.to_string()?)
-        })?;
-        Ok(result)
-    }
-}
-
-impl From<rquickjs::Error> for JavaScriptCodeGenError {
-    fn from(err: rquickjs::Error) -> Self {
-        JavaScriptCodeGenError::GenerationError(format!("JavaScript error: {}", err))
     }
 }

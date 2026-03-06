@@ -8,4 +8,3 @@ x-parser = { workspace = true }
 x-codegen = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }
-rquickjs = { version = "0.6", features = ["classes", "array-buffer"] }
