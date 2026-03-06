@@ -1076,3 +1076,59 @@ pub enum InterpreterError {
     #[error("解释器错误: {0}")]
     RuntimeError(String),
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_hello_world() {
+        let source = r#"
+            function main() {
+                print("Hello, World!")
+            }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+
+        let mut interpreter = Interpreter::new();
+        interpreter.run(&program).expect("Failed to run");
+    }
+
+    #[test]
+    fn test_arithmetic() {
+        let source = r#"
+            function main() {
+                val x = 10
+                val y = 20
+                print(x + y)
+            }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+
+        let mut interpreter = Interpreter::new();
+        interpreter.run(&program).expect("Failed to run");
+    }
+
+    #[test]
+    fn test_function_call() {
+        let source = r#"
+            function add(a, b) {
+                return a + b
+            }
+
+            function main() {
+                print(add(5, 7))
+            }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+
+        let mut interpreter = Interpreter::new();
+        interpreter.run(&program).expect("Failed to run");
+    }
+}

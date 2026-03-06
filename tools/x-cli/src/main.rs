@@ -9,8 +9,6 @@ mod resolver;
 mod utils;
 
 use clap::{Parser, Subcommand};
-use env_logger::Env;
-use std::io::Write;
 
 #[derive(Parser)]
 #[command(name = "x")]
@@ -531,29 +529,6 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
-
-    let log_level = if cli.verbose {
-        "debug"
-    } else if cli.quiet {
-        "error"
-    } else {
-        "warn"
-    };
-
-    env_logger::Builder::from_env(Env::default().default_filter_or(log_level))
-        .format(|buf, record| {
-            use colored::*;
-            let level = record.level();
-            let level_style = match level {
-                log::Level::Trace => level.to_string().cyan(),
-                log::Level::Debug => level.to_string().blue(),
-                log::Level::Info => level.to_string().green(),
-                log::Level::Warn => level.to_string().yellow(),
-                log::Level::Error => level.to_string().red(),
-            };
-            writeln!(buf, "[{}] {}", level_style, record.args())
-        })
-        .init();
 
     if let Some(ref dir) = cli.directory {
         if let Err(e) = std::env::set_current_dir(dir) {
