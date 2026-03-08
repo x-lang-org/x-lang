@@ -61,10 +61,10 @@ function unwrap_or<T, E>(result: Result<T, E>, default: T): T {
 }
 
 /// 解包 Result，失败时调用函数生成默认值
-function unwrap_or_else<T, E>(result: Result<T, E>, default_functionc: (E) -> T): T {
+function unwrap_or_else<T, E>(result: Result<T, E>, default_function: (E) -> T): T {
   when result is
     Ok { value } -> value
-    Err { error } -> default_functionc(error)
+    Err { error } -> default_function(error)
 }
 
 /// 解包 Result，失败时 panic 并显示错误

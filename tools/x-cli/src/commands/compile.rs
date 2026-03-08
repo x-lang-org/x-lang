@@ -7,6 +7,7 @@ pub fn exec(
     output: Option<&str>,
     emit: Option<&str>,
     no_link: bool,
+    compiler: Option<&str>,
 ) -> Result<(), String> {
     let content =
         std::fs::read_to_string(file).map_err(|e| format!("无法读取文件 {}: {}", file, e))?;
@@ -24,7 +25,16 @@ pub fn exec(
     let out_path = output.unwrap_or_else(|| file.strip_suffix(".x").unwrap_or(file));
 
     // Use C backend by default
-    let mut backend = x_codegen::CBackend::new(x_codegen::CBackendConfig::default());
+    let mut config = x_codegen::CBackendConfig::default();
+    if let Some(compiler_path) = compiler {
+        // Set custom compiler path
+        std::env::set_var("CC", compiler_path);
+        // Set compiler type to Msvc if path contains cl.exe
+        if compiler_path.contains("cl.exe") {
+            config.compiler = x_codegen::CCompiler::Msvc;
+        }
+    }
+    let mut backend = x_codegen::CBackend::new(config);
     let c_code = backend
         .generate_from_ast(&program)
         .map_err(|e| format!("C 代码生成失败: {}", e))?;

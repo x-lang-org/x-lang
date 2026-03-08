@@ -21,6 +21,8 @@ pub enum Target {
     Pyc,
     /// Python 源代码 - .py 文件
     Python,
+    /// Zig - 系统级编程语言
+    Zig,
 }
 
 impl Target {
@@ -36,6 +38,7 @@ impl Target {
             Target::LlvmIr => "llvm-ir",
             Target::Pyc => "pyc",
             Target::Python => "python",
+            Target::Zig => "zig",
         }
     }
 
@@ -51,6 +54,7 @@ impl Target {
             "llvm-ir" => Some(Target::LlvmIr),
             "pyc" | "pyo3" => Some(Target::Pyc),
             "python" | "py" => Some(Target::Python),
+            "zig" => Some(Target::Zig),
             _ => None,
         }
     }
@@ -67,19 +71,20 @@ impl Target {
             Target::LlvmIr => "ll",
             Target::Pyc => "pyc",
             Target::Python => "py",
+            Target::Zig => "zig",
         }
     }
 
     /// 检查目标平台是否需要链接器
     pub fn requires_linker(&self) -> bool {
-        matches!(self, Target::Native)
+        matches!(self, Target::Native | Target::Zig)
     }
 
     /// 检查目标平台是否需要运行时
     pub fn requires_runtime(&self) -> bool {
         matches!(
             self,
-            Target::Jvm | Target::DotNet | Target::JavaScript | Target::TypeScript | Target::Wasm | Target::Pyc | Target::Python
+            Target::Jvm | Target::DotNet | Target::JavaScript | Target::TypeScript | Target::Wasm | Target::Pyc | Target::Python | Target::Zig
         )
     }
 
@@ -118,6 +123,8 @@ pub enum FileType {
     Pyc,
     /// Python 源代码（.py）
     Python,
+    /// Zig源代码（.zig）
+    ZigSource,
 }
 
 impl FileType {
@@ -137,6 +144,7 @@ impl FileType {
             FileType::Wat => "wat",
             FileType::Pyc => "pyc",
             FileType::Python => "py",
+            FileType::ZigSource => "zig",
         }
     }
 
@@ -156,6 +164,7 @@ impl FileType {
             FileType::Wat => "WebAssembly text",
             FileType::Pyc => "Python bytecode",
             FileType::Python => "Python source",
+            FileType::ZigSource => "Zig source",
         }
     }
 }

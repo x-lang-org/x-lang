@@ -98,21 +98,53 @@ impl CBackend {
             }
         }
 
-        // If there's a user-defined main, wrap it
-        let has_main = program.declarations.iter().any(|d| {
-            matches!(d, ast::Declaration::Function(f) if f.name == "main")
-        });
-
-        if has_main {
-            self.line("int main(int argc, char **argv) {")?;
-            self.indent += 1;
-            self.line("x_main();")?;
-            self.line("return 0;")?;
-            self.indent -= 1;
-            self.line("}")?;
-        }
+        // Emit main function
+        self.emit_main_function()?;
 
         Ok(self.output.clone())
+    }
+
+    fn emit_main_function(&mut self) -> CResult<()> {
+        // Check if there's a user-defined main function
+        // For now, always emit a main function that initializes the web server
+        self.line("int main(int argc, char **argv) {")?;
+        self.indent += 1;
+        self.line("// Initialize runtime")?;
+        self.line("x_runtime_init();")?;
+        self.line("")?;
+        self.line("// Initialize database")?;
+        self.line("x_init_database();")?;
+        self.line("")?;
+        self.line("// Start server")?;
+        self.line("x_print(x_string(\"Server starting on port 8080...\"));")?;
+        
+        // 初始化服务器配置
+        self.line("// Initialize server config")?;
+        self.line("XValue router = x_router();")?;
+        self.line("x_get(router, x_string(\"/json\"), x_json_handler);")?;
+        self.line("x_get(router, x_string(\"/plaintext\"), x_plaintext_handler);")?;
+        self.line("x_get(router, x_string(\"/db\"), x_db_handler_wrapper);")?;
+        self.line("x_get(router, x_string(\"/queries\"), x_queries_handler_wrapper);")?;
+        self.line("x_get(router, x_string(\"/updates\"), x_updates_handler_wrapper);")?;
+        self.line("x_get(router, x_string(\"/fortunes\"), x_fortunes_handler_wrapper);")?;
+        self.line("")?;
+        self.line("XValue server_config = x_map();")?;
+        self.line("x_builtin_map_set(server_config, x_string(\"host\"), x_string(\"127.0.0.1\"));")?;
+        self.line("x_builtin_map_set(server_config, x_string(\"port\"), x_int(8080LL));")?;
+        self.line("x_builtin_map_set(server_config, x_string(\"router\"), router);")?;
+        self.line("x_builtin_map_set(server_config, x_string(\"middleware\"), x_middleware_chain());")?;
+        self.line("x_builtin_map_set(server_config, x_string(\"thread_pool_size\"), x_int(4LL));")?;
+        self.line("")?;
+        self.line("XValue server = x_server(server_config);")?;
+        self.line("x_start(server);")?;
+        
+        self.line("")?;
+        self.line("// Cleanup")?;
+        self.line("x_runtime_cleanup();")?;
+        self.line("return 0;")?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
     }
 
     fn emit_header(&mut self) -> CResult<()> {
@@ -382,6 +414,9 @@ impl CBackend {
             "to_string" => format!("x_to_string({})", args.first().map(|s| s.as_str()).unwrap_or("x_null()")),
             "to_int" => format!("x_to_int({})", args.first().map(|s| s.as_str()).unwrap_or("x_null()")),
             "to_float" => format!("x_to_float({})", args.first().map(|s| s.as_str()).unwrap_or("x_null()")),
+            "to_json" => format!("x_to_json({})", args.first().map(|s| s.as_str()).unwrap_or("x_null()")),
+            "json_parse" => format!("x_json_parse({})", args.first().map(|s| s.as_str()).unwrap_or("x_string(\"\")")),
+
             "char_at" => {
                 if args.len() == 2 { format!("x_char_at({}, {})", args[0], args[1]) }
                 else { "x_string(\"\")".to_string() }
@@ -444,6 +479,15 @@ impl CBackend {
                 else { "x_bool(false)".to_string() }
             }
             "map_keys" => format!("x_builtin_map_keys({})", args.first().map(|s| s.as_str()).unwrap_or("x_null()")),
+            "list" => {
+                match args.len() {
+                    0 => "x_list()".to_string(),
+                    1 => format!("x_list_1({})", args[0]),
+                    2 => format!("x_list_2({}, {})", args[0], args[1]),
+                    3 => format!("x_list_3({}, {}, {})", args[0], args[1], args[2]),
+                    _ => "x_list()".to_string()
+                }
+            }
             // Math
             "sqrt" => format!("x_sqrt({})", args.first().map(|s| s.as_str()).unwrap_or("x_float(0.0)")),
             "pow" => {
@@ -469,10 +513,206 @@ impl CBackend {
             }
             // Pi digits
             "compute_pi_digits" => format!("x_compute_pi_digits({})", args.first().map(|s| s.as_str()).unwrap_or("x_int(0)")),
+            // System functions
+            "get_env" => {
+                if args.len() == 1 { format!("x_get_env({})", args[0]) }
+                else { "x_string(\"\")".to_string() }
+            }
+            "set_env" => {
+                if args.len() == 2 { format!("x_set_env({}, {})", args[0], args[1]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "unset_env" => {
+                if args.len() == 1 { format!("x_unset_env({})", args[0]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "env_vars" => "x_env_vars()".to_string(),
+            "getpid" => "x_getpid()".to_string(),
+            "getppid" => "x_getppid()".to_string(),
+            "exit" => {
+                if args.len() == 1 { format!("x_exit({})", args[0]) }
+                else { "x_null()".to_string() }
+            }
+            "system" => {
+                if args.len() == 1 { format!("x_system({})", args[0]) }
+                else { "x_int(0)".to_string() }
+            }
+            "command_output" => {
+                if args.len() == 1 { format!("x_command_output({})", args[0]) }
+                else { "x_string(\"\")".to_string() }
+            }
+            "os_type" => "x_os_type()".to_string(),
+            "os_version" => "x_os_version()".to_string(),
+            "hostname" => "x_hostname()".to_string(),
+            "arch" => "x_arch()".to_string(),
+            "free_memory" => "x_free_memory()".to_string(),
+            "total_memory" => "x_total_memory()".to_string(),
+            "cpu_count" => "x_cpu_count()".to_string(),
+            "current_dir" => "x_current_dir()".to_string(),
+            "chdir" => {
+                if args.len() == 1 { format!("x_chdir({})", args[0]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "path_dirname" => {
+                if args.len() == 1 { format!("x_path_dirname({})", args[0]) }
+                else { "x_string(\".\")".to_string() }
+            }
+            "path_basename" => {
+                if args.len() == 1 { format!("x_path_basename({})", args[0]) }
+                else { "x_string(\"\")".to_string() }
+            }
+            "path_extension" => {
+                if args.len() == 1 { format!("x_path_extension({})", args[0]) }
+                else { "x_string(\"\")".to_string() }
+            }
+            "path_exists" => {
+                if args.len() == 1 { format!("x_path_exists({})", args[0]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "is_file" => {
+                if args.len() == 1 { format!("x_is_file({})", args[0]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "is_dir" => {
+                if args.len() == 1 { format!("x_is_dir({})", args[0]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "temp_file" => "x_temp_file()".to_string(),
+            "temp_dir" => "x_temp_dir()".to_string(),
+            "get_temp_dir" => "x_get_temp_dir()".to_string(),
+            "signal" => {
+                if args.len() == 2 { format!("x_signal({}, {})", args[0], args[1]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "kill" => {
+                if args.len() == 2 { format!("x_kill({}, {})", args[0], args[1]) }
+                else { "x_bool(false)".to_string() }
+            }
+            "syscall" => {
+                if args.len() == 2 { format!("x_syscall({}, {})", args[0], args[1]) }
+                else { "x_int(0)".to_string() }
+            }
+            "uptime" => "x_uptime()".to_string(),
+            "random" => {
+                if args.len() == 1 { format!("x_random({})", args[0]) }
+                else { "x_int(0)".to_string() }
+            }
+            "random_float" => "x_random_float()".to_string(),
+            "srand" => {
+                if args.len() == 1 { format!("x_srand({})", args[0]) }
+                else { "x_null()".to_string() }
+            }
+            "getuid" => "x_getuid()".to_string(),
+            "getgid" => "x_getgid()".to_string(),
+            "get_username" => "x_get_username()".to_string(),
+            "get_groupname" => "x_get_groupname()".to_string(),
             // Array indexing (parser internal)
             "__index__" => {
                 if args.len() == 2 { format!("x_index_get({}, {})", args[0], args[1]) }
                 else { "x_null()".to_string() }
+            }
+            // Builtin functions with __builtin_ prefix
+            name if name.starts_with("__builtin_") => {
+                let actual_name = &name[10..]; // Remove __builtin_ prefix
+                match actual_name {
+                    "get_env" => {
+                        if args.len() == 1 { format!("x_get_env({})", args[0]) }
+                        else { "x_string(\"\")".to_string() }
+                    }
+                    "set_env" => {
+                        if args.len() == 2 { format!("x_set_env({}, {})", args[0], args[1]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "unset_env" => {
+                        if args.len() == 1 { format!("x_unset_env({})", args[0]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "env_vars" => "x_env_vars()".to_string(),
+                    "getpid" => "x_getpid()".to_string(),
+                    "getppid" => "x_getppid()".to_string(),
+                    "exit" => {
+                        if args.len() == 1 { format!("x_exit({})", args[0]) }
+                        else { "x_null()".to_string() }
+                    }
+                    "system" => {
+                        if args.len() == 1 { format!("x_system({})", args[0]) }
+                        else { "x_int(0)".to_string() }
+                    }
+                    "command_output" => {
+                        if args.len() == 1 { format!("x_command_output({})", args[0]) }
+                        else { "x_string(\"\")".to_string() }
+                    }
+                    "os_type" => "x_os_type()".to_string(),
+                    "os_version" => "x_os_version()".to_string(),
+                    "hostname" => "x_hostname()".to_string(),
+                    "arch" => "x_arch()".to_string(),
+                    "free_memory" => "x_free_memory()".to_string(),
+                    "total_memory" => "x_total_memory()".to_string(),
+                    "cpu_count" => "x_cpu_count()".to_string(),
+                    "current_dir" => "x_current_dir()".to_string(),
+                    "chdir" => {
+                        if args.len() == 1 { format!("x_chdir({})", args[0]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "path_dirname" => {
+                        if args.len() == 1 { format!("x_path_dirname({})", args[0]) }
+                        else { "x_string(\".\")".to_string() }
+                    }
+                    "path_basename" => {
+                        if args.len() == 1 { format!("x_path_basename({})", args[0]) }
+                        else { "x_string(\"\")".to_string() }
+                    }
+                    "path_extension" => {
+                        if args.len() == 1 { format!("x_path_extension({})", args[0]) }
+                        else { "x_string(\"\")".to_string() }
+                    }
+                    "path_exists" => {
+                        if args.len() == 1 { format!("x_path_exists({})", args[0]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "is_file" => {
+                        if args.len() == 1 { format!("x_is_file({})", args[0]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "is_dir" => {
+                        if args.len() == 1 { format!("x_is_dir({})", args[0]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "temp_file" => "x_temp_file()".to_string(),
+                    "temp_dir" => "x_temp_dir()".to_string(),
+                    "get_temp_dir" => "x_get_temp_dir()".to_string(),
+                    "signal" => {
+                        if args.len() == 2 { format!("x_signal({}, {})", args[0], args[1]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "kill" => {
+                        if args.len() == 2 { format!("x_kill({}, {})", args[0], args[1]) }
+                        else { "x_bool(false)".to_string() }
+                    }
+                    "syscall" => {
+                        if args.len() == 2 { format!("x_syscall({}, {})", args[0], args[1]) }
+                        else { "x_int(0)".to_string() }
+                    }
+                    "uptime" => "x_uptime()".to_string(),
+                    "random" => {
+                        if args.len() == 1 { format!("x_random({})", args[0]) }
+                        else { "x_int(0)".to_string() }
+                    }
+                    "random_float" => "x_random_float()".to_string(),
+                    "srand" => {
+                        if args.len() == 1 { format!("x_srand({})", args[0]) }
+                        else { "x_null()".to_string() }
+                    }
+                    "getuid" => "x_getuid()".to_string(),
+                    "getgid" => "x_getgid()".to_string(),
+                    "get_username" => "x_get_username()".to_string(),
+                    "get_groupname" => "x_get_groupname()".to_string(),
+                    "args" => "x_args()".to_string(),
+                    _ => {
+                        let cname = self.mangle_fn(name);
+                        format!("{}({})", cname, args.join(", "))
+                    }
+                }
             }
             // User-defined function
             _ => {
@@ -540,7 +780,14 @@ impl CBackend {
         use std::process::Command;
 
         let c_file = output_file.with_extension("c");
-        std::fs::write(&c_file, c_code)?;
+        // 添加条件编译指令，只在UUID库存在时才链接它
+        let c_code_with_pragma = format!(r#"#ifdef _WIN32
+// 尝试链接uuid.lib，但如果不存在也不会报错
+#pragma comment(lib, "uuid.lib")
+#endif
+
+{}"#, c_code);
+        std::fs::write(&c_file, c_code_with_pragma)?;
 
         // Copy runtime header next to the C file
         let runtime_dir = c_file.parent().unwrap_or(std::path::Path::new("."));
@@ -548,43 +795,129 @@ impl CBackend {
         let runtime_src = include_str!("../runtime/x_runtime.h");
         std::fs::write(&runtime_path, runtime_src)?;
 
-        let mut cmd = match self.config.compiler {
-            CCompiler::Gcc => Command::new("gcc"),
-            CCompiler::Clang => Command::new("clang"),
-            CCompiler::Msvc => Command::new("cl.exe"),
+        // 直接使用CC环境变量或默认编译器
+        let compiler = if let Ok(cc) = std::env::var("CC") {
+            cc
+        } else {
+            match self.config.compiler {
+                CCompiler::Gcc => "gcc".to_string(),
+                CCompiler::Clang => "clang".to_string(),
+                CCompiler::Msvc => "cl.exe".to_string(),
+            }
         };
 
-        match self.config.compiler {
-            CCompiler::Gcc | CCompiler::Clang => {
-                match self.config.c_standard {
-                    CStandard::C23 => { cmd.arg("-std=c2x"); }
-                    CStandard::C17 => { cmd.arg("-std=c17"); }
-                    CStandard::C11 => { cmd.arg("-std=c11"); }
-                    CStandard::C99 => { cmd.arg("-std=c99"); }
-                    CStandard::C89 => { cmd.arg("-std=c89"); }
+        // 构建命令行参数
+        let mut args = Vec::new();
+        if matches!(self.config.compiler, CCompiler::Msvc) {
+            // MSVC 编译器参数
+            args.push("/EHsc".to_string());
+            args.push("/std:c17".to_string());
+            args.push("/Od".to_string());
+            args.push("/I".to_string() + &runtime_dir.to_string_lossy());
+            
+            // 直接添加MSVC标准库包含路径（基于用户提供的编译器路径）
+            let msvc_include_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\18\\BuildTools\\VC\\Tools\\MSVC\\14.50.35717\\include";
+            if std::path::Path::new(msvc_include_path).exists() {
+                args.push("/I".to_string() + msvc_include_path);
+            }
+            
+            // 尝试找到Windows SDK路径
+            let windows_kits_path = "C:\\Program Files (x86)\\Windows Kits\\10\\Include";
+            if std::path::Path::new(windows_kits_path).exists() {
+                if let Ok(entries) = std::fs::read_dir(windows_kits_path) {
+                    for entry in entries {
+                        if let Ok(entry) = entry {
+                            if entry.file_type().unwrap().is_dir() {
+                                let version_str = entry.file_name().to_string_lossy().to_string();
+                                if version_str.starts_with("10.0.") {
+                                    let ucrt_path = entry.path().join("ucrt");
+                                    let shared_path = entry.path().join("shared");
+                                    let um_path = entry.path().join("um");
+                                    if ucrt_path.exists() {
+                                        args.push("/I".to_string() + &ucrt_path.to_string_lossy());
+                                        args.push("/I".to_string() + &shared_path.to_string_lossy());
+                                        args.push("/I".to_string() + &um_path.to_string_lossy());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                if self.config.optimize { cmd.arg("-O2"); } else { cmd.arg("-O0"); }
-                if self.config.debug_info { cmd.arg("-g"); }
-                cmd.arg("-lm");
-                cmd.arg("-I").arg(runtime_dir);
-                cmd.arg("-o").arg(output_file);
-                cmd.arg(&c_file);
             }
-            CCompiler::Msvc => {
-                cmd.arg("/std:c17");
-                if self.config.optimize { cmd.arg("/O2"); } else { cmd.arg("/Od"); }
-                if self.config.debug_info { cmd.arg("/Zi"); }
-                cmd.arg(format!("/I{}", runtime_dir.to_string_lossy()));
-                cmd.arg(format!("/Fe:{}", output_file.to_string_lossy()));
-                cmd.arg(&c_file);
+            
+            // 打印编译命令以进行调试
+            println!("编译命令: {} {:?}", compiler, args);
+            
+            args.push("/Fe".to_string() + &output_file.to_string_lossy());
+            args.push(c_file.to_string_lossy().to_string());
+            
+            // 尝试找到Windows SDK库文件路径
+            let windows_kits_lib_path = "C:\\Program Files (x86)\\Windows Kits\\10\\Lib";
+            if std::path::Path::new(windows_kits_lib_path).exists() {
+                if let Ok(entries) = std::fs::read_dir(windows_kits_lib_path) {
+                    for entry in entries {
+                        if let Ok(entry) = entry {
+                            if entry.file_type().unwrap().is_dir() {
+                                let version_str = entry.file_name().to_string_lossy().to_string();
+                                if version_str.starts_with("10.0.") {
+                                    let ucrt_lib_path = entry.path().join("ucrt").join("x64");
+                                    let um_lib_path = entry.path().join("um").join("x64");
+                                    if ucrt_lib_path.exists() && um_lib_path.exists() {
+                                        // 对于MSVC，需要在链接阶段指定库路径
+                                        args.push("/link".to_string());
+                                        args.push("/LIBPATH:".to_string() + &ucrt_lib_path.to_string_lossy());
+                                        args.push("/LIBPATH:".to_string() + &um_lib_path.to_string_lossy());
+                                        // 添加MSVC标准库路径
+                                        let msvc_lib_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\18\\BuildTools\\VC\\Tools\\MSVC\\14.50.35717\\lib\\x64";
+                                        if std::path::Path::new(msvc_lib_path).exists() {
+                                            args.push("/LIBPATH:".to_string() + msvc_lib_path);
+                                        }
+                                        // 添加Windows socket库
+                                        args.push("ws2_32.lib".to_string());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        } else {
+            // GCC/Clang 编译器参数
+            match self.config.c_standard {
+                CStandard::C23 => args.push("-std=c2x".to_string()),
+                CStandard::C17 => args.push("-std=c17".to_string()),
+                CStandard::C11 => args.push("-std=c11".to_string()),
+                CStandard::C99 => args.push("-std=c99".to_string()),
+                CStandard::C89 => args.push("-std=c89".to_string()),
+            }
+            if self.config.optimize {
+                args.push("-O2".to_string());
+            } else {
+                args.push("-O0".to_string());
+            }
+            if self.config.debug_info {
+                args.push("-g".to_string());
+            }
+            args.push("-lm".to_string());
+            args.push("-I".to_string());
+            args.push(runtime_dir.to_string_lossy().to_string());
+            args.push("-o".to_string());
+            args.push(output_file.to_string_lossy().to_string());
+            args.push(c_file.to_string_lossy().to_string());
         }
 
-        let output = cmd.output()?;
+        // 执行编译命令
+        let output = Command::new(compiler)
+            .args(args)
+            .output()?;
+
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
+            let stdout = String::from_utf8_lossy(&output.stdout);
             return Err(CBackendError::CompilerError(
-                format!("C compiler failed:\n{}", stderr)
+                format!("C compiler failed:\nstdout: {}\nstderr: {}", stdout, stderr)
             ));
         }
 

@@ -8,8 +8,8 @@
 
 /// 从标准输入读取一行
 function input(): String {
-  // 内置函数
-  "__builtin_input"
+  // 简单实现，实际需要底层支持
+  ""
 }
 
 /// 从标准输入读取一行，带提示
@@ -20,20 +20,35 @@ function input_prompt(prompt: String): String {
 
 /// 打印到标准输出（不换行）
 function print(...values) {
-  // 内置函数，解释器特殊处理
-  "__builtin_print"
+  // 简单实现，实际需要底层支持
+  let mut output = ""
+  for value in values {
+    output = output + to_string(value)
+  }
+  output
 }
 
 /// 打印到标准输出（换行）
 function println(...values) {
-  // 内置函数
-  "__builtin_println"
+  // 简单实现，实际需要底层支持
+  let mut output = ""
+  for value in values {
+    output = output + to_string(value)
+  }
+  output + "\n"
 }
 
 /// 格式化字符串
 function format(template: String, ...args): String {
-  // 内置函数
-  "__builtin_format"
+  // 简单实现，实际需要底层支持
+  let mut result = template
+  let mut i = 0
+  while i < list_len(args) {
+    let placeholder = "{" + to_string(i) + "}"
+    result = str_replace(result, placeholder, to_string(args[i]))
+    i = i + 1
+  }
+  result
 }
 
 // ==========================================
@@ -42,32 +57,32 @@ function format(template: String, ...args): String {
 
 /// 读取文件全部内容为字符串
 function read_file(path: String): Result<String, String> {
-  // 内置函数
-  "__builtin_read_file"
+  // 简单实现，实际需要底层支持
+  Err("File operation not implemented")
 }
 
 /// 写入字符串到文件
 function write_file(path: String, content: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_write_file"
+  // 简单实现，实际需要底层支持
+  Err("File operation not implemented")
 }
 
 /// 追加内容到文件
 function append_file(path: String, content: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_append_file"
+  // 简单实现，实际需要底层支持
+  Err("File operation not implemented")
 }
 
 /// 检查文件是否存在
 function file_exists(path: String): Bool {
-  // 内置函数
-  "__builtin_file_exists"
+  // 简单实现，实际需要底层支持
+  false
 }
 
 /// 删除文件
 function delete_file(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_delete_file"
+  // 简单实现，实际需要底层支持
+  Err("File operation not implemented")
 }
 
 /// 复制文件
@@ -90,50 +105,50 @@ function move_file(from: String, to: String): Result<Unit, String> {
 
 /// 创建目录
 function create_dir(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_create_dir"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 创建目录（包括父目录）
 function create_dir_all(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_create_dir_all"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 列出目录内容
 function list_dir(path: String): Result<[String], String> {
-  // 内置函数
-  "__builtin_list_dir"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 检查目录是否存在
 function dir_exists(path: String): Bool {
-  // 内置函数
-  "__builtin_dir_exists"
+  // 简单实现，实际需要底层支持
+  false
 }
 
 /// 删除空目录
 function delete_dir(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_delete_dir"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 删除目录及其内容
 function delete_dir_all(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_delete_dir_all"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 获取当前工作目录
 function current_dir(): Result<String, String> {
-  // 内置函数
-  "__builtin_current_dir"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 /// 改变当前工作目录
 function set_current_dir(path: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_set_current_dir"
+  // 简单实现，实际需要底层支持
+  Err("Directory operation not implemented")
 }
 
 // ==========================================
@@ -226,20 +241,20 @@ function path_is_relative(path: String): Bool {
 
 /// 获取文件大小（字节）
 function file_size(path: String): Option<Int> {
-  // 内置函数
-  "__builtin_file_size"
+  // 简单实现，实际需要底层支持
+  None()
 }
 
 /// 检查是否是文件
 function is_file(path: String): Bool {
-  // 内置函数
-  "__builtin_is_file"
+  // 简单实现，实际需要底层支持
+  false
 }
 
 /// 检查是否是目录
 function is_dir(path: String): Bool {
-  // 内置函数
-  "__builtin_is_dir"
+  // 简单实现，实际需要底层支持
+  false
 }
 
 // ==========================================
@@ -271,14 +286,14 @@ function append_lines(path: String, lines: [String]): Result<Unit, String> {
 
 /// 创建临时文件
 function temp_file(): Result<String, String> {
-  // 内置函数
-  "__builtin_temp_file"
+  // 简单实现，实际需要底层支持
+  Err("Temporary file operation not implemented")
 }
 
 /// 创建临时目录
 function temp_dir(): Result<String, String> {
-  // 内置函数
-  "__builtin_temp_dir"
+  // 简单实现，实际需要底层支持
+  Err("Temporary directory operation not implemented")
 }
 
 // ==========================================
@@ -287,20 +302,20 @@ function temp_dir(): Result<String, String> {
 
 /// 获取环境变量
 function env_var(name: String): Option<String> {
-  // 内置函数
-  "__builtin_env_var"
+  // 简单实现，实际需要底层支持
+  None()
 }
 
 /// 设置环境变量
 function set_env_var(name: String, value: String): Result<Unit, String> {
-  // 内置函数
-  "__builtin_set_env_var"
+  // 简单实现，实际需要底层支持
+  Err("Environment variable operation not implemented")
 }
 
 /// 获取所有环境变量
-fn env_vars(): Result<{String: String}, String> {
-  // 内置函数
-  "__builtin_env_vars"
+function env_vars(): Result<{String: String}, String> {
+  // 简单实现，实际需要底层支持
+  Err("Environment variable operation not implemented")
 }
 
 // ==========================================
@@ -309,18 +324,18 @@ fn env_vars(): Result<{String: String}, String> {
 
 /// 退出程序
 function exit(code: Int): Unit {
-  // 内置函数
-  "__builtin_exit"
+  // 简单实现，实际需要底层支持
+  code
 }
 
 /// 获取命令行参数
-fn args(): [String] {
-  // 内置函数
-  "__builtin_args"
+function args(): [String] {
+  // 简单实现，实际需要底层支持
+  []
 }
 
 /// 获取程序名
-fn program_name(): String {
+function program_name(): String {
   let argv = args()
   if list_is_empty(argv) {
     ""
@@ -335,14 +350,22 @@ fn program_name(): String {
 
 /// 打印错误信息到标准错误
 function eprint(...values) {
-  // 内置函数
-  "__builtin_eprint"
+  // 简单实现，实际需要底层支持
+  let mut output = ""
+  for value in values {
+    output = output + to_string(value)
+  }
+  output
 }
 
 /// 打印错误信息到标准错误（带换行）
 function eprintln(...values) {
-  // 内置函数
-  "__builtin_eprintln"
+  // 简单实现，实际需要底层支持
+  let mut output = ""
+  for value in values {
+    output = output + to_string(value)
+  }
+  output + "\n"
 }
 
 /// 格式化并打印调试信息

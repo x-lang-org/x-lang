@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X Language Web Framework</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .routes {
+            margin-top: 30px;
+        }
+        .route {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>X Language Web Framework</h1>
+    <p>欢迎使用X语言Web框架！这是一个静态文件服务示例。</p>
+    
+    <div class="routes">
+        <h2>可用的路由：</h2>
+        <div class="route">GET / - 首页</div>
+        <div class="route">GET /api/users - 获取用户列表</div>
+        <div class="route">GET /api/users/:id - 获取单个用户</div>
+        <div class="route">POST /api/users - 创建用户</div>
+        <div class="route">GET /template - 模板引擎示例</div>
+        <div class="route">GET /db - 数据库示例</div>
+        <div class="route">GET /config - 配置示例</div>
+        <div class="route">GET /log - 日志示例</div>
+    </div>
+</body>
+</html>

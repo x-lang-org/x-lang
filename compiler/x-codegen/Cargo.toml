@@ -21,3 +21,11 @@ thiserror = "1.0"
 
 # 日志
 log = "0.4"
+
+[[bin]]
+name = "compile_benchmark"
+path = "src/compile_benchmark.rs"
+
+[[bin]]
+name = "compile_with_zig"
+path = "src/compile_with_zig.rs"

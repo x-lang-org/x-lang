@@ -10,10 +10,12 @@ pub mod lower;
 #[cfg(feature = "llvm")]
 pub mod llvm_lower;
 pub mod c_backend;
+pub mod zig_backend;
 pub mod target;
 
 pub use error::{CodeGenError, CodeGenResult};
 pub use c_backend::{CBackend, CBackendConfig, CCompiler, CStandard, CResult};
+pub use zig_backend::{ZigBackend, ZigBackendConfig, ZigBackendError, ZigResult};
 pub use xir::*;
 pub use target::{Target, FileType};
 
@@ -33,7 +35,7 @@ pub struct CodeGenConfig {
 impl Default for CodeGenConfig {
     fn default() -> Self {
         Self {
-            target: Target::Native,
+            target: Target::Zig,
             output_dir: None,
             optimize: false,
             debug_info: true,
@@ -160,6 +162,13 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                 "Python backend not enabled. Build with --features python.".to_string(),
             ));
         }
+        Target::Zig => {
+            return Ok(Box::new(ZigCodeGenerator::new(ZigConfig {
+                output_dir: config.output_dir,
+                optimize: config.optimize,
+                debug_info: config.debug_info,
+            })));
+        }
     }
 }
 
@@ -229,4 +238,58 @@ pub struct JavaScriptConfig {
 pub enum TargetLanguage {
     JavaScript,
     TypeScript,
+}
+
+pub struct ZigCodeGenerator {
+    backend: ZigBackend,
+}
+
+#[derive(Debug, Clone)]
+pub struct ZigConfig {
+    pub output_dir: Option<PathBuf>,
+    pub optimize: bool,
+    pub debug_info: bool,
+}
+
+impl CodeGenerator for ZigCodeGenerator {
+    type Config = ZigConfig;
+    type Error = ZigBackendError;
+
+    fn new(config: Self::Config) -> Self {
+        let backend_config = ZigBackendConfig {
+            output_dir: config.output_dir,
+            optimize: config.optimize,
+            debug_info: config.debug_info,
+        };
+        Self {
+            backend: ZigBackend::new(backend_config),
+        }
+    }
+
+    fn generate_from_ast(&mut self, program: &Program) -> Result<CodegenOutput, Self::Error> {
+        let zig_code = self.backend.generate_from_ast(program)?;
+        let files = vec![OutputFile {
+            path: PathBuf::from("output.zig"),
+            content: zig_code.into_bytes(),
+            file_type: FileType::ZigSource,
+        }];
+        Ok(CodegenOutput {
+            files,
+            dependencies: vec![],
+        })
+    }
+
+    fn generate_from_hir(&mut self, _hir: &()) -> Result<CodegenOutput, Self::Error> {
+        Err(ZigBackendError::UnsupportedFeature("HIR generation not supported yet".to_string()))
+    }
+
+    fn generate_from_pir(&mut self, _pir: &()) -> Result<CodegenOutput, Self::Error> {
+        Err(ZigBackendError::UnsupportedFeature("PIR generation not supported yet".to_string()))
+    }
+}
+
+impl DynamicCodeGenerator for ZigCodeGenerator {
+    fn generate_from_ast(&mut self, program: &Program) -> CodeGenResult<CodegenOutput> {
+        CodeGenerator::generate_from_ast(self, program).map_err(|e| CodeGenError::GenerationError(e.to_string()))
+    }
 }

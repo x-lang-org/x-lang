@@ -116,7 +116,7 @@ function cbrt(x: Float): Float {
 }
 
 /// 平方根的倒数
-fn rsqrt(x: Float): Float {
+function rsqrt(x: Float): Float {
   1.0 / sqrt(x)
 }
 
