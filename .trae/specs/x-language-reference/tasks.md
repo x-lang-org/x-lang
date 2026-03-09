@@ -13,7 +13,7 @@
   - `programmatic` TR-1.1: 所有词法测试用例通过
   - `programmatic` TR-1.2: 正确识别function关键字，拒绝fun关键字
   - `programmatic` TR-1.3: 正确识别const关键字
-- **备注**: 参考Kotlin、Scala、Swift的词法设计
+- **备注**: 参考Kotlin、Scala、Swift、Java、C#、TypeScript、F#、Nim的词法设计
 
 ## [x] 任务 2: 完善语法分析器（Parser）
 - **优先级**: P0
@@ -35,7 +35,7 @@
   - `programmatic` TR-2.5: 正确解析when表达式
   - `programmatic` TR-2.6: 正确解析for循环
   - `programmatic` TR-2.7: 正确解析类型定义和泛型
-- **备注**: 参考Kotlin的函数定义、Swift的类型系统、Scala的表达式语法
+- **备注**: 参考Kotlin的函数定义、Swift的类型系统、Scala的表达式语法、Java和C#的面向对象特性、TypeScript的类型系统、F#的函数式编程、Nim的语法简洁性
 
 ## [x] 任务 3: 完善解释器（Interpreter）
 - **优先级**: P0
@@ -56,7 +56,7 @@
   - `programmatic` TR-3.3: 正确执行for循环和范围表达式
   - `programmatic` TR-3.4: 正确执行管道操作符
   - `programmatic` TR-3.5: 正确处理Option和Result类型
-- **备注**: 参考Scala的模式匹配、Kotlin的协程思想
+- **备注**: 参考Scala的模式匹配、Kotlin的协程思想、Java的JVM集成、C#的异步编程、TypeScript的类型推断、F#的模式匹配、Nim的高性能实现
 
 ## [ ] 任务 4: 完善标准库
 - **优先级**: P1
@@ -69,7 +69,7 @@
 - **测试要求**:
   - `programmatic` TR-4.1: 所有标准库测试用例通过
   - `human-judgment` TR-4.2: 标准库API设计符合现代语言规范
-- **备注**: 参考Kotlin、Swift的标准库设计
+- **备注**: 参考Kotlin、Swift、Java、C#、TypeScript、F#、Nim的标准库设计
 
 ## [ ] 任务 5: 完善类型检查器
 - **优先级**: P1
@@ -84,7 +84,7 @@
   - `programmatic` TR-5.1: 所有类型检查测试用例通过
   - `programmatic` TR-5.2: 正确进行类型推断
   - `programmatic` TR-5.3: 正确处理泛型类型
-- **备注**: 参考Swift、Scala的类型系统
+- **备注**: 参考Swift、Scala、TypeScript、F#、Java、C#的类型系统
 
 ## [ ] 任务 6: 完善编译器后端
 - **优先级**: P2
@@ -110,7 +110,7 @@
 - **测试要求**:
   - `human-judgment` TR-7.1: 工具链功能完整、易用
   - `programmatic` TR-7.2: 命令行工具能正确执行各种操作
-- **备注**: 参考Rust的Cargo、Kotlin的Gradle
+- **备注**: 参考Rust的Cargo、Kotlin的Gradle、Java的Maven/Gradle、C#的NuGet、TypeScript的npm、F#的Paket、Nim的Nimble
 
 ## [x] 任务 8: 完善测试套件
 - **优先级**: P0
@@ -123,7 +123,7 @@
 - **测试要求**:
   - `programmatic` TR-8.1: 所有测试用例通过
   - `human-judgment` TR-8.2: 测试用例设计合理、覆盖全面
-- **备注**: 确保测试用例与参考语言的设计理念一致
+- **备注**: 确保测试用例与Kotlin、Scala、Swift、仓颉、MoobBit、Java、C#、TypeScript、F#、Nim等参考语言的设计理念一致
 
 ## [ ] 任务 9: 文档完善
 - **优先级**: P2
@@ -135,7 +135,7 @@
 - **验收标准**: AC-1, AC-4, AC-6
 - **测试要求**:
   - `human-judgment` TR-9.1: 文档完整、准确、易于理解
-- **备注**: 参考Kotlin、Swift的文档风格
+- **备注**: 参考Kotlin、Swift、Java、C#、TypeScript、F#、Nim的文档风格
 
 ## [ ] 任务 10: 性能优化
 - **优先级**: P2

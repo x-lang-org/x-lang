@@ -33,9 +33,10 @@ flowchart TB
     end
 
     subgraph "AOT 编译 AOT Compilation"
-        C23[C23 后端]
+        Zig[Zig 后端]
         LLVM[LLVM 后端]
         Native[原生机器码]
+        Wasm[WebAssembly]
     end
 
     subgraph "JIT 编译 JIT Compilation"
@@ -43,7 +44,6 @@ flowchart TB
         JVMRuntime[JVM 后端]
         CLRRuntime[CLR 后端]
         PythonRuntime[Python 后端]
-        JSRuntime[JavaScript 后端]
     end
 
     Source --> Lexer
@@ -54,16 +54,16 @@ flowchart TB
     HIR --> PIR
     PIR --> XIR
 
-    XIR --> C23
+    XIR --> Zig
     XIR --> LLVM
-    C23 --> Native
+    Zig --> Native
+    Zig --> Wasm
     LLVM --> Native
 
     XIR --> JITDriver
     JITDriver --> JVMRuntime
     JITDriver --> CLRRuntime
     JITDriver --> PythonRuntime
-    JITDriver --> JSRuntime
 ```
 
 ### 核心设计原则
@@ -146,7 +146,7 @@ x compile --target native hello.x
 2. 类型检查 → Typed AST
 3. 降级到 HIR → PIR → XIR
 4. XIR 优化 (内联、常量传播、DCE 等)
-5. 后端代码生成 (C23/LLVM)
+5. 后端代码生成 (Zig/LLVM)
 6. 链接 → 可执行文件
 ```
 
@@ -166,19 +166,16 @@ pub struct AotConfig {
 }
 
 pub enum Target {
-    // 原生目标
+    // 原生目标 (由 Zig 提供)
     Native,
     Wasm,
 
     // 源码目标
-    C,
-    JavaScript,
-    TypeScript,
+    Python,
 
     // 字节码目标
     JvmBytecode,
     DotNetCil,
-    PythonBytecode,
 }
 ```
 
@@ -207,7 +204,6 @@ flowchart LR
         JVM[JVM 后端]
         CLR[CLR 后端]
         Python[Python 后端]
-        JS[JavaScript 后端]
     end
 
     Main -->|调用| Driver
@@ -216,7 +212,6 @@ flowchart LR
     Driver -->|编译| JVM
     Driver -->|编译| CLR
     Driver -->|编译| Python
-    Driver -->|编译| JS
 
     Profiler -->|采样| Driver
     Profiler -->|反馈| Optimizer
@@ -321,9 +316,8 @@ pub enum JitTarget {
     Jvm,
     Clr,
     Python,
-    JavaScript,
-    Wasm,
-    Native,  // 使用 LLVM ORC JIT
+    Wasm,  // 使用 Zig 编译为 WebAssembly
+    Native,  // 使用 LLVM ORC JIT 或 Zig
 }
 
 /// 编译策略
@@ -662,63 +656,50 @@ impl JitBackend for PythonBackend {
 }
 ```
 
-### 4. JavaScript 后端
+### 4. Wasm 后端 (由 Zig 提供)
 
 ```rust
-// compiler/x-jit-js/src/lib.rs
+// compiler/x-codegen-zig/src/lib.rs
 
-use rquickjs::{Context, Runtime, Function, Value as JsValue};
+use std::process::Command;
 
-pub struct JavaScriptBackend {
-    runtime: Runtime,
-    context: Context,
+pub struct ZigBackend {
+    target: ZigTarget,
 }
 
-impl JavaScriptBackend {
-    pub fn new() -> Result<Self, JitError> {
-        let runtime = Runtime::new()?;
-        let context = Context::new(&runtime)?;
-
-        Ok(Self { runtime, context })
-    }
+#[derive(Debug, Clone)]
+pub enum ZigTarget {
+    Native,
+    Wasm,
 }
 
-impl JitBackend for JavaScriptBackend {
-    fn compile_function(
-        &self,
-        xir: &xir::Function,
-        config: &JitConfig,
-    ) -> Result<CompiledFunction, JitError> {
-        // 1. XIR → JavaScript 源码
-        let js_source = XirToJavaScript::lower(xir)?;
-
-        // 2. 在 QuickJS 中编译
-        let function = self.context.with(|ctx| {
-            let func: Function = ctx.eval(&js_source)?;
-            Ok::<_, JitError>(func)
-        })?;
-
-        Ok(CompiledFunction::JavaScript(JavaScriptCompiledFunction {
-            function,
-            source_code: js_source,
-        }))
+impl ZigBackend {
+    pub fn new(target: ZigTarget) -> Self {
+        Self { target }
     }
 
-    fn execute(
-        &self,
-        function: &CompiledFunction,
-        args: &[Value],
-    ) -> Result<Value, JitError> {
-        match function {
-            CompiledFunction::JavaScript(js_func) => {
-                self.context.with(|ctx| {
-                    let js_args = Self::convert_args(ctx, args);
-                    let result: JsValue = js_func.function.call((js_args,))?;
-                    Self::convert_result(result)
-                })
-            }
-            _ => Err(JitError::InvalidBackend),
+    pub fn compile(&self, xir: &xir::Module) -> Result<Vec<u8>, ZigError> {
+        // 1. XIR → Zig 源码
+        let zig_source = XirToZig::lower(xir, &self.target)?;
+
+        // 2. 使用 Zig 编译器编译
+        let output = match self.target {
+            ZigTarget::Wasm => Command::new("zig")
+                .args(&["build-lib", "-target", "wasm32", "-O2"])
+                .output(),
+            ZigTarget::Native => Command::new("zig")
+                .args(&["build-exe", "-O2"])
+                .output(),
+        }?;
+
+        if !output.status.success() {
+            return Err(ZigError::CompilationFailed(
+                String::from_utf8_lossy(&output.stderr).to_string(),
+            ));
         }
+
+        // 3. 返回编译产物
+        Ok(output.stdout)
     }
 }
 ```
@@ -743,13 +724,11 @@ x-lang/
 │   ├── x-jit-jvm/            # [新增] JVM JIT 后端
 │   ├── x-jit-clr/            # [新增] CLR JIT 后端
 │   ├── x-jit-python/         # [新增] Python JIT 后端
-│   ├── x-jit-js/             # [新增] JavaScript JIT 后端
 │   │
 │   ├── x-codegen-llvm/       # LLVM AOT 后端 (已存在)
-│   ├── x-codegen-c/          # C23 AOT 后端 (已存在)
+│   ├── x-codegen-zig/        # [新增] Zig AOT 后端 (Native + Wasm)
 │   ├── x-codegen-jvm/        # JVM AOT 后端 (已存在)
 │   ├── x-codegen-dotnet/     # .NET AOT 后端 (已存在)
-│   ├── x-codegen-js/         # JavaScript AOT 后端 (已存在)
 │   │
 │   └── x-interpreter/        # 树遍历解释器 (已存在)
 │
@@ -758,7 +737,7 @@ x-lang/
 │   ├── x-runtime-jvm/        # [新增] JVM 运行时支持
 │   ├── x-runtime-clr/        # [新增] CLR 运行时支持
 │   ├── x-runtime-python/     # [新增] Python 运行时支持
-│   └── x-runtime-js/         # [新增] JavaScript 运行时支持
+│   └── x-runtime-wasm/       # [新增] Wasm 运行时支持 (由 Zig 提供)
 │
 ├── tools/
 │   ├── x-cli/                # CLI (已存在)
@@ -784,15 +763,13 @@ x-hir = { path = "../x-hir" }
 x-jit-jvm = { path = "../x-jit-jvm", optional = true }
 x-jit-clr = { path = "../x-jit-clr", optional = true }
 x-jit-python = { path = "../x-jit-python", optional = true }
-x-jit-js = { path = "../x-jit-js", optional = true }
 
 [features]
 default = []
 jvm = ["x-jit-jvm"]
 clr = ["x-jit-clr"]
 python = ["x-jit-python"]
-js = ["x-jit-js"]
-all = ["jvm", "clr", "python", "js"]
+all = ["jvm", "clr", "python"]
 ```
 
 ---
@@ -804,16 +781,16 @@ all = ["jvm", "clr", "python", "js"]
 ```bash
 # AOT 编译 (已有)
 x compile hello.x -o hello
+x compile --target native hello.x -o hello
+x compile --target wasm hello.x -o hello.wasm
 x compile --target jvm hello.x -o hello.jar
 
 # JIT 运行 (新增)
 x jit --target jvm hello.x
 x jit --target python hello.x
-x jit --target js hello.x
 
 # REPL 模式 (新增)
 x repl --target jvm
-x repl --target js
 
 # 混合模式 (新增)
 x run --jit hello.x          # 自动选择 AOT + JIT 混合
@@ -866,9 +843,9 @@ use x_jit::{Repl, JitTarget};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut repl = Repl::new(JitTarget::JavaScript);
+    let mut repl = Repl::new(JitTarget::Jvm);
 
-    println!("X REPL (JavaScript backend)");
+    println!("X REPL (JVM backend)");
     println!("Type ':quit' to exit\n");
 
     loop {
@@ -901,11 +878,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 - [ ] 编译缓存实现
 - [ ] 与 XIR 集成
 
-### Phase 2: JavaScript JIT 后端
-- [ ] `x-jit-js` crate
-- [ ] XIR → JavaScript 源码生成
-- [ ] QuickJS 集成
-- [ ] 基本执行测试
+### Phase 2: Zig AOT 后端 (Native + Wasm)
+- [ ] `x-codegen-zig` crate
+- [ ] XIR → Zig C 代码生成
+- [ ] Zig 编译器集成
+- [ ] Native 和 Wasm 编译测试
 
 ### Phase 3: Python JIT 后端
 - [ ] `x-jit-python` crate
@@ -939,13 +916,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 本架构设计提供了：
 
 1. **统一 IR 层**：XIR 作为 AOT 和 JIT 的公共输入
-2. **可插拔 JIT 后端**：支持 JVM、CLR、Python、JavaScript
-3. **分层编译**：基于 profiling 的自适应优化
-4. **缓存机制**：避免重复编译
-5. **完整的工具链**：CLI、REPL、库 API
+2. **可插拔 JIT 后端**：支持 JVM、CLR、Python（新增）
+3. **Zig AOT 后端**：统一使用 Zig 提供 Native 和 Wasm 支持
+4. **分层编译**：基于 profiling 的自适应优化
+5. **缓存机制**：避免重复编译
+6. **完整的工具链**：CLI、REPL、库 API
 
 这个设计使得 X 语言可以灵活地在不同场景下选择最优的执行方式：
 - **AOT**：适合需要最高性能、启动延迟不敏感的场景
+  - 使用 Zig 编译为 Native 或 Wasm
+  - 使用 LLVM 编译为 Native
+  - 编译为 JVM 字节码或 .NET CIL 字节码
+  - 编译为 Python 源码
 - **JIT**：适合需要快速启动、交互式使用、动态生成代码的场景
 - **混合**：热点函数 JIT 优化，其他函数 AOT 编译
 
