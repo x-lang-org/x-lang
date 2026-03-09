@@ -39,10 +39,7 @@ pub enum Token {
     True,
     False,
     Null,
-    NoneKeyword,
-    Some,
-    Ok,
-    Err,
+
     Needs,
     Given,
     Wait,

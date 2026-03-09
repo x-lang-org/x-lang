@@ -867,11 +867,14 @@ impl Interpreter {
                             arg_vals.len()
                         )));
                     }
-                    let saved = std::mem::take(&mut self.variables);
+                    // 保存当前变量状态
+                    let saved = self.variables.clone();
+                    // 添加函数参数，覆盖同名全局变量
                     for (p, v) in func.parameters.iter().zip(arg_vals) {
                         self.variables.insert(p.name.clone(), v);
                     }
                     let result = self.execute_block(&func.body)?;
+                    // 恢复变量状态
                     self.variables = saved;
                     match result {
                         ControlFlow::Return(v) => Ok(v),
