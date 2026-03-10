@@ -57,7 +57,27 @@ impl TypeScriptBackend {
         self.indent = 0;
 
         self.emit_header()?;
-        self.emit_main_function()?;
+
+        // Emit all declarations first
+        for decl in &program.declarations {
+            self.emit_declaration(decl)?;
+        }
+
+        // Emit main function containing all top-level statements
+        if !program.statements.is_empty() {
+            self.line("function main(): void {")?;
+            self.indent += 1;
+
+            for stmt in &program.statements {
+                self.emit_statement(stmt)?;
+            }
+
+            self.indent -= 1;
+            self.line("}")?;
+            self.line("")?;
+            self.line("// Run the main function")?;
+            self.line("main();")?;
+        }
 
         // Create output file
         let output_file = super::OutputFile {
@@ -79,16 +99,222 @@ impl TypeScriptBackend {
         Ok(())
     }
 
-    fn emit_main_function(&mut self) -> TypeScriptResult<()> {
-        self.line("function main(): void {")?;
+    fn emit_declaration(&mut self, decl: &ast::Declaration) -> TypeScriptResult<()> {
+        match decl {
+            ast::Declaration::Variable(var_decl) => {
+                self.emit_variable_decl(var_decl)?;
+                self.line("")?;
+            }
+            ast::Declaration::Function(func_decl) => {
+                self.emit_function_decl(func_decl)?;
+                self.line("")?;
+            }
+            _ => {
+                return Err(TypeScriptBackendError::UnsupportedFeature(format!(
+                    "Declaration type {:?} is not yet supported in TypeScript backend",
+                    decl
+                )));
+            }
+        }
+        Ok(())
+    }
+
+    fn emit_variable_decl(&mut self, var_decl: &ast::VariableDecl) -> TypeScriptResult<()> {
+        let keyword = if var_decl.is_mutable { "let" } else { "const" };
+        let name = &var_decl.name;
+
+        if let Some(init) = &var_decl.initializer {
+            let init_expr = self.emit_expr(init)?;
+            self.line(&format!("{} {} = {};", keyword, name, init_expr))?;
+        } else {
+            self.line(&format!("{} {};", keyword, name))?;
+        }
+
+        Ok(())
+    }
+
+    fn emit_function_decl(&mut self, func_decl: &ast::FunctionDecl) -> TypeScriptResult<()> {
+        let async_keyword = if func_decl.is_async { "async " } else { "" };
+        let name = &func_decl.name;
+
+        let params: Vec<String> = func_decl.parameters.iter()
+            .map(|p| p.name.clone())
+            .collect();
+
+        self.line(&format!("{}function {}({}): void {{", async_keyword, name, params.join(", ")))?;
         self.indent += 1;
-        self.line("console.log('Hello from TypeScript backend!');")?;
+
+        self.emit_block(&func_decl.body)?;
+
         self.indent -= 1;
         self.line("}")?;
-        self.line("")?;
-        self.line("// Run the main function")?;
-        self.line("main();")?;
+
         Ok(())
+    }
+
+    fn emit_statement(&mut self, stmt: &ast::Statement) -> TypeScriptResult<()> {
+        match stmt {
+            ast::Statement::Expression(expr) => {
+                let expr_str = self.emit_expr(expr)?;
+                self.line(&format!("{};", expr_str))?;
+            }
+            ast::Statement::Variable(var_decl) => {
+                self.emit_variable_decl(var_decl)?;
+            }
+            ast::Statement::Return(expr_opt) => {
+                if let Some(expr) = expr_opt {
+                    let expr_str = self.emit_expr(expr)?;
+                    self.line(&format!("return {};", expr_str))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            ast::Statement::If(if_stmt) => {
+                self.emit_if_statement(if_stmt)?;
+            }
+            ast::Statement::While(while_stmt) => {
+                self.emit_while_statement(while_stmt)?;
+            }
+            _ => {
+                return Err(TypeScriptBackendError::UnsupportedFeature(format!(
+                    "Statement type {:?} is not yet supported in TypeScript backend",
+                    stmt
+                )));
+            }
+        }
+        Ok(())
+    }
+
+    fn emit_block(&mut self, block: &ast::Block) -> TypeScriptResult<()> {
+        for stmt in &block.statements {
+            self.emit_statement(stmt)?;
+        }
+        Ok(())
+    }
+
+    fn emit_if_statement(&mut self, if_stmt: &ast::IfStatement) -> TypeScriptResult<()> {
+        let cond = self.emit_expr(&if_stmt.condition)?;
+        self.line(&format!("if ({}) {{", cond))?;
+        self.indent += 1;
+        self.emit_block(&if_stmt.then_block)?;
+        self.indent -= 1;
+
+        if let Some(else_block) = &if_stmt.else_block {
+            self.line("} else {")?;
+            self.indent += 1;
+            self.emit_block(else_block)?;
+            self.indent -= 1;
+        }
+
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_while_statement(&mut self, while_stmt: &ast::WhileStatement) -> TypeScriptResult<()> {
+        let cond = self.emit_expr(&while_stmt.condition)?;
+        self.line(&format!("while ({}) {{", cond))?;
+        self.indent += 1;
+        self.emit_block(&while_stmt.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_expr(&self, expr: &ast::Expression) -> TypeScriptResult<String> {
+        match expr {
+            ast::Expression::Literal(lit) => {
+                Ok(self.emit_literal(lit)?)
+            }
+            ast::Expression::Variable(name) => {
+                Ok(name.clone())
+            }
+            ast::Expression::Binary(op, lhs, rhs) => {
+                let lhs_str = self.emit_expr(lhs)?;
+                let rhs_str = self.emit_expr(rhs)?;
+                Ok(self.emit_binop(op, &lhs_str, &rhs_str))
+            }
+            ast::Expression::Unary(op, expr) => {
+                let expr_str = self.emit_expr(expr)?;
+                Ok(self.emit_unaryop(op, &expr_str))
+            }
+            ast::Expression::Call(callee, args) => {
+                let callee_str = self.emit_expr(callee)?;
+                let mut arg_strs = Vec::new();
+                for arg in args {
+                    arg_strs.push(self.emit_expr(arg)?);
+                }
+
+                // Map built-in functions
+                if callee_str == "println" {
+                    Ok(format!("console.log({})", arg_strs.join(", ")))
+                } else {
+                    Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
+                }
+            }
+            ast::Expression::Assign(lhs, rhs) => {
+                let lhs_str = self.emit_expr(lhs)?;
+                let rhs_str = self.emit_expr(rhs)?;
+                Ok(format!("{} = {}", lhs_str, rhs_str))
+            }
+            ast::Expression::Parenthesized(expr) => {
+                let inner = self.emit_expr(expr)?;
+                Ok(format!("({})", inner))
+            }
+            _ => {
+                Err(TypeScriptBackendError::UnsupportedFeature(format!(
+                    "Expression type {:?} is not yet supported in TypeScript backend",
+                    expr
+                )))
+            }
+        }
+    }
+
+    fn emit_literal(&self, lit: &ast::Literal) -> TypeScriptResult<String> {
+        match lit {
+            ast::Literal::Integer(n) => Ok(n.to_string()),
+            ast::Literal::Float(f) => Ok(f.to_string()),
+            ast::Literal::Boolean(b) => Ok(b.to_string()),
+            ast::Literal::String(s) => Ok(format!("\"{}\"", s.replace('"', "\\\""))),
+            ast::Literal::Char(c) => Ok(format!("'{}'", c)),
+            ast::Literal::Null => Ok("null".to_string()),
+            ast::Literal::None => Ok("undefined".to_string()),
+            ast::Literal::Unit => Ok("undefined".to_string()),
+        }
+    }
+
+    fn emit_binop(&self, op: &ast::BinaryOp, lhs: &str, rhs: &str) -> String {
+        match op {
+            ast::BinaryOp::Add => format!("{} + {}", lhs, rhs),
+            ast::BinaryOp::Sub => format!("{} - {}", lhs, rhs),
+            ast::BinaryOp::Mul => format!("{} * {}", lhs, rhs),
+            ast::BinaryOp::Div => format!("{} / {}", lhs, rhs),
+            ast::BinaryOp::Mod => format!("{} % {}", lhs, rhs),
+            ast::BinaryOp::Pow => format!("Math.pow({}, {})", lhs, rhs),
+            ast::BinaryOp::And => format!("{} && {}", lhs, rhs),
+            ast::BinaryOp::Or => format!("{} || {}", lhs, rhs),
+            ast::BinaryOp::Equal => format!("{} === {}", lhs, rhs),
+            ast::BinaryOp::NotEqual => format!("{} !== {}", lhs, rhs),
+            ast::BinaryOp::Less => format!("{} < {}", lhs, rhs),
+            ast::BinaryOp::LessEqual => format!("{} <= {}", lhs, rhs),
+            ast::BinaryOp::Greater => format!("{} > {}", lhs, rhs),
+            ast::BinaryOp::GreaterEqual => format!("{} >= {}", lhs, rhs),
+            ast::BinaryOp::BitAnd => format!("{} & {}", lhs, rhs),
+            ast::BinaryOp::BitOr => format!("{} | {}", lhs, rhs),
+            ast::BinaryOp::BitXor => format!("{} ^ {}", lhs, rhs),
+            ast::BinaryOp::LeftShift => format!("{} << {}", lhs, rhs),
+            ast::BinaryOp::RightShift => format!("{} >> {}", lhs, rhs),
+            ast::BinaryOp::Concat => format!("{} + {}", lhs, rhs),
+            _ => format!("/* unsupported op {:?} */ {} {}", op, lhs, rhs),
+        }
+    }
+
+    fn emit_unaryop(&self, op: &ast::UnaryOp, expr: &str) -> String {
+        match op {
+            ast::UnaryOp::Negate => format!("-{}", expr),
+            ast::UnaryOp::Not => format!("!{}", expr),
+            ast::UnaryOp::BitNot => format!("~{}", expr),
+            ast::UnaryOp::Wait => format!("await {}", expr),
+        }
     }
 
     fn line(&mut self, s: &str) -> TypeScriptResult<()> {

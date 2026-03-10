@@ -311,39 +311,40 @@
             <div class="playground-content">
                 <div class="editor-container">
                     <div class="editor-title">代码</div>
-                    <textarea id="code-editor">fn main() {
-    print("Hello, Playground!");
-    
-    // 变量声明
-    let x: i32 = 5;
-    let y: i32 = 10;
-    print("x = {}, y = {}", x, y);
-    
-    // 算术运算
-    let sum = x + y;
-    let difference = x - y;
-    let product = x * y;
-    let quotient = y / x;
-    
-    print("sum = {}", sum);
-    print("difference = {}", difference);
-    print("product = {}", product);
-    print("quotient = {}", quotient);
-    
-    // 条件语句
-    if x > y {
-        print("x is greater than y");
-    } else if x < y {
-        print("x is less than y");
-    } else {
-        print("x is equal to y");
-    }
-    
-    // 循环
-    print("Counting from 1 to 5:");
-    for i in 1..6 {
-        print(i);
-    }
+                    <textarea id="code-editor">// X 语言 Playground 默认示例
+
+// 变量声明
+let x = 5
+let y = 10
+println("x = " + x)
+println("y = " + y)
+
+// 算术运算
+let sum = x + y
+let difference = x - y
+let product = x * y
+let quotient = y / x
+
+println("sum = " + sum)
+println("difference = " + difference)
+println("product = " + product)
+println("quotient = " + quotient)
+
+// 条件语句
+if x > y {
+    println("x is greater than y")
+} else if x < y {
+    println("x is less than y")
+} else {
+    println("x is equal to y")
+}
+
+// 循环
+println("Counting from 1 to 5:")
+let mutable i = 1
+while i <= 5 {
+    println(i)
+    i = i + 1
 }</textarea>
                 </div>
                 
@@ -363,7 +364,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/rust/rust.min.js"></script>
-    <script src="https://unpkg.com/@typescript/standalone@5.6.2/lib/typescript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typescript@5.6.2/lib/typescript.min.js"></script>
     <script type="module">
         // 导入 WebAssembly 模块
         import init, { compile_x_to_ts } from './x_codegen_wasm.js';
@@ -610,9 +611,10 @@ match divide(10, 0) {
             const defaultCode = `// X 语言 Playground 默认示例
 
 // 变量声明
-let x: integer = 5
-let y: integer = 10
-println("x = {x}, y = {y}")
+let x = 5
+let y = 10
+println("x = " + x)
+println("y = " + y)
 
 // 算术运算
 let sum = x + y
@@ -620,10 +622,10 @@ let difference = x - y
 let product = x * y
 let quotient = y / x
 
-println("sum = {sum}")
-println("difference = {difference}")
-println("product = {product}")
-println("quotient = {quotient}")
+println("sum = " + sum)
+println("difference = " + difference)
+println("product = " + product)
+println("quotient = " + quotient)
 
 // 条件语句
 if x > y {
@@ -636,12 +638,12 @@ if x > y {
 
 // 循环
 println("Counting from 1 to 5:")
-let mutable i: integer = 1
+let mutable i = 1
 while i <= 5 {
     println(i)
-    i += 1
+    i = i + 1
 }`;
-            
+
             editor.setValue(defaultCode);
             document.getElementById('output').innerHTML = '点击"运行"按钮执行代码...';
             document.getElementById('example-select').value = '';
