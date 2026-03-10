@@ -29,8 +29,11 @@ function list_repeat<T>(item: T, count: Int): [T] {
 
 /// 获取列表长度
 function list_len<T>(list: [T]): Int {
-  // 内置函数
-  "__builtin_list_len"
+  let mut length = 0
+  for item in list {
+    length = length + 1
+  }
+  length
 }
 
 /// 检查列表是否为空
@@ -73,8 +76,8 @@ function list_last<T>(list: [T]): Option<T> {
 
 /// 在列表末尾添加元素
 function list_push<T>(list: [T], item: T): [T] {
-  // 内置函数
-  "__builtin_list_push"
+  // 简单实现，实际需要底层支持
+  list + [item]
 }
 
 /// 移除并返回列表末尾的元素
@@ -227,6 +230,7 @@ function list_filter_map<T, U>(list: [T], f: (T) -> Option<U>): [U] {
     match f(list_get(list, i)) is
       Some { value } -> list_push(result, value)
       None -> {}
+    i = i + 1
   }
   result
 }
@@ -524,26 +528,41 @@ function map_is_empty<K, V>(map: {K: V}): Bool {
 
 /// 获取映射的大小
 function map_len<K, V>(map: {K: V}): Int {
-  // 内置函数
-  "__builtin_map_len"
+  let mut count = 0
+  for key in map {
+    count = count + 1
+  }
+  count
 }
 
 /// 获取键对应的值
 function map_get<K, V>(map: {K: V}, key: K): Option<V> {
-  // 内置函数
-  "__builtin_map_get"
+  // 简单实现，实际需要底层支持
+  if key in map {
+    Some(map[key])
+  } else {
+    None()
+  }
 }
 
 /// 插入键值对
 function map_insert<K, V>(map: {K: V}, key: K, value: V): {K: V} {
-  // 内置函数
-  "__builtin_map_insert"
+  // 简单实现，实际需要底层支持
+  let mut result = map
+  result[key] = value
+  result
 }
 
 /// 移除键值对
 function map_remove<K, V>(map: {K: V}, key: K): (Option<V>, {K: V}) {
-  // 内置函数
-  "__builtin_map_remove"
+  let value = map_get(map, key)
+  let mut result = map_new()
+  for k in map {
+    if k != key {
+      result = map_insert(result, k, map[k])
+    }
+  }
+  (value, result)
 }
 
 /// 检查映射是否包含键
@@ -553,20 +572,29 @@ function map_contains_key<K, V>(map: {K: V}, key: K): Bool {
 
 /// 获取所有键
 function map_keys<K, V>(map: {K: V}): [K] {
-  // 内置函数
-  "__builtin_map_keys"
+  let mut keys = []
+  for key in map {
+    list_push(keys, key)
+  }
+  keys
 }
 
 /// 获取所有值
 function map_values<K, V>(map: {K: V}): [V] {
-  // 内置函数
-  "__builtin_map_values"
+  let mut values = []
+  for key in map {
+    list_push(values, map[key])
+  }
+  values
 }
 
 /// 获取所有键值对
 function map_entries<K, V>(map: {K: V}): [(K, V)] {
-  // 内置函数
-  "__builtin_map_entries"
+  let mut entries = []
+  for key in map {
+    list_push(entries, (key, map[key]))
+  }
+  entries
 }
 
 /// 从键值对列表创建映射
@@ -662,4 +690,29 @@ function set_intersection<T>(set1: [T], set2: [T]): [T] {
 /// 集合的差集
 function set_difference<T>(set1: [T], set2: [T]): [T] {
   list_filter(set1, (x) -> not set_contains(set2, x))
+}
+
+// ==========================================
+// 辅助函数
+// ==========================================
+
+/// 计算两个数的最小值
+function min_int(a: Int, b: Int): Int {
+  if a < b { a } else { b }
+}
+
+/// 计算两个数的最大值
+function max_int(a: Int, b: Int): Int {
+  if a > b { a } else { b }
+}
+
+/// 限制值在指定范围内
+function clamp_int(value: Int, min: Int, max: Int): Int {
+  if value < min {
+    min
+  } else if value > max {
+    max
+  } else {
+    value
+  }
 }

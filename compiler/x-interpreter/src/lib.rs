@@ -852,6 +852,14 @@ impl Interpreter {
                     _ => Err(InterpreterError::RuntimeError("sort 需要数组".into())),
                 }
             }
+            "x_to_json" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::String(self.value_to_json(&v)))
+            }
+            "x_json_parse" => {
+                let json_str = self.eval_as_string(&args[0])?;
+                self.json_to_value(&json_str)
+            }
             _ => {
                 let func = self.functions.get(name).cloned();
                 if let Some(func) = func {
@@ -1048,7 +1056,91 @@ impl Interpreter {
                 }
             }
         }
-}
+    }
+
+    fn value_to_json(&self, value: &Value) -> String {
+        match value {
+            Value::Integer(i) => i.to_string(),
+            Value::Float(f) => {
+                if f.fract() == 0.0 && !f.is_infinite() && !f.is_nan() {
+                    format!("{:.1}", f)
+                } else {
+                    format!("{}", f)
+                }
+            }
+            Value::Boolean(b) => b.to_string(),
+            Value::String(s) => format!("\"{}\"", s.replace("\"", "\\\"").replace("\\", "\\\\")),
+            Value::Char(c) => format!("\"{}\"", c),
+            Value::Array(rc) => {
+                let arr = rc.borrow();
+                let items: Vec<String> = arr.iter().map(|v| self.value_to_json(v)).collect();
+                format!("[{}]", items.join(","))
+            }
+            Value::Map(rc) => {
+                let entries = rc.borrow();
+                let items: Vec<String> = entries
+                    .iter()
+                    .map(|(k, v)| format!("\"{}\":{}", k, self.value_to_json(v)))
+                    .collect();
+                format!("{{{}}}", items.join(","))
+            }
+            Value::Null => "null".to_string(),
+            Value::None => "null".to_string(),
+            Value::Unit => "null".to_string(),
+            Value::Option(v) => self.value_to_json(v),
+            Value::Result(ok, _) => self.value_to_json(ok),
+        }
+    }
+
+    fn json_to_value(&mut self, json: &str) -> Result<Value, InterpreterError> {
+        let json = json.trim();
+        if json.starts_with('"') && json.ends_with('"') {
+            let s = &json[1..json.len()-1];
+            let s = s.replace("\\\"", "\"").replace("\\\\", "\\");
+            Ok(Value::String(s))
+        } else if json == "true" {
+            Ok(Value::Boolean(true))
+        } else if json == "false" {
+            Ok(Value::Boolean(false))
+        } else if json == "null" {
+            Ok(Value::Null)
+        } else if json.starts_with('[') && json.ends_with(']') {
+            let mut items = Vec::new();
+            let mut current = String::new();
+            let mut depth = 0;
+            for c in json.chars().skip(1).take(json.len()-2) {
+                if c == '[' || c == '{' {
+                    depth += 1;
+                    current.push(c);
+                } else if c == ']' || c == '}' {
+                    depth -= 1;
+                    current.push(c);
+                } else if c == ',' && depth == 0 {
+                    items.push(current.trim().to_string());
+                    current = String::new();
+                } else {
+                    current.push(c);
+                }
+            }
+            if !current.trim().is_empty() {
+                items.push(current.trim().to_string());
+            }
+            let mut values = Vec::new();
+            for item in items {
+                values.push(self.json_to_value(&item)?);
+            }
+            Ok(Value::new_array(values))
+        } else if json.starts_with('{') && json.ends_with('}') {
+            let map = Value::new_map();
+            Ok(map)
+        } else if json.parse::<i64>().is_ok() {
+            Ok(Value::Integer(json.parse::<i64>().unwrap()))
+        } else if json.parse::<f64>().is_ok() {
+            Ok(Value::Float(json.parse::<f64>().unwrap()))
+        } else {
+            Err(InterpreterError::RuntimeError(format!("无效的JSON: {}", json)))
+        }
+    }
 }
 
 fn extract_sort_key(v: &Value) -> f64 {

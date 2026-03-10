@@ -106,6 +106,9 @@ enum Commands {
         /// 仅生成目标文件，不链接
         #[arg(long)]
         no_link: bool,
+        /// 指定C编译器路径
+        #[arg(long, value_name = "COMPILER")]
+        compiler: Option<String>,
     },
 
     /// 运行项目测试
@@ -591,7 +594,8 @@ fn dispatch(cli: Cli) -> Result<(), String> {
             output,
             emit,
             no_link,
-        } => commands::compile::exec(&file, output.as_deref(), emit.as_deref(), no_link),
+            compiler,
+        } => commands::compile::exec(&file, output.as_deref(), emit.as_deref(), no_link, compiler.as_deref()),
 
         Commands::Test {
             filter,

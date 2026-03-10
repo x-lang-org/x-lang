@@ -28,3 +28,6 @@ test_lexer.rs
 /bazel-testlogs
 *.bazel.user
 MODULE.bazel.lock
+
+# Generated Zig code
+**/output.zig

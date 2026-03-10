@@ -1,5 +1,5 @@
 use crate::ast::{
-    BinaryOp, Block, Declaration, Expression, FunctionDecl, IfStatement, Literal, Parameter,
+    BinaryOp, Block, Declaration, Expression, FunctionDecl, IfStatement, ImportDecl, ImportSymbol, Literal, Parameter,
     Pattern, Program, Statement, Type, TypeAlias, UnaryOp, VariableDecl, WhileStatement, ForStatement,
 };
 use crate::errors::ParseError;
@@ -68,6 +68,10 @@ impl XParser {
                     ti.next();
                     declarations.push(Declaration::TypeAlias(self.parse_type_alias(ti)?));
                 }
+                Ok((Token::Import, _)) => {
+                    ti.next();
+                    declarations.push(Declaration::Import(self.parse_import(ti)?));
+                }
                 Ok((Token::RightBrace, _)) => break,
                 Ok(_) => {
                     // 尝试解析为顶级语句
@@ -78,6 +82,141 @@ impl XParser {
             }
         }
         Ok(Program { declarations, statements })
+    }
+
+    fn parse_import(&self, ti: &mut TokenIterator) -> Result<ImportDecl, ParseError> {
+        let mut module_path = String::new();
+        
+        // 解析模块路径
+        let token = self.expect_token(ti, "标识符或字符串")?;
+        match token {
+            Token::Ident(name) => {
+                module_path.push_str(&name);
+                
+                // 处理点号或双冒号分隔的路径
+                loop {
+                    match ti.peek() {
+                        Some(Ok((Token::Dot, _))) => {
+                            ti.next();
+                            module_path.push('.');
+                            
+                            let next_token = self.expect_token(ti, "标识符")?;
+                            match next_token {
+                                Token::Ident(name) => {
+                                    module_path.push_str(&name);
+                                }
+                                _ => {
+                                    return Err(self.err(format!("期望标识符，但得到 {:?}", next_token), ti));
+                                }
+                            }
+                        }
+                        Some(Ok((Token::DoubleColon, _))) => {
+                            ti.next();
+                            module_path.push_str("::");
+                            
+                            let next_token = self.expect_token(ti, "标识符")?;
+                            match next_token {
+                                Token::Ident(name) => {
+                                    module_path.push_str(&name);
+                                }
+                                _ => {
+                                    return Err(self.err(format!("期望标识符，但得到 {:?}", next_token), ti));
+                                }
+                            }
+                        }
+                        _ => {
+                            break;
+                        }
+                    }
+                }
+            }
+            Token::StringContent(path) => {
+                // 处理字符串形式的路径
+                module_path = path;
+            }
+            _ => {
+                return Err(self.err(format!("期望标识符或字符串，但得到 {:?}", token), ti));
+            }
+        }
+        
+        let mut symbols = Vec::new();
+        
+        // 解析导入符号
+        match ti.peek() {
+            Some(Ok((Token::Dot, _))) => {
+                ti.next();
+                
+                match ti.peek() {
+                    Some(Ok((Token::Asterisk, _))) => {
+                        // 通配导入: import module.*
+                        ti.next();
+                        symbols.push(ImportSymbol::All);
+                    }
+                    Some(Ok((Token::LeftBrace, _))) => {
+                        // 选择导入: import module.{a, b, c}
+                        ti.next();
+                        
+                        loop {
+                            let token = self.expect_token(ti, "标识符")?;
+                            match token {
+                                Token::Ident(name) => {
+                                    let mut alias = None;
+                                    
+                                    match ti.peek() {
+                                        Some(Ok((Token::Ident(ref s), _))) if s == "as" => {
+                                            ti.next();
+                                            let alias_token = self.expect_token(ti, "标识符")?;
+                                            match alias_token {
+                                                Token::Ident(alias_name) => {
+                                                    alias = Some(alias_name);
+                                                }
+                                                _ => {
+                                                    return Err(self.err(format!("期望标识符，但得到 {:?}", alias_token), ti));
+                                                }
+                                            }
+                                        }
+                                        _ => {}
+                                    }
+                                    
+                                    symbols.push(ImportSymbol::Named(name, alias));
+                                    
+                                    match ti.peek() {
+                                        Some(Ok((Token::Comma, _))) => {
+                                            ti.next();
+                                        }
+                                        Some(Ok((Token::RightBrace, _))) => {
+                                            ti.next();
+                                            break;
+                                        }
+                                        _ => {
+                                            return Err(self.err("期望 , 或 }", ti));
+                                        }
+                                    }
+                                }
+                                _ => {
+                                    return Err(self.err(format!("期望标识符，但得到 {:?}", token), ti));
+                                }
+                            }
+                        }
+                    }
+                    _ => {
+                        return Err(self.err("期望 * 或 {", ti));
+                    }
+                }
+            }
+            _ => {
+                // 单一导入: import module
+                symbols.push(ImportSymbol::All);
+            }
+        }
+        
+        // 吃掉分号
+        self.eat_semi(ti);
+        
+        Ok(ImportDecl {
+            module_path,
+            symbols,
+        })
     }
 
     fn eat_mut(&self, ti: &mut TokenIterator) -> bool {
@@ -630,7 +769,22 @@ impl XParser {
 
             Token::StringQuote => self.parse_string(ti),
             Token::StringContent(c) => Ok(Expression::Literal(Literal::String(c))),
-            Token::Ident(name) => Ok(Expression::Variable(name)),
+            Token::Ident(name) => {
+                // 检查是否是函数调用
+                if matches!(ti.peek(), Some(Ok((Token::LeftParen, _)))) {
+                    // 特殊处理Some和None模式
+                    if name == "Some" || name == "None" {
+                        // 这里应该解析为模式，但暂时返回变量
+                        Ok(Expression::Variable(name))
+                    } else {
+                        ti.next();
+                        let args = self.parse_call_arguments(ti)?;
+                        Ok(Expression::Call(Box::new(Expression::Variable(name)), args))
+                    }
+                } else {
+                    Ok(Expression::Variable(name))
+                }
+            }
             Token::When => self.parse_when(ti),
             Token::LeftParen => {
                 if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
@@ -662,6 +816,41 @@ impl XParser {
                     t => return Err(self.err(format!("期望 ]，但得到 {:?}", t), ti)),
                 }
                 Ok(Expression::Array(elems))
+            }
+            Token::LeftBrace => {
+                // 处理对象字面量 (map)
+                let mut pairs = Vec::new();
+                if !matches!(ti.peek(), Some(Ok((Token::RightBrace, _)))) {
+                    loop {
+                        // 解析键
+                        let key = self.expect_token(ti, "键")?;
+                        let key_expr = match key {
+                            Token::Ident(name) => Expression::Literal(Literal::String(name)),
+                            Token::StringContent(s) => Expression::Literal(Literal::String(s)),
+                            _ => return Err(self.err(format!("期望键，但得到 {:?}", key), ti)),
+                        };
+                        
+                        // 解析 =>
+                        match self.expect_token(ti, "=>")? {
+                            Token::FatArrow => {}
+                            t => return Err(self.err(format!("期望 =>，但得到 {:?}", t), ti)),
+                        }
+                        
+                        // 解析值
+                        let value = self.parse_expression(ti)?;
+                        pairs.push((key_expr, value));
+                        
+                        match ti.peek() {
+                            Some(Ok((Token::Comma, _))) => { ti.next(); }
+                            _ => break,
+                        }
+                    }
+                }
+                match self.expect_token(ti, "}")? {
+                    Token::RightBrace => {}
+                    t => return Err(self.err(format!("期望 }}, 但得到 {:?}", t), ti)),
+                }
+                Ok(Expression::Dictionary(pairs))
             }
             t => Err(self.err(format!("期望表达式，但得到 {:?}", t), ti)),
         }

@@ -388,6 +388,47 @@ let items = ["a", "b", "c"]
 let chosen = rand::choice(items)
 ```
 
+## json：JSON 序列化和反序列化
+
+`json` 模块提供 JSON 序列化和反序列化功能。
+
+### 序列化（值转 JSON）
+
+```x
+// 序列化基本类型
+let json_num = json::to_json(42)  // "42"
+let json_str = json::to_json("hello")  // "\"hello\""
+let json_bool = json::to_json(true)  // "true"
+let json_null = json::to_json(null)  // "null"
+
+// 序列化数组
+let json_arr = json::to_json([1, 2, 3, "four", 5.5, true, null])
+// "[1,2,3,\"four\",5.5,true,null]"
+
+// 序列化映射
+let map = map("name" => "John", "age" => 30, "is_admin" => false)
+let json_map = json::to_json(map)
+// "{\"name\":\"John\",\"age\":30,\"is_admin\":false}"
+```
+
+### 反序列化（JSON 转值）
+
+```x
+// 反序列化基本类型
+let num = json::parse("42")  // 42
+let str = json::parse("\"hello\"")  // "hello"
+let bool = json::parse("true")  // true
+let null_val = json::parse("null")  // null
+
+// 反序列化数组
+let arr = json::parse("[1, 2, 3, \"four\", 5.5, true, null]")
+// [1, 2, 3, "four", 5.5, true, null]
+
+// 反序列化对象
+let obj = json::parse("{\"name\": \"John\", \"age\": 30, \"is_admin\": false}")
+// map with keys "name", "age", "is_admin"
+```
+
 ## 总结
 
 常用标准库模块：
@@ -401,6 +442,7 @@ let chosen = rand::choice(items)
 - **math** - 数学函数和常量
 - **convert** - 类型转换
 - **rand** - 随机数生成（如果可用）
+- **json** - JSON 序列化和反序列化
 
 这些模块涵盖了你在日常 X 编程中需要的大部分功能。与往常一样，官方文档是完整 API 的最佳资源！
 

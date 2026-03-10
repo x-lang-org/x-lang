@@ -61,10 +61,10 @@ function unwrap_or<T>(opt: Option<T>, default: T): T {
 }
 
 /// 解包 Option，包含值时返回该值，否则调用函数生成默认值
-function unwrap_or_else<T>(opt: Option<T>, default_functionc: () -> T): T {
+function unwrap_or_else<T>(opt: Option<T>, default_function: () -> T): T {
   when opt is
     Some { value } -> value
-    None -> default_functionc()
+    None -> default_function()
 }
 
 // ==========================================
@@ -124,8 +124,8 @@ function ok_or<T, E>(opt: Option<T>, err: E): Result<T, E> {
 }
 
 /// 将 Option 转换为 Result，None 时调用函数生成错误
-function ok_or_else<T, E>(opt: Option<T>, err_functionc: () -> E): Result<T, E> {
+function ok_or_else<T, E>(opt: Option<T>, err_function: () -> E): Result<T, E> {
   when opt is
     Some { value } -> Ok(value)
-    None -> Err(err_functionc())
+    None -> Err(err_function())
 }

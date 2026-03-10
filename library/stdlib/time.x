@@ -59,26 +59,26 @@ let SECONDS_PER_DAY: Int = 86400
 
 /// 获取当前时间（自 Unix 纪元以来的秒数）
 function timestamp(): Int {
-  // 内置函数
-  "__builtin_timestamp"
+  // 简单实现，实际需要底层支持
+  0
 }
 
 /// 获取当前时间（自 Unix 纪元以来的毫秒数）
 function timestamp_millis(): Int {
-  // 内置函数
-  "__builtin_timestamp_millis"
+  // 简单实现，实际需要底层支持
+  0
 }
 
 /// 获取当前时间（自 Unix 纪元以来的微秒数）
 function timestamp_micros(): Int {
-  // 内置函数
-  "__builtin_timestamp_micros"
+  // 简单实现，实际需要底层支持
+  0
 }
 
 /// 获取当前时间（自 Unix 纪元以来的纳秒数）
 function timestamp_nanos(): Int {
-  // 内置函数
-  "__builtin_timestamp_nanos"
+  // 简单实现，实际需要底层支持
+  0
 }
 
 /// 获取当前时间点
@@ -94,8 +94,8 @@ function now(): Time {
 
 /// 睡眠指定秒数
 function sleep(seconds: Float) {
-  // 内置函数
-  "__builtin_sleep"
+  // 简单实现，实际需要底层支持
+  seconds
 }
 
 /// 睡眠指定毫秒数
@@ -277,24 +277,44 @@ function time_compare(a: Time, b: Time): Int {
 
 /// 将时间戳转换为本地日历时间
 function to_local_datetime(seconds: Int): DateTime {
-  // 内置函数
-  "__builtin_to_local_datetime"
+  // 简单实现，实际需要底层支持
+  {
+    year: 1970,
+    month: 1,
+    day: 1,
+    hour: 0,
+    minute: 0,
+    second: 0,
+    weekday: 4, // 1970-01-01 was Thursday
+    yearday: 1,
+    is_dst: false
+  }
 }
 
 /// 将时间戳转换为 UTC 日历时间
 function to_utc_datetime(seconds: Int): DateTime {
-  // 内置函数
-  "__builtin_to_utc_datetime"
+  // 简单实现，实际需要底层支持
+  {
+    year: 1970,
+    month: 1,
+    day: 1,
+    hour: 0,
+    minute: 0,
+    second: 0,
+    weekday: 4, // 1970-01-01 was Thursday
+    yearday: 1,
+    is_dst: false
+  }
 }
 
 /// 将日历时间转换为时间戳
 function from_datetime(dt: DateTime): Int {
-  // 内置函数
-  "__builtin_from_datetime"
+  // 简单实现，实际需要底层支持
+  0
 }
 
 /// 获取当前本地时间
-fn local_now(): DateTime {
+function local_now(): DateTime {
   to_local_datetime(timestamp())
 }
 
