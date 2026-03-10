@@ -89,6 +89,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
         .playground-title {
@@ -100,6 +102,44 @@
         .playground-controls {
             display: flex;
             gap: 1rem;
+            align-items: center;
+        }
+        
+        .example-select {
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .example-select:hover {
+            border-color: #adb5bd;
+            background-color: #f8f9fa;
+        }
+        
+        .example-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .example-select option {
+            padding: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .playground-controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .example-select {
+                width: 100%;
+                max-width: 200px;
+            }
         }
         
         .btn {
@@ -253,6 +293,16 @@
             <div class="playground-header">
                 <div class="playground-title">X语言代码编辑器</div>
                 <div class="playground-controls">
+                    <select class="example-select" id="example-select" onchange="loadExample(this.value)">
+                        <option value="">选择示例</option>
+                        <option value="hello-world">Hello World</option>
+                        <option value="arithmetic">算术运算</option>
+                        <option value="conditionals">条件语句</option>
+                        <option value="loops">循环</option>
+                        <option value="functions">函数定义</option>
+                        <option value="data-structures">数据结构</option>
+                        <option value="error-handling">错误处理</option>
+                    </select>
                     <button class="btn btn-run" onclick="runCode()">运行</button>
                     <button class="btn btn-reset" onclick="resetCode()">重置</button>
                 </div>
@@ -313,8 +363,11 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/rust/rust.min.js"></script>
-    
-    <script>
+    <script src="https://unpkg.com/@typescript/standalone@5.6.2/lib/typescript.js"></script>
+    <script type="module">
+        // 导入 WebAssembly 模块
+        import init, { compile_x_to_ts } from './x_codegen_wasm.js';
+        
         // 初始化代码编辑器
         const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             mode: 'rust',
@@ -325,59 +378,237 @@
             autofocus: true
         });
         
+        let wasmInitialized = false;
+        
+        // 示例代码定义
+        const examples = {
+            'hello-world': `fn main() {
+    print("Hello, X Language!");
+    print("Welcome to the Playground!");
+}`,
+            'arithmetic': `fn main() {
+    // 基本算术运算
+    let a: i32 = 10;
+    let b: i32 = 5;
+    
+    print("a = {}, b = {}", a, b);
+    print("a + b = {}", a + b);
+    print("a - b = {}", a - b);
+    print("a * b = {}", a * b);
+    print("a / b = {}", a / b);
+    print("a % b = {}", a % b);
+}`,
+            'conditionals': `fn main() {
+    let x: i32 = 10;
+    let y: i32 = 15;
+    
+    print("x = {}, y = {}", x, y);
+    
+    if x > y {
+        print("x is greater than y");
+    } else if x < y {
+        print("x is less than y");
+    } else {
+        print("x is equal to y");
+    }
+    
+    // 嵌套条件
+    let z: i32 = 5;
+    if z > 0 {
+        if z % 2 == 0 {
+            print("z is positive and even");
+        } else {
+            print("z is positive and odd");
+        }
+    } else if z < 0 {
+        print("z is negative");
+    } else {
+        print("z is zero");
+    }
+}`,
+            'loops': `fn main() {
+    // for 循环
+    print("Counting from 1 to 5:");
+    for i in 1..6 {
+        print(i);
+    }
+    
+    // while 循环
+    print("\nCounting down from 5 to 1:");
+    let mut count: i32 = 5;
+    while count > 0 {
+        print(count);
+        count = count - 1;
+    }
+    
+    // 循环中断
+    print("\nCounting until 3:");
+    for i in 1..10 {
+        if i > 3 {
+            break;
+        }
+        print(i);
+    }
+}`,
+            'functions': `fn add(a: i32, b: i32) -> i32 {
+    return a + b;
+}
+
+fn multiply(a: i32, b: i32) -> i32 {
+    a * b // 隐式返回
+}
+
+fn greet(name: String) {
+    print("Hello, {}!", name);
+}
+
+fn main() {
+    let sum = add(5, 3);
+    print("5 + 3 = {}", sum);
+    
+    let product = multiply(4, 6);
+    print("4 * 6 = {}", product);
+    
+    greet("World");
+}
+`,
+            'data-structures': `fn main() {
+    // 列表
+    let mut numbers = [1, 2, 3, 4, 5];
+    print("Numbers: {:?}", numbers);
+    
+    // 访问列表元素
+    print("First element: {}", numbers[0]);
+    print("Last element: {}", numbers[4]);
+    
+    // 映射
+    let mut person = {
+        "name": "Alice",
+        "age": 30,
+        "city": "New York"
+    };
+    
+    print("Person: {:?}", person);
+    print("Name: {}", person["name"]);
+    print("Age: {}", person["age"]);
+}
+`,
+            'error-handling': `fn divide(a: i32, b: i32) -> Option<i32> {
+    if b == 0 {
+        return None;
+    }
+    Some(a / b)
+}
+
+fn main() {
+    // 处理 Option 类型
+    match divide(10, 2) {
+        Some(result) => print("10 / 2 = {}", result),
+        None => print("Cannot divide by zero")
+    }
+    
+    match divide(10, 0) {
+        Some(result) => print("10 / 0 = {}", result),
+        None => print("Cannot divide by zero")
+    }
+    
+    // 使用 if let
+    if let Some(result) = divide(20, 4) {
+        print("20 / 4 = {}", result);
+    }
+}`
+        };
+        
+        // 初始化 WebAssembly
+        async function initWasm() {
+            if (!wasmInitialized) {
+                await init();
+                wasmInitialized = true;
+            }
+        }
+        
         // 运行代码
-        function runCode() {
+        async function runCode() {
             const code = editor.getValue();
             const output = document.getElementById('output');
+            const runButton = document.querySelector('.btn-run');
             
-            // 模拟代码执行
+            // 禁用运行按钮，防止重复点击
+            runButton.disabled = true;
+            runButton.textContent = '运行中...';
+            
             output.innerHTML = '<span class="success">正在执行代码...</span>\n';
             
-            setTimeout(() => {
-                // 模拟输出
-                let result = '';
+            try {
+                // 初始化 WebAssembly
+                output.innerHTML += '<span class="success">正在加载编译器...</span>\n';
+                await initWasm();
                 
-                // 简单的代码分析和模拟
-                if (code.includes('Hello, Playground!')) {
-                    result += 'Hello, Playground!\n';
-                }
+                // 1. 编译 X 语言到 TypeScript
+                output.innerHTML += '<span class="success">正在编译 X 语言到 TypeScript...</span>\n';
+                const tsCode = await compile_x_to_ts(code);
                 
-                if (code.includes('x = {}, y = {}')) {
-                    result += 'x = 5, y = 10\n';
-                }
+                // 2. 编译 TypeScript 到 JavaScript
+                output.innerHTML += '<span class="success">正在编译 TypeScript 到 JavaScript...</span>\n';
+                const jsCode = compileTypeScriptToJavaScript(tsCode);
                 
-                if (code.includes('sum = {}')) {
-                    result += 'sum = 15\n';
-                }
-                
-                if (code.includes('difference = {}')) {
-                    result += 'difference = -5\n';
-                }
-                
-                if (code.includes('product = {}')) {
-                    result += 'product = 50\n';
-                }
-                
-                if (code.includes('quotient = {}')) {
-                    result += 'quotient = 2\n';
-                }
-                
-                if (code.includes('x is less than y')) {
-                    result += 'x is less than y\n';
-                }
-                
-                if (code.includes('Counting from 1 to 5:')) {
-                    result += 'Counting from 1 to 5:\n';
-                    result += '1\n';
-                    result += '2\n';
-                    result += '3\n';
-                    result += '4\n';
-                    result += '5\n';
-                }
+                // 3. 执行 JavaScript
+                output.innerHTML += '<span class="success">正在执行 JavaScript...</span>\n\n';
+                const result = executeJavaScript(jsCode);
                 
                 // 显示结果
-                output.innerHTML = '<span class="success">执行完成！</span>\n\n' + result;
-            }, 1000);
+                output.innerHTML += '<span class="success">执行完成！</span>\n\n' + result;
+            } catch (error) {
+                output.innerHTML = '<span class="error">执行错误：</span>\n' + (error.message || '未知错误');
+            } finally {
+                // 恢复运行按钮状态
+                runButton.disabled = false;
+                runButton.textContent = '运行';
+            }
+        }
+        
+        // 编译 TypeScript 到 JavaScript
+        function compileTypeScriptToJavaScript(tsCode) {
+            const result = ts.transpileModule(tsCode, {
+                compilerOptions: {
+                    module: ts.ModuleKind.ESNext,
+                    target: ts.ScriptTarget.ESNext,
+                    strict: false
+                }
+            });
+            return result.outputText;
+        }
+        
+        // 执行 JavaScript
+        function executeJavaScript(jsCode) {
+            // 捕获 console.log 输出
+            const originalLog = console.log;
+            let output = '';
+            
+            console.log = function(...args) {
+                output += args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ') + '\n';
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                // 执行代码
+                eval(jsCode);
+            } catch (error) {
+                output += '<span class="error">执行错误：' + error.message + '</span>\n';
+            } finally {
+                // 恢复原始 console.log
+                console.log = originalLog;
+            }
+            
+            return output || '无输出';
+        }
+        
+        // 加载示例代码
+        function loadExample(exampleId) {
+            if (exampleId && examples[exampleId]) {
+                editor.setValue(examples[exampleId]);
+                document.getElementById('output').innerHTML = '点击"运行"按钮执行代码...';
+            }
         }
         
         // 重置代码
@@ -419,7 +650,13 @@
             
             editor.setValue(defaultCode);
             document.getElementById('output').innerHTML = '点击"运行"按钮执行代码...';
+            document.getElementById('example-select').value = '';
         }
+        
+        // 暴露函数到全局
+        window.runCode = runCode;
+        window.resetCode = resetCode;
+        window.loadExample = loadExample;
     </script>
 </body>
 </html>

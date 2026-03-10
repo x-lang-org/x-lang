@@ -10,7 +10,7 @@ members = [
     "x-codegen-js",
     "x-codegen-jvm",
     "x-codegen-dotnet",
-    "x-interpreter",
+    "x-interpreter", "x-codegen-wasm",
 ]
 
 [workspace.dependencies]
