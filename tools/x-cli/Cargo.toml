@@ -9,7 +9,6 @@ default-run = "x"
 
 [features]
 default = []
-codegen = ["x-codegen/llvm"]
 
 [dependencies]
 # Pipeline crates

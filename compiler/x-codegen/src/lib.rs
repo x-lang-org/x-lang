@@ -7,8 +7,6 @@ use x_parser::ast::Program;
 pub mod error;
 pub mod xir;
 pub mod lower;
-#[cfg(feature = "llvm")]
-pub mod llvm_lower;
 
 pub mod target;
 pub mod zig_backend;
@@ -94,21 +92,6 @@ pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResul
                 debug_info: config.debug_info,
             })));
         }
-        Target::LlvmIr => {
-            #[cfg(feature = "llvm")]
-            {
-                return Ok(Box::new(LlvmCodeGenerator::new(LlvmConfig {
-                    target: LlvmTarget::LlvmIr,
-                    output_dir: config.output_dir,
-                    optimize: config.optimize,
-                    debug_info: config.debug_info,
-                })));
-            }
-            #[cfg(not(feature = "llvm"))]
-            return Err(CodeGenError::UnsupportedFeature(
-                "LLVM backend not enabled. Build with --features llvm.".to_string(),
-            ));
-        }
         Target::Jvm => {
             #[cfg(feature = "jvm")]
             return Ok(Box::new(JvmCodeGenerator::new(JvmConfig {
@@ -183,25 +166,6 @@ impl DynamicCodeGenerator for zig_backend::ZigBackend {
 
 // 下面的是临时占位符，实际应该在各个 x-codegen-* crate 中实现
 
-#[cfg(feature = "llvm")]
-pub struct LlvmCodeGenerator;
-
-#[cfg(feature = "llvm")]
-#[derive(Debug, Clone)]
-pub struct LlvmConfig {
-    pub target: LlvmTarget,
-    pub output_dir: Option<PathBuf>,
-    pub optimize: bool,
-    pub debug_info: bool,
-}
-
-#[cfg(feature = "llvm")]
-#[derive(Debug, PartialEq, Clone)]
-pub enum LlvmTarget {
-    Native,
-    Wasm,
-    LlvmIr,
-}
 
 #[cfg(feature = "jvm")]
 pub struct JvmCodeGenerator;

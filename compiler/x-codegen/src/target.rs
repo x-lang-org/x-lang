@@ -3,7 +3,7 @@
 /// 支持的目标平台
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Target {
-    /// 本地机器码（Native）- LLVM后端
+    /// 本地机器码（Native）- Zig后端
     Native,
     /// Java虚拟机（JVM）- Java字节码
     Jvm,
@@ -15,8 +15,6 @@ pub enum Target {
     TypeScript,
     /// WebAssembly - 浏览器或Wasm运行时
     Wasm,
-    /// LLVM IR - 中间表示（用于调试）
-    LlvmIr,
     /// Python 字节码 - .pyc 文件
     Pyc,
     /// Python 源代码 - .py 文件
@@ -33,7 +31,6 @@ impl Target {
             Target::JavaScript => "javascript",
             Target::TypeScript => "typescript",
             Target::Wasm => "wasm",
-            Target::LlvmIr => "llvm-ir",
             Target::Pyc => "pyc",
             Target::Python => "python",
         }
@@ -48,7 +45,6 @@ impl Target {
             "js" | "javascript" => Some(Target::JavaScript),
             "ts" | "typescript" => Some(Target::TypeScript),
             "wasm" => Some(Target::Wasm),
-            "llvm-ir" => Some(Target::LlvmIr),
             "pyc" | "pyo3" => Some(Target::Pyc),
             "python" | "py" => Some(Target::Python),
             _ => None,
@@ -64,7 +60,6 @@ impl Target {
             Target::JavaScript => "js",
             Target::TypeScript => "ts",
             Target::Wasm => "wasm",
-            Target::LlvmIr => "ll",
             Target::Pyc => "pyc",
             Target::Python => "py",
         }
@@ -96,8 +91,6 @@ pub enum FileType {
     ObjectFile,
     /// 可执行文件（.exe）
     Executable,
-    /// LLVM IR（.ll）
-    LlvmIr,
     /// JVM字节码（.class）
     JvmBytecode,
     /// JAR文件（.jar）
@@ -128,7 +121,6 @@ impl FileType {
         match self {
             FileType::ObjectFile => "o",
             FileType::Executable => "exe",
-            FileType::LlvmIr => "ll",
             FileType::JvmBytecode => "class",
             FileType::JarFile => "jar",
             FileType::DotNetAssembly => "dll",
@@ -148,7 +140,6 @@ impl FileType {
         match self {
             FileType::ObjectFile => "Object file",
             FileType::Executable => "Executable",
-            FileType::LlvmIr => "LLVM IR",
             FileType::JvmBytecode => "JVM bytecode",
             FileType::JarFile => "JAR file",
             FileType::DotNetAssembly => ".NET assembly",

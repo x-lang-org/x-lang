@@ -84,34 +84,8 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             println!("{:#?}", pir);
             Ok(())
         }
-        "llvm-ir" => {
-            let pipeline_result = pipeline::run_pipeline(content)?;
-            #[cfg(feature = "codegen")]
-            {
-                let (program, _, _) = pipeline_result;
-                let config = x_codegen::CodeGenConfig {
-                    target: x_codegen::Target::LlvmIr,
-                    ..Default::default()
-                };
-                let bytes = x_codegen::generate_code(&program, &config)
-                    .map_err(|e| format!("代码生成错误: {}", e))?;
-                if let Ok(s) = String::from_utf8(bytes) {
-                    print!("{}", s);
-                }
-            }
-            #[cfg(not(feature = "codegen"))]
-            {
-                let _ = pipeline_result;
-                return Err(
-                    "需要启用 codegen 特性并安装 LLVM 21: cargo build --features codegen"
-                        .to_string(),
-                );
-            }
-            #[allow(unreachable_code)]
-            Ok(())
-        }
         _ => Err(format!(
-            "未知 --emit 阶段: {}（支持: tokens, ast, zig, hir, pir, llvm-ir）",
+            "未知 --emit 阶段: {}（支持: tokens, ast, zig, hir, pir）",
             stage
         )),
     }

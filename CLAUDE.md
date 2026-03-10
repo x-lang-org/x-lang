@@ -12,24 +12,6 @@ X language is a modern programming language with natural-language-style keywords
 
 This project uses **Cargo** (Rust). No Buck2.
 
-### LLVM 21 Dependency
-
-x-codegen-llvm uses inkwell 0.8 with `llvm21-1` feature. If LLVM 21 is installed in a non-standard path, set the environment variable before building:
-
-```bash
-# Windows (PowerShell)
-$env:LLVM_SYS_211_PREFIX = "C:\Program Files\LLVM"
-
-# Windows (cmd)
-set LLVM_SYS_211_PREFIX=C:\Program Files\LLVM
-
-# Linux / macOS
-export LLVM_SYS_211_PREFIX=/usr  # or /opt/llvm-21
-```
-
-LLVM is not required for:
-- Running `x run` (interpreter)
-- Running tests without codegen: `cd compiler && cargo test -p x-lexer -p x-parser -p x-typechecker -p x-hir -p x-perceus -p x-interpreter`
 
 ### Zig Compiler Dependency
 
@@ -56,15 +38,12 @@ cd tools/x-cli && cargo run -- run <file.x>
 cd tools/x-cli && cargo run -- check <file.x>
 
 # Compile: full pipeline; --emit for debugging
-cd tools/x-cli && cargo run -- compile <file.x> [-o output] [--emit tokens|ast|hir|pir|llvm-ir|zig] [--no-link]
+cd tools/x-cli && cargo run -- compile <file.x> [-o output] [--emit tokens|ast|hir|pir|zig] [--no-link]
 # With Zig backend (most mature): generates Zig code and compiles to executable or Wasm
 cd tools/x-cli && cargo run -- compile hello.x -o hello
 
-# Run all compiler unit tests (requires LLVM for x-codegen-llvm)
+# Run all compiler unit tests
 cd compiler && cargo test
-
-# Run compiler unit tests without LLVM
-cd compiler && cargo test -p x-lexer -p x-parser -p x-typechecker -p x-hir -p x-perceus -p x-interpreter -p x-codegen
 
 # Run a single test
 cd compiler && cargo test -p <crate> <test_name>
@@ -123,7 +102,6 @@ flowchart LR
 | Backend | Status | Description |
 |---------|--------|-------------|
 | Zig | ✅ Mature | Compiles to Zig, then uses Zig compiler to produce native or Wasm binaries. Most features implemented. |
-| LLVM | 🚧 Partial | Uses inkwell 0.8 (LLVM 21) for native code generation. |
 | JavaScript | 🚧 Early | Compiles to JavaScript for browser/Node.js. |
 | JVM | 🚧 Early | Compiles to JVM bytecode. |
 | .NET | 🚧 Early | Compiles to .NET CIL. |
@@ -131,7 +109,7 @@ flowchart LR
 **Current reality**: The full pipeline is wired in the CLI:
 - **run**: Source → Parse → TypeCheck → Interpreter
 - **check**: Source → Parse → TypeCheck
-- **compile**: Source → Parse → TypeCheck → HIR → Perceus → (optional) Codegen → executable/object file. Use `--emit tokens|ast|hir|pir|llvm-ir|zig` to dump intermediate stages.
+- **compile**: Source → Parse → TypeCheck → HIR → Perceus → Codegen → executable/object file. Use `--emit tokens|ast|hir|pir|zig` to dump intermediate stages.
 
 ## Crate Responsibilities
 
@@ -144,7 +122,6 @@ flowchart LR
 | x-typechecker   | `compiler/x-typechecker` | Type checking and semantic analysis. Error types defined; logic mostly stub. |
 | x-perceus       | `compiler/x-perceus` | Perceus-style analysis (dup/drop, reuse). Present; integration TBD. |
 | x-codegen       | `compiler/x-codegen` | Common codegen infrastructure + Zig backend. XIR (X Intermediate Representation) definition. |
-| x-codegen-llvm  | `compiler/x-codegen-llvm` | LLVM backend. |
 | x-codegen-js    | `compiler/x-codegen-js` | JavaScript backend. |
 | x-codegen-jvm   | `compiler/x-codegen-jvm` | JVM backend. |
 | x-codegen-dotnet | `compiler/x-codegen-dotnet` | .NET backend. |
@@ -154,7 +131,7 @@ flowchart LR
 
 ## Testing
 
-- **Unit tests**: In each crate under `#[cfg(test)]`. Run with `cd compiler && cargo test`. (Note: full `cargo test` builds x-codegen-llvm which requires LLVM; without LLVM use `cd compiler && cargo test -p x-lexer -p x-parser -p x-typechecker -p x-hir -p x-perceus -p x-interpreter -p x-codegen`.)
+- **Unit tests**: In each crate under `#[cfg(test)]`. Run with `cd compiler && cargo test`.
 - **Spec tests**: In `spec/x-spec`. TOML cases with `source`, `exit_code`, `compile_fail`, `error_contains`, and optional `spec = ["section"]` for traceability to the spec in [spec/](spec/). Run with `cargo run -p x-spec` or a top-level `test.sh` if added.
 - **Benchmark tests**: In `examples/`. Run with `build_benchmarks.sh` to test codegen backends against expected outputs.
 
@@ -204,9 +181,6 @@ When adding or changing language features, follow this order:
 
 This project uses **Git**. Issue tracking can stay on GitHub (or existing workflow). No Jujutsu (jj) or bd (beads) requirement.
 
-## Important Environment Variables
-
-- **LLVM_SYS_211_PREFIX**: Required for building x-codegen-llvm. Should point to your LLVM 21 installation directory.
 
 ## Quick Reference
 
@@ -215,8 +189,7 @@ This project uses **Git**. Issue tracking can stay on GitHub (or existing workfl
 - **Check**: `cd tools/x-cli && cargo run -- check <file.x>` - 检查语法和类型
 - **Emit tokens/AST**: `cd tools/x-cli && cargo run -- compile <file.x> --emit tokens` 或 `--emit ast` - 输出中间表示
 - **Tests**:
-  - 所有单元测试：`cd compiler && cargo test`（需要 LLVM）
-  - 无 LLVM 的单元测试：`cd compiler && cargo test -p x-lexer -p x-parser -p x-typechecker -p x-hir -p x-perceus -p x-interpreter -p x-codegen`
+  - 所有单元测试：`cd compiler && cargo test`
   - 规格测试：`cargo run -p x-spec` 或 `./test.sh`
   - 单个测试：`cd compiler && cargo test -p <crate> <test_name>` 例如 `cargo test -p x-parser parse_function`
 - **Examples**: 查看 `examples/` 目录下的示例程序，如 `hello.x`、`fib.x` 等

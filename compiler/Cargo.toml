@@ -29,5 +29,4 @@ log = "0.4"
 im = "15.1"
 lalrpop = "0.20"
 lalrpop-util = "0.20"
-inkwell = { version = "0.8", default-features = false, features = ["llvm21-1", "target-x86"] }
 tokio = { version = "1.35", features = ["full"] }

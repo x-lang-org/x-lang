@@ -100,15 +100,12 @@ enum Commands {
         file: String,
         #[arg(short, long, value_name = "OUTPUT")]
         output: Option<String>,
-        /// 输出中间结果: tokens, ast, hir, pir, llvm-ir
+        /// 输出中间结果: tokens, ast, hir, pir, zig
         #[arg(long, value_name = "STAGE")]
         emit: Option<String>,
         /// 仅生成目标文件，不链接
         #[arg(long)]
         no_link: bool,
-        /// 指定C编译器路径
-        #[arg(long, value_name = "COMPILER")]
-        compiler: Option<String>,
     },
 
     /// 运行项目测试

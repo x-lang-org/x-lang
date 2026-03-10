@@ -7,14 +7,11 @@ license = "MIT"
 
 [features]
 default = []
-llvm = ["inkwell"]
 
 [dependencies]
 x-parser = { workspace = true }
 x-perceus = { workspace = true }
 
-# LLVM 绑定 - 可选依赖，需本机安装 LLVM 21
-inkwell = { version = "0.8", default-features = false, features = ["llvm21-1", "target-x86"], optional = true }
 
 # 错误处理
 thiserror = "1.0"
@@ -22,9 +19,6 @@ thiserror = "1.0"
 # 日志
 log = "0.4"
 
-[[bin]]
-name = "compile_benchmark"
-path = "src/compile_benchmark.rs"
 
 [[bin]]
 name = "compile_with_zig"
