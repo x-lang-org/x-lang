@@ -293,7 +293,7 @@
             <div class="playground-header">
                 <div class="playground-title">X语言代码编辑器</div>
                 <div class="playground-controls">
-                    <select class="example-select" id="example-select" onchange="loadExample(this.value)">
+                    <select class="example-select" id="example-select">
                         <option value="">选择示例</option>
                         <option value="hello-world">Hello World</option>
                         <option value="arithmetic">算术运算</option>
@@ -303,8 +303,8 @@
                         <option value="data-structures">数据结构</option>
                         <option value="error-handling">错误处理</option>
                     </select>
-                    <button class="btn btn-run" onclick="runCode()">运行</button>
-                    <button class="btn btn-reset" onclick="resetCode()">重置</button>
+                    <button class="btn btn-run" id="run-button">运行</button>
+                    <button class="btn btn-reset" id="reset-button">重置</button>
                 </div>
             </div>
             
@@ -364,7 +364,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/rust/rust.min.js"></script>
     <script src="https://unpkg.com/@typescript/standalone@5.6.2/lib/typescript.js"></script>
-    <script>
+    <script type="module">
+        // 导入 WebAssembly 模块
+        import init, { compile_x_to_ts } from './x_codegen_wasm.js';
+        
         // 初始化代码编辑器
         const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
             mode: 'rust',
@@ -376,17 +379,6 @@
         });
         
         let wasmInitialized = false;
-        let initWasmModule = null;
-        let compile_x_to_ts = null;
-        
-        // 动态导入 WebAssembly 模块
-        async function loadWasmModule() {
-            if (!initWasmModule) {
-                const module = await import('./x_codegen_wasm.js');
-                initWasmModule = module.init;
-                compile_x_to_ts = module.compile_x_to_ts;
-            }
-        }
         
         // 示例代码定义
         const examples = {
@@ -530,8 +522,7 @@ fn main() {
         // 初始化 WebAssembly
         async function initWasm() {
             if (!wasmInitialized) {
-                await loadWasmModule();
-                await initWasmModule();
+                await init();
                 wasmInitialized = true;
             }
         }
@@ -662,10 +653,13 @@ fn main() {
             document.getElementById('example-select').value = '';
         }
         
-        // 暴露函数到全局
-        window.runCode = runCode;
-        window.resetCode = resetCode;
-        window.loadExample = loadExample;
+        // 绑定事件监听器
+        document.getElementById('example-select').addEventListener('change', function(e) {
+            loadExample(e.target.value);
+        });
+        
+        document.getElementById('run-button').addEventListener('click', runCode);
+        document.getElementById('reset-button').addEventListener('click', resetCode);
     </script>
 </body>
 </html>
