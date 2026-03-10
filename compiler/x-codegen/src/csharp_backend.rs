@@ -58,7 +58,7 @@ impl CSharpBackend {
 
         self.emit_header()?;
         self.emit_namespace()?;
-        self.emit_class()?;
+        self.emit_class(program)?;
 
         // Create output file
         let output_file = super::OutputFile {
@@ -87,11 +87,24 @@ impl CSharpBackend {
         Ok(())
     }
 
-    fn emit_class(&mut self) -> CSharpResult<()> {
+    fn emit_class(&mut self, program: &AstProgram) -> CSharpResult<()> {
+        self.line("using System;")?;
+        self.line("")?;
         self.line("public class Program")?;
         self.line("{")?;
         self.indent += 1;
-        self.emit_main_method()?;
+
+        // Emit all function declarations as static methods
+        for decl in &program.declarations {
+            if let ast::Declaration::Function(func) = decl {
+                self.emit_function_as_method(func)?;
+                self.line("")?;
+            }
+        }
+
+        // Emit main method with program statements
+        self.emit_main_method(&program.statements)?;
+
         self.indent -= 1;
         self.line("}")?;
         self.indent -= 1;
@@ -99,11 +112,34 @@ impl CSharpBackend {
         Ok(())
     }
 
-    fn emit_main_method(&mut self) -> CSharpResult<()> {
+    fn emit_main_method(&mut self, statements: &[ast::Statement]) -> CSharpResult<()> {
         self.line("public static void Main(string[] args)")?;
         self.line("{")?;
         self.indent += 1;
-        self.line("Console.WriteLine(\"Hello from C# backend!\");")?;
+
+        // Emit all program statements
+        for stmt in statements {
+            self.emit_statement(stmt)?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_function_as_method(&mut self, func: &ast::FunctionDecl) -> CSharpResult<()> {
+        // For now, return void, we'll add type support later
+        let mut params = Vec::new();
+        for param in &func.parameters {
+            params.push(format!("object {}", param.name));
+        }
+
+        self.line(&format!("public static object {}({})", func.name, params.join(", ")))?;
+        self.line("{")?;
+        self.indent += 1;
+
+        self.emit_block(&func.body)?;
+
         self.indent -= 1;
         self.line("}")?;
         Ok(())
@@ -115,6 +151,162 @@ impl CSharpBackend {
         }
         writeln!(self.output, "{}", s)?;
         Ok(())
+    }
+
+    fn emit_statement(&mut self, stmt: &ast::Statement) -> CSharpResult<()> {
+        match stmt {
+            ast::Statement::Expression(expr) => {
+                let expr_str = self.emit_expr(expr)?;
+                self.line(&format!("{};", expr_str))?;
+            }
+            ast::Statement::Variable(decl) => {
+                let value_str = if let Some(init) = &decl.initializer {
+                    self.emit_expr(init)?
+                } else {
+                    "null".to_string()
+                };
+                self.line(&format!("var {} = {};", decl.name, value_str))?;
+            }
+            ast::Statement::If(if_stmt) => {
+                self.emit_if(if_stmt)?;
+            }
+            ast::Statement::While(while_stmt) => {
+                self.emit_while(while_stmt)?;
+            }
+            ast::Statement::Return(ret) => {
+                if let Some(expr) = ret {
+                    let expr_str = self.emit_expr(expr)?;
+                    self.line(&format!("return {};", expr_str))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            _ => {
+                return Err(CSharpBackendError::UnsupportedFeature(format!(
+                    "Statement type not supported: {:?}", stmt
+                )));
+            }
+        }
+        Ok(())
+    }
+
+    fn emit_block(&mut self, block: &ast::Block) -> CSharpResult<()> {
+        self.line("{")?;
+        self.indent += 1;
+        for stmt in &block.statements {
+            self.emit_statement(stmt)?;
+        }
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> CSharpResult<()> {
+        let cond_str = self.emit_expr(&if_stmt.condition)?;
+        self.line(&format!("if ({})", cond_str))?;
+        self.emit_block(&if_stmt.then_block)?;
+
+        if let Some(else_block) = &if_stmt.else_block {
+            self.line("else")?;
+            self.emit_block(else_block)?;
+        }
+
+        Ok(())
+    }
+
+    fn emit_while(&mut self, while_stmt: &ast::WhileStatement) -> CSharpResult<()> {
+        let cond_str = self.emit_expr(&while_stmt.condition)?;
+        self.line(&format!("while ({})", cond_str))?;
+        self.emit_block(&while_stmt.body)?;
+        Ok(())
+    }
+
+    fn emit_expr(&self, expr: &ast::Expression) -> CSharpResult<String> {
+        match expr {
+            ast::Expression::Literal(lit) => self.emit_literal(lit),
+            ast::Expression::Variable(name) => Ok(name.clone()),
+            ast::Expression::Binary(op, lhs, rhs) => {
+                let lhs_str = self.emit_expr(lhs)?;
+                let rhs_str = self.emit_expr(rhs)?;
+                Ok(format!("({} {} {})", lhs_str, self.emit_binop(op), rhs_str))
+            }
+            ast::Expression::Unary(op, operand) => {
+                let expr_str = self.emit_expr(operand)?;
+                Ok(format!("({}{})", self.emit_unaryop(op), expr_str))
+            }
+            ast::Expression::Call(callee, args) => {
+                let mut arg_strs = Vec::new();
+                for arg in args {
+                    arg_strs.push(self.emit_expr(arg)?);
+                }
+                let callee_str = self.emit_expr(callee)?;
+                self.emit_call(&callee_str, &arg_strs)
+            }
+            ast::Expression::Parenthesized(expr) => {
+                let inner = self.emit_expr(expr)?;
+                Ok(format!("({})", inner))
+            }
+            _ => {
+                Err(CSharpBackendError::UnsupportedFeature(format!(
+                    "Expression type not supported: {:?}", expr
+                )))
+            }
+        }
+    }
+
+    fn emit_literal(&self, lit: &ast::Literal) -> CSharpResult<String> {
+        match lit {
+            ast::Literal::Integer(n) => Ok(n.to_string()),
+            ast::Literal::Float(f) => Ok(f.to_string()),
+            ast::Literal::Boolean(b) => Ok(b.to_string().to_lowercase()),
+            ast::Literal::String(s) => Ok(format!("\"{}\"", s)),
+            ast::Literal::Char(c) => Ok(format!("'{}'", c)),
+            ast::Literal::Null | ast::Literal::None => Ok("null".to_string()),
+            ast::Literal::Unit => Ok("null".to_string()),
+        }
+    }
+
+    fn emit_binop(&self, op: &ast::BinaryOp) -> &str {
+        match op {
+            ast::BinaryOp::Add => "+",
+            ast::BinaryOp::Sub => "-",
+            ast::BinaryOp::Mul => "*",
+            ast::BinaryOp::Div => "/",
+            ast::BinaryOp::Mod => "%",
+            ast::BinaryOp::Pow => "Math.Pow", // Special case, will handle differently
+            ast::BinaryOp::Equal => "==",
+            ast::BinaryOp::NotEqual => "!=",
+            ast::BinaryOp::Less => "<",
+            ast::BinaryOp::LessEqual => "<=",
+            ast::BinaryOp::Greater => ">",
+            ast::BinaryOp::GreaterEqual => ">=",
+            ast::BinaryOp::And => "&&",
+            ast::BinaryOp::Or => "||",
+            ast::BinaryOp::BitAnd => "&",
+            ast::BinaryOp::BitOr => "|",
+            ast::BinaryOp::BitXor => "^",
+            ast::BinaryOp::LeftShift => "<<",
+            ast::BinaryOp::RightShift => ">>",
+            ast::BinaryOp::Concat => "+",
+            _ => "+", // Default for unsupported ops
+        }
+    }
+
+    fn emit_unaryop(&self, op: &ast::UnaryOp) -> &str {
+        match op {
+            ast::UnaryOp::Negate => "-",
+            ast::UnaryOp::Not => "!",
+            ast::UnaryOp::BitNot => "~",
+            _ => "", // Ignore other ops for now
+        }
+    }
+
+    fn emit_call(&self, callee: &str, args: &[String]) -> CSharpResult<String> {
+        match callee {
+            "println" => Ok(format!("Console.WriteLine({})", args.join(", "))),
+            "print" => Ok(format!("Console.Write({})", args.join(", "))),
+            _ => Ok(format!("{}({})", callee, args.join(", "))),
+        }
     }
 }
 
