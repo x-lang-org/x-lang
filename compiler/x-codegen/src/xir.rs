@@ -203,6 +203,10 @@ pub enum Statement {
     For(ForStatement),
     /// switch 语句
     Switch(SwitchStatement),
+    /// match 语句（模式匹配）
+    Match(MatchStatement),
+    /// try 语句
+    Try(TryStatement),
     /// break
     Break,
     /// continue
@@ -260,6 +264,14 @@ pub struct ForStatement {
     pub body: Box<Statement>,
 }
 
+/// for-in 语句（迭代器风格）
+#[derive(Debug, Clone, PartialEq)]
+pub struct ForInStatement {
+    pub variable: String,
+    pub iterator: Expression,
+    pub body: Box<Statement>,
+}
+
 /// switch 语句
 #[derive(Debug, Clone, PartialEq)]
 pub struct SwitchStatement {
@@ -273,6 +285,56 @@ pub struct SwitchStatement {
 pub struct SwitchCase {
     pub value: Expression,
     pub body: Box<Statement>,
+}
+
+/// match 语句（模式匹配）
+#[derive(Debug, Clone, PartialEq)]
+pub struct MatchStatement {
+    pub scrutinee: Expression,
+    pub cases: Vec<MatchCase>,
+}
+
+/// match case
+#[derive(Debug, Clone, PartialEq)]
+pub struct MatchCase {
+    pub pattern: Pattern,
+    pub body: Block,
+    pub guard: Option<Expression>,
+}
+
+/// 模式
+#[derive(Debug, Clone, PartialEq)]
+pub enum Pattern {
+    /// 通配符
+    Wildcard,
+    /// 变量绑定
+    Variable(String),
+    /// 字面量
+    Literal(Literal),
+    /// 构造器模式
+    Constructor(String, Vec<Pattern>),
+    /// 元组模式
+    Tuple(Vec<Pattern>),
+    /// 记录模式
+    Record(String, Vec<(String, Pattern)>),
+    /// 或模式
+    Or(Box<Pattern>, Box<Pattern>),
+}
+
+/// try 语句
+#[derive(Debug, Clone, PartialEq)]
+pub struct TryStatement {
+    pub body: Block,
+    pub catch_clauses: Vec<CatchClause>,
+    pub finally_block: Option<Block>,
+}
+
+/// catch 子句
+#[derive(Debug, Clone, PartialEq)]
+pub struct CatchClause {
+    pub exception_type: Option<String>,
+    pub variable_name: Option<String>,
+    pub body: Block,
 }
 
 /// 表达式
@@ -680,6 +742,8 @@ impl Display for Statement {
             Statement::DoWhile(do_while) => write!(f, "{do_while}"),
             Statement::For(for_stmt) => write!(f, "{for_stmt}"),
             Statement::Switch(switch) => write!(f, "{switch}"),
+            Statement::Match(match_stmt) => write!(f, "/* match: {:?} */", match_stmt.scrutinee),
+            Statement::Try(try_stmt) => write!(f, "try {{ ... }} catch {{ ... }}"),
             Statement::Break => writeln!(f, "break;"),
             Statement::Continue => writeln!(f, "continue;"),
             Statement::Return(None) => writeln!(f, "return;"),

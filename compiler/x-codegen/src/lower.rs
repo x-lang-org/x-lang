@@ -5,6 +5,9 @@ use crate::xir::*;
 use x_parser::ast;
 use x_parser::ast::{BinaryOp as AstBinaryOp, UnaryOp as AstUnaryOp};
 
+// Re-export Pattern for use in this module
+use crate::xir::Pattern;
+
 /// Lowering 错误
 #[derive(Debug, thiserror::Error)]
 pub enum LowerError {
@@ -196,16 +199,119 @@ fn lower_statement(stmt: &ast::Statement) -> LowerResult<Statement> {
             condition: lower_expression(&while_stmt.condition)?,
             body: Box::new(Statement::Compound(lower_block(&while_stmt.body)?)),
         })),
+        ast::Statement::For(for_stmt) => {
+            // For 循环 lowering：转换为迭代器循环或传统的索引循环
+            let iterator = lower_expression(&for_stmt.iterator)?;
+            let body = lower_block(&for_stmt.body)?;
+
+            // 根据模式创建循环变量
+            let loop_var = match &for_stmt.pattern {
+                ast::Pattern::Variable(name) => name.clone(),
+                ast::Pattern::Wildcard => "_".to_string(),
+                _ => "_item".to_string(),
+            };
+
+            // 创建迭代器风格的 for 循环
+            // 转换为 C 风格：使用索引迭代
+            // for (int i = 0; i < len; i++) { ... }
+            let index_var = format!("_{}_idx", loop_var);
+            let len_var = format!("_{}_len", loop_var);
+
+            // 创建初始化语句
+            let init = Statement::Variable(Variable {
+                name: index_var.clone(),
+                type_: Type::Int,
+                initializer: Some(Expression::Literal(Literal::Integer(0))),
+                is_static: false,
+                is_extern: false,
+            });
+
+            // 创建条件表达式
+            let condition = Expression::Binary(
+                BinaryOp::LessThan,
+                Box::new(Expression::Variable(index_var.clone())),
+                Box::new(Expression::Variable(len_var.clone())),
+            );
+
+            // 创建增量表达式
+            let increment = Expression::Unary(
+                UnaryOp::PreIncrement,
+                Box::new(Expression::Variable(index_var.clone())),
+            );
+
+            // 创建循环体
+            let mut for_body = Block::new();
+            for_body.add(Statement::Variable(Variable {
+                name: loop_var,
+                type_: Type::Int, // 简化：假设元素类型为 Int
+                initializer: Some(Expression::Index(
+                    Box::new(iterator),
+                    Box::new(Expression::Variable(index_var.clone())),
+                )),
+                is_static: false,
+                is_extern: false,
+            }));
+            for stmt in body.statements {
+                for_body.add(stmt);
+            }
+
+            Ok(Statement::For(ForStatement {
+                initializer: Some(Box::new(init)),
+                condition: Some(condition),
+                increment: Some(increment),
+                body: Box::new(Statement::Compound(for_body)),
+            }))
+        }
+        ast::Statement::Match(match_stmt) => {
+            let scrutinee = lower_expression(&match_stmt.expression)?;
+            let mut cases = Vec::new();
+
+            for case in &match_stmt.cases {
+                let pattern = lower_pattern(&case.pattern)?;
+                let body = lower_block(&case.body)?;
+                let guard = case.guard.as_ref()
+                    .map(|g| lower_expression(g))
+                    .transpose()?;
+                cases.push(MatchCase {
+                    pattern,
+                    body,
+                    guard,
+                });
+            }
+
+            Ok(Statement::Match(MatchStatement {
+                scrutinee,
+                cases,
+            }))
+        }
+        ast::Statement::Try(try_stmt) => {
+            let body = lower_block(&try_stmt.body)?;
+            let mut catch_clauses = Vec::new();
+
+            for cc in &try_stmt.catch_clauses {
+                catch_clauses.push(CatchClause {
+                    exception_type: cc.exception_type.clone(),
+                    variable_name: cc.variable_name.clone(),
+                    body: lower_block(&cc.body)?,
+                });
+            }
+
+            let finally_block = try_stmt.finally_block.as_ref()
+                .map(|b| lower_block(b))
+                .transpose()?;
+
+            Ok(Statement::Try(TryStatement {
+                body,
+                catch_clauses,
+                finally_block,
+            }))
+        }
         ast::Statement::Break => Ok(Statement::Break),
         ast::Statement::Continue => Ok(Statement::Continue),
         ast::Statement::DoWhile(d) => Ok(Statement::DoWhile(DoWhileStatement {
             body: Box::new(Statement::Compound(lower_block(&d.body)?)),
             condition: lower_expression(&d.condition)?,
         })),
-        _ => Err(LowerError::UnsupportedFeature(format!(
-            "暂不支持的语句: {:?}",
-            stmt
-        ))),
     }
 }
 
@@ -304,6 +410,58 @@ fn handle_print_call(mut args: Vec<Expression>) -> LowerResult<Expression> {
             Box::new(Expression::Variable("printf".to_string())),
             args,
         ))
+    }
+}
+
+/// lowering 模式
+fn lower_pattern(pattern: &ast::Pattern) -> LowerResult<Pattern> {
+    match pattern {
+        ast::Pattern::Wildcard => Ok(Pattern::Wildcard),
+        ast::Pattern::Variable(name) => Ok(Pattern::Variable(name.clone())),
+        ast::Pattern::Literal(lit) => {
+            let lowered_lit = match lit {
+                ast::Literal::Integer(n) => Literal::Integer(*n),
+                ast::Literal::Float(f) => Literal::Double(*f),
+                ast::Literal::Boolean(b) => Literal::Bool(*b),
+                ast::Literal::String(s) => Literal::String(s.clone()),
+                ast::Literal::Char(c) => Literal::Char(*c),
+                _ => Literal::Integer(0),
+            };
+            Ok(Pattern::Literal(lowered_lit))
+        }
+        ast::Pattern::Array(patterns) => {
+            let lowered: Vec<Pattern> = patterns
+                .iter()
+                .map(lower_pattern)
+                .collect::<LowerResult<Vec<_>>>()?;
+            Ok(Pattern::Constructor("Array".to_string(), lowered))
+        }
+        ast::Pattern::Tuple(patterns) => {
+            let lowered: Vec<Pattern> = patterns
+                .iter()
+                .map(lower_pattern)
+                .collect::<LowerResult<Vec<_>>>()?;
+            Ok(Pattern::Tuple(lowered))
+        }
+        ast::Pattern::Record(name, fields) => {
+            let lowered_fields: Vec<(String, Pattern)> = fields
+                .iter()
+                .map(|(n, p)| Ok((n.clone(), lower_pattern(p)?)))
+                .collect::<LowerResult<Vec<_>>>()?;
+            Ok(Pattern::Record(name.clone(), lowered_fields))
+        }
+        ast::Pattern::Or(left, right) => Ok(Pattern::Or(
+            Box::new(lower_pattern(left)?),
+            Box::new(lower_pattern(right)?),
+        )),
+        ast::Pattern::Dictionary(entries) => {
+            let patterns: Vec<Pattern> = entries
+                .iter()
+                .map(|(_, p)| lower_pattern(p))
+                .collect::<LowerResult<Vec<_>>>()?;
+            Ok(Pattern::Constructor("Dict".to_string(), patterns))
+        }
+        ast::Pattern::Guard(inner, _) => lower_pattern(inner),
     }
 }
 
