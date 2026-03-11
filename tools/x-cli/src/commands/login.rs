@@ -26,10 +26,7 @@ pub fn exec(token: Option<&str>, registry: Option<&str>) -> Result<(), String> {
 
     utils::status(
         "Login",
-        &format!(
-            "token saved for {}",
-            registry.unwrap_or("default registry")
-        ),
+        &format!("token saved for {}", registry.unwrap_or("default registry")),
     );
 
     Ok(())

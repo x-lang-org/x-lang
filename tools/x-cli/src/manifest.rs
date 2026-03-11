@@ -267,3 +267,29 @@ impl Dependency {
         matches!(self, Dependency::Detailed(d) if d.git.is_some())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn manifest_roundtrip_default_bin() {
+        let m = Manifest::default_bin("demo");
+        let s = m.to_string_pretty().expect("serialize ok");
+        let parsed: Manifest = toml::from_str(&s).expect("parse ok");
+        assert_eq!(parsed.package_name(), Some("demo"));
+        assert_eq!(parsed.package_version(), Some("0.1.0"));
+    }
+
+    #[test]
+    fn find_manifest_path_walks_upwards() {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let root = dir.path().join("a").join("b").join("c");
+        std::fs::create_dir_all(&root).expect("mkdirs");
+        let manifest_path = dir.path().join("a").join("x.toml");
+        std::fs::write(&manifest_path, "package = { name = \"p\" }\n").expect("write");
+
+        let found = Manifest::find_manifest_path(&root).expect("should find");
+        assert_eq!(found, manifest_path);
+    }
+}

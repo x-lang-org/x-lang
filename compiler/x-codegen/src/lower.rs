@@ -2,7 +2,7 @@
 //! 将 X 语言的 AST 转换为 X IR
 
 use crate::xir::*;
-use x_parser::ast as ast;
+use x_parser::ast;
 use x_parser::ast::{BinaryOp as AstBinaryOp, UnaryOp as AstUnaryOp};
 
 /// Lowering 错误
@@ -67,12 +67,10 @@ fn lower_declaration(decl: &ast::Declaration) -> LowerResult<Declaration> {
         ast::Declaration::Variable(var_decl) => {
             Ok(Declaration::Global(lower_global_var(var_decl)?))
         }
-        ast::Declaration::TypeAlias(alias) => {
-            Ok(Declaration::TypeAlias(TypeAlias {
-                name: alias.name.clone(),
-                type_: lower_type(&alias.type_)?,
-            }))
-        }
+        ast::Declaration::TypeAlias(alias) => Ok(Declaration::TypeAlias(TypeAlias {
+            name: alias.name.clone(),
+            type_: lower_type(&alias.type_)?,
+        })),
         _ => Err(LowerError::UnsupportedFeature(format!(
             "暂不支持的声明类型: {:?}",
             decl
@@ -84,12 +82,18 @@ fn lower_declaration(decl: &ast::Declaration) -> LowerResult<Declaration> {
 fn lower_function(func_decl: &ast::FunctionDecl) -> LowerResult<Function> {
     let mut func = Function::new(
         &func_decl.name,
-        func_decl.return_type.as_ref().map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int)),
+        func_decl
+            .return_type
+            .as_ref()
+            .map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int)),
     );
 
     // 处理参数
     for param in &func_decl.parameters {
-        let param_type = param.type_annot.as_ref().map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
+        let param_type = param
+            .type_annot
+            .as_ref()
+            .map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
         func = func.param(&param.name, param_type);
     }
 
@@ -101,8 +105,15 @@ fn lower_function(func_decl: &ast::FunctionDecl) -> LowerResult<Function> {
 
 /// lowering 全局变量
 fn lower_global_var(var_decl: &ast::VariableDecl) -> LowerResult<GlobalVar> {
-    let type_ = var_decl.type_annot.as_ref().map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
-    let initializer = var_decl.initializer.as_ref().map(|e| lower_expression(e)).transpose()?;
+    let type_ = var_decl
+        .type_annot
+        .as_ref()
+        .map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
+    let initializer = var_decl
+        .initializer
+        .as_ref()
+        .map(|e| lower_expression(e))
+        .transpose()?;
 
     Ok(GlobalVar {
         name: var_decl.name.clone(),
@@ -132,8 +143,14 @@ fn lower_type(ty: &ast::Type) -> LowerResult<Type> {
         }
         ast::Type::Generic(name) | ast::Type::Var(name) => Ok(Type::Named(name.clone())),
         ast::Type::Function(params, ret) => {
-            let param_types = params.iter().map(|p| lower_type(p)).collect::<LowerResult<Vec<_>>>()?;
-            Ok(Type::FunctionPointer(Box::new(lower_type(ret)?), param_types))
+            let param_types = params
+                .iter()
+                .map(|p| lower_type(p))
+                .collect::<LowerResult<Vec<_>>>()?;
+            Ok(Type::FunctionPointer(
+                Box::new(lower_type(ret)?),
+                param_types,
+            ))
         }
         _ => Err(LowerError::UnsupportedFeature(format!(
             "暂不支持的类型: {:?}",
@@ -156,20 +173,18 @@ fn lower_block(block: &ast::Block) -> LowerResult<Block> {
 /// lowering 单个语句
 fn lower_statement(stmt: &ast::Statement) -> LowerResult<Statement> {
     match stmt {
-        ast::Statement::Expression(expr) => {
-            Ok(Statement::Expression(lower_expression(expr)?))
-        }
-        ast::Statement::Variable(var_decl) => {
-            Ok(Statement::Variable(lower_local_var(var_decl)?))
-        }
-        ast::Statement::Return(expr_opt) => {
-            Ok(Statement::Return(expr_opt.as_ref().map(|e| lower_expression(e)).transpose()?))
-        }
+        ast::Statement::Expression(expr) => Ok(Statement::Expression(lower_expression(expr)?)),
+        ast::Statement::Variable(var_decl) => Ok(Statement::Variable(lower_local_var(var_decl)?)),
+        ast::Statement::Return(expr_opt) => Ok(Statement::Return(
+            expr_opt.as_ref().map(|e| lower_expression(e)).transpose()?,
+        )),
         ast::Statement::If(if_stmt) => {
             let then_branch = Box::new(Statement::Compound(lower_block(&if_stmt.then_block)?));
-            let else_branch = if_stmt.else_block.as_ref().map(|b| {
-                Ok::<_, LowerError>(Box::new(Statement::Compound(lower_block(b)?)))
-            }).transpose()?;
+            let else_branch = if_stmt
+                .else_block
+                .as_ref()
+                .map(|b| Ok::<_, LowerError>(Box::new(Statement::Compound(lower_block(b)?))))
+                .transpose()?;
 
             Ok(Statement::If(IfStatement {
                 condition: lower_expression(&if_stmt.condition)?,
@@ -177,12 +192,16 @@ fn lower_statement(stmt: &ast::Statement) -> LowerResult<Statement> {
                 else_branch,
             }))
         }
-        ast::Statement::While(while_stmt) => {
-            Ok(Statement::While(WhileStatement {
-                condition: lower_expression(&while_stmt.condition)?,
-                body: Box::new(Statement::Compound(lower_block(&while_stmt.body)?)),
-            }))
-        }
+        ast::Statement::While(while_stmt) => Ok(Statement::While(WhileStatement {
+            condition: lower_expression(&while_stmt.condition)?,
+            body: Box::new(Statement::Compound(lower_block(&while_stmt.body)?)),
+        })),
+        ast::Statement::Break => Ok(Statement::Break),
+        ast::Statement::Continue => Ok(Statement::Continue),
+        ast::Statement::DoWhile(d) => Ok(Statement::DoWhile(DoWhileStatement {
+            body: Box::new(Statement::Compound(lower_block(&d.body)?)),
+            condition: lower_expression(&d.condition)?,
+        })),
         _ => Err(LowerError::UnsupportedFeature(format!(
             "暂不支持的语句: {:?}",
             stmt
@@ -192,8 +211,15 @@ fn lower_statement(stmt: &ast::Statement) -> LowerResult<Statement> {
 
 /// lowering 局部变量声明
 fn lower_local_var(var_decl: &ast::VariableDecl) -> LowerResult<Variable> {
-    let type_ = var_decl.type_annot.as_ref().map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
-    let initializer = var_decl.initializer.as_ref().map(|e| lower_expression(e)).transpose()?;
+    let type_ = var_decl
+        .type_annot
+        .as_ref()
+        .map_or(Type::Int, |t| lower_type(t).unwrap_or(Type::Int));
+    let initializer = var_decl
+        .initializer
+        .as_ref()
+        .map(|e| lower_expression(e))
+        .transpose()?;
 
     Ok(Variable {
         name: var_decl.name.clone(),
@@ -216,19 +242,15 @@ fn lower_expression(expr: &ast::Expression) -> LowerResult<Expression> {
                 Ok(Expression::Variable(name.clone()))
             }
         }
-        ast::Expression::Binary(op, left, right) => {
-            Ok(Expression::Binary(
-                lower_binary_op(op)?,
-                Box::new(lower_expression(left)?),
-                Box::new(lower_expression(right)?),
-            ))
-        }
-        ast::Expression::Unary(op, expr) => {
-            Ok(Expression::Unary(
-                lower_unary_op(op)?,
-                Box::new(lower_expression(expr)?),
-            ))
-        }
+        ast::Expression::Binary(op, left, right) => Ok(Expression::Binary(
+            lower_binary_op(op)?,
+            Box::new(lower_expression(left)?),
+            Box::new(lower_expression(right)?),
+        )),
+        ast::Expression::Unary(op, expr) => Ok(Expression::Unary(
+            lower_unary_op(op)?,
+            Box::new(lower_expression(expr)?),
+        )),
         ast::Expression::Call(callee, args) => {
             let xir_callee = Box::new(lower_expression(callee)?);
             let mut xir_args = Vec::with_capacity(args.len());
@@ -253,15 +275,13 @@ fn lower_expression(expr: &ast::Expression) -> LowerResult<Expression> {
 
             Ok(Expression::Call(xir_callee, xir_args))
         }
-        ast::Expression::Assign(target, value) => {
-            Ok(Expression::Assign(
-                Box::new(lower_expression(target)?),
-                Box::new(lower_expression(value)?),
-            ))
-        }
-        ast::Expression::Parenthesized(inner) => {
-            Ok(Expression::Parenthesized(Box::new(lower_expression(inner)?)))
-        }
+        ast::Expression::Assign(target, value) => Ok(Expression::Assign(
+            Box::new(lower_expression(target)?),
+            Box::new(lower_expression(value)?),
+        )),
+        ast::Expression::Parenthesized(inner) => Ok(Expression::Parenthesized(Box::new(
+            lower_expression(inner)?,
+        ))),
         _ => Err(LowerError::UnsupportedFeature(format!(
             "暂不支持的表达式: {:?}",
             expr

@@ -9,8 +9,7 @@ pub struct Project {
 
 impl Project {
     pub fn find() -> Result<Self, String> {
-        let cwd =
-            std::env::current_dir().map_err(|e| format!("无法获取当前目录: {}", e))?;
+        let cwd = std::env::current_dir().map_err(|e| format!("无法获取当前目录: {}", e))?;
         Self::find_from(&cwd)
     }
 
@@ -120,4 +119,37 @@ fn collect_x_files(dir: &Path) -> Vec<PathBuf> {
         .filter(|e| e.path().extension().map_or(false, |ext| ext == "x"))
         .map(|e| e.path().to_path_buf())
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn project_find_from_missing_manifest_has_hint() {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let err = match Project::find_from(dir.path()) {
+            Ok(_) => panic!("should error"),
+            Err(e) => e,
+        };
+        assert!(err.contains("找不到 x.toml"), "{err}");
+        assert!(err.contains("x new"), "{err}");
+        assert!(err.contains("x init"), "{err}");
+    }
+
+    #[test]
+    fn project_find_from_loads_manifest_and_root() {
+        let dir = tempfile::tempdir().expect("tempdir");
+        let root = dir.path();
+        std::fs::create_dir_all(root.join("src")).expect("mkdir src");
+        std::fs::write(root.join("x.toml"), "package = { name = \"p\", version = \"0.2.0\" }\n")
+            .expect("write manifest");
+        std::fs::write(root.join("src").join("main.x"), "print(\"hi\")\n").expect("write main");
+
+        let proj = Project::find_from(root).expect("should find project");
+        assert_eq!(proj.name(), "p");
+        assert_eq!(proj.version(), "0.2.0");
+        assert_eq!(proj.root, root);
+        assert!(proj.main_file().is_some());
+    }
 }

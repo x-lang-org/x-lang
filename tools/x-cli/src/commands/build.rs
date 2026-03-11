@@ -35,8 +35,7 @@ pub fn exec(
     }
 
     let target_dir = project.target_dir().join(profile);
-    std::fs::create_dir_all(&target_dir)
-        .map_err(|e| format!("无法创建目标目录: {}", e))?;
+    std::fs::create_dir_all(&target_dir).map_err(|e| format!("无法创建目标目录: {}", e))?;
 
     if let Some(main_path) = &main_file {
         build_source(main_path, &project, &target_dir)?;
@@ -52,7 +51,11 @@ pub fn exec(
         &format!(
             "`{}` profile [{}] target(s) in {}",
             profile,
-            if release { "optimized" } else { "unoptimized + debuginfo" },
+            if release {
+                "optimized"
+            } else {
+                "unoptimized + debuginfo"
+            },
             utils::elapsed_str(elapsed)
         ),
     );
@@ -65,22 +68,20 @@ fn build_source(
     _project: &Project,
     _target_dir: &std::path::Path,
 ) -> Result<(), String> {
-    let source = std::fs::read_to_string(path)
-        .map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
+    let source =
+        std::fs::read_to_string(path).map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
 
     let parser = x_parser::parser::XParser::new();
-    let program = parser.parse(&source).map_err(|e| {
-        pipeline::format_parse_error(&path.display().to_string(), &source, &e)
-    })?;
+    let program = parser
+        .parse(&source)
+        .map_err(|e| pipeline::format_parse_error(&path.display().to_string(), &source, &e))?;
 
     x_typechecker::type_check(&program).map_err(|e| format!("类型检查错误: {}", e))?;
 
     #[cfg(feature = "codegen")]
     {
-        let _hir = x_hir::ast_to_hir(&program)
-            .map_err(|e| format!("HIR 转换错误: {}", e))?;
-        let _pir = x_perceus::analyze_hir(&_hir)
-            .map_err(|e| format!("Perceus 分析错误: {}", e))?;
+        let _hir = x_hir::ast_to_hir(&program).map_err(|e| format!("HIR 转换错误: {}", e))?;
+        let _pir = x_perceus::analyze_hir(&_hir).map_err(|e| format!("Perceus 分析错误: {}", e))?;
 
         let config = x_codegen::CodeGenConfig {
             target: x_codegen::Target::Native,
@@ -104,10 +105,7 @@ fn build_source(
             project.name().to_string()
         };
         let exe_path = target_dir.join(&exe_name);
-        pipeline::try_link(
-            obj_path.to_str().unwrap(),
-            exe_path.to_str().unwrap(),
-        );
+        pipeline::try_link(obj_path.to_str().unwrap(), exe_path.to_str().unwrap());
     }
 
     Ok(())

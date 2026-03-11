@@ -16,3 +16,22 @@ pub enum PerceusError {
     #[error("分析错误: {0}")]
     AnalysisError(String),
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn analyze_hir_returns_ok_for_empty_hir() {
+        let hir = x_hir::Hir {};
+        let pir = analyze_hir(&hir).expect("analyze_hir");
+        assert_eq!(pir, PerceusIR {});
+    }
+
+    #[test]
+    fn perceus_error_displays_message() {
+        let e = PerceusError::AnalysisError("test message".to_string());
+        assert!(e.to_string().contains("分析错误"));
+        assert!(e.to_string().contains("test message"));
+    }
+}

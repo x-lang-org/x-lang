@@ -1,5 +1,5 @@
-use crate::registry::RegistryClient;
 use crate::project::Project;
+use crate::registry::RegistryClient;
 use crate::utils;
 
 pub fn exec(
@@ -29,9 +29,7 @@ pub fn exec(
         if let Ok(output) = git_status {
             let status = String::from_utf8_lossy(&output.stdout);
             if !status.is_empty() {
-                return Err(
-                    "工作目录有未提交的更改，使用 --allow-dirty 跳过检查".to_string()
-                );
+                return Err("工作目录有未提交的更改，使用 --allow-dirty 跳过检查".to_string());
             }
         }
     }

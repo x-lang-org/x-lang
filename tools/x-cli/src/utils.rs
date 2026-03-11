@@ -32,10 +32,9 @@ pub fn validate_package_name(name: &str) -> Result<(), String> {
         }
     }
     let reserved = [
-        "test", "main", "lib", "src", "std", "core", "self", "super",
-        "crate", "pub", "mod", "use", "as", "if", "else", "for", "while",
-        "loop", "break", "continue", "return", "fn", "fun", "val", "var",
-        "type", "struct", "enum", "impl", "trait",
+        "test", "main", "lib", "src", "std", "core", "self", "super", "crate", "pub", "mod", "use",
+        "as", "if", "else", "for", "while", "loop", "break", "continue", "return", "fn", "fun",
+        "val", "var", "type", "struct", "enum", "impl", "trait",
     ];
     if reserved.contains(&name) {
         return Err(format!("'{}' 是保留名称，不能作为包名", name));

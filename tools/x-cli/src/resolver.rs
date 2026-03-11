@@ -1,4 +1,4 @@
-use crate::lockfile::{Lockfile, LockedPackage};
+use crate::lockfile::{LockedPackage, Lockfile};
 use crate::manifest::{Dependency, Manifest};
 
 #[derive(Debug, Clone)]
@@ -49,9 +49,7 @@ impl Resolver {
                         return Ok(ResolvedDep {
                             name: name.to_string(),
                             version: locked.version.clone(),
-                            source: DepSource::Registry(
-                                locked.source.clone().unwrap_or_default(),
-                            ),
+                            source: DepSource::Registry(locked.source.clone().unwrap_or_default()),
                         });
                     }
                 }

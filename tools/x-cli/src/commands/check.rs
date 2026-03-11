@@ -61,21 +61,21 @@ fn check_file(file: &str) -> Result<(), String> {
         .parse(&content)
         .map_err(|e| pipeline::format_parse_error(file, &content, &e))?;
 
-    x_typechecker::type_check(&program).map_err(|e| format!("类型检查失败: {}", e))?;
+    pipeline::type_check_with_big_stack(&program)?;
 
     utils::status("Finished", "检查通过（语法 + 类型）");
     Ok(())
 }
 
 fn check_single_file(path: &std::path::Path, error_count: &mut usize) -> Result<(), String> {
-    let content = std::fs::read_to_string(path)
-        .map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
+    let content =
+        std::fs::read_to_string(path).map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
 
     let parser = x_parser::parser::XParser::new();
     match parser.parse(&content) {
         Ok(program) => {
-            if let Err(e) = x_typechecker::type_check(&program) {
-                utils::error(&format!("{}: 类型检查失败: {}", path.display(), e));
+            if let Err(e) = pipeline::type_check_with_big_stack(&program) {
+                utils::error(&format!("{}: {}", path.display(), e));
                 *error_count += 1;
             }
         }

@@ -7,11 +7,7 @@ pub fn exec() -> Result<(), String> {
 
     utils::status(
         "Fetching",
-        &format!(
-            "dependencies for {} v{}",
-            project.name(),
-            project.version()
-        ),
+        &format!("dependencies for {} v{}", project.name(), project.version()),
     );
 
     let resolver = resolver::Resolver::new(project.manifest.clone(), None);
@@ -42,9 +38,6 @@ pub fn exec() -> Result<(), String> {
         }
     }
 
-    utils::status(
-        "Finished",
-        &format!("fetched {} dependencies", fetched),
-    );
+    utils::status("Finished", &format!("fetched {} dependencies", fetched));
     Ok(())
 }

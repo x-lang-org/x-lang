@@ -24,11 +24,12 @@ pub fn exec(
     let out_path = output.unwrap_or_else(|| file.strip_suffix(".x").unwrap_or(file));
 
     // Use Zig backend by default
-    let mut backend = x_codegen::zig_backend::ZigBackend::new(x_codegen::zig_backend::ZigBackendConfig {
-        output_dir: None,
-        optimize: false,
-        debug_info: true,
-    });
+    let mut backend =
+        x_codegen::zig_backend::ZigBackend::new(x_codegen::zig_backend::ZigBackendConfig {
+            output_dir: None,
+            optimize: false,
+            debug_info: true,
+        });
 
     // 注意：当前 Zig 后端只支持从 XIR 生成代码
     // 这里需要实现从 AST 到 XIR 的转换
@@ -78,8 +79,12 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             let program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
-            let mut backend = x_codegen::csharp_backend::CSharpBackend::new(x_codegen::csharp_backend::CSharpBackendConfig::default());
-            let output = backend.generate_from_ast(&program).map_err(|e| format!("C# code generation error: {}", e))?;
+            let mut backend = x_codegen::csharp_backend::CSharpBackend::new(
+                x_codegen::csharp_backend::CSharpBackendConfig::default(),
+            );
+            let output = backend
+                .generate_from_ast(&program)
+                .map_err(|e| format!("C# code generation error: {}", e))?;
             let csharp_code = String::from_utf8_lossy(&output.files[0].content);
             println!("{}", csharp_code);
             Ok(())

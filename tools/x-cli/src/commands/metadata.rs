@@ -129,8 +129,8 @@ pub fn exec(no_deps: bool, format_version: Option<u32>) -> Result<(), String> {
         },
     };
 
-    let json = serde_json::to_string_pretty(&metadata)
-        .map_err(|e| format!("JSON 序列化失败: {}", e))?;
+    let json =
+        serde_json::to_string_pretty(&metadata).map_err(|e| format!("JSON 序列化失败: {}", e))?;
     println!("{}", json);
 
     Ok(())

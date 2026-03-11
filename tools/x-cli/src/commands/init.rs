@@ -1,7 +1,12 @@
 use crate::manifest::Manifest;
 use crate::utils;
 
-pub fn exec(path: Option<&str>, lib: bool, vcs: &str, _edition: Option<&str>) -> Result<(), String> {
+pub fn exec(
+    path: Option<&str>,
+    lib: bool,
+    vcs: &str,
+    _edition: Option<&str>,
+) -> Result<(), String> {
     let dir = match path {
         Some(p) => std::path::PathBuf::from(p),
         None => std::env::current_dir().map_err(|e| format!("无法获取当前目录: {}", e))?,
@@ -63,7 +68,11 @@ pub fn exec(path: Option<&str>, lib: bool, vcs: &str, _edition: Option<&str>) ->
         "Created",
         &format!(
             "{} `{}` package",
-            if lib { "library" } else { "binary (application)" },
+            if lib {
+                "library"
+            } else {
+                "binary (application)"
+            },
             pkg_name
         ),
     );

@@ -15,12 +15,10 @@ pub fn exec(path: Option<&str>, no_delete: bool, versioned_dirs: bool) -> Result
     );
 
     if !no_delete && vendor_dir.exists() {
-        std::fs::remove_dir_all(&vendor_dir)
-            .map_err(|e| format!("无法清除 vendor 目录: {}", e))?;
+        std::fs::remove_dir_all(&vendor_dir).map_err(|e| format!("无法清除 vendor 目录: {}", e))?;
     }
 
-    std::fs::create_dir_all(&vendor_dir)
-        .map_err(|e| format!("无法创建 vendor 目录: {}", e))?;
+    std::fs::create_dir_all(&vendor_dir).map_err(|e| format!("无法创建 vendor 目录: {}", e))?;
 
     let resolver = resolver::Resolver::new(project.manifest.clone(), None);
     let deps = resolver.resolve()?;
@@ -71,8 +69,7 @@ pub fn exec(path: Option<&str>, no_delete: bool, versioned_dirs: bool) -> Result
 }
 
 fn copy_dir_recursive(src: &std::path::Path, dest: &std::path::Path) -> Result<(), String> {
-    std::fs::create_dir_all(dest)
-        .map_err(|e| format!("无法创建 {}: {}", dest.display(), e))?;
+    std::fs::create_dir_all(dest).map_err(|e| format!("无法创建 {}: {}", dest.display(), e))?;
 
     for entry in walkdir::WalkDir::new(src).min_depth(1) {
         let entry = entry.map_err(|e| format!("遍历目录失败: {}", e))?;

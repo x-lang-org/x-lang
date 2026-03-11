@@ -2,8 +2,8 @@
 // 这个 crate 实现了 x-codegen 的 CodeGenerator trait
 
 use std::path::PathBuf;
+use x_codegen::{CodeGenResult, CodeGenerator, CodegenOutput, Target};
 use x_parser::ast::Program;
-use x_codegen::{CodeGenerator, CodegenOutput, CodeGenResult, Target};
 
 /// JVM代码生成器配置
 #[derive(Debug, Clone)]
@@ -37,15 +37,21 @@ impl CodeGenerator for JvmCodeGenerator {
     }
 
     fn generate_from_ast(&mut self, _program: &Program) -> Result<CodegenOutput, Self::Error> {
-        Err(JvmCodeGenError::Unimplemented("JVM backend not yet implemented".to_string()))
+        Err(JvmCodeGenError::Unimplemented(
+            "JVM backend not yet implemented".to_string(),
+        ))
     }
 
     fn generate_from_hir(&mut self, _hir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(JvmCodeGenError::Unimplemented("JVM backend not yet implemented".to_string()))
+        Err(JvmCodeGenError::Unimplemented(
+            "JVM backend not yet implemented".to_string(),
+        ))
     }
 
     fn generate_from_pir(&mut self, _pir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(JvmCodeGenError::Unimplemented("JVM backend not yet implemented".to_string()))
+        Err(JvmCodeGenError::Unimplemented(
+            "JVM backend not yet implemented".to_string(),
+        ))
     }
 }
 

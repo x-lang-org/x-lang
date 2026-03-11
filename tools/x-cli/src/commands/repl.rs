@@ -28,10 +28,7 @@ pub fn exec(target: &str) -> Result<(), String> {
 /// 解释器 REPL
 fn exec_interpreter() -> Result<(), String> {
     println!("{}", "X语言 REPL v0.1.0 (Interpreter)".cyan().bold());
-    println!(
-        "输入X语言表达式或声明，输入 {} 退出",
-        ":quit".yellow()
-    );
+    println!("输入X语言表达式或声明，输入 {} 退出", ":quit".yellow());
     println!("输入 {} 获取帮助", ":help".yellow());
     println!();
 

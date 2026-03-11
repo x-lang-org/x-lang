@@ -60,6 +60,9 @@ fn print_deps(
             _ => String::new(),
         };
 
-        println!("{}{}{} v{}{}", prefix, connector, name, version, source_info);
+        println!(
+            "{}{}{} v{}{}",
+            prefix, connector, name, version, source_info
+        );
     }
 }

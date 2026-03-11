@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::*;
-use x_codegen::{CodeGenError, CodegenOutput, Target, get_code_generator, CodeGenConfig};
+use x_codegen::{get_code_generator, CodeGenConfig, CodeGenError, CodegenOutput, Target};
 use x_parser::Parser;
 
 #[wasm_bindgen]
@@ -28,7 +28,7 @@ impl XLangCompiler {
                 } else {
                     Err(JsError::new("No code generated"))
                 }
-            },
+            }
             Err(error) => Err(JsError::new(&error.to_string())),
         }
     }
@@ -45,7 +45,7 @@ impl XLangCompiler {
                 } else {
                     Err(JsError::new("No code generated"))
                 }
-            },
+            }
             Err(error) => Err(JsError::new(&error.to_string())),
         }
     }
@@ -55,16 +55,18 @@ impl XLangCompiler {
     fn compile(&self, code: &str) -> Result<CodegenOutput, CodeGenError> {
         // 1. 语法分析
         let parser = Parser::new();
-        let program = parser.parse(code).map_err(|e| CodeGenError::ParseError(e.to_string()))?;
-        
+        let program = parser
+            .parse(code)
+            .map_err(|e| CodeGenError::ParseError(e.to_string()))?;
+
         // 2. 类型检查 - 暂时跳过
         // TODO: 实现类型检查
-        
+
         // 3. 代码生成
         let config = CodeGenConfig::default();
         let mut generator = get_code_generator(Target::TypeScript, config)?;
         let output = generator.generate_from_ast(&program)?;
-        
+
         Ok(output)
     }
 }
@@ -79,4 +81,28 @@ pub fn compile_x_to_ts(code: &str) -> Result<String, JsError> {
 pub fn compile_x_to_js(code: &str) -> Result<String, JsError> {
     let compiler = XLangCompiler::new();
     compiler.compile_x_to_js(code)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_compiler_new() {
+        let _compiler = XLangCompiler::new();
+    }
+
+    #[test]
+    fn test_compile_invalid_code() {
+        let compiler = XLangCompiler::new();
+        let result = compiler.compile_x_to_ts("invalid x language code!!");
+        // 对于无效代码，应该返回错误
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_function_new() {
+        let _compiler_fn = compile_x_to_ts;
+        let _compiler_js = compile_x_to_js;
+    }
 }

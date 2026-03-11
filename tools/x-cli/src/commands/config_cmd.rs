@@ -15,17 +15,12 @@ fn load_raw_config() -> toml_edit::DocumentMut {
 fn save_raw_config(doc: &toml_edit::DocumentMut) -> Result<(), String> {
     let path = crate::config::config_path();
     if let Some(parent) = path.parent() {
-        std::fs::create_dir_all(parent)
-            .map_err(|e| format!("无法创建目录: {}", e))?;
+        std::fs::create_dir_all(parent).map_err(|e| format!("无法创建目录: {}", e))?;
     }
-    std::fs::write(&path, doc.to_string())
-        .map_err(|e| format!("无法写入配置: {}", e))
+    std::fs::write(&path, doc.to_string()).map_err(|e| format!("无法写入配置: {}", e))
 }
 
-fn get_value_at_key<'a>(
-    doc: &'a toml_edit::DocumentMut,
-    key: &str,
-) -> Option<&'a toml_edit::Item> {
+fn get_value_at_key<'a>(doc: &'a toml_edit::DocumentMut, key: &str) -> Option<&'a toml_edit::Item> {
     let parts: Vec<&str> = key.split('.').collect();
     let mut current: &toml_edit::Item = doc.as_item();
     for part in &parts {
@@ -111,8 +106,7 @@ pub fn exec(action: &str, key: Option<&str>, value: Option<&str>) -> Result<(), 
                         doc[parts[0]] = toml_edit::Item::Table(toml_edit::Table::new());
                     }
                     if doc[parts[0]].get(parts[1]).is_none() {
-                        doc[parts[0]][parts[1]] =
-                            toml_edit::Item::Table(toml_edit::Table::new());
+                        doc[parts[0]][parts[1]] = toml_edit::Item::Table(toml_edit::Table::new());
                     }
                     doc[parts[0]][parts[1]][parts[2]] = toml_edit::Item::Value(parsed);
                 }

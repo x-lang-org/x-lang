@@ -34,9 +34,7 @@ pub fn exec(
         if let Ok(output) = git_status {
             let status = String::from_utf8_lossy(&output.stdout);
             if !status.is_empty() {
-                return Err(
-                    "工作目录有未提交的更改，使用 --allow-dirty 跳过检查".to_string()
-                );
+                return Err("工作目录有未提交的更改，使用 --allow-dirty 跳过检查".to_string());
             }
         }
     }
@@ -45,8 +43,7 @@ pub fn exec(
         Some(d) => project.root.join(d),
         None => project.target_dir().join("package"),
     };
-    std::fs::create_dir_all(&out_dir)
-        .map_err(|e| format!("无法创建输出目录: {}", e))?;
+    std::fs::create_dir_all(&out_dir).map_err(|e| format!("无法创建输出目录: {}", e))?;
 
     let tarball_name = format!("{}-{}.tar.gz", project.name(), project.version());
     let tarball_path = out_dir.join(&tarball_name);
@@ -69,7 +66,11 @@ pub fn exec(
     let elapsed = start.elapsed();
     utils::status(
         "Packaged",
-        &format!("{} in {}", tarball_path.display(), utils::elapsed_str(elapsed)),
+        &format!(
+            "{} in {}",
+            tarball_path.display(),
+            utils::elapsed_str(elapsed)
+        ),
     );
 
     if !no_verify {

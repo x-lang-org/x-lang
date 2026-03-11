@@ -7,3 +7,6 @@ edition = "2021"
 x-parser = { path = "../compiler/x-parser" }
 x-interpreter = { path = "../compiler/x-interpreter" }
 x-lexer = { path = "../compiler/x-lexer" }
+
+[dev-dependencies]
+tempfile = "3.0"

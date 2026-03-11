@@ -40,7 +40,6 @@ pub enum CodeGenError {
     #[error("Perceus分析错误: {0}")]
     PerceusError(String),
 
-
     /// JVM特定错误
     #[cfg(feature = "jvm")]
     #[error("JVM错误: {0}")]

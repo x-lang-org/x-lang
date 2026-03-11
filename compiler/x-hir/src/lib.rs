@@ -16,3 +16,33 @@ pub enum HirError {
     #[error("转换错误: {0}")]
     ConversionError(String),
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ast_to_hir_returns_ok_for_minimal_program() {
+        let source = "let x = 1;";
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("parse");
+        let hir = ast_to_hir(&program).expect("ast_to_hir");
+        assert_eq!(hir, Hir {});
+    }
+
+    #[test]
+    fn ast_to_hir_returns_ok_for_program_with_function() {
+        let source = "function main() { println(\"hi\") }";
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("parse");
+        let hir = ast_to_hir(&program).expect("ast_to_hir");
+        assert_eq!(hir, Hir {});
+    }
+
+    #[test]
+    fn hir_error_displays_message() {
+        let e = HirError::ConversionError("test message".to_string());
+        assert!(e.to_string().contains("转换错误"));
+        assert!(e.to_string().contains("test message"));
+    }
+}

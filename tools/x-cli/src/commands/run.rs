@@ -1,4 +1,5 @@
 use crate::project::Project;
+use crate::pipeline;
 use crate::utils;
 
 #[allow(unused_variables)]
@@ -53,8 +54,7 @@ fn run_file(file: &str, quiet: bool) -> Result<bool, String> {
         .parse(&content)
         .map_err(|e| format!("解析错误: {}", e))?;
 
-    // 暂时注释掉类型检查，因为它可能导致栈溢出
-    // x_typechecker::type_check(&program).map_err(|e| format!("类型检查失败: {}", e))?;
+    pipeline::type_check_with_big_stack(&program)?;
 
     let mut interpreter = x_interpreter::Interpreter::new();
     interpreter

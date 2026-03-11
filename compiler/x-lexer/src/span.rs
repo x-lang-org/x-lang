@@ -16,14 +16,10 @@ impl Span {
     pub fn line_col(&self, source: &str) -> (usize, usize) {
         let offset = self.start.min(source.len());
         let head = &source[..offset];
-        let line = head.lines().count();
-        let col = head
-            .lines()
-            .last()
-            .map(|s| s.len())
-            .unwrap_or(0)
-            .saturating_add(1);
-        (line.max(1), col)
+        let line = head.split('\n').count().max(1);
+        let last_newline = head.rfind('\n').map(|i| i + 1).unwrap_or(0);
+        let col = offset.saturating_sub(last_newline).saturating_add(1);
+        (line, col)
     }
 
     /// 取该 span 对应的源码片段（用于错误信息中的代码引用）。

@@ -13,16 +13,12 @@ pub fn exec(open: bool, no_deps: bool, document_private_items: bool) -> Result<(
     );
 
     let doc_dir = project.target_dir().join("doc");
-    std::fs::create_dir_all(&doc_dir)
-        .map_err(|e| format!("无法创建文档目录: {}", e))?;
+    std::fs::create_dir_all(&doc_dir).map_err(|e| format!("无法创建文档目录: {}", e))?;
 
     let source_files = project.source_files();
     let mut doc_content = String::new();
     doc_content.push_str("<!DOCTYPE html>\n<html>\n<head>\n");
-    doc_content.push_str(&format!(
-        "<title>{} - X语言文档</title>\n",
-        project.name()
-    ));
+    doc_content.push_str(&format!("<title>{} - X语言文档</title>\n", project.name()));
     doc_content.push_str("<meta charset=\"utf-8\">\n");
     doc_content.push_str(STYLE);
     doc_content.push_str("</head>\n<body>\n");
@@ -53,8 +49,7 @@ pub fn exec(open: bool, no_deps: bool, document_private_items: bool) -> Result<(
     doc_content.push_str("</body>\n</html>");
 
     let index_path = doc_dir.join("index.html");
-    std::fs::write(&index_path, &doc_content)
-        .map_err(|e| format!("无法写入文档: {}", e))?;
+    std::fs::write(&index_path, &doc_content).map_err(|e| format!("无法写入文档: {}", e))?;
 
     let elapsed = start.elapsed();
     utils::status(

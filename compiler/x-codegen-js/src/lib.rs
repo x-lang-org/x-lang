@@ -3,8 +3,8 @@
 
 use std::fmt::Write;
 use std::path::PathBuf;
+use x_codegen::{CodeGenerator, CodegenOutput};
 use x_parser::ast::{self, Program as AstProgram};
-use x_codegen::{CodeGenerator, CodegenOutput, CodeGenResult};
 
 /// JavaScript/TypeScript代码生成器配置
 #[derive(Debug, Clone)]
@@ -50,7 +50,10 @@ impl JavaScriptCodeGenerator {
     }
 
     /// 从AST生成JavaScript代码
-    pub fn generate_js_from_ast(&mut self, program: &AstProgram) -> Result<String, JavaScriptCodeGenError> {
+    pub fn generate_js_from_ast(
+        &mut self,
+        program: &AstProgram,
+    ) -> Result<String, JavaScriptCodeGenError> {
         self.output.clear();
         self.indent = 0;
 
@@ -114,7 +117,9 @@ impl JavaScriptCodeGenerator {
     }
 
     fn emit_function(&mut self, f: &ast::FunctionDecl) -> Result<(), JavaScriptCodeGenError> {
-        let params = f.parameters.iter()
+        let params = f
+            .parameters
+            .iter()
             .map(|p| p.name.clone())
             .collect::<Vec<_>>()
             .join(", ");
@@ -150,7 +155,9 @@ impl JavaScriptCodeGenerator {
                     self.line(&format!("{}{};", f.name, init))?;
                 }
                 ast::ClassMember::Method(m) => {
-                    let params = m.parameters.iter()
+                    let params = m
+                        .parameters
+                        .iter()
                         .map(|p| p.name.clone())
                         .collect::<Vec<_>>()
                         .join(", ");
@@ -165,7 +172,9 @@ impl JavaScriptCodeGenerator {
                     self.line("}")?;
                 }
                 ast::ClassMember::Constructor(ctor) => {
-                    let params = ctor.parameters.iter()
+                    let params = ctor
+                        .parameters
+                        .iter()
                         .map(|p| p.name.clone())
                         .collect::<Vec<_>>()
                         .join(", ");
@@ -276,7 +285,8 @@ impl JavaScriptCodeGenerator {
                 Ok(format!("({} ? {} : {})", c, t, e))
             }
             ast::Expression::Lambda(params, _body) => {
-                let param_str = params.iter()
+                let param_str = params
+                    .iter()
                     .map(|p| p.name.clone())
                     .collect::<Vec<_>>()
                     .join(", ");
@@ -296,7 +306,8 @@ impl JavaScriptCodeGenerator {
             ast::Literal::Float(f) => Ok(format!("{}", f)),
             ast::Literal::Boolean(b) => Ok(b.to_string()),
             ast::Literal::String(s) => {
-                let escaped = s.replace('\\', "\\\\")
+                let escaped = s
+                    .replace('\\', "\\\\")
                     .replace('"', "\\\"")
                     .replace('\n', "\\n")
                     .replace('\r', "\\r")
@@ -339,16 +350,22 @@ impl JavaScriptCodeGenerator {
         }
     }
 
-    fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> Result<String, JavaScriptCodeGenError> {
+    fn emit_call(
+        &self,
+        callee: &ast::Expression,
+        args: &[ast::Expression],
+    ) -> Result<String, JavaScriptCodeGenError> {
         // 检查内置函数
         if let ast::Expression::Variable(name) = callee {
-            let arg_strs: Vec<String> = args.iter()
+            let arg_strs: Vec<String> = args
+                .iter()
                 .map(|a| self.emit_expr(a))
                 .collect::<Result<Vec<_>, _>>()?;
             return Ok(self.emit_builtin_or_call(name, &arg_strs));
         }
         let callee_str = self.emit_expr(callee)?;
-        let arg_strs: Vec<String> = args.iter()
+        let arg_strs: Vec<String> = args
+            .iter()
             .map(|a| self.emit_expr(a))
             .collect::<Result<Vec<_>, _>>()?;
         Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
@@ -357,8 +374,11 @@ impl JavaScriptCodeGenerator {
     fn emit_builtin_or_call(&self, name: &str, args: &[String]) -> String {
         match name {
             "print" | "println" => {
-                if args.len() == 1 { format!("console.log({})", args[0]) }
-                else { "console.log()".to_string() }
+                if args.len() == 1 {
+                    format!("console.log({})", args[0])
+                } else {
+                    "console.log()".to_string()
+                }
             }
             "to_string" => format!("String({})", args.first().map(|s| s.as_str()).unwrap_or("")),
             "len" => format!("{}.length", args.first().map(|s| s.as_str()).unwrap_or("")),
@@ -366,7 +386,11 @@ impl JavaScriptCodeGenerator {
         }
     }
 
-    fn emit_assign(&self, target: &ast::Expression, value: &ast::Expression) -> Result<String, JavaScriptCodeGenError> {
+    fn emit_assign(
+        &self,
+        target: &ast::Expression,
+        value: &ast::Expression,
+    ) -> Result<String, JavaScriptCodeGenError> {
         let val = self.emit_expr(value)?;
         match target {
             ast::Expression::Variable(name) => Ok(format!("({} = {})", name, val)),
@@ -381,14 +405,21 @@ impl JavaScriptCodeGenerator {
         }
     }
 
-    fn emit_array_literal(&self, elements: &[ast::Expression]) -> Result<String, JavaScriptCodeGenError> {
-        let elem_strs: Vec<String> = elements.iter()
+    fn emit_array_literal(
+        &self,
+        elements: &[ast::Expression],
+    ) -> Result<String, JavaScriptCodeGenError> {
+        let elem_strs: Vec<String> = elements
+            .iter()
             .map(|e| self.emit_expr(e))
             .collect::<Result<Vec<_>, _>>()?;
         Ok(format!("[{}]", elem_strs.join(", ")))
     }
 
-    fn emit_dict_literal(&self, pairs: &[(ast::Expression, ast::Expression)]) -> Result<String, JavaScriptCodeGenError> {
+    fn emit_dict_literal(
+        &self,
+        pairs: &[(ast::Expression, ast::Expression)],
+    ) -> Result<String, JavaScriptCodeGenError> {
         let mut parts = Vec::new();
         for (k, v) in pairs {
             let key_str = self.emit_expr(k)?;
@@ -421,7 +452,11 @@ impl CodeGenerator for JavaScriptCodeGenerator {
     type Error = JavaScriptCodeGenError;
 
     fn new(config: Self::Config) -> Self {
-        Self::new(config)
+        Self {
+            config,
+            indent: 0,
+            output: String::new(),
+        }
     }
 
     fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
@@ -433,11 +468,15 @@ impl CodeGenerator for JavaScriptCodeGenerator {
     }
 
     fn generate_from_hir(&mut self, _hir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(JavaScriptCodeGenError::Unimplemented("JavaScript/TypeScript backend not yet implemented".to_string()))
+        Err(JavaScriptCodeGenError::Unimplemented(
+            "JavaScript/TypeScript backend not yet implemented".to_string(),
+        ))
     }
 
     fn generate_from_pir(&mut self, _pir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(JavaScriptCodeGenError::Unimplemented("JavaScript/TypeScript backend not yet implemented".to_string()))
+        Err(JavaScriptCodeGenError::Unimplemented(
+            "JavaScript/TypeScript backend not yet implemented".to_string(),
+        ))
     }
 }
 
@@ -460,9 +499,87 @@ pub enum JavaScriptCodeGenError {
 impl From<x_codegen::CodeGenError> for JavaScriptCodeGenError {
     fn from(err: x_codegen::CodeGenError) -> Self {
         match err {
-            x_codegen::CodeGenError::GenerationError(msg) => JavaScriptCodeGenError::GenerationError(msg),
+            x_codegen::CodeGenError::GenerationError(msg) => {
+                JavaScriptCodeGenError::GenerationError(msg)
+            }
             x_codegen::CodeGenError::IoError(e) => JavaScriptCodeGenError::IoError(e),
             _ => JavaScriptCodeGenError::GenerationError(format!("{:?}", err)),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use x_codegen::CodeGenerator;
+
+    fn parse(source: &str) -> AstProgram {
+        x_parser::parser::XParser::new()
+            .parse(source)
+            .expect("parse")
+    }
+
+    #[test]
+    fn generate_empty_program_has_header() {
+        let program = parse("");
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let js = gen.generate_js_from_ast(&program).expect("generate");
+        assert!(js.contains("Generated by X-Lang JavaScript backend"));
+        assert!(js.contains("DO NOT EDIT"));
+    }
+
+    #[test]
+    fn generate_function_emits_function() {
+        let program = parse("function main() { println(\"hi\") }");
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let js = gen.generate_js_from_ast(&program).expect("generate");
+        assert!(js.contains("function main()"));
+        assert!(js.contains("console.log"));
+    }
+
+    #[test]
+    fn generate_variable_emits_const_or_let() {
+        let program = parse("let x = 1;");
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let js = gen.generate_js_from_ast(&program).expect("generate");
+        assert!(js.contains("const x = 1") || js.contains("let x = 1"));
+    }
+
+    #[test]
+    fn generate_from_ast_trait_returns_ok_with_files() {
+        let program = parse("function f() {}");
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let out = gen.generate_from_ast(&program).expect("generate_from_ast");
+        assert!(out.files.is_empty());
+    }
+
+    #[test]
+    fn generate_from_hir_returns_unimplemented() {
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let err = gen.generate_from_hir(&()).expect_err("unimplemented");
+        let msg = err.to_string();
+        assert!(msg.contains("未实现") || msg.contains("Unimplemented") || msg.contains("not yet implemented"));
+    }
+
+    #[test]
+    fn generate_from_pir_returns_unimplemented() {
+        let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
+        let err = gen.generate_from_pir(&()).expect_err("unimplemented");
+        let msg = err.to_string();
+        assert!(msg.contains("未实现") || msg.contains("not yet implemented"));
+    }
+
+    #[test]
+    fn error_display_generation_error() {
+        let e = JavaScriptCodeGenError::GenerationError("test".to_string());
+        assert!(e.to_string().contains("代码生成错误"));
+        assert!(e.to_string().contains("test"));
+    }
+
+    #[test]
+    fn error_display_unimplemented() {
+        let e = JavaScriptCodeGenError::Unimplemented("foo".to_string());
+        assert!(e.to_string().contains("未实现"));
+        assert!(e.to_string().contains("foo"));
     }
 }

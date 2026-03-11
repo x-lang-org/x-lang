@@ -5,19 +5,19 @@ use std::path::PathBuf;
 use x_parser::ast::Program;
 
 pub mod error;
-pub mod xir;
 pub mod lower;
+pub mod xir;
 
-pub mod target;
-pub mod zig_backend;
-pub mod python_backend;
-pub mod java_backend;
 pub mod csharp_backend;
+pub mod java_backend;
+pub mod python_backend;
+pub mod target;
 pub mod typescript_backend;
+pub mod zig_backend;
 
 pub use error::{CodeGenError, CodeGenResult};
+pub use target::{FileType, Target};
 pub use xir::*;
-pub use target::{Target, FileType};
 
 /// 代码生成配置
 #[derive(Debug, PartialEq, Clone)]
@@ -82,43 +82,56 @@ pub trait CodeGenerator {
 }
 
 /// 获取指定目标的代码生成器
-pub fn get_code_generator(target: Target, config: CodeGenConfig) -> CodeGenResult<Box<dyn DynamicCodeGenerator>> {
+pub fn get_code_generator(
+    target: Target,
+    config: CodeGenConfig,
+) -> CodeGenResult<Box<dyn DynamicCodeGenerator>> {
     match target {
         Target::Native | Target::Wasm => {
-                return Ok(Box::new(zig_backend::ZigBackend::new(zig_backend::ZigBackendConfig {
+            return Ok(Box::new(zig_backend::ZigBackend::new(
+                zig_backend::ZigBackendConfig {
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })));
-            }
-            Target::Jvm => {
-                return Ok(Box::new(java_backend::JavaBackend::new(java_backend::JavaBackendConfig {
+                },
+            )));
+        }
+        Target::Jvm => {
+            return Ok(Box::new(java_backend::JavaBackend::new(
+                java_backend::JavaBackendConfig {
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })));
-            }
-            Target::DotNet => {
-                return Ok(Box::new(csharp_backend::CSharpBackend::new(csharp_backend::CSharpBackendConfig {
+                },
+            )));
+        }
+        Target::DotNet => {
+            return Ok(Box::new(csharp_backend::CSharpBackend::new(
+                csharp_backend::CSharpBackendConfig {
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })));
-            }
-            Target::TypeScript => {
-                return Ok(Box::new(typescript_backend::TypeScriptBackend::new(typescript_backend::TypeScriptBackendConfig {
+                },
+            )));
+        }
+        Target::TypeScript => {
+            return Ok(Box::new(typescript_backend::TypeScriptBackend::new(
+                typescript_backend::TypeScriptBackendConfig {
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })));
-            }
-            Target::Python => {
-                return Ok(Box::new(python_backend::PythonBackend::new(python_backend::PythonBackendConfig {
+                },
+            )));
+        }
+        Target::Python => {
+            return Ok(Box::new(python_backend::PythonBackend::new(
+                python_backend::PythonBackendConfig {
                     output_dir: config.output_dir,
                     optimize: config.optimize,
                     debug_info: config.debug_info,
-                })));
-            }
+                },
+            )));
+        }
     }
 }
 
@@ -157,13 +170,13 @@ impl DynamicCodeGenerator for csharp_backend::CSharpBackend {
 
 impl DynamicCodeGenerator for typescript_backend::TypeScriptBackend {
     fn generate_from_ast(&mut self, program: &Program) -> CodeGenResult<CodegenOutput> {
-        self.generate_from_ast(program)
-            .map_err(|e| CodeGenError::GenerationError(format!("TypeScript backend error: {:?}", e)))
+        self.generate_from_ast(program).map_err(|e| {
+            CodeGenError::GenerationError(format!("TypeScript backend error: {:?}", e))
+        })
     }
 }
 
 // 下面的是临时占位符，实际应该在各个 x-codegen-* crate 中实现
-
 
 #[cfg(feature = "jvm")]
 pub struct JvmCodeGenerator;

@@ -9,10 +9,7 @@ pub enum ParseError {
     LexError(#[from] LexError),
 
     #[error("语法错误: {message}")]
-    SyntaxError {
-        message: String,
-        span: Option<Span>,
-    },
+    SyntaxError { message: String, span: Option<Span> },
 
     #[error("意外的标记: {0:?}")]
     UnexpectedToken(String),

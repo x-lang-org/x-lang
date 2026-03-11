@@ -24,11 +24,8 @@ pub fn exec(name: &str, lib: bool, vcs: &str, _edition: Option<&str>) -> Result<
         return Err(format!("目录 `{}` 已存在", name));
     }
 
-    let pkg_name = utils::sanitize_package_name(
-        path.file_name()
-            .and_then(|n| n.to_str())
-            .unwrap_or(name),
-    );
+    let pkg_name =
+        utils::sanitize_package_name(path.file_name().and_then(|n| n.to_str()).unwrap_or(name));
     utils::validate_package_name(&pkg_name)?;
 
     std::fs::create_dir_all(path).map_err(|e| format!("无法创建目录: {}", e))?;
@@ -65,7 +62,11 @@ pub fn exec(name: &str, lib: bool, vcs: &str, _edition: Option<&str>) -> Result<
         "Created",
         &format!(
             "{} `{}` package",
-            if lib { "library" } else { "binary (application)" },
+            if lib {
+                "library"
+            } else {
+                "binary (application)"
+            },
             pkg_name
         ),
     );

@@ -115,11 +115,9 @@ impl GlobalConfig {
     pub fn save(&self) -> Result<(), String> {
         let path = config_path();
         if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent)
-                .map_err(|e| format!("无法创建配置目录: {}", e))?;
+            std::fs::create_dir_all(parent).map_err(|e| format!("无法创建配置目录: {}", e))?;
         }
-        let content =
-            toml::to_string_pretty(self).map_err(|e| format!("序列化配置失败: {}", e))?;
+        let content = toml::to_string_pretty(self).map_err(|e| format!("序列化配置失败: {}", e))?;
         std::fs::write(&path, content).map_err(|e| format!("无法写入配置: {}", e))
     }
 }
@@ -140,11 +138,9 @@ impl Credentials {
     pub fn save(&self) -> Result<(), String> {
         let path = credentials_path();
         if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent)
-                .map_err(|e| format!("无法创建凭证目录: {}", e))?;
+            std::fs::create_dir_all(parent).map_err(|e| format!("无法创建凭证目录: {}", e))?;
         }
-        let content =
-            toml::to_string_pretty(self).map_err(|e| format!("序列化凭证失败: {}", e))?;
+        let content = toml::to_string_pretty(self).map_err(|e| format!("序列化凭证失败: {}", e))?;
         std::fs::write(&path, content).map_err(|e| format!("无法写入凭证: {}", e))
     }
 
@@ -158,9 +154,7 @@ impl Credentials {
     pub fn set_token(&mut self, registry: Option<&str>, token: String) {
         match registry {
             None | Some("default") => {
-                self.registry = Some(CredentialRegistry {
-                    token: Some(token),
-                });
+                self.registry = Some(CredentialRegistry { token: Some(token) });
             }
             Some(name) => {
                 self.registries

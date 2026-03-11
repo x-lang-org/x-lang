@@ -2,8 +2,8 @@
 // 这个 crate 实现了 x-codegen 的 CodeGenerator trait
 
 use std::path::PathBuf;
+use x_codegen::{CodeGenResult, CodeGenerator, CodegenOutput};
 use x_parser::ast::Program;
-use x_codegen::{CodeGenerator, CodegenOutput, CodeGenResult, Target};
 
 /// .NET代码生成器配置
 #[derive(Debug, Clone)]
@@ -37,15 +37,21 @@ impl CodeGenerator for DotNetCodeGenerator {
     }
 
     fn generate_from_ast(&mut self, _program: &Program) -> Result<CodegenOutput, Self::Error> {
-        Err(DotNetCodeGenError::Unimplemented(".NET backend not yet implemented".to_string()))
+        Err(DotNetCodeGenError::Unimplemented(
+            ".NET backend not yet implemented".to_string(),
+        ))
     }
 
     fn generate_from_hir(&mut self, _hir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(DotNetCodeGenError::Unimplemented(".NET backend not yet implemented".to_string()))
+        Err(DotNetCodeGenError::Unimplemented(
+            ".NET backend not yet implemented".to_string(),
+        ))
     }
 
     fn generate_from_pir(&mut self, _pir: &()) -> Result<CodegenOutput, Self::Error> {
-        Err(DotNetCodeGenError::Unimplemented(".NET backend not yet implemented".to_string()))
+        Err(DotNetCodeGenError::Unimplemented(
+            ".NET backend not yet implemented".to_string(),
+        ))
     }
 }
 
@@ -65,9 +71,65 @@ pub enum DotNetCodeGenError {
 impl From<x_codegen::CodeGenError> for DotNetCodeGenError {
     fn from(err: x_codegen::CodeGenError) -> Self {
         match err {
-            x_codegen::CodeGenError::GenerationError(msg) => DotNetCodeGenError::GenerationError(msg),
+            x_codegen::CodeGenError::GenerationError(msg) => {
+                DotNetCodeGenError::GenerationError(msg)
+            }
             x_codegen::CodeGenError::IoError(e) => DotNetCodeGenError::IoError(e),
             _ => DotNetCodeGenError::GenerationError(format!("{:?}", err)),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use x_codegen::CodeGenerator;
+
+    #[test]
+    fn test_config_default() {
+        let config = DotNetConfig::default();
+        assert!(config.output_dir.is_none());
+        assert!(!config.optimize);
+        assert!(config.debug_info);
+    }
+
+    #[test]
+    fn test_config_custom() {
+        let config = DotNetConfig {
+            output_dir: Some(PathBuf::from("/tmp/output")),
+            optimize: true,
+            debug_info: false,
+        };
+        assert_eq!(config.output_dir, Some(PathBuf::from("/tmp/output")));
+        assert!(config.optimize);
+        assert!(!config.debug_info);
+    }
+
+    #[test]
+    fn test_generator_new() {
+        let config = DotNetConfig::default();
+        let _generator = DotNetCodeGenerator::new(config);
+    }
+
+    #[test]
+    fn test_generate_from_ast_unimplemented() {
+        use x_parser::ast::Program;
+        let config = DotNetConfig::default();
+        let mut generator = DotNetCodeGenerator::new(config);
+        let program = Program {
+            declarations: vec![],
+            statements: vec![],
+        };
+        let result = generator.generate_from_ast(&program);
+        assert!(matches!(result, Err(DotNetCodeGenError::Unimplemented(_))));
+    }
+
+    #[test]
+    fn test_error_display() {
+        let err = DotNetCodeGenError::GenerationError("test error".to_string());
+        assert_eq!(err.to_string(), "代码生成错误: test error");
+
+        let err = DotNetCodeGenError::Unimplemented("not implemented".to_string());
+        assert_eq!(err.to_string(), "未实现: not implemented");
     }
 }

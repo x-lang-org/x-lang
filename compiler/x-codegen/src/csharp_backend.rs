@@ -1,5 +1,5 @@
 //! C# 后端 - 将 X AST 编译为 .NET 字节码
-//! 
+//!
 //! 生成 C# 代码，支持基本的 X 语言特性
 
 use std::fmt::Write;
@@ -52,7 +52,10 @@ impl CSharpBackend {
         }
     }
 
-    pub fn generate_from_ast(&mut self, program: &AstProgram) -> CSharpResult<super::CodegenOutput> {
+    pub fn generate_from_ast(
+        &mut self,
+        program: &AstProgram,
+    ) -> CSharpResult<super::CodegenOutput> {
         self.output.clear();
         self.indent = 0;
 
@@ -148,7 +151,11 @@ impl CSharpBackend {
             params.push(format!("object {}", param.name));
         }
 
-        self.line(&format!("public static object {}({})", func.name, params.join(", ")))?;
+        self.line(&format!(
+            "public static object {}({})",
+            func.name,
+            params.join(", ")
+        ))?;
         self.line("{")?;
         self.indent += 1;
 
@@ -197,7 +204,8 @@ impl CSharpBackend {
             }
             _ => {
                 return Err(CSharpBackendError::UnsupportedFeature(format!(
-                    "Statement type not supported: {:?}", stmt
+                    "Statement type not supported: {:?}",
+                    stmt
                 )));
             }
         }
@@ -247,9 +255,7 @@ impl CSharpBackend {
                         // Pow is a function call in C#, not an operator
                         Ok(format!("Math.Pow({}, {})", lhs_str, rhs_str))
                     }
-                    _ => {
-                        Ok(format!("({} {} {})", lhs_str, self.emit_binop(op), rhs_str))
-                    }
+                    _ => Ok(format!("({} {} {})", lhs_str, self.emit_binop(op), rhs_str)),
                 }
             }
             ast::Expression::Unary(op, operand) => {
@@ -273,11 +279,10 @@ impl CSharpBackend {
                 let rhs_str = self.emit_expr(rhs)?;
                 Ok(format!("{} = {}", lhs_str, rhs_str))
             }
-            _ => {
-                Err(CSharpBackendError::UnsupportedFeature(format!(
-                    "Expression type not supported: {:?}", expr
-                )))
-            }
+            _ => Err(CSharpBackendError::UnsupportedFeature(format!(
+                "Expression type not supported: {:?}",
+                expr
+            ))),
         }
     }
 
@@ -347,12 +352,12 @@ mod tests {
 
         let program = AstProgram {
             declarations: vec![],
-            statements: vec![
-                Statement::Expression(Expression::Call(
-                    Box::new(Expression::Variable("println".to_string())),
-                    vec![Expression::Literal(Literal::String("Hello from X-Lang!".to_string()))]
-                ))
-            ],
+            statements: vec![Statement::Expression(Expression::Call(
+                Box::new(Expression::Variable("println".to_string())),
+                vec![Expression::Literal(Literal::String(
+                    "Hello from X-Lang!".to_string(),
+                ))],
+            ))],
         };
 
         let mut backend = CSharpBackend::new(CSharpBackendConfig::default());

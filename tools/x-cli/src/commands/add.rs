@@ -90,8 +90,7 @@ pub fn exec(
                 table.insert("package", name.as_str().into());
             }
 
-            doc[section][dep_name] =
-                toml_edit::value(toml_edit::Value::InlineTable(table));
+            doc[section][dep_name] = toml_edit::value(toml_edit::Value::InlineTable(table));
         } else {
             let ver = version.unwrap_or_else(|| "*".to_string());
             doc[section][&name] = toml_edit::value(&ver);

@@ -1,11 +1,11 @@
 use num_bigint::BigInt;
 use num_traits::{One, Zero};
-use rand::Rng;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
 use x_parser::ast::{
-    BinaryOp, Block, Declaration, Expression, FunctionDecl, Literal, Program, Statement, UnaryOp,
+    BinaryOp, Block, CatchClause, Declaration, Expression, FunctionDecl, Literal, MatchCase,
+    MatchStatement, Pattern, Program, Statement, TryStatement, UnaryOp,
 };
 
 #[derive(Debug, PartialEq, Clone)]
@@ -52,7 +52,9 @@ impl Value {
                 Value::Map(Rc::new(RefCell::new(entries)))
             }
             Value::Option(v) => Value::Option(Box::new(v.deep_clone())),
-            Value::Result(ok, err) => Value::Result(Box::new(ok.deep_clone()), Box::new(err.deep_clone())),
+            Value::Result(ok, err) => {
+                Value::Result(Box::new(ok.deep_clone()), Box::new(err.deep_clone()))
+            }
             other => other.clone(),
         }
     }
@@ -117,7 +119,7 @@ impl Interpreter {
         // 如果有 main 函数，也运行它（为了向后兼容）
         if let Some(main_func) = self.functions.get("main").cloned() {
             // 不再保存和恢复变量，让main函数可以访问全局变量
-            let _ = self.execute_block(&main_func.body)?;
+            let _ = self.execute_block_stmt(&main_func.body)?;
         }
 
         Ok(())
@@ -143,17 +145,16 @@ impl Interpreter {
         Ok(())
     }
 
-    fn execute_block(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
+    fn execute_block_expr(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
         let mut last_expr_result = None;
         for stmt in &block.statements {
+            if let Statement::Expression(expr) = stmt {
+                last_expr_result = Some(self.eval(expr)?);
+                continue;
+            }
+
             match self.execute_statement(stmt)? {
-                ControlFlow::None => {
-                    // 检查是否是表达式语句
-                    if let Statement::Expression(expr) = stmt {
-                        // 保存表达式的结果
-                        last_expr_result = Some(self.eval(expr)?);
-                    }
-                }
+                ControlFlow::None => {}
                 cf => return Ok(cf),
             }
         }
@@ -163,6 +164,20 @@ impl Interpreter {
         } else {
             Ok(ControlFlow::None)
         }
+    }
+
+    fn execute_block_stmt(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
+        for stmt in &block.statements {
+            if let Statement::Expression(expr) = stmt {
+                self.eval(expr)?;
+                continue;
+            }
+            match self.execute_statement(stmt)? {
+                ControlFlow::None => {}
+                cf => return Ok(cf),
+            }
+        }
+        Ok(ControlFlow::None)
     }
 
     fn execute_statement(&mut self, stmt: &Statement) -> Result<ControlFlow, InterpreterError> {
@@ -189,9 +204,9 @@ impl Interpreter {
             Statement::If(if_stmt) => {
                 let cond = self.eval(&if_stmt.condition)?;
                 if self.is_truthy(&cond) {
-                    self.execute_block(&if_stmt.then_block)
+                    self.execute_block_stmt(&if_stmt.then_block)
                 } else if let Some(else_blk) = &if_stmt.else_block {
-                    self.execute_block(else_blk)
+                    self.execute_block_stmt(else_blk)
                 } else {
                     Ok(ControlFlow::None)
                 }
@@ -201,7 +216,7 @@ impl Interpreter {
                 if !self.is_truthy(&cond) {
                     break Ok(ControlFlow::None);
                 }
-                match self.execute_block(&while_stmt.body)? {
+                match self.execute_block_stmt(&while_stmt.body)? {
                     ControlFlow::Return(v) => break Ok(ControlFlow::Return(v)),
                     ControlFlow::Break => break Ok(ControlFlow::None),
                     _ => {}
@@ -218,7 +233,7 @@ impl Interpreter {
                                 self.variables.insert(name.clone(), item.clone());
                             }
                             // 执行循环体
-                            match self.execute_block(&for_stmt.body)? {
+                            match self.execute_block_stmt(&for_stmt.body)? {
                                 ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
                                 ControlFlow::Break => break,
                                 _ => {}
@@ -227,17 +242,187 @@ impl Interpreter {
                     }
                     _ => {
                         // 暂时不支持其他类型的迭代器
-                        return Err(InterpreterError::RuntimeError("For循环只支持数组迭代".into()));
+                        return Err(InterpreterError::RuntimeError(
+                            "For循环只支持数组迭代".into(),
+                        ));
                     }
                 }
                 Ok(ControlFlow::None)
-            },
-            _ => Err(InterpreterError::RuntimeError(format!(
-                "未实现的语句类型: {:?}",
-                stmt
-            ))),
-
+            }
+            Statement::Match(match_stmt) => self.execute_match(match_stmt),
+            Statement::Try(try_stmt) => self.execute_try(try_stmt),
+            Statement::Break => Ok(ControlFlow::Break),
+            Statement::Continue => Ok(ControlFlow::Continue),
+            Statement::DoWhile(d) => self.execute_do_while(d),
         }
+    }
+
+    fn execute_do_while(
+        &mut self,
+        d: &x_parser::ast::DoWhileStatement,
+    ) -> Result<ControlFlow, InterpreterError> {
+        loop {
+            match self.execute_block_stmt(&d.body)? {
+                ControlFlow::Break => break,
+                ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                _ => {}
+            }
+            let cond = self.eval(&d.condition)?;
+            if !self.is_truthy(&cond) {
+                break;
+            }
+        }
+        Ok(ControlFlow::None)
+    }
+
+    fn execute_match(&mut self, match_stmt: &MatchStatement) -> Result<ControlFlow, InterpreterError> {
+        let value = self.eval(&match_stmt.expression)?;
+
+        let base_vars = self.variables.clone();
+        for case in &match_stmt.cases {
+            self.variables = base_vars.clone();
+            if self.match_case(&value, case)? {
+                return self.execute_block_stmt(&case.body);
+            }
+        }
+
+        self.variables = base_vars;
+        Ok(ControlFlow::None)
+    }
+
+    fn match_case(&mut self, value: &Value, case: &MatchCase) -> Result<bool, InterpreterError> {
+        let mut bindings = HashMap::<String, Value>::new();
+        if !self.match_pattern(&case.pattern, value, &mut bindings)? {
+            return Ok(false);
+        }
+
+        let saved = self.variables.clone();
+        for (k, v) in bindings {
+            self.variables.insert(k, v);
+        }
+
+        let guard_ok = match &case.guard {
+            Some(guard_expr) => {
+                let gv = self.eval(guard_expr)?;
+                self.is_truthy(&gv)
+            }
+            None => true,
+        };
+
+        if !guard_ok {
+            self.variables = saved;
+        }
+        Ok(guard_ok)
+    }
+
+    fn match_pattern(
+        &mut self,
+        pattern: &Pattern,
+        value: &Value,
+        bindings: &mut HashMap<String, Value>,
+    ) -> Result<bool, InterpreterError> {
+        match pattern {
+            Pattern::Wildcard => Ok(true),
+            Pattern::Variable(name) => {
+                bindings.insert(name.clone(), value.clone());
+                Ok(true)
+            }
+            Pattern::Literal(lit) => Ok(self.eval_literal(lit) == *value),
+            Pattern::Or(a, b) => {
+                let mut left = bindings.clone();
+                if self.match_pattern(a, value, &mut left)? {
+                    *bindings = left;
+                    return Ok(true);
+                }
+                self.match_pattern(b, value, bindings)
+            }
+            Pattern::Guard(inner, guard) => {
+                let mut inner_bindings = bindings.clone();
+                if !self.match_pattern(inner, value, &mut inner_bindings)? {
+                    return Ok(false);
+                }
+                let saved = self.variables.clone();
+                for (k, v) in inner_bindings.iter() {
+                    self.variables.insert(k.clone(), v.clone());
+                }
+                let gv = self.eval(guard)?;
+                let ok = self.is_truthy(&gv);
+                self.variables = saved;
+                if ok {
+                    *bindings = inner_bindings;
+                }
+                Ok(ok)
+            }
+            Pattern::Array(items) => match value {
+                Value::Array(arr) => {
+                    let v = arr.borrow();
+                    if v.len() != items.len() {
+                        return Ok(false);
+                    }
+                    for (p, item) in items.iter().zip(v.iter()) {
+                        if !self.match_pattern(p, item, bindings)? {
+                            return Ok(false);
+                        }
+                    }
+                    Ok(true)
+                }
+                _ => Ok(false),
+            },
+            Pattern::Tuple(items) => match value {
+                Value::Array(arr) => {
+                    let v = arr.borrow();
+                    if v.len() != items.len() {
+                        return Ok(false);
+                    }
+                    for (p, item) in items.iter().zip(v.iter()) {
+                        if !self.match_pattern(p, item, bindings)? {
+                            return Ok(false);
+                        }
+                    }
+                    Ok(true)
+                }
+                _ => Ok(false),
+            },
+            Pattern::Dictionary(_) | Pattern::Record(_, _) => Ok(false),
+        }
+    }
+
+    fn execute_try(&mut self, try_stmt: &TryStatement) -> Result<ControlFlow, InterpreterError> {
+        let base_vars = self.variables.clone();
+        let body_result = self.execute_block_stmt(&try_stmt.body);
+
+        let mut result = match body_result {
+            Ok(cf) => Ok(cf),
+            Err(err) => self.handle_catches(&try_stmt.catch_clauses, err, &base_vars),
+        };
+
+        if let Some(finally_block) = &try_stmt.finally_block {
+            self.variables = base_vars.clone();
+            let finally_result = self.execute_block_stmt(finally_block);
+            if let Err(e) = finally_result {
+                result = Err(e);
+            }
+        }
+
+        self.variables = base_vars;
+        result
+    }
+
+    fn handle_catches(
+        &mut self,
+        catches: &[CatchClause],
+        err: InterpreterError,
+        base_vars: &HashMap<String, Value>,
+    ) -> Result<ControlFlow, InterpreterError> {
+        for clause in catches {
+            self.variables = base_vars.clone();
+            if let Some(var) = &clause.variable_name {
+                self.variables.insert(var.clone(), Value::String(err.to_string()));
+            }
+            // 目前不区分 exception_type；未来可根据类型做筛选
+            return self.execute_block_stmt(&clause.body);
+        }
+        Err(err)
     }
 
     fn is_truthy(&self, v: &Value) -> bool {
@@ -254,19 +439,27 @@ impl Interpreter {
     fn eval(&mut self, expr: &Expression) -> Result<Value, InterpreterError> {
         match expr {
             Expression::Literal(lit) => Ok(self.eval_literal(lit)),
-            Expression::Variable(name) => self
-                .variables
-                .get(name)
-                .cloned()
-                .ok_or_else(|| InterpreterError::RuntimeError(format!("未定义的变量: {}", name))),
+            Expression::Variable(name) => {
+                self.variables.get(name).cloned().ok_or_else(|| {
+                    InterpreterError::RuntimeError(format!("未定义的变量: {}", name))
+                })
+            }
             Expression::Binary(op, l, r) => {
                 if matches!(op, BinaryOp::And) {
                     let lv = self.eval(l)?;
-                    return if !self.is_truthy(&lv) { Ok(lv) } else { self.eval(r) };
+                    return if !self.is_truthy(&lv) {
+                        Ok(lv)
+                    } else {
+                        self.eval(r)
+                    };
                 }
                 if matches!(op, BinaryOp::Or) {
                     let lv = self.eval(l)?;
-                    return if self.is_truthy(&lv) { Ok(lv) } else { self.eval(r) };
+                    return if self.is_truthy(&lv) {
+                        Ok(lv)
+                    } else {
+                        self.eval(r)
+                    };
                 }
                 let lv = self.eval(l)?;
                 let rv = self.eval(r)?;
@@ -307,7 +500,7 @@ impl Interpreter {
                     .collect::<Result<_, _>>()?;
                 Ok(Value::new_array(vals))
             }
-            Expression::Record(name, fields) => {
+            Expression::Record(_name, _fields) => {
                 // 处理记录表达式，暂时创建一个映射来存储字段
                 let map = Value::new_map();
                 // 暂时直接返回一个空映射，避免栈溢出
@@ -326,10 +519,10 @@ impl Interpreter {
             Expression::Range(start, end, inclusive) => {
                 let start_val = self.eval(start)?;
                 let end_val = self.eval(end)?;
-                
+
                 let start_int = self.as_i64(&start_val)?;
                 let end_int = self.as_i64(&end_val)?;
-                
+
                 let mut values = Vec::new();
                 if *inclusive {
                     for i in start_int..=end_int {
@@ -340,7 +533,7 @@ impl Interpreter {
                         values.push(Value::Integer(i));
                     }
                 }
-                
+
                 Ok(Value::new_array(values))
             }
             Expression::Pipe(input, functions) => {
@@ -355,12 +548,18 @@ impl Interpreter {
                             Value::Float(f) => Literal::Float(f),
                             Value::Boolean(b) => Literal::Boolean(b),
                             Value::String(s) => Literal::String(s),
-                            _ => return Err(InterpreterError::RuntimeError("管道操作符只支持基本类型".into())),
+                            _ => {
+                                return Err(InterpreterError::RuntimeError(
+                                    "管道操作符只支持基本类型".into(),
+                                ))
+                            }
                         });
                         // 调用函数，传递临时表达式作为参数
                         value = self.call_function(name, &[temp_expr])?;
                     } else {
-                        return Err(InterpreterError::RuntimeError("管道操作符只支持调用命名函数".into()));
+                        return Err(InterpreterError::RuntimeError(
+                            "管道操作符只支持调用命名函数".into(),
+                        ));
                     }
                 }
                 Ok(value)
@@ -369,7 +568,6 @@ impl Interpreter {
                 "未实现的表达式类型: {:?}",
                 expr
             ))),
-
         }
     }
 
@@ -379,8 +577,7 @@ impl Interpreter {
                 self.variables.insert(name.clone(), val.clone());
                 Ok(val)
             }
-            Expression::Call(func, args)
-                if matches!(func.as_ref(), Expression::Variable(n) if n == "__index__") =>
+            Expression::Call(func, args) if matches!(func.as_ref(), Expression::Variable(n) if n == "__index__") =>
             {
                 if args.len() == 2 {
                     let container = self.eval(&args[0])?;
@@ -459,9 +656,7 @@ impl Interpreter {
                 let value = self.eval(&args[0])?;
                 Ok(Value::Option(Box::new(value)))
             }
-            "None" => {
-                Ok(Value::None)
-            }
+            "None" => Ok(Value::None),
             "Ok" => {
                 let value = self.eval(&args[0])?;
                 Ok(Value::Result(Box::new(value), Box::new(Value::Null)))
@@ -505,7 +700,9 @@ impl Interpreter {
                     Value::Array(rc) => Ok(Value::Integer(rc.borrow().len() as i64)),
                     Value::String(s) => Ok(Value::Integer(s.len() as i64)),
                     Value::Map(rc) => Ok(Value::Integer(rc.borrow().len() as i64)),
-                    _ => Err(InterpreterError::RuntimeError("len 需要数组/字符串/映射".into())),
+                    _ => Err(InterpreterError::RuntimeError(
+                        "len 需要数组/字符串/映射".into(),
+                    )),
                 }
             }
             "push" => {
@@ -596,8 +793,10 @@ impl Interpreter {
                 match &map {
                     Value::Map(rc) => {
                         let entries = rc.borrow();
-                        let keys: Vec<Value> =
-                            entries.iter().map(|(k, _)| Value::String(k.clone())).collect();
+                        let keys: Vec<Value> = entries
+                            .iter()
+                            .map(|(k, _)| Value::String(k.clone()))
+                            .collect();
                         Ok(Value::new_array(keys))
                     }
                     _ => Err(InterpreterError::RuntimeError("map_keys 需要映射".into())),
@@ -612,13 +811,9 @@ impl Interpreter {
                 match v {
                     Value::Integer(n) => Ok(Value::Integer(n)),
                     Value::Float(f) => Ok(Value::Integer(f as i64)),
-                    Value::String(s) => s
-                        .trim()
-                        .parse::<i64>()
-                        .map(Value::Integer)
-                        .map_err(|_| {
-                            InterpreterError::RuntimeError(format!("无法转换为整数: {}", s))
-                        }),
+                    Value::String(s) => s.trim().parse::<i64>().map(Value::Integer).map_err(|_| {
+                        InterpreterError::RuntimeError(format!("无法转换为整数: {}", s))
+                    }),
                     Value::Boolean(b) => Ok(Value::Integer(if b { 1 } else { 0 })),
                     _ => Err(InterpreterError::RuntimeError("无法转换为整数".into())),
                 }
@@ -628,13 +823,9 @@ impl Interpreter {
                 match v {
                     Value::Float(f) => Ok(Value::Float(f)),
                     Value::Integer(n) => Ok(Value::Float(n as f64)),
-                    Value::String(s) => s
-                        .trim()
-                        .parse::<f64>()
-                        .map(Value::Float)
-                        .map_err(|_| {
-                            InterpreterError::RuntimeError(format!("无法转换为浮点: {}", s))
-                        }),
+                    Value::String(s) => s.trim().parse::<f64>().map(Value::Float).map_err(|_| {
+                        InterpreterError::RuntimeError(format!("无法转换为浮点: {}", s))
+                    }),
                     _ => Err(InterpreterError::RuntimeError("无法转换为浮点".into())),
                 }
             }
@@ -674,7 +865,9 @@ impl Interpreter {
             "pow" => {
                 let base_v = self.eval(&args[0])?;
                 let exp_v = self.eval(&args[1])?;
-                Ok(Value::Float(self.as_f64(&base_v)?.powf(self.as_f64(&exp_v)?)))
+                Ok(Value::Float(
+                    self.as_f64(&base_v)?.powf(self.as_f64(&exp_v)?),
+                ))
             }
             "concat" => {
                 let mut result = String::new();
@@ -730,8 +923,10 @@ impl Interpreter {
             "str_split" => {
                 let s = self.eval_as_string(&args[0])?;
                 let delim = self.eval_as_string(&args[1])?;
-                let parts: Vec<Value> =
-                    s.split(&delim).map(|p| Value::String(p.to_string())).collect();
+                let parts: Vec<Value> = s
+                    .split(&delim)
+                    .map(|p| Value::String(p.to_string()))
+                    .collect();
                 Ok(Value::new_array(parts))
             }
             "str_trim" => {
@@ -760,7 +955,11 @@ impl Interpreter {
                 let text = self.eval_as_string(&args[0])?;
                 let pattern = self.eval_as_string(&args[1])?;
                 let replacement = self.eval_as_string(&args[2])?;
-                Ok(Value::String(simple_regex_replace(&text, &pattern, &replacement)))
+                Ok(Value::String(simple_regex_replace(
+                    &text,
+                    &pattern,
+                    &replacement,
+                )))
             }
             "format_float" => {
                 let v = self.eval(&args[0])?;
@@ -832,9 +1031,13 @@ impl Interpreter {
                             arr[start..end].reverse();
                             return Ok(Value::Unit);
                         }
-                        Err(InterpreterError::RuntimeError("reverse_range 范围越界".into()))
+                        Err(InterpreterError::RuntimeError(
+                            "reverse_range 范围越界".into(),
+                        ))
                     }
-                    _ => Err(InterpreterError::RuntimeError("reverse_range 需要数组".into())),
+                    _ => Err(InterpreterError::RuntimeError(
+                        "reverse_range 需要数组".into(),
+                    )),
                 }
             }
             "sort_by_value_desc" => {
@@ -881,7 +1084,7 @@ impl Interpreter {
                     for (p, v) in func.parameters.iter().zip(arg_vals) {
                         self.variables.insert(p.name.clone(), v);
                     }
-                    let result = self.execute_block(&func.body)?;
+                    let result = self.execute_block_expr(&func.body)?;
                     // 恢复变量状态
                     self.variables = saved;
                     match result {
@@ -1095,7 +1298,7 @@ impl Interpreter {
     fn json_to_value(&mut self, json: &str) -> Result<Value, InterpreterError> {
         let json = json.trim();
         if json.starts_with('"') && json.ends_with('"') {
-            let s = &json[1..json.len()-1];
+            let s = &json[1..json.len() - 1];
             let s = s.replace("\\\"", "\"").replace("\\\\", "\\");
             Ok(Value::String(s))
         } else if json == "true" {
@@ -1108,7 +1311,7 @@ impl Interpreter {
             let mut items = Vec::new();
             let mut current = String::new();
             let mut depth = 0;
-            for c in json.chars().skip(1).take(json.len()-2) {
+            for c in json.chars().skip(1).take(json.len() - 2) {
                 if c == '[' || c == '{' {
                     depth += 1;
                     current.push(c);
@@ -1138,7 +1341,10 @@ impl Interpreter {
         } else if json.parse::<f64>().is_ok() {
             Ok(Value::Float(json.parse::<f64>().unwrap()))
         } else {
-            Err(InterpreterError::RuntimeError(format!("无效的JSON: {}", json)))
+            Err(InterpreterError::RuntimeError(format!(
+                "无效的JSON: {}",
+                json
+            )))
         }
     }
 }
@@ -1181,8 +1387,8 @@ fn compute_pi_digits_bigint(n: usize) -> String {
             r = nr;
         } else {
             let nr = (BigInt::from(2) * &q + &r) * &l;
-            let nn = (&q * (BigInt::from(7) * &k + BigInt::from(2)) + &r * &l)
-                .div_floor(&(&t * &l));
+            let nn =
+                (&q * (BigInt::from(7) * &k + BigInt::from(2)) + &r * &l).div_floor(&(&t * &l));
             q = &q * &k;
             t = &t * &l;
             l = &l + BigInt::from(2);
@@ -1197,7 +1403,10 @@ fn compute_pi_digits_bigint(n: usize) -> String {
 
 fn simple_regex_count(text: &str, pattern: &str) -> usize {
     if pattern.contains('|') {
-        return pattern.split('|').map(|p| simple_regex_count(text, p)).sum();
+        return pattern
+            .split('|')
+            .map(|p| simple_regex_count(text, p))
+            .sum();
     }
     if pattern.contains('[') {
         let chars: Vec<char> = text.chars().collect();
@@ -1310,6 +1519,13 @@ pub enum InterpreterError {
 mod tests {
     use super::*;
 
+    fn run_ok(source: &str) -> Result<(), InterpreterError> {
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+        let mut interpreter = Interpreter::new();
+        interpreter.run(&program)
+    }
+
     #[test]
     fn test_hello_world() {
         let source = r#"
@@ -1399,5 +1615,128 @@ mod tests {
 
         let mut interpreter = Interpreter::new();
         interpreter.run(&program).expect("Failed to run");
+    }
+
+    #[test]
+    fn test_match_or_pattern_and_guard() {
+        let source = r#"
+            let x = 2;
+            match x {
+                1 | 2 when true { print("hit") }
+                _ { print("miss") }
+            }
+        "#;
+        run_ok(source).expect("match should run");
+    }
+
+    #[test]
+    fn test_try_catch_finally_runs() {
+        let source = r#"
+            function fail() {
+                // 触发运行时错误：未定义变量
+                return missing
+            }
+
+            try {
+                fail()
+            } catch (Error e) {
+                // 确保 catch 变量可用
+                print(e)
+            } finally {
+                print("done")
+            }
+        "#;
+        run_ok(source).expect("try/catch/finally should run");
+    }
+
+    #[test]
+    fn test_short_circuit_and_or() {
+        let source = r#"
+            let x = 0;
+            false && missing;
+            true || missing;
+            true && (x = 1);
+            false || (x = 2);
+            print(x);
+        "#;
+        run_ok(source).expect("short-circuit should avoid missing");
+    }
+
+    #[test]
+    fn test_range_expression_and_for_over_array() {
+        let source = r#"
+            let sum = 0;
+            let xs = 1..=3;
+            for x in xs { sum = sum + x }
+            print(sum)
+        "#;
+        run_ok(source).expect("range and for should run");
+    }
+
+    #[test]
+    fn test_for_over_non_array_errors() {
+        let source = r#"
+            for x in 1 { print(x) }
+        "#;
+        let err = run_ok(source).expect_err("should error");
+        match err {
+            InterpreterError::RuntimeError(msg) => assert!(msg.contains("For循环只支持数组迭代")),
+        }
+    }
+
+    #[test]
+    fn test_divide_by_zero_errors() {
+        let source = r#"
+            print(1 / 0)
+        "#;
+        let err = run_ok(source).expect_err("should error");
+        match err {
+            InterpreterError::RuntimeError(msg) => assert!(msg.contains("除以零")),
+        }
+    }
+
+    #[test]
+    fn test_try_without_catch_propagates_error() {
+        let mut i = Interpreter::new();
+        assert!(i
+            .eval(&Expression::Variable("missing".to_string()))
+            .is_err());
+
+        let source = r#"
+            function fail() { return missing }
+            try { fail() } finally { print("done") }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+        match &program.declarations[0] {
+            Declaration::Function(f) => match &f.body.statements[0] {
+                Statement::Return(Some(Expression::Variable(n))) => assert_eq!(n, "missing"),
+                other => panic!("unexpected fail() body: {other:?}"),
+            },
+            other => panic!("unexpected first decl: {other:?}"),
+        }
+
+        let mut i2 = Interpreter::new();
+        i2.load_declaration(&program.declarations[0])
+            .expect("load decl ok");
+        assert!(i2.call_function("fail", &[]).is_err());
+
+        let try_expr = match &program.statements[0] {
+            Statement::Try(t) => match &t.body.statements[0] {
+                Statement::Expression(e) => e,
+                other => panic!("unexpected try body stmt: {other:?}"),
+            },
+            other => panic!("unexpected first stmt: {other:?}"),
+        };
+        let mut i3 = Interpreter::new();
+        i3.load_declaration(&program.declarations[0])
+            .expect("load decl ok");
+        assert!(i3.eval(try_expr).is_err());
+
+        let err = run_ok(source).expect_err("should error");
+        match err {
+            InterpreterError::RuntimeError(msg) => assert!(msg.contains("未定义的变量")),
+        }
     }
 }

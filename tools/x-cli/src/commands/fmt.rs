@@ -63,8 +63,7 @@ fn format_file(file: &str, check: bool) -> Result<(), String> {
         if check {
             return Err(format!("{} 需要格式化", file));
         }
-        std::fs::write(file, &formatted)
-            .map_err(|e| format!("无法写入 {}: {}", file, e))?;
+        std::fs::write(file, &formatted).map_err(|e| format!("无法写入 {}: {}", file, e))?;
         utils::status("Formatted", file);
     } else {
         utils::status("Unchanged", file);

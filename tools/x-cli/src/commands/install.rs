@@ -20,8 +20,7 @@ pub fn exec(
         return list_installed(&install_dir);
     }
 
-    std::fs::create_dir_all(&install_dir)
-        .map_err(|e| format!("无法创建安装目录: {}", e))?;
+    std::fs::create_dir_all(&install_dir).map_err(|e| format!("无法创建安装目录: {}", e))?;
 
     if let Some(p) = path {
         return install_from_path(p, &install_dir, force);
@@ -65,11 +64,7 @@ fn list_installed(install_dir: &std::path::Path) -> Result<(), String> {
     Ok(())
 }
 
-fn install_from_path(
-    path: &str,
-    install_dir: &std::path::Path,
-    force: bool,
-) -> Result<(), String> {
+fn install_from_path(path: &str, install_dir: &std::path::Path, force: bool) -> Result<(), String> {
     let abs = std::path::Path::new(path)
         .canonicalize()
         .map_err(|e| format!("无法解析路径 {}: {}", path, e))?;
@@ -105,15 +100,13 @@ fn install_from_path(
     #[cfg(windows)]
     {
         let script = format!("@echo off\nx run \"{}\" -- %*\n", main_path.display());
-        std::fs::write(&script_path, script)
-            .map_err(|e| format!("无法写入安装脚本: {}", e))?;
+        std::fs::write(&script_path, script).map_err(|e| format!("无法写入安装脚本: {}", e))?;
     }
 
     #[cfg(not(windows))]
     {
         let script = format!("#!/bin/sh\nx run \"{}\" -- \"$@\"\n", main_path.display());
-        std::fs::write(&script_path, &script)
-            .map_err(|e| format!("无法写入安装脚本: {}", e))?;
+        std::fs::write(&script_path, &script).map_err(|e| format!("无法写入安装脚本: {}", e))?;
         use std::os::unix::fs::PermissionsExt;
         std::fs::set_permissions(&script_path, std::fs::Permissions::from_mode(0o755))
             .map_err(|e| format!("无法设置执行权限: {}", e))?;

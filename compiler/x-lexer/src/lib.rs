@@ -1,12 +1,12 @@
 // 词法分析器库
 
-pub mod token;
 pub mod errors;
 pub mod span;
+pub mod token;
 
-use token::Token;
 use errors::LexError;
 use span::Span;
+use token::Token;
 
 /// 词法分析器状态
 #[derive(Debug, PartialEq, Clone)]
@@ -231,32 +231,56 @@ impl<'a> Lexer<'a> {
                     Ok(Token::GreaterThan)
                 }
                 '+' => {
-                    if next == Some('=') { self.next_char(); return Ok(Token::PlusEquals); }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::PlusEquals);
+                    }
                     Ok(Token::Plus)
                 }
                 '-' => {
-                    if next == Some('>') { self.next_char(); return Ok(Token::Arrow); }
-                    if next == Some('=') { self.next_char(); return Ok(Token::MinusEquals); }
+                    if next == Some('>') {
+                        self.next_char();
+                        return Ok(Token::Arrow);
+                    }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::MinusEquals);
+                    }
                     Ok(Token::Minus)
                 }
                 '*' => {
-                    if next == Some('=') { self.next_char(); return Ok(Token::AsteriskEquals); }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::AsteriskEquals);
+                    }
                     Ok(Token::Asterisk)
                 }
                 '/' => {
-                    if next == Some('=') { self.next_char(); return Ok(Token::SlashEquals); }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::SlashEquals);
+                    }
                     Ok(Token::Slash)
                 }
                 '%' => {
-                    if next == Some('=') { self.next_char(); return Ok(Token::PercentEquals); }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::PercentEquals);
+                    }
                     Ok(Token::Percent)
                 }
                 '^' => {
-                    if next == Some('=') { self.next_char(); return Ok(Token::CaretEquals); }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::CaretEquals);
+                    }
                     Ok(Token::Caret)
                 }
                 ':' => {
-                    if next == Some(':') { self.next_char(); return Ok(Token::DoubleColon); }
+                    if next == Some(':') {
+                        self.next_char();
+                        return Ok(Token::DoubleColon);
+                    }
                     Ok(Token::Colon)
                 }
                 '.' => {
@@ -279,12 +303,21 @@ impl<'a> Lexer<'a> {
                 '[' => Ok(Token::LeftBracket),
                 ']' => Ok(Token::RightBracket),
                 '|' => {
-                    if next == Some('|') { self.next_char(); return Ok(Token::OrOr); }
-                    if next == Some('>') { self.next_char(); return Ok(Token::Pipe); }
+                    if next == Some('|') {
+                        self.next_char();
+                        return Ok(Token::OrOr);
+                    }
+                    if next == Some('>') {
+                        self.next_char();
+                        return Ok(Token::Pipe);
+                    }
                     Ok(Token::VerticalBar)
                 }
                 '&' => {
-                    if next == Some('&') { self.next_char(); return Ok(Token::AndAnd); }
+                    if next == Some('&') {
+                        self.next_char();
+                        return Ok(Token::AndAnd);
+                    }
                     Ok(Token::Ampersand)
                 }
                 '~' => Ok(Token::Tilde),
@@ -351,9 +384,9 @@ impl<'a> Lexer<'a> {
                             return result.map(|t| (t, Span::new(start, end)));
                         }
                         Some(_ch) => {
-                            let start = self.position;
+                            let _start = self.position;
                             self.next_char();
-                            let end = self.position;
+                            let _end = self.position;
                             return Err(LexError::InvalidToken);
                         }
                         None => {
@@ -379,6 +412,66 @@ impl<'a> Lexer<'a> {
 
     /// 解析数字
     fn parse_number(&mut self) -> Result<Token, LexError> {
+        // 二/八/十六进制前缀 0b / 0o / 0x
+        let first = self.current_char();
+        if first == Some('0') {
+            let second = self.chars.clone().nth(1);
+            match second {
+                Some('x') | Some('X') => {
+                    self.next_char();
+                    self.next_char();
+                    let mut num_str = String::new();
+                    while let Some(ch) = self.current_char() {
+                        if ch.is_ascii_hexdigit() || ch == '_' {
+                            num_str.push(ch);
+                            self.next_char();
+                        } else {
+                            break;
+                        }
+                    }
+                    if num_str.is_empty() || num_str.chars().all(|c| c == '_') {
+                        return Err(LexError::InvalidNumber);
+                    }
+                    return Ok(Token::HexInt(num_str));
+                }
+                Some('o') | Some('O') => {
+                    self.next_char();
+                    self.next_char();
+                    let mut num_str = String::new();
+                    while let Some(ch) = self.current_char() {
+                        if matches!(ch, '0'..='7') || ch == '_' {
+                            num_str.push(ch);
+                            self.next_char();
+                        } else {
+                            break;
+                        }
+                    }
+                    if num_str.is_empty() || num_str.chars().all(|c| c == '_') {
+                        return Err(LexError::InvalidNumber);
+                    }
+                    return Ok(Token::OctInt(num_str));
+                }
+                Some('b') | Some('B') => {
+                    self.next_char();
+                    self.next_char();
+                    let mut num_str = String::new();
+                    while let Some(ch) = self.current_char() {
+                        if ch == '0' || ch == '1' || ch == '_' {
+                            num_str.push(ch);
+                            self.next_char();
+                        } else {
+                            break;
+                        }
+                    }
+                    if num_str.is_empty() || num_str.chars().all(|c| c == '_') {
+                        return Err(LexError::InvalidNumber);
+                    }
+                    return Ok(Token::BinInt(num_str));
+                }
+                _ => {}
+            }
+        }
+
         let mut num_str = String::new();
 
         // 解析整数部分
@@ -399,11 +492,11 @@ impl<'a> Lexer<'a> {
                 // 这是范围表达式的开始，返回整数
                 return Ok(Token::DecimalInt(num_str));
             }
-            
+
             // 这是浮点数的开始
             num_str.push('.');
             self.next_char();
-            
+
             // 解析小数部分
             while let Some(ch) = self.current_char() {
                 if ch.is_ascii_digit() || ch == '_' {
@@ -413,13 +506,13 @@ impl<'a> Lexer<'a> {
                     break;
                 }
             }
-            
+
             // 检查是否有指数部分
             if let Some(ch) = self.current_char() {
                 if ch == 'e' || ch == 'E' {
                     num_str.push(ch);
                     self.next_char();
-                    
+
                     // 解析指数符号
                     if let Some(ch) = self.current_char() {
                         if ch == '+' || ch == '-' {
@@ -427,7 +520,7 @@ impl<'a> Lexer<'a> {
                             self.next_char();
                         }
                     }
-                    
+
                     // 解析指数部分
                     while let Some(ch) = self.current_char() {
                         if ch.is_ascii_digit() || ch == '_' {
@@ -439,7 +532,7 @@ impl<'a> Lexer<'a> {
                     }
                 }
             }
-            
+
             return Ok(Token::Float(num_str));
         }
 
@@ -448,7 +541,7 @@ impl<'a> Lexer<'a> {
             if ch == 'e' || ch == 'E' {
                 num_str.push(ch);
                 self.next_char();
-                
+
                 // 解析指数符号
                 if let Some(ch) = self.current_char() {
                     if ch == '+' || ch == '-' {
@@ -456,7 +549,7 @@ impl<'a> Lexer<'a> {
                         self.next_char();
                     }
                 }
-                
+
                 // 解析指数部分
                 while let Some(ch) = self.current_char() {
                     if ch.is_ascii_digit() || ch == '_' {
@@ -466,7 +559,7 @@ impl<'a> Lexer<'a> {
                         break;
                     }
                 }
-                
+
                 return Ok(Token::Float(num_str));
             }
         }
@@ -478,7 +571,7 @@ impl<'a> Lexer<'a> {
     /// 解析字符串
     fn parse_string(&mut self) -> Result<Token, LexError> {
         self.next_char(); // 跳过第一个 "
-        // 解析单行字符串
+                          // 解析单行字符串
         let mut content = String::new();
         while let Some(ch) = self.current_char() {
             if ch == '"' {
@@ -493,7 +586,9 @@ impl<'a> Lexer<'a> {
                         't' => content.push('\t'),
                         'r' => content.push('\r'),
                         '"' => content.push('"'),
+                        '\'' => content.push('\''),
                         '\\' => content.push('\\'),
+                        '0' => content.push('\0'),
                         _ => content.push(escaped_ch),
                     }
                     self.next_char();
@@ -504,10 +599,11 @@ impl<'a> Lexer<'a> {
             }
         }
         // 如果没有找到闭合的 "，则返回错误
-        Err(LexError::InvalidToken)
+        Err(LexError::UnclosedString)
     }
 
     /// 解析字符串内容
+    #[allow(dead_code)]
     fn parse_string_content(&mut self) -> Result<Token, LexError> {
         let mut content = String::new();
 
@@ -526,7 +622,9 @@ impl<'a> Lexer<'a> {
                                 't' => content.push('\t'),
                                 'r' => content.push('\r'),
                                 '"' => content.push('"'),
+                                '\'' => content.push('\''),
                                 '\\' => content.push('\\'),
+                                '0' => content.push('\0'),
                                 _ => content.push(escaped_ch),
                             }
                             self.next_char();
@@ -567,12 +665,46 @@ impl<'a> Lexer<'a> {
         Ok(Token::StringContent(content))
     }
 
-    /// 解析字符
+    /// 解析字符字面量：'x' 或 '\n' 等，返回 CharContent(s)。
     fn parse_char(&mut self) -> Result<Token, LexError> {
-        Ok(Token::CharQuote)
+        self.next_char(); // 跳过开头的 '
+        let ch = self.current_char();
+        if ch.is_none() || ch == Some('\n') {
+            return Err(LexError::UnclosedChar);
+        }
+        let content = if ch == Some('\\') {
+            self.next_char(); // 消费反斜杠
+            let escaped = self.current_char();
+            if escaped.is_none() {
+                return Err(LexError::UnclosedChar);
+            }
+            self.next_char();
+            match escaped {
+                Some('n') => '\n',
+                Some('t') => '\t',
+                Some('r') => '\r',
+                Some('\'') => '\'',
+                Some('\\') => '\\',
+                Some('0') => '\0',
+                Some(c) => c,
+                None => unreachable!(),
+            }
+        } else {
+            let c = ch.unwrap();
+            if c == '\'' {
+                return Err(LexError::UnclosedChar); // 空字符字面量
+            }
+            self.next_char();
+            c
+        };
+        if self.current_char() != Some('\'') {
+            return Err(LexError::UnclosedChar);
+        }
+        self.next_char(); // 消费闭合的 '
+        Ok(Token::CharContent(content.to_string()))
     }
 
-    /// 解析字符内容
+    /// 解析字符内容（用于 LexerState::Char 状态，多行/复杂流程预留）
     fn parse_char_content(&mut self) -> Result<Token, LexError> {
         Ok(Token::CharContent("".to_string()))
     }
@@ -631,4 +763,306 @@ impl<'a> Iterator for TokenIterator<'a> {
 /// 从字符串创建词法分析器
 pub fn new_lexer(input: &str) -> TokenIterator<'_> {
     TokenIterator::new(input)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_lexer_new() {
+        let input = "let x = 42;";
+        let lexer = Lexer::new(input);
+        assert_eq!(lexer.input, input);
+        assert_eq!(lexer.position, 0);
+        assert_eq!(lexer.state, LexerState::Normal);
+    }
+
+    #[test]
+    fn test_token_iterator_new() {
+        let input = "let x = 42;";
+        let mut iter = TokenIterator::new(input);
+        assert!(iter.peek().is_some());
+    }
+
+    #[test]
+    fn test_new_lexer() {
+        let input = "let x = 42;";
+        let mut iter = new_lexer(input);
+        assert!(iter.next().is_some());
+    }
+
+    #[test]
+    fn test_lex_keywords() {
+        let input = "let mut val var const function async class trait";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 9);
+        assert!(matches!(tokens[0], Token::Let));
+        assert!(matches!(tokens[1], Token::Mut));
+        assert!(matches!(tokens[2], Token::Val));
+        assert!(matches!(tokens[3], Token::Var));
+        assert!(matches!(tokens[4], Token::Const));
+        assert!(matches!(tokens[5], Token::Function));
+        assert!(matches!(tokens[6], Token::Async));
+        assert!(matches!(tokens[7], Token::Class));
+        assert!(matches!(tokens[8], Token::Trait));
+    }
+
+    #[test]
+    fn test_lex_identifiers() {
+        let input = "foo bar_baz my-var";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(&tokens[0], Token::Ident(s) if s == "foo"));
+        assert!(matches!(&tokens[1], Token::Ident(s) if s == "bar_baz"));
+        assert!(matches!(&tokens[2], Token::Ident(s) if s == "my-var"));
+    }
+
+    #[test]
+    fn test_lex_integers() {
+        let input = "42 123 0";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(&tokens[0], Token::DecimalInt(s) if s == "42"));
+        assert!(matches!(&tokens[1], Token::DecimalInt(s) if s == "123"));
+        assert!(matches!(&tokens[2], Token::DecimalInt(s) if s == "0"));
+    }
+
+    #[test]
+    fn test_lex_floats() {
+        let input = "3.14 0.5 2e10 1.5e-3";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 4);
+        assert!(matches!(&tokens[0], Token::Float(s) if s == "3.14"));
+        assert!(matches!(&tokens[1], Token::Float(s) if s == "0.5"));
+        assert!(matches!(&tokens[2], Token::Float(s) if s == "2e10"));
+        assert!(matches!(&tokens[3], Token::Float(s) if s == "1.5e-3"));
+    }
+
+    #[test]
+    fn test_lex_operators() {
+        let input = "+ - * / = == != < <= > >= && ||";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 13);
+        assert!(matches!(tokens[0], Token::Plus));
+        assert!(matches!(tokens[1], Token::Minus));
+        assert!(matches!(tokens[2], Token::Asterisk));
+        assert!(matches!(tokens[3], Token::Slash));
+        assert!(matches!(tokens[4], Token::Equals));
+        assert!(matches!(tokens[5], Token::DoubleEquals));
+        assert!(matches!(tokens[6], Token::NotEquals));
+        assert!(matches!(tokens[7], Token::LessThan));
+        assert!(matches!(tokens[8], Token::LessThanEquals));
+        assert!(matches!(tokens[9], Token::GreaterThan));
+        assert!(matches!(tokens[10], Token::GreaterThanEquals));
+        assert!(matches!(tokens[11], Token::AndAnd));
+        assert!(matches!(tokens[12], Token::OrOr));
+    }
+
+    #[test]
+    fn test_lex_punctuation() {
+        let input = "( ) { } [ ] , . : ;";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 10);
+        assert!(matches!(tokens[0], Token::LeftParen));
+        assert!(matches!(tokens[1], Token::RightParen));
+        assert!(matches!(tokens[2], Token::LeftBrace));
+        assert!(matches!(tokens[3], Token::RightBrace));
+        assert!(matches!(tokens[4], Token::LeftBracket));
+        assert!(matches!(tokens[5], Token::RightBracket));
+        assert!(matches!(tokens[6], Token::Comma));
+        assert!(matches!(tokens[7], Token::Dot));
+        assert!(matches!(tokens[8], Token::Colon));
+        assert!(matches!(tokens[9], Token::Semicolon));
+    }
+
+    #[test]
+    fn test_lex_boolean_literals() {
+        let input = "true false";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 2);
+        assert!(matches!(tokens[0], Token::True));
+        assert!(matches!(tokens[1], Token::False));
+    }
+
+    #[test]
+    fn test_lex_null_literal() {
+        let input = "null";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 1);
+        assert!(matches!(tokens[0], Token::Null));
+    }
+
+    #[test]
+    fn test_span_new() {
+        let span = Span::new(0, 10);
+        assert_eq!(span.start, 0);
+        assert_eq!(span.end, 10);
+    }
+
+    #[test]
+    fn test_span_line_col() {
+        let source = "line1\nline2";
+        let span = Span::new(6, 11);
+        let (line, col) = span.line_col(source);
+        assert_eq!(line, 2);
+        assert_eq!(col, 1);
+    }
+
+    #[test]
+    fn test_span_snippet() {
+        let source = "hello world";
+        let span = Span::new(0, 5);
+        assert_eq!(span.snippet(source), "hello");
+    }
+
+    #[test]
+    fn test_lex_empty_input() {
+        let input = "";
+        let mut iter = new_lexer(input);
+        assert!(iter.next().is_none());
+    }
+
+    #[test]
+    fn test_lex_whitespace() {
+        let input = "   \n\t  let   x   =   42   ;   ";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 5);
+        assert!(matches!(tokens[0], Token::Let));
+        assert!(matches!(&tokens[1], Token::Ident(s) if s == "x"));
+        assert!(matches!(tokens[2], Token::Equals));
+        assert!(matches!(&tokens[3], Token::DecimalInt(s) if s == "42"));
+        assert!(matches!(tokens[4], Token::Semicolon));
+    }
+
+    #[test]
+    fn test_lex_line_comment() {
+        let input = "let x = 42; // this is a comment";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 5);
+    }
+
+    #[test]
+    fn test_lex_block_comment() {
+        let input = "/** block comment */ let x = 42;";
+        let mut iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 5);
+    }
+
+    // ----- 字符串字面量 -----
+    #[test]
+    fn test_lex_string_content() {
+        let input = r#" "a" "#;
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 1);
+        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "a"));
+    }
+
+    #[test]
+    fn test_lex_string_escapes() {
+        let input = r#" "\n\t\r\"\\" "#;
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 1);
+        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "\n\t\r\"\\"));
+    }
+
+    #[test]
+    fn test_lex_string_unclosed() {
+        let input = r#" "abc"#;
+        let mut iter = new_lexer(input);
+        let first = iter.next();
+        assert!(matches!(first, Some(Err(LexError::UnclosedString))));
+    }
+
+    // ----- 字符字面量 -----
+    #[test]
+    fn test_lex_char_content() {
+        let input = " 'a' ";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 1);
+        assert!(matches!(&tokens[0], Token::CharContent(s) if s == "a"));
+    }
+
+    #[test]
+    fn test_lex_char_escapes() {
+        let input = r#" '\n' '\'' '\\' '\0' "#;
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 4);
+        assert!(matches!(&tokens[0], Token::CharContent(s) if s == "\n"));
+        assert!(matches!(&tokens[1], Token::CharContent(s) if s == "'"));
+        assert!(matches!(&tokens[2], Token::CharContent(s) if s == "\\"));
+        assert!(matches!(&tokens[3], Token::CharContent(s) if s == "\0"));
+    }
+
+    #[test]
+    fn test_lex_char_unclosed() {
+        let input = " 'a";
+        let mut iter = new_lexer(input);
+        let first = iter.next();
+        assert!(matches!(first, Some(Err(LexError::UnclosedChar))));
+    }
+
+    // ----- 数字：十六进制 / 八进制 / 二进制 -----
+    #[test]
+    fn test_lex_hex_oct_bin() {
+        let input = "0x1a 0o17 0b101 0x1A_b 0Xff";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 5);
+        assert!(matches!(&tokens[0], Token::HexInt(s) if s == "1a"));
+        assert!(matches!(&tokens[1], Token::OctInt(s) if s == "17"));
+        assert!(matches!(&tokens[2], Token::BinInt(s) if s == "101"));
+        assert!(matches!(&tokens[3], Token::HexInt(s) if s == "1A_b"));
+        assert!(matches!(&tokens[4], Token::HexInt(s) if s == "ff"));
+    }
+
+    #[test]
+    fn test_lex_invalid_number() {
+        let input = "0x 0b 0o";
+        let mut iter = new_lexer(input);
+        let a = iter.next().unwrap();
+        let b = iter.next().unwrap();
+        let c = iter.next().unwrap();
+        assert!(matches!(a, Err(LexError::InvalidNumber)));
+        assert!(matches!(b, Err(LexError::InvalidNumber)));
+        assert!(matches!(c, Err(LexError::InvalidNumber)));
+    }
+
+    // ----- 边界：peek 与 last_span -----
+    #[test]
+    fn test_peek_then_next() {
+        let input = "let x";
+        let mut iter = new_lexer(input);
+        let p1 = iter.peek().cloned();
+        let n1 = iter.next();
+        let _n2 = iter.next();
+        assert!(p1.as_ref().and_then(|r| r.as_ref().ok()).is_some());
+        assert_eq!(p1, n1);
+        assert!(iter.last_span.is_some());
+    }
+
+    #[test]
+    fn test_lex_number_with_underscore() {
+        let input = "1_000_000 0x1_a";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 2);
+        assert!(matches!(&tokens[0], Token::DecimalInt(s) if s == "1_000_000"));
+        assert!(matches!(&tokens[1], Token::HexInt(s) if s == "1_a"));
+    }
 }

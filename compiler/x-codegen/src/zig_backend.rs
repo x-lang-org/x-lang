@@ -160,21 +160,28 @@ impl ZigBackend {
         let params = if f.parameters.is_empty() {
             "".to_string()
         } else {
-            f.parameters.iter().map(|p| {
-                let param_type = if let Some(type_annot) = &p.type_annot {
-                    format!(" : {}", self.emit_type(type_annot))
-                } else {
-                    " : anytype".to_string()
-                };
-                format!("{} {}", p.name, param_type)
-            }).collect::<Vec<_>>().join(", ")
+            f.parameters
+                .iter()
+                .map(|p| {
+                    let param_type = if let Some(type_annot) = &p.type_annot {
+                        format!(" : {}", self.emit_type(type_annot))
+                    } else {
+                        " : anytype".to_string()
+                    };
+                    format!("{} {}", p.name, param_type)
+                })
+                .collect::<Vec<_>>()
+                .join(", ")
         };
         let return_type = if let Some(return_type) = &f.return_type {
             format!(" -> {}", self.emit_type(return_type))
         } else {
             "".to_string()
         };
-        self.line(&format!("fn {}{}({}){} {{" , f.name, "", params, return_type))?;
+        self.line(&format!(
+            "fn {}{}({}){} {{",
+            f.name, "", params, return_type
+        ))?;
         self.indent += 1;
         self.emit_block(&f.body)?;
         if f.return_type.is_none() {
@@ -224,7 +231,7 @@ impl ZigBackend {
             }
             ast::Statement::While(while_stmt) => {
                 let cond = self.emit_expr(&while_stmt.condition)?;
-                self.line(&format!("while ({}) {{" , cond))?;
+                self.line(&format!("while ({}) {{", cond))?;
                 self.indent += 1;
                 self.emit_block(&while_stmt.body)?;
                 self.indent -= 1;
@@ -239,13 +246,27 @@ impl ZigBackend {
             ast::Statement::Try(_) => {
                 self.line("// TODO: try")?;
             }
+            ast::Statement::Break => {
+                self.line("break;")?;
+            }
+            ast::Statement::Continue => {
+                self.line("continue;")?;
+            }
+            ast::Statement::DoWhile(d) => {
+                self.line("do {")?;
+                self.indent += 1;
+                self.emit_block(&d.body)?;
+                self.indent -= 1;
+                let cond = self.emit_expr(&d.condition)?;
+                self.line(&format!("}} while ({});", cond))?;
+            }
         }
         Ok(())
     }
 
     fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> ZigResult<()> {
         let cond = self.emit_expr(&if_stmt.condition)?;
-        self.line(&format!("if ({}) {{" , cond))?;
+        self.line(&format!("if ({}) {{", cond))?;
         self.indent += 1;
         self.emit_block(&if_stmt.then_block)?;
         self.indent -= 1;
@@ -262,9 +283,7 @@ impl ZigBackend {
     fn emit_expr(&self, expr: &ast::Expression) -> ZigResult<String> {
         match expr {
             ast::Expression::Literal(lit) => self.emit_literal(lit),
-            ast::Expression::Variable(name) => {
-                Ok(name.clone())
-            }
+            ast::Expression::Variable(name) => Ok(name.clone()),
             ast::Expression::Binary(op, lhs, rhs) => {
                 let l = self.emit_expr(lhs)?;
                 let r = self.emit_expr(rhs)?;
@@ -274,15 +293,9 @@ impl ZigBackend {
                 let e = self.emit_expr(expr)?;
                 Ok(self.emit_unaryop(op, &e))
             }
-            ast::Expression::Call(callee, args) => {
-                self.emit_call(callee, args)
-            }
-            ast::Expression::Assign(target, value) => {
-                self.emit_assign(target, value)
-            }
-            ast::Expression::Array(elements) => {
-                self.emit_array_literal(elements)
-            }
+            ast::Expression::Call(callee, args) => self.emit_call(callee, args),
+            ast::Expression::Assign(target, value) => self.emit_assign(target, value),
+            ast::Expression::Array(elements) => self.emit_array_literal(elements),
             ast::Expression::Parenthesized(inner) => {
                 let e = self.emit_expr(inner)?;
                 Ok(format!("({})", e))
@@ -304,12 +317,11 @@ impl ZigBackend {
     fn emit_literal(&self, lit: &ast::Literal) -> ZigResult<String> {
         match lit {
             ast::Literal::Integer(n) => Ok(format!("{}", n)),
-            ast::Literal::Float(f) => {
-                Ok(format!("{}", f))
-            }
+            ast::Literal::Float(f) => Ok(format!("{}", f)),
             ast::Literal::Boolean(b) => Ok(format!("{}", b)),
             ast::Literal::String(s) => {
-                let escaped = s.replace('\\', "\\\\")
+                let escaped = s
+                    .replace('\\', "\\\\")
                     .replace('"', "\\\"")
                     .replace('\n', "\\n")
                     .replace('\r', "\\r")
@@ -353,15 +365,24 @@ impl ZigBackend {
 
     fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> ZigResult<String> {
         if let ast::Expression::Variable(name) = callee {
-            let arg_strs: Vec<String> = args.iter().map(|a| self.emit_expr(a)).collect::<ZigResult<Vec<_>>>()?;
+            let arg_strs: Vec<String> = args
+                .iter()
+                .map(|a| self.emit_expr(a))
+                .collect::<ZigResult<Vec<_>>>()?;
             return Ok(self.emit_builtin_or_call(name, &arg_strs));
         }
         let callee_str = self.emit_expr(callee)?;
-        let arg_strs: Vec<String> = args.iter().map(|a| self.emit_expr(a)).collect::<ZigResult<Vec<_>>>()?;
+        let arg_strs: Vec<String> = args
+            .iter()
+            .map(|a| self.emit_expr(a))
+            .collect::<ZigResult<Vec<_>>>()?;
 
         // 处理allocator.alloc等返回错误联合类型的函数
         if callee_str.ends_with(".alloc") {
-            Ok(format!("{}({}, {}) catch unreachable", callee_str, arg_strs[0], arg_strs[1]))
+            Ok(format!(
+                "{}({}, {}) catch unreachable",
+                callee_str, arg_strs[0], arg_strs[1]
+            ))
         } else {
             Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
         }
@@ -385,13 +406,22 @@ impl ZigBackend {
             }
             "concat" => {
                 if args.len() == 2 {
-                    format!("std.mem.concat(u8, &[_][]const u8{{ {}, {} }})", args[0], args[1])
+                    format!(
+                        "std.mem.concat(u8, &[_][]const u8{{ {}, {} }})",
+                        args[0], args[1]
+                    )
                 } else {
-                    "\"\"" .to_string()
+                    "\"\"".to_string()
                 }
             }
-            "to_string" => format!("std.fmt.allocPrint(std.heap.page_allocator, \"{{}}\", .{{{}}}) catch unreachable", args.first().unwrap_or(&"null".to_string())),
-            "type_of" => format!("@typeName(@TypeOf({}))", args.first().unwrap_or(&"null".to_string())),
+            "to_string" => format!(
+                "std.fmt.allocPrint(std.heap.page_allocator, \"{{}}\", .{{{}}}) catch unreachable",
+                args.first().unwrap_or(&"null".to_string())
+            ),
+            "type_of" => format!(
+                "@typeName(@TypeOf({}))",
+                args.first().unwrap_or(&"null".to_string())
+            ),
             "panic" => {
                 if args.len() == 1 {
                     format!("std.debug.panic(\"{{}}\", .{{{}}})", args[0])
@@ -409,9 +439,7 @@ impl ZigBackend {
     fn emit_assign(&self, target: &ast::Expression, value: &ast::Expression) -> ZigResult<String> {
         let val = self.emit_expr(value)?;
         match target {
-            ast::Expression::Variable(name) => {
-                Ok(format!("{} = {}", name, val))
-            }
+            ast::Expression::Variable(name) => Ok(format!("{} = {}", name, val)),
             ast::Expression::Member(obj, field) => {
                 let o = self.emit_expr(obj)?;
                 Ok(format!("{}.{} = {}", o, field, val))
@@ -427,7 +455,10 @@ impl ZigBackend {
         if elements.is_empty() {
             return Ok("[]anytype{}".to_string());
         }
-        let elem_strs: Vec<String> = elements.iter().map(|e| self.emit_expr(e)).collect::<ZigResult<Vec<_>>>()?;
+        let elem_strs: Vec<String> = elements
+            .iter()
+            .map(|e| self.emit_expr(e))
+            .collect::<ZigResult<Vec<_>>>()?;
         Ok(format!("[_]anytype{{{}}}", elem_strs.join(", ")))
     }
 
@@ -441,9 +472,17 @@ impl ZigBackend {
             ast::Type::Unit => "void".to_string(),
             ast::Type::Never => "noreturn".to_string(),
             ast::Type::Array(inner) => format!("[] {}", self.emit_type(inner)),
-            ast::Type::Dictionary(key, value) => format!("std.AutoHashMap({}, {})", self.emit_type(key), self.emit_type(value)),
+            ast::Type::Dictionary(key, value) => format!(
+                "std.AutoHashMap({}, {})",
+                self.emit_type(key),
+                self.emit_type(value)
+            ),
             ast::Type::Function(params, return_type) => {
-                let param_types = params.iter().map(|p| self.emit_type(p)).collect::<Vec<_>>().join(", ");
+                let param_types = params
+                    .iter()
+                    .map(|p| self.emit_type(p))
+                    .collect::<Vec<_>>()
+                    .join(", ");
                 format!("fn({}) -> {}", param_types, self.emit_type(return_type))
             }
             _ => "anytype".to_string(),
@@ -462,7 +501,8 @@ impl ZigBackend {
             if import.symbols.is_empty() || import.symbols.contains(&ast::ImportSymbol::All) {
                 // 通配导入或无符号导入，导入整个模块
                 let module_name = zig_module.split("::").last().unwrap_or(zig_module);
-                let import_stmt = format!("const {} = @import(\"{}\");", module_name, zig_import_path);
+                let import_stmt =
+                    format!("const {} = @import(\"{}\");", module_name, zig_import_path);
 
                 // 避免重复导入
                 if !self.imported_modules.contains(&module_name.to_string()) {
@@ -474,7 +514,10 @@ impl ZigBackend {
                 for symbol in &import.symbols {
                     if let ast::ImportSymbol::Named(name, alias) = symbol {
                         let import_name = alias.as_ref().unwrap_or(name);
-                        let import_stmt = format!("const {} = @import(\"{}\").{};", import_name, zig_import_path, name);
+                        let import_stmt = format!(
+                            "const {} = @import(\"{}\").{};",
+                            import_name, zig_import_path, name
+                        );
 
                         // 避免重复导入
                         if !self.imported_modules.contains(&import_name.to_string()) {
@@ -508,7 +551,11 @@ impl ZigBackend {
         cmd.arg("build-exe")
             .arg(zig_file)
             .arg("-O")
-            .arg(if self.config.optimize { "ReleaseFast" } else { "Debug" });
+            .arg(if self.config.optimize {
+                "ReleaseFast"
+            } else {
+                "Debug"
+            });
 
         if self.config.debug_info {
             cmd.arg("-g");
@@ -520,9 +567,10 @@ impl ZigBackend {
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
             let stdout = String::from_utf8_lossy(&output.stdout);
-            return Err(ZigBackendError::CompilerError(
-                format!("Zig compiler failed:\nstdout: {}\nstderr: {}", stdout, stderr)
-            ));
+            return Err(ZigBackendError::CompilerError(format!(
+                "Zig compiler failed:\nstdout: {}\nstderr: {}",
+                stdout, stderr
+            )));
         }
 
         Ok(())
@@ -536,25 +584,21 @@ mod tests {
     #[test]
     fn test_hello_world_generation() {
         let program = AstProgram {
-            declarations: vec![
-                ast::Declaration::Function(ast::FunctionDecl {
-                    name: "main".to_string(),
-                    parameters: vec![],
-                    return_type: None,
-                    body: ast::Block {
-                        statements: vec![
-                            ast::Statement::Expression(
-                                ast::Expression::Call(
-                                    Box::new(ast::Expression::Variable("print".to_string())),
-                                    vec![ast::Expression::Literal(ast::Literal::String("Hello, World!".to_string()))],
-                                )
-                            ),
-                        ],
-                    },
-                    is_async: false,
-                }),
-            ],
-            statements: vec![]
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![ast::Statement::Expression(ast::Expression::Call(
+                        Box::new(ast::Expression::Variable("print".to_string())),
+                        vec![ast::Expression::Literal(ast::Literal::String(
+                            "Hello, World!".to_string(),
+                        ))],
+                    ))],
+                },
+                is_async: false,
+            })],
+            statements: vec![],
         };
 
         let mut backend = ZigBackend::new(ZigBackendConfig::default());

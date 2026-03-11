@@ -39,7 +39,6 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     // ── Build commands ──────────────────────────────────────────────
-
     /// 构建当前项目
     Build {
         /// 使用 release 配置构建
@@ -177,7 +176,6 @@ enum Commands {
     },
 
     // ── Manifest / dependency commands ──────────────────────────────
-
     /// 添加依赖到 x.toml
     Add {
         /// 要添加的包名 (格式: name 或 name@version)
@@ -303,7 +301,6 @@ enum Commands {
     },
 
     // ── Package commands ───────────────────────────────────────────
-
     /// 在当前目录初始化新项目
     Init {
         /// 项目路径
@@ -386,7 +383,6 @@ enum Commands {
     },
 
     // ── Publishing commands ────────────────────────────────────────
-
     /// 登录到包注册表
     Login {
         /// API token
@@ -475,7 +471,6 @@ enum Commands {
     },
 
     // ── Tool commands ──────────────────────────────────────────────
-
     /// 格式化X语言源代码
     Fmt {
         /// 源文件路径
@@ -528,6 +523,27 @@ enum Commands {
 }
 
 fn main() {
+    // 某些路径（尤其是解析/类型检查）在 Windows 上可能触发较深递归，
+    // 这里用更大的栈空间运行整个 CLI 以避免 stack overflow。
+    let handle = std::thread::Builder::new()
+        .name("x-cli-main".to_string())
+        .stack_size(32 * 1024 * 1024)
+        .spawn(real_main)
+        .unwrap_or_else(|e| {
+            utils::error(&format!("无法启动主线程: {}", e));
+            std::process::exit(1);
+        });
+
+    match handle.join() {
+        Ok(()) => {}
+        Err(_) => {
+            utils::error("主线程崩溃");
+            std::process::exit(1);
+        }
+    }
+}
+
+fn real_main() {
     let cli = Cli::parse();
 
     if let Some(ref dir) = cli.directory {
@@ -602,9 +618,7 @@ fn dispatch(cli: Cli) -> Result<(), String> {
             jobs,
         } => commands::test_cmd::exec(filter.as_deref(), release, lib, doc, no_run, jobs),
 
-        Commands::Bench { filter, no_run } => {
-            commands::bench::exec(filter.as_deref(), no_run)
-        }
+        Commands::Bench { filter, no_run } => commands::bench::exec(filter.as_deref(), no_run),
 
         Commands::Clean { doc, release } => commands::clean::exec(doc, release),
 
@@ -658,9 +672,7 @@ fn dispatch(cli: Cli) -> Result<(), String> {
 
         Commands::GenerateLockfile => commands::generate_lockfile::exec(),
 
-        Commands::LocateProject { workspace } => {
-            commands::locate_project::exec(workspace)
-        }
+        Commands::LocateProject { workspace } => commands::locate_project::exec(workspace),
 
         Commands::Metadata {
             no_deps,
@@ -775,9 +787,7 @@ fn dispatch(cli: Cli) -> Result<(), String> {
         } => commands::yank::exec(&package, &version, undo, registry.as_deref()),
 
         // Tool commands
-        Commands::Fmt { file, check, all } => {
-            commands::fmt::exec(file.as_deref(), check, all)
-        }
+        Commands::Fmt { file, check, all } => commands::fmt::exec(file.as_deref(), check, all),
 
         Commands::Lint {
             fix,

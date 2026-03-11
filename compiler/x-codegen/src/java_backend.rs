@@ -1,5 +1,5 @@
 //! Java 后端 - 将 X AST 编译为 Java 字节码
-//! 
+//!
 //! 生成 Java 字节码，支持基本的 X 语言特性
 
 use std::fmt::Write;
@@ -114,11 +114,14 @@ impl JavaBackend {
 
     fn emit_function_as_method(&mut self, func_decl: &ast::FunctionDecl) -> JavaResult<()> {
         // For now, assume Object return type (we'll add proper type handling later)
-        let params: Vec<String> = func_decl.parameters.iter()
+        let params: Vec<String> = func_decl
+            .parameters
+            .iter()
             .map(|p| format!("Object {}", p.name))
             .collect();
 
-        self.line(&format!("public static Object {}({}) {{",
+        self.line(&format!(
+            "public static Object {}({}) {{",
             func_decl.name,
             params.join(", ")
         ))?;
@@ -140,7 +143,11 @@ impl JavaBackend {
                 self.line(&format!("{};", expr_str))?;
             }
             ast::Statement::Variable(var_decl) => {
-                let var_type = if var_decl.is_mutable { "var" } else { "final var" };
+                let var_type = if var_decl.is_mutable {
+                    "var"
+                } else {
+                    "final var"
+                };
                 if let Some(init) = &var_decl.initializer {
                     let init_str = self.emit_expr(init)?;
                     self.line(&format!("{} {} = {};", var_type, var_decl.name, init_str))?;
@@ -164,9 +171,10 @@ impl JavaBackend {
                 }
             }
             _ => {
-                return Err(JavaBackendError::UnsupportedFeature(
-                    format!("Unsupported statement type: {:?}", stmt)
-                ));
+                return Err(JavaBackendError::UnsupportedFeature(format!(
+                    "Unsupported statement type: {:?}",
+                    stmt
+                )));
             }
         }
         Ok(())
@@ -221,20 +229,16 @@ impl JavaBackend {
 
     fn emit_expr(&self, expr: &ast::Expression) -> JavaResult<String> {
         match expr {
-            ast::Expression::Literal(lit) => {
-                Ok(self.emit_literal(lit)?)
-            }
-            ast::Expression::Variable(name) => {
-                Ok(name.clone())
-            }
+            ast::Expression::Literal(lit) => Ok(self.emit_literal(lit)?),
+            ast::Expression::Variable(name) => Ok(name.clone()),
             ast::Expression::Binary(op, left, right) => {
                 let lhs = self.emit_expr(left)?;
                 let rhs = self.emit_expr(right)?;
-                Ok(self.emit_binop(op, &lhs, &rhs))
+                self.emit_binop(op, &lhs, &rhs)
             }
             ast::Expression::Unary(op, operand) => {
                 let expr_str = self.emit_expr(operand)?;
-                Ok(self.emit_unaryop(op, &expr_str))
+                self.emit_unaryop(op, &expr_str)
             }
             ast::Expression::Call(callee, args) => {
                 let callee_str = self.emit_expr(callee)?;
@@ -253,40 +257,28 @@ impl JavaBackend {
                 let inner = self.emit_expr(expr)?;
                 Ok(format!("({})", inner))
             }
-            _ => {
-                Err(JavaBackendError::UnsupportedFeature(
-                    format!("Unsupported expression type: {:?}", expr)
-                ))
-            }
+            _ => Err(JavaBackendError::UnsupportedFeature(format!(
+                "Unsupported expression type: {:?}",
+                expr
+            ))),
         }
     }
 
     fn emit_literal(&self, lit: &ast::Literal) -> JavaResult<String> {
         match lit {
-            ast::Literal::Integer(n) => {
-                Ok(n.to_string())
-            }
-            ast::Literal::Float(f) => {
-                Ok(f.to_string())
-            }
-            ast::Literal::Boolean(b) => {
-                Ok(b.to_string())
-            }
-            ast::Literal::String(s) => {
-                Ok(format!("\"{}\"", s.replace('"', "\\\"")))
-            }
-            ast::Literal::Null => {
-                Ok("null".to_string())
-            }
-            _ => {
-                Err(JavaBackendError::UnsupportedFeature(
-                    format!("Unsupported literal type: {:?}", lit)
-                ))
-            }
+            ast::Literal::Integer(n) => Ok(n.to_string()),
+            ast::Literal::Float(f) => Ok(f.to_string()),
+            ast::Literal::Boolean(b) => Ok(b.to_string()),
+            ast::Literal::String(s) => Ok(format!("\"{}\"", s.replace('"', "\\\""))),
+            ast::Literal::Null => Ok("null".to_string()),
+            _ => Err(JavaBackendError::UnsupportedFeature(format!(
+                "Unsupported literal type: {:?}",
+                lit
+            ))),
         }
     }
 
-    fn emit_binop(&self, op: &ast::BinaryOp, lhs: &str, rhs: &str) -> String {
+    fn emit_binop(&self, op: &ast::BinaryOp, lhs: &str, rhs: &str) -> JavaResult<String> {
         let op_str = match op {
             ast::BinaryOp::Add => "+",
             ast::BinaryOp::Sub => "-",
@@ -306,29 +298,33 @@ impl JavaBackend {
             ast::BinaryOp::BitXor => "^",
             ast::BinaryOp::LeftShift => "<<",
             ast::BinaryOp::RightShift => ">>",
-            _ => todo!("Unsupported binary operator: {:?}", op),
+            _ => {
+                return Err(JavaBackendError::UnsupportedFeature(format!(
+                    "Unsupported binary operator: {:?}",
+                    op
+                )));
+            }
         };
-        format!("{} {} {}", lhs, op_str, rhs)
+        Ok(format!("{} {} {}", lhs, op_str, rhs))
     }
 
-    fn emit_unaryop(&self, op: &ast::UnaryOp, expr: &str) -> String {
+    fn emit_unaryop(&self, op: &ast::UnaryOp, expr: &str) -> JavaResult<String> {
         match op {
-            ast::UnaryOp::Negate => format!("-{}", expr),
-            ast::UnaryOp::Not => format!("!{}", expr),
-            ast::UnaryOp::BitNot => format!("~{}", expr),
-            _ => todo!("Unsupported unary operator: {:?}", op),
+            ast::UnaryOp::Negate => Ok(format!("-{}", expr)),
+            ast::UnaryOp::Not => Ok(format!("!{}", expr)),
+            ast::UnaryOp::BitNot => Ok(format!("~{}", expr)),
+            _ => Err(JavaBackendError::UnsupportedFeature(format!(
+                "Unsupported unary operator: {:?}",
+                op
+            ))),
         }
     }
 
     fn emit_call(&self, callee: &str, args: &[String]) -> JavaResult<String> {
         // Map built-in functions
         match callee {
-            "println" => {
-                Ok(format!("System.out.println({})", args.join(", ")))
-            }
-            "print" => {
-                Ok(format!("System.out.print({})", args.join(", ")))
-            }
+            "println" => Ok(format!("System.out.println({})", args.join(", "))),
+            "print" => Ok(format!("System.out.print({})", args.join(", "))),
             _ => {
                 // Regular function call
                 Ok(format!("{}({})", callee, args.join(", ")))
@@ -354,12 +350,12 @@ mod tests {
     fn test_basic_generation() {
         let program = Program {
             declarations: vec![],
-            statements: vec![
-                Statement::Expression(Expression::Call(
-                    Box::new(Expression::Variable("println".to_string())),
-                    vec![Expression::Literal(Literal::String("Hello, X Language!".to_string()))]
-                ))
-            ],
+            statements: vec![Statement::Expression(Expression::Call(
+                Box::new(Expression::Variable("println".to_string())),
+                vec![Expression::Literal(Literal::String(
+                    "Hello, X Language!".to_string(),
+                ))],
+            ))],
         };
 
         let mut backend = JavaBackend::new(JavaBackendConfig::default());
@@ -397,8 +393,8 @@ mod tests {
                         BinaryOp::Add,
                         Box::new(Expression::Variable("x".to_string())),
                         Box::new(Expression::Variable("y".to_string())),
-                    )]
-                ))
+                    )],
+                )),
             ],
         };
 
@@ -409,5 +405,27 @@ mod tests {
         assert!(java_code.contains("final var x = 5;"));
         assert!(java_code.contains("final var y = 10;"));
         assert!(java_code.contains("System.out.println(x + y);"));
+    }
+
+    #[test]
+    fn unsupported_operator_returns_error_instead_of_panicking() {
+        // Use an operator that Java backend does not implement yet.
+        let program = Program {
+            declarations: vec![],
+            statements: vec![Statement::Expression(Expression::Binary(
+                BinaryOp::Concat,
+                Box::new(Expression::Literal(Literal::String("a".to_string()))),
+                Box::new(Expression::Literal(Literal::String("b".to_string()))),
+            ))],
+        };
+
+        let mut backend = JavaBackend::new(JavaBackendConfig::default());
+        let err = backend.generate_from_ast(&program).unwrap_err();
+        match err {
+            JavaBackendError::UnsupportedFeature(msg) => {
+                assert!(msg.contains("Unsupported binary operator"));
+            }
+            other => panic!("expected UnsupportedFeature, got {other:?}"),
+        }
     }
 }

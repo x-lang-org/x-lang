@@ -8,8 +8,7 @@ pub fn exec(doc: bool, release: bool) -> Result<(), String> {
     if doc {
         let doc_dir = target.join("doc");
         if doc_dir.exists() {
-            std::fs::remove_dir_all(&doc_dir)
-                .map_err(|e| format!("无法删除文档目录: {}", e))?;
+            std::fs::remove_dir_all(&doc_dir).map_err(|e| format!("无法删除文档目录: {}", e))?;
             utils::status("Removed", &format!("{}", doc_dir.display()));
         }
         return Ok(());
@@ -26,8 +25,7 @@ pub fn exec(doc: bool, release: bool) -> Result<(), String> {
     }
 
     if target.exists() {
-        std::fs::remove_dir_all(&target)
-            .map_err(|e| format!("无法删除目标目录: {}", e))?;
+        std::fs::remove_dir_all(&target).map_err(|e| format!("无法删除目标目录: {}", e))?;
         utils::status("Removed", &format!("{}", target.display()));
     } else {
         utils::note("目标目录不存在，无需清理");

@@ -1,5 +1,5 @@
 //! Python 后端 - 将 X AST 编译为 Python 代码
-//! 
+//!
 //! 生成清晰可读的 Python 源代码，支持基本的 X 语言特性
 
 use std::fmt::Write;
@@ -52,7 +52,10 @@ impl PythonBackend {
         }
     }
 
-    pub fn generate_from_ast(&mut self, program: &AstProgram) -> PythonResult<super::CodegenOutput> {
+    pub fn generate_from_ast(
+        &mut self,
+        program: &AstProgram,
+    ) -> PythonResult<super::CodegenOutput> {
         self.output.clear();
         self.indent = 0;
 
@@ -129,7 +132,11 @@ impl PythonBackend {
         let params = if f.parameters.is_empty() {
             "".to_string()
         } else {
-            f.parameters.iter().map(|p| p.name.clone()).collect::<Vec<_>>().join(", ")
+            f.parameters
+                .iter()
+                .map(|p| p.name.clone())
+                .collect::<Vec<_>>()
+                .join(", ")
         };
         self.line(&format!("def {}({}):", f.name, params))?;
         self.indent += 1;
@@ -189,6 +196,23 @@ impl PythonBackend {
             ast::Statement::Try(_) => {
                 self.line("# TODO: try")?;
             }
+            ast::Statement::Break => {
+                self.line("break")?;
+            }
+            ast::Statement::Continue => {
+                self.line("continue")?;
+            }
+            ast::Statement::DoWhile(d) => {
+                self.line("while True:")?;
+                self.indent += 1;
+                self.emit_block(&d.body)?;
+                let cond = self.emit_expr(&d.condition)?;
+                self.line(&format!("if not ({}):", cond))?;
+                self.indent += 1;
+                self.line("break")?;
+                self.indent -= 1;
+                self.indent -= 1;
+            }
         }
         Ok(())
     }
@@ -211,9 +235,7 @@ impl PythonBackend {
     fn emit_expr(&self, expr: &ast::Expression) -> PythonResult<String> {
         match expr {
             ast::Expression::Literal(lit) => self.emit_literal(lit),
-            ast::Expression::Variable(name) => {
-                Ok(name.clone())
-            }
+            ast::Expression::Variable(name) => Ok(name.clone()),
             ast::Expression::Binary(op, lhs, rhs) => {
                 let l = self.emit_expr(lhs)?;
                 let r = self.emit_expr(rhs)?;
@@ -223,15 +245,9 @@ impl PythonBackend {
                 let e = self.emit_expr(expr)?;
                 Ok(self.emit_unaryop(op, &e))
             }
-            ast::Expression::Call(callee, args) => {
-                self.emit_call(callee, args)
-            }
-            ast::Expression::Assign(target, value) => {
-                self.emit_assign(target, value)
-            }
-            ast::Expression::Array(elements) => {
-                self.emit_array_literal(elements)
-            }
+            ast::Expression::Call(callee, args) => self.emit_call(callee, args),
+            ast::Expression::Assign(target, value) => self.emit_assign(target, value),
+            ast::Expression::Array(elements) => self.emit_array_literal(elements),
             ast::Expression::Parenthesized(inner) => {
                 let e = self.emit_expr(inner)?;
                 Ok(format!("({})", e))
@@ -246,19 +262,21 @@ impl PythonBackend {
                 let o = self.emit_expr(obj)?;
                 Ok(format!("{}.{}", o, field))
             }
-            _ => Err(PythonBackendError::UnsupportedFeature(format!("{:?}", expr))),
+            _ => Err(PythonBackendError::UnsupportedFeature(format!(
+                "{:?}",
+                expr
+            ))),
         }
     }
 
     fn emit_literal(&self, lit: &ast::Literal) -> PythonResult<String> {
         match lit {
             ast::Literal::Integer(n) => Ok(format!("{}", n)),
-            ast::Literal::Float(f) => {
-                Ok(format!("{}", f))
-            }
+            ast::Literal::Float(f) => Ok(format!("{}", f)),
             ast::Literal::Boolean(b) => Ok(format!("{}", b)),
             ast::Literal::String(s) => {
-                let escaped = s.replace('\\', "\\\\")
+                let escaped = s
+                    .replace('\\', "\\\\")
                     .replace('"', "\\\"")
                     .replace('\n', "\\n")
                     .replace('\r', "\\r")
@@ -300,18 +318,27 @@ impl PythonBackend {
         }
     }
 
-    fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> PythonResult<String> {
+    fn emit_call(
+        &self,
+        callee: &ast::Expression,
+        args: &[ast::Expression],
+    ) -> PythonResult<String> {
         let callee_str = self.emit_expr(callee)?;
-        let arg_strs: Vec<String> = args.iter().map(|a| self.emit_expr(a)).collect::<PythonResult<Vec<_>>>()?;
+        let arg_strs: Vec<String> = args
+            .iter()
+            .map(|a| self.emit_expr(a))
+            .collect::<PythonResult<Vec<_>>>()?;
         Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
     }
 
-    fn emit_assign(&self, target: &ast::Expression, value: &ast::Expression) -> PythonResult<String> {
+    fn emit_assign(
+        &self,
+        target: &ast::Expression,
+        value: &ast::Expression,
+    ) -> PythonResult<String> {
         let val = self.emit_expr(value)?;
         match target {
-            ast::Expression::Variable(name) => {
-                Ok(format!("{} = {}", name, val))
-            }
+            ast::Expression::Variable(name) => Ok(format!("{} = {}", name, val)),
             ast::Expression::Member(obj, field) => {
                 let o = self.emit_expr(obj)?;
                 Ok(format!("{}.{} = {}", o, field, val))
@@ -327,7 +354,10 @@ impl PythonBackend {
         if elements.is_empty() {
             return Ok("[]".to_string());
         }
-        let elem_strs: Vec<String> = elements.iter().map(|e| self.emit_expr(e)).collect::<PythonResult<Vec<_>>>()?;
+        let elem_strs: Vec<String> = elements
+            .iter()
+            .map(|e| self.emit_expr(e))
+            .collect::<PythonResult<Vec<_>>>()?;
         Ok(format!("[{}]", elem_strs.join(", ")))
     }
 
@@ -347,32 +377,44 @@ mod tests {
     #[test]
     fn test_hello_world_generation() {
         let program = AstProgram {
-            declarations: vec![
-                ast::Declaration::Function(ast::FunctionDecl {
-                    name: "main".to_string(),
-                    parameters: vec![],
-                    return_type: None,
-                    body: ast::Block {
-                        statements: vec![
-                            ast::Statement::Expression(
-                                ast::Expression::Call(
-                                    Box::new(ast::Expression::Variable("print".to_string())),
-                                    vec![ast::Expression::Literal(ast::Literal::String("Hello, World!".to_string()))],
-                                )
-                            ),
-                        ],
-                    },
-                    is_async: false,
-                }),
-            ],
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![ast::Statement::Expression(ast::Expression::Call(
+                        Box::new(ast::Expression::Variable("print".to_string())),
+                        vec![ast::Expression::Literal(ast::Literal::String(
+                            "Hello, World!".to_string(),
+                        ))],
+                    ))],
+                },
+                is_async: false,
+            })],
             statements: vec![],
         };
 
         let mut backend = PythonBackend::new(PythonBackendConfig::default());
         let output = backend.generate_from_ast(&program).unwrap();
         let python_code = String::from_utf8_lossy(&output.files[0].content);
-        assert!(python_code.contains("print('Hello, World!')"));
+        // The implementation uses double quotes for string literals
+        assert!(python_code.contains("print(\"Hello, World!\")"));
         assert!(python_code.contains("def main():"));
+    }
+
+    #[test]
+    fn test_empty_program_generates_default_main() {
+        let program = AstProgram {
+            declarations: vec![],
+            statements: vec![],
+        };
+
+        let mut backend = PythonBackend::new(PythonBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let python_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(python_code.contains("def main():"));
+        assert!(python_code.contains("print('Hello from Python backend!')"));
         assert!(python_code.contains("if __name__ == '__main__':"));
+        assert!(python_code.contains("main()"));
     }
 }

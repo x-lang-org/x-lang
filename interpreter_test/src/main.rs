@@ -1,12 +1,12 @@
-use x_parser::parser::XParser;
 use x_interpreter::Interpreter;
+use x_parser::parser::XParser;
 
 fn main() {
     let source = "1 + 1";
     let parser = XParser::new();
-    
+
     println!("Testing interpreter with source: {}", source);
-    
+
     match parser.parse(source) {
         Ok(program) => {
             let mut interpreter = Interpreter::new();
