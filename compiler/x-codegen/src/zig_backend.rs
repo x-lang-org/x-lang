@@ -237,11 +237,11 @@ impl ZigBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
-            ast::Statement::For(_) => {
-                self.line("// TODO: for loop")?;
+            ast::Statement::For(for_stmt) => {
+                self.emit_for(for_stmt)?;
             }
-            ast::Statement::Match(_) => {
-                self.line("// TODO: match")?;
+            ast::Statement::Match(match_stmt) => {
+                self.emit_match(match_stmt)?;
             }
             ast::Statement::Try(_) => {
                 self.line("// TODO: try")?;
@@ -278,6 +278,91 @@ impl ZigBackend {
         }
         self.line("}")?;
         Ok(())
+    }
+
+    fn emit_for(&mut self, for_stmt: &ast::ForStatement) -> ZigResult<()> {
+        // Zig for 循环语法：for (items) |item| { }
+        let iterator = self.emit_expr(&for_stmt.iterator)?;
+        let pattern_name = match &for_stmt.pattern {
+            ast::Pattern::Variable(name) => name.clone(),
+            ast::Pattern::Wildcard => "_".to_string(),
+            _ => "_item".to_string(),
+        };
+
+        self.line(&format!("for ({}) |{}| {{", iterator, pattern_name))?;
+        self.indent += 1;
+        self.emit_block(&for_stmt.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_match(&mut self, match_stmt: &ast::MatchStatement) -> ZigResult<()> {
+        // Zig 使用 switch 语句进行模式匹配
+        let expr = self.emit_expr(&match_stmt.expression)?;
+        self.line(&format!("switch ({}) {{", expr))?;
+        self.indent += 1;
+
+        for case in &match_stmt.cases {
+            let pattern_str = self.emit_pattern(&case.pattern)?;
+
+            // 处理 guard 条件
+            if let Some(guard) = &case.guard {
+                let guard_expr = self.emit_expr(guard)?;
+                self.line(&format!("{} if {} => {{", pattern_str, guard_expr))?;
+            } else {
+                self.line(&format!("{} => {{", pattern_str))?;
+            }
+
+            self.indent += 1;
+            self.emit_block(&case.body)?;
+            self.indent -= 1;
+            self.line("},")?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_pattern(&self, pattern: &ast::Pattern) -> ZigResult<String> {
+        match pattern {
+            ast::Pattern::Wildcard => Ok("_".to_string()),
+            ast::Pattern::Variable(name) => Ok(name.clone()),
+            ast::Pattern::Literal(lit) => self.emit_literal(lit),
+            ast::Pattern::Array(patterns) => {
+                let items: Vec<String> = patterns.iter().map(|p| self.emit_pattern(p)).collect::<Result<_, _>>()?;
+                Ok(format!("[{}]", items.join(", ")))
+            }
+            ast::Pattern::Tuple(patterns) => {
+                let items: Vec<String> = patterns.iter().map(|p| self.emit_pattern(p)).collect::<Result<_, _>>()?;
+                Ok(format!(".{{ {} }}", items.join(", ")))
+            }
+            ast::Pattern::Record(name, fields) => {
+                let field_patterns: Vec<String> = fields.iter().map(|(n, p)| {
+                    let p_str = self.emit_pattern(p).unwrap_or_else(|_| "_".to_string());
+                    format!(".{} = {}", n, p_str)
+                }).collect();
+                Ok(format!("{}{{ {} }}", name, field_patterns.join(", ")))
+            }
+            ast::Pattern::Or(left, right) => {
+                let l = self.emit_pattern(left)?;
+                let r = self.emit_pattern(right)?;
+                Ok(format!("{}, {}", l, r))
+            }
+            ast::Pattern::Guard(inner, _) => {
+                // Guard 在 emit_match 中单独处理
+                self.emit_pattern(inner)
+            }
+            ast::Pattern::Dictionary(entries) => {
+                let items: Vec<String> = entries.iter().map(|(k, v)| {
+                    let k_str = self.emit_pattern(k).unwrap_or_else(|_| "_".to_string());
+                    let v_str = self.emit_pattern(v).unwrap_or_else(|_| "_".to_string());
+                    format!("{}: {}", k_str, v_str)
+                }).collect();
+                Ok(format!(".{{ {} }}", items.join(", ")))
+            }
+        }
     }
 
     fn emit_expr(&self, expr: &ast::Expression) -> ZigResult<String> {
@@ -607,5 +692,86 @@ mod tests {
         assert!(zig_code.contains("std.debug.print"));
         assert!(zig_code.contains("Hello, World!"));
         assert!(zig_code.contains("fn main()"));
+    }
+
+    #[test]
+    fn test_for_loop_generation() {
+        let program = AstProgram {
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![ast::Statement::For(ast::ForStatement {
+                        pattern: ast::Pattern::Variable("i".to_string()),
+                        iterator: ast::Expression::Array(vec![
+                            ast::Expression::Literal(ast::Literal::Integer(1)),
+                            ast::Expression::Literal(ast::Literal::Integer(2)),
+                            ast::Expression::Literal(ast::Literal::Integer(3)),
+                        ]),
+                        body: ast::Block {
+                            statements: vec![ast::Statement::Expression(ast::Expression::Call(
+                                Box::new(ast::Expression::Variable("print".to_string())),
+                                vec![ast::Expression::Variable("i".to_string())],
+                            ))],
+                        },
+                    })],
+                },
+                is_async: false,
+            })],
+            statements: vec![],
+        };
+
+        let mut backend = ZigBackend::new(ZigBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let zig_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(zig_code.contains("for"));
+        assert!(zig_code.contains("|i|"));
+    }
+
+    #[test]
+    fn test_match_statement_generation() {
+        let program = AstProgram {
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![ast::Statement::Match(ast::MatchStatement {
+                        expression: ast::Expression::Literal(ast::Literal::Integer(1)),
+                        cases: vec![
+                            ast::MatchCase {
+                                pattern: ast::Pattern::Literal(ast::Literal::Integer(1)),
+                                body: ast::Block {
+                                    statements: vec![ast::Statement::Expression(ast::Expression::Call(
+                                        Box::new(ast::Expression::Variable("print".to_string())),
+                                        vec![ast::Expression::Literal(ast::Literal::String("one".to_string()))],
+                                    ))],
+                                },
+                                guard: None,
+                            },
+                            ast::MatchCase {
+                                pattern: ast::Pattern::Wildcard,
+                                body: ast::Block {
+                                    statements: vec![ast::Statement::Expression(ast::Expression::Call(
+                                        Box::new(ast::Expression::Variable("print".to_string())),
+                                        vec![ast::Expression::Literal(ast::Literal::String("other".to_string()))],
+                                    ))],
+                                },
+                                guard: None,
+                            },
+                        ],
+                    })],
+                },
+                is_async: false,
+            })],
+            statements: vec![],
+        };
+
+        let mut backend = ZigBackend::new(ZigBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let zig_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(zig_code.contains("switch"));
+        assert!(zig_code.contains("=>"));
     }
 }
