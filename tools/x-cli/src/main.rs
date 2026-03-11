@@ -105,6 +105,12 @@ enum Commands {
         /// 仅生成目标文件，不链接
         #[arg(long)]
         no_link: bool,
+        /// 使用 release 优化构建
+        #[arg(long)]
+        release: bool,
+        /// 构建目标平台 (native, wasm32-wasi)
+        #[arg(long)]
+        target: Option<String>,
     },
 
     /// 运行项目测试
@@ -607,7 +613,9 @@ fn dispatch(cli: Cli) -> Result<(), String> {
             output,
             emit,
             no_link,
-        } => commands::compile::exec(&file, output.as_deref(), emit.as_deref(), no_link),
+            release,
+            target,
+        } => commands::compile::exec(&file, output.as_deref(), emit.as_deref(), no_link, release, target.as_deref()),
 
         Commands::Test {
             filter,

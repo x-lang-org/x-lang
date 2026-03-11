@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "{{language_name}}",
+  "scopeName": "source.x",
+  "fileTypes": [{{#each file_extensions}}"{{this}}"{{#unless @last}},{{/unless}}{{/each}}],
+  "patterns": [
+    {{#each rules}}
+    {
+      "name": "{{this.name}}",
+      "match": "{{this.pattern}}"
+    }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ],
+  "repository": {}
+}

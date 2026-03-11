@@ -2,6 +2,8 @@
 resolver = "2"
 members = [
     "x-cli",
+    "x-lsp",
+    "x-syntax-gen",
 ]
 
 [workspace.dependencies]

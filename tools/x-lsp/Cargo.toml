@@ -1,0 +1,27 @@
+[package]
+name = "x-lsp"
+version = "0.1.0"
+edition = "2021"
+description = "X Language LSP Server"
+license = "MIT OR Apache-2.0 OR BSD-3-Clause"
+
+[dependencies]
+# LSP protocol
+lsp-server = "0.7.4"
+lsp-types = "0.94.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Compiler crates
+x-lexer = { path = "../../compiler/x-lexer" }
+x-parser = { path = "../../compiler/x-parser" }
+x-typechecker = { path = "../../compiler/x-typechecker" }
+
+# Utilities
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.10"
+dashmap = "5.5"
+crossbeam-channel = "0.5"
+text-size = "1.1"
+rowan = "0.15"

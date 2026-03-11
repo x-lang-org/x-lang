@@ -1,0 +1,44 @@
+" Vim syntax file for X Language
+if exists("b:current_syntax")
+  finish
+endif
+
+" Keywords
+syn keyword xKeyword {{#each keywords}}{{this}} {{/each}}
+hi def link xKeyword Keyword
+
+" Types
+syn keyword xType {{#each types}}{{this}} {{/each}}
+hi def link xType Type
+
+" Built-ins
+syn keyword xBuiltin {{#each builtins}}{{this}} {{/each}}
+hi def link xBuiltin Function
+
+" Strings
+syn region xString start=+"+ end=+"+ skip=+\\\\\|\\"+
+syn region xString start=+'+ end=+'+ skip=+\\\\\|\\'+
+hi def link xString String
+
+" Numbers
+syn match xNumber "\<[0-9]\+\(\.[0-9]\+\)?\([eE][+-]?[0-9]\+\)?\>"
+hi def link xNumber Number
+
+" Booleans
+syn keyword xBoolean true false
+hi def link xBoolean Boolean
+
+" Comments
+syn match xComment "{{comment_line}}.*$"
+syn region xComment start="{{comment_block_start}}" end="{{comment_block_end}}"
+hi def link xComment Comment
+
+" Operators
+syn match xOperator "[+\-*/%=!<>|&^~:.]"
+hi def link xOperator Operator
+
+" Punctuation
+syn match xDelimiter "[{}()\[\],;]"
+hi def link xDelimiter Delimiter
+
+let b:current_syntax = "x"

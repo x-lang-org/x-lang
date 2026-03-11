@@ -38,11 +38,11 @@ pub fn exec(
     std::fs::create_dir_all(&target_dir).map_err(|e| format!("无法创建目标目录: {}", e))?;
 
     if let Some(main_path) = &main_file {
-        build_source(main_path, &project, &target_dir)?;
+        build_source(main_path, &project, &target_dir, release)?;
     }
 
     if let Some(lib_path) = &lib_file {
-        build_source(lib_path, &project, &target_dir)?;
+        build_source(lib_path, &project, &target_dir, release)?;
     }
 
     let elapsed = start.elapsed();
@@ -65,8 +65,9 @@ pub fn exec(
 
 fn build_source(
     path: &std::path::Path,
-    _project: &Project,
-    _target_dir: &std::path::Path,
+    project: &Project,
+    target_dir: &std::path::Path,
+    release: bool,
 ) -> Result<(), String> {
     let source =
         std::fs::read_to_string(path).map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
@@ -78,35 +79,33 @@ fn build_source(
 
     x_typechecker::type_check(&program).map_err(|e| format!("类型检查错误: {}", e))?;
 
-    #[cfg(feature = "codegen")]
-    {
-        let _hir = x_hir::ast_to_hir(&program).map_err(|e| format!("HIR 转换错误: {}", e))?;
-        let _pir = x_perceus::analyze_hir(&_hir).map_err(|e| format!("Perceus 分析错误: {}", e))?;
+    // Use Zig backend directly for now, since it's the most mature
+    let mut backend = x_codegen::zig_backend::ZigBackend::new(x_codegen::zig_backend::ZigBackendConfig {
+        output_dir: Some(target_dir.to_path_buf()),
+        optimize: release,
+        debug_info: !release,
+    });
 
-        let config = x_codegen::CodeGenConfig {
-            target: x_codegen::Target::Native,
-            ..Default::default()
-        };
-        let bytes = x_codegen::generate_code(&program, &config)
-            .map_err(|e| format!("代码生成失败: {}", e))?;
+    let codegen_output = backend
+        .generate_from_ast(&program)
+        .map_err(|e| format!("代码生成失败: {}", e))?;
 
-        let obj_name = format!(
-            "{}.{}",
-            project.name(),
-            if cfg!(windows) { "obj" } else { "o" }
-        );
-        let obj_path = target_dir.join(&obj_name);
-        std::fs::write(&obj_path, &bytes)
-            .map_err(|e| format!("无法写入 {}: {}", obj_path.display(), e))?;
+    let zig_code = String::from_utf8_lossy(&codegen_output.files[0].content);
 
-        let exe_name = if cfg!(windows) {
-            format!("{}.exe", project.name())
-        } else {
-            project.name().to_string()
-        };
-        let exe_path = target_dir.join(&exe_name);
-        pipeline::try_link(obj_path.to_str().unwrap(), exe_path.to_str().unwrap());
-    }
+    // Get output name: use file stem for binaries, project name for lib
+    let output_name = if path.file_name().unwrap_or_default() == "main.x" {
+        project.name().to_string()
+    } else {
+        path.file_stem().unwrap().to_string_lossy().to_string()
+    };
+
+    let output_path = target_dir.join(&output_name);
+
+    backend
+        .compile_zig_code(&zig_code, &output_path)
+        .map_err(|e| format!("Zig编译失败: {}", e))?;
+
+    utils::status("Built", &format!("{} -> {}", path.display(), output_path.display()));
 
     Ok(())
 }
