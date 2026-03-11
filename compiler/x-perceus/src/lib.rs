@@ -20,10 +20,20 @@ pub enum PerceusError {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
 
     #[test]
     fn analyze_hir_returns_ok_for_empty_hir() {
-        let hir = x_hir::Hir {};
+        let hir = x_hir::Hir {
+            module_name: "test".to_string(),
+            declarations: vec![],
+            statements: vec![],
+            type_env: x_hir::HirTypeEnv {
+                variables: HashMap::new(),
+                functions: HashMap::new(),
+                types: HashMap::new(),
+            },
+        };
         let pir = analyze_hir(&hir).expect("analyze_hir");
         assert_eq!(pir, PerceusIR {});
     }
