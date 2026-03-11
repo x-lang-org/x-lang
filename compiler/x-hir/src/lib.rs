@@ -1009,6 +1009,165 @@ pub fn ast_to_hir(program: &ast::Program) -> Result<Hir, HirError> {
     converter.convert_program(program)
 }
 
+/// 语法糖消除：将管道操作展开为嵌套的函数调用
+///
+/// 例如：`x |> f |> g` 展开为 `g(f(x))`
+pub fn desugar_pipe(expr: HirExpression) -> HirExpression {
+    match expr {
+        HirExpression::Pipe(input, functions) => {
+            let mut result = *input;
+            for func in functions {
+                result = HirExpression::Call(Box::new(func), vec![result]);
+            }
+            result
+        }
+        _ => expr,
+    }
+}
+
+/// 对 HIR 表达式递归应用语法糖消除
+pub fn desugar_expression(expr: HirExpression) -> HirExpression {
+    match expr {
+        HirExpression::Pipe(_, _) => desugar_pipe(expr),
+        HirExpression::Call(callee, args) => {
+            HirExpression::Call(
+                Box::new(desugar_expression(*callee)),
+                args.into_iter().map(desugar_expression).collect(),
+            )
+        }
+        HirExpression::Binary(op, left, right) => {
+            HirExpression::Binary(
+                op,
+                Box::new(desugar_expression(*left)),
+                Box::new(desugar_expression(*right)),
+            )
+        }
+        HirExpression::Unary(op, expr) => {
+            HirExpression::Unary(op, Box::new(desugar_expression(*expr)))
+        }
+        HirExpression::If(cond, then_e, else_e) => {
+            HirExpression::If(
+                Box::new(desugar_expression(*cond)),
+                Box::new(desugar_expression(*then_e)),
+                Box::new(desugar_expression(*else_e)),
+            )
+        }
+        HirExpression::Array(items) => {
+            HirExpression::Array(items.into_iter().map(desugar_expression).collect())
+        }
+        HirExpression::Dictionary(entries) => {
+            HirExpression::Dictionary(
+                entries.into_iter()
+                    .map(|(k, v)| (desugar_expression(k), desugar_expression(v)))
+                    .collect(),
+            )
+        }
+        HirExpression::Record(name, fields) => {
+            HirExpression::Record(
+                name,
+                fields.into_iter()
+                    .map(|(n, e)| (n, desugar_expression(e)))
+                    .collect(),
+            )
+        }
+        HirExpression::Range(start, end, inclusive) => {
+            HirExpression::Range(
+                Box::new(desugar_expression(*start)),
+                Box::new(desugar_expression(*end)),
+                inclusive,
+            )
+        }
+        HirExpression::Wait(wait_type, exprs) => {
+            HirExpression::Wait(wait_type, exprs.into_iter().map(desugar_expression).collect())
+        }
+        HirExpression::Given(name, expr) => {
+            HirExpression::Given(name, Box::new(desugar_expression(*expr)))
+        }
+        HirExpression::Typed(expr, ty) => {
+            HirExpression::Typed(Box::new(desugar_expression(*expr)), ty)
+        }
+        HirExpression::Assign(target, value) => {
+            HirExpression::Assign(
+                Box::new(desugar_expression(*target)),
+                Box::new(desugar_expression(*value)),
+            )
+        }
+        HirExpression::Member(obj, name) => {
+            HirExpression::Member(Box::new(desugar_expression(*obj)), name)
+        }
+        HirExpression::Lambda(params, body) => {
+            HirExpression::Lambda(params, desugar_block(body))
+        }
+        _ => expr,
+    }
+}
+
+/// 对 HIR 块应用语法糖消除
+pub fn desugar_block(block: HirBlock) -> HirBlock {
+    HirBlock {
+        statements: block.statements.into_iter().map(desugar_statement).collect(),
+    }
+}
+
+/// 对 HIR 语句应用语法糖消除
+pub fn desugar_statement(stmt: HirStatement) -> HirStatement {
+    match stmt {
+        HirStatement::Expression(expr) => {
+            HirStatement::Expression(desugar_expression(expr))
+        }
+        HirStatement::Variable(var) => {
+            HirStatement::Variable(HirVariableDecl {
+                initializer: var.initializer.map(desugar_expression),
+                ..var
+            })
+        }
+        HirStatement::Return(expr) => {
+            HirStatement::Return(expr.map(desugar_expression))
+        }
+        HirStatement::If(if_stmt) => {
+            HirStatement::If(HirIfStatement {
+                condition: desugar_expression(if_stmt.condition),
+                then_block: desugar_block(if_stmt.then_block),
+                else_block: if_stmt.else_block.map(desugar_block),
+            })
+        }
+        HirStatement::For(for_stmt) => {
+            HirStatement::For(HirForStatement {
+                iterator: desugar_expression(for_stmt.iterator),
+                body: desugar_block(for_stmt.body),
+                ..for_stmt
+            })
+        }
+        HirStatement::While(while_stmt) => {
+            HirStatement::While(HirWhileStatement {
+                condition: desugar_expression(while_stmt.condition),
+                body: desugar_block(while_stmt.body),
+            })
+        }
+        HirStatement::Match(match_stmt) => {
+            HirStatement::Match(HirMatchStatement {
+                expression: desugar_expression(match_stmt.expression),
+                cases: match_stmt.cases.into_iter().map(|c| HirMatchCase {
+                    body: desugar_block(c.body),
+                    guard: c.guard.map(desugar_expression),
+                    ..c
+                }).collect(),
+            })
+        }
+        HirStatement::Try(try_stmt) => {
+            HirStatement::Try(HirTryStatement {
+                body: desugar_block(try_stmt.body),
+                catch_clauses: try_stmt.catch_clauses.into_iter().map(|cc| HirCatchClause {
+                    body: desugar_block(cc.body),
+                    ..cc
+                }).collect(),
+                finally_block: try_stmt.finally_block.map(desugar_block),
+            })
+        }
+        _ => stmt,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1089,6 +1248,80 @@ mod tests {
             assert_eq!(func_decl.return_type, HirType::Int);
         } else {
             panic!("Expected Function declaration");
+        }
+    }
+
+    #[test]
+    fn desugar_pipe_converts_to_nested_calls() {
+        // x |> f |> g 应该展开为 g(f(x))
+        let input = HirExpression::Variable("x".to_string());
+        let functions = vec![
+            HirExpression::Variable("f".to_string()),
+            HirExpression::Variable("g".to_string()),
+        ];
+        let pipe = HirExpression::Pipe(Box::new(input), functions);
+
+        let result = desugar_pipe(pipe);
+
+        // 结果应该是 g(f(x))
+        match result {
+            HirExpression::Call(callee, args) => {
+                // 外层调用是 g
+                assert!(matches!(&*callee, HirExpression::Variable(ref n) if n == "g"));
+                assert_eq!(args.len(), 1);
+                // 内层调用是 f(x)
+                match &args[0] {
+                    HirExpression::Call(inner_callee, inner_args) => {
+                        assert!(matches!(&**inner_callee, HirExpression::Variable(ref n) if n == "f"));
+                        assert_eq!(inner_args.len(), 1);
+                        assert!(matches!(&inner_args[0], HirExpression::Variable(ref n) if n == "x"));
+                    }
+                    _ => panic!("Expected nested Call"),
+                }
+            }
+            _ => panic!("Expected Call, got {:?}", result),
+        }
+    }
+
+    #[test]
+    fn desugar_expression_handles_nested_pipes() {
+        // (x |> f) + (y |> g) 应该展开为 f(x) + g(y)
+        let left_pipe = HirExpression::Pipe(
+            Box::new(HirExpression::Variable("x".to_string())),
+            vec![HirExpression::Variable("f".to_string())],
+        );
+        let right_pipe = HirExpression::Pipe(
+            Box::new(HirExpression::Variable("y".to_string())),
+            vec![HirExpression::Variable("g".to_string())],
+        );
+        let expr = HirExpression::Binary(
+            HirBinaryOp::Add,
+            Box::new(left_pipe),
+            Box::new(right_pipe),
+        );
+
+        let result = desugar_expression(expr);
+
+        match result {
+            HirExpression::Binary(HirBinaryOp::Add, left, right) => {
+                // 左边应该是 f(x)
+                match &*left {
+                    HirExpression::Call(callee, args) => {
+                        assert!(matches!(&**callee, HirExpression::Variable(ref n) if n == "f"));
+                        assert_eq!(args.len(), 1);
+                    }
+                    _ => panic!("Expected Call on left"),
+                }
+                // 右边应该是 g(y)
+                match &*right {
+                    HirExpression::Call(callee, args) => {
+                        assert!(matches!(&**callee, HirExpression::Variable(ref n) if n == "g"));
+                        assert_eq!(args.len(), 1);
+                    }
+                    _ => panic!("Expected Call on right"),
+                }
+            }
+            _ => panic!("Expected Binary expression"),
         }
     }
 }
