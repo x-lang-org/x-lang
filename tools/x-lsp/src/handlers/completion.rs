@@ -1,5 +1,7 @@
 //! Code completion handler
 
+use std::sync::LazyLock;
+
 use lsp_types::{
     request::Completion, CompletionItem, CompletionItemKind, CompletionItemLabelDetails,
     CompletionList, InsertTextMode,
@@ -7,42 +9,8 @@ use lsp_types::{
 
 use crate::server::LspServer;
 
-/// Register completion handler with the server
-pub fn register(server: &mut LspServer) {
-    let workspace = server.workspace();
-    server.register_request_handler::<Completion>(move |req| {
-        let params: lsp_types::CompletionParams = serde_json::from_value(req.params)?;
-        let uri = params.text_document_position.text_document.uri;
-        let _position = params.text_document_position.position;
-
-        let mut items = Vec::new();
-
-        if let Some(doc) = workspace.get_document(&uri) {
-            // Add keywords
-            items.extend(get_keywords_completions());
-
-            // Add types
-            items.extend(get_type_completions());
-
-            // Add built-in functions
-            items.extend(get_builtin_functions_completions());
-
-            // Add symbols from current file
-            items.extend(get_symbol_completions(&doc));
-        }
-
-        let result = CompletionList {
-            is_incomplete: false,
-            items,
-        };
-
-        let resp = lsp_server::Response::new_ok(req.id, result);
-        Ok(resp)
-    });
-}
-
-/// Get keyword completions
-fn get_keywords_completions() -> Vec<CompletionItem> {
+// Cached static completion data - computed once at startup
+static KEYWORDS_COMPLETIONS: LazyLock<Vec<CompletionItem>> = LazyLock::new(|| {
     vec![
         "needs", "given", "wait", "when", "is", "can", "atomic", "fn", "func", "function",
         "let", "var", "const", "if", "else", "while", "for", "loop", "match", "return",
@@ -57,10 +25,9 @@ fn get_keywords_completions() -> Vec<CompletionItem> {
         ..Default::default()
     })
     .collect()
-}
+});
 
-/// Get type completions
-fn get_type_completions() -> Vec<CompletionItem> {
+static TYPES_COMPLETIONS: LazyLock<Vec<CompletionItem>> = LazyLock::new(|| {
     vec![
         "int", "i8", "i16", "i32", "i64", "isize", "uint", "u8", "u16", "u32", "u64", "usize",
         "float", "f32", "f64", "bool", "string", "char", "void", "never", "any",
@@ -73,10 +40,9 @@ fn get_type_completions() -> Vec<CompletionItem> {
         ..Default::default()
     })
     .collect()
-}
+});
 
-/// Get built-in function completions
-fn get_builtin_functions_completions() -> Vec<CompletionItem> {
+static BUILTIN_FUNCTIONS_COMPLETIONS: LazyLock<Vec<CompletionItem>> = LazyLock::new(|| {
     vec![
         ("print", "print($0)"),
         ("println", "println($0)"),
@@ -104,6 +70,36 @@ fn get_builtin_functions_completions() -> Vec<CompletionItem> {
         ..Default::default()
     })
     .collect()
+});
+
+/// Register completion handler with the server
+pub fn register(server: &mut LspServer) {
+    let workspace = server.workspace();
+    server.register_request_handler::<Completion>(move |req| {
+        let params: lsp_types::CompletionParams = serde_json::from_value(req.params)?;
+        let uri = params.text_document_position.text_document.uri;
+        let _position = params.text_document_position.position;
+
+        let mut items = Vec::new();
+
+        if let Some(doc) = workspace.get_document(&uri) {
+            // Add cached static completions
+            items.extend(KEYWORDS_COMPLETIONS.iter().cloned());
+            items.extend(TYPES_COMPLETIONS.iter().cloned());
+            items.extend(BUILTIN_FUNCTIONS_COMPLETIONS.iter().cloned());
+
+            // Add symbols from current file
+            items.extend(get_symbol_completions(&doc));
+        }
+
+        let result = CompletionList {
+            is_incomplete: false,
+            items,
+        };
+
+        let resp = lsp_server::Response::new_ok(req.id, result);
+        Ok(resp)
+    });
 }
 
 /// Get symbol completions from the current document

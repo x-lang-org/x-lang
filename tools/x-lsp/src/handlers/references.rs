@@ -1,7 +1,7 @@
 //! Find references handler
 
 use lsp_types::{
-    request::References, Location, Position, Range,
+    request::References, Location, Range,
 };
 
 use crate::server::LspServer;
@@ -36,16 +36,16 @@ fn find_references(
     doc: &crate::state::Document,
     offset: usize,
 ) -> Vec<Location> {
-    let ast = doc.ast().cloned();
-    let program = match ast {
-        Some(p) => p.as_ref().clone(),
+    let program = match doc.ast().as_deref() {
+        Some(p) => p,
         None => return Vec::new(),
     };
 
     let mut references = Vec::new();
+    let content = doc.content();
 
     // First, find the symbol name at the offset
-    let symbol_name = find_symbol_name_at_offset(&program, offset);
+    let symbol_name = find_symbol_name_at_offset(program, offset);
     if symbol_name.is_none() {
         return Vec::new();
     }
@@ -62,14 +62,8 @@ fn find_references(
                     references.push(Location {
                         uri: doc.uri().clone(),
                         range: Range {
-                            start: Position {
-                                line: 0,
-                                character: start as u32,
-                            },
-                            end: Position {
-                                line: 0,
-                                character: end as u32,
-                            },
+                            start: utils::offset_to_position(start, content),
+                            end: utils::offset_to_position(end, content),
                         },
                     });
                 }
@@ -81,14 +75,8 @@ fn find_references(
                     references.push(Location {
                         uri: doc.uri().clone(),
                         range: Range {
-                            start: Position {
-                                line: 0,
-                                character: start as u32,
-                            },
-                            end: Position {
-                                line: 0,
-                                character: end as u32,
-                            },
+                            start: utils::offset_to_position(start, content),
+                            end: utils::offset_to_position(end, content),
                         },
                     });
                 }

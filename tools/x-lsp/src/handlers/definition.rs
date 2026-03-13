@@ -1,7 +1,7 @@
 //! Go to definition handler
 
 use lsp_types::{
-    request::GotoDefinition, Location, Position, Range,
+    request::GotoDefinition, Location, Range,
 };
 
 use crate::server::LspServer;
@@ -50,17 +50,12 @@ fn find_definition(
                 let name_end = name_start + func.name.len();
 
                 if offset >= name_start && offset <= name_end {
+                    let content = doc.content();
                     return Some(Location {
                         uri: doc.uri().clone(),
                         range: Range {
-                            start: Position {
-                                line: 0,
-                                character: name_start as u32,
-                            },
-                            end: Position {
-                                line: 0,
-                                character: name_end as u32,
-                            },
+                            start: utils::offset_to_position(name_start, content),
+                            end: utils::offset_to_position(name_end, content),
                         },
                     });
                 }
@@ -70,17 +65,12 @@ fn find_definition(
                 let name_end = name_start + var.name.len();
 
                 if offset >= name_start && offset <= name_end {
+                    let content = doc.content();
                     return Some(Location {
                         uri: doc.uri().clone(),
                         range: Range {
-                            start: Position {
-                                line: 0,
-                                character: name_start as u32,
-                            },
-                            end: Position {
-                                line: 0,
-                                character: name_end as u32,
-                            },
+                            start: utils::offset_to_position(name_start, content),
+                            end: utils::offset_to_position(name_end, content),
                         },
                     });
                 }

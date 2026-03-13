@@ -55,3 +55,28 @@ pub fn position_to_offset(pos: &Position, content: &str) -> usize {
 
     offset + pos.character as usize
 }
+
+/// Convert a byte offset to LSP Position
+pub fn offset_to_position(offset: usize, content: &str) -> Position {
+    let mut line = 0;
+    let mut character = 0;
+    let mut current_pos = 0;
+
+    for c in content.chars() {
+        if current_pos >= offset {
+            break;
+        }
+        if c == '\n' {
+            line += 1;
+            character = 0;
+        } else {
+            character += 1;
+        }
+        current_pos += c.len_utf8();
+    }
+
+    Position {
+        line: line as u32,
+        character: character as u32,
+    }
+}
