@@ -17,11 +17,9 @@ pub fn exec(
         return emit_stage(file, &content, stage);
     }
 
-    // Default compile: use Zig backend
-    let parser = x_parser::parser::XParser::new();
-    let program = parser
-        .parse(&content)
-        .map_err(|e| pipeline::format_parse_error(file, &content, &e))?;
+    // Default compile: use Zig backend with full pipeline
+    let (_, _, pir) = pipeline::run_pipeline(&content)
+        .map_err(|e| format!("编译失败: {}", e))?;
 
     let out_path = output.unwrap_or_else(|| file.strip_suffix(".x").unwrap_or(file));
 
@@ -40,9 +38,9 @@ pub fn exec(
         }
     }
 
-    // Generate Zig code from AST
+    // Generate Zig code from PerceusIR (with automatic memory management)
     let codegen_output = backend
-        .generate_from_ast(&program)
+        .generate_from_pir(&pir)
         .map_err(|e| format!("代码生成失败: {}", e))?;
 
     let zig_code = String::from_utf8_lossy(&codegen_output.files[0].content);
