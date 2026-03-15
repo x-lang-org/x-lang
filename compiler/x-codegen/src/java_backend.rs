@@ -4,8 +4,7 @@
 
 use std::fmt::Write;
 use std::path::PathBuf;
-use x_lexer::span::Span;
-use x_parser::ast::{self, Program as AstProgram};
+use x_parser::ast::{self, ExpressionKind, StatementKind, Program as AstProgram};
 
 #[derive(Debug, Clone)]
 pub struct JavaBackendConfig {
@@ -121,16 +120,36 @@ impl JavaBackend {
             .map(|p| format!("Object {}", p.name))
             .collect();
 
+        // Handle async functions - return CompletableFuture
+        let (return_type, needs_completable_future) = if func_decl.is_async {
+            ("java.util.concurrent.CompletableFuture<Object>".to_string(), true)
+        } else {
+            ("Object".to_string(), false)
+        };
+
         self.line(&format!(
-            "public static Object {}({}) {{",
+            "public static {} {}({}) {{",
+            return_type,
             func_decl.name,
             params.join(", ")
         ))?;
         self.indent += 1;
 
+        // For async functions, wrap the body in supplyAsync
+        if needs_completable_future {
+            self.line("return java.util.concurrent.CompletableFuture.supplyAsync(() -> {")?;
+            self.indent += 1;
+        }
+
         self.emit_block(&func_decl.body)?;
 
-        self.line("return null;")?;
+        if needs_completable_future {
+            self.line("return null;")?;
+            self.indent -= 1;
+            self.line("});")?;
+        } else {
+            self.line("return null;")?;
+        }
         self.indent -= 1;
         self.line("}")?;
         self.line("")?;
@@ -138,32 +157,45 @@ impl JavaBackend {
     }
 
     fn emit_statement(&mut self, stmt: &ast::Statement) -> JavaResult<()> {
-        match stmt {
-            ast::Statement::Expression(expr) => {
+        match &stmt.node {
+            StatementKind::Expression(expr) => {
                 let expr_str = self.emit_expr(expr)?;
                 self.line(&format!("{};", expr_str))?;
             }
-            ast::Statement::Variable(var_decl) => {
-                let var_type = if var_decl.is_mutable {
-                    "var"
-                } else {
-                    "final var"
-                };
+            StatementKind::Variable(var_decl) => {
                 if let Some(init) = &var_decl.initializer {
+                    // Has initializer - can use var/final var
+                    let var_type = if var_decl.is_mutable {
+                        "var"
+                    } else {
+                        "final var"
+                    };
                     let init_str = self.emit_expr(init)?;
                     self.line(&format!("{} {} = {};", var_type, var_decl.name, init_str))?;
                 } else {
-                    // TODO: Handle uninitialized variables with type annotations
-                    self.line(&format!("{} {};", var_type, var_decl.name))?;
+                    // No initializer - need explicit type annotation
+                    let java_type = if let Some(type_annot) = &var_decl.type_annot {
+                        self.type_to_java(type_annot)?
+                    } else {
+                        // Default to Object if no type annotation
+                        "Object".to_string()
+                    };
+
+                    let modifier = if var_decl.is_mutable {
+                        ""
+                    } else {
+                        "final "
+                    };
+                    self.line(&format!("{}{} {};", modifier, java_type, var_decl.name))?;
                 }
             }
-            ast::Statement::If(if_stmt) => {
+            StatementKind::If(if_stmt) => {
                 self.emit_if(if_stmt)?;
             }
-            ast::Statement::While(while_stmt) => {
+            StatementKind::While(while_stmt) => {
                 self.emit_while(while_stmt)?;
             }
-            ast::Statement::Return(ret) => {
+            StatementKind::Return(ret) => {
                 if let Some(expr) = ret {
                     let expr_str = self.emit_expr(expr)?;
                     self.line(&format!("return {};", expr_str))?;
@@ -229,19 +261,19 @@ impl JavaBackend {
     }
 
     fn emit_expr(&self, expr: &ast::Expression) -> JavaResult<String> {
-        match expr {
-            ast::Expression::Literal(lit) => Ok(self.emit_literal(lit)?),
-            ast::Expression::Variable(name) => Ok(name.clone()),
-            ast::Expression::Binary(op, left, right) => {
+        match &expr.node {
+            ExpressionKind::Literal(lit) => Ok(self.emit_literal(lit)?),
+            ExpressionKind::Variable(name) => Ok(name.clone()),
+            ExpressionKind::Binary(op, left, right) => {
                 let lhs = self.emit_expr(left)?;
                 let rhs = self.emit_expr(right)?;
                 self.emit_binop(op, &lhs, &rhs)
             }
-            ast::Expression::Unary(op, operand) => {
+            ExpressionKind::Unary(op, operand) => {
                 let expr_str = self.emit_expr(operand)?;
                 self.emit_unaryop(op, &expr_str)
             }
-            ast::Expression::Call(callee, args) => {
+            ExpressionKind::Call(callee, args) => {
                 let callee_str = self.emit_expr(callee)?;
                 let mut arg_strs = Vec::new();
                 for arg in args {
@@ -249,14 +281,17 @@ impl JavaBackend {
                 }
                 Ok(self.emit_call(&callee_str, &arg_strs)?)
             }
-            ast::Expression::Assign(left, right) => {
+            ExpressionKind::Assign(left, right) => {
                 let lhs = self.emit_expr(left)?;
                 let rhs = self.emit_expr(right)?;
                 Ok(format!("{} = {}", lhs, rhs))
             }
-            ast::Expression::Parenthesized(expr) => {
+            ExpressionKind::Parenthesized(expr) => {
                 let inner = self.emit_expr(expr)?;
                 Ok(format!("({})", inner))
+            }
+            ExpressionKind::Wait(wait_type, exprs) => {
+                self.emit_wait(wait_type, exprs)
             }
             _ => Err(JavaBackendError::UnsupportedFeature(format!(
                 "Unsupported expression type: {:?}",
@@ -314,10 +349,71 @@ impl JavaBackend {
             ast::UnaryOp::Negate => Ok(format!("-{}", expr)),
             ast::UnaryOp::Not => Ok(format!("!{}", expr)),
             ast::UnaryOp::BitNot => Ok(format!("~{}", expr)),
+            ast::UnaryOp::Wait => Ok(format!("{}.join()", expr)), // Wait for CompletableFuture
             _ => Err(JavaBackendError::UnsupportedFeature(format!(
                 "Unsupported unary operator: {:?}",
                 op
             ))),
+        }
+    }
+
+    fn emit_wait(&self, wait_type: &ast::WaitType, exprs: &[ast::Expression]) -> JavaResult<String> {
+        let expr_strs: Vec<String> = exprs
+            .iter()
+            .map(|e| self.emit_expr(e))
+            .collect::<Result<Vec<_>, _>>()?;
+        match wait_type {
+            ast::WaitType::Single => {
+                // Single await: future.join() or future.get()
+                if expr_strs.len() == 1 {
+                    Ok(format!("{}.join()", expr_strs[0]))
+                } else {
+                    // Multiple expressions - join each
+                    let joined: Vec<String> = expr_strs.iter().map(|e| format!("{}.join()", e)).collect();
+                    Ok(format!("java.util.Arrays.asList({})", joined.join(", ")))
+                }
+            }
+            ast::WaitType::Together => {
+                // Parallel execution: CompletableFuture.allOf
+                if expr_strs.is_empty() {
+                    Ok("java.util.concurrent.CompletableFuture.completedFuture(null)".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("{}.join()", expr_strs[0]))
+                } else {
+                    let futures = expr_strs.join(", ");
+                    Ok(format!(
+                        "java.util.concurrent.CompletableFuture.allOf({}).join()",
+                        futures
+                    ))
+                }
+            }
+            ast::WaitType::Race => {
+                // Race: CompletableFuture.anyOf
+                if expr_strs.is_empty() {
+                    Ok("java.util.concurrent.CompletableFuture.completedFuture(null)".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("{}.join()", expr_strs[0]))
+                } else {
+                    let futures = expr_strs.join(", ");
+                    Ok(format!(
+                        "java.util.concurrent.CompletableFuture.anyOf({}).join()",
+                        futures
+                    ))
+                }
+            }
+            ast::WaitType::Timeout(timeout_expr) => {
+                // Timeout: orTimeout
+                let timeout = self.emit_expr(timeout_expr)?;
+                if expr_strs.is_empty() {
+                    Ok("java.util.concurrent.CompletableFuture.completedFuture(null)".to_string())
+                } else {
+                    let expr = &expr_strs[0];
+                    Ok(format!(
+                        "{}.orTimeout({}, java.util.concurrent.TimeUnit.MILLISECONDS).join()",
+                        expr, timeout
+                    ))
+                }
+            }
         }
     }
 
@@ -329,6 +425,68 @@ impl JavaBackend {
             _ => {
                 // Regular function call
                 Ok(format!("{}({})", callee, args.join(", ")))
+            }
+        }
+    }
+
+    /// Convert X language type to Java type
+    fn type_to_java(&self, ty: &ast::Type) -> JavaResult<String> {
+        match ty {
+            ast::Type::Int => Ok("int".to_string()),
+            ast::Type::Float => Ok("double".to_string()),
+            ast::Type::Bool => Ok("boolean".to_string()),
+            ast::Type::String => Ok("String".to_string()),
+            ast::Type::Char => Ok("char".to_string()),
+            ast::Type::Unit => Ok("void".to_string()),
+            ast::Type::Never => Ok("void".to_string()),
+            ast::Type::Generic(name) | ast::Type::TypeParam(name) | ast::Type::Var(name) => {
+                Ok(name.clone())
+            }
+            ast::Type::Array(elem) => {
+                let elem_type = self.type_to_java(elem)?;
+                Ok(format!("{}[]", elem_type))
+            }
+            ast::Type::Dictionary(key, value) => {
+                let _key_type = self.type_to_java(key)?;
+                let value_type = self.type_to_java(value)?;
+                Ok(format!("java.util.Map<String, {}>", value_type))
+            }
+            ast::Type::Record(name, _) => {
+                Ok(name.clone())
+            }
+            ast::Type::Union(name, _) => {
+                Ok(name.clone())
+            }
+            ast::Type::Option(inner) => {
+                // Java doesn't have Option, use nullable type wrapper
+                let inner_type = self.type_to_java(inner)?;
+                Ok(format!("java.util.Optional<{}>", inner_type))
+            }
+            ast::Type::Result(ok_type, _) => {
+                // Simplified: just use the Ok type wrapped
+                let ok_java = self.type_to_java(ok_type)?;
+                Ok(format!("java.util.Optional<{}>", ok_java))
+            }
+            ast::Type::Tuple(elements) => {
+                // Tuples map to Object arrays or custom tuple classes
+                if elements.is_empty() {
+                    Ok("Object".to_string())
+                } else {
+                    Ok("Object[]".to_string())
+                }
+            }
+            ast::Type::Function(params, ret) => {
+                // Java functional interface
+                let ret_type = self.type_to_java(ret)?;
+                if params.is_empty() {
+                    Ok(format!("java.util.function.Supplier<{}>", ret_type))
+                } else {
+                    Ok(format!("java.util.function.Function<Object, {}>", ret_type))
+                }
+            }
+            ast::Type::Async(inner) => {
+                let inner_type = self.type_to_java(inner)?;
+                Ok(format!("java.util.concurrent.CompletableFuture<{}>", inner_type))
             }
         }
     }
@@ -346,18 +504,27 @@ impl JavaBackend {
 mod tests {
     use super::*;
     use x_parser::ast::*;
+    use x_lexer::span::Span;
+
+    fn make_expr(kind: ExpressionKind) -> Expression {
+        Spanned::new(kind, Span::default())
+    }
+
+    fn make_stmt(kind: StatementKind) -> Statement {
+        Spanned::new(kind, Span::default())
+    }
 
     #[test]
     fn test_basic_generation() {
         let program = Program {
             span: Span::default(),
             declarations: vec![],
-            statements: vec![Statement::Expression(Expression::Call(
-                Box::new(Expression::Variable("println".to_string())),
-                vec![Expression::Literal(Literal::String(
+            statements: vec![make_stmt(StatementKind::Expression(make_expr(ExpressionKind::Call(
+                Box::new(make_expr(ExpressionKind::Variable("println".to_string()))),
+                vec![make_expr(ExpressionKind::Literal(Literal::String(
                     "Hello, X Language!".to_string(),
-                ))],
-            ))],
+                )))],
+            ))))],
         };
 
         let mut backend = JavaBackend::new(JavaBackendConfig::default());
@@ -378,28 +545,28 @@ mod tests {
             span: Span::default(),
             declarations: vec![],
             statements: vec![
-                Statement::Variable(VariableDecl {
-            span: Span::default(),
+                make_stmt(StatementKind::Variable(VariableDecl {
+                    span: Span::default(),
                     name: "x".to_string(),
                     is_mutable: false,
                     type_annot: None,
-                    initializer: Some(Expression::Literal(Literal::Integer(5))),
-                }),
-                Statement::Variable(VariableDecl {
-            span: Span::default(),
+                    initializer: Some(make_expr(ExpressionKind::Literal(Literal::Integer(5)))),
+                })),
+                make_stmt(StatementKind::Variable(VariableDecl {
+                    span: Span::default(),
                     name: "y".to_string(),
                     is_mutable: false,
                     type_annot: None,
-                    initializer: Some(Expression::Literal(Literal::Integer(10))),
-                }),
-                Statement::Expression(Expression::Call(
-                    Box::new(Expression::Variable("println".to_string())),
-                    vec![Expression::Binary(
+                    initializer: Some(make_expr(ExpressionKind::Literal(Literal::Integer(10)))),
+                })),
+                make_stmt(StatementKind::Expression(make_expr(ExpressionKind::Call(
+                    Box::new(make_expr(ExpressionKind::Variable("println".to_string()))),
+                    vec![make_expr(ExpressionKind::Binary(
                         BinaryOp::Add,
-                        Box::new(Expression::Variable("x".to_string())),
-                        Box::new(Expression::Variable("y".to_string())),
-                    )],
-                )),
+                        Box::new(make_expr(ExpressionKind::Variable("x".to_string()))),
+                        Box::new(make_expr(ExpressionKind::Variable("y".to_string()))),
+                    ))],
+                )))),
             ],
         };
 
@@ -418,11 +585,11 @@ mod tests {
         let program = Program {
             span: Span::default(),
             declarations: vec![],
-            statements: vec![Statement::Expression(Expression::Binary(
+            statements: vec![make_stmt(StatementKind::Expression(make_expr(ExpressionKind::Binary(
                 BinaryOp::Concat,
-                Box::new(Expression::Literal(Literal::String("a".to_string()))),
-                Box::new(Expression::Literal(Literal::String("b".to_string()))),
-            ))],
+                Box::new(make_expr(ExpressionKind::Literal(Literal::String("a".to_string())))),
+                Box::new(make_expr(ExpressionKind::Literal(Literal::String("b".to_string())))),
+            ))))],
         };
 
         let mut backend = JavaBackend::new(JavaBackendConfig::default());

@@ -4,8 +4,7 @@
 
 use std::fmt::Write;
 use std::path::PathBuf;
-use x_lexer::span::Span;
-use x_parser::ast::{self, Program as AstProgram};
+use x_parser::ast::{self, ExpressionKind, StatementKind, Program as AstProgram};
 
 #[derive(Debug, Clone)]
 pub struct CSharpBackendConfig {
@@ -152,8 +151,17 @@ impl CSharpBackend {
             params.push(format!("object {}", param.name));
         }
 
+        // Handle async functions - return Task<object>
+        let (return_type, async_keyword) = if func.is_async {
+            ("Task<object>", "async ")
+        } else {
+            ("object", "")
+        };
+
         self.line(&format!(
-            "public static object {}({})",
+            "public static {} {}{}({})",
+            return_type,
+            async_keyword,
             func.name,
             params.join(", ")
         ))?;
@@ -162,6 +170,12 @@ impl CSharpBackend {
 
         self.emit_block(&func.body)?;
 
+        // Add return statement
+        if func.is_async {
+            self.line("return Task.FromResult<object>(null);")?;
+        } else {
+            self.line("return null;")?;
+        }
         self.indent -= 1;
         self.line("}")?;
         Ok(())
@@ -176,12 +190,12 @@ impl CSharpBackend {
     }
 
     fn emit_statement(&mut self, stmt: &ast::Statement) -> CSharpResult<()> {
-        match stmt {
-            ast::Statement::Expression(expr) => {
+        match &stmt.node {
+            StatementKind::Expression(expr) => {
                 let expr_str = self.emit_expr(expr)?;
                 self.line(&format!("{};", expr_str))?;
             }
-            ast::Statement::Variable(decl) => {
+            StatementKind::Variable(decl) => {
                 let value_str = if let Some(init) = &decl.initializer {
                     self.emit_expr(init)?
                 } else {
@@ -189,13 +203,22 @@ impl CSharpBackend {
                 };
                 self.line(&format!("var {} = {};", decl.name, value_str))?;
             }
-            ast::Statement::If(if_stmt) => {
+            StatementKind::If(if_stmt) => {
                 self.emit_if(if_stmt)?;
             }
-            ast::Statement::While(while_stmt) => {
+            StatementKind::While(while_stmt) => {
                 self.emit_while(while_stmt)?;
             }
-            ast::Statement::Return(ret) => {
+            StatementKind::For(for_stmt) => {
+                self.emit_for(for_stmt)?;
+            }
+            StatementKind::Match(match_stmt) => {
+                self.emit_match(match_stmt)?;
+            }
+            StatementKind::Try(try_stmt) => {
+                self.emit_try(try_stmt)?;
+            }
+            StatementKind::Return(ret) => {
                 if let Some(expr) = ret {
                     let expr_str = self.emit_expr(expr)?;
                     self.line(&format!("return {};", expr_str))?;
@@ -203,11 +226,21 @@ impl CSharpBackend {
                     self.line("return;")?;
                 }
             }
-            _ => {
-                return Err(CSharpBackendError::UnsupportedFeature(format!(
-                    "Statement type not supported: {:?}",
-                    stmt
-                )));
+            StatementKind::Break => {
+                self.line("break;")?;
+            }
+            StatementKind::Continue => {
+                self.line("continue;")?;
+            }
+            StatementKind::DoWhile(do_while) => {
+                self.line("while (true)")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(&do_while.body)?;
+                let cond = self.emit_expr(&do_while.condition)?;
+                self.line(&format!("if (!({})) break;", cond))?;
+                self.indent -= 1;
+                self.line("}")?;
             }
         }
         Ok(())
@@ -244,11 +277,118 @@ impl CSharpBackend {
         Ok(())
     }
 
+    fn emit_for(&mut self, for_stmt: &ast::ForStatement) -> CSharpResult<()> {
+        let iter = self.emit_expr(&for_stmt.iterator)?;
+        let pattern_name = self.emit_pattern_var(&for_stmt.pattern);
+        // C# foreach syntax
+        self.line(&format!("foreach (var {} in {})", pattern_name, iter))?;
+        self.emit_block(&for_stmt.body)?;
+        Ok(())
+    }
+
+    fn emit_pattern_var(&self, pattern: &ast::Pattern) -> String {
+        match pattern {
+            ast::Pattern::Wildcard => "_".to_string(),
+            ast::Pattern::Variable(name) => name.clone(),
+            ast::Pattern::Or(left, _) => self.emit_pattern_var(left),
+            ast::Pattern::Guard(inner, _) => self.emit_pattern_var(inner),
+            _ => "item".to_string(),
+        }
+    }
+
+    fn emit_match(&mut self, match_stmt: &ast::MatchStatement) -> CSharpResult<()> {
+        let expr = self.emit_expr(&match_stmt.expression)?;
+        // C# 7+ pattern matching with switch expression
+        self.line(&format!("switch ({})", expr))?;
+        self.line("{")?;
+        self.indent += 1;
+
+        for case in &match_stmt.cases {
+            let pattern_str = self.emit_match_pattern(&case.pattern);
+            let when_clause = if let Some(guard) = &case.guard {
+                let guard_str = self.emit_expr(guard)?;
+                format!(" when ({})", guard_str)
+            } else {
+                String::new()
+            };
+            self.line(&format!("{}{} =>", pattern_str, when_clause))?;
+            self.indent += 1;
+            self.line("{")?;
+            self.indent += 1;
+            self.emit_block(&case.body)?;
+            self.indent -= 1;
+            self.line("}")?;
+            self.indent -= 1;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_match_pattern(&self, pattern: &ast::Pattern) -> String {
+        match pattern {
+            ast::Pattern::Wildcard => "_".to_string(),
+            ast::Pattern::Variable(name) => name.clone(),
+            ast::Pattern::Literal(lit) => self.emit_literal(lit).unwrap_or_else(|_| "_".to_string()),
+            ast::Pattern::Or(left, right) => {
+                format!("{} or {}", self.emit_match_pattern(left), self.emit_match_pattern(right))
+            }
+            ast::Pattern::Array(elements) => {
+                let elem_strs: Vec<String> = elements.iter().map(|p| self.emit_match_pattern(p)).collect();
+                format!("[{}]", elem_strs.join(", "))
+            }
+            ast::Pattern::Tuple(elements) => {
+                let elem_strs: Vec<String> = elements.iter().map(|p| self.emit_match_pattern(p)).collect();
+                format!("({})", elem_strs.join(", "))
+            }
+            _ => "_".to_string(),
+        }
+    }
+
+    fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> CSharpResult<()> {
+        self.line("try")?;
+        self.line("{")?;
+        self.indent += 1;
+        self.emit_block(&try_stmt.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+
+        for catch in &try_stmt.catch_clauses {
+            let catch_line = if let Some(var_name) = &catch.variable_name {
+                if let Some(exc_type) = &catch.exception_type {
+                    format!("catch ({} {})", exc_type, var_name)
+                } else {
+                    format!("catch (Exception {})", var_name)
+                }
+            } else {
+                "catch".to_string()
+            };
+            self.line(&catch_line)?;
+            self.line("{")?;
+            self.indent += 1;
+            self.emit_block(&catch.body)?;
+            self.indent -= 1;
+            self.line("}")?;
+        }
+
+        if let Some(finally) = &try_stmt.finally_block {
+            self.line("finally")?;
+            self.line("{")?;
+            self.indent += 1;
+            self.emit_block(finally)?;
+            self.indent -= 1;
+            self.line("}")?;
+        }
+
+        Ok(())
+    }
+
     fn emit_expr(&self, expr: &ast::Expression) -> CSharpResult<String> {
-        match expr {
-            ast::Expression::Literal(lit) => self.emit_literal(lit),
-            ast::Expression::Variable(name) => Ok(name.clone()),
-            ast::Expression::Binary(op, lhs, rhs) => {
+        match &expr.node {
+            ExpressionKind::Literal(lit) => self.emit_literal(lit),
+            ExpressionKind::Variable(name) => Ok(name.clone()),
+            ExpressionKind::Binary(op, lhs, rhs) => {
                 let lhs_str = self.emit_expr(lhs)?;
                 let rhs_str = self.emit_expr(rhs)?;
                 match op {
@@ -259,11 +399,11 @@ impl CSharpBackend {
                     _ => Ok(format!("({} {} {})", lhs_str, self.emit_binop(op), rhs_str)),
                 }
             }
-            ast::Expression::Unary(op, operand) => {
+            ExpressionKind::Unary(op, operand) => {
                 let expr_str = self.emit_expr(operand)?;
                 Ok(format!("({}{})", self.emit_unaryop(op), expr_str))
             }
-            ast::Expression::Call(callee, args) => {
+            ExpressionKind::Call(callee, args) => {
                 let mut arg_strs = Vec::new();
                 for arg in args {
                     arg_strs.push(self.emit_expr(arg)?);
@@ -271,14 +411,17 @@ impl CSharpBackend {
                 let callee_str = self.emit_expr(callee)?;
                 self.emit_call(&callee_str, &arg_strs)
             }
-            ast::Expression::Parenthesized(expr) => {
+            ExpressionKind::Parenthesized(expr) => {
                 let inner = self.emit_expr(expr)?;
                 Ok(format!("({})", inner))
             }
-            ast::Expression::Assign(lhs, rhs) => {
+            ExpressionKind::Assign(lhs, rhs) => {
                 let lhs_str = self.emit_expr(lhs)?;
                 let rhs_str = self.emit_expr(rhs)?;
                 Ok(format!("{} = {}", lhs_str, rhs_str))
+            }
+            ExpressionKind::Wait(wait_type, exprs) => {
+                self.emit_wait(wait_type, exprs)
             }
             _ => Err(CSharpBackendError::UnsupportedFeature(format!(
                 "Expression type not supported: {:?}",
@@ -330,7 +473,60 @@ impl CSharpBackend {
             ast::UnaryOp::Negate => "-",
             ast::UnaryOp::Not => "!",
             ast::UnaryOp::BitNot => "~",
+            ast::UnaryOp::Wait => "await ", // Wait becomes await
             _ => "", // Ignore other ops for now
+        }
+    }
+
+    fn emit_wait(&self, wait_type: &ast::WaitType, exprs: &[ast::Expression]) -> CSharpResult<String> {
+        let expr_strs: Vec<String> = exprs
+            .iter()
+            .map(|e| self.emit_expr(e))
+            .collect::<Result<Vec<_>, _>>()?;
+        match wait_type {
+            ast::WaitType::Single => {
+                // Single await: await expr
+                if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    // Multiple expressions - await each
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("({})", awaited.join(", ")))
+                }
+            }
+            ast::WaitType::Together => {
+                // Parallel execution: Task.WhenAll
+                if expr_strs.is_empty() {
+                    Ok("Task.CompletedTask".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    Ok(format!("await Task.WhenAll({})", expr_strs.join(", ")))
+                }
+            }
+            ast::WaitType::Race => {
+                // Race: Task.WhenAny
+                if expr_strs.is_empty() {
+                    Ok("Task.CompletedTask".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    Ok(format!("await Task.WhenAny({})", expr_strs.join(", ")))
+                }
+            }
+            ast::WaitType::Timeout(timeout_expr) => {
+                // Timeout: Task.WhenAny with Task.Delay
+                let timeout = self.emit_expr(timeout_expr)?;
+                if expr_strs.is_empty() {
+                    Ok(format!("await Task.Delay({})", timeout))
+                } else {
+                    let expr = &expr_strs[0];
+                    Ok(format!(
+                        "await Task.WhenAny({}, Task.Delay({}))",
+                        expr, timeout
+                    ))
+                }
+            }
         }
     }
 
@@ -346,20 +542,28 @@ impl CSharpBackend {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use x_lexer::span::Span;
+    use x_parser::ast::{Spanned, Literal};
+
+    fn make_expr(kind: ExpressionKind) -> ast::Expression {
+        Spanned::new(kind, Span::default())
+    }
+
+    fn make_stmt(kind: StatementKind) -> ast::Statement {
+        Spanned::new(kind, Span::default())
+    }
 
     #[test]
     fn test_hello_world_generation() {
-        use x_parser::ast::{Expression, Literal, Statement};
-
         let program = AstProgram {
             span: Span::default(),
             declarations: vec![],
-            statements: vec![Statement::Expression(Expression::Call(
-                Box::new(Expression::Variable("println".to_string())),
-                vec![Expression::Literal(Literal::String(
+            statements: vec![make_stmt(StatementKind::Expression(make_expr(ExpressionKind::Call(
+                Box::new(make_expr(ExpressionKind::Variable("println".to_string()))),
+                vec![make_expr(ExpressionKind::Literal(Literal::String(
                     "Hello from X-Lang!".to_string(),
-                ))],
-            ))],
+                )))],
+            ))))],
         };
 
         let mut backend = CSharpBackend::new(CSharpBackendConfig::default());

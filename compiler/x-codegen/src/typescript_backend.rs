@@ -4,8 +4,7 @@
 
 use std::fmt::Write;
 use std::path::PathBuf;
-use x_lexer::span::Span;
-use x_parser::ast::{self, Program as AstProgram};
+use x_parser::ast::{self, ExpressionKind, StatementKind, Program as AstProgram};
 
 #[derive(Debug, Clone)]
 pub struct TypeScriptBackendConfig {
@@ -113,6 +112,14 @@ impl TypeScriptBackend {
                 self.emit_function_decl(func_decl)?;
                 self.line("")?;
             }
+            ast::Declaration::Class(class_decl) => {
+                self.emit_class_decl(class_decl)?;
+                self.line("")?;
+            }
+            ast::Declaration::Trait(trait_decl) => {
+                self.emit_trait_decl(trait_decl)?;
+                self.line("")?;
+            }
             _ => {
                 return Err(TypeScriptBackendError::UnsupportedFeature(format!(
                     "Declaration type {:?} is not yet supported in TypeScript backend",
@@ -163,16 +170,181 @@ impl TypeScriptBackend {
         Ok(())
     }
 
+    fn emit_class_decl(&mut self, class_decl: &ast::ClassDecl) -> TypeScriptResult<()> {
+        // Emit class header
+        let extends_clause = if let Some(parent) = &class_decl.extends {
+            format!(" extends {}", parent)
+        } else {
+            String::new()
+        };
+
+        let implements_clause = if !class_decl.implements.is_empty() {
+            format!(" implements {}", class_decl.implements.join(", "))
+        } else {
+            String::new()
+        };
+
+        self.line(&format!(
+            "class {}{}{} {{",
+            class_decl.name, extends_clause, implements_clause
+        ))?;
+        self.indent += 1;
+
+        // Emit members
+        for member in &class_decl.members {
+            match member {
+                ast::ClassMember::Field(field) => {
+                    let field_type = if let Some(type_annot) = &field.type_annot {
+                        self.emit_type(type_annot)
+                    } else {
+                        "any".to_string()
+                    };
+                    let initializer = if let Some(init) = &field.initializer {
+                        format!(" = {}", self.emit_expr(init)?)
+                    } else {
+                        String::new()
+                    };
+                    self.line(&format!(
+                        "{}{}: {}{};",
+                        if field.is_mutable { "" } else { "readonly " },
+                        field.name,
+                        field_type,
+                        initializer
+                    ))?;
+                }
+                ast::ClassMember::Method(method) => {
+                    self.emit_method_decl(method)?;
+                }
+                ast::ClassMember::Constructor(constructor) => {
+                    self.emit_constructor_decl(constructor)?;
+                }
+            }
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_method_decl(&mut self, method: &ast::FunctionDecl) -> TypeScriptResult<()> {
+        let params: Vec<String> = method
+            .parameters
+            .iter()
+            .map(|p| {
+                let type_str = if let Some(type_annot) = &p.type_annot {
+                    format!(": {}", self.emit_type(type_annot))
+                } else {
+                    String::new()
+                };
+                format!("{}{}", p.name, type_str)
+            })
+            .collect();
+
+        let return_type = if let Some(ret) = &method.return_type {
+            self.emit_type(ret)
+        } else {
+            "void".to_string()
+        };
+
+        self.line(&format!("{}({}): {} {{", method.name, params.join(", "), return_type))?;
+        self.indent += 1;
+        self.emit_block(&method.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_constructor_decl(&mut self, constructor: &ast::ConstructorDecl) -> TypeScriptResult<()> {
+        let params: Vec<String> = constructor
+            .parameters
+            .iter()
+            .map(|p| {
+                let type_str = if let Some(type_annot) = &p.type_annot {
+                    format!(": {}", self.emit_type(type_annot))
+                } else {
+                    String::new()
+                };
+                format!("{}{}", p.name, type_str)
+            })
+            .collect();
+
+        self.line(&format!("constructor({}) {{", params.join(", ")))?;
+        self.indent += 1;
+        self.emit_block(&constructor.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_trait_decl(&mut self, trait_decl: &ast::TraitDecl) -> TypeScriptResult<()> {
+        self.line(&format!("interface {} {{", trait_decl.name))?;
+        self.indent += 1;
+
+        for method in &trait_decl.methods {
+            let params: Vec<String> = method
+                .parameters
+                .iter()
+                .map(|p| {
+                    let type_str = if let Some(type_annot) = &p.type_annot {
+                        format!(": {}", self.emit_type(type_annot))
+                    } else {
+                        String::new()
+                    };
+                    format!("{}{}", p.name, type_str)
+                })
+                .collect();
+
+            let return_type = if let Some(ret) = &method.return_type {
+                self.emit_type(ret)
+            } else {
+                "void".to_string()
+            };
+
+            self.line(&format!("{}({}): {};", method.name, params.join(", "), return_type))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_type(&self, ty: &ast::Type) -> String {
+        match ty {
+            ast::Type::Int => "number".to_string(),
+            ast::Type::Float => "number".to_string(),
+            ast::Type::Bool => "boolean".to_string(),
+            ast::Type::String => "string".to_string(),
+            ast::Type::Char => "string".to_string(),
+            ast::Type::Unit => "void".to_string(),
+            ast::Type::Never => "never".to_string(),
+            ast::Type::Array(inner) => format!("{}[]", self.emit_type(inner)),
+            ast::Type::Option(inner) => format!("{} | null", self.emit_type(inner)),
+            ast::Type::Result(ok, _err) => self.emit_type(ok), // Simplified
+            ast::Type::Tuple(types) => {
+                let type_strs: Vec<String> = types.iter().map(|t| self.emit_type(t)).collect();
+                format!("[{}]", type_strs.join(", "))
+            }
+            ast::Type::Function(params, ret) => {
+                let param_strs: Vec<String> = params.iter().map(|t| self.emit_type(t)).collect();
+                format!("({}) => {}", param_strs.join(", "), self.emit_type(ret))
+            }
+            ast::Type::Generic(name) | ast::Type::TypeParam(name) | ast::Type::Var(name) => {
+                name.clone()
+            }
+            _ => "any".to_string(),
+        }
+    }
+
     fn emit_statement(&mut self, stmt: &ast::Statement) -> TypeScriptResult<()> {
-        match stmt {
-            ast::Statement::Expression(expr) => {
+        match &stmt.node {
+            StatementKind::Expression(expr) => {
                 let expr_str = self.emit_expr(expr)?;
                 self.line(&format!("{};", expr_str))?;
             }
-            ast::Statement::Variable(var_decl) => {
+            StatementKind::Variable(var_decl) => {
                 self.emit_variable_decl(var_decl)?;
             }
-            ast::Statement::Return(expr_opt) => {
+            StatementKind::Return(expr_opt) => {
                 if let Some(expr) = expr_opt {
                     let expr_str = self.emit_expr(expr)?;
                     self.line(&format!("return {};", expr_str))?;
@@ -180,17 +352,35 @@ impl TypeScriptBackend {
                     self.line("return;")?;
                 }
             }
-            ast::Statement::If(if_stmt) => {
+            StatementKind::If(if_stmt) => {
                 self.emit_if_statement(if_stmt)?;
             }
-            ast::Statement::While(while_stmt) => {
+            StatementKind::While(while_stmt) => {
                 self.emit_while_statement(while_stmt)?;
             }
-            _ => {
-                return Err(TypeScriptBackendError::UnsupportedFeature(format!(
-                    "Statement type {:?} is not yet supported in TypeScript backend",
-                    stmt
-                )));
+            StatementKind::For(for_stmt) => {
+                self.emit_for_statement(for_stmt)?;
+            }
+            StatementKind::Match(match_stmt) => {
+                self.emit_match_statement(match_stmt)?;
+            }
+            StatementKind::Try(try_stmt) => {
+                self.emit_try_statement(try_stmt)?;
+            }
+            StatementKind::Break => {
+                self.line("break;")?;
+            }
+            StatementKind::Continue => {
+                self.line("continue;")?;
+            }
+            StatementKind::DoWhile(do_while) => {
+                self.line("while (true) {")?;
+                self.indent += 1;
+                self.emit_block(&do_while.body)?;
+                let cond = self.emit_expr(&do_while.condition)?;
+                self.line(&format!("if (!({})) {{ break; }}", cond))?;
+                self.indent -= 1;
+                self.line("}")?;
             }
         }
         Ok(())
@@ -231,20 +421,164 @@ impl TypeScriptBackend {
         Ok(())
     }
 
+    fn emit_for_statement(&mut self, for_stmt: &ast::ForStatement) -> TypeScriptResult<()> {
+        let iter = self.emit_expr(&for_stmt.iterator)?;
+        let pattern_name = self.emit_pattern_var(&for_stmt.pattern);
+        self.line(&format!("for (const {} of {}) {{", pattern_name, iter))?;
+        self.indent += 1;
+        self.emit_block(&for_stmt.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_pattern_var(&self, pattern: &ast::Pattern) -> String {
+        match pattern {
+            ast::Pattern::Wildcard => "_".to_string(),
+            ast::Pattern::Variable(name) => name.clone(),
+            ast::Pattern::Array(elements) => {
+                let vars: Vec<String> = elements.iter().map(|p| self.emit_pattern_var(p)).collect();
+                format!("[{}]", vars.join(", "))
+            }
+            ast::Pattern::Tuple(elements) => {
+                let vars: Vec<String> = elements.iter().map(|p| self.emit_pattern_var(p)).collect();
+                format!("[{}]", vars.join(", "))
+            }
+            ast::Pattern::Or(left, _) => self.emit_pattern_var(left),
+            ast::Pattern::Guard(inner, _) => self.emit_pattern_var(inner),
+            _ => "_item".to_string(),
+        }
+    }
+
+    fn emit_match_statement(&mut self, match_stmt: &ast::MatchStatement) -> TypeScriptResult<()> {
+        let expr = self.emit_expr(&match_stmt.expression)?;
+        // Use a temporary variable for the match value
+        let temp_var = "__match_val__";
+        self.line(&format!("const {} = {};", temp_var, expr))?;
+
+        for (i, case) in match_stmt.cases.iter().enumerate() {
+            let condition = self.emit_match_condition(temp_var, &case.pattern, case.guard.as_ref())?;
+
+            if i == 0 {
+                self.line(&format!("if ({}) {{", condition))?;
+            } else {
+                self.line(&format!("else if ({}) {{", condition))?;
+            }
+
+            self.indent += 1;
+            self.emit_pattern_bindings(temp_var, &case.pattern)?;
+            self.emit_block(&case.body)?;
+            self.indent -= 1;
+            self.line("}")?;
+        }
+
+        Ok(())
+    }
+
+    fn emit_match_condition(&self, var: &str, pattern: &ast::Pattern, guard: Option<&ast::Expression>) -> TypeScriptResult<String> {
+        let base_cond = match pattern {
+            ast::Pattern::Wildcard => "true".to_string(),
+            ast::Pattern::Variable(_) => "true".to_string(),
+            ast::Pattern::Literal(lit) => {
+                let lit_str = self.emit_literal(lit)?;
+                format!("{} === {}", var, lit_str)
+            }
+            ast::Pattern::Or(left, right) => {
+                let left_cond = self.emit_match_condition(var, left, None)?;
+                let right_cond = self.emit_match_condition(var, right, None)?;
+                format!("({}) || ({})", left_cond, right_cond)
+            }
+            ast::Pattern::Array(elements) => {
+                let len_check = format!("Array.isArray({}) && {}.length === {}", var, var, elements.len());
+                let elem_checks: Vec<String> = elements.iter().enumerate()
+                    .map(|(i, p)| self.emit_match_condition(&format!("{}[{}]", var, i), p, None))
+                    .collect::<TypeScriptResult<Vec<_>>>()?;
+                if elem_checks.is_empty() {
+                    format!("{}.length === 0", var)
+                } else {
+                    format!("({}) && {}", len_check, elem_checks.join(" && "))
+                }
+            }
+            _ => format!("true /* pattern not fully supported */"),
+        };
+
+        if let Some(guard_expr) = guard {
+            let guard_str = self.emit_expr(guard_expr)?;
+            Ok(format!("({}) && ({})", base_cond, guard_str))
+        } else {
+            Ok(base_cond)
+        }
+    }
+
+    fn emit_pattern_bindings(&mut self, var: &str, pattern: &ast::Pattern) -> TypeScriptResult<()> {
+        match pattern {
+            ast::Pattern::Variable(name) => {
+                self.line(&format!("const {} = {};", name, var))?;
+            }
+            ast::Pattern::Array(elements) => {
+                for (i, elem) in elements.iter().enumerate() {
+                    self.emit_pattern_bindings(&format!("{}[{}]", var, i), elem)?;
+                }
+            }
+            ast::Pattern::Tuple(elements) => {
+                for (i, elem) in elements.iter().enumerate() {
+                    self.emit_pattern_bindings(&format!("{}[{}]", var, i), elem)?;
+                }
+            }
+            ast::Pattern::Or(left, _) => {
+                self.emit_pattern_bindings(var, left)?;
+            }
+            ast::Pattern::Guard(inner, _) => {
+                self.emit_pattern_bindings(var, inner)?;
+            }
+            _ => {}
+        }
+        Ok(())
+    }
+
+    fn emit_try_statement(&mut self, try_stmt: &ast::TryStatement) -> TypeScriptResult<()> {
+        self.line("try {")?;
+        self.indent += 1;
+        self.emit_block(&try_stmt.body)?;
+        self.indent -= 1;
+
+        for catch in &try_stmt.catch_clauses {
+            let catch_line = if let Some(var_name) = &catch.variable_name {
+                format!("catch ({}) {{", var_name)
+            } else {
+                "catch (error) {".to_string()
+            };
+            self.line(&catch_line)?;
+            self.indent += 1;
+            self.emit_block(&catch.body)?;
+            self.indent -= 1;
+        }
+
+        if let Some(finally) = &try_stmt.finally_block {
+            self.line("} finally {")?;
+            self.indent += 1;
+            self.emit_block(finally)?;
+            self.indent -= 1;
+        }
+
+        self.line("}")?;
+        Ok(())
+    }
+
     fn emit_expr(&self, expr: &ast::Expression) -> TypeScriptResult<String> {
-        match expr {
-            ast::Expression::Literal(lit) => Ok(self.emit_literal(lit)?),
-            ast::Expression::Variable(name) => Ok(name.clone()),
-            ast::Expression::Binary(op, lhs, rhs) => {
+        match &expr.node {
+            ExpressionKind::Literal(lit) => Ok(self.emit_literal(lit)?),
+            ExpressionKind::Variable(name) => Ok(name.clone()),
+            ExpressionKind::Binary(op, lhs, rhs) => {
                 let lhs_str = self.emit_expr(lhs)?;
                 let rhs_str = self.emit_expr(rhs)?;
                 Ok(self.emit_binop(op, &lhs_str, &rhs_str))
             }
-            ast::Expression::Unary(op, expr) => {
+            ExpressionKind::Unary(op, expr) => {
                 let expr_str = self.emit_expr(expr)?;
                 Ok(self.emit_unaryop(op, &expr_str))
             }
-            ast::Expression::Call(callee, args) => {
+            ExpressionKind::Call(callee, args) => {
                 let callee_str = self.emit_expr(callee)?;
                 let mut arg_strs = Vec::new();
                 for arg in args {
@@ -258,14 +592,17 @@ impl TypeScriptBackend {
                     Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
                 }
             }
-            ast::Expression::Assign(lhs, rhs) => {
+            ExpressionKind::Assign(lhs, rhs) => {
                 let lhs_str = self.emit_expr(lhs)?;
                 let rhs_str = self.emit_expr(rhs)?;
                 Ok(format!("{} = {}", lhs_str, rhs_str))
             }
-            ast::Expression::Parenthesized(expr) => {
+            ExpressionKind::Parenthesized(expr) => {
                 let inner = self.emit_expr(expr)?;
                 Ok(format!("({})", inner))
+            }
+            ExpressionKind::Wait(wait_type, exprs) => {
+                self.emit_wait(wait_type, exprs)
             }
             _ => Err(TypeScriptBackendError::UnsupportedFeature(format!(
                 "Expression type {:?} is not yet supported in TypeScript backend",
@@ -322,6 +659,58 @@ impl TypeScriptBackend {
         }
     }
 
+    fn emit_wait(&self, wait_type: &ast::WaitType, exprs: &[ast::Expression]) -> TypeScriptResult<String> {
+        let expr_strs: Vec<String> = exprs
+            .iter()
+            .map(|e| self.emit_expr(e))
+            .collect::<Result<Vec<_>, _>>()?;
+        match wait_type {
+            ast::WaitType::Single => {
+                // Single await: await expr
+                if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    // Multiple expressions - await each
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("({})", awaited.join(", ")))
+                }
+            }
+            ast::WaitType::Together => {
+                // Parallel execution: Promise.all
+                if expr_strs.is_empty() {
+                    Ok("Promise.resolve()".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    Ok(format!("await Promise.all([{}])", expr_strs.join(", ")))
+                }
+            }
+            ast::WaitType::Race => {
+                // Race: Promise.race
+                if expr_strs.is_empty() {
+                    Ok("Promise.resolve()".to_string())
+                } else if expr_strs.len() == 1 {
+                    Ok(format!("await {}", expr_strs[0]))
+                } else {
+                    Ok(format!("await Promise.race([{}])", expr_strs.join(", ")))
+                }
+            }
+            ast::WaitType::Timeout(timeout_expr) => {
+                // Timeout: race between operation and timeout
+                let timeout = self.emit_expr(timeout_expr)?;
+                if expr_strs.is_empty() {
+                    Ok(format!("new Promise(resolve => setTimeout(resolve, {}))", timeout))
+                } else {
+                    let expr = &expr_strs[0];
+                    Ok(format!(
+                        "await Promise.race([{}, new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), {}))])",
+                        expr, timeout
+                    ))
+                }
+            }
+        }
+    }
+
     fn line(&mut self, s: &str) -> TypeScriptResult<()> {
         for _ in 0..self.indent {
             write!(self.output, "    ")?;
@@ -334,6 +723,16 @@ impl TypeScriptBackend {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use x_lexer::span::Span;
+    use x_parser::ast::{Spanned, Literal};
+
+    fn make_expr(kind: ExpressionKind) -> ast::Expression {
+        Spanned::new(kind, Span::default())
+    }
+
+    fn make_stmt(kind: StatementKind) -> ast::Statement {
+        Spanned::new(kind, Span::default())
+    }
 
     #[test]
     fn test_empty_program_generation() {
@@ -355,12 +754,12 @@ mod tests {
         let program = AstProgram {
             span: Span::default(),
             declarations: vec![],
-            statements: vec![ast::Statement::Expression(ast::Expression::Call(
-                Box::new(ast::Expression::Variable("println".to_string())),
-                vec![ast::Expression::Literal(ast::Literal::String(
+            statements: vec![make_stmt(StatementKind::Expression(make_expr(ExpressionKind::Call(
+                Box::new(make_expr(ExpressionKind::Variable("println".to_string()))),
+                vec![make_expr(ExpressionKind::Literal(Literal::String(
                     "Hello, World!".to_string(),
-                ))],
-            ))],
+                )))],
+            ))))],
         };
 
         let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
@@ -369,5 +768,94 @@ mod tests {
         assert!(ts_code.contains("function main(): void"));
         assert!(ts_code.contains("console.log("));
         assert!(ts_code.contains("main();"));
+    }
+
+    #[test]
+    fn test_async_function_generation() {
+        let program = AstProgram {
+            span: Span::default(),
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                span: Span::default(),
+                name: "fetch_data".to_string(),
+                parameters: vec![],
+                return_type: Some(ast::Type::String),
+                body: ast::Block {
+                    statements: vec![make_stmt(StatementKind::Return(Some(make_expr(
+                        ExpressionKind::Literal(Literal::String("data".to_string())),
+                    ))))],
+                },
+                is_async: true,
+            })],
+            statements: vec![],
+        };
+
+        let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let ts_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(ts_code.contains("async function fetch_data"));
+    }
+
+    #[test]
+    fn test_wait_together_generation() {
+        let program = AstProgram {
+            span: Span::default(),
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                span: Span::default(),
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![make_stmt(StatementKind::Expression(make_expr(
+                        ExpressionKind::Wait(
+                            ast::WaitType::Together,
+                            vec![
+                                make_expr(ExpressionKind::Variable("task1".to_string())),
+                                make_expr(ExpressionKind::Variable("task2".to_string())),
+                            ],
+                        ),
+                    )))],
+                },
+                is_async: true,
+            })],
+            statements: vec![],
+        };
+
+        let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let ts_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(ts_code.contains("async function main"));
+        assert!(ts_code.contains("await Promise.all([task1, task2])"));
+    }
+
+    #[test]
+    fn test_wait_race_generation() {
+        let program = AstProgram {
+            span: Span::default(),
+            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
+                span: Span::default(),
+                name: "main".to_string(),
+                parameters: vec![],
+                return_type: None,
+                body: ast::Block {
+                    statements: vec![make_stmt(StatementKind::Expression(make_expr(
+                        ExpressionKind::Wait(
+                            ast::WaitType::Race,
+                            vec![
+                                make_expr(ExpressionKind::Variable("task1".to_string())),
+                                make_expr(ExpressionKind::Variable("task2".to_string())),
+                            ],
+                        ),
+                    )))],
+                },
+                is_async: true,
+            })],
+            statements: vec![],
+        };
+
+        let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
+        let output = backend.generate_from_ast(&program).unwrap();
+        let ts_code = String::from_utf8_lossy(&output.files[0].content);
+        assert!(ts_code.contains("async function main"));
+        assert!(ts_code.contains("await Promise.race([task1, task2])"));
     }
 }
