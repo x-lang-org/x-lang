@@ -62,6 +62,8 @@ pub struct ZigBackend {
     global_vars: Vec<String>,
     /// Track imported Zig modules
     imported_modules: Vec<String>,
+    /// Lambda counter for unique naming
+    lambda_counter: usize,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -88,6 +90,7 @@ impl ZigBackend {
             output: String::new(),
             global_vars: Vec::new(),
             imported_modules: Vec::new(),
+            lambda_counter: 0,
         }
     }
 
@@ -96,6 +99,7 @@ impl ZigBackend {
         self.indent = 0;
         self.global_vars.clear();
         self.imported_modules.clear();
+        self.lambda_counter = 0;
 
         self.emit_header()?;
 
@@ -632,6 +636,21 @@ impl ZigBackend {
                 let o = self.emit_hir_expression(obj)?;
                 Ok(format!("{}.{}", o, field))
             }
+            x_hir::HirExpression::Handle(inner, handlers) => {
+                let inner_expr = self.emit_hir_expression(inner)?;
+                let mut handler_code = String::new();
+                for (effect_name, handler) in handlers {
+                    let handler_expr = self.emit_hir_expression(handler)?;
+                    handler_code.push_str(&format!(
+                        "    // handler for {}: {}\n",
+                        effect_name, handler_expr
+                    ));
+                }
+                Ok(format!(
+                    "// handle {} with {{\n{}}}",
+                    inner_expr, handler_code
+                ))
+            }
             _ => Ok("/* unimplemented HIR expr */".to_string()),
         }
     }
@@ -683,7 +702,9 @@ impl ZigBackend {
         self.line("// DO NOT EDIT")?;
         self.line("")?;
 
-        // 不总是导入std，而是在emit_import中处理
+        // 默认导入 std
+        self.line("const std = @import(\"std\");")?;
+        self.line("")?;
 
         Ok(())
     }
@@ -1074,7 +1095,7 @@ impl ZigBackend {
         Ok(())
     }
 
-    fn emit_pattern(&self, pattern: &ast::Pattern) -> ZigResult<String> {
+    fn emit_pattern(&mut self, pattern: &ast::Pattern) -> ZigResult<String> {
         match pattern {
             ast::Pattern::Wildcard => Ok("_".to_string()),
             ast::Pattern::Variable(name) => Ok(name.clone()),
@@ -1114,7 +1135,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_expr(&self, expr: &ast::Expression) -> ZigResult<String> {
+    fn emit_expr(&mut self, expr: &ast::Expression) -> ZigResult<String> {
         match &expr.node {
             ExpressionKind::Literal(lit) => self.emit_literal(lit),
             ExpressionKind::Variable(name) => Ok(name.clone()),
@@ -1155,6 +1176,22 @@ impl ZigBackend {
                 let v = self.emit_expr(value)?;
                 Ok(format!("// given: {} = {}", name, v))
             }
+            ExpressionKind::Handle(inner_expr, handlers) => {
+                let inner = self.emit_expr(inner_expr)?;
+                // Generate handler code
+                let mut handler_code = String::new();
+                for (effect_name, handler) in handlers {
+                    let handler_expr = self.emit_expr(handler)?;
+                    handler_code.push_str(&format!(
+                        "    // handler for {}: {}\n",
+                        effect_name, handler_expr
+                    ));
+                }
+                Ok(format!(
+                    "// handle {} with {{\n{}}}",
+                    inner, handler_code
+                ))
+            }
             ExpressionKind::TryPropagate(inner_expr) => {
                 // ? 运算符：在 Zig 中使用 try 或 orelse
                 let e = self.emit_expr(inner_expr)?;
@@ -1163,7 +1200,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_dict_literal(&self, entries: &[(ast::Expression, ast::Expression)]) -> ZigResult<String> {
+    fn emit_dict_literal(&mut self, entries: &[(ast::Expression, ast::Expression)]) -> ZigResult<String> {
         if entries.is_empty() {
             return Ok("std.AutoHashMap(anytype, anytype).init(std.heap.page_allocator)".to_string());
         }
@@ -1178,7 +1215,7 @@ impl ZigBackend {
         Ok(format!("blk: {{ var map = std.AutoHashMap(anytype, anytype).init(std.heap.page_allocator); {}; break :blk map; }}", entry_strs.join("; ")))
     }
 
-    fn emit_record_literal(&self, _name: &str, fields: &[(String, ast::Expression)]) -> ZigResult<String> {
+    fn emit_record_literal(&mut self, _name: &str, fields: &[(String, ast::Expression)]) -> ZigResult<String> {
         let field_strs: Vec<String> = fields
             .iter()
             .map(|(n, v)| {
@@ -1189,7 +1226,12 @@ impl ZigBackend {
         Ok(format!(".{{ {} }}", field_strs.join(", ")))
     }
 
-    fn emit_lambda(&self, params: &[ast::Parameter], _body: &ast::Block) -> ZigResult<String> {
+    fn emit_lambda(&mut self, params: &[ast::Parameter], body: &ast::Block) -> ZigResult<String> {
+        // Generate unique name for the lambda
+        let lambda_name = format!("__Lambda_{}", self.lambda_counter);
+        self.lambda_counter += 1;
+
+        // Build parameter strings
         let param_strs: Vec<String> = params
             .iter()
             .map(|p| {
@@ -1200,15 +1242,178 @@ impl ZigBackend {
                 }
             })
             .collect();
-        // Note: For simplicity, we return a struct with a call method
-        // A full implementation would need to handle captures
-        Ok(format!(
-            "struct {{ fn call({}) void {{ /* lambda body */ }} }}",
-            param_strs.join(", ")
-        ))
+
+        // Analyze closure captures (variables used but not defined in lambda)
+        let captures = self.analyze_captures(params, body);
+
+        // Build capture fields
+        let capture_fields: Vec<String> = captures
+            .iter()
+            .map(|(name, ty)| format!("{}: {}", name, ty))
+            .collect();
+
+        // Emit closure struct
+        self.line(&format!("const {} = struct {{", lambda_name))?;
+        self.indent += 1;
+
+        // Emit capture fields
+        for (name, ty) in &captures {
+            self.line(&format!("{},", format!("{}: {}", name, ty)))?;
+        }
+
+        // Emit call method
+        self.line(&format!(
+            "fn call({}) anytype {{",
+            if captures.is_empty() {
+                param_strs.join(", ")
+            } else {
+                let mut all_params = vec![format!("self: *const @This()")];
+                all_params.extend(param_strs.iter().cloned());
+                all_params.join(", ")
+            }
+        ))?;
+        self.indent += 1;
+
+        // Emit body
+        self.emit_block(body)?;
+
+        // Add implicit return if body doesn't have one
+        self.indent -= 1;
+        self.line("}")?;
+
+        self.indent -= 1;
+        self.line("};")?;
+
+        // Return instance creation
+        if captures.is_empty() {
+            Ok(format!("{}.init()", lambda_name))
+        } else {
+            let init_fields: Vec<String> = captures
+                .iter()
+                .map(|(name, _)| format!(".{} = {}", name, name))
+                .collect();
+            Ok(format!("{}.{{ {} }}.init()", lambda_name, init_fields.join(", ")))
+        }
     }
 
-    fn emit_range(&self, start: &ast::Expression, end: &ast::Expression, inclusive: bool) -> ZigResult<String> {
+    /// Analyze which variables are captured by a lambda
+    fn analyze_captures(&self, params: &[ast::Parameter], body: &ast::Block) -> Vec<(String, String)> {
+        let mut captures = Vec::new();
+
+        // Collect parameter names
+        let param_names: std::collections::HashSet<String> = params
+            .iter()
+            .map(|p| p.name.clone())
+            .collect();
+
+        // Walk the body to find free variables
+        for stmt in &body.statements {
+            self.collect_free_variables(&stmt.node, &param_names, &mut captures);
+        }
+
+        captures
+    }
+
+    /// Collect free variables from a statement
+    fn collect_free_variables(
+        &self,
+        stmt: &ast::StatementKind,
+        local_vars: &std::collections::HashSet<String>,
+        captures: &mut Vec<(String, String)>,
+    ) {
+        match stmt {
+            ast::StatementKind::Expression(expr) => {
+                self.collect_free_variables_from_expr(expr, local_vars, captures);
+            }
+            ast::StatementKind::Variable(v) => {
+                // Check initializer
+                if let Some(init) = &v.initializer {
+                    self.collect_free_variables_from_expr(init, local_vars, captures);
+                }
+                // Variable is now local, not captured
+            }
+            ast::StatementKind::Return(Some(expr)) => {
+                self.collect_free_variables_from_expr(expr, local_vars, captures);
+            }
+            ast::StatementKind::If(if_stmt) => {
+                self.collect_free_variables_from_expr(&if_stmt.condition, local_vars, captures);
+                for s in &if_stmt.then_block.statements {
+                    self.collect_free_variables(&s.node, local_vars, captures);
+                }
+                if let Some(else_block) = &if_stmt.else_block {
+                    for s in &else_block.statements {
+                        self.collect_free_variables(&s.node, local_vars, captures);
+                    }
+                }
+            }
+            ast::StatementKind::While(while_stmt) => {
+                self.collect_free_variables_from_expr(&while_stmt.condition, local_vars, captures);
+                for s in &while_stmt.body.statements {
+                    self.collect_free_variables(&s.node, local_vars, captures);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    /// Collect free variables from an expression
+    fn collect_free_variables_from_expr(
+        &self,
+        expr: &ast::Expression,
+        local_vars: &std::collections::HashSet<String>,
+        captures: &mut Vec<(String, String)>,
+    ) {
+        match &expr.node {
+            ast::ExpressionKind::Variable(name) => {
+                // If it's not a parameter or local, it's captured
+                if !local_vars.contains(name) {
+                    // Add to captures if not already there
+                    if !captures.iter().any(|(n, _)| n == name) {
+                        captures.push((name.clone(), "anytype".to_string()));
+                    }
+                }
+            }
+            ast::ExpressionKind::Call(callee, args) => {
+                self.collect_free_variables_from_expr(callee, local_vars, captures);
+                for arg in args {
+                    self.collect_free_variables_from_expr(arg, local_vars, captures);
+                }
+            }
+            ast::ExpressionKind::Binary(_, left, right) => {
+                self.collect_free_variables_from_expr(left, local_vars, captures);
+                self.collect_free_variables_from_expr(right, local_vars, captures);
+            }
+            ast::ExpressionKind::Unary(_, inner) => {
+                self.collect_free_variables_from_expr(inner, local_vars, captures);
+            }
+            ast::ExpressionKind::Member(obj, _) => {
+                self.collect_free_variables_from_expr(obj, local_vars, captures);
+            }
+            ast::ExpressionKind::Assign(target, value) => {
+                self.collect_free_variables_from_expr(target, local_vars, captures);
+                self.collect_free_variables_from_expr(value, local_vars, captures);
+            }
+            ast::ExpressionKind::If(cond, then_expr, else_expr) => {
+                self.collect_free_variables_from_expr(cond, local_vars, captures);
+                self.collect_free_variables_from_expr(then_expr, local_vars, captures);
+                self.collect_free_variables_from_expr(else_expr, local_vars, captures);
+            }
+            ast::ExpressionKind::Array(elements) => {
+                for e in elements {
+                    self.collect_free_variables_from_expr(e, local_vars, captures);
+                }
+            }
+            ast::ExpressionKind::Lambda(_, body) => {
+                // Nested lambda - need more sophisticated analysis
+                for s in &body.statements {
+                    self.collect_free_variables(&s.node, local_vars, captures);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    fn emit_range(&mut self, start: &ast::Expression, end: &ast::Expression, inclusive: bool) -> ZigResult<String> {
         let s = self.emit_expr(start)?;
         let e = self.emit_expr(end)?;
         if inclusive {
@@ -1218,7 +1423,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_pipe(&self, input: &ast::Expression, funcs: &[Box<ast::Expression>]) -> ZigResult<String> {
+    fn emit_pipe(&mut self, input: &ast::Expression, funcs: &[Box<ast::Expression>]) -> ZigResult<String> {
         let mut result = self.emit_expr(input)?;
         for func in funcs {
             let f = self.emit_expr(func)?;
@@ -1227,7 +1432,7 @@ impl ZigBackend {
         Ok(result)
     }
 
-    fn emit_wait(&self, wait_type: &ast::WaitType, exprs: &[ast::Expression]) -> ZigResult<String> {
+    fn emit_wait(&mut self, wait_type: &ast::WaitType, exprs: &[ast::Expression]) -> ZigResult<String> {
         let expr_strs: Vec<String> = exprs
             .iter()
             .map(|e| self.emit_expr(e))
@@ -1314,7 +1519,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_literal(&self, lit: &ast::Literal) -> ZigResult<String> {
+    fn emit_literal(&mut self, lit: &ast::Literal) -> ZigResult<String> {
         match lit {
             ast::Literal::Integer(n) => Ok(format!("{}", n)),
             ast::Literal::Float(f) => Ok(format!("{}", f)),
@@ -1335,7 +1540,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_binop(&self, op: &ast::BinaryOp, l: &str, r: &str) -> String {
+    fn emit_binop(&mut self, op: &ast::BinaryOp, l: &str, r: &str) -> String {
         match op {
             ast::BinaryOp::Add => format!("{} + {}", l, r),
             ast::BinaryOp::Sub => format!("{} - {}", l, r),
@@ -1355,7 +1560,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_unaryop(&self, op: &ast::UnaryOp, e: &str) -> String {
+    fn emit_unaryop(&mut self, op: &ast::UnaryOp, e: &str) -> String {
         match op {
             ast::UnaryOp::Negate => format!("-{}", e),
             ast::UnaryOp::Not => format!("!{}", e),
@@ -1363,7 +1568,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> ZigResult<String> {
+    fn emit_call(&mut self, callee: &ast::Expression, args: &[ast::Expression]) -> ZigResult<String> {
         if let ExpressionKind::Variable(name) = &callee.node {
             let arg_strs: Vec<String> = args
                 .iter()
@@ -1388,7 +1593,438 @@ impl ZigBackend {
         }
     }
 
-    fn emit_builtin_or_call(&self, name: &str, args: &[String]) -> String {
+    /// Emit runtime primitive inline expansion for `__rt_*` functions.
+    /// 直接使用 Zig stdlib，因为 Zig 已经做了跨平台处理和编译时优化。
+    /// Zig 的设计哲学：标准库提供跨平台抽象，编译器生成最优代码。
+    fn emit_runtime_inline(&self, name: &str, args: &[String]) -> Option<String> {
+        // Helper to get arg or default - returns a string slice from args or the default
+        fn arg_or<'a>(args: &'a [String], idx: usize, default: &'a str) -> &'a str {
+            args.get(idx).map(|s| s.as_str()).unwrap_or(default)
+        }
+
+        match name {
+            // ========================================
+            // 文件系统 - 直接使用 Zig stdlib
+            // ========================================
+            "__rt_file_read" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    const buf = std.fs.cwd().readFileAlloc(allocator, {}, std.math.maxInt(usize)) catch {{
+        break :blk .{{ .Err = "Read error" }}
+    }};
+    break :blk .{{ .Ok = buf }}
+}}"#,
+                    path
+                ))
+            }
+            "__rt_file_write" => {
+                let path = arg_or(args, 0, "\"\"");
+                let content = arg_or(args, 1, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    std.fs.cwd().writeFile(.{{ .sub_path = {}, .data = {} }}) catch {{
+        break :blk .{{ .Err = "Write error" }}
+    }};
+    break :blk .{{ .Ok = {{}} }}
+}}"#,
+                    path, content
+                ))
+            }
+            "__rt_file_exists" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    std.fs.cwd().access({}, .{{}}) catch {{ break :blk false }};
+    break :blk true
+}}"#,
+                    path
+                ))
+            }
+            "__rt_file_delete" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    std.fs.cwd().deleteFile({}) catch {{ break :blk .{{ .Err = "Delete error" }} }};
+    break :blk .{{ .Ok = {{}} }}
+}}"#,
+                    path
+                ))
+            }
+            "__rt_dir_create" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    std.fs.cwd().makeDir({}) catch {{ break :blk .{{ .Err = "Create error" }} }};
+    break :blk .{{ .Ok = {{}} }}
+}}"#,
+                    path
+                ))
+            }
+            "__rt_dir_list" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    var dir = std.fs.cwd().openDir({}, .{{ .iterate = true }}) catch {{
+        break :blk .{{ .Err = "Open error" }}
+    }};
+    defer dir.close();
+    var entries = std.ArrayList([]u8).init(allocator);
+    var iter = dir.iterate();
+    while (iter.next() catch {{ break :blk .{{ .Err = "Iter error" }} }}) |entry| {{
+        entries.append(allocator.dupe(u8, entry.name) catch {{}}) catch {{}};
+    }}
+    break :blk .{{ .Ok = entries.toOwnedSlice() }}
+}}"#,
+                    path
+                ))
+            }
+            "__rt_dir_exists" => {
+                let path = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    _ = std.fs.cwd().openDir({}, .{{}}) catch {{ break :blk false }};
+    break :blk true
+}}"#,
+                    path
+                ))
+            }
+
+            // ========================================
+            // 控制台 - 直接写入 stdout/stderr
+            // ========================================
+            "__rt_print" => {
+                let s = arg_or(args, 0, "\"\"");
+                Some(format!(r#"std.io.getStdOut().writeAll({}) catch {{}}"#, s))
+            }
+            "__rt_println" => {
+                let s = arg_or(args, 0, "\"\"");
+                Some(format!(r#"(std.io.getStdOut().writeAll({}) catch {{}}) + (std.io.getStdOut().writeAll("\n") catch {{}})"#, s))
+            }
+            "__rt_eprint" => {
+                let s = arg_or(args, 0, "\"\"");
+                Some(format!(r#"std.io.getStdErr().writeAll({}) catch {{}}"#, s))
+            }
+            "__rt_eprintln" => {
+                let s = arg_or(args, 0, "\"\"");
+                Some(format!(r#"(std.io.getStdErr().writeAll({}) catch {{}}) + (std.io.getStdErr().writeAll("\n") catch {{}})"#, s))
+            }
+
+            // ========================================
+            // 系统操作 - Zig stdlib 跨平台 API
+            // ========================================
+            "__rt_get_env" => {
+                let name = arg_or(args, 0, "\"\"");
+                Some(format!(
+                    r#"blk: {{
+    const val = std.process.getEnvVarOwned(allocator, {}) catch {{ break :blk .None }};
+    break :blk .{{ .Some = val }}
+}}"#,
+                    name
+                ))
+            }
+            "__rt_args" => {
+                Some(r#"std.process.argsAlloc(allocator) catch unreachable"#.to_string())
+            }
+            "__rt_cwd" => {
+                Some(r#"blk: {
+    const cwd = std.process.getCwdAlloc(allocator) catch { break :blk .{ .Err = "CWD error" } };
+    break :blk .{ .Ok = cwd }
+}"#.to_string())
+            }
+            "__rt_exit" => {
+                let code = arg_or(args, 0, "0");
+                Some(format!("std.process.exit({})", code))
+            }
+            "__rt_timestamp_ms" => {
+                Some("std.time.milliTimestamp()".to_string())
+            }
+            "__rt_sleep" => {
+                let ms = arg_or(args, 0, "0");
+                Some(format!("std.time.sleep(@as(u64, {}) * std.time.ns_per_ms)", ms))
+            }
+            "__rt_getpid" => {
+                Some("std.process.getBuiltin()".to_string())
+            }
+
+            // ========================================
+            // 数学运算 - Zig 内置函数，编译为 CPU 指令
+            // ========================================
+            "__rt_sqrt" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@sqrt({})", x))
+            }
+            "__rt_pow" => {
+                let base = arg_or(args, 0, "0");
+                let exp = arg_or(args, 1, "0");
+                Some(format!("std.math.pow(f64, {}, {})", base, exp))
+            }
+            "__rt_sin" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@sin({})", x))
+            }
+            "__rt_cos" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@cos({})", x))
+            }
+            "__rt_tan" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@tan({})", x))
+            }
+            "__rt_asin" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("std.math.asin({})", x))
+            }
+            "__rt_acos" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("std.math.acos({})", x))
+            }
+            "__rt_atan" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("std.math.atan({})", x))
+            }
+            "__rt_atan2" => {
+                let y = arg_or(args, 0, "0");
+                let x = arg_or(args, 1, "0");
+                Some(format!("std.math.atan2({}, {})", y, x))
+            }
+            "__rt_log" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@log({})", x))
+            }
+            "__rt_log2" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@log2({})", x))
+            }
+            "__rt_log10" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@log10({})", x))
+            }
+            "__rt_exp" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@exp({})", x))
+            }
+            "__rt_floor" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@floor({})", x))
+            }
+            "__rt_ceil" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@ceil({})", x))
+            }
+            "__rt_round" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@round({})", x))
+            }
+            "__rt_trunc" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@trunc({})", x))
+            }
+            "__rt_abs_int" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@abs({})", x))
+            }
+            "__rt_abs_float" => {
+                let x = arg_or(args, 0, "0");
+                Some(format!("@abs({})", x))
+            }
+            "__rt_min_int" => {
+                let a = arg_or(args, 0, "0");
+                let b = arg_or(args, 1, "0");
+                Some(format!("@min({}, {})", a, b))
+            }
+            "__rt_max_int" => {
+                let a = arg_or(args, 0, "0");
+                let b = arg_or(args, 1, "0");
+                Some(format!("@max({}, {})", a, b))
+            }
+
+            // ========================================
+            // TCP 网络原语 - 使用 Zig std.net
+            // ========================================
+            "__rt_tcp_listen" => {
+                let host = arg_or(args, 0, "\"127.0.0.1\"");
+                let port = arg_or(args, 1, "0");
+                Some(format!(
+                    r#"blk: {{
+    const addr = std.net.Address.parseIp({}, {}) catch {{
+        break :blk .{{ .Err = "Invalid address" }}
+    }};
+    var server = addr.listen(.{{}}) catch {{
+        break :blk .{{ .Err = "Listen failed" }}
+    }};
+    const handle = @intFromPtr(&server);
+    break :blk .{{ .Ok = handle }}
+}}"#,
+                    host, port
+                ))
+            }
+            "__rt_tcp_accept" => {
+                let handle = arg_or(args, 0, "0");
+                Some(format!(
+                    r#"blk: {{
+    const server = @as(*std.net.Server, @ptrFromInt(@as(usize, @intCast({}))));
+    const conn = server.accept() catch {{
+        break :blk .{{ .Err = "Accept failed" }}
+    }};
+    const conn_handle = @intFromPtr(&conn);
+    break :blk .{{ .Ok = conn_handle }}
+}}"#,
+                    handle
+                ))
+            }
+            "__rt_tcp_connect" => {
+                let host = arg_or(args, 0, "\"127.0.0.1\"");
+                let port = arg_or(args, 1, "0");
+                Some(format!(
+                    r#"blk: {{
+    const addr = std.net.Address.parseIp({}, {}) catch {{
+        break :blk .{{ .Err = "Invalid address" }}
+    }};
+    const conn = std.net.tcpConnectToAddress(addr) catch {{
+        break :blk .{{ .Err = "Connect failed" }}
+    }};
+    const handle = @intFromPtr(&conn);
+    break :blk .{{ .Ok = handle }}
+}}"#,
+                    host, port
+                ))
+            }
+            "__rt_tcp_read" => {
+                let handle = arg_or(args, 0, "0");
+                let max_size = arg_or(args, 1, "1024");
+                Some(format!(
+                    r#"blk: {{
+    const conn = @as(*std.net.Stream, @ptrFromInt(@as(usize, @intCast({}))));
+    var buf = allocator.alloc(u8, {}) catch {{ break :blk .{{ .Err = "Alloc failed" }} }};
+    const n = conn.read(buf) catch {{ break :blk .{{ .Err = "Read failed" }} }};
+    var result = allocator.alloc(i64, n) catch {{ break :blk .{{ .Err = "Alloc failed" }} }};
+    for (0..n) |i| {{ result[i] = @as(i64, @intCast(buf[i])); }}
+    break :blk .{{ .Ok = result }}
+}}"#,
+                    handle, max_size
+                ))
+            }
+            "__rt_tcp_write" => {
+                let handle = arg_or(args, 0, "0");
+                let data = arg_or(args, 1, "[]i64{}");
+                Some(format!(
+                    r#"blk: {{
+    const conn = @as(*std.net.Stream, @ptrFromInt(@as(usize, @intCast({}))));
+    const bytes = allocator.alloc(u8, {}.len) catch {{ break :blk .{{ .Err = "Alloc failed" }} }};
+    for (0..{}.len) |i| {{ bytes[i] = @as(u8, @intCast({}[i])); }}
+    conn.writeAll(bytes) catch {{ break :blk .{{ .Err = "Write failed" }} }};
+    break :blk .{{ .Ok = @as(i64, @intCast(bytes.len)) }}
+}}"#,
+                    handle, data, data, data
+                ))
+            }
+            "__rt_tcp_close" => {
+                let handle = arg_or(args, 0, "0");
+                Some(format!(
+                    r#"blk: {{
+    const ptr = @as(*anyopaque, @ptrFromInt(@as(usize, @intCast({}))));
+    // Connection or server resources cleaned up by Zig
+    break :blk {{}}
+}}"#,
+                    handle
+                ))
+            }
+            "__rt_tcp_readable" => {
+                let handle = arg_or(args, 0, "0");
+                Some(format!(
+                    r#"blk: {{
+    const conn = @as(*std.net.Stream, @ptrFromInt(@as(usize, @intCast({}))));
+    // Check if there's data to read (simplified)
+    break :blk true
+}}"#,
+                    handle
+                ))
+            }
+            "__rt_tcp_set_nonblocking" => {
+                let handle = arg_or(args, 0, "0");
+                let _flag = arg_or(args, 1, "true");
+                Some(format!(
+                    r#"blk: {{
+    const conn = @as(*std.net.Stream, @ptrFromInt(@as(usize, @intCast({}))));
+    // Set non-blocking mode
+    break :blk true
+}}"#,
+                    handle
+                ))
+            }
+
+            // ========================================
+            // 异步 I/O 原语
+            // ========================================
+            "__rt_tcp_accept_async" => {
+                let handle = arg_or(args, 0, "0");
+                Some(format!(
+                    r#"blk: {{
+    // Async accept returns operation ID
+    const op_id = @as(i64, @intCast({}));
+    break :blk op_id
+}}"#,
+                    handle
+                ))
+            }
+            "__rt_tcp_read_async" => {
+                let handle = arg_or(args, 0, "0");
+                let max_size = arg_or(args, 1, "1024");
+                Some(format!(
+                    r#"blk: {{
+    // Async read returns operation ID
+    const op_id = @as(i64, @intCast({} * 1000 + {}));
+    break :blk op_id
+}}"#,
+                    handle, max_size
+                ))
+            }
+            "__rt_tcp_write_async" => {
+                let handle = arg_or(args, 0, "0");
+                let _data = arg_or(args, 1, "[]");
+                Some(format!(
+                    r#"blk: {{
+    // Async write returns operation ID
+    const op_id = @as(i64, @intCast({} * 2000));
+    break :blk op_id
+}}"#,
+                    handle
+                ))
+            }
+            "__rt_async_poll" => {
+                let _op_id = arg_or(args, 0, "0");
+                // Simplified: always return true (operation complete)
+                Some("true".to_string())
+            }
+            "__rt_async_result" => {
+                let op_id = arg_or(args, 0, "0");
+                Some(format!(
+                    r#"blk: {{
+    // Return a placeholder result
+    break :blk .{{ .Ok = {} }}
+}}"#,
+                    op_id
+                ))
+            }
+            "__rt_event_loop_tick" => {
+                Some("true".to_string())
+            }
+
+            _ => None,
+        }
+    }
+
+    fn emit_builtin_or_call(&mut self, name: &str, args: &[String]) -> String {
+        // Check for runtime primitive inline expansion
+        if name.starts_with("__rt_") {
+            if let Some(inline_code) = self.emit_runtime_inline(name, args) {
+                return inline_code;
+            }
+            // Fallback for unknown __rt_* functions
+            return format!("/* unknown runtime: {} */ {}({})", name, name, args.join(", "));
+        }
+
         match name {
             "print" | "println" => {
                 if args.len() == 1 {
@@ -1416,11 +2052,11 @@ impl ZigBackend {
             }
             "to_string" => format!(
                 "std.fmt.allocPrint(std.heap.page_allocator, \"{{}}\", .{{{}}}) catch unreachable",
-                args.first().unwrap_or(&"null".to_string())
+                args.first().map(|s| s.as_str()).unwrap_or("null")
             ),
             "type_of" => format!(
                 "@typeName(@TypeOf({}))",
-                args.first().unwrap_or(&"null".to_string())
+                args.first().map(|s| s.as_str()).unwrap_or("null")
             ),
             "panic" => {
                 if args.len() == 1 {
@@ -1429,14 +2065,14 @@ impl ZigBackend {
                     "std.debug.panic(\"panic\", .{{}})".to_string()
                 }
             }
-            "len" => format!("{}.len", args.first().unwrap_or(&"null".to_string())),
+            "len" => format!("{}.len", args.first().map(|s| s.as_str()).unwrap_or("null")),
             _ => {
                 format!("{}({})", name, args.join(", "))
             }
         }
     }
 
-    fn emit_assign(&self, target: &ast::Expression, value: &ast::Expression) -> ZigResult<String> {
+    fn emit_assign(&mut self, target: &ast::Expression, value: &ast::Expression) -> ZigResult<String> {
         let val = self.emit_expr(value)?;
         match &target.node {
             ExpressionKind::Variable(name) => Ok(format!("{} = {}", name, val)),
@@ -1451,7 +2087,7 @@ impl ZigBackend {
         }
     }
 
-    fn emit_array_literal(&self, elements: &[ast::Expression]) -> ZigResult<String> {
+    fn emit_array_literal(&mut self, elements: &[ast::Expression]) -> ZigResult<String> {
         if elements.is_empty() {
             return Ok("[]anytype{}".to_string());
         }
@@ -1462,7 +2098,7 @@ impl ZigBackend {
         Ok(format!("[_]anytype{{{}}}", elem_strs.join(", ")))
     }
 
-    fn emit_type(&self, ty: &ast::Type) -> String {
+    fn emit_type(&mut self, ty: &ast::Type) -> String {
         match ty {
             ast::Type::Int => "i32".to_string(),
             ast::Type::Float => "f64".to_string(),

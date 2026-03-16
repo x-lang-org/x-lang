@@ -2,6 +2,7 @@ use num_bigint::BigInt;
 use num_traits::{One, Zero};
 use std::cell::RefCell;
 use std::collections::HashMap;
+use std::net::{TcpListener, TcpStream};
 use std::rc::Rc;
 use x_lexer::span::Span;
 use x_parser::ast::{
@@ -10,12 +11,18 @@ use x_parser::ast::{
     UnaryOp,
 };
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug)]
 pub struct Interpreter {
     variables: HashMap<String, Value>,
     functions: HashMap<String, FunctionDecl>,
     classes: HashMap<String, ClassDecl>,
     traits: HashMap<String, TraitDecl>,
+    // TCP networking
+    tcp_servers: HashMap<usize, TcpListener>,
+    tcp_connections: HashMap<usize, TcpStream>,
+    handle_counter: usize,
+    // Async operations
+    async_results: HashMap<usize, Result<Value, String>>,
 }
 
 #[derive(Debug, Clone)]
@@ -146,6 +153,22 @@ impl Interpreter {
             functions: HashMap::new(),
             classes: HashMap::new(),
             traits: HashMap::new(),
+            tcp_servers: HashMap::new(),
+            tcp_connections: HashMap::new(),
+            handle_counter: 0,
+            async_results: HashMap::new(),
+        }
+    }
+
+    fn next_handle(&mut self) -> usize {
+        self.handle_counter += 1;
+        self.handle_counter
+    }
+
+    fn as_array(&self, value: &Value) -> Result<Vec<Value>, InterpreterError> {
+        match value {
+            Value::Array(arr) => Ok(arr.borrow().clone()),
+            _ => Err(InterpreterError::runtime_no_span(format!("Expected array, got {:?}", value))),
         }
     }
 
@@ -1250,6 +1273,715 @@ impl Interpreter {
                 let json_str = self.eval_as_string(&args[0])?;
                 self.json_to_value(&json_str)
             }
+            // File I/O builtins
+            "__file_read" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::read_to_string(&path) {
+                    Ok(content) => Ok(Value::Result(
+                        Box::new(Value::String(content)),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__file_write" => {
+                let path = self.eval_as_string(&args[0])?;
+                let content = self.eval_as_string(&args[1])?;
+                match std::fs::write(&path, &content) {
+                    Ok(()) => Ok(Value::Result(
+                        Box::new(Value::Unit),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__file_exists" => {
+                let path = self.eval_as_string(&args[0])?;
+                Ok(Value::Boolean(std::path::Path::new(&path).exists()))
+            }
+            "__file_delete" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::remove_file(&path) {
+                    Ok(()) => Ok(Value::Result(
+                        Box::new(Value::Unit),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__dir_create" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::create_dir(&path) {
+                    Ok(()) => Ok(Value::Result(
+                        Box::new(Value::Unit),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__dir_exists" => {
+                let path = self.eval_as_string(&args[0])?;
+                Ok(Value::Boolean(std::path::Path::new(&path).is_dir()))
+            }
+            "__dir_list" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::read_dir(&path) {
+                    Ok(entries) => {
+                        let names: Vec<Value> = entries
+                            .filter_map(|e| e.ok())
+                            .map(|e| Value::String(e.file_name().to_string_lossy().to_string()))
+                            .collect();
+                        Ok(Value::Result(
+                            Box::new(Value::new_array(names)),
+                            Box::new(Value::Null),
+                        ))
+                    }
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__env_var" => {
+                let name = self.eval_as_string(&args[0])?;
+                match std::env::var(&name) {
+                    Ok(value) => Ok(Value::Option(Box::new(Value::String(value)))),
+                    Err(_) => Ok(Value::None),
+                }
+            }
+            "__args" => {
+                let args: Vec<Value> = std::env::args()
+                    .map(Value::String)
+                    .collect();
+                Ok(Value::new_array(args))
+            }
+            "__current_dir" => {
+                match std::env::current_dir() {
+                    Ok(path) => Ok(Value::Result(
+                        Box::new(Value::String(path.to_string_lossy().to_string())),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__exit" => {
+                let code = self.eval(&args[0])?;
+                let code = self.as_i64(&code)?;
+                std::process::exit(code as i32);
+            }
+
+            // ========================================
+            // Runtime primitives (__rt_*)
+            // ========================================
+
+            // Console
+            "__rt_print" => {
+                let s = self.eval_as_string(&args[0])?;
+                print!("{}", s);
+                Ok(Value::Unit)
+            }
+            "__rt_println" => {
+                let s = self.eval_as_string(&args[0])?;
+                println!("{}", s);
+                Ok(Value::Unit)
+            }
+            "__rt_eprint" => {
+                let s = self.eval_as_string(&args[0])?;
+                eprint!("{}", s);
+                Ok(Value::Unit)
+            }
+            "__rt_eprintln" => {
+                let s = self.eval_as_string(&args[0])?;
+                eprintln!("{}", s);
+                Ok(Value::Unit)
+            }
+            "__rt_readline" => {
+                use std::io::{self, BufRead};
+                let stdin = io::stdin();
+                let mut line = String::new();
+                match stdin.lock().read_line(&mut line) {
+                    Ok(_) => {
+                        // Remove trailing newline
+                        if line.ends_with('\n') {
+                            line.pop();
+                            if line.ends_with('\r') {
+                                line.pop();
+                            }
+                        }
+                        Ok(Value::Option(Box::new(Value::String(line))))
+                    }
+                    Err(_) => Ok(Value::None),
+                }
+            }
+
+            // Math
+            "__rt_sqrt" => {
+                let v = self.eval(&args[0])?;
+                let f = self.as_f64(&v)?;
+                Ok(Value::Float(f.sqrt()))
+            }
+            "__rt_pow" => {
+                let base_v = self.eval(&args[0])?;
+                let exp_v = self.eval(&args[1])?;
+                Ok(Value::Float(self.as_f64(&base_v)?.powf(self.as_f64(&exp_v)?)))
+            }
+            "__rt_sin" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.sin()))
+            }
+            "__rt_cos" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.cos()))
+            }
+            "__rt_tan" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.tan()))
+            }
+            "__rt_asin" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.asin()))
+            }
+            "__rt_acos" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.acos()))
+            }
+            "__rt_atan" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.atan()))
+            }
+            "__rt_atan2" => {
+                let y_v = self.eval(&args[0])?;
+                let x_v = self.eval(&args[1])?;
+                Ok(Value::Float(self.as_f64(&y_v)?.atan2(self.as_f64(&x_v)?)))
+            }
+            "__rt_log" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.ln()))
+            }
+            "__rt_log2" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.log2()))
+            }
+            "__rt_log10" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.log10()))
+            }
+            "__rt_exp" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.exp()))
+            }
+            "__rt_floor" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.floor()))
+            }
+            "__rt_ceil" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.ceil()))
+            }
+            "__rt_round" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.round()))
+            }
+            "__rt_trunc" => {
+                let v = self.eval(&args[0])?;
+                Ok(Value::Float(self.as_f64(&v)?.trunc()))
+            }
+            "__rt_abs_int" => {
+                let v = self.eval(&args[0])?;
+                let n = self.as_i64(&v)?;
+                Ok(Value::Integer(n.abs()))
+            }
+            "__rt_abs_float" => {
+                let v = self.eval(&args[0])?;
+                let f = self.as_f64(&v)?;
+                Ok(Value::Float(f.abs()))
+            }
+            "__rt_min_int" => {
+                let a_v = self.eval(&args[0])?;
+                let b_v = self.eval(&args[1])?;
+                let a = self.as_i64(&a_v)?;
+                let b = self.as_i64(&b_v)?;
+                Ok(Value::Integer(a.min(b)))
+            }
+            "__rt_max_int" => {
+                let a_v = self.eval(&args[0])?;
+                let b_v = self.eval(&args[1])?;
+                let a = self.as_i64(&a_v)?;
+                let b = self.as_i64(&b_v)?;
+                Ok(Value::Integer(a.max(b)))
+            }
+
+            // System
+            "__rt_get_env" => {
+                let name = self.eval_as_string(&args[0])?;
+                match std::env::var(&name) {
+                    Ok(value) => Ok(Value::Option(Box::new(Value::String(value)))),
+                    Err(_) => Ok(Value::None),
+                }
+            }
+            "__rt_args" => {
+                let args: Vec<Value> = std::env::args().map(Value::String).collect();
+                Ok(Value::new_array(args))
+            }
+            "__rt_cwd" => {
+                match std::env::current_dir() {
+                    Ok(path) => Ok(Value::String(path.to_string_lossy().to_string())),
+                    Err(e) => Err(InterpreterError::runtime_no_span(format!(
+                        "无法获取当前目录: {}",
+                        e
+                    ))),
+                }
+            }
+            "__rt_exit" => {
+                let code = self.eval(&args[0])?;
+                let code = self.as_i64(&code)?;
+                std::process::exit(code as i32);
+            }
+            "__rt_timestamp_ms" => {
+                use std::time::{SystemTime, UNIX_EPOCH};
+                let timestamp = SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .map(|d| d.as_millis() as i64)
+                    .unwrap_or(0);
+                Ok(Value::Integer(timestamp))
+            }
+            "__rt_sleep" => {
+                let ms_v = self.eval(&args[0])?;
+                let ms = self.as_i64(&ms_v)? as u64;
+                std::thread::sleep(std::time::Duration::from_millis(ms));
+                Ok(Value::Unit)
+            }
+            "__rt_getpid" => {
+                Ok(Value::Integer(std::process::id() as i64))
+            }
+
+            // String
+            "__rt_str_len" => {
+                let s = self.eval_as_string(&args[0])?;
+                Ok(Value::Integer(s.len() as i64))
+            }
+            "__rt_str_concat" => {
+                let a = self.eval_as_string(&args[0])?;
+                let b = self.eval_as_string(&args[1])?;
+                Ok(Value::String(a + &b))
+            }
+            "__rt_str_eq" => {
+                let a = self.eval_as_string(&args[0])?;
+                let b = self.eval_as_string(&args[1])?;
+                Ok(Value::Boolean(a == b))
+            }
+            "__rt_str_lt" => {
+                let a = self.eval_as_string(&args[0])?;
+                let b = self.eval_as_string(&args[1])?;
+                Ok(Value::Boolean(a < b))
+            }
+            "__rt_str_contains" => {
+                let s = self.eval_as_string(&args[0])?;
+                let substr = self.eval_as_string(&args[1])?;
+                Ok(Value::Boolean(s.contains(&substr)))
+            }
+            "__rt_str_starts_with" => {
+                let s = self.eval_as_string(&args[0])?;
+                let prefix = self.eval_as_string(&args[1])?;
+                Ok(Value::Boolean(s.starts_with(&prefix)))
+            }
+            "__rt_str_ends_with" => {
+                let s = self.eval_as_string(&args[0])?;
+                let suffix = self.eval_as_string(&args[1])?;
+                Ok(Value::Boolean(s.ends_with(&suffix)))
+            }
+            "__rt_str_substring" => {
+                let s = self.eval_as_string(&args[0])?;
+                let start_v = self.eval(&args[1])?;
+                let len_v = self.eval(&args[2])?;
+                let start = self.as_i64(&start_v)? as usize;
+                let len = self.as_i64(&len_v)? as usize;
+                let chars: Vec<char> = s.chars().collect();
+                let end = (start + len).min(chars.len());
+                if start > chars.len() {
+                    Ok(Value::String(String::new()))
+                } else {
+                    Ok(Value::String(chars[start..end].iter().collect()))
+                }
+            }
+            "__rt_str_split" => {
+                let s = self.eval_as_string(&args[0])?;
+                let sep = self.eval_as_string(&args[1])?;
+                let parts: Vec<Value> = s.split(&sep).map(|p| Value::String(p.to_string())).collect();
+                Ok(Value::new_array(parts))
+            }
+            "__rt_str_replace" => {
+                let s = self.eval_as_string(&args[0])?;
+                let from = self.eval_as_string(&args[1])?;
+                let to = self.eval_as_string(&args[2])?;
+                Ok(Value::String(s.replace(&from, &to)))
+            }
+            "__rt_str_to_lower" => {
+                let s = self.eval_as_string(&args[0])?;
+                Ok(Value::String(s.to_lowercase()))
+            }
+            "__rt_str_to_upper" => {
+                let s = self.eval_as_string(&args[0])?;
+                Ok(Value::String(s.to_uppercase()))
+            }
+            "__rt_str_trim" => {
+                let s = self.eval_as_string(&args[0])?;
+                Ok(Value::String(s.trim().to_string()))
+            }
+            "__rt_int_to_str" => {
+                let n_v = self.eval(&args[0])?;
+                let n = self.as_i64(&n_v)?;
+                Ok(Value::String(n.to_string()))
+            }
+            "__rt_float_to_str" => {
+                let f_v = self.eval(&args[0])?;
+                let f = self.as_f64(&f_v)?;
+                Ok(Value::String(f.to_string()))
+            }
+            "__rt_str_to_int" => {
+                let s = self.eval_as_string(&args[0])?;
+                match s.trim().parse::<i64>() {
+                    Ok(n) => Ok(Value::Option(Box::new(Value::Integer(n)))),
+                    Err(_) => Ok(Value::None),
+                }
+            }
+            "__rt_str_to_float" => {
+                let s = self.eval_as_string(&args[0])?;
+                match s.trim().parse::<f64>() {
+                    Ok(f) => Ok(Value::Option(Box::new(Value::Float(f)))),
+                    Err(_) => Ok(Value::None),
+                }
+            }
+
+            // File System
+            "__rt_file_read" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::read_to_string(&path) {
+                    Ok(content) => Ok(Value::Result(
+                        Box::new(Value::String(content)),
+                        Box::new(Value::Null),
+                    )),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_file_write" => {
+                let path = self.eval_as_string(&args[0])?;
+                let content = self.eval_as_string(&args[1])?;
+                match std::fs::write(&path, &content) {
+                    Ok(()) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_file_exists" => {
+                let path = self.eval_as_string(&args[0])?;
+                Ok(Value::Boolean(std::path::Path::new(&path).exists()))
+            }
+            "__rt_file_delete" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::remove_file(&path) {
+                    Ok(()) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_dir_create" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::create_dir_all(&path) {
+                    Ok(()) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_dir_exists" => {
+                let path = self.eval_as_string(&args[0])?;
+                Ok(Value::Boolean(std::path::Path::new(&path).is_dir()))
+            }
+            "__rt_dir_list" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::read_dir(&path) {
+                    Ok(entries) => {
+                        let names: Vec<Value> = entries
+                            .filter_map(|e| e.ok())
+                            .map(|e| Value::String(e.file_name().to_string_lossy().to_string()))
+                            .collect();
+                        Ok(Value::Result(Box::new(Value::new_array(names)), Box::new(Value::Null)))
+                    }
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_dir_remove" => {
+                let path = self.eval_as_string(&args[0])?;
+                match std::fs::remove_dir_all(&path) {
+                    Ok(()) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+
+            // ========================================
+            // TCP 网络原语
+            // ========================================
+            "__rt_tcp_listen" => {
+                let host = self.eval_as_string(&args[0])?;
+                let port_v = self.eval(&args[1])?;
+                let port = self.as_i64(&port_v)? as u16;
+                use std::net::TcpListener;
+                match TcpListener::bind(format!("{}:{}", host, port)) {
+                    Ok(listener) => {
+                        let handle = self.next_handle();
+                        self.tcp_servers.insert(handle, listener);
+                        Ok(Value::Result(Box::new(Value::Integer(handle as i64)), Box::new(Value::Null)))
+                    }
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_tcp_accept" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                if let Some(listener) = self.tcp_servers.get_mut(&handle) {
+                    match listener.accept() {
+                        Ok((stream, _)) => {
+                            let conn_handle = self.next_handle();
+                            self.tcp_connections.insert(conn_handle, stream);
+                            Ok(Value::Result(Box::new(Value::Integer(conn_handle as i64)), Box::new(Value::Null)))
+                        }
+                        Err(e) => Ok(Value::Result(
+                            Box::new(Value::Null),
+                            Box::new(Value::String(e.to_string())),
+                        )),
+                    }
+                } else {
+                    Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String("Invalid server handle".to_string())),
+                    ))
+                }
+            }
+            "__rt_tcp_connect" => {
+                let host = self.eval_as_string(&args[0])?;
+                let port_v = self.eval(&args[1])?;
+                let port = self.as_i64(&port_v)? as u16;
+                use std::net::TcpStream;
+                match TcpStream::connect(format!("{}:{}", host, port)) {
+                    Ok(stream) => {
+                        let handle = self.next_handle();
+                        self.tcp_connections.insert(handle, stream);
+                        Ok(Value::Result(Box::new(Value::Integer(handle as i64)), Box::new(Value::Null)))
+                    }
+                    Err(e) => Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String(e.to_string())),
+                    )),
+                }
+            }
+            "__rt_tcp_read" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                let max_size_v = self.eval(&args[1])?;
+                let max_size = self.as_i64(&max_size_v)? as usize;
+                use std::io::Read;
+                if let Some(stream) = self.tcp_connections.get_mut(&handle) {
+                    let mut buf = vec![0u8; max_size];
+                    match stream.read(&mut buf) {
+                        Ok(n) => {
+                            let bytes: Vec<Value> = buf[..n].iter().map(|&b| Value::Integer(b as i64)).collect();
+                            Ok(Value::Result(Box::new(Value::new_array(bytes)), Box::new(Value::Null)))
+                        }
+                        Err(e) => Ok(Value::Result(
+                            Box::new(Value::Null),
+                            Box::new(Value::String(e.to_string())),
+                        )),
+                    }
+                } else {
+                    Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String("Invalid connection handle".to_string())),
+                    ))
+                }
+            }
+            "__rt_tcp_write" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                let data_v = self.eval(&args[1])?;
+                let bytes = self.as_array(&data_v)?;
+                use std::io::Write;
+                if let Some(stream) = self.tcp_connections.get_mut(&handle) {
+                    let buf: Vec<u8> = bytes.iter()
+                        .filter_map(|v| if let Value::Integer(n) = v { Some(*n as u8) } else { None })
+                        .collect();
+                    match stream.write_all(&buf) {
+                        Ok(()) => Ok(Value::Result(Box::new(Value::Integer(buf.len() as i64)), Box::new(Value::Null))),
+                        Err(e) => Ok(Value::Result(
+                            Box::new(Value::Null),
+                            Box::new(Value::String(e.to_string())),
+                        )),
+                    }
+                } else {
+                    Ok(Value::Result(
+                        Box::new(Value::Null),
+                        Box::new(Value::String("Invalid connection handle".to_string())),
+                    ))
+                }
+            }
+            "__rt_tcp_close" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                self.tcp_servers.remove(&handle);
+                self.tcp_connections.remove(&handle);
+                Ok(Value::Unit)
+            }
+            "__rt_tcp_readable" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                // Simplified: always return true if connection exists
+                Ok(Value::Boolean(self.tcp_connections.contains_key(&handle)))
+            }
+            "__rt_tcp_set_nonblocking" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                let _flag = self.eval(&args[1])?;
+                if let Some(stream) = self.tcp_connections.get_mut(&handle) {
+                    match stream.set_nonblocking(true) {
+                        Ok(()) => Ok(Value::Boolean(true)),
+                        Err(_) => Ok(Value::Boolean(false)),
+                    }
+                } else {
+                    Ok(Value::Boolean(false))
+                }
+            }
+
+            // ========================================
+            // 异步 I/O 原语
+            // ========================================
+            "__rt_tcp_accept_async" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                if let Some(listener) = self.tcp_servers.get_mut(&handle) {
+                    match listener.accept() {
+                        Ok((stream, _)) => {
+                            let conn_handle = self.next_handle();
+                            self.tcp_connections.insert(conn_handle, stream);
+                            // Return operation ID that represents a completed operation
+                            let op_id = self.next_handle();
+                            // Store the result
+                            self.async_results.insert(op_id, Ok(Value::Integer(conn_handle as i64)));
+                            Ok(Value::Integer(op_id as i64))
+                        }
+                        Err(e) => {
+                            let op_id = self.next_handle();
+                            self.async_results.insert(op_id, Err(e.to_string()));
+                            Ok(Value::Integer(op_id as i64))
+                        }
+                    }
+                } else {
+                    let op_id = self.next_handle();
+                    self.async_results.insert(op_id, Err("Invalid server handle".to_string()));
+                    Ok(Value::Integer(op_id as i64))
+                }
+            }
+            "__rt_tcp_read_async" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                let max_size_v = self.eval(&args[1])?;
+                let max_size = self.as_i64(&max_size_v)? as usize;
+                use std::io::Read;
+                let op_id = self.next_handle();
+                if let Some(stream) = self.tcp_connections.get_mut(&handle) {
+                    let mut buf = vec![0u8; max_size];
+                    match stream.read(&mut buf) {
+                        Ok(n) => {
+                            let bytes: Vec<Value> = buf[..n].iter().map(|&b| Value::Integer(b as i64)).collect();
+                            self.async_results.insert(op_id, Ok(Value::new_array(bytes)));
+                        }
+                        Err(e) => {
+                            self.async_results.insert(op_id, Err(e.to_string()));
+                        }
+                    }
+                } else {
+                    self.async_results.insert(op_id, Err("Invalid connection handle".to_string()));
+                }
+                Ok(Value::Integer(op_id as i64))
+            }
+            "__rt_tcp_write_async" => {
+                let handle_v = self.eval(&args[0])?;
+                let handle = self.as_i64(&handle_v)? as usize;
+                let data_v = self.eval(&args[1])?;
+                let bytes = self.as_array(&data_v)?;
+                use std::io::Write;
+                let op_id = self.next_handle();
+                if let Some(stream) = self.tcp_connections.get_mut(&handle) {
+                    let buf: Vec<u8> = bytes.iter()
+                        .filter_map(|v| if let Value::Integer(n) = v { Some(*n as u8) } else { None })
+                        .collect();
+                    match stream.write_all(&buf) {
+                        Ok(()) => {
+                            self.async_results.insert(op_id, Ok(Value::Integer(buf.len() as i64)));
+                        }
+                        Err(e) => {
+                            self.async_results.insert(op_id, Err(e.to_string()));
+                        }
+                    }
+                } else {
+                    self.async_results.insert(op_id, Err("Invalid connection handle".to_string()));
+                }
+                Ok(Value::Integer(op_id as i64))
+            }
+            "__rt_async_poll" => {
+                let op_id_v = self.eval(&args[0])?;
+                let op_id = self.as_i64(&op_id_v)? as usize;
+                // Check if result is available
+                Ok(Value::Boolean(self.async_results.contains_key(&op_id)))
+            }
+            "__rt_async_result" => {
+                let op_id_v = self.eval(&args[0])?;
+                let op_id = self.as_i64(&op_id_v)? as usize;
+                if let Some(result) = self.async_results.remove(&op_id) {
+                    match result {
+                        Ok(v) => Ok(Value::Result(Box::new(v), Box::new(Value::Null))),
+                        Err(e) => Ok(Value::Result(Box::new(Value::Null), Box::new(Value::String(e)))),
+                    }
+                } else {
+                    Ok(Value::Result(Box::new(Value::Null), Box::new(Value::String("Operation not found".to_string()))))
+                }
+            }
+            "__rt_event_loop_tick" => {
+                // Simplified: always return true
+                Ok(Value::Boolean(true))
+            }
+
             _ => {
                 // 首先检查是否是闭包变量
                 if let Some(value) = self.variables.get(name).cloned() {
