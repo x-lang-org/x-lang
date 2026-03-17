@@ -2739,13 +2739,24 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             let left_type = infer_expression_type(left, env)?;
             let right_type = infer_expression_type(right, env)?;
 
+            // 检查是否是 Int 和 Float 的混合运算
+            let is_int_float_mixed = (types_equal(&left_type, &Type::Int) && types_equal(&right_type, &Type::Float))
+                || (types_equal(&left_type, &Type::Float) && types_equal(&right_type, &Type::Int));
+
+            // 检查是否是字符串连接（任一操作数是字符串类型）
+            let is_string_concat = types_equal(&left_type, &Type::String) || types_equal(&right_type, &Type::String);
+
             // 检查左右操作数类型是否匹配
             // 对于类型变量，我们尝试进行合一（unification）
             // 如果两边都是类型变量，假设它们可以合一
+            // Int + Float 混合运算也是允许的
+            // 字符串连接（Add 操作）允许任意类型
             let types_match = types_equal(&left_type, &right_type)
                 || matches!((&left_type, &right_type), (Type::Var(_), Type::Var(_)))
                 || matches!(&left_type, Type::Var(_))
-                || matches!(&right_type, Type::Var(_));
+                || matches!(&right_type, Type::Var(_))
+                || is_int_float_mixed
+                || (matches!(op, x_parser::ast::BinaryOp::Add) && is_string_concat);
 
             if !types_match {
                 return Err(TypeError::TypeMismatch {
@@ -2764,8 +2775,13 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                 | x_parser::ast::BinaryOp::Div
                 | x_parser::ast::BinaryOp::Mod
                 | x_parser::ast::BinaryOp::Pow => {
-                    // 如果是类型变量，假设是 Int 类型
-                    if matches!(&left_type, Type::Var(_)) || matches!(&right_type, Type::Var(_)) {
+                    // 字符串连接返回 String
+                    if matches!(op, x_parser::ast::BinaryOp::Add) && is_string_concat {
+                        Ok(Type::String)
+                    } else if is_int_float_mixed {
+                        // Int + Float 混合运算返回 Float
+                        Ok(Type::Float)
+                    } else if matches!(&left_type, Type::Var(_)) || matches!(&right_type, Type::Var(_)) {
                         Ok(Type::Int)
                     } else if types_equal(&left_type, &Type::Int) || types_equal(&left_type, &Type::Float)
                     {
