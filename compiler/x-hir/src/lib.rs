@@ -371,6 +371,7 @@ pub enum HirType {
     Char,
     Unit,
     Never,
+    Dynamic,
 
     // 复合类型
     Array(Box<HirType>),
@@ -437,6 +438,7 @@ impl HirType {
                 type_args.iter().map(HirType::from_ast).collect(),
             ),
             Type::Var(name) => HirType::Generic(name.clone()),
+            Type::Dynamic => HirType::Dynamic,
         }
     }
 }
@@ -572,6 +574,7 @@ impl HirOwnershipInfo {
                 type_args.iter().any(Self::type_needs_drop)
             }
             HirType::Unknown => true, // 保守假设
+            HirType::Dynamic => true, // 保守假设
         }
     }
 }

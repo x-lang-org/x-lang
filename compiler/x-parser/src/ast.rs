@@ -127,6 +127,7 @@ impl fmt::Display for Type {
                     .join(", ")
             ),
             Type::Var(name) => write!(f, "{name}"),
+            Type::Dynamic => write!(f, "Dynamic"),
         }
     }
 }
@@ -474,6 +475,7 @@ pub enum Type {
     Char,
     Unit,
     Never,
+    Dynamic,  // 动态类型，用于异构字典等场景
 
     // 复合类型
     Array(Box<Type>),

@@ -971,6 +971,7 @@ fn lower_hir_type(ty: &HirType) -> LowerResult<Type> {
             Ok(Type::Named(format!("{}_{}", name, args_str)))
         }
         HirType::Unknown => Ok(Type::Int), // Unknown 类型默认为 Int
+        HirType::Dynamic => Ok(Type::Int), // Dynamic 类型默认为 Int（运行时处理）
     }
 }
 

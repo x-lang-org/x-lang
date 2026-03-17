@@ -684,6 +684,7 @@ impl JavaBackend {
                     .collect::<Result<Vec<_>, _>>()?;
                 Ok(format!("{}<{}>", name, args.join(", ")))
             }
+            ast::Type::Dynamic => Ok("Object".to_string()),
         }
     }
 

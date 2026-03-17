@@ -1360,10 +1360,10 @@ impl XParser {
                             _ => return Err(self.err(format!("期望键，但得到 {:?}", key), ti)),
                         };
 
-                        // 解析 =>
-                        match self.expect_token(ti, "=>")? {
-                            Token::FatArrow => {}
-                            t => return Err(self.err(format!("期望 =>，但得到 {:?}", t), ti)),
+                        // 解析 => 或 : (支持两种分隔符)
+                        match self.expect_token(ti, "=> 或 :")? {
+                            Token::FatArrow | Token::Colon => {}
+                            t => return Err(self.err(format!("期望 => 或 :，但得到 {:?}", t), ti)),
                         }
 
                         // 解析值

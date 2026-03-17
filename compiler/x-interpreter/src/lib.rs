@@ -626,6 +626,21 @@ impl Interpreter {
                     .collect::<Result<_, _>>()?;
                 Ok(Value::new_array(vals))
             }
+            ExpressionKind::Dictionary(entries) => {
+                let map = Value::new_map();
+                for (key_expr, val_expr) in entries {
+                    let key = self.eval(key_expr)?;
+                    let key_str = match &key {
+                        Value::String(s) => s.clone(),
+                        _ => self.format_value(&key),
+                    };
+                    let val = self.eval(val_expr)?;
+                    if let Value::Map(rc) = &map {
+                        rc.borrow_mut().push((key_str, val));
+                    }
+                }
+                Ok(map)
+            }
             ExpressionKind::Record(_name, _fields) => {
                 // 处理记录表达式，暂时创建一个映射来存储字段
                 let map = Value::new_map();

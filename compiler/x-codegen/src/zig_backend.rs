@@ -1910,6 +1910,7 @@ impl ZigBackend {
                 format!("{}({})", name, args.join(", "))
             }
             ast::Type::Async(inner) => self.emit_type(inner),
+            ast::Type::Dynamic => "anytype".to_string(),
         }
     }
 

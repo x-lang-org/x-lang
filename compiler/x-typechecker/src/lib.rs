@@ -1446,7 +1446,8 @@ fn is_valid_type(ty: &Type, env: &TypeEnv) -> bool {
         | Type::String
         | Type::Char
         | Type::Unit
-        | Type::Never => true,
+        | Type::Never
+        | Type::Dynamic => true,
 
         // 复合类型需要检查内部类型
         Type::Array(inner) => is_valid_type(inner, env),
@@ -1538,7 +1539,7 @@ pub fn apply_type_substitution(ty: &Type, subst: &HashMap<String, Type>) -> Type
 
         // 基本类型和泛型类型名不变
         Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit | Type::Never
-        | Type::Generic(_) => ty.clone(),
+        | Type::Dynamic | Type::Generic(_) => ty.clone(),
     }
 }
 
@@ -1820,7 +1821,7 @@ pub fn occurs_in(var_name: &str, ty: &Type) -> bool {
         Type::TypeConstructor(_, args) => args.iter().any(|t| occurs_in(var_name, t)),
 
         Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
-        | Type::Never | Type::Generic(_) => false,
+        | Type::Never | Type::Dynamic | Type::Generic(_) => false,
     }
 }
 
@@ -1909,7 +1910,7 @@ fn collect_free_vars(ty: &Type, vars: &mut Vec<String>) {
         }
 
         Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
-        | Type::Never | Type::Generic(_) | Type::TypeParam(_) => {}
+        | Type::Never | Type::Dynamic | Type::Generic(_) | Type::TypeParam(_) => {}
     }
 }
 
@@ -2917,27 +2918,27 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             if entries.is_empty() {
                 return Err(TypeError::CannotInferType { span });
             }
-            let (k0, v0) = &entries[0];
-            let key_ty = infer_expression_type(k0, env)?;
-            let val_ty = infer_expression_type(v0, env)?;
-            for (k, v) in &entries[1..] {
+            let mut key_types = Vec::new();
+            let mut val_types = Vec::new();
+            for (k, v) in entries {
                 let kt = infer_expression_type(k, env)?;
                 let vt = infer_expression_type(v, env)?;
-                if !types_equal(&key_ty, &kt) {
+                key_types.push(kt);
+                val_types.push(vt);
+            }
+            // 检查键类型一致
+            let key_ty = key_types[0].clone();
+            for kt in &key_types[1..] {
+                if !types_equal(&key_ty, kt) {
                     return Err(TypeError::TypeMismatch {
                         expected: format!("{:?}", key_ty),
                         actual: format!("{:?}", kt),
-                        span: k.span,
-                    });
-                }
-                if !types_equal(&val_ty, &vt) {
-                    return Err(TypeError::TypeMismatch {
-                        expected: format!("{:?}", val_ty),
-                        actual: format!("{:?}", vt),
-                        span: v.span,
+                        span,
                     });
                 }
             }
+            // 值类型允许不一致（异构字典，如 JSON），使用 Dynamic 类型
+            let val_ty = Type::Dynamic;
             Ok(Type::Dictionary(Box::new(key_ty), Box::new(val_ty)))
         }
         ExpressionKind::Range(start, end, _inclusive) => {
