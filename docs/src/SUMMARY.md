@@ -60,13 +60,14 @@
 - [迭代器](ch10-02-iterators.md)
 - [管道操作符](ch10-03-pipeline.md)
 
-## 测试与标准库
+## 测试
 - [如何编写测试](ch11-01-how-to-write-tests.md)
 - [测试组织](ch11-02-test-organization.md)
+
+## 精简标准库
 - [标准库概览](ch12-01-stdlib-overview.md)
-- [Prelude](ch12-02-prelude.md)
-- [常用模块](ch12-03-common-modules.md)
-- [I/O 项目](ch12-04-io-project.md)
+- [Option 类型](ch12-02-option.md)
+- [Result 类型](ch12-03-result.md)
 
 ## 高级特性
 - [效果系统](ch13-01-effect-system.md)

@@ -1520,14 +1520,17 @@ impl XParser {
         };
 
         // 处理内置类型
+        // 小写：值类型 (integer, float, boolean, string, character)
+        // 大写：引用类型 (Integer, Float, Boolean, String, Character)
         let base_type = match base_type_name.as_str() {
-            "Int" => Type::Int,
-            "Float" => Type::Float,
-            "Bool" => Type::Bool,
-            "String" => Type::String,
-            "Char" => Type::Char,
-            "Unit" => Type::Unit,
-            "Never" => Type::Never,
+            // 值类型（小写）
+            "integer" | "Int" => Type::Int,
+            "float" | "Float" => Type::Float,
+            "boolean" | "Bool" => Type::Bool,
+            "string" | "String" => Type::String,
+            "character" | "char" | "Char" => Type::Char,
+            "unit" | "Unit" => Type::Unit,
+            "never" | "Never" => Type::Never,
             _ => Type::Generic(base_type_name.clone()),
         };
 

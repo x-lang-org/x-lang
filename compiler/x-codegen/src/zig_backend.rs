@@ -64,6 +64,8 @@ pub struct ZigBackend {
     imported_modules: Vec<String>,
     /// Lambda counter for unique naming
     lambda_counter: usize,
+    /// Track variable types for dictionary type inference
+    var_types: std::collections::HashMap<String, String>,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -91,6 +93,7 @@ impl ZigBackend {
             global_vars: Vec::new(),
             imported_modules: Vec::new(),
             lambda_counter: 0,
+            var_types: std::collections::HashMap::new(),
         }
     }
 
@@ -100,6 +103,7 @@ impl ZigBackend {
         self.global_vars.clear();
         self.imported_modules.clear();
         self.lambda_counter = 0;
+        self.var_types.clear();
 
         self.emit_header()?;
 
@@ -176,6 +180,7 @@ impl ZigBackend {
         self.indent = 0;
         self.global_vars.clear();
         self.imported_modules.clear();
+        self.var_types.clear();
 
         self.emit_header()?;
 
@@ -206,6 +211,7 @@ impl ZigBackend {
         self.indent = 0;
         self.global_vars.clear();
         self.imported_modules.clear();
+        self.var_types.clear();
 
         self.emit_header()?;
 
@@ -714,6 +720,67 @@ impl ZigBackend {
         self.line("}")?;
         self.line("")?;
 
+        // HTTP Server runtime
+        self.line("var http_server_handle: ?std.net.Server = null;")?;
+        self.line("")?;
+
+        self.line("fn http_listen(host: []const u8, port: u16) void {")?;
+        self.indent += 1;
+        self.line("const addr = std.net.Address.parseIp(host, port) catch {")?;
+        self.indent += 1;
+        self.line("std.debug.print(\"Failed to parse address\\\\n\", .{});")?;
+        self.line("return;")?;
+        self.indent -= 1;
+        self.line("};")?;
+        self.line("http_server_handle = addr.listen(.{ .reuse_address = true }) catch {")?;
+        self.indent += 1;
+        self.line("std.debug.print(\"Failed to start server\\\\n\", .{});")?;
+        self.line("return;")?;
+        self.indent -= 1;
+        self.line("};")?;
+        self.line("std.debug.print(\"HTTP Server listening on http://{s}:{d}\\\\n\", .{ host, port });")?;
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+
+        self.line("fn http_accept() ?[]const u8 {")?;
+        self.indent += 1;
+        self.line("const server = http_server_handle orelse return null;")?;
+        self.line("var conn = server.accept() catch return null;")?;
+        self.line("defer conn.stream.close();")?;
+        self.line("")?;
+        self.line("var buf: [4096]u8 = undefined;")?;
+        self.line("const n = conn.stream.read(&buf) catch return null;")?;
+        self.line("if (n == 0) return null;")?;
+        self.line("")?;
+        self.line("const request = allocator.alloc(u8, n) catch return null;")?;
+        self.line("@memcpy(request, buf[0..n]);")?;
+        self.line("return request;")?;
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+
+        self.line("fn http_respond(status: u16, content_type: []const u8, body: []const u8) void {")?;
+        self.indent += 1;
+        self.line("const server = http_server_handle orelse return;")?;
+        self.line("var conn = server.accept() catch return;")?;
+        self.line("defer conn.stream.close();")?;
+        self.line("")?;
+        self.line("var buf: [1024]u8 = undefined;")?;
+        self.line("const response = std.fmt.bufPrint(&buf,")?;
+        self.indent += 1;
+        self.line("\\\\\"HTTP/1.1 {d} OK\\\\r\\\\n\\\\\" ++")?;
+        self.line("\\\\\"Content-Type: {s}\\\\r\\\\n\\\\\" ++")?;
+        self.line("\\\\\"Content-Length: {d}\\\\r\\\\n\\\\r\\\\n\\\\\"")?;
+        self.line(", .{ status, content_type, body.len }) catch return;")?;
+        self.indent -= 1;
+        self.line("")?;
+        self.line("_ = conn.stream.writeAll(response) catch {};")?;
+        self.line("_ = conn.stream.writeAll(body) catch {};")?;
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+
         Ok(())
     }
 
@@ -985,13 +1052,27 @@ impl ZigBackend {
                     "undefined".to_string()
                 };
                 // Handle underscore variable (discard value in Zig)
-                if v.name == "_" {
+                // Variables starting with _ are also treated as intentionally unused
+                if v.name == "_" || v.name.starts_with('_') {
                     self.line(&format!("_ = {};", init))?;
                 } else {
                     let var_type = if let Some(type_annot) = &v.type_annot {
-                        format!(" : {}", self.emit_type(type_annot))
+                        let zig_type = self.emit_type(type_annot);
+                        // Track variable type for dictionary inference
+                        self.var_types.insert(v.name.clone(), zig_type.clone());
+                        format!(" : {}", zig_type)
                     } else {
-                        "".to_string()
+                        // Try to infer type from initializer
+                        if let Some(expr) = &v.initializer {
+                            if let Some(inferred_type) = self.infer_expr_type(expr) {
+                                self.var_types.insert(v.name.clone(), inferred_type.clone());
+                                format!(" : {}", inferred_type)
+                            } else {
+                                "".to_string()
+                            }
+                        } else {
+                            "".to_string()
+                        }
                     };
                     self.line(&format!("const {}{} = {};", v.name, var_type, init))?;
                 }
@@ -1245,17 +1326,51 @@ impl ZigBackend {
 
     fn emit_dict_literal(&mut self, entries: &[(ast::Expression, ast::Expression)]) -> ZigResult<String> {
         if entries.is_empty() {
-            return Ok("std.AutoHashMap(anytype, anytype).init(std.heap.page_allocator)".to_string());
+            return Ok("std.StringHashMap(void).init(std.heap.page_allocator)".to_string());
         }
+
+        // 从第一个条目推断键值类型
+        let key_type = self.infer_expr_type(&entries[0].0).unwrap_or_else(|| "[]const u8".to_string());
+        let value_type = self.infer_expr_type(&entries[0].1).unwrap_or_else(|| "void".to_string());
+
         let entry_strs: Vec<String> = entries
             .iter()
             .map(|(k, v)| {
                 let k_str = self.emit_expr(k)?;
                 let v_str = self.emit_expr(v)?;
-                Ok(format!("try map.put({}, {})", k_str, v_str))
+                Ok(format!("map.put({}, {}) catch unreachable", k_str, v_str))
             })
             .collect::<ZigResult<Vec<_>>>()?;
-        Ok(format!("blk: {{ var map = std.AutoHashMap(anytype, anytype).init(std.heap.page_allocator); {}; break :blk map; }}", entry_strs.join("; ")))
+
+        // 根据键类型选择合适的 HashMap 类型
+        let map_type = if key_type == "[]const u8" || key_type.starts_with("[]const") {
+            format!("std.StringHashMap({})", value_type)
+        } else {
+            format!("std.AutoHashMap({}, {})", key_type, value_type)
+        };
+
+        Ok(format!("blk: {{ var map = {}.init(std.heap.page_allocator); {}; break :blk map; }}", map_type, entry_strs.join("; ")))
+    }
+
+    /// 从表达式推断 Zig 类型
+    fn infer_expr_type(&self, expr: &ast::Expression) -> Option<String> {
+        match &expr.node {
+            ExpressionKind::Literal(lit) => match lit {
+                ast::Literal::Integer(_) => Some("i32".to_string()),
+                ast::Literal::Float(_) => Some("f64".to_string()),
+                ast::Literal::String(_) => Some("[]const u8".to_string()),
+                ast::Literal::Boolean(_) => Some("bool".to_string()),
+                ast::Literal::Char(_) => Some("u8".to_string()),
+                ast::Literal::Null => Some("?void".to_string()),
+                ast::Literal::None => Some("?void".to_string()),
+                ast::Literal::Unit => Some("void".to_string()),
+            },
+            ExpressionKind::Variable(name) => {
+                // 尝试从类型环境获取变量类型
+                self.var_types.get(name).cloned()
+            }
+            _ => None,
+        }
     }
 
     fn emit_record_literal(&mut self, _name: &str, fields: &[(String, ast::Expression)]) -> ZigResult<String> {
@@ -1746,11 +1861,16 @@ impl ZigBackend {
             ast::Type::Unit => "void".to_string(),
             ast::Type::Never => "noreturn".to_string(),
             ast::Type::Array(inner) => format!("[] {}", self.emit_type(inner)),
-            ast::Type::Dictionary(key, value) => format!(
-                "std.AutoHashMap({}, {})",
-                self.emit_type(key),
-                self.emit_type(value)
-            ),
+            ast::Type::Dictionary(key, value) => {
+                let key_type = self.emit_type(key);
+                let value_type = self.emit_type(value);
+                // 使用 StringHashMap 当键是字符串类型
+                if key_type == "[]const u8" {
+                    format!("std.StringHashMap({})", value_type)
+                } else {
+                    format!("std.AutoHashMap({}, {})", key_type, value_type)
+                }
+            }
             ast::Type::Option(inner) => format!("?{}", self.emit_type(inner)),
             ast::Type::Result(ok, err) => format!("{}!{}", self.emit_type(err), self.emit_type(ok)),
             ast::Type::Function(params, return_type) => {

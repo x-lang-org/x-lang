@@ -26,8 +26,8 @@ pub type LowerResult<T> = Result<T, LowerError>;
 pub fn lower_program(ast_program: &ast::Program) -> LowerResult<Program> {
     let mut program = Program::new();
 
-    // 添加标准库的外部函数声明（如 printf）
-    add_stdlib_declarations(&mut program);
+    // 添加运行时外部函数声明（如 printf）
+    add_runtime_declarations(&mut program);
 
     // 收集所有类声明用于继承解析
     let class_map: std::collections::HashMap<String, &ast::ClassDecl> = ast_program
@@ -131,8 +131,9 @@ fn lower_constructor(class_name: &str, constructor: &ast::ConstructorDecl) -> Lo
     Ok(func)
 }
 
-/// 添加标准库外部函数声明
-fn add_stdlib_declarations(program: &mut Program) {
+/// 添加运行时外部函数声明
+/// X 语言没有标准库，这些是编译器运行时依赖的 C 函数
+fn add_runtime_declarations(program: &mut Program) {
     // printf: int printf(const char*, ...)
     program.add(Declaration::ExternFunction(ExternFunction {
         name: "printf".to_string(),
@@ -792,8 +793,8 @@ fn lower_unary_op(op: &AstUnaryOp) -> LowerResult<UnaryOp> {
 pub fn lower_hir_program(hir: &Hir) -> LowerResult<Program> {
     let mut program = Program::new();
 
-    // 添加标准库的外部函数声明（如 printf）
-    add_stdlib_declarations(&mut program);
+    // 添加运行时外部函数声明（如 printf）
+    add_runtime_declarations(&mut program);
 
     // 处理每个声明
     for decl in &hir.declarations {

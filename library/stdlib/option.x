@@ -1,131 +1,109 @@
-// X语言标准库 - Option 类型
-//
-// Option 类型表示一个可能存在也可能不存在的值
-// 用于替代 null，强制处理可能缺失的情况
+// Option 类型
+// 表示可能存在或不存在的值，替代 null
 
-// ==========================================
-// Option 类型定义
-// ==========================================
-
-/// Option 类型：Some(value) 或 None
-type Option<T> =
-  | Some { value: T }
-  | None
-
-// ==========================================
-// Option 构造函数
-// ==========================================
-
-/// 创建一个包含值的 Option
-function Some<T>(value: T): Option<T> {
-  Option::Some { value: value }
+/// Option<T> 表示一个可能存在或不存在的值
+enum Option<T> {
+    /// 值存在
+    Some(T),
+    /// 值不存在
+    None
 }
 
-/// 创建一个空的 Option
-function None<T>(): Option<T> {
-  Option::None
+/// 检查 Option 是否为 Some
+function is_some<T>(opt: Option<T>): boolean {
+    given opt {
+        is Some(_) => true
+        is None => false
+    }
 }
 
-// ==========================================
-// Option 检查函数
-// ==========================================
-
-/// 检查 Option 是否包含值
-function is_some<T>(opt: Option<T>): Bool {
-  when opt is
-    Some { value } -> true
-    None -> false
+/// 检查 Option 是否为 None
+function is_none<T>(opt: Option<T>): boolean {
+    given opt {
+        is Some(_) => false
+        is None => true
+    }
 }
 
-/// 检查 Option 是否为空
-function is_none<T>(opt: Option<T>): Bool {
-  not is_some(opt)
+/// 从 Some 中提取值，如果是 None 则 panic
+function unwrap<T>(opt: Option<T>): T {
+    given opt {
+        is Some(value) => value
+        is None => panic("unwrap called on None")
+    }
 }
 
-// ==========================================
-// Option 解包函数
-// ==========================================
-
-/// 解包 Option，包含值时返回该值，否则 panic
-function unwrap<T>(opt: Option<T>, message: String = "unwrap on None"): T {
-  when opt is
-    Some { value } -> value
-    None -> panic(message)
-}
-
-/// 解包 Option，包含值时返回该值，否则返回默认值
+/// 从 Some 中提取值，如果是 None 则返回默认值
 function unwrap_or<T>(opt: Option<T>, default: T): T {
-  when opt is
-    Some { value } -> value
-    None -> default
+    given opt {
+        is Some(value) => value
+        is None => default
+    }
 }
 
-/// 解包 Option，包含值时返回该值，否则调用函数生成默认值
-function unwrap_or_else<T>(opt: Option<T>, default_function: () -> T): T {
-  when opt is
-    Some { value } -> value
-    None -> default_function()
+/// 从 Some 中提取值，如果是 None 则调用函数生成默认值
+function unwrap_or_else<T>(opt: Option<T>, f: function(): T): T {
+    given opt {
+        is Some(value) => value
+        is None => f()
+    }
 }
 
-// ==========================================
-// Option 变换函数
-// ==========================================
-
-/// 对 Option 中的值应用函数
-function map<T, U>(opt: Option<T>, f: (T) -> U): Option<U> {
-  when opt is
-    Some { value } -> Some(f(value))
-    None -> None()
+/// 如果是 Some，对其值应用函数
+function map<T, U>(opt: Option<T>, f: function(T): U): Option<U> {
+    given opt {
+        is Some(value) => Some(f(value))
+        is None => None
+    }
 }
 
-/// 对 Option 中的值应用返回 Option 的函数（flat map）
-function and_then<T, U>(opt: Option<T>, f: (T) -> Option<U>): Option<U> {
-  when opt is
-    Some { value } -> f(value)
-    None -> None()
+/// 如果是 Some，对其值应用返回 Option 的函数
+function and_then<T, U>(opt: Option<T>, f: function(T): Option<U>): Option<U> {
+    given opt {
+        is Some(value) => f(value)
+        is None => None
+    }
 }
 
-/// 如果 Option 包含值且满足谓词，返回该 Option，否则返回 None
-function filter<T>(opt: Option<T>, predicate: (T) -> Bool): Option<T> {
-  when opt is
-    Some { value } ->
-      if predicate(value) { opt }
-      else { None() }
-    None -> None()
+/// 如果是 None，返回另一个 Option；否则返回自身
+function or<T>(opt: Option<T>, other: Option<T>): Option<T> {
+    given opt {
+        is Some(_) => opt
+        is None => other
+    }
 }
 
-// ==========================================
-// Option 组合函数
-// ==========================================
-
-/// 如果第一个 Option 有值则返回它，否则返回第二个 Option
-function or<T>(opt1: Option<T>, opt2: Option<T>): Option<T> {
-  when opt1 is
-    Some { value } -> opt1
-    None -> opt2
+/// 如果是 None，调用函数生成 Option；否则返回自身
+function or_else<T>(opt: Option<T>, f: function(): Option<T>): Option<T> {
+    given opt {
+        is Some(_) => opt
+        is None => f()
+    }
 }
 
-/// 如果两个 Option 都有值，返回包含值对的 Option，否则返回 None
-function and<T, U>(opt1: Option<T>, opt2: Option<U>): Option<(T, U)> {
-  when (opt1, opt2) is
-    (Some { value: v1 }, Some { value: v2 }) -> Some((v1, v2))
-    _ -> None()
+/// 将两个 Option 组合成一个元组 Option
+function zip<T, U>(opt1: Option<T>, opt2: Option<U>): Option<(T, U)> {
+    given opt1 {
+        is Some(v1) => given opt2 {
+            is Some(v2) => Some((v1, v2))
+            is None => None
+        }
+        is None => None
+    }
 }
 
-// ==========================================
-// Option 转换为 Result
-// ==========================================
-
-/// 将 Option 转换为 Result，None 时使用给定的错误
-function ok_or<T, E>(opt: Option<T>, err: E): Result<T, E> {
-  when opt is
-    Some { value } -> Ok(value)
-    None -> Err(err)
+/// 过滤 Option：如果是 Some 且满足谓词，返回自身；否则返回 None
+function filter<T>(opt: Option<T>, predicate: function(T): boolean): Option<T> {
+    given opt {
+        is Some(value) => if predicate(value) { opt } else { None }
+        is None => None
+    }
 }
 
-/// 将 Option 转换为 Result，None 时调用函数生成错误
-function ok_or_else<T, E>(opt: Option<T>, err_function: () -> E): Result<T, E> {
-  when opt is
-    Some { value } -> Ok(value)
-    None -> Err(err_function())
+/// 如果是 Some 且值等于目标，返回 Some(())；否则返回 None
+function contains<T>(opt: Option<T>, target: T): Option<()> where T: Eq {
+    given opt {
+        is Some(value) => if value == target { Some(()) } else { None }
+        is None => None
+    }
 }

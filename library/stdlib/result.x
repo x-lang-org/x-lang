@@ -1,158 +1,117 @@
-// X语言标准库 - Result 类型
-//
-// Result 类型表示操作可能成功或失败
-// 用于替代异常，强制处理可能的错误
+// Result 类型
+// 表示可能成功或失败的操作结果
 
-// ==========================================
-// Result 类型定义
-// ==========================================
-
-/// Result 类型：Ok(value) 或 Err(error)
-type Result<T, E> =
-  | Ok  { value: T }
-  | Err { error: E }
-
-// ==========================================
-// Result 构造函数
-// ==========================================
-
-/// 创建一个成功的 Result
-function Ok<T, E>(value: T): Result<T, E> {
-  Result::Ok { value: value }
+/// Result<T, E> 表示一个可能成功或失败的结果
+enum Result<T, E> {
+    /// 操作成功，包含值
+    Ok(T),
+    /// 操作失败，包含错误
+    Err(E)
 }
 
-/// 创建一个失败的 Result
-function Err<T, E>(error: E): Result<T, E> {
-  Result::Err { error: error }
+/// 检查 Result 是否为 Ok
+function is_ok<T, E>(result: Result<T, E>): boolean {
+    given result {
+        is Ok(_) => true
+        is Err(_) => false
+    }
 }
 
-// ==========================================
-// Result 检查函数
-// ==========================================
-
-/// 检查 Result 是否是成功的
-function is_ok<T, E>(result: Result<T, E>): Bool {
-  when result is
-    Ok { value } -> true
-    Err { error } -> false
+/// 检查 Result 是否为 Err
+function is_err<T, E>(result: Result<T, E>): boolean {
+    given result {
+        is Ok(_) => false
+        is Err(_) => true
+    }
 }
 
-/// 检查 Result 是否是失败的
-function is_err<T, E>(result: Result<T, E>): Bool {
-  not is_ok(result)
+/// 从 Ok 中提取值，如果是 Err 则 panic
+function unwrap<T, E>(result: Result<T, E>): T {
+    given result {
+        is Ok(value) => value
+        is Err(e) => panic("unwrap called on Err: " + to_string(e))
+    }
 }
 
-// ==========================================
-// Result 解包函数
-// ==========================================
-
-/// 解包 Result，成功时返回值，失败时 panic
-function unwrap<T, E>(result: Result<T, E>, message: String = "unwrap on Err"): T {
-  when result is
-    Ok { value } -> value
-    Err { error } -> panic(message)
-}
-
-/// 解包 Result，失败时返回默认值
+/// 从 Ok 中提取值，如果是 Err 则返回默认值
 function unwrap_or<T, E>(result: Result<T, E>, default: T): T {
-  when result is
-    Ok { value } -> value
-    Err { error } -> default
+    given result {
+        is Ok(value) => value
+        is Err(_) => default
+    }
 }
 
-/// 解包 Result，失败时调用函数生成默认值
-function unwrap_or_else<T, E>(result: Result<T, E>, default_function: (E) -> T): T {
-  when result is
-    Ok { value } -> value
-    Err { error } -> default_function(error)
+/// 从 Err 中提取错误，如果是 Ok 则 panic
+function unwrap_err<T, E>(result: Result<T, E>): E {
+    given result {
+        is Ok(_) => panic("unwrap_err called on Ok")
+        is Err(e) => e
+    }
 }
 
-/// 解包 Result，失败时 panic 并显示错误
-function expect<T, E>(result: Result<T, E>, message: String): T {
-  when result is
-    Ok { value } -> value
-    Err { error } -> panic(message + ": " + to_string(error))
+/// 如果是 Ok，对其值应用函数
+function map<T, U, E>(result: Result<T, E>, f: function(T): U): Result<U, E> {
+    given result {
+        is Ok(value) => Ok(f(value))
+        is Err(e) => Err(e)
+    }
 }
 
-// ==========================================
-// Result 变换函数
-// ==========================================
-
-/// 对成功的 Result 中的值应用函数
-function map<T, U, E>(result: Result<T, E>, f: (T) -> U): Result<U, E> {
-  when result is
-    Ok { value } -> Ok(f(value))
-    Err { error } -> Err(error)
+/// 如果是 Err，对其错误应用函数
+function map_err<T, E, F>(result: Result<T, E>, f: function(E): F): Result<T, F> {
+    given result {
+        is Ok(value) => Ok(value)
+        is Err(e) => Err(f(e))
+    }
 }
 
-/// 对失败的 Result 中的错误应用函数
-function map_err<T, E, F>(result: Result<T, E>, f: (E) -> F): Result<T, F> {
-  when result is
-    Ok { value } -> Ok(value)
-    Err { error } -> Err(f(error))
+/// 如果是 Ok，对其值应用返回 Result 的函数
+function and_then<T, U, E>(result: Result<T, E>, f: function(T): Result<U, E>): Result<U, E> {
+    given result {
+        is Ok(value) => f(value)
+        is Err(e) => Err(e)
+    }
 }
 
-/// 对成功的 Result 应用返回 Result 的函数
-function and_then<T, U, E>(result: Result<T, E>, f: (T) -> Result<U, E>): Result<U, E> {
-  when result is
-    Ok { value } -> f(value)
-    Err { error } -> Err(error)
+/// 如果是 Err，对其错误应用返回 Result 的函数
+function or_else<T, E, F>(result: Result<T, E>, f: function(E): Result<T, F>): Result<T, F> {
+    given result {
+        is Ok(value) => Ok(value)
+        is Err(e) => f(e)
+    }
 }
 
-/// 对失败的 Result 应用返回 Result 的函数
-function or_else<T, E, F>(result: Result<T, E>, f: (E) -> Result<T, F>): Result<T, F> {
-  when result is
-    Ok { value } -> Ok(value)
-    Err { error } -> f(error)
-}
-
-// ==========================================
-// Result 组合函数
-// ==========================================
-
-/// 如果第一个 Result 成功则返回它，否则返回第二个 Result
-function or<T, E>(result1: Result<T, E>, result2: Result<T, E>): Result<T, E> {
-  when result1 is
-    Ok { value } -> result1
-    Err { error } -> result2
-}
-
-/// 如果两个 Result 都成功，返回包含值对的 Result
-function and<T, U, E>(result1: Result<T, E>, result2: Result<U, E>): Result<(T, U), E> {
-  when (result1, result2) is
-    (Ok { value: v1 }, Ok { value: v2 }) -> Ok((v1, v2))
-    (Err { error: e }, _) -> Err(e)
-    (_, Err { error: e }) -> Err(e)
-}
-
-// ==========================================
-// Result 转换为 Option
-// ==========================================
-
-/// 将 Result 转换为 Option，丢弃错误信息
+/// 将 Result<T, E> 转换为 Option<T>
 function ok<T, E>(result: Result<T, E>): Option<T> {
-  when result is
-    Ok { value } -> Some(value)
-    Err { error } -> None()
+    given result {
+        is Ok(value) => Some(value)
+        is Err(_) => None
+    }
 }
 
-/// 将 Result 转换为 Option，丢弃成功值
+/// 将 Result<T, E> 转换为 Option<E>
 function err<T, E>(result: Result<T, E>): Option<E> {
-  when result is
-    Ok { value } -> None()
-    Err { error } -> Some(error)
+    given result {
+        is Ok(_) => None
+        is Err(e) => Some(e)
+    }
 }
 
-// ==========================================
-// 错误传播辅助（? 运算符的函数形式）
-// ==========================================
+/// 将 Result<Result<T, E>, E> 展平为 Result<T, E>
+function flatten<T, E>(result: Result<Result<T, E>, E>): Result<T, E> {
+    given result {
+        is Ok(inner) => inner
+        is Err(e) => Err(e)
+    }
+}
 
-/// 尝试解包 Result，失败时提前返回错误
-/// 这是 ? 运算符的函数形式
-function try<T, E>(result: Result<T, E>): T {
-  // 这个函数由编译器特殊处理
-  // 在实际代码中，使用 ? 运算符更简洁
-  when result is
-    Ok { value } -> value
-    Err { error } -> return Err(error)  // 这个返回由编译器处理
+/// 将 Result<T, E> 转换为 Option<T>，如果是 Err 则执行错误处理函数
+function ok_or_else<T, E>(result: Result<T, E>, f: function(E)): Option<T> {
+    given result {
+        is Ok(value) => Some(value)
+        is Err(e) => {
+            f(e)
+            None
+        }
+    }
 }

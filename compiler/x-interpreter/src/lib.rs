@@ -943,11 +943,6 @@ impl Interpreter {
                 let n = self.as_i64(&v)?;
                 Ok(Value::String(n.to_string()))
             }
-            "concat" => {
-                let a = self.eval_as_string(&args[0])?;
-                let b = self.eval_as_string(&args[1])?;
-                Ok(Value::String(a + &b))
-            }
             "push" => {
                 let container = self.eval(&args[0])?;
                 let val = self.eval(&args[1])?;

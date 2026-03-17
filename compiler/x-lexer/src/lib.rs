@@ -649,8 +649,9 @@ impl<'a> Lexer<'a> {
                 self.state = LexerState::MultilineString;
                 return self.parse_multiline_string();
             }
-            // 只有两个引号，回退一个
-            // content 中已经有一个 "，继续解析单行字符串
+            // 空字符串 "" 或两个引号相邻的情况
+            // 当前字符不是第三个引号，所以这是一个空字符串
+            return Ok(Token::StringContent(String::new()));
         }
 
         // 解析单行字符串

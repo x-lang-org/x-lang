@@ -35,4 +35,4 @@ x-hir = { path = "../compiler/x-hir" }
 x-perceus = { path = "../compiler/x-perceus" }
 x-codegen = { path = "../compiler/x-codegen" }
 x-interpreter = { path = "../compiler/x-interpreter" }
-x-stdlib = { path = "../library/x-stdlib" }
+x-stdlib = { path = "../library/stdlib" }

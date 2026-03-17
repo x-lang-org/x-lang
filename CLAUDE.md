@@ -128,7 +128,7 @@ flowchart LR
 | x-codegen-jvm   | `compiler/x-codegen-jvm` | JVM 后端。 |
 | x-codegen-dotnet | `compiler/x-codegen-dotnet` | .NET 后端。 |
 | x-interpreter   | `compiler/x-interpreter` | 基于 AST 的树遍历解释器。供 `run` 命令使用。 |
-| x-stdlib        | `library/x-stdlib` | 标准库定义。 |
+| x-stdlib        | `library/stdlib` | 精简标准库：Option、Result 等语言核心类型。 |
 | x-spec          | `spec/x-spec` | 规格测试运行器。TOML 测试用例，可选择性关联 README 章节引用。 |
 
 ## 测试
