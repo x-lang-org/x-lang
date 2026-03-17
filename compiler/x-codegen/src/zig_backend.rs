@@ -128,6 +128,13 @@ impl ZigBackend {
             }
         }
 
+        // Emit extern functions
+        for decl in &program.declarations {
+            if let ast::Declaration::ExternFunction(f) = decl {
+                self.emit_extern_function(f)?;
+            }
+        }
+
         // Emit functions (including class methods and standalone functions)
         let mut has_main = false;
         for decl in &program.declarations {
@@ -333,12 +340,14 @@ impl ZigBackend {
     fn emit_hir_type(&self, ty: &x_hir::HirType) -> String {
         match ty {
             x_hir::HirType::Int => "i32".to_string(),
+            x_hir::HirType::UnsignedInt => "u32".to_string(),
             x_hir::HirType::Float => "f64".to_string(),
             x_hir::HirType::Bool => "bool".to_string(),
             x_hir::HirType::String => "[]const u8".to_string(),
             x_hir::HirType::Char => "u8".to_string(),
             x_hir::HirType::Unit => "void".to_string(),
             x_hir::HirType::Never => "noreturn".to_string(),
+            x_hir::HirType::Dynamic => "anytype".to_string(),
             x_hir::HirType::Array(inner) => format!("[]{}", self.emit_hir_type(inner)),
             x_hir::HirType::Option(inner) => format!("?{}", self.emit_hir_type(inner)),
             x_hir::HirType::Result(ok, err) => {
@@ -355,8 +364,38 @@ impl ZigBackend {
                     .collect();
                 format!("struct {} {{ {} }}", name, field_strs.join(", "))
             }
-            x_hir::HirType::Generic(name) => name.clone(),
-            _ => "anytype".to_string(),
+            x_hir::HirType::Generic(name) | x_hir::HirType::TypeParam(name) => name.clone(),
+            x_hir::HirType::TypeConstructor(name, args) => {
+                let args_str: Vec<String> = args.iter().map(|t| self.emit_hir_type(t)).collect();
+                format!("{}({})", name, args_str.join(", "))
+            }
+            // FFI types
+            x_hir::HirType::Pointer(inner) => format!("*{}", self.emit_hir_type(inner)),
+            x_hir::HirType::ConstPointer(inner) => format!("*const {}", self.emit_hir_type(inner)),
+            x_hir::HirType::Void => "void".to_string(),
+            // C FFI types
+            x_hir::HirType::CInt => "c_int".to_string(),
+            x_hir::HirType::CUInt => "c_uint".to_string(),
+            x_hir::HirType::CLong => "c_long".to_string(),
+            x_hir::HirType::CULong => "c_ulong".to_string(),
+            x_hir::HirType::CLongLong => "c_longlong".to_string(),
+            x_hir::HirType::CULongLong => "c_ulonglong".to_string(),
+            x_hir::HirType::CFloat => "c_float".to_string(),
+            x_hir::HirType::CDouble => "c_double".to_string(),
+            x_hir::HirType::CChar => "c_char".to_string(),
+            x_hir::HirType::CSize => "usize".to_string(),
+            x_hir::HirType::CString => "[*c]u8".to_string(),
+            // Other types
+            x_hir::HirType::Dictionary(k, v) => {
+                format!("std.AutoHashMap({}, {})", self.emit_hir_type(k), self.emit_hir_type(v))
+            }
+            x_hir::HirType::Union(name, _) => name.clone(),
+            x_hir::HirType::Function(params, ret) => {
+                let param_types: Vec<String> = params.iter().map(|t| self.emit_hir_type(t)).collect();
+                format!("fn({}) -> {}", param_types.join(", "), self.emit_hir_type(ret))
+            }
+            x_hir::HirType::Async(inner) => self.emit_hir_type(inner),
+            x_hir::HirType::Unknown => "anytype".to_string(),
         }
     }
 
@@ -468,6 +507,15 @@ impl ZigBackend {
             }
             x_hir::HirStatement::Try(try_stmt) => {
                 self.emit_hir_try(try_stmt)?;
+            }
+            x_hir::HirStatement::Unsafe(block) => {
+                // Zig doesn't need special unsafe syntax, emit block with comment
+                self.line("// unsafe block")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_hir_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
             }
         }
         Ok(())
@@ -884,6 +932,74 @@ impl ZigBackend {
         Ok(())
     }
 
+    /// Emit an extern function declaration
+    fn emit_extern_function(&mut self, f: &ast::ExternFunctionDecl) -> ZigResult<()> {
+        // Build parameter string
+        let params = if f.parameters.is_empty() && !f.is_variadic {
+            "".to_string()
+        } else {
+            let mut param_strs: Vec<String> = f
+                .parameters
+                .iter()
+                .map(|p| {
+                    let param_type = if let Some(type_annot) = &p.type_annot {
+                        self.emit_type(type_annot)
+                    } else {
+                        "anytype".to_string()
+                    };
+                    format!("{}: {}", p.name, param_type)
+                })
+                .collect();
+
+            if f.is_variadic {
+                param_strs.push("...".to_string());
+            }
+
+            param_strs.join(", ")
+        };
+
+        // Build return type
+        let return_type = if let Some(ret) = &f.return_type {
+            self.emit_type(ret)
+        } else {
+            "void".to_string()
+        };
+
+        // Emit extern declaration based on ABI
+        match f.abi.as_str() {
+            "C" | "c" => {
+                // C ABI: pub extern "c" fn name(params) callconv(.C) ReturnType;
+                if f.is_variadic {
+                    self.line(&format!(
+                        "pub extern \"c\" fn {}({}) callconv(.C) {};",
+                        f.name, params, return_type
+                    ))?;
+                } else {
+                    self.line(&format!(
+                        "pub extern \"c\" fn {}({}) callconv(.C) {};",
+                        f.name, params, return_type
+                    ))?;
+                }
+            }
+            "zig" => {
+                // Zig ABI: pub extern fn name(params) ReturnType;
+                self.line(&format!(
+                    "pub extern fn {}({}) {};",
+                    f.name, params, return_type
+                ))?;
+            }
+            _ => {
+                // Custom ABI: pub extern "abi" fn name(params) ReturnType;
+                self.line(&format!(
+                    "pub extern \"{}\" fn {}({}) {};",
+                    f.abi, f.name, params, return_type
+                ))?;
+            }
+        }
+
+        Ok(())
+    }
+
     /// Emit a class as a Zig struct
     fn emit_class(&mut self, class: &ast::ClassDecl) -> ZigResult<()> {
         // Emit struct definition
@@ -1129,6 +1245,16 @@ impl ZigBackend {
                 self.indent -= 1;
                 let cond = self.emit_expr(&d.condition)?;
                 self.line(&format!("}} while ({});", cond))?;
+            }
+            StatementKind::Unsafe(block) => {
+                // Zig 不需要特殊的 unsafe 语法，直接输出块内容
+                // 添加注释标记 unsafe 块开始
+                self.line("// unsafe block")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
             }
         }
         Ok(())
@@ -1935,6 +2061,22 @@ impl ZigBackend {
             }
             ast::Type::Async(inner) => self.emit_type(inner),
             ast::Type::Dynamic => "anytype".to_string(),
+            // FFI pointer types
+            ast::Type::Pointer(inner) => format!("*{}", self.emit_type(inner)),
+            ast::Type::ConstPointer(inner) => format!("*const {}", self.emit_type(inner)),
+            ast::Type::Void => "void".to_string(),
+            // C FFI types - map to Zig's C ABI types
+            ast::Type::CInt => "c_int".to_string(),
+            ast::Type::CUInt => "c_uint".to_string(),
+            ast::Type::CLong => "c_long".to_string(),
+            ast::Type::CULong => "c_ulong".to_string(),
+            ast::Type::CLongLong => "c_longlong".to_string(),
+            ast::Type::CULongLong => "c_ulonglong".to_string(),
+            ast::Type::CFloat => "c_float".to_string(),
+            ast::Type::CDouble => "c_double".to_string(),
+            ast::Type::CChar => "c_char".to_string(),
+            ast::Type::CSize => "usize".to_string(),
+            ast::Type::CString => "[*c]u8".to_string(),
         }
     }
 

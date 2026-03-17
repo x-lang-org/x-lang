@@ -382,6 +382,15 @@ impl TypeScriptBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Unsafe(block) => {
+                // TypeScript doesn't have unsafe blocks, just emit the block
+                self.line("// unsafe block")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }

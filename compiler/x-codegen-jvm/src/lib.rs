@@ -260,6 +260,15 @@ impl JvmCodeGenerator {
             StatementKind::Try(try_stmt) => {
                 self.emit_try(try_stmt)?;
             }
+            StatementKind::Unsafe(block) => {
+                // Java doesn't have unsafe blocks, just emit the block
+                self.line("// unsafe block")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }

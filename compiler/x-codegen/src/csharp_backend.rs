@@ -305,6 +305,7 @@ impl CSharpBackend {
         match type_annot {
             Some(t) => match t {
                 ast::Type::Int => "int".to_string(),
+                ast::Type::UnsignedInt => "uint".to_string(),
                 ast::Type::Float => "double".to_string(),
                 ast::Type::Bool => "bool".to_string(),
                 ast::Type::String => "string".to_string(),
@@ -312,6 +313,20 @@ impl CSharpBackend {
                 ast::Type::Unit => "void".to_string(),
                 ast::Type::Option(inner) => format!("{}?", self.csharp_type(Some(inner))),
                 ast::Type::Generic(name) | ast::Type::TypeParam(name) => name.clone(),
+                // C FFI types
+                ast::Type::CInt => "int".to_string(),
+                ast::Type::CUInt => "uint".to_string(),
+                ast::Type::CLong => "nint".to_string(),   // native int
+                ast::Type::CULong => "nuint".to_string(), // native uint
+                ast::Type::CLongLong => "long".to_string(),
+                ast::Type::CULongLong => "ulong".to_string(),
+                ast::Type::CFloat => "float".to_string(),
+                ast::Type::CDouble => "double".to_string(),
+                ast::Type::CChar => "byte".to_string(),
+                ast::Type::CSize => "nuint".to_string(),  // pointer-sized unsigned
+                ast::Type::CString => "IntPtr".to_string(),
+                ast::Type::Pointer(_) | ast::Type::ConstPointer(_) => "IntPtr".to_string(),
+                ast::Type::Void => "void".to_string(),
                 _ => "object".to_string(),
             },
             None => "object".to_string(),
@@ -438,6 +453,15 @@ impl CSharpBackend {
                 self.emit_block(&do_while.body)?;
                 let cond = self.emit_expr(&do_while.condition)?;
                 self.line(&format!("if (!({})) break;", cond))?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            StatementKind::Unsafe(block) => {
+                // C# has unsafe blocks
+                self.line("unsafe")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
                 self.indent -= 1;
                 self.line("}")?;
             }

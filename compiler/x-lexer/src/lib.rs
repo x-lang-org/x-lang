@@ -234,6 +234,9 @@ impl<'a> Lexer<'a> {
             "finally" => Ok(Token::Finally),
             "throw" => Ok(Token::Throw),
             "handle" => Ok(Token::Handle),
+            "extern" => Ok(Token::Extern),
+            "foreign" => Ok(Token::Foreign),
+            "unsafe" => Ok(Token::Unsafe),
             _ => Ok(Token::Ident(ident)),
         }
     }

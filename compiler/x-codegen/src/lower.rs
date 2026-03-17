@@ -395,6 +395,7 @@ fn lower_global_var(var_decl: &ast::VariableDecl) -> LowerResult<GlobalVar> {
 fn lower_type(ty: &ast::Type) -> LowerResult<Type> {
     match ty {
         ast::Type::Int => Ok(Type::Int),
+        ast::Type::UnsignedInt => Ok(Type::Int), // UnsignedInt 暂时映射为 Int
         ast::Type::Float => Ok(Type::Double),
         ast::Type::Bool => Ok(Type::Bool),
         ast::Type::String => Ok(Type::Pointer(Box::new(Type::Char))),
@@ -420,6 +421,22 @@ fn lower_type(ty: &ast::Type) -> LowerResult<Type> {
                 param_types,
             ))
         }
+        // FFI types
+        ast::Type::Pointer(inner) => Ok(Type::Pointer(Box::new(lower_type(inner)?))),
+        ast::Type::ConstPointer(inner) => Ok(Type::Pointer(Box::new(lower_type(inner)?))),
+        ast::Type::Void => Ok(Type::Void),
+        // C FFI types - map to C ABI types
+        ast::Type::CInt => Ok(Type::Named("c_int".to_string())),
+        ast::Type::CUInt => Ok(Type::Named("c_uint".to_string())),
+        ast::Type::CLong => Ok(Type::Named("c_long".to_string())),
+        ast::Type::CULong => Ok(Type::Named("c_ulong".to_string())),
+        ast::Type::CLongLong => Ok(Type::Named("c_longlong".to_string())),
+        ast::Type::CULongLong => Ok(Type::Named("c_ulonglong".to_string())),
+        ast::Type::CFloat => Ok(Type::Named("c_float".to_string())),
+        ast::Type::CDouble => Ok(Type::Named("c_double".to_string())),
+        ast::Type::CChar => Ok(Type::Char),
+        ast::Type::CSize => Ok(Type::Size),
+        ast::Type::CString => Ok(Type::Pointer(Box::new(Type::Char))),
         _ => Err(LowerError::UnsupportedFeature(format!(
             "暂不支持的类型: {:?}",
             ty
@@ -577,6 +594,10 @@ fn lower_statement(stmt: &ast::Statement) -> LowerResult<Statement> {
             body: Box::new(Statement::Compound(lower_block(&d.body)?)),
             condition: lower_expression(&d.condition)?,
         })),
+        StatementKind::Unsafe(block) => {
+            // Unsafe blocks are lowered as regular compound statements
+            Ok(Statement::Compound(lower_block(block)?))
+        }
     }
 }
 
@@ -889,6 +910,13 @@ fn lower_hir_declaration(decl: &HirDeclaration) -> LowerResult<Declaration> {
                 type_: Type::Void,
             }))
         }
+        HirDeclaration::ExternFunction(extern_func_decl) => {
+            // 外部函数声明：生成类型别名（简化处理）
+            Ok(Declaration::TypeAlias(TypeAlias {
+                name: format!("extern_{}", extern_func_decl.name),
+                type_: Type::Void,
+            }))
+        }
     }
 }
 
@@ -988,6 +1016,22 @@ fn lower_hir_type(ty: &HirType) -> LowerResult<Type> {
         }
         HirType::Unknown => Ok(Type::Int), // Unknown 类型默认为 Int
         HirType::Dynamic => Ok(Type::Int), // Dynamic 类型默认为 Int（运行时处理）
+        // FFI types
+        HirType::Pointer(inner) => Ok(Type::Pointer(Box::new(lower_hir_type(inner)?))),
+        HirType::ConstPointer(inner) => Ok(Type::Pointer(Box::new(lower_hir_type(inner)?))),
+        HirType::Void => Ok(Type::Void),
+        // C FFI types - map to C ABI types
+        HirType::CInt => Ok(Type::Named("c_int".to_string())),
+        HirType::CUInt => Ok(Type::Named("c_uint".to_string())),
+        HirType::CLong => Ok(Type::Named("c_long".to_string())),
+        HirType::CULong => Ok(Type::Named("c_ulong".to_string())),
+        HirType::CLongLong => Ok(Type::Named("c_longlong".to_string())),
+        HirType::CULongLong => Ok(Type::Named("c_ulonglong".to_string())),
+        HirType::CFloat => Ok(Type::Named("c_float".to_string())),
+        HirType::CDouble => Ok(Type::Named("c_double".to_string())),
+        HirType::CChar => Ok(Type::Char),
+        HirType::CSize => Ok(Type::Size),
+        HirType::CString => Ok(Type::Pointer(Box::new(Type::Char))),
     }
 }
 
@@ -1130,6 +1174,10 @@ fn lower_hir_statement(stmt: &HirStatement) -> LowerResult<Statement> {
         }
         HirStatement::Break => Ok(Statement::Break),
         HirStatement::Continue => Ok(Statement::Continue),
+        HirStatement::Unsafe(block) => {
+            // Unsafe blocks are lowered as regular compound statements
+            Ok(Statement::Compound(lower_hir_block(block)?))
+        }
     }
 }
 

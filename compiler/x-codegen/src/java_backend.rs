@@ -687,6 +687,22 @@ impl JavaBackend {
                 Ok(format!("{}<{}>", name, args.join(", ")))
             }
             ast::Type::Dynamic => Ok("Object".to_string()),
+            // FFI types - not directly supported in Java
+            ast::Type::Pointer(_) => Ok("long".to_string()), // Use long for pointers
+            ast::Type::ConstPointer(_) => Ok("long".to_string()),
+            ast::Type::Void => Ok("void".to_string()),
+            // C FFI types - map to Java equivalents
+            ast::Type::CInt => Ok("int".to_string()),
+            ast::Type::CUInt => Ok("int".to_string()),
+            ast::Type::CLong => Ok("long".to_string()),
+            ast::Type::CULong => Ok("long".to_string()),
+            ast::Type::CLongLong => Ok("long".to_string()),
+            ast::Type::CULongLong => Ok("long".to_string()),
+            ast::Type::CFloat => Ok("float".to_string()),
+            ast::Type::CDouble => Ok("double".to_string()),
+            ast::Type::CChar => Ok("byte".to_string()),
+            ast::Type::CSize => Ok("long".to_string()),
+            ast::Type::CString => Ok("long".to_string()), // Use long for char* pointer
         }
     }
 

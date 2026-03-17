@@ -66,6 +66,10 @@ pub enum Token {
     Throw,
     Handle,
 
+    Extern,
+    Foreign,
+    Unsafe,
+
     // 标识符
     Ident(String),
 

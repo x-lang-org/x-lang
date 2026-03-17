@@ -334,6 +334,11 @@ impl PythonBackend {
                 self.indent -= 1;
                 self.indent -= 1;
             }
+            StatementKind::Unsafe(block) => {
+                // Python doesn't have unsafe blocks, just emit the block
+                self.line("# unsafe block")?;
+                self.emit_block(block)?;
+            }
         }
         Ok(())
     }

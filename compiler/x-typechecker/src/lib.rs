@@ -595,6 +595,7 @@ fn check_declaration(decl: &Declaration, env: &mut TypeEnv) -> Result<(), TypeEr
     match decl {
         Declaration::Variable(var_decl) => check_variable_decl(var_decl, env),
         Declaration::Function(func_decl) => check_function_decl(func_decl, env),
+        Declaration::ExternFunction(extern_func_decl) => check_extern_function_decl(extern_func_decl, env),
         Declaration::Class(class_decl) => check_class_decl(class_decl, env),
         Declaration::Trait(trait_decl) => check_trait_decl(trait_decl, env),
         Declaration::Enum(enum_decl) => check_enum_decl(enum_decl, env),
@@ -609,6 +610,29 @@ fn check_declaration(decl: &Declaration, env: &mut TypeEnv) -> Result<(), TypeEr
 fn check_module_decl(module_decl: &x_parser::ast::ModuleDecl, env: &mut TypeEnv) -> Result<(), TypeError> {
     // 设置当前模块名
     env.set_current_module(module_decl.name.clone());
+    Ok(())
+}
+
+/// 检查外部函数声明
+fn check_extern_function_decl(extern_func_decl: &x_parser::ast::ExternFunctionDecl, env: &mut TypeEnv) -> Result<(), TypeError> {
+    let _span = extern_func_decl.span;
+
+    // 构建函数类型
+    let param_types: Vec<Box<Type>> = extern_func_decl
+        .parameters
+        .iter()
+        .map(|p| {
+            Box::new(p.type_annot.clone().unwrap_or(Type::Dynamic))
+        })
+        .collect();
+
+    let return_type = Box::new(extern_func_decl.return_type.clone().unwrap_or(Type::Void));
+
+    let func_type = Type::Function(param_types, return_type);
+
+    // 将函数添加到环境
+    env.add_function(&extern_func_decl.name, func_type);
+
     Ok(())
 }
 
@@ -1515,6 +1539,24 @@ fn is_valid_type_with_params(ty: &Type, env: &TypeEnv, type_params: &std::collec
                 || env.get_type_alias(name).is_some();
             base_valid && type_args.iter().all(|t| is_valid_type_with_params(t, env, type_params))
         }
+
+        // FFI 类型
+        Type::Pointer(inner) => is_valid_type_with_params(inner, env, type_params),
+        Type::ConstPointer(inner) => is_valid_type_with_params(inner, env, type_params),
+        Type::Void => true,
+
+        // C FFI 类型 - 都是有效的原始类型
+        Type::CInt
+        | Type::CUInt
+        | Type::CLong
+        | Type::CULong
+        | Type::CLongLong
+        | Type::CULongLong
+        | Type::CFloat
+        | Type::CDouble
+        | Type::CChar
+        | Type::CSize
+        | Type::CString => true,
     }
 }
 
@@ -1600,6 +1642,24 @@ fn is_valid_type(ty: &Type, env: &TypeEnv) -> bool {
             // 检查所有类型参数是否有效
             base_valid && type_args.iter().all(|t| is_valid_type(t, env))
         }
+
+        // FFI 类型
+        Type::Pointer(inner) => is_valid_type(inner, env),
+        Type::ConstPointer(inner) => is_valid_type(inner, env),
+        Type::Void => true,
+
+        // C FFI 类型 - 都是有效的原始类型
+        Type::CInt
+        | Type::CUInt
+        | Type::CLong
+        | Type::CULong
+        | Type::CLongLong
+        | Type::CULongLong
+        | Type::CFloat
+        | Type::CDouble
+        | Type::CChar
+        | Type::CSize
+        | Type::CString => true,
     }
 }
 
@@ -1659,7 +1719,15 @@ pub fn apply_type_substitution(ty: &Type, subst: &HashMap<String, Type>) -> Type
 
         // 基本类型和泛型类型名不变
         Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit | Type::Never
-        | Type::Dynamic | Type::Generic(_) => ty.clone(),
+        | Type::Dynamic | Type::Generic(_) | Type::Void => ty.clone(),
+
+        // C FFI 类型 - 不需要替换
+        Type::CInt | Type::CUInt | Type::CLong | Type::CULong | Type::CLongLong | Type::CULongLong
+        | Type::CFloat | Type::CDouble | Type::CChar | Type::CSize | Type::CString => ty.clone(),
+
+        // FFI 指针类型
+        Type::Pointer(inner) => Type::Pointer(Box::new(apply_type_substitution(inner, subst))),
+        Type::ConstPointer(inner) => Type::ConstPointer(Box::new(apply_type_substitution(inner, subst))),
     }
 }
 
@@ -1904,6 +1972,13 @@ pub fn unify(t1: &Type, t2: &Type) -> Result<HashMap<String, Type>, UnificationE
         // 异步类型
         (Type::Async(i1), Type::Async(i2)) => unify(i1, i2),
 
+        // FFI 指针类型
+        (Type::Pointer(i1), Type::Pointer(i2)) => unify(i1, i2),
+        (Type::ConstPointer(i1), Type::ConstPointer(i2)) => unify(i1, i2),
+
+        // Void 类型
+        (Type::Void, Type::Void) => Ok(HashMap::new()),
+
         // 类型构造器
         (Type::TypeConstructor(n1, args1), Type::TypeConstructor(n2, args2)) => {
             if n1 != n2 || args1.len() != args2.len() {
@@ -1941,7 +2016,15 @@ pub fn occurs_in(var_name: &str, ty: &Type) -> bool {
         Type::TypeConstructor(_, args) => args.iter().any(|t| occurs_in(var_name, t)),
 
         Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
-        | Type::Never | Type::Dynamic | Type::Generic(_) => false,
+        | Type::Never | Type::Dynamic | Type::Generic(_) | Type::Void => false,
+
+        // C FFI 类型 - 不包含类型变量
+        Type::CInt | Type::CUInt | Type::CLong | Type::CULong | Type::CLongLong | Type::CULongLong
+        | Type::CFloat | Type::CDouble | Type::CChar | Type::CSize | Type::CString => false,
+
+        // FFI 指针类型
+        Type::Pointer(inner) => occurs_in(var_name, inner),
+        Type::ConstPointer(inner) => occurs_in(var_name, inner),
     }
 }
 
@@ -2030,7 +2113,15 @@ fn collect_free_vars(ty: &Type, vars: &mut Vec<String>) {
         }
 
         Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
-        | Type::Never | Type::Dynamic | Type::Generic(_) | Type::TypeParam(_) => {}
+        | Type::Never | Type::Dynamic | Type::Generic(_) | Type::TypeParam(_) | Type::Void => {}
+
+        // C FFI 类型 - 不包含自由类型变量
+        Type::CInt | Type::CUInt | Type::CLong | Type::CULong | Type::CLongLong | Type::CULongLong
+        | Type::CFloat | Type::CDouble | Type::CChar | Type::CSize | Type::CString => {}
+
+        // FFI 指针类型
+        Type::Pointer(inner) => collect_free_vars(inner, vars),
+        Type::ConstPointer(inner) => collect_free_vars(inner, vars),
     }
 }
 
@@ -2586,6 +2677,10 @@ fn infer_statement_effects(stmt: &Statement, env: &TypeEnv) -> Result<EffectSet,
             effects.extend(infer_expression_effects(&do_while.condition, env)?);
             Ok(effects)
         }
+        StatementKind::Unsafe(block) => {
+            // Unsafe blocks inherit effects from their body
+            infer_block_effects(block, env)
+        }
     }
 }
 
@@ -2732,6 +2827,14 @@ fn check_statement(stmt: &Statement, env: &mut TypeEnv) -> Result<(), TypeError>
                     span: d.condition.span,
                 });
             }
+            Ok(())
+        }
+        StatementKind::Unsafe(block) => {
+            // 检查 unsafe 块（新作用域）
+            // TODO: 将来可以添加 unsafe 上下文跟踪，确保 FFI 调用在 unsafe 块内
+            env.push_scope();
+            check_block(block, env)?;
+            env.pop_scope();
             Ok(())
         }
     }

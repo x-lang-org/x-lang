@@ -339,6 +339,10 @@ impl Interpreter {
             StatementKind::Break => Ok(ControlFlow::Break),
             StatementKind::Continue => Ok(ControlFlow::Continue),
             StatementKind::DoWhile(d) => self.execute_do_while(d),
+            StatementKind::Unsafe(block) => {
+                // Execute unsafe block (interpreter doesn't enforce safety)
+                self.execute_block_stmt(block)
+            }
         }
     }
 

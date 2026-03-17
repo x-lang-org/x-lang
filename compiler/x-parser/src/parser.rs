@@ -1,6 +1,6 @@
 use crate::ast::{
     spanned, BinaryOp, Block, CatchClause, ClassDecl, ClassMember, ClassModifiers, ConstructorDecl, Declaration,
-    DoWhileStatement, Effect, EnumDecl, EnumVariant, EnumVariantData, ExportDecl, Expression, ExpressionKind, ForStatement, FunctionDecl,
+    DoWhileStatement, Effect, EnumDecl, EnumVariant, EnumVariantData, ExternFunctionDecl, ExportDecl, Expression, ExpressionKind, ForStatement, FunctionDecl,
     IfStatement, ImportDecl, ImportSymbol, Literal, MatchCase, MatchStatement, MethodModifiers, ModuleDecl,
     Parameter, Pattern, Program, Statement, StatementKind, TraitDecl, TryStatement, Type,
     TypeAlias, TypeConstraint, TypeParameter, UnaryOp, VariableDecl, Visibility, WaitType, WhileStatement,
@@ -121,6 +121,10 @@ impl XParser {
                 Ok((Token::Enum, _)) => {
                     ti.next();
                     declarations.push(Declaration::Enum(self.parse_enum(ti)?));
+                }
+                Ok((Token::Extern, _)) | Ok((Token::Foreign, _)) => {
+                    ti.next();
+                    declarations.push(Declaration::ExternFunction(self.parse_extern_function(ti)?));
                 }
                 Ok((Token::Async, _)) => {
                     ti.next();
@@ -538,6 +542,141 @@ impl XParser {
         })
     }
 
+    /// Parse extern function declaration
+    /// extern "ABI" function name(params) -> return_type
+    /// extern function name(params) -> return_type  (default to "C" ABI)
+    fn parse_extern_function(&self, ti: &mut TokenIterator) -> Result<ExternFunctionDecl, ParseError> {
+        // Parse optional ABI string
+        let abi = if matches!(ti.peek(), Some(Ok((Token::StringContent(_), _)))) {
+            match ti.next() {
+                Some(Ok((Token::StringContent(s), _))) => s,
+                _ => return Err(self.err("期望 ABI 字符串", ti)),
+            }
+        } else {
+            "C".to_string() // default ABI
+        };
+
+        // Expect 'function' keyword
+        match self.expect_token(ti, "function")? {
+            Token::Function => {}
+            t => return Err(self.err(format!("期望 'function'，但得到 {:?}", t), ti)),
+        }
+
+        // Parse function name
+        let name = match self.expect_token(ti, "函数名")? {
+            Token::Ident(n) => n,
+            t => return Err(self.err(format!("期望函数名，但得到 {:?}", t), ti)),
+        };
+
+        // Parse parameters
+        match self.expect_token(ti, "(")? {
+            Token::LeftParen => {}
+            t => return Err(self.err(format!("期望 (，但得到 {:?}", t), ti)),
+        }
+
+        let mut parameters = Vec::new();
+        let mut is_variadic = false;
+
+        // Check for empty parameter list
+        if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
+            ti.next();
+        } else {
+            loop {
+                // Check for variadic marker: ... or .. followed by .
+                // The lexer tokenizes ... as RangeExclusive (..) followed by Dot (.)
+                if matches!(ti.peek(), Some(Ok((Token::RangeExclusive, _)))) {
+                    // ... is tokenized as RangeExclusive (..) followed by Dot (.)
+                    ti.next(); // consume ..
+                    if matches!(ti.peek(), Some(Ok((Token::Dot, _)))) {
+                        ti.next(); // consume final .
+                        is_variadic = true;
+                        // Expect closing paren
+                        match self.expect_token(ti, ")")? {
+                            Token::RightParen => {}
+                            t => return Err(self.err(format!("期望 )，但得到 {:?}", t), ti)),
+                        }
+                        break;
+                    } else {
+                        return Err(self.err("期望 ...", ti));
+                    }
+                } else if matches!(ti.peek(), Some(Ok((Token::Dot, _)))) {
+                    // Alternative: three separate dots
+                    ti.next();
+                    if matches!(ti.peek(), Some(Ok((Token::Dot, _)))) {
+                        ti.next();
+                        if matches!(ti.peek(), Some(Ok((Token::Dot, _)))) {
+                            ti.next();
+                            is_variadic = true;
+                            // Expect closing paren
+                            match self.expect_token(ti, ")")? {
+                                Token::RightParen => {}
+                                t => return Err(self.err(format!("期望 )，但得到 {:?}", t), ti)),
+                            }
+                            break;
+                        } else {
+                            return Err(self.err("期望 ...", ti));
+                        }
+                    } else {
+                        return Err(self.err("期望 ...", ti));
+                    }
+                }
+
+                let param_name = match self.expect_token(ti, "参数名")? {
+                    Token::Ident(n) => n,
+                    t => return Err(self.err(format!("期望参数名，但得到 {:?}", t), ti)),
+                };
+
+                let type_annot = if matches!(ti.peek(), Some(Ok((Token::Colon, _)))) {
+                    ti.next();
+                    Some(self.parse_type(ti)?)
+                } else {
+                    None
+                };
+
+                parameters.push(Parameter {
+                    name: param_name,
+                    type_annot,
+                    default: None,
+                    span: self.current_span(ti),
+                });
+
+                match ti.peek() {
+                    Some(Ok((Token::Comma, _))) => {
+                        ti.next();
+                    }
+                    Some(Ok((Token::RightParen, _))) => {
+                        ti.next();
+                        break;
+                    }
+                    _ => return Err(self.err("期望 , 或 )", ti)),
+                }
+            }
+        }
+
+        // Parse optional return type
+        let return_type = if matches!(ti.peek(), Some(Ok((Token::Arrow, _)))) {
+            ti.next();
+            Some(self.parse_type(ti)?)
+        } else if matches!(ti.peek(), Some(Ok((Token::Colon, _)))) {
+            ti.next();
+            Some(self.parse_type(ti)?)
+        } else {
+            None
+        };
+
+        // Expect semicolon
+        self.eat_semi(ti);
+
+        Ok(ExternFunctionDecl {
+            abi,
+            name,
+            parameters,
+            return_type,
+            is_variadic,
+            span: self.current_span(ti),
+        })
+    }
+
     fn parse_param_list(&self, ti: &mut TokenIterator) -> Result<Vec<Parameter>, ParseError> {
         let mut params = Vec::new();
         if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
@@ -713,6 +852,15 @@ impl XParser {
             Some(Ok((Token::Ident(ref s), _))) if s == "do" => {
                 ti.next();
                 self.parse_do_while(ti)
+            }
+            Some(Ok((Token::Unsafe, _))) => {
+                ti.next();
+                match self.expect_token(ti, "{")? {
+                    Token::LeftBrace => {}
+                    t => return Err(self.err(format!("期望 {{，但得到 {:?}", t), ti)),
+                }
+                let body = self.parse_block(ti)?;
+                Ok(self.mk_stmt(ti, StatementKind::Unsafe(body)))
             }
             _ => {
                 let expr = self.parse_expression(ti)?;
@@ -1665,6 +1813,34 @@ impl XParser {
     }
 
     fn parse_type(&self, ti: &mut TokenIterator) -> Result<Type, ParseError> {
+        // Handle unit type: ()
+        if matches!(ti.peek(), Some(Ok((Token::LeftParen, _)))) {
+            ti.next(); // consume (
+            if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
+                ti.next(); // consume )
+                return Ok(Type::Unit);
+            } else {
+                return Err(self.err("期望 ) 来形成 unit 类型", ti));
+            }
+        }
+
+        // Handle pointer types: *T or *const T
+        if matches!(ti.peek(), Some(Ok((Token::Asterisk, _)))) {
+            ti.next(); // consume *
+            // Check for *const (const can be Token::Const keyword)
+            let is_const = matches!(ti.peek(), Some(Ok((Token::Const, _))))
+                || matches!(ti.peek(), Some(Ok((Token::Ident(ref name), _))) if name == "const");
+            if is_const {
+                ti.next(); // consume const
+            }
+            let inner_type = self.parse_type(ti)?;
+            return if is_const {
+                Ok(Type::ConstPointer(Box::new(inner_type)))
+            } else {
+                Ok(Type::Pointer(Box::new(inner_type)))
+            };
+        }
+
         let tok = self.expect_token(ti, "类型名")?;
         let base_type_name = match tok {
             Token::Ident(name) => name,
@@ -1687,13 +1863,28 @@ impl XParser {
         // 大写：引用类型 (Integer, Float, Boolean, String, Character)
         let base_type = match base_type_name.as_str() {
             // 值类型（小写）
-            "integer" | "Int" | "Int64" => Type::Int,
-            "float" | "Float" | "Float64" => Type::Float,
+            "integer" | "Int" | "Int64" | "i32" | "i64" => Type::Int,
+            "float" | "Float" | "Float64" | "f64" => Type::Float,
             "boolean" | "Bool" => Type::Bool,
             "string" | "String" => Type::String,
             "character" | "char" | "Char" => Type::Char,
             "unit" | "Unit" => Type::Unit,
             "never" | "Never" => Type::Never,
+            // FFI 类型
+            "void" | "Void" => Type::Void,
+            "u32" | "u64" | "usize" | "U32" | "U64" | "Usize" => Type::UnsignedInt,
+            // C FFI 类型
+            "CInt" | "c_int" => Type::CInt,
+            "CUInt" | "c_uint" => Type::CUInt,
+            "CLong" | "c_long" => Type::CLong,
+            "CULong" | "c_ulong" => Type::CULong,
+            "CLongLong" | "c_longlong" => Type::CLongLong,
+            "CULongLong" | "c_ulonglong" => Type::CULongLong,
+            "CFloat" | "c_float" => Type::CFloat,
+            "CDouble" | "c_double" => Type::CDouble,
+            "CChar" | "c_char" => Type::CChar,
+            "CSize" | "c_size_t" | "c_size" => Type::CSize,
+            "CString" | "c_string" => Type::CString,
             _ => Type::Generic(base_type_name.clone()),
         };
 

@@ -460,6 +460,9 @@ impl PerceusAnalyzer {
                 }
             }
             x_hir::HirStatement::Break | x_hir::HirStatement::Continue => {}
+            x_hir::HirStatement::Unsafe(block) => {
+                self.extract_callees_from_block(block, callees);
+            }
         }
     }
 
@@ -708,6 +711,10 @@ impl PerceusAnalyzer {
             }
             x_hir::HirStatement::Break | x_hir::HirStatement::Continue => {
                 // 控制流语句，无需特殊处理
+            }
+            x_hir::HirStatement::Unsafe(block) => {
+                // Unsafe 块，分析其内容
+                self.analyze_block(block)?;
             }
         }
         Ok(())

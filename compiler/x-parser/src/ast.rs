@@ -129,6 +129,21 @@ impl fmt::Display for Type {
             ),
             Type::Var(name) => write!(f, "{name}"),
             Type::Dynamic => write!(f, "Dynamic"),
+            Type::Pointer(inner) => write!(f, "*{inner}"),
+            Type::ConstPointer(inner) => write!(f, "*const {inner}"),
+            Type::Void => write!(f, "void"),
+            // C FFI types
+            Type::CInt => write!(f, "CInt"),
+            Type::CUInt => write!(f, "CUInt"),
+            Type::CLong => write!(f, "CLong"),
+            Type::CULong => write!(f, "CULong"),
+            Type::CLongLong => write!(f, "CLongLong"),
+            Type::CULongLong => write!(f, "CULongLong"),
+            Type::CFloat => write!(f, "CFloat"),
+            Type::CDouble => write!(f, "CDouble"),
+            Type::CChar => write!(f, "CChar"),
+            Type::CSize => write!(f, "CSize"),
+            Type::CString => write!(f, "CString"),
         }
     }
 }
@@ -167,6 +182,7 @@ pub struct Program {
 pub enum Declaration {
     Variable(VariableDecl),
     Function(FunctionDecl),
+    ExternFunction(ExternFunctionDecl),
     Class(ClassDecl),
     Trait(TraitDecl),
     Enum(EnumDecl),
@@ -203,6 +219,23 @@ pub struct FunctionDecl {
     pub is_async: bool,
     /// 方法修饰符（用于类方法）
     pub modifiers: MethodModifiers,
+    /// 源码位置
+    pub span: Span,
+}
+
+/// 外部函数声明（extern function）
+#[derive(Debug, PartialEq, Clone)]
+pub struct ExternFunctionDecl {
+    /// ABI 名称，如 "C", "zig" 等
+    pub abi: String,
+    /// 函数名
+    pub name: String,
+    /// 参数列表
+    pub parameters: Vec<Parameter>,
+    /// 返回类型
+    pub return_type: Option<Type>,
+    /// 是否为可变参数函数（如 printf）
+    pub is_variadic: bool,
     /// 源码位置
     pub span: Span,
 }
@@ -361,6 +394,8 @@ pub enum StatementKind {
     Break,
     Continue,
     DoWhile(DoWhileStatement),
+    /// Unsafe 块 - 用于 FFI 调用
+    Unsafe(Block),
 }
 
 /// do-while 语句
@@ -527,6 +562,38 @@ pub enum Type {
     Result(Box<Type>, Box<Type>),
     Function(Vec<Box<Type>>, Box<Type>),
     Async(Box<Type>),
+
+    // FFI 类型
+    /// 原始指针类型 (*T)
+    Pointer(Box<Type>),
+    /// 常量原始指针类型 (*const T)
+    ConstPointer(Box<Type>),
+    /// void 类型（用于 FFI）
+    Void,
+
+    // C FFI 类型 - 平台特定大小
+    /// C int 类型
+    CInt,
+    /// C unsigned int 类型
+    CUInt,
+    /// C long 类型
+    CLong,
+    /// C unsigned long 类型
+    CULong,
+    /// C long long 类型
+    CLongLong,
+    /// C unsigned long long 类型
+    CULongLong,
+    /// C float 类型
+    CFloat,
+    /// C double 类型
+    CDouble,
+    /// C char 类型
+    CChar,
+    /// C size_t 类型
+    CSize,
+    /// C 字符串类型 (char*)
+    CString,
 
     // 泛型类型
     /// 泛型类型名（如 List, Map）

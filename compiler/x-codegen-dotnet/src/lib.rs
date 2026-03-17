@@ -281,6 +281,15 @@ impl DotNetCodeGenerator {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Unsafe(block) => {
+                // C# has unsafe blocks
+                self.line("unsafe")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }

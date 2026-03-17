@@ -88,6 +88,8 @@ pub enum HirDeclaration {
     Variable(HirVariableDecl),
     /// 函数声明
     Function(HirFunctionDecl),
+    /// 外部函数声明
+    ExternFunction(HirExternFunctionDecl),
     /// 类声明
     Class(HirClassDecl),
     /// Trait 声明
@@ -148,6 +150,21 @@ pub struct HirFunctionDecl {
     pub is_async: bool,
     /// 效果注解
     pub effects: Vec<String>,
+}
+
+/// 外部函数声明
+#[derive(Debug, PartialEq, Clone)]
+pub struct HirExternFunctionDecl {
+    /// ABI 名称
+    pub abi: String,
+    /// 函数名
+    pub name: String,
+    /// 参数列表
+    pub parameters: Vec<HirParameter>,
+    /// 返回类型
+    pub return_type: HirType,
+    /// 是否为可变参数函数
+    pub is_variadic: bool,
 }
 
 /// 参数
@@ -230,6 +247,8 @@ pub enum HirStatement {
     Break,
     /// Continue
     Continue,
+    /// Unsafe 块 - 用于 FFI 调用
+    Unsafe(HirBlock),
 }
 
 /// If 语句
@@ -422,6 +441,38 @@ pub enum HirType {
     /// 类型构造器应用：List<Int>, Map<String, Int>
     TypeConstructor(String, Vec<HirType>),
 
+    // FFI 类型
+    /// 原始指针类型 (*T)
+    Pointer(Box<HirType>),
+    /// 常量原始指针类型 (*const T)
+    ConstPointer(Box<HirType>),
+    /// void 类型（用于 FFI）
+    Void,
+
+    // C FFI 类型 - 平台特定大小
+    /// C int 类型
+    CInt,
+    /// C unsigned int 类型
+    CUInt,
+    /// C long 类型
+    CLong,
+    /// C unsigned long 类型
+    CULong,
+    /// C long long 类型
+    CLongLong,
+    /// C unsigned long long 类型
+    CULongLong,
+    /// C float 类型
+    CFloat,
+    /// C double 类型
+    CDouble,
+    /// C char 类型
+    CChar,
+    /// C size_t 类型
+    CSize,
+    /// C 字符串类型 (char*)
+    CString,
+
     // 未知类型（推断失败时使用）
     Unknown,
 }
@@ -471,6 +522,22 @@ impl HirType {
             ),
             Type::Var(name) => HirType::Generic(name.clone()),
             Type::Dynamic => HirType::Dynamic,
+            // FFI types
+            Type::Pointer(inner) => HirType::Pointer(Box::new(HirType::from_ast(inner))),
+            Type::ConstPointer(inner) => HirType::ConstPointer(Box::new(HirType::from_ast(inner))),
+            Type::Void => HirType::Void,
+            // C FFI types
+            Type::CInt => HirType::CInt,
+            Type::CUInt => HirType::CUInt,
+            Type::CLong => HirType::CLong,
+            Type::CULong => HirType::CULong,
+            Type::CLongLong => HirType::CLongLong,
+            Type::CULongLong => HirType::CULongLong,
+            Type::CFloat => HirType::CFloat,
+            Type::CDouble => HirType::CDouble,
+            Type::CChar => HirType::CChar,
+            Type::CSize => HirType::CSize,
+            Type::CString => HirType::CString,
         }
     }
 }
@@ -607,6 +674,14 @@ impl HirOwnershipInfo {
             }
             HirType::Unknown => true, // 保守假设
             HirType::Dynamic => true, // 保守假设
+            // FFI types - pointers are Copy
+            HirType::Pointer(_) => false,
+            HirType::ConstPointer(_) => false,
+            HirType::Void => false,
+            // C FFI types - all Copy types
+            HirType::CInt | HirType::CUInt | HirType::CLong | HirType::CULong
+            | HirType::CLongLong | HirType::CULongLong | HirType::CFloat | HirType::CDouble
+            | HirType::CChar | HirType::CSize | HirType::CString => false,
         }
     }
 }
@@ -892,6 +967,36 @@ impl HirConverter {
             ast::Declaration::Export(export_decl) => {
                 Ok(HirDeclaration::Export(export_decl.symbol.clone()))
             }
+            ast::Declaration::ExternFunction(extern_func_decl) => {
+                // 转换参数
+                let parameters: Vec<HirParameter> = extern_func_decl
+                    .parameters
+                    .iter()
+                    .map(|p| HirParameter {
+                        name: p.name.clone(),
+                        ty: if let Some(type_annot) = &p.type_annot {
+                            HirType::from_ast(type_annot)
+                        } else {
+                            HirType::Unknown
+                        },
+                        default: None,
+                    })
+                    .collect();
+
+                let return_type = if let Some(ret) = &extern_func_decl.return_type {
+                    HirType::from_ast(ret)
+                } else {
+                    HirType::Void
+                };
+
+                Ok(HirDeclaration::ExternFunction(HirExternFunctionDecl {
+                    abi: extern_func_decl.abi.clone(),
+                    name: extern_func_decl.name.clone(),
+                    parameters,
+                    return_type,
+                    is_variadic: extern_func_decl.is_variadic,
+                }))
+            }
         }
     }
 
@@ -1092,6 +1197,9 @@ impl HirConverter {
                     condition: self.convert_expression(&dw.condition)?,
                     body: self.convert_block(&dw.body)?,
                 }))
+            }
+            StatementKind::Unsafe(block) => {
+                Ok(HirStatement::Unsafe(self.convert_block(block)?))
             }
         }
     }
