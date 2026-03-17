@@ -2644,6 +2644,9 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                 Ok(ty.clone())
             } else if let Some(ty) = env.get_function(name) {
                 Ok(ty.clone())
+            } else if env.get_class(name).is_some() {
+                // 类名作为构造函数，返回类类型
+                Ok(Type::Generic(name.clone()))
             } else {
                 Err(TypeError::UndefinedVariable {
                     name: name.to_string(),
@@ -2708,6 +2711,14 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
         ExpressionKind::Call(callee, args) => {
             // 推断被调用表达式的类型
             let callee_type = infer_expression_type(callee, env)?;
+
+            // 检查是否为类构造函数调用（callee 是 Generic 类型）
+            if let Type::Generic(class_name) = &callee_type {
+                // 这是一个类构造函数调用
+                // 返回该类的类型
+                // TODO: 检查构造函数参数
+                return Ok(Type::Generic(class_name.clone()));
+            }
 
             // 检查是否为函数类型
             if let Type::Function(param_types, return_type) = callee_type {

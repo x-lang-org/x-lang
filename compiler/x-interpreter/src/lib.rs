@@ -1625,6 +1625,13 @@ impl Interpreter {
                     // 设置 this
                     self.variables.insert("this".to_string(), obj_val.clone());
 
+                    // 添加字段作为可直接访问的变量
+                    if let Value::Object { fields, .. } = &obj_val {
+                        for (field_name, field_val) in fields.borrow().iter() {
+                            self.variables.insert(field_name.clone(), field_val.clone());
+                        }
+                    }
+
                     // 添加方法参数
                     for (p, v) in method.parameters.iter().zip(&arg_vals) {
                         self.variables.insert(p.name.clone(), v.clone());
