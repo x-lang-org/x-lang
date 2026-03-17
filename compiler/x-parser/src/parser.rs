@@ -471,7 +471,11 @@ impl XParser {
 
         let parameters = self.parse_param_list(ti)?;
 
+        // 支持 -> 或 : 作为返回类型分隔符
         let return_type = if matches!(ti.peek(), Some(Ok((Token::Arrow, _)))) {
+            ti.next();
+            Some(self.parse_type(ti)?)
+        } else if matches!(ti.peek(), Some(Ok((Token::Colon, _)))) {
             ti.next();
             Some(self.parse_type(ti)?)
         } else {
