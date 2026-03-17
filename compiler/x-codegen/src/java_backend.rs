@@ -622,12 +622,14 @@ impl JavaBackend {
     fn type_to_java(&self, ty: &ast::Type) -> JavaResult<String> {
         match ty {
             ast::Type::Int => Ok("int".to_string()),
+            ast::Type::UnsignedInt => Ok("int".to_string()),
             ast::Type::Float => Ok("double".to_string()),
             ast::Type::Bool => Ok("boolean".to_string()),
             ast::Type::String => Ok("String".to_string()),
             ast::Type::Char => Ok("char".to_string()),
             ast::Type::Unit => Ok("void".to_string()),
             ast::Type::Never => Ok("void".to_string()),
+            ast::Type::Dynamic => Ok("Object".to_string()),
             ast::Type::Generic(name) | ast::Type::TypeParam(name) | ast::Type::Var(name) => {
                 Ok(name.clone())
             }

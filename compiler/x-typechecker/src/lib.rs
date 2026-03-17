@@ -1441,6 +1441,7 @@ fn is_valid_type(ty: &Type, env: &TypeEnv) -> bool {
     match ty {
         // 基本类型始终有效
         Type::Int
+        | Type::UnsignedInt
         | Type::Float
         | Type::Bool
         | Type::String
@@ -1538,7 +1539,7 @@ pub fn apply_type_substitution(ty: &Type, subst: &HashMap<String, Type>) -> Type
         }
 
         // 基本类型和泛型类型名不变
-        Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit | Type::Never
+        Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit | Type::Never
         | Type::Dynamic | Type::Generic(_) => ty.clone(),
     }
 }
@@ -1820,7 +1821,7 @@ pub fn occurs_in(var_name: &str, ty: &Type) -> bool {
         Type::Union(_, variants) => variants.iter().any(|t| occurs_in(var_name, t)),
         Type::TypeConstructor(_, args) => args.iter().any(|t| occurs_in(var_name, t)),
 
-        Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
+        Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
         | Type::Never | Type::Dynamic | Type::Generic(_) => false,
     }
 }
@@ -1909,7 +1910,7 @@ fn collect_free_vars(ty: &Type, vars: &mut Vec<String>) {
             }
         }
 
-        Type::Int | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
+        Type::Int | Type::UnsignedInt | Type::Float | Type::Bool | Type::String | Type::Char | Type::Unit
         | Type::Never | Type::Dynamic | Type::Generic(_) | Type::TypeParam(_) => {}
     }
 }
@@ -2314,7 +2315,11 @@ fn check_variable_decl(var_decl: &VariableDecl, env: &mut TypeEnv) -> Result<(),
 
         // 如果有类型注解，检查类型匹配
         if let Some(type_annot) = &var_decl.type_annot {
-            if !types_equal(&init_type, type_annot) {
+            // Int 和 UnsignedInt 互相兼容
+            let is_int_compatible = (types_equal(&init_type, &Type::Int) || types_equal(&init_type, &Type::UnsignedInt))
+                && (types_equal(type_annot, &Type::Int) || types_equal(type_annot, &Type::UnsignedInt));
+
+            if !types_equal(&init_type, type_annot) && !is_int_compatible {
                 return Err(TypeError::TypeMismatch {
                     expected: format!("{:?}", type_annot),
                     actual: format!("{:?}", init_type),
@@ -3229,12 +3234,14 @@ fn types_equal(ty1: &Type, ty2: &Type) -> bool {
 
         // 基本类型
         (Type::Int, Type::Int) => true,
+        (Type::UnsignedInt, Type::UnsignedInt) => true,
         (Type::Float, Type::Float) => true,
         (Type::Bool, Type::Bool) => true,
         (Type::String, Type::String) => true,
         (Type::Char, Type::Char) => true,
         (Type::Unit, Type::Unit) => true,
         (Type::Never, Type::Never) => true,
+        (Type::Dynamic, Type::Dynamic) => true,
 
         // 复合类型
         (Type::Array(a1), Type::Array(a2)) => types_equal(a1, a2),

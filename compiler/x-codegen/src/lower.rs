@@ -917,12 +917,14 @@ fn lower_hir_global_var(var_decl: &HirVariableDecl) -> LowerResult<GlobalVar> {
 fn lower_hir_type(ty: &HirType) -> LowerResult<Type> {
     match ty {
         HirType::Int => Ok(Type::Int),
+        HirType::UnsignedInt => Ok(Type::Int), // UnsignedInt 暂时映射为 Int
         HirType::Float => Ok(Type::Double),
         HirType::Bool => Ok(Type::Bool),
         HirType::String => Ok(Type::Pointer(Box::new(Type::Char))),
         HirType::Char => Ok(Type::Char),
         HirType::Unit => Ok(Type::Void),
         HirType::Never => Ok(Type::Void),
+        HirType::Dynamic => Ok(Type::Int),
         HirType::Array(inner) => Ok(Type::Array(Box::new(lower_hir_type(inner)?), None)),
         HirType::Option(inner) => {
             // Option<T> 暂时 lowering 为 T*，用 NULL 表示 None

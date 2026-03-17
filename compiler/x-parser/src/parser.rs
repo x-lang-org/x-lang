@@ -1519,6 +1519,17 @@ impl XParser {
             t => return Err(self.err(format!("期望类型名，但得到 {:?}", t), ti)),
         };
 
+        // 处理 unsigned 类型
+        if base_type_name == "unsigned" {
+            let next_tok = self.expect_token(ti, "类型名")?;
+            match next_tok {
+                Token::Ident(ref name) if name == "integer" => {
+                    return Ok(Type::UnsignedInt);
+                }
+                t => return Err(self.err(format!("期望 integer 在 unsigned 之后，但得到 {:?}", t), ti)),
+            }
+        }
+
         // 处理内置类型
         // 小写：值类型 (integer, float, boolean, string, character)
         // 大写：引用类型 (Integer, Float, Boolean, String, Character)

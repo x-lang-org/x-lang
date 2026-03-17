@@ -1854,12 +1854,14 @@ impl ZigBackend {
     fn emit_type(&mut self, ty: &ast::Type) -> String {
         match ty {
             ast::Type::Int => "i32".to_string(),
+            ast::Type::UnsignedInt => "u32".to_string(),
             ast::Type::Float => "f64".to_string(),
             ast::Type::Bool => "bool".to_string(),
             ast::Type::String => "[]const u8".to_string(),
             ast::Type::Char => "u8".to_string(),
             ast::Type::Unit => "void".to_string(),
             ast::Type::Never => "noreturn".to_string(),
+            ast::Type::Dynamic => "anytype".to_string(),
             ast::Type::Array(inner) => format!("[] {}", self.emit_type(inner)),
             ast::Type::Dictionary(key, value) => {
                 let key_type = self.emit_type(key);

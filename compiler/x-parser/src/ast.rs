@@ -84,6 +84,7 @@ impl fmt::Display for Type {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Type::Int => write!(f, "Int"),
+            Type::UnsignedInt => write!(f, "UnsignedInt"),
             Type::Float => write!(f, "Float"),
             Type::Bool => write!(f, "Bool"),
             Type::String => write!(f, "String"),
@@ -469,6 +470,7 @@ pub enum Literal {
 pub enum Type {
     // 基本类型
     Int,
+    UnsignedInt,
     Float,
     Bool,
     String,

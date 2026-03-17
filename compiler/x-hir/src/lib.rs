@@ -365,6 +365,7 @@ pub enum HirPattern {
 pub enum HirType {
     // 基本类型
     Int,
+    UnsignedInt,
     Float,
     Bool,
     String,
@@ -401,12 +402,14 @@ impl HirType {
     pub fn from_ast(ty: &Type) -> Self {
         match ty {
             Type::Int => HirType::Int,
+            Type::UnsignedInt => HirType::UnsignedInt,
             Type::Float => HirType::Float,
             Type::Bool => HirType::Bool,
             Type::String => HirType::String,
             Type::Char => HirType::Char,
             Type::Unit => HirType::Unit,
             Type::Never => HirType::Never,
+            Type::Dynamic => HirType::Dynamic,
             Type::Array(inner) => HirType::Array(Box::new(HirType::from_ast(inner))),
             Type::Dictionary(k, v) => HirType::Dictionary(
                 Box::new(HirType::from_ast(k)),
@@ -554,7 +557,7 @@ impl HirOwnershipInfo {
     fn type_needs_drop(ty: &HirType) -> bool {
         match ty {
             // Copy 类型不需要 drop
-            HirType::Int | HirType::Float | HirType::Bool | HirType::Char | HirType::Unit => false,
+            HirType::Int | HirType::UnsignedInt | HirType::Float | HirType::Bool | HirType::Char | HirType::Unit => false,
             HirType::Never => false,
             // 所有权类型需要 drop
             HirType::String => true,
