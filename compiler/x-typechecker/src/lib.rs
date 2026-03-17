@@ -2901,18 +2901,19 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                 // 空数组必须依赖类型注解才能确定元素类型
                 return Err(TypeError::CannotInferType { span });
             }
-            let first_ty = infer_expression_type(&items[0], env)?;
-            for item in &items[1..] {
-                let ty = infer_expression_type(item, env)?;
-                if !types_equal(&first_ty, &ty) {
-                    return Err(TypeError::TypeMismatch {
-                        expected: format!("{:?}", first_ty),
-                        actual: format!("{:?}", ty),
-                        span: item.span,
-                    });
-                }
+            let mut item_types: Vec<Type> = items
+                .iter()
+                .map(|item| infer_expression_type(item, env))
+                .collect::<Result<_, _>>()?;
+            // 检查所有元素类型是否一致
+            let first_ty = item_types[0].clone();
+            let all_same = item_types.iter().all(|t| types_equal(&first_ty, t));
+            if all_same {
+                Ok(Type::Array(Box::new(first_ty)))
+            } else {
+                // 异构数组使用 Dynamic 类型
+                Ok(Type::Array(Box::new(Type::Dynamic)))
             }
-            Ok(Type::Array(Box::new(first_ty)))
         }
         ExpressionKind::Dictionary(entries) => {
             if entries.is_empty() {
