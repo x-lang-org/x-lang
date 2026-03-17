@@ -750,6 +750,14 @@ fn check_class_decl(class_decl: &ClassDecl, env: &mut TypeEnv) -> Result<(), Typ
                     env.push_scope();
                     // 添加 this 参数
                     env.add_variable("this", Type::Generic(class_decl.name.clone()));
+                    // 添加类字段作为可直接访问的变量
+                    for member in &class_decl.members {
+                        if let ClassMember::Field(field) = member {
+                            if let Some(type_annot) = &field.type_annot {
+                                env.add_variable(&field.name, type_annot.clone());
+                            }
+                        }
+                    }
                     // 添加方法参数
                     for param in &method.parameters {
                         if let Some(type_annot) = &param.type_annot {

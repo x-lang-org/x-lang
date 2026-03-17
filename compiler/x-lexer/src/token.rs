@@ -10,6 +10,7 @@ pub enum Token {
     Function,
     Async,
     Class,
+    Struct,
     Extends,
     Trait,
     Implement,   // implement 关键字

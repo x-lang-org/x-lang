@@ -180,6 +180,7 @@ impl<'a> Lexer<'a> {
             "function" => Ok(Token::Function),
             "async" => Ok(Token::Async),
             "class" => Ok(Token::Class),
+            "struct" => Ok(Token::Struct),
             "extends" => Ok(Token::Extends),
             "trait" => Ok(Token::Trait),
             "implement" => Ok(Token::Implement),

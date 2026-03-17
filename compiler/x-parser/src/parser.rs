@@ -48,6 +48,11 @@ impl XParser {
         spanned(kind, self.current_span(ti))
     }
 
+    /// 创建带指定位置的表达式
+    fn mk_expr_from_span(&self, kind: ExpressionKind, span: Span) -> Expression {
+        spanned(kind, span)
+    }
+
     /// 创建带位置信息的语句
     fn mk_stmt(&self, ti: &TokenIterator, kind: StatementKind) -> Statement {
         spanned(kind, self.current_span(ti))
@@ -97,6 +102,10 @@ impl XParser {
                     declarations.push(Declaration::Export(self.parse_export(ti)?));
                 }
                 Ok((Token::Class, _)) => {
+                    ti.next();
+                    declarations.push(Declaration::Class(self.parse_class(ti)?));
+                }
+                Ok((Token::Struct, _)) => {
                     ti.next();
                     declarations.push(Declaration::Class(self.parse_class(ti)?));
                 }
@@ -1281,6 +1290,65 @@ impl XParser {
         Ok(expr)
     }
 
+    /// 从已有表达式继续解析后缀操作
+    fn parse_postfix_continue(&self, ti: &mut TokenIterator, mut expr: Expression) -> Result<Expression, ParseError> {
+        loop {
+            match ti.peek() {
+                Some(Ok((Token::LeftParen, _))) => {
+                    ti.next();
+                    let args = self.parse_call_arguments(ti)?;
+                    expr = self.mk_expr(ti, ExpressionKind::Call(Box::new(expr), args));
+                }
+                Some(Ok((Token::LeftBracket, _))) => {
+                    ti.next();
+                    let index = self.parse_expression(ti)?;
+                    match self.expect_token(ti, "]")? {
+                        Token::RightBracket => {}
+                        t => return Err(self.err(format!("期望 ]，但得到 {:?}", t), ti)),
+                    }
+                    expr = self.mk_expr(ti, ExpressionKind::Member(Box::new(expr), format!("__index__{}", 0)));
+                    expr = self.mk_expr(ti, ExpressionKind::Call(
+                        Box::new(self.mk_expr(ti, ExpressionKind::Variable("__index__".to_string()))),
+                        vec![
+                            {
+                                if let ExpressionKind::Member(inner, _) = expr.node {
+                                    *inner
+                                } else {
+                                    unreachable!()
+                                }
+                            },
+                            index,
+                        ],
+                    ));
+                }
+                Some(Ok((Token::Dot, _))) => {
+                    ti.next();
+                    let member = match self.expect_token(ti, "成员名")? {
+                        Token::Ident(n) => n,
+                        t => return Err(self.err(format!("期望成员名，但得到 {:?}", t), ti)),
+                    };
+                    expr = self.mk_expr(ti, ExpressionKind::Member(Box::new(expr), member));
+                }
+                Some(Ok((Token::RangeExclusive, _))) => {
+                    ti.next();
+                    let right = self.parse_primary(ti)?;
+                    expr = self.mk_expr(ti, ExpressionKind::Range(Box::new(expr), Box::new(right), false));
+                }
+                Some(Ok((Token::RangeInclusive, _))) => {
+                    ti.next();
+                    let right = self.parse_primary(ti)?;
+                    expr = self.mk_expr(ti, ExpressionKind::Range(Box::new(expr), Box::new(right), true));
+                }
+                Some(Ok((Token::QuestionMark, _))) => {
+                    ti.next();
+                    expr = self.mk_expr(ti, ExpressionKind::TryPropagate(Box::new(expr)));
+                }
+                _ => break,
+            }
+        }
+        Ok(expr)
+    }
+
     fn parse_primary(&self, ti: &mut TokenIterator) -> Result<Expression, ParseError> {
         let tok = self.expect_token(ti, "表达式")?;
         match tok {
@@ -1501,7 +1569,27 @@ impl XParser {
             return Ok(args);
         }
         loop {
-            args.push(self.parse_expression(ti)?);
+            // 检查是否是命名参数 name: value
+            // 先保存当前状态以便回退
+            if let Some(Ok((Token::Ident(name), span))) = ti.peek().cloned() {
+                ti.next();  // consume identifier
+                if matches!(ti.peek(), Some(Ok((Token::Colon, _)))) {
+                    // 这是命名参数，跳过冒号，解析值
+                    ti.next();  // consume colon
+                    let value = self.parse_expression(ti)?;
+                    // 暂时忽略名称，只返回值
+                    args.push(value);
+                } else {
+                    // 不是命名参数，解析完整的表达式（包括成员访问等）
+                    // 创建变量表达式，然后继续解析后缀操作
+                    let var_expr = spanned(ExpressionKind::Variable(name), span);
+                    // 解析后续的后缀操作（如 .method()）
+                    let full_expr = self.parse_postfix_continue(ti, var_expr)?;
+                    args.push(full_expr);
+                }
+            } else {
+                args.push(self.parse_expression(ti)?);
+            }
             match ti.peek() {
                 Some(Ok((Token::Comma, _))) => {
                     ti.next();
@@ -1539,8 +1627,8 @@ impl XParser {
         // 大写：引用类型 (Integer, Float, Boolean, String, Character)
         let base_type = match base_type_name.as_str() {
             // 值类型（小写）
-            "integer" | "Int" => Type::Int,
-            "float" | "Float" => Type::Float,
+            "integer" | "Int" | "Int64" => Type::Int,
+            "float" | "Float" | "Float64" => Type::Float,
             "boolean" | "Bool" => Type::Bool,
             "string" | "String" => Type::String,
             "character" | "char" | "Char" => Type::Char,
@@ -1733,6 +1821,13 @@ impl XParser {
         // 先收集修饰符
         let mut modifiers = MethodModifiers::default();
 
+        // 检查是否是 let 开头的字段定义
+        if matches!(ti.peek(), Some(Ok((Token::Let, _)))) {
+            ti.next();
+            let field = self.parse_field_with_visibility(ti, modifiers.visibility)?;
+            return Ok(ClassMember::Field(field));
+        }
+
         // 解析 virtual/override/final/abstract/static 修饰符
         if matches!(ti.peek(), Some(Ok((Token::Virtual, _)))) {
             ti.next();
@@ -1781,15 +1876,21 @@ impl XParser {
             return Ok(ClassMember::Method(method));
         }
 
+        // 检查是否是 new 关键字开头的构造函数（带可见性修饰符）
+        if matches!(ti.peek(), Some(Ok((Token::New, _)))) {
+            ti.next();
+            return self.parse_constructor_with_visibility(ti, modifiers.visibility);
+        }
+
         // 否则可能是字段声明: [mut] name: Type 或 name: Type = value
         let field = self.parse_field_with_visibility(ti, modifiers.visibility)?;
         Ok(ClassMember::Field(field))
     }
 
-    /// 解析构造函数
+    /// 解析构造函数（不带可见性修饰符）
     /// new(params) { body }
     fn parse_constructor(&self, ti: &mut TokenIterator) -> Result<ClassMember, ParseError> {
-        // 解析可见性修饰符（在 new 之前已经解析过）
+        // 解析可见性修饰符
         let visibility = if matches!(ti.peek(), Some(Ok((Token::Private, _)))) {
             ti.next();
             Visibility::Private
@@ -1803,6 +1904,11 @@ impl XParser {
             Visibility::default()
         };
 
+        self.parse_constructor_with_visibility(ti, visibility)
+    }
+
+    /// 解析构造函数（带已解析的可见性修饰符）
+    fn parse_constructor_with_visibility(&self, ti: &mut TokenIterator, visibility: Visibility) -> Result<ClassMember, ParseError> {
         match self.expect_token(ti, "(")? {
             Token::LeftParen => {}
             t => return Err(self.err(format!("期望 (，但得到 {:?}", t), ti)),
