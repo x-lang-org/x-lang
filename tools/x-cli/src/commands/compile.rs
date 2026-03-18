@@ -134,6 +134,21 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             println!("{}", csharp_code);
             Ok(())
         }
+        "rust" => {
+            let parser = x_parser::parser::XParser::new();
+            let program = parser
+                .parse(content)
+                .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            let mut backend = x_codegen::rust_backend::RustBackend::new(
+                x_codegen::rust_backend::RustBackendConfig::default(),
+            );
+            let output = backend
+                .generate_from_ast(&program)
+                .map_err(|e| format!("Rust code generation error: {}", e))?;
+            let rust_code = String::from_utf8_lossy(&output.files[0].content);
+            println!("{}", rust_code);
+            Ok(())
+        }
         "hir" => {
             let (_, hir, _) = pipeline::run_pipeline(content)?;
             println!("{:#?}", hir);
@@ -145,7 +160,7 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         _ => Err(format!(
-            "未知 --emit 阶段: {}（支持: tokens, ast, zig, dotnet, csharp, hir, pir）",
+            "未知 --emit 阶段: {}（支持: tokens, ast, zig, dotnet, csharp, rust, hir, pir）",
             stage
         )),
     }

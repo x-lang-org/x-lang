@@ -13,6 +13,7 @@ pub mod xir;
 pub mod csharp_backend;
 pub mod java_backend;
 pub mod python_backend;
+pub mod rust_backend;
 pub mod target;
 pub mod typescript_backend;
 pub mod zig_backend;
@@ -139,6 +140,15 @@ pub fn get_code_generator(
                 },
             )));
         }
+        Target::Rust => {
+            return Ok(Box::new(rust_backend::RustBackend::new(
+                rust_backend::RustBackendConfig {
+                    output_dir: config.output_dir,
+                    optimize: config.optimize,
+                    debug_info: config.debug_info,
+                },
+            )));
+        }
     }
 }
 
@@ -180,6 +190,13 @@ impl DynamicCodeGenerator for typescript_backend::TypeScriptBackend {
         self.generate_from_ast(program).map_err(|e| {
             CodeGenError::GenerationError(format!("TypeScript backend error: {:?}", e))
         })
+    }
+}
+
+impl DynamicCodeGenerator for rust_backend::RustBackend {
+    fn generate_from_ast(&mut self, program: &Program) -> CodeGenResult<CodegenOutput> {
+        self.generate_from_ast(program)
+            .map_err(|e| CodeGenError::GenerationError(format!("Rust backend error: {:?}", e)))
     }
 }
 
