@@ -15,6 +15,8 @@ pub enum Target {
     Wasm,
     /// Python 源代码 - .py 文件
     Python,
+    /// Rust 源代码 - .rs 文件
+    Rust,
 }
 
 impl Target {
@@ -27,6 +29,7 @@ impl Target {
             Target::TypeScript => "typescript",
             Target::Wasm => "wasm",
             Target::Python => "python",
+            Target::Rust => "rust",
         }
     }
 
@@ -39,6 +42,7 @@ impl Target {
             "ts" | "typescript" => Some(Target::TypeScript),
             "wasm" => Some(Target::Wasm),
             "python" | "py" => Some(Target::Python),
+            "rust" | "rs" => Some(Target::Rust),
             _ => None,
         }
     }
@@ -52,6 +56,7 @@ impl Target {
             Target::TypeScript => "ts",
             Target::Wasm => "wasm",
             Target::Python => "py",
+            Target::Rust => "rs",
         }
     }
 
@@ -99,6 +104,8 @@ pub enum FileType {
     Python,
     /// Zig 源代码（.zig）
     Zig,
+    /// Rust 源代码（.rs）
+    Rust,
 }
 
 impl FileType {
@@ -116,6 +123,7 @@ impl FileType {
             FileType::Wat => "wat",
             FileType::Python => "py",
             FileType::Zig => "zig",
+            FileType::Rust => "rs",
         }
     }
 
@@ -133,6 +141,7 @@ impl FileType {
             FileType::Wat => "WebAssembly text",
             FileType::Python => "Python source",
             FileType::Zig => "Zig source",
+            FileType::Rust => "Rust source",
         }
     }
 }
