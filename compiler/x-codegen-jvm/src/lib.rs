@@ -558,9 +558,9 @@ impl CodeGenerator for JvmCodeGenerator {
         ))
     }
 
-    fn generate_from_pir(&mut self, _pir: &x_codegen::x_perceus::PerceusIR) -> Result<CodegenOutput, Self::Error> {
+    fn generate_from_lir(&mut self, _lir: &x_codegen::x_lir::Program) -> Result<CodegenOutput, Self::Error> {
         Err(JvmCodeGenError::Unimplemented(
-            "JVM backend PIR generation not yet implemented".to_string(),
+            "JVM backend LIR generation not yet implemented".to_string(),
         ))
     }
 }

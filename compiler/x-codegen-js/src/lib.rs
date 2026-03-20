@@ -673,7 +673,7 @@ impl CodeGenerator for JavaScriptCodeGenerator {
         ))
     }
 
-    fn generate_from_pir(&mut self, _pir: &x_codegen::x_perceus::PerceusIR) -> Result<CodegenOutput, Self::Error> {
+    fn generate_from_lir(&mut self, _lir: &x_codegen::x_lir::Program) -> Result<CodegenOutput, Self::Error> {
         Err(JavaScriptCodeGenError::Unimplemented(
             "JavaScript/TypeScript backend not yet implemented".to_string(),
         ))
@@ -776,19 +776,14 @@ mod tests {
     }
 
     #[test]
-    fn generate_from_pir_returns_unimplemented() {
-        use x_codegen::x_perceus::{PerceusIR, ReuseAnalysis};
+    fn generate_from_lir_returns_unimplemented() {
+        use x_codegen::x_lir::Program;
 
         let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
-        let pir = PerceusIR {
-            functions: vec![],
-            global_ops: vec![],
-            reuse_analysis: ReuseAnalysis {
-                reuse_pairs: vec![],
-                estimated_savings: 0,
-            },
+        let lir = Program {
+            declarations: vec![],
         };
-        let err = gen.generate_from_pir(&pir).expect_err("unimplemented");
+        let err = gen.generate_from_lir(&lir).expect_err("unimplemented");
         let msg = err.to_string();
         assert!(msg.contains("未实现") || msg.contains("not yet implemented"));
     }

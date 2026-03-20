@@ -15,7 +15,7 @@ pub mod perceus;
 pub use lower::{lower_hir_to_mir, MirLowerError, MirLowerResult};
 pub use mir::*;
 pub use perceus::{
-    analyze_hir, ControlFlowAnalysis, FunctionAnalysis, FunctionSignature, InterproceduralContext,
+    analyze_hir, BasicBlock, ControlFlowAnalysis, FunctionAnalysis, FunctionSignature, InterproceduralContext,
     MemoryOp, OwnershipFact, OwnershipState, ParamOwnershipBehavior, PerceusAnalyzer, PerceusError,
     PerceusIR, ReturnOwnershipBehavior, ReuseAnalysis, ReusePair, SourcePos,
 };

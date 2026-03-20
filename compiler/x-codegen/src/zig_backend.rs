@@ -7,7 +7,7 @@ use std::fmt::Write;
 use std::path::PathBuf;
 use x_parser::ast::{self, ExpressionKind, StatementKind, Program as AstProgram};
 use x_hir;
-use x_perceus;
+use x_mir;
 
 /// 编译目标
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
@@ -217,7 +217,7 @@ impl ZigBackend {
     }
 
     /// 从 PerceusIR 生成代码（带内存管理）
-    pub fn generate_from_pir(&mut self, pir: &x_perceus::PerceusIR) -> ZigResult<super::CodegenOutput> {
+    pub fn generate_from_pir(&mut self, pir: &x_mir::PerceusIR) -> ZigResult<super::CodegenOutput> {
         self.output.clear();
         self.indent = 0;
         self.global_vars.clear();
@@ -270,7 +270,7 @@ impl ZigBackend {
     }
 
     /// Emit a function from PerceusIR with memory management
-    fn emit_pir_function(&mut self, func: &x_perceus::FunctionAnalysis) -> ZigResult<()> {
+    fn emit_pir_function(&mut self, func: &x_mir::FunctionAnalysis) -> ZigResult<()> {
         let params = if func.param_ownership.is_empty() {
             "".to_string()
         } else {
@@ -301,24 +301,24 @@ impl ZigBackend {
     }
 
     /// Emit a memory operation
-    fn emit_memory_op(&mut self, op: &x_perceus::MemoryOp) -> ZigResult<()> {
+    fn emit_memory_op(&mut self, op: &x_mir::MemoryOp) -> ZigResult<()> {
         match op {
-            x_perceus::MemoryOp::Dup { variable, target, .. } => {
+            x_mir::MemoryOp::Dup { variable, target, .. } => {
                 // In Zig, dup is typically allocator.dupe()
                 self.line(&format!(
                     "var {} = try allocator.dupe(u8, {});",
                     target, variable
                 ))?;
             }
-            x_perceus::MemoryOp::Drop { variable, .. } => {
+            x_mir::MemoryOp::Drop { variable, .. } => {
                 // In Zig, we use defer for cleanup
                 self.line(&format!("defer allocator.free({});", variable))?;
             }
-            x_perceus::MemoryOp::Reuse { from, to, .. } => {
+            x_mir::MemoryOp::Reuse { from, to, .. } => {
                 // Memory reuse - reusing memory from one variable to another
                 self.line(&format!("var {} = {}; // reuse", to, from))?;
             }
-            x_perceus::MemoryOp::Alloc { variable, size, .. } => {
+            x_mir::MemoryOp::Alloc { variable, size, .. } => {
                 self.line(&format!(
                     "var {} = try allocator.alloc(u8, {});",
                     variable, size
@@ -329,7 +329,7 @@ impl ZigBackend {
     }
 
     /// Emit a basic block from control flow analysis
-    fn emit_basic_block(&mut self, block: &x_perceus::BasicBlock) -> ZigResult<()> {
+    fn emit_basic_block(&mut self, block: &x_mir::BasicBlock) -> ZigResult<()> {
         self.line(&format!("// Block {} (statements: {:?})", block.id, block.statements))?;
 
         // In a full implementation, we would emit the actual statements here
@@ -2657,7 +2657,7 @@ mod tests {
 
     #[test]
     fn test_generate_from_pir_empty() {
-        use x_perceus::{PerceusIR, ReuseAnalysis};
+        use x_mir::{PerceusIR, ReuseAnalysis};
 
         let pir = PerceusIR {
             functions: vec![],
@@ -2677,7 +2677,7 @@ mod tests {
 
     #[test]
     fn test_generate_from_pir_with_memory_ops() {
-        use x_perceus::{FunctionAnalysis, MemoryOp, OwnershipFact, OwnershipState, PerceusIR, ReuseAnalysis, ControlFlowAnalysis, BasicBlock, SourcePos};
+        use x_mir::{FunctionAnalysis, MemoryOp, OwnershipFact, OwnershipState, PerceusIR, ReuseAnalysis, ControlFlowAnalysis, BasicBlock, SourcePos};
 
         let pir = PerceusIR {
             functions: vec![FunctionAnalysis {
