@@ -316,6 +316,11 @@ impl RustBackend {
             ExpressionKind::Parenthesized(inner) => self.expr_needs_dynamic(inner),
             ExpressionKind::Wait(_, exprs) => exprs.iter().any(|e| self.expr_needs_dynamic(e)),
             ExpressionKind::TryPropagate(e) => self.expr_needs_dynamic(e),
+            ExpressionKind::Match(discriminant, cases) => {
+                self.expr_needs_dynamic(discriminant)
+                    || cases.iter().any(|c| c.body.statements.iter().any(|s| self.stmt_needs_dynamic(s))
+                        || c.guard.as_ref().map_or(false, |g| self.expr_needs_dynamic(g)))
+            }
             ExpressionKind::Handle(e, handlers) => {
                 self.expr_needs_dynamic(e) || handlers.iter().any(|(_, h)| self.expr_needs_dynamic(h))
             }
@@ -1629,6 +1634,11 @@ impl RustBackend {
             ExpressionKind::TryPropagate(expr) => {
                 let expr_str = self.emit_expr(expr)?;
                 Ok(format!("{}?", expr_str))
+            }
+            ExpressionKind::Match(discriminant, _match_cases) => {
+                // 模式匹配表达式 - 暂时简化处理，返回 discriminant
+                // TODO: 完整的 match 表达式支持
+                self.emit_expr(discriminant)
             }
         }
     }

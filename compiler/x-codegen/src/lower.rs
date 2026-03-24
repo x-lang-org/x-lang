@@ -1358,6 +1358,11 @@ fn lower_hir_expression(expr: &HirExpression) -> LowerResult<Expression> {
             // 创建一个简单的表达式，实际实现需要错误处理支持
             Ok(inner)
         }
+        HirExpression::Match(discriminant, _cases) => {
+            // 模式匹配表达式的 lowering - 暂时简化处理，只 lower discriminant
+            // TODO: 完整的模式匹配 lowering 需要在 x_lir 中添加 Match 变体
+            lower_hir_expression(discriminant)
+        }
     }
 }
 

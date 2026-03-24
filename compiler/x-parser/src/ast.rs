@@ -519,6 +519,9 @@ pub enum ExpressionKind {
     /// 错误传播：expr? 用于 Result/Option 的提前返回
     TryPropagate(Box<Expression>),
 
+    /// 模式匹配表达式（given 表达式）: given value { is pattern => expr ... }
+    Match(Box<Expression>, Vec<MatchCase>),
+
     // 其他
     Parenthesized(Box<Expression>),
 }

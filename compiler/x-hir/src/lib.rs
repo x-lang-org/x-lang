@@ -354,6 +354,8 @@ pub enum HirExpression {
     TryPropagate(Box<HirExpression>),
     /// 类型注解表达式
     Typed(Box<HirExpression>, HirType),
+    /// 模式匹配表达式 (given 表达式)
+    Match(Box<HirExpression>, Vec<(x_parser::ast::Pattern, Option<Box<HirExpression>>, HirBlock)>),
 }
 
 /// HIR 字面量
@@ -1369,6 +1371,24 @@ impl HirConverter {
             ExpressionKind::Parenthesized(inner) => {
                 self.convert_expression(inner)
             }
+            ExpressionKind::Match(discriminant, cases) => {
+                // Convert match expression: discriminant + all case bodies
+                let hir_discriminant = Box::new(self.convert_expression(discriminant)?);
+                let mut hir_cases = Vec::new();
+                for case in cases {
+                    // Convert each case: already has block structure
+                    let mut hir_stmts = Vec::new();
+                    for stmt in &case.body.statements {
+                        hir_stmts.push(self.convert_statement(stmt)?);
+                    }
+                    let hir_guard = match &case.guard {
+                        Some(g) => Some(Box::new(self.convert_expression(g)?)),
+                        None => None,
+                    };
+                    hir_cases.push((case.pattern.clone(), hir_guard, HirBlock { statements: hir_stmts }));
+                }
+                Ok(HirExpression::Match(hir_discriminant, hir_cases))
+            }
         }
     }
 
@@ -1617,6 +1637,16 @@ pub fn desugar_expression(expr: HirExpression) -> HirExpression {
         }
         HirExpression::Lambda(params, body) => {
             HirExpression::Lambda(params, desugar_block(body))
+        }
+        HirExpression::Match(discriminant, cases) => {
+            let desugared_discriminant = Box::new(desugar_expression(*discriminant));
+            let mut desugared_cases = Vec::new();
+            for (pattern, guard, body) in cases {
+                let desugared_guard = guard.map(|g| Box::new(desugar_expression(*g)));
+                let desugared_body = desugar_block(body);
+                desugared_cases.push((pattern, desugared_guard, desugared_body));
+            }
+            HirExpression::Match(desugared_discriminant, desugared_cases)
         }
         _ => expr,
     }
@@ -1926,6 +1956,15 @@ fn analyze_expression(expr: &HirExpression, result: &mut SemanticAnalysisResult)
         HirExpression::Typed(inner, _) => {
             analyze_expression(inner, result);
         }
+        HirExpression::Match(discriminant, cases) => {
+            analyze_expression(discriminant, result);
+            for (_, guard, body) in cases {
+                if let Some(guard) = guard {
+                    analyze_expression(guard, result);
+                }
+                analyze_block(body, result);
+            }
+        }
         _ => {}
     }
 }
@@ -2219,6 +2258,16 @@ pub fn constant_fold_expression(expr: HirExpression) -> HirExpression {
         }
         HirExpression::Lambda(params, body) => {
             HirExpression::Lambda(params, constant_fold_block(body))
+        }
+        HirExpression::Match(discriminant, cases) => {
+            let discriminant = Box::new(constant_fold_expression(*discriminant));
+            let mut folded_cases = Vec::new();
+            for (pattern, guard, body) in cases {
+                let folded_guard = guard.map(|g| Box::new(constant_fold_expression(*g)));
+                let folded_body = constant_fold_block(body);
+                folded_cases.push((pattern, folded_guard, folded_body));
+            }
+            HirExpression::Match(discriminant, folded_cases)
         }
         other => other,
     }

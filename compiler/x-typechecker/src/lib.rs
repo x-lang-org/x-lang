@@ -98,6 +98,19 @@ struct ModuleInfo {
     exports: HashSet<String>,
 }
 
+/// 枚举变体信息
+#[derive(Debug, Clone)]
+struct EnumVariantInfo {
+    /// 所属枚举名
+    enum_name: String,
+    /// 变体名（如 Some, None, Ok, Err）
+    variant_name: String,
+    /// 变体数据类型（Unit、Tuple 或 Record）
+    data: x_parser::ast::EnumVariantData,
+    /// 变体的类型（构造后的类型）
+    variant_type: Type,
+}
+
 /// 类型环境
 struct TypeEnv {
     variable_scopes: Vec<HashMap<String, Type>>,
@@ -108,6 +121,8 @@ struct TypeEnv {
     traits: HashMap<String, TraitInfo>,
     /// 枚举定义
     enums: HashMap<String, x_parser::ast::EnumDecl>,
+    /// 枚举变体（如 Some, None, Ok, Err）
+    enum_variants: HashMap<String, EnumVariantInfo>,
     /// 类型别名
     type_aliases: HashMap<String, Type>,
     /// 类型变量生成器（用于 HM 类型推断）
@@ -130,6 +145,7 @@ impl TypeEnv {
             classes: HashMap::new(),
             traits: HashMap::new(),
             enums: HashMap::new(),
+            enum_variants: HashMap::new(),
             type_aliases: HashMap::new(),
             type_var_gen: TypeVarGenerator::new(),
             substitution: HashMap::new(),
@@ -139,11 +155,72 @@ impl TypeEnv {
         }
     }
 
-    /// 注册枚举
+    /// 注册枚举及其变体
     fn register_enum(&mut self, name: String, enum_decl: x_parser::ast::EnumDecl) {
-        self.enums.insert(name.clone(), enum_decl);
+        self.enums.insert(name.clone(), enum_decl.clone());
+
+        // 收集类型参数名
+        let type_params: Vec<String> = enum_decl.type_parameters
+            .iter()
+            .map(|tp| tp.name.clone())
+            .collect();
+
+        // 如果有泛型参数，使用 Type::Generic；否则使用具体类型
+        let return_type = if type_params.is_empty() {
+            Type::Generic(name.clone())
+        } else {
+            // 对于泛型枚举，返回 Type::Generic，表示需要类型实例化
+            Type::Generic(name.clone())
+        };
+
         // 同时作为类型别名注册
-        self.type_aliases.insert(name.clone(), Type::Generic(name));
+        self.type_aliases.insert(name.clone(), return_type.clone());
+
+        // 注册枚举的所有变体
+        for variant in &enum_decl.variants {
+            let variant_name = variant.name.clone();
+            let full_name = format!("{}::{}", name, variant_name);
+
+            // 计算变体的类型
+            let variant_type = match &variant.data {
+                x_parser::ast::EnumVariantData::Unit => {
+                    // Option::None -> Option<T>
+                    return_type.clone()
+                }
+                x_parser::ast::EnumVariantData::Tuple(types) => {
+                    // Option::Some(T) -> function(T) -> Option<T>
+                    // 将类型转换为 Box<Type> 包装
+                    let param_types: Vec<Box<Type>> = types.iter()
+                        .map(|t| Box::new(t.clone()))
+                        .collect();
+                    // 构建函数类型: (T) -> Option<T>
+                    Type::Function(param_types, Box::new(return_type.clone()))
+                }
+                x_parser::ast::EnumVariantData::Record(fields) => {
+                    // 记录类型的变体
+                    let field_types: Vec<Box<Type>> = fields.iter()
+                        .map(|(_, ty)| Box::new(ty.clone()))
+                        .collect();
+                    Type::Function(field_types, Box::new(return_type.clone()))
+                }
+            };
+
+            let variant_info = EnumVariantInfo {
+                enum_name: name.clone(),
+                variant_name: variant_name.clone(),
+                data: variant.data.clone(),
+                variant_type,
+            };
+
+            // 同时用简单名和完整名注册
+            self.enum_variants.insert(variant_name, variant_info.clone());
+            self.enum_variants.insert(full_name, variant_info);
+        }
+    }
+
+    /// 获取枚举变体信息
+    fn get_enum_variant(&self, name: &str) -> Option<&EnumVariantInfo> {
+        self.enum_variants.get(name)
     }
 
     /// 获取枚举定义
@@ -390,7 +467,7 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
 
 /// 检查程序
 fn check_program(program: &Program, env: &mut TypeEnv) -> Result<(), TypeError> {
-    // 第一遍：收集所有类型声明（类、trait、类型别名、函数签名）
+    // 第一遍：收集所有类型声明（类、trait、类型别名、函数签名、枚举）
     for decl in &program.declarations {
         match decl {
             Declaration::Class(class_decl) => {
@@ -405,6 +482,10 @@ fn check_program(program: &Program, env: &mut TypeEnv) -> Result<(), TypeError> 
             Declaration::Function(func_decl) => {
                 // 收集函数签名（不检查函数体）
                 collect_function_signature(func_decl, env)?;
+            }
+            Declaration::Enum(enum_decl) => {
+                // 注册枚举及其变体
+                env.register_enum(enum_decl.name.clone(), enum_decl.clone());
             }
             _ => {}
         }
@@ -2503,6 +2584,19 @@ pub fn infer_expression_effects(expr: &Expression, env: &TypeEnv) -> Result<Effe
         ExpressionKind::Parenthesized(inner) => {
             effects.extend(infer_expression_effects(inner, env)?);
         }
+        // 模式匹配：检查所有分支的效果
+        ExpressionKind::Match(discriminant, cases) => {
+            effects.extend(infer_expression_effects(discriminant, env)?);
+            for case in cases {
+                for stmt in &case.body.statements {
+                    // TODO: 正确处理作用域
+                    effects.extend(infer_statement_effects(stmt, env)?);
+                }
+                if let Some(guard) = &case.guard {
+                    effects.extend(infer_expression_effects(guard, env)?);
+                }
+            }
+        }
     }
 
     Ok(effects)
@@ -2943,6 +3037,9 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             } else if env.get_enum(name).is_some() {
                 // 枚举类型名，返回枚举类型
                 Ok(Type::Generic(name.clone()))
+            } else if let Some(variant_info) = env.get_enum_variant(name) {
+                // 枚举变体（如 Some, None, Ok, Err）
+                Ok(variant_info.variant_type.clone())
             } else if is_builtin_type_name(name) {
                 // 内置类型名（如 Pointer, Void, CLong 等）
                 Ok(Type::Generic(name.clone()))
@@ -3549,6 +3646,24 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                     actual: format!("{}", inner_type),
                     span: expr.span,
                 }),
+            }
+        }
+        ExpressionKind::Match(discriminant, cases) => {
+            // 模式匹配表达式：所有分支必须返回相同类型
+            let _discriminant_ty = infer_expression_type(discriminant, env)?;
+            // 暂时简化处理：返回第一个分支的类型
+            // TODO: 检查所有分支返回相同类型
+            if let Some(first_case) = cases.first() {
+                if let Some(first_stmt) = first_case.body.statements.first() {
+                    if let StatementKind::Expression(expr) = &first_stmt.node {
+                        return infer_expression_type(expr, env);
+                    }
+                }
+                // 如果分支没有表达式，返回 Unit
+                Ok(Type::Unit)
+            } else {
+                // 空匹配，返回 Unit
+                Ok(Type::Unit)
             }
         }
     }

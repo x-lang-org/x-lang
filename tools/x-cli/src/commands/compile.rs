@@ -22,9 +22,16 @@ pub fn exec(
     // Default compile: use Zig backend
     // Parse the program
     let parser = x_parser::parser::XParser::new();
-    let program = parser
+    let mut program = parser
         .parse(&content)
         .map_err(|e| format!("解析错误: {}", e))?;
+
+    // 自动导入标准库 prelude
+    let prelude_decls = crate::pipeline::parse_std_prelude()?;
+    // 将 prelude 声明插入到用户程序最前面
+    let mut new_decls = prelude_decls;
+    new_decls.extend(program.declarations);
+    program.declarations = new_decls;
 
     // Type check
     pipeline::type_check_with_big_stack(&program)?;
@@ -105,17 +112,27 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "ast" => {
             let parser = x_parser::parser::XParser::new();
-            let program = parser
+            let mut program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            // 自动导入标准库 prelude
+            let prelude_decls = crate::pipeline::parse_std_prelude()?;
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
             println!("{:#?}", program);
             Ok(())
         }
         "zig" => {
             let parser = x_parser::parser::XParser::new();
-            let program = parser
+            let mut program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            // 自动导入标准库 prelude
+            let prelude_decls = crate::pipeline::parse_std_prelude()?;
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
             let mut backend =
                 x_codegen::zig_backend::ZigBackend::new(x_codegen::zig_backend::ZigBackendConfig::default());
             let output = backend
@@ -127,9 +144,14 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "dotnet" | "csharp" => {
             let parser = x_parser::parser::XParser::new();
-            let program = parser
+            let mut program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            // 自动导入标准库 prelude
+            let prelude_decls = crate::pipeline::parse_std_prelude()?;
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
             let mut backend = x_codegen::csharp_backend::CSharpBackend::new(
                 x_codegen::csharp_backend::CSharpBackendConfig::default(),
             );
@@ -142,9 +164,14 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "rust" => {
             let parser = x_parser::parser::XParser::new();
-            let program = parser
+            let mut program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            // 自动导入标准库 prelude
+            let prelude_decls = crate::pipeline::parse_std_prelude()?;
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
             let mut backend = x_codegen::rust_backend::RustBackend::new(
                 x_codegen::rust_backend::RustBackendConfig::default(),
             );
@@ -157,9 +184,14 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "c" => {
             let parser = x_parser::parser::XParser::new();
-            let program = parser
+            let mut program = parser
                 .parse(content)
                 .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            // 自动导入标准库 prelude
+            let prelude_decls = crate::pipeline::parse_std_prelude()?;
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
             let mut backend = x_codegen::c_backend::CBackend::new(
                 x_codegen::c_backend::CBackendConfig::default(),
             );

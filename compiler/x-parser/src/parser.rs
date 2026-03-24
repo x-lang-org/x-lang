@@ -1595,29 +1595,91 @@ impl XParser {
             Token::Ident(name) => {
                 // 检查是否是函数调用
                 if matches!(ti.peek(), Some(Ok((Token::LeftParen, _)))) {
-                    // 特殊处理Some和None模式
-                    if name == "Some" || name == "None" {
-                        // 这里应该解析为模式，但暂时返回变量
-                        Ok(self.mk_expr(ti, ExpressionKind::Variable(name)))
+                    // Some/None/Ok/Err 等作为枚举构造函数处理
+                    ti.next();
+                    let (positional_args, named_fields) = self.parse_call_or_record_arguments(ti)?;
+                    if let Some(fields) = named_fields {
+                        // Record construction: TypeName(field1: value1, field2: value2)
+                        Ok(self.mk_expr(ti, ExpressionKind::Record(name, fields)))
                     } else {
-                        ti.next();
-                        let (positional_args, named_fields) = self.parse_call_or_record_arguments(ti)?;
-                        if let Some(fields) = named_fields {
-                            // Record construction: TypeName(field1: value1, field2: value2)
-                            Ok(self.mk_expr(ti, ExpressionKind::Record(name, fields)))
-                        } else {
-                            // Regular function call
-                            Ok(self.mk_expr(ti, ExpressionKind::Call(
-                                Box::new(self.mk_expr(ti, ExpressionKind::Variable(name))),
-                                positional_args,
-                            )))
-                        }
+                        // Regular function call (including enum constructors like Some, None, Ok, Err)
+                        Ok(self.mk_expr(ti, ExpressionKind::Call(
+                            Box::new(self.mk_expr(ti, ExpressionKind::Variable(name))),
+                            positional_args,
+                        )))
                     }
                 } else {
                     Ok(self.mk_expr(ti, ExpressionKind::Variable(name)))
                 }
             }
             Token::When => self.parse_when(ti),
+            Token::Given => {
+                // given expression { ... match cases ... }
+                ti.next();
+                let discriminant = self.parse_expression(ti)?;
+                match self.expect_token(ti, "{")? {
+                    Token::LeftBrace => {}
+                    t => return Err(self.err(format!("期望 {{，但得到 {:?}", t), ti)),
+                }
+                let mut cases = Vec::new();
+                while let Some(token_result) = ti.peek() {
+                    match token_result {
+                        Ok((Token::RightBrace, _)) => {
+                            ti.next();
+                            break;
+                        }
+                        Ok((Token::Is, _)) => {
+                            ti.next();
+                            let pattern = self.parse_pattern(ti)?;
+                            match self.expect_token(ti, "=>")? {
+                                Token::FatArrow => {}
+                                t => return Err(self.err(format!("期望 =>，但得到 {:?}", t), ti)),
+                            }
+                            let body_expr = self.parse_expression(ti)?;
+                            // 将表达式包装为单个语句的块
+                            let body = Block {
+                                statements: vec![self.mk_stmt(ti, StatementKind::Expression(body_expr))],
+                            };
+                            cases.push(MatchCase {
+                                pattern,
+                                guard: None,
+                                body,
+                            });
+                            // 可选逗号分隔
+                            if matches!(ti.peek(), Some(Ok((Token::Comma, _)))) {
+                                ti.next();
+                            }
+                        }
+                        Ok((Token::When, _)) => {
+                            // guard 模式: is pattern when condition => body
+                            ti.next();
+                            let pattern = self.parse_pattern(ti)?;
+                            let guard = self.parse_expression(ti)?;
+                            match self.expect_token(ti, "=>")? {
+                                Token::FatArrow => {}
+                                t => return Err(self.err(format!("期望 =>，但得到 {:?}", t), ti)),
+                            }
+                            let body_expr = self.parse_expression(ti)?;
+                            // 将表达式包装为单个语句的块
+                            let body = Block {
+                                statements: vec![self.mk_stmt(ti, StatementKind::Expression(body_expr))],
+                            };
+                            cases.push(MatchCase {
+                                pattern,
+                                guard: Some(guard),
+                                body,
+                            });
+                            if matches!(ti.peek(), Some(Ok((Token::Comma, _)))) {
+                                ti.next();
+                            }
+                        }
+                        _ => {
+                            return Err(self.err("期望 is 开始匹配分支，或 } 结束匹配", ti));
+                        }
+                    }
+                }
+                Ok(self.mk_expr(ti, ExpressionKind::Match(Box::new(discriminant), cases)))
+            }
             Token::LeftParen => {
                 if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
                     // 处理空括号 () 作为 Unit 类型

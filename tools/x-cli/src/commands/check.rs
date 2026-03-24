@@ -56,9 +56,15 @@ fn check_file(file: &str) -> Result<(), String> {
         std::fs::read_to_string(file).map_err(|e| format!("无法读取文件 {}: {}", file, e))?;
 
     let parser = x_parser::parser::XParser::new();
-    let program = parser
+    let mut program = parser
         .parse(&content)
         .map_err(|e| pipeline::format_parse_error(file, &content, &e))?;
+
+    // 自动导入标准库 prelude
+    let prelude_decls = crate::pipeline::parse_std_prelude()?;
+    let mut new_decls = prelude_decls;
+    new_decls.extend(program.declarations);
+    program.declarations = new_decls;
 
     pipeline::type_check_with_big_stack_formatted(&program, file, &content)?;
 
@@ -73,7 +79,20 @@ fn check_single_file(path: &std::path::Path, error_count: &mut usize) -> Result<
     let parser = x_parser::parser::XParser::new();
     let path_str = path.display().to_string();
     match parser.parse(&content) {
-        Ok(program) => {
+        Ok(mut program) => {
+            // 自动导入标准库 prelude
+            match crate::pipeline::parse_std_prelude() {
+                Ok(prelude_decls) => {
+                    let mut new_decls = prelude_decls;
+                    new_decls.extend(program.declarations);
+                    program.declarations = new_decls;
+                }
+                Err(e) => {
+                    crate::utils::error(&e);
+                    *error_count += 1;
+                    return Ok(());
+                }
+            }
             if let Err(e) = pipeline::type_check_with_big_stack_formatted(&program, &path_str, &content) {
                 crate::utils::error(&e);
                 *error_count += 1;

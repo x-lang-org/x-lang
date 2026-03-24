@@ -1501,6 +1501,26 @@ impl ZigBackend {
                 let e = self.emit_expr(inner_expr)?;
                 Ok(format!("{} orelse return error.PropagateError", e))
             }
+            ExpressionKind::Match(discriminant, cases) => {
+                // given discriminant { ... } -> switch on discriminant
+                let d = self.emit_expr(discriminant)?;
+                let mut output = String::new();
+                output.push_str(&format!("switch ({}) {{\n", d));
+                // TODO: proper pattern matching lowering to Zig switch
+                // For now, just output as a series of if-else
+                for case in cases {
+                    // For simple exhaustiveness matching in prelude, output the first matching case body expression
+                    // TODO: proper pattern matching
+                    for stmt in &case.body.statements {
+                        if let StatementKind::Expression(expr) = &stmt.node {
+                            let body_str = self.emit_expr(expr)?;
+                            output.push_str(&format!("    => {}\n", body_str));
+                        }
+                    }
+                }
+                output.push_str("}");
+                Ok(output)
+            }
         }
     }
 

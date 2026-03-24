@@ -508,6 +508,12 @@ impl FunctionLowerer {
             }
             HirExpression::TryPropagate(expr) => self.lower_expression(expr),
             HirExpression::Typed(expr, _) => self.lower_expression(expr),
+            HirExpression::Match(discriminant, _cases) => {
+                // Lower the discriminant
+                self.lower_expression(discriminant)?;
+                // For now, just lower the discriminant - full pattern matching lowering to MIR is TODO
+                Ok(MirOperand::Constant(MirConstant::Unit))
+            }
         }
     }
 

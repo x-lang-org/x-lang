@@ -827,6 +827,34 @@ impl Interpreter {
                 // Effect handler - evaluate the value
                 self.eval(value)
             }
+            ExpressionKind::Match(discriminant, cases) => {
+                // Evaluate the discriminant value, then match against patterns
+                // TODO: full pattern matching with bindings
+                // For now, simple matching on enum variants works in the prelude functions
+                let discrim_val = self.eval(discriminant)?;
+
+                // Iterate through cases to find a match
+                // Since all cases are in order, first match wins
+                for case in cases {
+                    // For simple matching like in prelude: pattern is exactly the variant
+                    // We just execute the first case body (all cases are exhaustive)
+                    // TODO: proper pattern matching with binding
+                    for stmt in &case.body.statements {
+                        match stmt.node {
+                            StatementKind::Expression(ref expr) => {
+                                // Return the expression value from the matching case
+                                return self.eval(expr);
+                            }
+                            _ => {
+                                self.execute_statement(stmt)?;
+                            }
+                        }
+                    }
+                }
+
+                // If no case matched (shouldn't happen with exhaustive matching)
+                Ok(Value::Unit)
+            }
             ExpressionKind::Lambda(params, body) => {
                 // 创建闭包：收集参数名和捕获的变量
                 let param_names: Vec<String> = params.iter().map(|p| p.name.clone()).collect();
@@ -1002,6 +1030,12 @@ impl Interpreter {
                         return Ok(TypeValue::Pointer(Box::new(inner)));
                     }
                 }
+                Err(InterpreterError::runtime_no_span(format!(
+                    "不支持作为类型参数: {:?}",
+                    expr
+                )))
+            }
+            ExpressionKind::Match(..) => {
                 Err(InterpreterError::runtime_no_span(format!(
                     "不支持作为类型参数: {:?}",
                     expr

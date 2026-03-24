@@ -50,9 +50,22 @@ fn run_file(file: &str, quiet: bool) -> Result<bool, String> {
         std::fs::read_to_string(file).map_err(|e| format!("无法读取文件 {}: {}", file, e))?;
 
     let parser = x_parser::parser::XParser::new();
-    let program = parser
+    let mut program = parser
         .parse(&content)
         .map_err(|e| format!("解析错误: {}", e))?;
+
+    // 自动导入标准库 prelude
+    match crate::pipeline::parse_std_prelude() {
+        Ok(prelude_decls) => {
+            let mut new_decls = prelude_decls;
+            new_decls.extend(program.declarations);
+            program.declarations = new_decls;
+        }
+        Err(e) => {
+            // 静默跳过 prelude 加载失败，继续运行
+            log::warn!("无法加载 prelude: {}", e);
+        }
+    }
 
     pipeline::type_check_with_big_stack(&program)?;
 
