@@ -174,6 +174,8 @@ pub enum MirOperand {
     Constant(MirConstant),
     /// 参数
     Param(usize),
+    /// 全局变量或函数引用
+    Global(String),
 }
 
 /// MIR 常量

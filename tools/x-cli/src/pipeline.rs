@@ -88,6 +88,11 @@ impl ModuleResolver {
         }
         Ok(None)
     }
+
+    /// 注册模块导出符号
+    pub fn register_exports(&mut self, module_name: &str, exports: HashSet<String>) {
+        self.module_exports.insert(module_name.to_string(), exports);
+    }
 }
 
 impl Default for ModuleResolver {
@@ -181,8 +186,8 @@ pub fn resolve_imports(
                 for symbol in symbols {
                     match symbol {
                         x_parser::ast::ImportSymbol::All => {
-                            // 导入所有
-                            insert_module_declarations(program, original_idx, module_program);
+                            // 导入所有 - 需要克隆因为 module_program 可能被多次使用
+                            insert_module_declarations(program, original_idx, module_program.clone());
                         }
                         x_parser::ast::ImportSymbol::Named(name, alias) => {
                             // 导入特定符号 (name is String, alias is Option<String>)

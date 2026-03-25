@@ -1,7 +1,9 @@
 use crate::pipeline;
 use crate::utils;
+use x_codegen::c_backend::{CBackend, CBackendConfig, CStandard};
 use x_codegen::zig_backend::ZigTarget;
-use x_codegen::CodeGenerator;
+use x_codegen::{get_code_generator, CodeGenConfig, CodeGenerator};
+use x_codegen::Target;
 
 #[allow(unused_variables)]
 pub fn exec(
@@ -19,75 +21,128 @@ pub fn exec(
         return emit_stage(file, &content, stage);
     }
 
-    // Default compile: use Zig backend
-    // Parse the program
-    let parser = x_parser::parser::XParser::new();
-    let mut program = parser
-        .parse(&content)
-        .map_err(|e| format!("解析错误: {}", e))?;
-
-    // 自动导入标准库 prelude
-    let prelude_decls = crate::pipeline::parse_std_prelude()?;
-    // 将 prelude 声明插入到用户程序最前面
-    let mut new_decls = prelude_decls;
-    new_decls.extend(program.declarations);
-    program.declarations = new_decls;
-
-    // Type check
-    pipeline::type_check_with_big_stack(&program)?;
-
     let out_path = output.unwrap_or_else(|| file.strip_suffix(".x").unwrap_or(file));
 
     // Parse target
-    let zig_target = match target {
-        None | Some("native") => ZigTarget::Native,
-        Some("wasm" | "wasm32-wasi") => ZigTarget::Wasm32Wasi,
-        Some("wasm32-freestanding") => ZigTarget::Wasm32Freestanding,
+    let parsed_target = match target {
+        None | Some("native") => Target::Native,
+        Some("c") => Target::C,
+        Some("wasm" | "wasm32-wasi") => Target::Wasm,
         Some(t) => {
-            return Err(format!(
-                "未知目标平台: {}（支持: native, wasm, wasm32-wasi, wasm32-freestanding）",
+            if let Some(t) = Target::from_str(t) {
                 t
-            ))
+            } else {
+                return Err(format!(
+                    "未知目标平台: {}（支持: native, wasm, wasm32-wasi, wasm32-freestanding, c）",
+                    t
+                ));
+            }
         }
     };
 
-    // Use Zig backend by default
-    let mut backend =
-        x_codegen::zig_backend::ZigBackend::new(x_codegen::zig_backend::ZigBackendConfig {
-            output_dir: None,
-            optimize: release,
-            debug_info: !release,
-            target: zig_target,
-        });
+    // Run full pipeline for all targets except direct AST generation
+    // Parse the program
+    let pipeline_output = pipeline::run_pipeline(&content)?;
 
-    // Display target info
-    if zig_target != ZigTarget::Native {
-        utils::status("Target", zig_target.as_zig_target());
-    }
+    let codegen_config = CodeGenConfig {
+        target: parsed_target,
+        output_dir: None,
+        optimize: release,
+        debug_info: !release,
+    };
 
-    // Generate Zig code from AST (direct code generation)
-    let codegen_output = backend
-        .generate_from_ast(&program)
-        .map_err(|e| format!("代码生成失败: {}", e))?;
+    let mut generator = get_code_generator(parsed_target, codegen_config)
+        .map_err(|e| format!("获取代码生成器失败: {}", e))?;
 
-    let zig_code = String::from_utf8_lossy(&codegen_output.files[0].content);
+    // Generate from LIR using the full pipeline
+    let codegen_output = match parsed_target {
+        Target::C => {
+            // C backend supports LIR generation
+            generator.generate_from_lir(&pipeline_output.lir)
+                .map_err(|e| format!("C代码生成失败: {}", e))
+        }
+        Target::Native => {
+            // For native Zig backend, we still use direct AST generation
+            let zig_target = match target {
+                None | Some("native") => ZigTarget::Native,
+                Some("wasm" | "wasm32-wasi") => ZigTarget::Wasm32Wasi,
+                Some("wasm32-freestanding") => ZigTarget::Wasm32Freestanding,
+                _ => ZigTarget::Native,
+            };
+            let mut backend = x_codegen::zig_backend::ZigBackend::new(
+                x_codegen::zig_backend::ZigBackendConfig {
+                    output_dir: None,
+                    optimize: release,
+                    debug_info: !release,
+                    target: zig_target,
+                }
+            );
+            let output = backend.generate_from_ast(&pipeline_output.ast)
+                .map_err(|e| format!("Zig代码生成失败: {}", e))?;
 
-    // If --no-link is specified, just output the Zig code
+            // Get the generated code
+            let zig_code = String::from_utf8_lossy(&output.files[0].content);
+
+            // Compile Zig code to executable
+            let output_path = std::path::PathBuf::from(out_path);
+
+            // Display target info
+            if let Some(t_str) = target {
+                if t_str != "native" {
+                    if let Some(zig_target) = match t_str {
+                        "wasm" | "wasm32-wasi" => Some(ZigTarget::Wasm32Wasi),
+                        "wasm32-freestanding" => Some(ZigTarget::Wasm32Freestanding),
+                        _ => None,
+                    } {
+                        utils::status("Target", zig_target.as_zig_target());
+                    }
+                }
+            }
+
+            backend.compile_zig_code(&zig_code, &output_path)
+                .map_err(|e| format!("Zig编译失败: {}", e))?;
+
+            println!("编译成功: {}", output_path.display());
+            return Ok(());
+        }
+        _ => Err(format!("目标平台 {:?} 尚不支持完整编译到二进制", parsed_target)),
+    }?;
+
+    let c_code = String::from_utf8_lossy(&codegen_output.files[0].content);
+
+    // If --no-link is specified, just output the C code
     if no_link {
-        let zig_out_path = format!("{}.zig", out_path);
-        std::fs::write(&zig_out_path, zig_code.as_bytes())
-            .map_err(|e| format!("无法写入Zig文件 {}: {}", zig_out_path, e))?;
-        println!("已生成Zig代码: {}", zig_out_path);
+        let c_out_path = format!("{}.c", out_path);
+        std::fs::write(&c_out_path, c_code.as_bytes())
+            .map_err(|e| format!("无法写入C文件 {}: {}", c_out_path, e))?;
+        println!("已生成C代码: {}", c_out_path);
         return Ok(());
     }
 
-    // Compile Zig code to executable
-    let output_path = std::path::PathBuf::from(out_path);
-    backend
-        .compile_zig_code(&zig_code, &output_path)
-        .map_err(|e| format!("Zig编译失败: {}", e))?;
+    // Compile C code to executable
+    match parsed_target {
+        Target::C => {
+            let output_path = std::path::PathBuf::from(out_path);
+            let mut backend = CBackend::new(CBackendConfig {
+                output_dir: None,
+                optimize: release,
+                debug_info: !release,
+                c_standard: CStandard::C23,
+                generate_header: false,
+            });
+            backend.compile_c_code(
+                &c_code,
+                &output_path,
+                CStandard::C23,
+                release,
+                !release,
+            ).map_err(|e| format!("C编译失败: {}", e))?;
 
-    println!("编译成功: {}", output_path.display());
+            println!("编译成功: {}", output_path.display());
+        }
+        _ => unreachable!(),
+    }
+
     Ok(())
 }
 
@@ -192,6 +247,8 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             let mut new_decls = prelude_decls;
             new_decls.extend(program.declarations);
             program.declarations = new_decls;
+            // 类型检查 - 完整流水线
+            pipeline::type_check_with_big_stack(&program)?;
             let mut backend = x_codegen::c_backend::CBackend::new(
                 x_codegen::c_backend::CBackendConfig::default(),
             );

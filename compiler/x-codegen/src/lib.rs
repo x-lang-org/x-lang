@@ -166,8 +166,20 @@ pub fn get_code_generator(
 }
 
 /// 动态代码生成器 trait（用于类型擦除）
-pub trait DynamicCodeGenerator {
+pub trait DynamicCodeGenerator: 'static {
     fn generate_from_ast(&mut self, program: &AstProgram) -> CodeGenResult<CodegenOutput>;
+
+    /// Generate code from LIR (optional, default returns error)
+    fn generate_from_lir(&mut self, _lir: &x_lir::Program) -> CodeGenResult<CodegenOutput> {
+        Err(CodeGenError::UnsupportedFeature(
+            "LIR generation not implemented for this backend".to_string()
+        ))
+    }
+
+    /// Allow downcasting to concrete backend type
+    fn as_any_mut(&mut self) -> &mut dyn std::any::Any where Self: Sized {
+        self
+    }
 }
 
 impl DynamicCodeGenerator for zig_backend::ZigBackend {
@@ -216,6 +228,11 @@ impl DynamicCodeGenerator for rust_backend::RustBackend {
 impl DynamicCodeGenerator for c_backend::CBackend {
     fn generate_from_ast(&mut self, program: &AstProgram) -> CodeGenResult<CodegenOutput> {
         CodeGenerator::generate_from_ast(self, program)
+            .map_err(|e| CodeGenError::GenerationError(format!("C backend error: {:?}", e)))
+    }
+
+    fn generate_from_lir(&mut self, lir: &x_lir::Program) -> CodeGenResult<CodegenOutput> {
+        CodeGenerator::generate_from_lir(self, lir)
             .map_err(|e| CodeGenError::GenerationError(format!("C backend error: {:?}", e)))
     }
 }

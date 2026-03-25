@@ -107,8 +107,9 @@ fn lower_extern_function(func: &MirFunction) -> LirLowerResult<ExternFunction> {
 fn lower_function(func: &MirFunction) -> LirLowerResult<Function> {
     let mut lir_func = Function::new(&func.name, lower_type(&func.return_type));
 
-    for param in &func.parameters {
-        lir_func = lir_func.param(&param.name, lower_type(&param.ty));
+    for (index, param) in func.parameters.iter().enumerate() {
+        // Use arg{index} format to match param_name() in lower_operand
+        lir_func = lir_func.param(&param_name(index), lower_type(&param.ty));
     }
 
     let mut body = Block::new();
@@ -317,6 +318,7 @@ fn lower_operand(operand: &MirOperand) -> Expression {
         MirOperand::Local(id) => Expression::Variable(local_name(*id)),
         MirOperand::Constant(c) => lower_constant_to_expression(c),
         MirOperand::Param(index) => Expression::Variable(param_name(*index)),
+        MirOperand::Global(name) => Expression::Variable(name.clone()),
     }
 }
 

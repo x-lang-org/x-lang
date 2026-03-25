@@ -310,8 +310,8 @@ impl FunctionLowerer {
                 } else if let Some(param_index) = self.lookup_param(name) {
                     Ok(MirOperand::Param(param_index))
                 } else {
-                    // 函数名/全局名暂时保守地作为字符串常量承载
-                    Ok(MirOperand::Constant(MirConstant::String(name.clone())))
+                    // 函数名/全局名作为全局引用
+                    Ok(MirOperand::Global(name.clone()))
                 }
             }
             HirExpression::Member(object, field) => {

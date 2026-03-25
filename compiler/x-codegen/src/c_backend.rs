@@ -443,28 +443,76 @@ impl CBackend {
     fn emit_match_statement(&mut self, match_stmt: &x_parser::ast::MatchStatement) -> CResult<()> {
         let expr = self.emit_expression(&match_stmt.expression)?;
 
-        // 简化处理：转换为 if-else 链
+        // 对于带标签的枚举（标签联合），生成 switch 语句
+        // 对于简单枚举，也生成 switch 语句
         self.line("{")?;
         self.indent += 1;
         self.line(&format!("auto __match_val = {};", expr))?;
+        self.line(&format!("switch (__match_val.tag) {{"))?;
+        self.indent += 1;
 
-        for (i, case) in match_stmt.cases.iter().enumerate() {
-            if i == 0 {
-                self.line(&format!("if ({}/* pattern */) {{", ""))?;
+        for case in &match_stmt.cases {
+            // 尝试从模式中提取枚举构造器
+            if let x_parser::ast::Pattern::EnumConstructor(enum_name, variant_name, patterns) = &case.pattern {
+                // case 标签
+                self.line(&format!("case {}_{}: {{", enum_name, variant_name))?;
+                self.indent += 1;
+
+                // 如果变体有负载，需要绑定到模式变量
+                if !patterns.is_empty() {
+                    // 将负载数据提取到变量
+                    match patterns.len() {
+                        0 => {},
+                        1 => {
+                            if let x_parser::ast::Pattern::Variable(var_name) = &patterns[0] {
+                                // 单个变量绑定
+                                self.line(&format!("{} = __match_val.data.{};", var_name, variant_name))?;
+                            }
+                        }
+                        _ => {
+                            // 多个元素的元组，逐个绑定
+                            for (i, pattern) in patterns.iter().enumerate() {
+                                if let x_parser::ast::Pattern::Variable(var_name) = pattern {
+                                    self.line(&format!("{} = __match_val.data.{}.f{};", var_name, variant_name, i))?;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 处理匹配守卫 - guard 在 switch case 中需要额外判断
+                if let Some(guard) = &case.guard {
+                    let guard_expr = self.emit_expression(guard)?;
+                    self.line(&format!("if (!{}) {{ break; }}", guard_expr))?;
+                }
+
+                // 输出 case 体
+                for stmt in &case.body.statements {
+                    self.emit_statement(stmt)?;
+                }
+
+                // break 跳出 switch
+                self.line("break;")?;
+
+                self.indent -= 1;
+                self.line("}")?;
+            } else if let x_parser::ast::Pattern::Wildcard = case.pattern {
+                // 通配符作为 default case
+                self.line("default: {")?;
+                self.indent += 1;
+                for stmt in &case.body.statements {
+                    self.emit_statement(stmt)?;
+                }
+                self.indent -= 1;
+                self.line("}")?;
             } else {
-                self.line("} else if (/* pattern */) {")?;
+                // 其他模式暂时保留注释占位
+                self.line("// Unsupported pattern")?;
             }
-            self.indent += 1;
-            for stmt in &case.body.statements {
-                self.emit_statement(stmt)?;
-            }
-            self.indent -= 1;
         }
 
-        if !match_stmt.cases.is_empty() {
-            self.line("}")?;
-        }
-
+        self.indent -= 1;
+        self.line("}")?;
         self.indent -= 1;
         self.line("}")?;
         Ok(())
@@ -778,20 +826,108 @@ impl CBackend {
         Ok(())
     }
 
-    /// 生成枚举
-    fn emit_enum(&mut self, e: &x_parser::ast::EnumDecl) -> CResult<()> {
+    /// 检查枚举是否至少有一个带负载的变体
+    fn has_any_payload_variant(&self, e: &x_parser::ast::EnumDecl) -> bool {
+        e.variants.iter().any(|v| !matches!(v.data, x_parser::ast::EnumVariantData::Unit))
+    }
+
+    /// 生成标签枚举（判别式）
+    fn emit_tag_enum(&mut self, e: &x_parser::ast::EnumDecl) -> CResult<()> {
         self.line(&format!("typedef enum {{"))?;
         self.indent += 1;
 
         for (i, variant) in e.variants.iter().enumerate() {
-            // 只支持 Unit 变体作为简单枚举
             let value = i.to_string();
             self.line(&format!("{}_{} = {},", e.name, variant.name, value))?;
         }
 
         self.indent -= 1;
+        self.line(&format!("}} {}_Tag;", e.name))?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// 生成联合类型用于存储变体数据
+    fn emit_union_for_variants(&mut self, e: &x_parser::ast::EnumDecl) -> CResult<()> {
+        self.line(&format!("typedef union {{"))?;
+        self.indent += 1;
+
+        for variant in &e.variants {
+            match &variant.data {
+                x_parser::ast::EnumVariantData::Unit => {
+                    // 单元变体不需要存储数据
+                }
+                x_parser::ast::EnumVariantData::Tuple(types) => {
+                    if types.len() == 1 {
+                        // 单元素元组，直接使用该类型
+                        let ty = self.emit_type(&types[0]);
+                        self.line(&format!("{} {};", ty, variant.name))?;
+                    } else {
+                        // 多元素元组，需要包装成结构体
+                        // C 联合不能直接存放多个不同大小的字段，所以用结构体包装
+                        self.line(&format!("struct {{"))?;
+                        self.indent += 1;
+                        for (i, ty) in types.iter().enumerate() {
+                            let c_ty = self.emit_type(ty);
+                            self.line(&format!("{} f{};", c_ty, i))?;
+                        }
+                        self.indent -= 1;
+                        self.line(&format!("}} {};", variant.name))?;
+                    }
+                }
+                x_parser::ast::EnumVariantData::Record(fields) => {
+                    // 记录变体，每个字段都在结构体中
+                    self.line(&format!("struct {{"))?;
+                    self.indent += 1;
+                    for (name, ty) in fields {
+                        let c_ty = self.emit_type(ty);
+                        self.line(&format!("{} {};", c_ty, name))?;
+                    }
+                    self.indent -= 1;
+                    self.line(&format!("}} {};", variant.name))?;
+                }
+            }
+        }
+
+        self.indent -= 1;
+        self.line(&format!("}} {}_Union;", e.name))?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// 生成包含标签和联合的完整结构体
+    fn emit_combined_struct(&mut self, e: &x_parser::ast::EnumDecl) -> CResult<()> {
+        self.line(&format!("typedef struct {{"))?;
+        self.indent += 1;
+        self.line(&format!("{}_Tag tag;", e.name))?;
+        self.line(&format!("{}_Union data;", e.name))?;
+        self.indent -= 1;
         self.line(&format!("}} {};", e.name))?;
         self.line("")?;
+        Ok(())
+    }
+
+    /// 生成枚举
+    fn emit_enum(&mut self, e: &x_parser::ast::EnumDecl) -> CResult<()> {
+        if self.has_any_payload_variant(e) {
+            // 至少有一个变体带负载：生成标签联合结构
+            self.emit_tag_enum(e)?;
+            self.emit_union_for_variants(e)?;
+            self.emit_combined_struct(e)?;
+        } else {
+            // 所有变体都是单元变体：保持原有行为
+            self.line(&format!("typedef enum {{"))?;
+            self.indent += 1;
+
+            for (i, variant) in e.variants.iter().enumerate() {
+                let value = i.to_string();
+                self.line(&format!("{}_{} = {},", e.name, variant.name, value))?;
+            }
+
+            self.indent -= 1;
+            self.line(&format!("}} {};", e.name))?;
+            self.line("")?;
+        }
 
         Ok(())
     }
@@ -845,8 +981,18 @@ impl CBackend {
                 format!("const {}*", inner_str)
             }
             x_parser::ast::Type::Generic(name) => name.clone(),
-            x_parser::ast::Type::TypeConstructor(name, _args) => {
-                format!("{}_t", name.to_lowercase())
+            x_parser::ast::Type::TypeConstructor(name, args) => {
+                // 将类型参数编码到名称中，例如 Option<i32> → option_i32_t
+                if args.is_empty() {
+                    format!("{}_t", name.to_lowercase())
+                } else {
+                    let args_str = args
+                        .iter()
+                        .map(|ty| self.emit_type(ty))
+                        .collect::<Vec<_>>()
+                        .join("_");
+                    format!("{}_{}_{}", name.to_lowercase(), args_str, "t")
+                }
             }
             x_parser::ast::Type::TypeParam(name) => name.clone(),
             // C FFI 类型
@@ -1068,11 +1214,754 @@ impl CodeGenerator for CBackend {
         ))
     }
 
-    fn generate_from_lir(&mut self, _lir: &x_lir::Program) -> Result<CodegenOutput, Self::Error> {
-        // TODO: 实现 LIR 到 C 的生成
-        Err(CBackendError::UnsupportedFeature(
-            "LIR generation not yet implemented".to_string(),
-        ))
+    fn generate_from_lir(&mut self, lir: &x_lir::Program) -> Result<CodegenOutput, Self::Error> {
+        self.reset();
+
+        // First, scan the program to determine required headers
+        self.scan_lir_program(lir);
+
+        // Emit standard headers (always include basic types)
+        self.needs_stdbool = true;
+        self.needs_stdint = true;
+        self.needs_stddef = true;
+        self.emit_header()?;
+
+        // Emit all declarations
+        for decl in &lir.declarations {
+            self.emit_lir_declaration(decl)?;
+            self.line("")?;
+        }
+
+        // Check if we have a main function
+        let has_main = lir.declarations.iter().any(|d| {
+            matches!(d, x_lir::Declaration::Function(f) if f.name == "main")
+        });
+
+        // If no main function and program has no declarations except maybe others,
+        // we don't add anything - assume the user handles it
+        if !has_main && lir.declarations.iter().all(|d| !matches!(d, x_lir::Declaration::Function(_))) {
+            // Add empty main for compatibility
+            self.line("int main(void) {")?;
+            self.indent += 1;
+            self.line("return 0;")?;
+            self.indent -= 1;
+            self.line("}")?;
+        }
+
+        let output_file = OutputFile {
+            path: PathBuf::from("output.c"),
+            content: self.output.clone().into_bytes(),
+            file_type: FileType::C,
+        };
+
+        Ok(CodegenOutput {
+            files: vec![output_file],
+            dependencies: vec![],
+        })
+    }
+}
+
+impl CBackend {
+    /// Scan LIR program to determine required headers
+    fn scan_lir_program(&mut self, lir: &x_lir::Program) {
+        for decl in &lir.declarations {
+            if let x_lir::Declaration::Function(f) = decl {
+                self.scan_lir_function(f);
+            }
+        }
+    }
+
+    /// Scan LIR function for required headers
+    fn scan_lir_function(&mut self, f: &x_lir::Function) {
+        for stmt in &f.body.statements {
+            self.scan_lir_statement(stmt);
+        }
+    }
+
+    /// Scan LIR statement for required headers
+    fn scan_lir_statement(&mut self, stmt: &x_lir::Statement) {
+        match stmt {
+            x_lir::Statement::Expression(expr) => self.scan_lir_expression(expr),
+            x_lir::Statement::Variable(var) => {
+                if let Some(init) = &var.initializer {
+                    self.scan_lir_expression(init);
+                }
+            }
+            x_lir::Statement::Return(Some(expr)) => self.scan_lir_expression(expr),
+            x_lir::Statement::Compound(block) => {
+                for s in &block.statements {
+                    self.scan_lir_statement(s);
+                }
+            }
+            x_lir::Statement::If(if_stmt) => {
+                self.scan_lir_expression(&if_stmt.condition);
+                self.scan_lir_statement(&if_stmt.then_branch);
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.scan_lir_statement(else_branch);
+                }
+            }
+            x_lir::Statement::While(while_stmt) => {
+                self.scan_lir_expression(&while_stmt.condition);
+                self.scan_lir_statement(&while_stmt.body);
+            }
+            x_lir::Statement::DoWhile(do_while) => {
+                self.scan_lir_expression(&do_while.condition);
+                self.scan_lir_statement(&do_while.body);
+            }
+            x_lir::Statement::For(for_stmt) => {
+                if let Some(init) = &for_stmt.initializer {
+                    self.scan_lir_statement(init);
+                }
+                if let Some(cond) = &for_stmt.condition {
+                    self.scan_lir_expression(cond);
+                }
+                if let Some(inc) = &for_stmt.increment {
+                    self.scan_lir_expression(inc);
+                }
+                self.scan_lir_statement(&for_stmt.body);
+            }
+            _ => {}
+        }
+    }
+
+    /// Scan LIR expression for required headers
+    fn scan_lir_expression(&mut self, expr: &x_lir::Expression) {
+        match expr {
+            x_lir::Expression::Call(func, args) => {
+                // Check for builtin functions that need headers
+                if let x_lir::Expression::Variable(func_name) = func.as_ref() {
+                    match func_name.as_str() {
+                        "println" | "print" | "print_inline" => {
+                            self.needs_stdio = true;
+                        }
+                        "exit" => {
+                            self.needs_stdlib = true;
+                        }
+                        _ => {}
+                    }
+                }
+                // Scan the function and arguments
+                self.scan_lir_expression(func);
+                for arg in args {
+                    self.scan_lir_expression(arg);
+                }
+            }
+            x_lir::Expression::Binary(_, lhs, rhs) => {
+                self.scan_lir_expression(lhs);
+                self.scan_lir_expression(rhs);
+            }
+            x_lir::Expression::Unary(_, e) => {
+                self.scan_lir_expression(e);
+            }
+            x_lir::Expression::Assign(target, value) => {
+                self.scan_lir_expression(target);
+                self.scan_lir_expression(value);
+            }
+            x_lir::Expression::Member(obj, _) => {
+                self.scan_lir_expression(obj);
+            }
+            x_lir::Expression::Index(arr, idx) => {
+                self.scan_lir_expression(arr);
+                self.scan_lir_expression(idx);
+            }
+            x_lir::Expression::Ternary(cond, then_expr, else_expr) => {
+                self.scan_lir_expression(cond);
+                self.scan_lir_expression(then_expr);
+                self.scan_lir_expression(else_expr);
+            }
+            _ => {}
+        }
+    }
+
+    /// Emit LIR declaration
+    fn emit_lir_declaration(&mut self, decl: &x_lir::Declaration) -> CResult<()> {
+        match decl {
+            x_lir::Declaration::Function(f) => self.emit_lir_function(f),
+            x_lir::Declaration::Global(g) => self.emit_lir_global(g),
+            x_lir::Declaration::Struct(s) => self.emit_lir_struct(s),
+            x_lir::Declaration::Class(c) => self.emit_lir_class(c),
+            x_lir::Declaration::VTable(v) => self.emit_lir_vtable(v),
+            x_lir::Declaration::Enum(e) => self.emit_lir_enum(e),
+            x_lir::Declaration::TypeAlias(t) => self.emit_lir_type_alias(t),
+            x_lir::Declaration::ExternFunction(e) => self.emit_lir_extern_function(e),
+        }
+    }
+
+    /// Emit LIR function
+    fn emit_lir_function(&mut self, f: &x_lir::Function) -> CResult<()> {
+        let return_type = self.emit_lir_type(&f.return_type);
+
+        let params = if f.parameters.is_empty() {
+            "void".to_string()
+        } else {
+            f.parameters
+                .iter()
+                .map(|p| format!("{} {}", self.emit_lir_type(&p.type_), p.name))
+                .collect::<Vec<_>>()
+                .join(", ")
+        };
+
+        self.line(&format!("{} {}({}) {{", return_type, f.name, params))?;
+        self.indent += 1;
+
+        // Emit function body
+        for stmt in &f.body.statements {
+            self.emit_lir_statement(stmt)?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    /// Emit LIR statement
+    fn emit_lir_statement(&mut self, stmt: &x_lir::Statement) -> CResult<()> {
+        match stmt {
+            x_lir::Statement::Expression(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                self.line(&format!("{};", expr_str))?;
+            }
+            x_lir::Statement::Variable(var) => {
+                let ty = self.emit_lir_type(&var.type_);
+                let init = if let Some(init_expr) = &var.initializer {
+                    format!(" = {}", self.emit_lir_expression(init_expr)?)
+                } else {
+                    String::new()
+                };
+                self.line(&format!("{} {}{};", ty, var.name, init))?;
+            }
+            x_lir::Statement::Return(Some(expr)) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                self.line(&format!("return {};", expr_str))?;
+            }
+            x_lir::Statement::Return(None) => {
+                self.line("return;")?;
+            }
+            x_lir::Statement::Label(label) => {
+                self.line(&format!("{}:", label))?;
+            }
+            x_lir::Statement::Break => self.line("break;")?,
+            x_lir::Statement::Continue => self.line("continue;")?,
+            x_lir::Statement::Empty => {}
+            x_lir::Statement::Compound(block) => {
+                self.line("{")?;
+                self.indent += 1;
+                for s in &block.statements {
+                    self.emit_lir_statement(s)?;
+                }
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::If(if_stmt) => {
+                let cond = self.emit_lir_expression(&if_stmt.condition)?;
+                self.line(&format!("if ({}) {{", cond))?;
+                self.indent += 1;
+                self.emit_lir_statement(&if_stmt.then_branch)?;
+                self.indent -= 1;
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.line("} else {")?;
+                    self.indent += 1;
+                    self.emit_lir_statement(else_branch)?;
+                    self.indent -= 1;
+                }
+                self.line("}")?;
+            }
+            x_lir::Statement::While(while_stmt) => {
+                let cond = self.emit_lir_expression(&while_stmt.condition)?;
+                self.line(&format!("while ({}) {{", cond))?;
+                self.indent += 1;
+                self.emit_lir_statement(&while_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::DoWhile(do_while) => {
+                self.line("do {")?;
+                self.indent += 1;
+                self.emit_lir_statement(&do_while.body)?;
+                self.indent -= 1;
+                let cond = self.emit_lir_expression(&do_while.condition)?;
+                self.line(&format!("}} while ({});", cond))?;
+            }
+            x_lir::Statement::For(for_stmt) => {
+                self.line("for (")?;
+                if let Some(init) = &for_stmt.initializer {
+                    let init_str = match init.as_ref() {
+                        x_lir::Statement::Variable(v) => {
+                            let ty = self.emit_lir_type(&v.type_);
+                            let init = if let Some(e) = &v.initializer {
+                                format!(" = {}", self.emit_lir_expression(e)?)
+                            } else {
+                                String::new()
+                            };
+                            format!("{} {}{}", ty, v.name, init)
+                        }
+                        x_lir::Statement::Expression(expr) => {
+                            self.emit_lir_expression(expr)?
+                        }
+                        _ => String::new(),
+                    };
+                    write!(self.output, "{}", init_str)?;
+                }
+                write!(self.output, "; ")?;
+                if let Some(cond) = &for_stmt.condition {
+                    let cond_str = self.emit_lir_expression(cond)?;
+                    write!(self.output, "{}", cond_str)?;
+                }
+                write!(self.output, "; ")?;
+                if let Some(inc) = &for_stmt.increment {
+                    let inc_str = self.emit_lir_expression(inc)?;
+                    write!(self.output, "{}", inc_str)?;
+                }
+                writeln!(self.output, ") {{")?;
+                self.indent += 1;
+                self.emit_lir_statement(&for_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            _ => {
+                // Fallback for other statement types
+                self.line(&format!("/* TODO: {} */", stmt))?;
+            }
+        }
+        Ok(())
+    }
+
+    /// Emit LIR expression
+    fn emit_lir_expression(&mut self, expr: &x_lir::Expression) -> CResult<String> {
+        match expr {
+            x_lir::Expression::Literal(lit) => self.emit_lir_literal(lit),
+            x_lir::Expression::Variable(name) => Ok(name.clone()),
+            x_lir::Expression::Unary(op, e) => {
+                let operand = self.emit_lir_expression(e)?;
+                let op_str = match op {
+                    x_lir::UnaryOp::Plus => "+",
+                    x_lir::UnaryOp::Minus => "-",
+                    x_lir::UnaryOp::Not => "!",
+                    x_lir::UnaryOp::BitNot => "~",
+                    x_lir::UnaryOp::PreIncrement => "++",
+                    x_lir::UnaryOp::PreDecrement => "--",
+                    x_lir::UnaryOp::PostIncrement => "++",
+                    x_lir::UnaryOp::PostDecrement => "--",
+                };
+                match op {
+                    x_lir::UnaryOp::PostIncrement | x_lir::UnaryOp::PostDecrement => {
+                        Ok(format!("{}{}", operand, op_str))
+                    }
+                    _ => Ok(format!("{}{}", op_str, operand)),
+                }
+            }
+            x_lir::Expression::Binary(op, lhs, rhs) => {
+                let left = self.emit_lir_expression(lhs)?;
+                let right = self.emit_lir_expression(rhs)?;
+                let op_str = match op {
+                    x_lir::BinaryOp::Add => "+",
+                    x_lir::BinaryOp::Subtract => "-",
+                    x_lir::BinaryOp::Multiply => "*",
+                    x_lir::BinaryOp::Divide => "/",
+                    x_lir::BinaryOp::Modulo => "%",
+                    x_lir::BinaryOp::LeftShift => "<<",
+                    x_lir::BinaryOp::RightShift => ">>",
+                    x_lir::BinaryOp::LessThan => "<",
+                    x_lir::BinaryOp::LessThanEqual => "<=",
+                    x_lir::BinaryOp::GreaterThan => ">",
+                    x_lir::BinaryOp::GreaterThanEqual => ">=",
+                    x_lir::BinaryOp::Equal => "==",
+                    x_lir::BinaryOp::NotEqual => "!=",
+                    x_lir::BinaryOp::BitAnd => "&",
+                    x_lir::BinaryOp::BitXor => "^",
+                    x_lir::BinaryOp::BitOr => "|",
+                    x_lir::BinaryOp::LogicalAnd => "&&",
+                    x_lir::BinaryOp::LogicalOr => "||",
+                };
+                Ok(format!("({} {} {})", left, op_str, right))
+            }
+            x_lir::Expression::Call(func, args) => {
+                // Handle builtin functions
+                if let x_lir::Expression::Variable(func_name) = func.as_ref() {
+                    match func_name.as_str() {
+                        "println" => {
+                            self.needs_stdio = true;
+                            if args.is_empty() {
+                                return Ok("printf(\"\\n\")".to_string());
+                            }
+                            let arg = self.emit_lir_expression(&args[0])?;
+                            // println expects string argument, so use %s by default
+                            // Only use %d for integer literals
+                            let fmt = if matches!(&args[0], x_lir::Expression::Literal(x_lir::Literal::Integer(_))) {
+                                "%d\\n"
+                            } else {
+                                "%s\\n"
+                            };
+                            return Ok(format!("printf(\"{}\", {})", fmt, arg));
+                        }
+                        "print" | "print_inline" => {
+                            self.needs_stdio = true;
+                            if args.is_empty() {
+                                return Ok("printf(\"\")".to_string());
+                            }
+                            let arg = self.emit_lir_expression(&args[0])?;
+                            // Similar logic as println
+                            let fmt = if matches!(&args[0], x_lir::Expression::Literal(x_lir::Literal::Integer(_))) {
+                                "%d"
+                            } else {
+                                "%s"
+                            };
+                            return Ok(format!("printf(\"{}\", {})", fmt, arg));
+                        }
+                        "exit" => {
+                            self.needs_stdlib = true;
+                            let args_str: Vec<String> = args
+                                .iter()
+                                .map(|a| self.emit_lir_expression(a))
+                                .collect::<CResult<Vec<_>>>()?;
+                            return Ok(format!("exit({})", args_str.join(", ")));
+                        }
+                        _ => {}
+                    }
+                }
+
+                let func_str = self.emit_lir_expression(func)?;
+                let args_str: Vec<String> = args
+                    .iter()
+                    .map(|a| self.emit_lir_expression(a))
+                    .collect::<CResult<Vec<_>>>()?;
+                Ok(format!("{}({})", func_str, args_str.join(", ")))
+            }
+            x_lir::Expression::Assign(target, value) => {
+                let target_str = self.emit_lir_expression(target)?;
+                let value_str = self.emit_lir_expression(value)?;
+                // For void function calls, just return the call
+                if matches!(value.as_ref(), x_lir::Expression::Call(_, _)) {
+                    // Check if it's a known void function
+                    if let x_lir::Expression::Variable(func_name) = target.as_ref() {
+                        // Temporary variables assigned from void functions should just be the call
+                        if target_str.starts_with('t') && target_str[1..].parse::<usize>().is_ok() {
+                            return Ok(value_str);
+                        }
+                    }
+                    // Check if target is a temp variable (t0, t1, etc.) and value is a call
+                    if let x_lir::Expression::Call(_, _) = value.as_ref() {
+                        if target_str.starts_with('t') && target_str[1..].parse::<usize>().is_ok() {
+                            // This is likely a void function call - just return the call
+                            return Ok(value_str);
+                        }
+                    }
+                }
+                Ok(format!("{} = {}", target_str, value_str))
+            }
+            x_lir::Expression::Member(obj, field) => {
+                let obj_str = self.emit_lir_expression(obj)?;
+                Ok(format!("{}.{}", obj_str, field))
+            }
+            x_lir::Expression::PointerMember(obj, field) => {
+                let obj_str = self.emit_lir_expression(obj)?;
+                Ok(format!("{}->{}", obj_str, field))
+            }
+            x_lir::Expression::Index(arr, idx) => {
+                let arr_str = self.emit_lir_expression(arr)?;
+                let idx_str = self.emit_lir_expression(idx)?;
+                Ok(format!("{}[{}]", arr_str, idx_str))
+            }
+            x_lir::Expression::AddressOf(e) => {
+                Ok(format!("&{}", self.emit_lir_expression(e)?))
+            }
+            x_lir::Expression::Dereference(e) => {
+                Ok(format!("*{}", self.emit_lir_expression(e)?))
+            }
+            x_lir::Expression::Cast(ty, e) => {
+                Ok(format!("(({}){})", self.emit_lir_type(ty), self.emit_lir_expression(e)?))
+            }
+            x_lir::Expression::Ternary(cond, then_expr, else_expr) => {
+                Ok(format!(
+                    "({} ? {} : {})",
+                    self.emit_lir_expression(cond)?,
+                    self.emit_lir_expression(then_expr)?,
+                    self.emit_lir_expression(else_expr)?
+                ))
+            }
+            x_lir::Expression::SizeOf(ty) => {
+                Ok(format!("sizeof({})", self.emit_lir_type(ty)))
+            }
+            _ => Ok(format!("/* unsupported expression: {} */", expr)),
+        }
+    }
+
+    /// Emit LIR literal
+    fn emit_lir_literal(&mut self, lit: &x_lir::Literal) -> CResult<String> {
+        match lit {
+            x_lir::Literal::Integer(n) => Ok(n.to_string()),
+            x_lir::Literal::UnsignedInteger(n) => Ok(format!("{}u", n)),
+            x_lir::Literal::Long(n) => Ok(format!("{}L", n)),
+            x_lir::Literal::UnsignedLong(n) => Ok(format!("{}uL", n)),
+            x_lir::Literal::LongLong(n) => Ok(format!("{}LL", n)),
+            x_lir::Literal::UnsignedLongLong(n) => Ok(format!("{}uLL", n)),
+            x_lir::Literal::Float(n) => Ok(format!("{}f", n)),
+            x_lir::Literal::Double(n) => Ok(n.to_string()),
+            x_lir::Literal::Char(c) => Ok(format!("'{}'", c)),
+            x_lir::Literal::String(s) => {
+                let escaped = s
+                    .replace('\\', "\\\\")
+                    .replace('"', "\\\"")
+                    .replace('\n', "\\n")
+                    .replace('\r', "\\r")
+                    .replace('\t', "\\t");
+                Ok(format!("\"{}\"", escaped))
+            }
+            x_lir::Literal::Bool(b) => {
+                self.needs_stdbool = true;
+                Ok(b.to_string())
+            }
+            x_lir::Literal::NullPointer => Ok("NULL".to_string()),
+        }
+    }
+
+    /// Emit LIR type
+    fn emit_lir_type(&mut self, ty: &x_lir::Type) -> String {
+        match ty {
+            x_lir::Type::Void => "void".to_string(),
+            x_lir::Type::Bool => {
+                self.needs_stdbool = true;
+                "bool".to_string()
+            }
+            x_lir::Type::Char => "char".to_string(),
+            x_lir::Type::Schar => "signed char".to_string(),
+            x_lir::Type::Uchar => "unsigned char".to_string(),
+            x_lir::Type::Short => "short".to_string(),
+            x_lir::Type::Ushort => "unsigned short".to_string(),
+            x_lir::Type::Int => "int".to_string(),
+            x_lir::Type::Uint => "unsigned int".to_string(),
+            x_lir::Type::Long => "long".to_string(),
+            x_lir::Type::Ulong => "unsigned long".to_string(),
+            x_lir::Type::LongLong => "long long".to_string(),
+            x_lir::Type::UlongLong => "unsigned long long".to_string(),
+            x_lir::Type::Float => "float".to_string(),
+            x_lir::Type::Double => "double".to_string(),
+            x_lir::Type::LongDouble => "long double".to_string(),
+            x_lir::Type::Size => {
+                self.needs_stddef = true;
+                "size_t".to_string()
+            }
+            x_lir::Type::Ptrdiff => {
+                self.needs_stddef = true;
+                "ptrdiff_t".to_string()
+            }
+            x_lir::Type::Intptr => {
+                self.needs_stdint = true;
+                "intptr_t".to_string()
+            }
+            x_lir::Type::Uintptr => {
+                self.needs_stdint = true;
+                "uintptr_t".to_string()
+            }
+            x_lir::Type::Pointer(inner) => {
+                format!("{}*", self.emit_lir_type(inner))
+            }
+            x_lir::Type::Array(inner, size) => {
+                if let Some(s) = size {
+                    format!("{}[{}]", self.emit_lir_type(inner), s)
+                } else {
+                    format!("{}[]", self.emit_lir_type(inner))
+                }
+            }
+            x_lir::Type::Named(name) => name.clone(),
+            x_lir::Type::Qualified(q, inner) => {
+                let mut result = String::new();
+                if q.is_const {
+                    result.push_str("const ");
+                }
+                if q.is_volatile {
+                    result.push_str("volatile ");
+                }
+                result.push_str(&self.emit_lir_type(inner));
+                result
+            }
+            x_lir::Type::FunctionPointer(_ret, _params) => {
+                // Simplified function pointer type
+                "void*".to_string()
+            }
+        }
+    }
+
+    /// Emit LIR global variable
+    fn emit_lir_global(&mut self, g: &x_lir::GlobalVar) -> CResult<()> {
+        let ty = self.emit_lir_type(&g.type_);
+        let init = if let Some(init_expr) = &g.initializer {
+            format!(" = {}", self.emit_lir_expression(init_expr)?)
+        } else {
+            String::new()
+        };
+        let kw = if g.is_static { "static " } else { "" };
+        self.line(&format!("{}{} {}{};", kw, ty, g.name, init))?;
+        Ok(())
+    }
+
+    /// Emit LIR struct
+    fn emit_lir_struct(&mut self, s: &x_lir::Struct) -> CResult<()> {
+        self.line(&format!("struct {} {{", s.name))?;
+        self.indent += 1;
+        for field in &s.fields {
+            let ty = self.emit_lir_type(&field.type_);
+            self.line(&format!("{} {};", ty, field.name))?;
+        }
+        self.indent -= 1;
+        self.line("};")?;
+        Ok(())
+    }
+
+    /// Emit LIR class (as struct in C)
+    fn emit_lir_class(&mut self, c: &x_lir::Class) -> CResult<()> {
+        self.line(&format!("/* class {} */", c.name))?;
+        self.line(&format!("struct {} {{", c.name))?;
+        self.indent += 1;
+        for field in &c.fields {
+            let ty = self.emit_lir_type(&field.type_);
+            self.line(&format!("{} {};", ty, field.name))?;
+        }
+        self.indent -= 1;
+        self.line("};")?;
+        Ok(())
+    }
+
+    /// Emit LIR vtable
+    fn emit_lir_vtable(&mut self, v: &x_lir::VTable) -> CResult<()> {
+        self.line(&format!("/* vtable {} for {} */", v.name, v.class_name))?;
+        Ok(())
+    }
+
+    /// Emit LIR enum
+    fn emit_lir_enum(&mut self, e: &x_lir::Enum) -> CResult<()> {
+        self.line(&format!("enum {} {{", e.name))?;
+        self.indent += 1;
+        for (i, variant) in e.variants.iter().enumerate() {
+            if let Some(val) = variant.value {
+                self.line(&format!("{} = {},", variant.name, val))?;
+            } else {
+                self.line(&format!("{} = {},", variant.name, i))?;
+            }
+        }
+        self.indent -= 1;
+        self.line("};")?;
+        Ok(())
+    }
+
+    /// Emit LIR type alias
+    fn emit_lir_type_alias(&mut self, t: &x_lir::TypeAlias) -> CResult<()> {
+        let ty = self.emit_lir_type(&t.type_);
+        self.line(&format!("typedef {} {};", ty, t.name))?;
+        Ok(())
+    }
+
+    /// Emit LIR extern function
+    fn emit_lir_extern_function(&mut self, e: &x_lir::ExternFunction) -> CResult<()> {
+        // Skip builtin functions that we handle specially
+        match e.name.as_str() {
+            "println" | "print" | "print_inline" => {
+                // These are converted to printf calls, don't emit declarations
+                return Ok(());
+            }
+            "exit" => {
+                // exit is handled specially
+                return Ok(());
+            }
+            _ => {}
+        }
+
+        let return_type = self.emit_lir_type(&e.return_type);
+
+        // Special handling for printf (variadic function)
+        if e.name == "printf" {
+            self.line("extern int printf(const char*, ...);")?;
+            return Ok(());
+        }
+
+        let params = if e.parameters.is_empty() {
+            "void".to_string()
+        } else {
+            e.parameters
+                .iter()
+                .map(|p| self.emit_lir_type(p))
+                .collect::<Vec<_>>()
+                .join(", ")
+        };
+        self.line(&format!("extern {} {}({});", return_type, e.name, params))?;
+        Ok(())
+    }
+
+    /// Compile generated C code to executable using system C compiler
+    pub fn compile_c_code(
+        &self,
+        c_code: &str,
+        output_path: &std::path::Path,
+        c_standard: CStandard,
+        optimize: bool,
+        debug_info: bool,
+    ) -> Result<(), CBackendError> {
+        use std::process::Command;
+
+        // Write the C code to a temporary file
+        let c_file = if output_path.extension().is_some() {
+            output_path.with_extension("c")
+        } else {
+            std::path::PathBuf::from(format!("{}.c", output_path.to_string_lossy()))
+        };
+
+        std::fs::write(&c_file, c_code)?;
+
+        // Try to find a C compiler
+        let compiler_candidates = ["cc", "gcc", "clang"];
+        let mut compiler_path = None;
+
+        for candidate in &compiler_candidates {
+            if Command::new(candidate).arg("--version").output().is_ok() {
+                compiler_path = Some(*candidate);
+                break;
+            }
+        }
+
+        let compiler = compiler_path.ok_or_else(|| {
+            CBackendError::GenerationError(
+                "No C compiler found. Please install gcc or clang and add it to PATH.".to_string()
+            )
+        })?;
+
+        let mut cmd = Command::new(compiler);
+        cmd.arg(c_standard.flag());
+
+        if optimize {
+            cmd.arg("-O3");
+        } else {
+            cmd.arg("-O0");
+        }
+
+        if debug_info {
+            cmd.arg("-g");
+        }
+
+        cmd.arg("-o").arg(output_path);
+        cmd.arg(&c_file);
+
+        let output = cmd.output().map_err(|e| {
+            CBackendError::GenerationError(format!(
+                "Failed to execute C compiler: {}",
+                e
+            ))
+        })?;
+
+        if !output.status.success() {
+            let error_msg = String::from_utf8_lossy(&output.stderr);
+            return Err(CBackendError::GenerationError(format!(
+                "C compiler failed with error:\n{}",
+                error_msg
+            )));
+        }
+
+        // Clean up the temporary C file if we're not keeping it
+        // We leave it for debugging purposes
+        if std::env::var("X_KEEP_C_FILE").is_err() {
+            let _ = std::fs::remove_file(&c_file);
+        }
+
+        Ok(())
     }
 }
 
