@@ -11,10 +11,12 @@ use x_parser::ast::Program as AstProgram;
 
 pub mod error;
 pub mod target;
+pub mod utils;
 pub mod xir;
 
 pub use error::{CodeGenError, CodeGenResult};
 pub use target::{FileType, Target};
+pub use utils::{CodeBuffer, OperatorConfig, escape_string};
 pub use xir::*;
 
 /// 代码生成配置
@@ -97,16 +99,16 @@ pub trait DynamicCodeGenerator: 'static {
 //
 // 后端实现位于独立的 crate 中：
 //
-// 1. x-codegen-zig     - Zig 后端（Native/Wasm），通过 Zig 编译器
+// 1. x-codegen-zig        - Zig 后端（Native/Wasm），通过 Zig 编译器
 // 2. x-codegen-typescript - TypeScript 后端，浏览器/Node.js/Deno
-// 3. x-codegen-python  - Python 后端，生成 Python 源码
-// 4. x-codegen-rust    - Rust 后端，生成 Rust 源码
-// 5. x-codegen-jvm     - JVM 后端，Java 字节码
-// 6. x-codegen-dotnet  - .NET 后端，C# 源码/CIL
-// 7. x-codegen-llvm    - LLVM 后端，直接生成 LLVM IR
-// 8. x-codegen-swift   - Swift 后端，Apple 生态
-// 9. x-codegen-go      - Go 后端，云原生/网络编程
-// 10. x-codegen-native - Native 后端，LIR 直译机器码
+// 3. x-codegen-python     - Python 后端，生成 Python 源码
+// 4. x-codegen-rust       - Rust 后端，生成 Rust 源码
+// 5. x-codegen-java       - Java 后端，生成 Java 源码
+// 6. x-codegen-csharp     - C# 后端，.NET 平台
+// 7. x-codegen-llvm       - LLVM 后端，直接生成 LLVM IR
+// 8. x-codegen-swift      - Swift 后端，Apple 生态
+// 9. x-codegen-erlang     - Erlang 后端，并发/分布式系统
+// 10. x-codegen-native    - Native 后端，LIR 直译机器码
 //
 // 使用方式：
 // ```rust

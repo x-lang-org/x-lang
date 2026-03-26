@@ -209,16 +209,16 @@ impl LlvmBackend {
         }
 
         self.emit("; String constants");
-        // Clone to avoid borrow issues
+        // 克隆数据以避免借用冲突（escape_llvm_string 需要 &self）
         let constants: Vec<(String, String)> = self
             .string_constants
             .iter()
             .map(|(k, v)| (k.clone(), v.clone()))
             .collect();
 
-        for (content, name) in constants {
+        for (content, name) in &constants {
             // 转义字符串中的特殊字符
-            let escaped = self.escape_llvm_string(&content);
+            let escaped = self.escape_llvm_string(content);
             let len = content.len() + 1; // 包含 null 终止符
             self.emit(&format!(
                 "{} = private unnamed_addr constant [{} x i8] c\"{}\\00\"",

@@ -288,7 +288,7 @@ impl NativeBackend {
             return Ok(());
         }
 
-        // 收集字符串字面量到向量，避免借用问题
+        // 克隆数据以避免借用冲突（emit_raw 需要 &mut self）
         let string_literals: Vec<(String, String)> = self
             .string_literals
             .iter()
@@ -305,7 +305,7 @@ impl NativeBackend {
                 self.emit_raw(".section .rodata")?;
                 for (literal, label) in &string_literals {
                     self.emit_raw(&format!("{}:", label))?;
-                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(&literal)))?;
+                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(literal)))?;
                 }
                 self.emit_raw("")?;
 
@@ -323,14 +323,14 @@ impl NativeBackend {
                 self.emit_raw(".section .rodata")?;
                 for (literal, label) in &string_literals {
                     self.emit_raw(&format!("{}:", label))?;
-                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(&literal)))?;
+                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(literal)))?;
                 }
             }
             TargetArch::RiscV64 => {
                 self.emit_raw(".section .rodata")?;
                 for (literal, label) in &string_literals {
                     self.emit_raw(&format!("{}:", label))?;
-                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(&literal)))?;
+                    self.emit_raw(&format!("    .asciz \"{}\"", escape_string(literal)))?;
                 }
             }
             TargetArch::Wasm32 => {
