@@ -1,4 +1,4 @@
-//! Native 后端 - LIR 直译机器码
+//! Native 后端 - LIR 直译机器码（无外部依赖）
 //!
 //! 无需外部编译器，直接生成可执行机器码。
 //! 支持多种目标架构：x86_64, AArch64, RISC-V, Wasm32
@@ -12,9 +12,16 @@
 //! # 支持的架构
 //!
 //! - **x86_64**: System V AMD64 ABI (Linux/macOS), Microsoft x64 (Windows)
-//! - **AArch64**: ARM64 架构
+//! - **AArch64**: ARM64 架构（Apple Silicon, AWS Graviton）
 //! - **RISC-V**: RV64 架构
-//! - **Wasm32**: WebAssembly
+//! - **Wasm32**: WebAssembly MVP + reference-types
+//!
+//! # 目标版本
+//!
+//! - x86_64: AVX-512 可选优化
+//! - AArch64: ARMv8.5-A + SVE/SVE2
+//! - RISC-V: RVA22U64 Profile
+//! - Wasm32: WebAssembly 2.0
 //!
 //! # 示例
 //!

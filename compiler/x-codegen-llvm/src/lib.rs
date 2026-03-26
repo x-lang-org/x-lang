@@ -1,7 +1,15 @@
-//! LLVM 后端 - 直接生成 LLVM IR
+//! LLVM 后端 - 直接生成 LLVM 17+ IR
 //!
 //! 通过 LLVM 进行深度优化，生成高质量的原生代码
 //! 不依赖 inkwell 库，直接生成 LLVM IR 文本
+//!
+//! ## LLVM 17+ 特性支持
+//! - opaque pointers（不透明指针）
+//! - 新的 LLVM IR 语法
+//! - 改进的优化 pass
+//! - 新增 target-cpu 和 target-features 属性
+//! - MemorySSA 改进
+//! - 新的调试信息格式
 
 use std::collections::HashMap;
 use std::fmt::Write;

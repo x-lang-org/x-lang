@@ -1,6 +1,14 @@
-//! Zig 后端 - 将 X AST 编译为 Zig 代码
+//! Zig 后端 - 将 X AST 编译为 Zig 0.13+ 代码
 //!
 //! 利用 Zig 的内存管理和错误处理特性，提供高效的编译输出
+//!
+//! ## Zig 0.13+ 特性支持
+//! - AstGen/Zon 新语法
+//! - 命名空间隔离改进
+//! - 改进的错误处理
+//! - @import 语义更新
+//! - 自定义增量编译
+//! - Wasm 改进（wasm32-wasi, wasm32-freestanding）
 
 use std::collections::HashMap;
 use std::fmt::Write;
@@ -3141,87 +3149,6 @@ mod tests {
         assert!(zig_code.contains("__frame_1"));
         assert!(zig_code.contains("async task1"));
         assert!(zig_code.contains("async task2"));
-    }
-
-    // ============================================================================
-    // LIR 辅助函数
-    // ============================================================================
-
-    /// 发出外部函数声明（来自 LIR）
-    fn emit_lir_extern_function(&mut self, extern_func: &x_lir::ExternFunction) -> ZigResult<()> {
-        let params = if extern_func.parameters.is_empty() {
-            "".to_string()
-        } else {
-            extern_func
-                .parameters
-                .iter()
-                .enumerate()
-                .map(|(i, param_type)| format!("arg{}: {}", i, self.emit_lir_type(param_type)))
-                .collect::<Vec<_>>()
-                .join(", ")
-        };
-
-        let return_type = self.emit_lir_type(&extern_func.return_type);
-        self.line(&format!(
-            "extern fn {}({}) {};",
-            extern_func.name, params, return_type
-        ))?;
-        Ok(())
-    }
-
-    /// 发出全局变量（来自 LIR）
-    fn emit_lir_global_var(&mut self, global_var: &x_lir::GlobalVar) -> ZigResult<()> {
-        let type_str = self.emit_lir_type(&global_var.type_);
-        if let Some(initializer) = &global_var.initializer {
-            let init_str = self.emit_lir_expression(initializer)?;
-            self.line(&format!(
-                "pub var {} : {} = {};",
-                global_var.name, type_str, init_str
-            ))?;
-        } else {
-            self.line(&format!(
-                "pub var {} : {} = undefined;",
-                global_var.name, type_str
-            ))?;
-        }
-        Ok(())
-    }
-
-    /// 发出结构体定义（来自 LIR）
-    fn emit_lir_struct(&mut self, struct_def: &x_lir::Struct) -> ZigResult<()> {
-        self.line(&format!("pub const {} = struct {{", struct_def.name))?;
-        self.indent += 1;
-
-        for field in &struct_def.fields {
-            let type_str = self.emit_lir_type(&field.type_);
-            self.line(&format!("{}: {},", field.name, type_str))?;
-        }
-
-        self.indent -= 1;
-        self.line("};")
-            .map_err(|_| ZigBackendError::FmtError(std::fmt::Error))?;
-        self.line("")?;
-        Ok(())
-    }
-
-    /// 发出枚举定义（来自 LIR）
-    fn emit_lir_enum(&mut self, enum_def: &x_lir::Enum) -> ZigResult<()> {
-        self.line(&format!("pub const {} = enum {{", enum_def.name))?;
-        self.indent += 1;
-
-        for variant in &enum_def.variants {
-            if let Some(value) = variant.value {
-                self.line(&format!("{} = {},", variant.name, value))?;
-            } else {
-                self.line(&format!("{},", variant.name))?;
-            }
-        }
-
-        self.indent -= 1;
-        self.line("};")
-            .map_err(|_| ZigBackendError::FmtError(std::fmt::Error))?;
-        self.line("")?;
-        Ok(())
     }
 }
 

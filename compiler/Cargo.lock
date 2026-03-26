@@ -823,6 +823,7 @@ dependencies = [
  "thiserror",
  "x-codegen",
  "x-hir",
+ "x-lexer",
  "x-lir",
  "x-parser",
 ]
@@ -860,6 +861,7 @@ dependencies = [
  "thiserror",
  "x-codegen",
  "x-hir",
+ "x-lexer",
  "x-lir",
  "x-parser",
 ]
@@ -872,6 +874,7 @@ dependencies = [
  "thiserror",
  "x-codegen",
  "x-hir",
+ "x-lexer",
  "x-lir",
  "x-mir",
  "x-parser",
