@@ -506,13 +506,15 @@ impl JavaScriptCodeGenerator {
             ast::Pattern::Variable(name) => Ok(name.clone()),
             ast::Pattern::Literal(lit) => self.emit_literal(lit),
             ast::Pattern::Array(elements) => {
-                let elem_strs: Vec<String> = elements.iter()
+                let elem_strs: Vec<String> = elements
+                    .iter()
                     .map(|e| self.emit_pattern(e))
                     .collect::<Result<Vec<_>, _>>()?;
                 Ok(format!("[{}]", elem_strs.join(", ")))
             }
             ast::Pattern::Tuple(elements) => {
-                let elem_strs: Vec<String> = elements.iter()
+                let elem_strs: Vec<String> = elements
+                    .iter()
                     .map(|e| self.emit_pattern(e))
                     .collect::<Result<Vec<_>, _>>()?;
                 Ok(format!("[{}]", elem_strs.join(", ")))
@@ -523,13 +525,17 @@ impl JavaScriptCodeGenerator {
         }
     }
 
-    fn emit_match(&mut self, match_stmt: &ast::MatchStatement) -> Result<(), JavaScriptCodeGenError> {
+    fn emit_match(
+        &mut self,
+        match_stmt: &ast::MatchStatement,
+    ) -> Result<(), JavaScriptCodeGenError> {
         let expr = self.emit_expr(&match_stmt.expression)?;
         let temp_var = "__match_val__";
         self.line(&format!("const {} = {};", temp_var, expr))?;
 
         for (i, case) in match_stmt.cases.iter().enumerate() {
-            let condition = self.emit_match_condition(temp_var, &case.pattern, case.guard.as_ref())?;
+            let condition =
+                self.emit_match_condition(temp_var, &case.pattern, case.guard.as_ref())?;
 
             if i == 0 {
                 self.line(&format!("if ({}) {{", condition))?;
@@ -547,7 +553,12 @@ impl JavaScriptCodeGenerator {
         Ok(())
     }
 
-    fn emit_match_condition(&self, var: &str, pattern: &ast::Pattern, guard: Option<&ast::Expression>) -> Result<String, JavaScriptCodeGenError> {
+    fn emit_match_condition(
+        &self,
+        var: &str,
+        pattern: &ast::Pattern,
+        guard: Option<&ast::Expression>,
+    ) -> Result<String, JavaScriptCodeGenError> {
         let base_cond = match pattern {
             ast::Pattern::Wildcard => "true".to_string(),
             ast::Pattern::Variable(_) => "true".to_string(),
@@ -556,8 +567,15 @@ impl JavaScriptCodeGenerator {
                 format!("{} === {}", var, lit_str)
             }
             ast::Pattern::Array(elements) => {
-                let len_check = format!("Array.isArray({}) && {}.length === {}", var, var, elements.len());
-                let elem_checks: Vec<String> = elements.iter().enumerate()
+                let len_check = format!(
+                    "Array.isArray({}) && {}.length === {}",
+                    var,
+                    var,
+                    elements.len()
+                );
+                let elem_checks: Vec<String> = elements
+                    .iter()
+                    .enumerate()
                     .map(|(i, p)| self.emit_match_condition(&format!("{}[{}]", var, i), p, None))
                     .collect::<Result<Vec<_>, _>>()?;
                 if elem_checks.is_empty() {
@@ -587,7 +605,11 @@ impl JavaScriptCodeGenerator {
         }
     }
 
-    fn emit_match_bindings(&mut self, var: &str, pattern: &ast::Pattern) -> Result<(), JavaScriptCodeGenError> {
+    fn emit_match_bindings(
+        &mut self,
+        var: &str,
+        pattern: &ast::Pattern,
+    ) -> Result<(), JavaScriptCodeGenError> {
         match pattern {
             ast::Pattern::Variable(name) => {
                 self.line(&format!("const {} = {};", name, var))?;
@@ -638,6 +660,214 @@ impl JavaScriptCodeGenerator {
         Ok(())
     }
 
+    // ============================================================================
+    // LIR 处理方法
+    // ============================================================================
+
+    fn emit_lir_function(
+        &mut self,
+        func: &x_codegen::x_lir::Function,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        self.line(&format!("function {}() {{", func.name))?;
+        self.indent += 1;
+        self.emit_lir_block(&func.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_lir_block(
+        &mut self,
+        block: &x_codegen::x_lir::Block,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        for stmt in &block.statements {
+            self.emit_lir_statement(stmt)?;
+        }
+        Ok(())
+    }
+
+    fn emit_lir_statement(
+        &mut self,
+        stmt: &x_codegen::x_lir::Statement,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        match stmt {
+            x_codegen::x_lir::Statement::Expression(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                self.line(&format!("{};", expr_str))?;
+            }
+            x_codegen::x_lir::Statement::Variable(var) => {
+                if let Some(initializer) = &var.initializer {
+                    let init_str = self.emit_lir_expression(initializer)?;
+                    self.line(&format!("let {} = {};", var.name, init_str))?;
+                } else {
+                    self.line(&format!("let {} = undefined;", var.name))?;
+                }
+            }
+            x_codegen::x_lir::Statement::If(if_stmt) => {
+                let cond_str = self.emit_lir_expression(&if_stmt.condition)?;
+                self.line(&format!("if ({}) {{", cond_str))?;
+                self.indent += 1;
+                self.emit_lir_statement(&if_stmt.then_branch)?;
+                self.indent -= 1;
+
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.line("} else {")?;
+                    self.indent += 1;
+                    self.emit_lir_statement(else_branch)?;
+                    self.indent -= 1;
+                }
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::While(while_stmt) => {
+                let cond_str = self.emit_lir_expression(&while_stmt.condition)?;
+                self.line(&format!("while ({}) {{", cond_str))?;
+                self.indent += 1;
+                self.emit_lir_statement(&while_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::Return(expr) => {
+                if let Some(expr) = expr {
+                    let expr_str = self.emit_lir_expression(expr)?;
+                    self.line(&format!("return {};", expr_str))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            x_codegen::x_lir::Statement::Break => {
+                self.line("break;")?;
+            }
+            x_codegen::x_lir::Statement::Continue => {
+                self.line("continue;")?;
+            }
+            x_codegen::x_lir::Statement::Compound(block) => {
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_lir_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            _ => {
+                // Other statement types are not yet implemented
+            }
+        }
+        Ok(())
+    }
+
+    fn emit_lir_expression(
+        &mut self,
+        expr: &x_codegen::x_lir::Expression,
+    ) -> Result<String, JavaScriptCodeGenError> {
+        match expr {
+            x_codegen::x_lir::Expression::Literal(lit) => match lit {
+                x_codegen::x_lir::Literal::Integer(n) => Ok(format!("{}", n)),
+                x_codegen::x_lir::Literal::String(s) => {
+                    let escaped = s
+                        .replace('\\', "\\\\")
+                        .replace('"', "\\\"")
+                        .replace('\n', "\\n");
+                    Ok(format!("\"{}\"", escaped))
+                }
+                x_codegen::x_lir::Literal::Bool(b) => Ok(format!("{}", b)),
+                x_codegen::x_lir::Literal::Float(f) => Ok(format!("{}", f)),
+                x_codegen::x_lir::Literal::Char(c) => Ok(format!("'{}'", c)),
+                x_codegen::x_lir::Literal::NullPointer => Ok("null".to_string()),
+                _ => Ok("undefined".to_string()),
+            },
+            x_codegen::x_lir::Expression::Variable(name) => Ok(name.clone()),
+            x_codegen::x_lir::Expression::Binary(op, lhs, rhs) => {
+                let lhs_str = self.emit_lir_expression(lhs)?;
+                let rhs_str = self.emit_lir_expression(rhs)?;
+                let op_str = match op {
+                    x_codegen::x_lir::BinaryOp::Add => "+",
+                    x_codegen::x_lir::BinaryOp::Subtract => "-",
+                    x_codegen::x_lir::BinaryOp::Multiply => "*",
+                    x_codegen::x_lir::BinaryOp::Divide => "/",
+                    x_codegen::x_lir::BinaryOp::Modulo => "%",
+                    x_codegen::x_lir::BinaryOp::Equal => "===",
+                    x_codegen::x_lir::BinaryOp::NotEqual => "!==",
+                    x_codegen::x_lir::BinaryOp::LessThan => "<",
+                    x_codegen::x_lir::BinaryOp::LessThanEqual => "<=",
+                    x_codegen::x_lir::BinaryOp::GreaterThan => ">",
+                    x_codegen::x_lir::BinaryOp::GreaterThanEqual => ">=",
+                    x_codegen::x_lir::BinaryOp::LogicalAnd => "&&",
+                    x_codegen::x_lir::BinaryOp::LogicalOr => "||",
+                    _ => "?",
+                };
+                Ok(format!("({} {} {})", lhs_str, op_str, rhs_str))
+            }
+            x_codegen::x_lir::Expression::Call(callee, args) => {
+                let callee_str = self.emit_lir_expression(callee)?;
+                let arg_strs: Vec<String> = args
+                    .iter()
+                    .map(|arg| self.emit_lir_expression(arg))
+                    .collect::<Result<_, _>>()?;
+                Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
+            }
+            _ => Ok("undefined".to_string()),
+        }
+    }
+
+    fn emit_lir_global_var(
+        &mut self,
+        global_var: &x_codegen::x_lir::GlobalVar,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        if let Some(initializer) = &global_var.initializer {
+            let init_str = self.emit_lir_expression(initializer)?;
+            self.line(&format!("let {} = {};", global_var.name, init_str))?;
+        } else {
+            self.line(&format!("let {} = undefined;", global_var.name))?;
+        }
+        Ok(())
+    }
+
+    fn emit_lir_struct(
+        &mut self,
+        struct_def: &x_codegen::x_lir::Struct,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        self.line(&format!("class {} {{", struct_def.name))?;
+        self.indent += 1;
+        self.line("constructor() {")?;
+        self.indent += 1;
+
+        for field in &struct_def.fields {
+            self.line(&format!("this.{} = undefined;", field.name))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    fn emit_lir_enum(
+        &mut self,
+        enum_def: &x_codegen::x_lir::Enum,
+    ) -> Result<(), JavaScriptCodeGenError> {
+        self.line(&format!("const {} = {{", enum_def.name))?;
+        self.indent += 1;
+
+        for (i, variant) in enum_def.variants.iter().enumerate() {
+            let value = variant
+                .value
+                .map(|v| v.to_string())
+                .unwrap_or_else(|| i.to_string());
+            let comma = if i < enum_def.variants.len() - 1 {
+                ","
+            } else {
+                ""
+            };
+            self.line(&format!("{}: {}{}", variant.name, value, comma))?;
+        }
+
+        self.indent -= 1;
+        self.line("};")?;
+        self.line("")?;
+        Ok(())
+    }
+
     fn line(&mut self, s: &str) -> Result<(), JavaScriptCodeGenError> {
         for _ in 0..self.indent {
             write!(self.output, "  ")?;
@@ -667,16 +897,63 @@ impl CodeGenerator for JavaScriptCodeGenerator {
         })
     }
 
-    fn generate_from_hir(&mut self, _hir: &x_codegen::x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
+    fn generate_from_hir(
+        &mut self,
+        _hir: &x_codegen::x_hir::Hir,
+    ) -> Result<CodegenOutput, Self::Error> {
         Err(JavaScriptCodeGenError::Unimplemented(
             "JavaScript/TypeScript backend not yet implemented".to_string(),
         ))
     }
 
-    fn generate_from_lir(&mut self, _lir: &x_codegen::x_lir::Program) -> Result<CodegenOutput, Self::Error> {
-        Err(JavaScriptCodeGenError::Unimplemented(
-            "JavaScript/TypeScript backend not yet implemented".to_string(),
-        ))
+    fn generate_from_lir(
+        &mut self,
+        lir: &x_codegen::x_lir::Program,
+    ) -> Result<CodegenOutput, Self::Error> {
+        self.output.clear();
+        self.indent = 0;
+
+        self.emit_header()?;
+
+        // Emit global variables
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Global(global_var) = decl {
+                self.emit_lir_global_var(global_var)?;
+            }
+        }
+
+        // Emit struct definitions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Struct(struct_def) = decl {
+                self.emit_lir_struct(struct_def)?;
+            }
+        }
+
+        // Emit enum definitions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Enum(enum_def) = decl {
+                self.emit_lir_enum(enum_def)?;
+            }
+        }
+
+        // Emit functions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Function(func) = decl {
+                self.emit_lir_function(func)?;
+                self.line("")?;
+            }
+        }
+
+        let output_file = x_codegen::OutputFile {
+            path: PathBuf::from("output.js"),
+            content: self.output.as_bytes().to_vec(),
+            file_type: x_codegen::FileType::TypeScript,
+        };
+
+        Ok(CodegenOutput {
+            files: vec![output_file],
+            dependencies: vec![],
+        })
     }
 }
 
@@ -756,7 +1033,7 @@ mod tests {
     #[test]
     fn generate_from_hir_returns_unimplemented() {
         use std::collections::HashMap;
-        use x_codegen::x_hir::{Hir, HirTypeEnv, HirPerceusInfo};
+        use x_codegen::x_hir::{Hir, HirPerceusInfo, HirTypeEnv};
 
         let mut gen = JavaScriptCodeGenerator::new(JavaScriptConfig::default());
         let hir = Hir {
@@ -772,7 +1049,11 @@ mod tests {
         };
         let err = gen.generate_from_hir(&hir).expect_err("unimplemented");
         let msg = err.to_string();
-        assert!(msg.contains("未实现") || msg.contains("Unimplemented") || msg.contains("not yet implemented"));
+        assert!(
+            msg.contains("未实现")
+                || msg.contains("Unimplemented")
+                || msg.contains("not yet implemented")
+        );
     }
 
     #[test]

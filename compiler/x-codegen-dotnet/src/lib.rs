@@ -134,9 +134,15 @@ impl DotNetCodeGenerator {
                 let modifier = if var.is_mutable { "" } else { "readonly " };
                 if let Some(init) = &var.initializer {
                     let init_str = self.emit_expr(init)?;
-                    self.line(&format!("public static {}{} {} = {};", modifier, csharp_type, var.name, init_str))?;
+                    self.line(&format!(
+                        "public static {}{} {} = {};",
+                        modifier, csharp_type, var.name, init_str
+                    ))?;
                 } else {
-                    self.line(&format!("public static {}{} {};", modifier, csharp_type, var.name))?;
+                    self.line(&format!(
+                        "public static {}{} {};",
+                        modifier, csharp_type, var.name
+                    ))?;
                 }
             }
             ast::Declaration::Function(func) => {
@@ -154,10 +160,13 @@ impl DotNetCodeGenerator {
             "void".to_string()
         };
 
-        let params: Vec<String> = func.parameters.iter()
+        let params: Vec<String> = func
+            .parameters
+            .iter()
             .map(|p| {
                 let param_type = if let Some(t) = &p.type_annot {
-                    self.type_to_csharp(t).unwrap_or_else(|_| "object".to_string())
+                    self.type_to_csharp(t)
+                        .unwrap_or_else(|_| "object".to_string())
                 } else {
                     "object".to_string()
                 };
@@ -166,7 +175,13 @@ impl DotNetCodeGenerator {
             .collect();
 
         let async_kw = if func.is_async { "async " } else { "" };
-        self.line(&format!("public static {}{} {}({})", async_kw, return_type, func.name, params.join(", ")))?;
+        self.line(&format!(
+            "public static {}{} {}({})",
+            async_kw,
+            return_type,
+            func.name,
+            params.join(", ")
+        ))?;
         self.line("{")?;
         self.indent += 1;
         self.emit_block(&func.body)?;
@@ -327,16 +342,28 @@ impl DotNetCodeGenerator {
         match pattern {
             ast::Pattern::Wildcard => "_".to_string(),
             ast::Pattern::Variable(name) => name.clone(),
-            ast::Pattern::Literal(lit) => self.emit_literal(lit).unwrap_or_else(|_| "_".to_string()),
+            ast::Pattern::Literal(lit) => {
+                self.emit_literal(lit).unwrap_or_else(|_| "_".to_string())
+            }
             ast::Pattern::Or(left, right) => {
-                format!("{} or {}", self.emit_match_pattern(left), self.emit_match_pattern(right))
+                format!(
+                    "{} or {}",
+                    self.emit_match_pattern(left),
+                    self.emit_match_pattern(right)
+                )
             }
             ast::Pattern::Array(elements) => {
-                let elem_strs: Vec<String> = elements.iter().map(|p| self.emit_match_pattern(p)).collect();
+                let elem_strs: Vec<String> = elements
+                    .iter()
+                    .map(|p| self.emit_match_pattern(p))
+                    .collect();
                 format!("[{}]", elem_strs.join(", "))
             }
             ast::Pattern::Tuple(elements) => {
-                let elem_strs: Vec<String> = elements.iter().map(|p| self.emit_match_pattern(p)).collect();
+                let elem_strs: Vec<String> = elements
+                    .iter()
+                    .map(|p| self.emit_match_pattern(p))
+                    .collect();
                 format!("({})", elem_strs.join(", "))
             }
             _ => "_".to_string(),
@@ -401,7 +428,8 @@ impl DotNetCodeGenerator {
                 Ok(format!("{}.{}", o, field))
             }
             ExpressionKind::Array(elements) => {
-                let elem_strs: Vec<String> = elements.iter()
+                let elem_strs: Vec<String> = elements
+                    .iter()
                     .map(|e| self.emit_expr(e))
                     .collect::<DotNetResult<Vec<_>>>()?;
                 Ok(format!("new object[] {{{}}}", elem_strs.join(", ")))
@@ -419,7 +447,10 @@ impl DotNetCodeGenerator {
             ast::Literal::Integer(n) => Ok(n.to_string()),
             ast::Literal::Float(f) => Ok(format!("{}", f)),
             ast::Literal::Boolean(b) => Ok(b.to_string().to_lowercase()),
-            ast::Literal::String(s) => Ok(format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\""))),
+            ast::Literal::String(s) => Ok(format!(
+                "\"{}\"",
+                s.replace('\\', "\\\\").replace('"', "\\\"")
+            )),
             ast::Literal::Char(c) => Ok(format!("'{}'", c)),
             ast::Literal::Null | ast::Literal::None => Ok("null".to_string()),
             ast::Literal::Unit => Ok("null".to_string()),
@@ -455,8 +486,13 @@ impl DotNetCodeGenerator {
         }
     }
 
-    fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> DotNetResult<String> {
-        let arg_strs: Vec<String> = args.iter()
+    fn emit_call(
+        &self,
+        callee: &ast::Expression,
+        args: &[ast::Expression],
+    ) -> DotNetResult<String> {
+        let arg_strs: Vec<String> = args
+            .iter()
             .map(|a| self.emit_expr(a))
             .collect::<DotNetResult<Vec<_>>>()?;
 
@@ -517,6 +553,346 @@ impl DotNetCodeGenerator {
         writeln!(self.output, "{}", s)?;
         Ok(())
     }
+
+    // ============================================================================
+    // LIR Processing Methods
+    // ============================================================================
+
+    fn emit_lir_function(&mut self, func: &x_codegen::x_lir::Function) -> DotNetResult<()> {
+        let return_type = self.lir_type_to_csharp(&func.return_type);
+        let params: Vec<String> = func
+            .parameters
+            .iter()
+            .map(|p| {
+                let param_type = self.lir_type_to_csharp(&p.type_);
+                format!("{} {}", param_type, p.name)
+            })
+            .collect();
+
+        self.line(&format!(
+            "public static {} {}({}) {{",
+            return_type,
+            func.name,
+            params.join(", ")
+        ))?;
+        self.indent += 1;
+        self.emit_lir_block(&func.body)?;
+        self.indent -= 1;
+        self.line("}")?;
+        Ok(())
+    }
+
+    fn emit_lir_block(&mut self, block: &x_codegen::x_lir::Block) -> DotNetResult<()> {
+        for stmt in &block.statements {
+            self.emit_lir_statement(stmt)?;
+        }
+        Ok(())
+    }
+
+    fn emit_lir_statement(&mut self, stmt: &x_codegen::x_lir::Statement) -> DotNetResult<()> {
+        match stmt {
+            x_codegen::x_lir::Statement::Expression(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                self.line(&format!("{};", expr_str))?;
+            }
+            x_codegen::x_lir::Statement::Variable(var) => {
+                let var_type = self.lir_type_to_csharp(&var.type_);
+                if let Some(initializer) = &var.initializer {
+                    let init_str = self.emit_lir_expression(initializer)?;
+                    self.line(&format!("var {} = {};", var.name, init_str))?;
+                } else {
+                    self.line(&format!("{} {};", var_type, var.name))?;
+                }
+            }
+            x_codegen::x_lir::Statement::If(if_stmt) => {
+                let cond_str = self.emit_lir_expression(&if_stmt.condition)?;
+                self.line(&format!("if ({}) {{", cond_str))?;
+                self.indent += 1;
+                self.emit_lir_statement(&if_stmt.then_branch)?;
+                self.indent -= 1;
+
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.line("} else {")?;
+                    self.indent += 1;
+                    self.emit_lir_statement(else_branch)?;
+                    self.indent -= 1;
+                }
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::While(while_stmt) => {
+                let cond_str = self.emit_lir_expression(&while_stmt.condition)?;
+                self.line(&format!("while ({}) {{", cond_str))?;
+                self.indent += 1;
+                self.emit_lir_statement(&while_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::DoWhile(do_while_stmt) => {
+                self.line("do {")?;
+                self.indent += 1;
+                self.emit_lir_statement(&do_while_stmt.body)?;
+                self.indent -= 1;
+                let cond_str = self.emit_lir_expression(&do_while_stmt.condition)?;
+                self.line(&format!("}} while ({});", cond_str))?;
+            }
+            x_codegen::x_lir::Statement::For(for_stmt) => {
+                let init_str = if let Some(init) = &for_stmt.initializer {
+                    self.emit_lir_expression(init)?
+                } else {
+                    String::new()
+                };
+                let cond_str = if let Some(cond) = &for_stmt.condition {
+                    self.emit_lir_expression(cond)?
+                } else {
+                    "true".to_string()
+                };
+                let incr_str = if let Some(incr) = &for_stmt.increment {
+                    self.emit_lir_expression(incr)?
+                } else {
+                    String::new()
+                };
+
+                self.line(&format!(
+                    "for ({} ; {} ; {}) {{",
+                    init_str, cond_str, incr_str
+                ))?;
+                self.indent += 1;
+                self.emit_lir_statement(&for_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::Return(expr) => {
+                if let Some(expr) = expr {
+                    let expr_str = self.emit_lir_expression(expr)?;
+                    self.line(&format!("return {};", expr_str))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            x_codegen::x_lir::Statement::Break => {
+                self.line("break;")?;
+            }
+            x_codegen::x_lir::Statement::Continue => {
+                self.line("continue;")?;
+            }
+            x_codegen::x_lir::Statement::Compound(block) => {
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_lir_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_codegen::x_lir::Statement::Declaration(_) => {
+                // Declaration statements are handled separately
+            }
+            x_codegen::x_lir::Statement::Switch(_) => {
+                self.line("// switch statement not yet implemented")?;
+            }
+            x_codegen::x_lir::Statement::Match(_) => {
+                self.line("// match statement not yet implemented")?;
+            }
+            x_codegen::x_lir::Statement::Try(_) => {
+                self.line("// try statement not yet implemented")?;
+            }
+            x_codegen::x_lir::Statement::Goto(_) => {
+                self.line("// goto statement not supported")?;
+            }
+            x_codegen::x_lir::Statement::Label(_) => {
+                self.line("// label not supported")?;
+            }
+            x_codegen::x_lir::Statement::Empty => {
+                // Empty statement, do nothing
+            }
+        }
+        Ok(())
+    }
+
+    fn emit_lir_expression(&mut self, expr: &x_codegen::x_lir::Expression) -> DotNetResult<String> {
+        match expr {
+            x_codegen::x_lir::Expression::Literal(lit) => match lit {
+                x_codegen::x_lir::Literal::Integer(n) => Ok(format!("{}", n)),
+                x_codegen::x_lir::Literal::String(s) => {
+                    let escaped = s
+                        .replace('\\', "\\\\")
+                        .replace('"', "\\\"")
+                        .replace('\n', "\\n");
+                    Ok(format!("\"{}\"", escaped))
+                }
+                x_codegen::x_lir::Literal::Bool(b) => Ok(format!("{}", b)),
+                x_codegen::x_lir::Literal::Float(f) => Ok(format!("{}", f)),
+                x_codegen::x_lir::Literal::Char(c) => Ok(format!("'{}'", c)),
+                x_codegen::x_lir::Literal::NullPointer => Ok("null".to_string()),
+                _ => Ok("null".to_string()),
+            },
+            x_codegen::x_lir::Expression::Variable(name) => Ok(name.clone()),
+            x_codegen::x_lir::Expression::Binary(op, lhs, rhs) => {
+                let lhs_str = self.emit_lir_expression(lhs)?;
+                let rhs_str = self.emit_lir_expression(rhs)?;
+                let op_str = match op {
+                    x_codegen::x_lir::BinaryOp::Add => "+",
+                    x_codegen::x_lir::BinaryOp::Subtract => "-",
+                    x_codegen::x_lir::BinaryOp::Multiply => "*",
+                    x_codegen::x_lir::BinaryOp::Divide => "/",
+                    x_codegen::x_lir::BinaryOp::Modulo => "%",
+                    x_codegen::x_lir::BinaryOp::Equal => "==",
+                    x_codegen::x_lir::BinaryOp::NotEqual => "!=",
+                    x_codegen::x_lir::BinaryOp::LessThan => "<",
+                    x_codegen::x_lir::BinaryOp::LessThanEqual => "<=",
+                    x_codegen::x_lir::BinaryOp::GreaterThan => ">",
+                    x_codegen::x_lir::BinaryOp::GreaterThanEqual => ">=",
+                    x_codegen::x_lir::BinaryOp::LogicalAnd => "&&",
+                    x_codegen::x_lir::BinaryOp::LogicalOr => "||",
+                    x_codegen::x_lir::BinaryOp::BitAnd => "&",
+                    x_codegen::x_lir::BinaryOp::BitOr => "|",
+                    x_codegen::x_lir::BinaryOp::BitXor => "^",
+                    x_codegen::x_lir::BinaryOp::LeftShift => "<<",
+                    x_codegen::x_lir::BinaryOp::RightShift => ">>",
+                };
+                Ok(format!("({} {} {})", lhs_str, op_str, rhs_str))
+            }
+            x_codegen::x_lir::Expression::Unary(op, expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                let op_str = match op {
+                    x_codegen::x_lir::UnaryOp::Plus => "+",
+                    x_codegen::x_lir::UnaryOp::Minus => "-",
+                    x_codegen::x_lir::UnaryOp::Not => "!",
+                    x_codegen::x_lir::UnaryOp::BitNot => "~",
+                    x_codegen::x_lir::UnaryOp::PreIncrement => "++",
+                    x_codegen::x_lir::UnaryOp::PreDecrement => "--",
+                    x_codegen::x_lir::UnaryOp::PostIncrement => "post++",
+                    x_codegen::x_lir::UnaryOp::PostDecrement => "post--",
+                };
+                Ok(format!("({}{})", op_str, expr_str))
+            }
+            x_codegen::x_lir::Expression::Call(callee, args) => {
+                let callee_str = self.emit_lir_expression(callee)?;
+                let arg_strs: Vec<String> = args
+                    .iter()
+                    .map(|arg| self.emit_lir_expression(arg))
+                    .collect::<DotNetResult<_>>()?;
+                Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
+            }
+            x_codegen::x_lir::Expression::Index(expr, index) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                let index_str = self.emit_lir_expression(index)?;
+                Ok(format!("{}[{}]", expr_str, index_str))
+            }
+            x_codegen::x_lir::Expression::Member(expr, field) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                Ok(format!("{}.{}", expr_str, field))
+            }
+            x_codegen::x_lir::Expression::Assign(lhs, rhs) => {
+                let lhs_str = self.emit_lir_expression(lhs)?;
+                let rhs_str = self.emit_lir_expression(rhs)?;
+                Ok(format!("({} = {})", lhs_str, rhs_str))
+            }
+            x_codegen::x_lir::Expression::Cast(ty, expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                let type_str = self.lir_type_to_csharp(ty);
+                Ok(format!("(({}) {})", type_str, expr_str))
+            }
+            x_codegen::x_lir::Expression::SizeOf(ty) => {
+                let ty_str = self.lir_type_to_csharp(ty);
+                Ok(format!("Marshal.SizeOf(typeof({}))", ty_str))
+            }
+            x_codegen::x_lir::Expression::AlignOf(_) => {
+                Ok("1".to_string()) // C# doesn't have alignof, use placeholder
+            }
+            x_codegen::x_lir::Expression::AddressOf(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                Ok(format!("&({})", expr_str))
+            }
+            x_codegen::x_lir::Expression::Dereference(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                Ok(format!("*({})", expr_str))
+            }
+            x_codegen::x_lir::Expression::Ternary(cond, true_expr, false_expr) => {
+                let cond_str = self.emit_lir_expression(cond)?;
+                let true_str = self.emit_lir_expression(true_expr)?;
+                let false_str = self.emit_lir_expression(false_expr)?;
+                Ok(format!("({} ? {} : {})", cond_str, true_str, false_str))
+            }
+            _ => Ok("null".to_string()),
+        }
+    }
+
+    fn emit_lir_global_var(
+        &mut self,
+        global_var: &x_codegen::x_lir::GlobalVar,
+    ) -> DotNetResult<()> {
+        let var_type = self.lir_type_to_csharp(&global_var.type_);
+        if let Some(initializer) = &global_var.initializer {
+            let init_str = self.emit_lir_expression(initializer)?;
+            self.line(&format!(
+                "public static {} {} = {};",
+                var_type, global_var.name, init_str
+            ))?;
+        } else {
+            self.line(&format!("public static {} {};", var_type, global_var.name))?;
+        }
+        Ok(())
+    }
+
+    fn emit_lir_struct(&mut self, struct_def: &x_codegen::x_lir::Struct) -> DotNetResult<()> {
+        self.line(&format!("public struct {} {{", struct_def.name))?;
+        self.indent += 1;
+
+        for field in &struct_def.fields {
+            let field_type = self.lir_type_to_csharp(&field.type_);
+            self.line(&format!("public {} {};", field_type, field.name))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    fn emit_lir_enum(&mut self, enum_def: &x_codegen::x_lir::Enum) -> DotNetResult<()> {
+        self.line(&format!("public enum {} {{", enum_def.name))?;
+        self.indent += 1;
+
+        for (i, variant) in enum_def.variants.iter().enumerate() {
+            let comma = if i < enum_def.variants.len() - 1 {
+                ","
+            } else {
+                ""
+            };
+            if let Some(value) = variant.value {
+                self.line(&format!("{} = {}{}", variant.name, value, comma))?;
+            } else {
+                self.line(&format!("{}{}", variant.name, comma))?;
+            }
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    fn lir_type_to_csharp(&self, ty: &x_codegen::x_lir::Type) -> String {
+        use x_codegen::x_lir::Type;
+        match ty {
+            Type::Void => "void".to_string(),
+            Type::Bool => "bool".to_string(),
+            Type::Char => "char".to_string(),
+            Type::Schar | Type::Uchar => "byte".to_string(),
+            Type::Short | Type::Ushort => "short".to_string(),
+            Type::Int | Type::Uint => "int".to_string(),
+            Type::Long | Type::Ulong => "long".to_string(),
+            Type::LongLong | Type::UlongLong => "long".to_string(),
+            Type::Float => "float".to_string(),
+            Type::Double => "double".to_string(),
+            Type::Size | Type::Ptrdiff | Type::Intptr | Type::Uintptr => "long".to_string(),
+            Type::Pointer(_) => "IntPtr".to_string(),
+            Type::Array(..) => "object[]".to_string(),
+            Type::Named(name) => name.clone(),
+            Type::FunctionPointer(..) => "Delegate".to_string(),
+            Type::Qualified(..) => "object".to_string(),
+            _ => "object".to_string(),
+        }
+    }
 }
 
 impl CodeGenerator for DotNetCodeGenerator {
@@ -542,16 +918,69 @@ impl CodeGenerator for DotNetCodeGenerator {
         })
     }
 
-    fn generate_from_hir(&mut self, _hir: &x_codegen::x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
+    fn generate_from_hir(
+        &mut self,
+        _hir: &x_codegen::x_hir::Hir,
+    ) -> Result<CodegenOutput, Self::Error> {
         Err(DotNetCodeGenError::Unimplemented(
             ".NET backend HIR generation not yet implemented".to_string(),
         ))
     }
 
-    fn generate_from_lir(&mut self, _lir: &x_codegen::x_lir::Program) -> Result<CodegenOutput, Self::Error> {
-        Err(DotNetCodeGenError::Unimplemented(
-            ".NET backend LIR generation not yet implemented".to_string(),
-        ))
+    fn generate_from_lir(
+        &mut self,
+        lir: &x_codegen::x_lir::Program,
+    ) -> Result<CodegenOutput, Self::Error> {
+        self.output.clear();
+        self.indent = 0;
+
+        self.emit_header()?;
+        self.emit_namespace_start()?;
+        self.emit_class_start()?;
+
+        // Emit global variables first
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Global(global_var) = decl {
+                self.emit_lir_global_var(global_var)?;
+            }
+        }
+
+        // Emit struct definitions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Struct(struct_def) = decl {
+                self.emit_lir_struct(struct_def)?;
+            }
+        }
+
+        // Emit enum definitions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Enum(enum_def) = decl {
+                self.emit_lir_enum(enum_def)?;
+            }
+        }
+
+        // Emit functions
+        for decl in &lir.declarations {
+            if let x_codegen::x_lir::Declaration::Function(func) = decl {
+                self.emit_lir_function(func)?;
+                self.line("")?;
+            }
+        }
+
+        self.emit_class_end()?;
+        self.emit_namespace_end()?;
+
+        let csharp_code = self.output.clone();
+        let output_file = x_codegen::OutputFile {
+            path: std::path::PathBuf::from(format!("{}.cs", self.class_name)),
+            content: csharp_code.as_bytes().to_vec(),
+            file_type: x_codegen::FileType::DotNetAssembly,
+        };
+
+        Ok(CodegenOutput {
+            files: vec![output_file],
+            dependencies: vec![],
+        })
     }
 }
 
