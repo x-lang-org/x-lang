@@ -18,8 +18,8 @@ pub enum Target {
     // === 字节码/IR 后端 ===
     /// Java 源代码 - JVM 平台
     Java,
-    /// .NET平台 - CIL字节码
-    DotNet,
+    /// C# 源代码 - .NET 平台
+    CSharp,
 
     // === 原生编译后端 ===
     /// Zig 后端 - Native/Wasm，通过 Zig 编译器
@@ -40,7 +40,7 @@ impl Target {
             Target::Erlang => "erlang",
             Target::Swift => "swift",
             Target::Java => "java",
-            Target::DotNet => "dotnet",
+            Target::CSharp => "csharp",
             Target::Zig => "zig",
             Target::Llvm => "llvm",
             Target::Native => "native",
@@ -56,7 +56,7 @@ impl Target {
             "erlang" | "erl" => Some(Target::Erlang),
             "swift" => Some(Target::Swift),
             "java" => Some(Target::Java),
-            "dotnet" | "net" | "cil" => Some(Target::DotNet),
+            "csharp" | "cs" | "dotnet" | "net" => Some(Target::CSharp),
             "zig" => Some(Target::Zig),
             "llvm" => Some(Target::Llvm),
             "native" => Some(Target::Native),
@@ -73,7 +73,7 @@ impl Target {
             Target::Erlang => "erl",
             Target::Swift => "swift",
             Target::Java => "java",
-            Target::DotNet => "dll",
+            Target::CSharp => "cs",
             Target::Zig => "zig",
             Target::Llvm => "ll",
             Target::Native => "exe",
@@ -90,7 +90,7 @@ impl Target {
             Target::Erlang |
             Target::Swift |
             Target::Java |
-            Target::DotNet |
+            Target::CSharp |
             Target::Zig |
             Target::Llvm
         )
@@ -100,7 +100,7 @@ impl Target {
     pub fn requires_runtime(&self) -> bool {
         matches!(
             self,
-            Target::TypeScript | Target::Python | Target::Java | Target::DotNet | Target::Erlang
+            Target::TypeScript | Target::Python | Target::Java | Target::CSharp | Target::Erlang
         )
     }
 
@@ -108,13 +108,13 @@ impl Target {
     pub fn is_source_backend(&self) -> bool {
         matches!(
             self,
-            Target::TypeScript | Target::Python | Target::Rust | Target::Erlang | Target::Swift | Target::Java
+            Target::TypeScript | Target::Python | Target::Rust | Target::Erlang | Target::Swift | Target::Java | Target::CSharp
         )
     }
 
     /// 检查目标平台是否生成字节码/IR
     pub fn is_bytecode_backend(&self) -> bool {
-        matches!(self, Target::DotNet | Target::Llvm)
+        matches!(self, Target::Llvm)
     }
 
     /// 检查目标平台是否生成原生代码
@@ -131,7 +131,7 @@ impl Target {
             Target::Erlang => "x-codegen-erlang",
             Target::Swift => "x-codegen-swift",
             Target::Java => "x-codegen-java",
-            Target::DotNet => "x-codegen-dotnet",
+            Target::CSharp => "x-codegen-csharp",
             Target::Zig => "x-codegen-zig",
             Target::Llvm => "x-codegen-llvm",
             Target::Native => "x-codegen-native",

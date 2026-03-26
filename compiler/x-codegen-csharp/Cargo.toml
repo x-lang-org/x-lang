@@ -1,0 +1,13 @@
+[package]
+name = "x-codegen-csharp"
+version = "0.1.0"
+edition = "2021"
+description = "X语言 C# 后端 - 生成 C# 源代码"
+
+[dependencies]
+x-parser = { workspace = true }
+x-hir = { workspace = true }
+x-lir = { workspace = true }
+x-codegen = { path = "../x-codegen" }
+thiserror = { workspace = true }
+log = { workspace = true }

@@ -752,13 +752,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "x-codegen-dotnet"
+name = "x-codegen-csharp"
 version = "0.1.0"
 dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-lexer",
+ "x-hir",
+ "x-lir",
  "x-parser",
 ]
 

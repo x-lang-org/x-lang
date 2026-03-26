@@ -17,7 +17,7 @@ members = [
     "x-codegen-python",     # 3. Python 后端 - Python 源码
     "x-codegen-rust",       # 4. Rust 后端 - Rust 源码
     "x-codegen-java",       # 5. Java 后端 - Java 源码
-    "x-codegen-dotnet",     # 6. .NET 后端 - C# 源码/CIL
+    "x-codegen-csharp",     # 6. C# 后端 - .NET 平台
     "x-codegen-llvm",       # 7. LLVM 后端 - LLVM IR
     "x-codegen-swift",      # 8. Swift 后端 - Apple 生态
     "x-codegen-erlang",     # 9. Erlang 后端 - 并发/分布式系统
