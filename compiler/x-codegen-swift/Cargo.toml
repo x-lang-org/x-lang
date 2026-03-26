@@ -9,5 +9,6 @@ x-parser = { workspace = true }
 x-hir = { workspace = true }
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
+x-lexer = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }
