@@ -123,8 +123,8 @@ keyword = "define" | "mutable" | "constant"
         | "try" | "catch" | "finally" | "throw"
         | "needs" | "given" | "requires"
         | "concurrently" | "race" | "atomic" | "retry"
-        | "of" | "as" | "and" | "or" | "not"
-        | "true" | "false" | "self" | "Self" | "constructor" | "method" ;
+        | "of" | "as" | "and" | "or" | "not" | "to" | "extends" | "where"
+        | "true" | "false" | "self" | "Self" | "constructor" | "method" | "field" ;
 ```
 
 | 类别 | 关键字 | 自然语言含义 |
@@ -137,6 +137,7 @@ keyword = "define" | "mutable" | "constant"
 | 模块 | `module`, `import`, `from`, `export`, `public` | 模块、导入、从...、导出、公开 |
 | 效果 | `needs`, `given`, `requires` | 需要、给定、要求 |
 | 并发 | `concurrently`, `race`, `atomic`, `retry` | 并发地、竞争、原子、重试 |
+| 类型连接 | `of`, `to`, `or`, `extends`, `where` | ...的、到、或、继承、约束 |
 
 ### 1.5 字面量
 
@@ -165,11 +166,17 @@ escape_sequence = `\` ("n" | "t" | "r" | `\` | `"` | `'` | "0" | unicode_escape)
 (* 字符 *)
 char_literal = `'` (char_char | escape_sequence) `'` ;
 
-(* 复合类型 *)
+(* 列表 - 使用方括号 *)
 list_literal = "[" [ expression { "," expression } ] "]" ;
+
+(* 字典 - 使用大括号加冒号键值对 *)
 dict_literal = "{" [ dict_entry { "," dict_entry } ] "}" ;
 dict_entry = identifier ":" expression | string_literal ":" expression ;
-tuple_literal = "(" expression { "," expression } [ "," ] ")" ;
+
+(* 元组 - 使用圆括号，至少两个元素 *)
+tuple_literal = "(" expression "," expression { "," expression } [ "," ] ")" ;
+
+(* 单元值 - 空圆括号 *)
 unit_literal = "()" ;
 ```
 
@@ -197,19 +204,19 @@ define escaped = "Tab:\tQuote:\""
 define grade = 'A'
 define chinese = '中'
 
-// 列表
+// 列表 - 方括号
 define numbers = [1, 2, 3, 4, 5]
 define names = ["Alice", "Bob", "Charlie"]
 
-// 字典
+// 字典 - 大括号，键值对用冒号
 define scores = { Alice: 95, Bob: 87, Charlie: 92 }
 define config = { host: "localhost", port: 8080 }
 
-// 元组
+// 元组 - 圆括号，至少两个元素
 define point = (10, 20)
 define person = ("Alice", 30, true)
 
-// 单元值（无返回值）
+// 单元值 - 空圆括号
 define nothing = ()
 ```
 
@@ -255,10 +262,12 @@ type_name = identifier ;
 (* 使用 "of" 连接泛型参数，更接近自然语言 *)
 type_arguments = "of" type { "," type } ;
 
-compound_type = tuple_type | list_type | map_type ;
+compound_type = tuple_type | list_type | map_type | optional_type | result_type ;
 tuple_type = "(" [ type { "," type } ] ")" ;
 list_type = "List" "of" type ;
 map_type = "Map" "of" type "to" type ;
+optional_type = "Optional" "of" type ;
+result_type = "Result" "of" type "with_error" type ;
 ```
 
 ```x
@@ -275,6 +284,10 @@ define person: (String, Integer, Boolean) = ("Alice", 30, true)
 
 // 嵌套类型
 define matrix: List of List of Integer = [[1, 2], [3, 4]]
+
+// Optional 和 Result 类型
+define maybe: Optional of Integer = Some(42)
+define outcome: Result of String with_error IoError = Success("ok")
 ```
 
 ### 2.3 函数类型
@@ -297,8 +310,10 @@ define apply: function from (function from (Integer) returns Integer, Integer) r
 
 ```ebnf
 optional_type = "Optional" "of" type ;
-result_type = "Result" "of" type "or" type ;
+result_type = "Result" "of" type "with_error" type ;
 ```
+
+> **注意**：使用 `with_error` 而非 `or` 作为 Result 类型的分隔符，避免与逻辑运算符 `or` 产生歧义。
 
 ```x
 // Optional<T> - 表示"可能有值"
@@ -311,8 +326,8 @@ type Result<T, E> = Success(T) | Failure(E)
 define maybe_number: Optional of Integer = Some(42)
 define no_value: Optional of Integer = None
 
-define success: Result of Integer or String = Success(100)
-define failure: Result of Integer or String = Failure("error occurred")
+define success: Result of Integer with_error String = Success(100)
+define failure: Result of Integer with_error String = Failure("error occurred")
 ```
 
 ### 2.5 代数数据类型
@@ -398,7 +413,7 @@ function pair of A, B(a: A, b: B) returns (A, B) = (a, b)
 
 | 优先级 | 运算符 | 结合性 | 描述 |
 |--------|--------|--------|------|
-| 1 (最高) | `.` `(` `[` `?` | 左 | 成员访问、调用、索引、可选 |
+| 1 (最高) | `.` `(` `[` `?` | 左 | 成员访问、调用、索引、可选链 |
 | 2 | `not` `-` (一元) | 右 | 逻辑非、负号 |
 | 3 | `*` `/` `%` | 左 | 乘除、取模 |
 | 4 | `+` `-` | 左 | 加减 |
@@ -414,8 +429,12 @@ function pair of A, B(a: A, b: B) returns (A, B) = (a, b)
 ```ebnf
 expression = assignment_expr ;
 
-assignment_expr = or_expr [ assignment_op expression ] ;
+assignment_expr = pipeline_expr [ assignment_op expression ] ;
 assignment_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" ;
+
+pipeline_expr = coalesce_expr { "|>" coalesce_expr } ;
+
+coalesce_expr = or_expr [ ("?" | "??") expression ] ;
 
 or_expr = and_expr { "or" and_expr } ;
 and_expr = not_expr { "and" not_expr } ;
@@ -455,11 +474,6 @@ define complex = (a + b) * c and not (d > e)
 ```
 
 ### 3.3 管道运算符
-
-```ebnf
-(* 管道作为二元运算符 *)
-pipeline_expr = try_expr { "|>" range_expr } ;
-```
 
 ```x
 // 管道让操作顺序从左到右，更自然
@@ -613,9 +627,9 @@ define head = when list is {
 
 // 类型匹配
 define info = when value is {
-    s: String => "string: " + s
-    n: Integer => "number: " + n
-    b: Boolean => "boolean: " + b
+    s as String => "string: " + s
+    n as Integer => "number: " + n
+    b as Boolean => "boolean: " + b
     otherwise => "unknown type"
 }
 ```
@@ -649,6 +663,29 @@ define value = if condition then {
 } else {
     default_value()
 }
+```
+
+### 3.9 构造表达式
+
+```ebnf
+(* 类型构造器调用 - 使用类型名后跟圆括号 *)
+constructor_expr = type_name "(" [ constructor_args ] ")" ;
+constructor_args = expression { "," expression } | named_arg { "," named_arg } ;
+named_arg = identifier ":" expression ;
+```
+
+```x
+// 构造枚举变体
+define some_value = Some(42)
+define none_value = None
+define success = Success("data")
+define failure = Failure("error message")
+
+// 构造记录
+define person = Person(name: "Alice", age: 30)
+
+// 构造带位置参数的变体
+define color = Color.RGB(255, 128, 0)
 ```
 
 ---
@@ -704,11 +741,13 @@ define action = if danger_level > 5 then "evacuate" else "stay calm"
 
 ```ebnf
 while_statement = "while" expression block ;
-for_statement = "for" "each" identifier "in" expression block ;
+for_each_statement = "for" "each" identifier "in" expression block ;
 loop_statement = "loop" block ;
 break_statement = "break" [ expression ] ;
 continue_statement = "continue" ;
 ```
+
+> **设计说明**：X 语言只提供 `for each` 循环，不支持传统的 C 风格 `for(init; cond; update)` 循环。范围迭代使用 `1..10` 语法。
 
 ```x
 // for each 循环 - 自然语言风格
@@ -755,6 +794,7 @@ param_list = param { "," param } ;
 param = identifier ":" type [ default_value ] ;
 default_value = "=" expression ;
 effect_list = identifier { "," identifier } ;
+type_parameters = "of" identifier { "," identifier } ;
 ```
 
 ```x
@@ -827,15 +867,15 @@ method_decl = "method" identifier [ type_parameters ] "(" [ param_list ] ")"
 
 ```x
 define class Calculator {
-    define mutable value: Integer = 0
+    field mutable value: Integer = 0
 
     method add(n: Integer) returns Integer {
-        value = value + n
-        value
+        self.value = self.value + n
+        self.value
     }
 
     method reset() returns Unit {
-        value = 0
+        self.value = 0
     }
 }
 ```
@@ -850,7 +890,7 @@ define class Calculator {
 class_decl = [ "public" ] "define" "class" identifier [ type_parameters ] "{" { class_member } "}" ;
 
 class_member = field_decl | method_decl | constructor_decl ;
-field_decl = [ "public" ] identifier ":" type [ default_value ] ;
+field_decl = [ "public" ] "field" [ "mutable" ] identifier ":" type [ default_value ] ;
 method_decl = "method" identifier [ type_parameters ] "(" [ param_list ] ")"
             [ "returns" type ] ( block | "=" expression ) ;
 constructor_decl = "constructor" "(" [ param_list ] ")" block ;
@@ -858,12 +898,12 @@ constructor_decl = "constructor" "(" [ param_list ] ")" block ;
 
 ```x
 define class Person {
-    name: String
-    age: Integer
-    define mutable score: Integer = 0
+    field name: String
+    field age: Integer
+    field mutable score: Integer = 0
 
     constructor(name: String, age: Integer) {
-        Self { name: name, age: age }
+        Self(name, age, 0)  // 调用主构造器初始化字段
     }
 
     method greet() returns String {
@@ -887,7 +927,11 @@ alice.have_birthday()
 ### 6.2 trait 定义
 
 ```ebnf
-trait_decl = [ "public" ] "define" "trait" identifier [ type_parameters ] "{" { trait_method } "}" ;
+trait_decl = [ "public" ] "define" "trait" identifier [ type_parameters ]
+           [ "extends" trait_list ] "{" { trait_method } "}" ;
+
+trait_list = type_name { "," type_name } ;
+
 trait_method = "method" identifier "(" [ param_list ] ")" [ "returns" type ] ;
 ```
 
@@ -898,14 +942,14 @@ define trait Printable {
 }
 
 // 泛型 trait
-define trait Comparable<T> {
+define trait Comparable of T {
     method compare(other: T) returns Integer
     method is_less_than(other: T) returns Boolean = self.compare(other) < 0
     method is_equal_to(other: T) returns Boolean = self.compare(other) == 0
 }
 
 // 多方法 trait
-define trait Iterator<Item> {
+define trait Iterator of Item {
     method next() returns Optional of Item
     method has_next() returns Boolean
 }
@@ -914,14 +958,24 @@ define trait Iterator<Item> {
 define trait Showable extends Printable {
     method show() returns String = self.to_string()
 }
+
+// 多继承
+define trait ComparableHashable extends Comparable, Hashable {
+    method compare_hash(other: Self) returns Integer
+}
 ```
 
 ### 6.3 implement 定义
 
 ```ebnf
-implement_decl = "implement" type_name "for" type_name "{" { implement_method } "}" ;
+implement_decl = "implement" [ type_parameters ] type_name "for" type_name
+               [ "where" where_clause ] "{" { implement_method } "}" ;
+
 implement_method = "method" identifier "(" [ param_list ] ")" [ "returns" type ]
                  ( block | "=" expression ) ;
+
+where_clause = where_constraint { "," where_constraint } ;
+where_constraint = identifier ":" type_name ;
 ```
 
 ```x
@@ -931,11 +985,11 @@ implement Printable for Person {
     }
 }
 
-implement Comparable<Integer> for Integer {
+implement Comparable of Integer for Integer {
     method compare(other: Integer) returns Integer = self - other
 }
 
-// 泛型实现
+// 泛型实现（带约束）
 implement of T Printable for List of T where T: Printable {
     method to_string() returns String {
         "[" + self.map(x => x.to_string()).join(", ") + "]"
@@ -947,7 +1001,7 @@ implement Printable for Integer {
     method to_string() returns String = Integer.to_string(self)
 }
 
-implement Comparable<Integer> for Integer {
+implement Comparable of Integer for Integer {
     method compare(other: Integer) returns Integer = self - other
 }
 ```
@@ -1009,13 +1063,13 @@ tuple_pattern = "(" [ pattern { "," pattern } ] ")" ;
 list_pattern = "[" [ pattern_list ] "]" ;
 pattern_list = pattern { "," pattern } [ "," spread_pattern ] | spread_pattern ;
 spread_pattern = "..." identifier ;
-constructor_pattern = type_name "(" [ pattern_list ] ")" | type_name "{" [ field_pattern_list ] "}" ;
-field_pattern_list = field_pattern { "," field_pattern } ;
-field_pattern = identifier ":" pattern ;
+constructor_pattern = type_name "(" [ pattern_list ] ")" ;
 range_pattern = literal_pattern ".." literal_pattern ;
 or_pattern = pattern "|" pattern ;
-type_pattern = identifier ":" type ;
+type_pattern = identifier "as" type_name ;  (* 使用 "as" 关键字避免与字典字面量混淆 *)
 ```
+
+> **设计说明**：类型模式使用 `identifier as TypeName` 而非 `identifier: TypeName`，因为冒号在字典字面量和命名参数中已有其他含义，会产生解析歧义。
 
 ```x
 // 字面量模式
@@ -1048,13 +1102,6 @@ define handle_result = when result is {
     Failure(error) => "error: " + error
 }
 
-// 字段模式
-define describe_person = when person is {
-    Person { name: "Alice", age } => "It's Alice, age " + age
-    Person { name, age } if age < 18 => name + " is a minor"
-    Person { name, age } => name + " is an adult"
-}
-
 // 范围模式
 define grade_level = when score is {
     90..100 => "A"
@@ -1071,11 +1118,11 @@ define classify = when character is {
     otherwise => "consonant"
 }
 
-// 类型模式
+// 类型模式 - 使用 "as" 关键字
 define describe_value = when value is {
-    s: String => "a string: " + s
-    n: Integer => "an integer: " + n
-    b: Boolean => "a boolean: " + b
+    s as String => "a string: " + s
+    n as Integer => "an integer: " + n
+    b as Boolean => "a boolean: " + b
     otherwise => "something else"
 }
 
@@ -1130,7 +1177,7 @@ function to_string_safe(dir: Direction) returns String {
 ### 8.1 效果声明
 
 ```ebnf
-effect_decl = "define" "effect" identifier "{" { effect_operation } "}" ;
+effect_decl = "define" "effect" identifier [ type_parameters ] "{" { effect_operation } "}" ;
 effect_operation = "operation" identifier "(" [ param_list ] ")" "returns" type ;
 ```
 
@@ -1180,7 +1227,7 @@ function fetch_and_save(url: String, path: String) returns Unit requires Io, Net
 }
 
 // 效果传播
-function process_file(path: String) returns Result of Data, Error requires Io, Parse {
+function process_file(path: String) returns Result of Data with_error ParseError requires Io, Parse {
     define content = needs Io.read_file(path)
     needs Parse.parse(content)
 }
@@ -1189,7 +1236,7 @@ function process_file(path: String) returns Result of Data, Error requires Io, P
 ### 8.3 given 处理器
 
 ```ebnf
-effect_handler = "given" identifier "{" { effect_impl } "}" ;
+effect_handler = "given" effect_list "{" { effect_impl } "}" ;
 effect_impl = "operation" identifier "(" [ param_list ] ")" "returns" type block ;
 ```
 
@@ -1248,7 +1295,7 @@ export function add(a: Integer, b: Integer) returns Integer = a + b
 
 ```ebnf
 import_decl = "use" module_path [ import_list ]
-            | "from" module_path "import" import_list ;
+            | "from" module_path "use" import_list ;
 import_list = "{" identifier { "," identifier } "}" ;
 
 export_decl = "export" declaration ;
@@ -1262,8 +1309,8 @@ use std.collections
 // 选择性导入
 use std.collections { HashMap, HashSet, LinkedList }
 
-// from-import 风格
-from std.io import { read_file, write_file }
+// from-use 风格
+from std.io use { read_file, write_file }
 
 // 重命名导入
 use std.collections.HashMap as HM
@@ -1320,9 +1367,9 @@ weak_type = "weak" type ;
 
 ```x
 define class Node {
-    value: Integer
-    next: Optional of Node
-    parent: weak Optional of Node  // 不参与引用计数
+    field value: Integer
+    field next: Optional of Node
+    field parent: weak Optional of Node  // 不参与引用计数
 }
 
 // 使用弱引用需要升级
@@ -1379,18 +1426,18 @@ define timeout = config?.timeout ?? 30
 ### 11.2 Result 用法
 
 ```x
-function read_file(path: String) returns Result of String, IoError {
+function read_file(path: String) returns Result of String with_error IoError {
     // 尝试读取文件
 }
 
 // ? 运算符传播错误
-function load_config() returns Result of Config, IoError {
+function load_config() returns Result of Config with_error IoError {
     define content = read_file("config.toml")?
     parse_config(content)?
 }
 
 // 链式处理
-function process_file(path: String) returns Result of Data, Error {
+function process_file(path: String) returns Result of Data with_error Error {
     read_file(path)?
     |> parse?
     |> validate?
@@ -1418,7 +1465,7 @@ throw_expr = "throw" expression ;
 
 ```x
 // try-catch 作为控制流（非异常机制）
-function risky_operation() returns Result of Integer, Error {
+function risky_operation() returns Result of Integer with_error Error {
     define result = try {
         might_fail()
     } catch (e) {
@@ -1459,7 +1506,7 @@ await_expr = "await" expression ;
 
 ```x
 // 异步函数
-async function fetch_data(url: String) returns Result of String, NetworkError {
+async function fetch_data(url: String) returns Result of String with_error NetworkError {
     define response = await http_get(url)
     Success(response.body)
 }
@@ -1542,7 +1589,7 @@ function increment_if_positive(c: Atomic of Integer) returns Boolean {
 }
 
 // 重试机制
-function with_retry(operation: function from () returns T) returns T {
+function with_retry of T(operation: function from () returns T) returns T {
     retry 3 times {
         define result = operation()
         if result.is_success() then return result
@@ -1560,7 +1607,7 @@ operator = arithmetic_op | comparison_op | logical_op | other_op ;
 arithmetic_op = "+" | "-" | "*" | "/" | "%" ;
 comparison_op = "==" | "!=" | "<" | ">" | "<=" | ">=" ;
 logical_op = "and" | "or" | "not" ;
-other_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "?" | "??" | "|>" ;
+other_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "?" | "??" | "|>" | ".." ;
 ```
 
 | 类别 | 运算符 | 描述 | 自然语言替代 |
@@ -1569,8 +1616,9 @@ other_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "?" | "??" | "|>" ;
 | 比较 | `== != < > <= >=` | 相等和大小比较 | - |
 | 逻辑 | `and or not` | 与或非 | 英文单词 |
 | 赋值 | `= += -= *= /= %=` | 赋值和复合赋值 | - |
-| 错误 | `? ??` | 错误传播、空合并 | `or` 也可用于空合并 |
+| 错误 | `? ??` | 错误传播、空合并 | - |
 | 管道 | `\|>` | 管道 | - |
+| 范围 | `..` | 范围 | - |
 
 ---
 
@@ -1581,12 +1629,12 @@ reserved = "abstract" | "assert" | "become" | "box"
          | "do" | "dyn" | "final" | "macro" | "move"
          | "override" | "priv" | "pure" | "ref" | "sealed"
          | "sizeof" | "static" | "super" | "typeof" | "unsafe"
-         | "use" | "virtual" | "yield" ;
+         | "virtual" | "yield" ;
 ```
 
 以下标识符保留供未来使用：
 
-`abstract`, `assert`, `become`, `box`, `do`, `dyn`, `final`, `macro`, `move`, `override`, `priv`, `pure`, `ref`, `sealed`, `sizeof`, `static`, `super`, `typeof`, `unsafe`, `use`, `virtual`, `yield`
+`abstract`, `assert`, `become`, `box`, `do`, `dyn`, `final`, `macro`, `move`, `override`, `priv`, `pure`, `ref`, `sealed`, `sizeof`, `static`, `super`, `typeof`, `unsafe`, `virtual`, `yield`
 
 ---
 
@@ -1615,7 +1663,7 @@ define enum Optional of T { Some(T), None }
 define record Person { name: String, age: Integer }
 
 // 类
-define class Point { x: Integer, y: Integer }
+define class Point { field x: Integer, field y: Integer }
 define trait Printable { method to_string() returns String }
 
 // 效果
@@ -1637,7 +1685,7 @@ define winner = race { fast(), slow() }
 | 函数声明 | `function f() returns T` | `fn f() -> T` | `def f() -> T` | `function f(): T` |
 | 泛型语法 | `List of Integer` | `List<Integer>` | `list[int]` | `List<number>` |
 | 模式匹配 | `when x is { }` | `match x { }` | `match x:` | - |
-| 错误处理 | `Result of T or E` | `Result<T, E>` | 异常 | 异常 |
+| 错误类型 | `Result of T with_error E` | `Result<T, E>` | 异常 | 异常 |
 | 空安全 | `Optional of T` | `Option<T>` | `None` | `undefined` |
 | 效果系统 | 有 | 无 | 无 | 无 |
 | 内存管理 | Perceus | 所有权 | GC | GC |
@@ -1673,24 +1721,24 @@ function process of T(list: List of T) returns Optional of T where T: Clone {
 ```x
 // 定义一个用户服务
 define class UserService {
-    database: Database
-    cache: Cache
+    field database: Database
+    field cache: Cache
 
     constructor(database: Database, cache: Cache) {
-        Self { database, cache }
+        Self(database, cache)
     }
 
     // 方法名和参数清晰表达意图
     method find_user_by_id(id: Integer) returns Optional of User {
         // 先查缓存
-        when cache.get(id) is {
+        when self.cache.get(id) is {
             Some(user) => Some(user)
             None => {
                 // 缓存未命中，查询数据库
-                define user = database.find_user(id)
+                define user = self.database.find_user(id)
                 when user is {
                     Some(u) => {
-                        cache.set(id, u)
+                        self.cache.set(id, u)
                         Some(u)
                     }
                     None => None
