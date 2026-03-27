@@ -163,6 +163,7 @@ lowercase = "a" | "b" | "c" | ... | "z" ;
 uppercase = "A" | "B" | "C" | ... | "Z" ;
 digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
 hex_digit = digit | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F" ;
+number = digit { digit } ;  (* 用于任意位宽整数类型 *)
 
 (* 空白字符 *)
 whitespace = " " | "\t" | "\n" | "\r" ;
@@ -211,32 +212,34 @@ let 变量名 = 42  // 支持 Unicode，但推荐英文
 
 ```ebnf
 keyword = "let" | "mutable" | "constant"
-        | "function" | "->" | "async" | "await" | "return"
-        | "if" | "then" | "else" | "when" | "is"
+        | "function" | "->" | "async" | "await" | "return" | "yield"
+        | "if" | "then" | "else" | "when" | "is" | "as"
         | "for" | "each" | "in" | "while" | "loop" | "break" | "continue"
         | "type" | "class" | "trait" | "implement" | "enum" | "record" | "effect"
         | "module" | "import" | "export"
         | "public" | "private" | "static"
-        | "try" | "catch" | "finally" | "throw"
-        | "with" | "perform" | "handle" | "operation" | "given"
+        | "try" | "catch" | "finally" | "throw" | "defer"
+        | "with" | "perform" | "handle" | "operation" | "given" | "needs"
         | "concurrently" | "race" | "atomic" | "retry"
-        | "and" | "or" | "not" | "extends" | "super"
+        | "and" | "or" | "not" | "extends" | "super" | "where"
         | "true" | "false" | "self" | "Self" | "constructor" | "unsafe" ;
 ```
 
 | 类别 | 关键字 | 自然语言含义 |
 |------|--------|-------------|
 | 声明 | `let`, `mutable`, `constant` | 绑定、可变、常量 |
-| 函数 | `function`, `async`, `await`, `return` | 函数、异步、等待、返回 |
+| 函数 | `function`, `async`, `await`, `return`, `yield` | 函数、异步、等待、返回、生成 |
 | 控制流 | `if`, `then`, `else`, `when`, `is` | 如果、则、否则、当、是 |
+| 模式匹配 | `when`, `is`, `as` | 当、是、类型转换 |
 | 循环 | `for`, `each`, `in`, `while`, `loop`, `break`, `continue` | 对于、每个、在...中、当...时、循环、中断、继续 |
 | 类型 | `type`, `class`, `trait`, `implement`, `enum`, `record`, `effect` | 类型、类、特质、实现、枚举、记录、效果 |
 | 模块 | `module`, `import`, `export` | 模块、导入、导出 |
-| 异常 | `try`, `catch`, `finally`, `throw` | 尝试、捕获、最终、抛出 |
-| 效果 | `with`, `perform`, `handle`, `operation`, `given` | 声明效果、执行效果、处理效果、定义操作、提供上下文 |
+| 异常 | `try`, `catch`, `finally`, `throw`, `defer` | 尝试、捕获、最终、抛出、延迟执行 |
+| 效果 | `with`, `perform`, `handle`, `operation`, `given`, `needs` | 声明效果、执行效果、处理效果、定义操作、提供上下文、使用效果 |
 | 并发 | `concurrently`, `race`, `atomic`, `retry` | 并发地、竞争、原子、重试 |
 | 逻辑运算 | `and`, `or`, `not` | 逻辑与、逻辑或、逻辑非 |
 | 继承 | `extends`, `super` | 继承父类、父类引用 |
+| 泛型约束 | `where` | 泛型类型约束 |
 | 访问控制 | `public`, `private`, `static` | 公共成员、私有成员、静态成员 |
 | 安全 | `unsafe` | 不安全代码块（FFI） |
 | 字面量 | `true`, `false`, `self`, `Self`, `constructor` | 真、假、自身实例、自身类型、构造器 |
@@ -551,33 +554,33 @@ let path: string = `C:\Users\Documents\file.txt`
 #### 2.1.7 特殊类型
 
 ```ebnf
-special_type = "Unit"       (* 空值，无返回值 *)
-             | "Nothing"    (* 永不返回，底类型 *)
-             | "Void" ;     (* C FFI 兼容的无类型 *)
+special_type = "unit"       (* 空值，无返回值 *)
+             | "nothing"    (* 永不返回，底类型 *)
+             | "void" ;     (* C FFI 兼容的无类型 *)
 ```
 
 | 类型 | 描述 | 示例 |
 |------|------|------|
-| `Unit` | 空值，表示无有意义的返回值 | `()` |
-| `Nothing` | 永不返回（底类型），用于 `panic()`、无限循环等 | `panic("error")` |
-| `Void` | C FFI 兼容的无类型 | `foreign function foo() -> Void` |
+| `unit` | 空值，表示无有意义的返回值 | `()` |
+| `nothing` | 永不返回（底类型），用于 `panic()`、无限循环等 | `panic("error")` |
+| `void` | C FFI 兼容的无类型 | `foreign function foo() -> void` |
 
 ```x
-// Unit 类型
-let result: Unit = println("Hello")
+// unit 类型
+let result: unit = println("Hello")
 
-// Nothing 类型（永不返回）
-function panic(message: string) -> Nothing {
+// nothing 类型（永不返回）
+function panic(message: string) -> nothing {
     // 永不返回
 }
 
 // 底类型用于类型推断
-function fail() -> Nothing = panic("error")
+function fail() -> nothing = panic("error")
 
 function compute(x: integer) -> integer {
     when x is {
         0 => 0
-        _ => fail()  // Nothing 是所有类型的子类型，这里返回 integer
+        _ => fail()  // nothing 是所有类型的子类型，这里返回 integer
     }
 }
 ```
@@ -746,7 +749,7 @@ enum Result<T, E> {
     Failure(E)
 }
 
-// 记录（product type）- "和"的关系
+// 记录（product type）- "积"的关系
 record Person {
     name: string
     age: integer
@@ -922,8 +925,8 @@ let multiply = (a: integer, b: integer) -> a * b
 
 // 块体 lambda
 let process = (x, y) -> {
-    val sum = x + y
-    val diff = x - y
+    let sum = x + y
+    let diff = x - y
     sum * diff
 }
 
@@ -1143,7 +1146,7 @@ while has_more_data() {
 
 // 无限循环
 loop {
-    val input = read_input()
+    let input = read_input()
     if input == "quit" then break
     handle(input)
 }
@@ -1235,7 +1238,81 @@ function absolute(x: integer) -> integer {
 }
 ```
 
-### 5.3 方法定义
+### 5.3 yield 生成器
+
+`yield` 关键字用于创建生成器函数，可以逐个产出值而不需要一次性生成所有结果。生成器使用 `Generator<T>` 类型表示。
+
+```ebnf
+yield_stmt = "yield" expression ;
+generator_type = "Generator" "<" type ">" ;
+```
+
+```x
+// 基本生成器
+function count_up(max: integer) -> Generator<integer> {
+    let mutable i = 0
+    while i < max {
+        yield i
+        i = i + 1
+    }
+}
+
+// 使用生成器
+for each n in count_up(5) {
+    println(n)  // 输出: 0, 1, 2, 3, 4
+}
+
+// 斐波那契数列生成器
+function fibonacci() -> Generator<integer> {
+    let mutable a = 0
+    let mutable b = 1
+    loop {
+        yield a
+        let temp = a
+        a = b
+        b = temp + b
+    }
+}
+
+// 取前 10 个斐波那契数
+let fibs = fibonacci().take(10).to_list()
+// fibs = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+// 无限序列生成器
+function naturals() -> Generator<integer> {
+    let mutable n = 0
+    loop {
+        yield n
+        n = n + 1
+    }
+}
+
+// 筛选偶数
+function even_numbers() -> Generator<integer> {
+    for each n in naturals() {
+        if n % 2 == 0 then yield n
+    }
+}
+
+// 生成器组合
+function squares(gen: Generator<integer>) -> Generator<integer> {
+    for each n in gen {
+        yield n * n
+    }
+}
+
+// 链式调用
+let result = naturals()
+    |> filter(x -> x % 3 == 0)  // 筛选 3 的倍数
+    |> map(x -> x * x)           // 平方
+    |> take(5)                   // 取前 5 个
+    |> to_list()
+// result = [0, 9, 36, 81, 144]
+```
+
+**设计说明**：生成器是一种惰性求值的数据结构，只在需要时计算下一个值。`yield` 关键字被 Python、JavaScript、Scala、C# 等语言广泛采用，是处理无限序列和大数据集的重要工具。
+
+### 5.4 方法定义
 
 ```ebnf
 method_decl = identifier [ type_parameters ] "(" [ param_list ] ")"
@@ -1251,7 +1328,7 @@ class Calculator {
         self.value
     }
 
-    reset() -> Unit {
+    reset() -> unit {
         self.value = 0
     }
 }
@@ -1289,7 +1366,7 @@ class Person {
 
     is_adult() -> boolean = self.age >= 18
 
-    have_birthday() -> Unit {
+    have_birthday() -> unit {
         self.age = self.age + 1
         println("Happy birthday! Now " + self.age)
     }
@@ -1389,14 +1466,10 @@ implement Comparable<integer> for integer {
 
 ### 7.1 when 表达式
 
-```ebnf
-when_expr = "when" expression "is" "{" { when_arm } "}" ;
-when_arm = pattern [ guard ] "=>" ( expression | block ) [ "," ] ;
-guard = "if" expression ;
-```
+`when` 表达式的语法已在 [3.7 when 表达式](#37-when-表达式模式匹配)中介绍。本节重点介绍更复杂的匹配模式。
 
 ```x
-// 基本匹配
+// 或模式 - 匹配多个值
 let description = when score is {
     100 => "perfect"
     90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 => "excellent"
@@ -1405,10 +1478,10 @@ let description = when score is {
     _ => "failed"
 }
 
-// 带块体
+// 带块体的分支
 when status is {
     "success" => {
-        val data = fetch_data()
+        let data = fetch_data()
         process(data)
         save(data)
     }
@@ -1598,14 +1671,14 @@ function read_config() -> string requires Io {
 }
 
 // 多效果
-function fetch_and_save(url: string, path: string) -> Unit requires Io, Network {
-    val data = needs Network.fetch(url)
+function fetch_and_save(url: string, path: string) -> unit requires Io, Network {
+    let data = needs Network.fetch(url)
     needs Io.write_file(path, data)
 }
 
 // 效果传播
 function process_file(path: string) -> Result<Data, ParseError> requires Io, Parse {
-    val content = needs Io.read_file(path)
+    let content = needs Io.read_file(path)
     needs Parse.parse(content)
 }
 ```
@@ -1619,31 +1692,31 @@ effect_impl = "operation" identifier "(" [ param_list ] ")" "->" type block ;
 
 ```x
 // 提供效果实现
-function main() -> Unit {
+function main() -> unit {
     given Io {
         operation read_file(path: string) -> string {
             std.fs.read_text_file(path)
         }
-        operation write_file(path: string, content: string) -> Unit {
+        operation write_file(path: string, content: string) -> unit {
             std.fs.write_text_file(path, content)
         }
-        operation delete_file(path: string) -> Unit {
+        operation delete_file(path: string) -> unit {
             std.fs.delete_file(path)
         }
     }
 
     // 在此作用域内，Io 效果可用
-    val config = read_config()
+    let config = read_config()
     println(config)
 }
 
 // 多效果处理
-function run_server() -> Unit {
+function run_server() -> unit {
     given Io, Network, Logger {
         // 所有效果的具体实现
         operation read_file(path: string) -> string { ... }
         operation send_request(url: string) -> string { ... }
-        operation log(message: string) -> Unit { ... }
+        operation log(message: string) -> unit { ... }
     }
 
     start_server()
@@ -1754,7 +1827,7 @@ function append<T>(list: List<T>, item: T) -> List<T> {
 
 // 编译器自动分析
 function process() -> List<integer> {
-    var data = [1, 2, 3]
+    let mutable data = [1, 2, 3]
     data = data.push(4)   // 原地更新
     data = data.push(5)   // 原地更新
     data                  // 最终 [1, 2, 3, 4, 5]，无额外内存分配
@@ -1795,7 +1868,7 @@ function read_file(path: string) -> Result<String, IoError> {
 
 // ? 运算符传播错误
 function load_config() -> Result<Config, IoError> {
-    val content = read_file("config.toml")?
+    let content = read_file("config.toml")?
     parse_config(content)?
 }
 
@@ -1828,8 +1901,8 @@ throw_expr = "throw" expression ;
 
 ```x
 // try-catch 作为控制流（非异常机制）
-function risky_operation() -> Result<Integer, Error> {
-    val result = try {
+function risky_operation() -> Result<integer, Error> {
+    let result = try {
         might_fail()
     } catch (e) {
         return Failure(e)
@@ -1838,8 +1911,8 @@ function risky_operation() -> Result<Integer, Error> {
 }
 
 // with finally
-function with_resource() -> Unit {
-    val resource = acquire_resource()
+function with_resource() -> unit {
+    let resource = acquire_resource()
     try {
         use_resource(resource)
     } finally {
@@ -1854,6 +1927,63 @@ function validate(input: string) -> string requires Error {
     input
 }
 ```
+
+### 11.4 defer 延迟执行
+
+`defer` 关键字用于声明延迟执行的代码块，确保资源被正确释放。延迟执行的代码会在当前作用域结束时（函数返回、循环结束、或块结束时）按照"后进先出"（LIFO）顺序执行。
+
+```ebnf
+defer_stmt = "defer" ( expression | block ) ;
+```
+
+```x
+// 基本用法：确保文件关闭
+function read_config(path: string) -> Result<string, IoError> {
+    let file = open_file(path)?
+    defer file.close()  // 函数返回时自动执行
+
+    let content = file.read_all()?
+    Success(content)
+}  // file.close() 在这里执行
+
+// 多个 defer：后进先出
+function process_data() -> unit {
+    defer println("cleanup 3")  // 第3个注册，最后执行
+    defer println("cleanup 2")  // 第2个注册，第2个执行
+    defer println("cleanup 3")  // 第1个注册，最先执行
+    println("processing...")
+}
+// 输出:
+// processing...
+// cleanup 1
+// cleanup 2
+// cleanup 3
+
+// 使用 defer 管理锁
+function update_shared_data(data: Data) -> unit {
+    lock.acquire()
+    defer lock.release()  // 确保锁被释放
+
+    data.modify()
+    // 即使 modify() 抛出异常，lock.release() 也会执行
+}
+
+// defer 与 try 配合
+function safe_operation() -> Result<integer, Error> {
+    let resource = acquire_resource()
+    defer release_resource(resource)
+
+    try {
+        let result = risky_compute()?
+        Success(result)
+    } catch (e) {
+        Failure(e)
+    }
+    // release_resource(resource) 在这里执行
+}
+```
+
+**设计说明**：`defer` 借鉴了 Go 语言的设计，被 Swift、Zig、V、Odin 等现代语言广泛采纳。它提供了一种简洁的资源管理方式，比 `try-finally` 更直观，比 RAII（构造/析构）更灵活。
 
 ---
 
@@ -1870,20 +2000,20 @@ await_expr = "await" expression ;
 ```x
 // 异步函数
 async function fetch_data(url: string) -> Result<String, NetworkError> {
-    val response = await http_get(url)
+    let response = await http_get(url)
     Success(response.body)
 }
 
 // 多个异步操作
 async function fetch_all(urls: List<string>) -> List<string> {
-    val results = await Promise.all(urls.map(fetch_data))
+    let results = await Promise.all(urls.map(fetch_data))
     results
 }
 
 // async 块
 let future = async {
-    val a = await fetch("url_a")
-    val b = await fetch("url_b")
+    let a = await fetch("url_a")
+    let b = await fetch("url_b")
     a + b
 }
 ```
@@ -1941,7 +2071,7 @@ atomic {
 // 比较并交换
 function increment_if_positive(c: Atomic<integer>) -> boolean {
     atomic {
-        val current = c.load()
+        let current = c.load()
         if current > 0 then {
             c.store(current + 1)
             true
@@ -1954,7 +2084,7 @@ function increment_if_positive(c: Atomic<integer>) -> boolean {
 // 重试机制
 function with_retry<T>(operation: function () -> T) -> T {
     retry 3 times {
-        val result = operation()
+        let result = operation()
         if result.is_success() then return result
     }
 }
@@ -1991,22 +2121,23 @@ other_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "?" | "??" | "|>" | ".." ;
 
 ```ebnf
 keyword = "let" | "mutable" | "constant"          (* 变量声明 *)
-        | "function" | "async" | "await" | "return" (* 函数与异步返回 *)
+        | "function" | "async" | "await" | "return" | "yield" (* 函数与异步返回 *)
         | "if" | "then" | "else"                  (* 条件 *)
-        | "when" | "is"                           (* 模式匹配 *)
+        | "when" | "is" | "as"                    (* 模式匹配与类型转换 *)
         | "for" | "each" | "in" | "while" | "loop" | "break" | "continue"  (* 循环 *)
         | "enum" | "record" | "type"              (* 类型定义 *)
         | "class" | "trait" | "effect"            (* 结构定义 *)
-        | "implement" | "extends"                 (* 实现 *)
+        | "implement" | "extends"                 (* 实现与继承 *)
         | "constructor"                           (* 类构造器 *)
         | "module" | "import" | "export"          (* 模块 *)
         | "public" | "private" | "static"         (* 访问控制与静态成员 *)
-        | "try" | "catch" | "finally" | "throw"   (* 异常 *)
+        | "try" | "catch" | "finally" | "throw" | "defer" (* 异常与延迟执行 *)
         | "concurrently" | "race" | "atomic" | "retry"  (* 并发 *)
         | "true" | "false"                        (* 布尔字面量 *)
         | "and" | "or" | "not"                    (* 逻辑运算 *)
-        | "with" | "perform" | "handle" | "operation" | "given" (* 效果系统 *)
-        | "extends" | "super"                     (* 继承 *)
+        | "with" | "perform" | "handle" | "operation" | "given" | "needs" (* 效果系统 *)
+        | "where"                                 (* 泛型约束 *)
+        | "super"                                 (* 父类引用 *)
         | "self" | "Self" | "unsafe"              (* 自身引用与不安全代码 *)
         ;
 ```
@@ -2031,6 +2162,19 @@ for each item in items { }
 while condition { }
 loop { if done then break }
 when value is { pattern => result }
+
+// 生成器
+function count_up(n: integer) -> Generator<integer> {
+    let mutable i = 0
+    while i < n { yield i; i = i + 1 }
+}
+
+// 延迟执行
+function process_file(path: string) -> unit {
+    let file = open(path)
+    defer file.close()
+    process(file)
+}
 
 // 类型
 type Point = (float, float)
