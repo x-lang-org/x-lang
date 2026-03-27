@@ -12,10 +12,10 @@
 
 | 原则 | 示例 |
 |------|------|
-| **全称关键字** | `function` 而非 `fn`，`define` 而非 `let` |
-| **自然语序** | `function foo() returns Integer` 而非 `function foo() -> Integer` |
+| **全称关键字** | `function` 而非 `fn`，`let` 而非 `val` |
+| **类型小写** | `integer` 而非 `Integer`，`string` 而非 `String` |
 | **英文连接词** | `when x is 0 then "zero"`、`for each item in list` |
-| **动词开头** | `define x = 1`、`export function foo()` |
+| **动词开头** | `let x = 1`、`export function foo()` |
 | **从句风格** | `when x is 0 then "zero"` |
 
 ---
@@ -105,7 +105,7 @@ X 语言支持符号与关键字两种写法，用户可根据偏好选择：
 | **位运算** | `&`、`|`、`^`、`~` | — |
 | **算术运算** | `+`、`-`、`*`、`/`、`%` | — |
 | **比较运算** | `<`、`>`、`<=`、`>=` | — |
-| **函数返回** | — | `returns`（自然语序） |
+| **函数返回类型** | `->` | — |
 | **Lambda** | `->` | — |
 | **分支匹配** | `=>` | `when`、`is` |
 | **泛型参数** | `<` `>` | — |
@@ -200,40 +200,46 @@ identifier_continue = letter | digit | "_" | unicode_letter ;
 ```
 
 ```x
-define name = "X"
-define snake_case = 1
-define camelCase = 2
-define _private = 3
-define 变量名 = 42  // 支持 Unicode，但推荐英文
+let name = "X"
+let snake_case = 1
+let camelCase = 2
+let _private = 3
+let 变量名 = 42  // 支持 Unicode，但推荐英文
 ```
 
 ### 1.4 关键字
 
 ```ebnf
-keyword = "define" | "mutable" | "constant"
-        | "function" | "returns" | "async" | "await"
-        | "if" | "then" | "else" | "when" | "is" | "otherwise"
+keyword = "let" | "mutable" | "constant"
+        | "function" | "->" | "async" | "await" | "return"
+        | "if" | "then" | "else" | "when" | "is"
         | "for" | "each" | "in" | "while" | "loop" | "break" | "continue"
         | "type" | "class" | "trait" | "implement" | "enum" | "record" | "effect"
-        | "module" | "import" | "from" | "export" | "public"
+        | "module" | "import" | "export"
+        | "public" | "private" | "static"
         | "try" | "catch" | "finally" | "throw"
-        | "needs" | "given" | "requires"
+        | "with" | "perform" | "handle" | "operation" | "given"
         | "concurrently" | "race" | "atomic" | "retry"
-        | "of" | "as" | "and" | "or" | "not" | "to" | "extends" | "where"
-        | "true" | "false" | "self" | "Self" | "constructor" | "method" | "field" ;
+        | "and" | "or" | "not" | "extends" | "super"
+        | "true" | "false" | "self" | "Self" | "constructor" | "unsafe" ;
 ```
 
 | 类别 | 关键字 | 自然语言含义 |
 |------|--------|-------------|
-| 声明 | `define`, `mutable`, `constant` | 定义、可变的、常量 |
-| 函数 | `function`, `returns`, `async`, `await` | 函数、返回、异步、等待 |
-| 控制流 | `if`, `then`, `else`, `when`, `is`, `otherwise` | 如果、则、否则、当、是、其他情况 |
-| 循环 | `for`, `each`, `in`, `while`, `loop` | 对于、每个、在...中、当...时、循环 |
-| 类型 | `type`, `class`, `trait`, `implement`, `enum`, `record` | 类型、类、特质、实现、枚举、记录 |
-| 模块 | `module`, `import`, `from`, `export`, `public` | 模块、导入、从...、导出、公开 |
-| 效果 | `needs`, `given`, `requires` | 需要、给定、要求 |
+| 声明 | `let`, `mutable`, `constant` | 绑定、可变、常量 |
+| 函数 | `function`, `async`, `await`, `return` | 函数、异步、等待、返回 |
+| 控制流 | `if`, `then`, `else`, `when`, `is` | 如果、则、否则、当、是 |
+| 循环 | `for`, `each`, `in`, `while`, `loop`, `break`, `continue` | 对于、每个、在...中、当...时、循环、中断、继续 |
+| 类型 | `type`, `class`, `trait`, `implement`, `enum`, `record`, `effect` | 类型、类、特质、实现、枚举、记录、效果 |
+| 模块 | `module`, `import`, `export` | 模块、导入、导出 |
+| 异常 | `try`, `catch`, `finally`, `throw` | 尝试、捕获、最终、抛出 |
+| 效果 | `with`, `perform`, `handle`, `operation`, `given` | 声明效果、执行效果、处理效果、定义操作、提供上下文 |
 | 并发 | `concurrently`, `race`, `atomic`, `retry` | 并发地、竞争、原子、重试 |
-| 类型连接 | `of`, `to`, `or`, `extends`, `where` | ...的、到、或、继承、约束 |
+| 逻辑运算 | `and`, `or`, `not` | 逻辑与、逻辑或、逻辑非 |
+| 继承 | `extends`, `super` | 继承父类、父类引用 |
+| 访问控制 | `public`, `private`, `static` | 公共成员、私有成员、静态成员 |
+| 安全 | `unsafe` | 不安全代码块（FFI） |
+| 字面量 | `true`, `false`, `self`, `Self`, `constructor` | 真、假、自身实例、自身类型、构造器 |
 
 ### 1.5 字面量
 
@@ -278,42 +284,42 @@ unit_literal = "()" ;
 
 ```x
 // 整数
-define age = 25
-define hex = 0xFF
-define octal = 0o755
-define binary = 0b1010
+let age = 25
+let hex = 0xFF
+let octal = 0o755
+let binary = 0b1010
 
 // 浮点数
-define pi = 3.14159
-define scientific = 1.5e-10
+let pi = 3.14159
+let scientific = 1.5e-10
 
 // 布尔值
-define active = true
-define disabled = false
+let active = true
+let disabled = false
 
 // 字符串
-define greeting = "Hello, World!"
-define multiline = "Line1\nLine2"
-define escaped = "Tab:\tQuote:\""
+let greeting = "Hello, World!"
+let multiline = "Line1\nLine2"
+let escaped = "Tab:\tQuote:\""
 
 // 字符
-define grade = 'A'
-define chinese = '中'
+let grade = 'A'
+let chinese = '中'
 
 // 列表 - 方括号
-define numbers = [1, 2, 3, 4, 5]
-define names = ["Alice", "Bob", "Charlie"]
+let numbers = [1, 2, 3, 4, 5]
+let names = ["Alice", "Bob", "Charlie"]
 
 // 字典 - 大括号，键值对用冒号
-define scores = { Alice: 95, Bob: 87, Charlie: 92 }
-define config = { host: "localhost", port: 8080 }
+let scores = { Alice: 95, Bob: 87, Charlie: 92 }
+let config = { host: "localhost", port: 8080 }
 
 // 元组 - 圆括号，至少两个元素
-define point = (10, 20)
-define person = ("Alice", 30, true)
+let point = (10, 20)
+let person = ("Alice", 30, true)
 
 // 单元值 - 空圆括号
-define nothing = ()
+let nothing = ()
 ```
 
 ---
@@ -322,27 +328,301 @@ define nothing = ()
 
 ### 2.1 基本类型
 
+X 语言提供丰富的内置基本类型，均为**值类型**，使用**小写**命名。类型系统涵盖整数、浮点数、布尔、字符、字符串等。
+
+#### 2.1.1 整数类型
+
 ```ebnf
-primitive_type = "Integer" | "Float" | "Boolean" | "String" | "Character" | "Unit" | "Nothing" ;
+integer_type = "integer"                          (* 平台相关，默认 32 位 *)
+             | signed_integer_type
+             | unsigned_integer_type ;
+
+signed_integer_type = "signed 8-bit integer"      (*  8 位有符号整数 *)
+                     | "signed 16-bit integer"     (* 16 位有符号整数 *)
+                     | "signed 32-bit integer"     (* 32 位有符号整数 *)
+                     | "signed 64-bit integer"     (* 64 位有符号整数 *)
+                     | "signed 128-bit integer"    (* 128 位有符号整数 *)
+                     | "signed" number "-bit integer" ;  (* N 位有符号整数 *)
+
+unsigned_integer_type = "unsigned 8-bit integer"    (*  8 位无符号整数 *)
+                       | "unsigned 16-bit integer"   (* 16 位无符号整数 *)
+                       | "unsigned 32-bit integer"   (* 32 位无符号整数 *)
+                       | "unsigned 64-bit integer"   (* 64 位无符号整数 *)
+                       | "unsigned 128-bit integer"  (* 128 位无符号整数 *)
+                       | "unsigned" number "-bit integer" ;  (* N 位无符号整数 *)
+```
+
+| 类型 | 位宽 | 范围 | 示例 |
+|------|------|------|------|
+| `integer` | 32 位（默认） | -2,147,483,648 ~ 2,147,483,647 | `42` |
+| `signed 8-bit integer` | 8 位 | -128 ~ 127 | `127i8` |
+| `signed 16-bit integer` | 16 位 | -32,768 ~ 32,767 | `-1000i16` |
+| `signed 32-bit integer` | 32 位 | ±2.1×10⁹ | `100_000i32` |
+| `signed 64-bit integer` | 64 位 | ±9.2×10¹⁸ | `999_999_999_999i64` |
+| `signed 128-bit integer` | 128 位 | ±1.7×10³⁸ | `170141183460469231731687303715884105727i128` |
+| `signed N-bit integer` | N 位 | -2^(N-1) ~ 2^(N-1)-1 | `signed 7-bit integer` |
+| `unsigned 8-bit integer` | 8 位 | 0 ~ 255 | `255u8` |
+| `unsigned 16-bit integer` | 16 位 | 0 ~ 65,535 | `65535u16` |
+| `unsigned 32-bit integer` | 32 位 | 0 ~ 4.3×10⁹ | `4_000_000_000u32` |
+| `unsigned 64-bit integer` | 64 位 | 0 ~ 1.8×10¹⁹ | `18_446_744_073_709_551_615u64` |
+| `unsigned 128-bit integer` | 128 位 | 0 ~ 3.4×10³⁸ | `340282366920938463463374607431768211455u128` |
+| `unsigned N-bit integer` | N 位 | 0 ~ 2^N-1 | `unsigned 10-bit integer` |
+
+```x
+// 基本整数
+let age: integer = 25
+let count: signed 32-bit integer = 1_000_000
+
+// 有符号整数
+let small: signed 8-bit integer = -128
+let medium: signed 16-bit integer = 32767
+let large: signed 64-bit integer = 9_223_372_036_854_775_807i64
+
+// 无符号整数
+let byte: unsigned 8-bit integer = 255u8
+let word: unsigned 16-bit integer = 65535u16
+let dword: unsigned 32-bit integer = 4_000_000_000u32
+let qword: unsigned 64-bit integer = 18_446_744_073_709_551_615u64
+
+// 任意位宽整数
+let bits7: signed 7-bit integer = -64
+let bits10: unsigned 10-bit integer = 1023
+```
+
+#### 2.1.2 浮点类型
+
+```ebnf
+float_type = "float"                    (* 平台相关，默认 64 位 *)
+           | "16-bit float"             (* 16 位浮点（半精度） *)
+           | "32-bit float"             (* 32 位浮点（单精度） *)
+           | "64-bit float"             (* 64 位浮点（双精度） *)
+           | "128-bit float"            (* 128 位浮点（四精度） *)
+           | "long float"               (* 扩展精度 *)
+           | decimal_type ;
+
+decimal_type = "32-bit decimal"         (* 32 位十进制浮点 *)
+             | "64-bit decimal"         (* 64 位十进制浮点 *)
+             | "128-bit decimal" ;      (* 128 位十进制浮点 *)
+```
+
+| 类型 | 位宽 | 精度 | 示例 |
+|------|------|------|------|
+| `float` | 64 位（默认） | 约 15-17 位有效数字 | `3.14159` |
+| `16-bit float` | 16 位 | 约 3 位有效数字（半精度） | `1.5f16` |
+| `32-bit float` | 32 位 | 约 6-9 位有效数字（单精度） | `3.14f32` |
+| `64-bit float` | 64 位 | 约 15-17 位有效数字（双精度） | `3.141592653589793f64` |
+| `128-bit float` | 128 位 | 约 33-36 位有效数字（四精度） | `3.14159265358979323846f128` |
+| `long float` | 平台相关 | 扩展精度 | `3.14159L` |
+| `32-bit decimal` | 32 位 | 7 位有效十进制数字 | `123.45d32` |
+| `64-bit decimal` | 64 位 | 16 位有效十进制数字 | `123456789.12345678d64` |
+| `128-bit decimal` | 128 位 | 34 位有效十进制数字 | `123456789012345678901234567890.1234d128` |
+
+```x
+// 基本浮点
+let pi: float = 3.141592653589793
+let e: 64-bit float = 2.718281828459045f64
+
+// 半精度浮点（GPU 计算）
+let half: 16-bit float = 1.5f16
+
+// 单精度浮点
+let single: 32-bit float = 3.14f32
+
+// 四精度浮点（高精度计算）
+let quad: 128-bit float = 3.14159265358979323846264338327950288f128
+
+// 十进制浮点（金融计算）
+let money: 64-bit decimal = 123456789.12d64
+let scientific: 128-bit decimal = 1.234567890123456789012345678901234e100d128
+```
+
+#### 2.1.3 复数与虚数类型
+
+```ebnf
+complex_type = "complex float"              (* 默认双精度复数 *)
+             | "complex 32-bit float"       (* 单精度复数 *)
+             | "complex 64-bit float"       (* 双精度复数 *)
+             | "complex 128-bit float" ;    (* 四精度复数 *)
+
+imaginary_type = "imaginary float"           (* 默认双精度虚数 *)
+               | "imaginary 32-bit float"    (* 单精度虚数 *)
+               | "imaginary 64-bit float" ;  (* 双精度虚数 *)
 ```
 
 | 类型 | 描述 | 示例 |
 |------|------|------|
-| `Integer` | 整数 | `42` |
-| `Float` | 浮点数 | `3.14` |
-| `Boolean` | 布尔值 | `true` / `false` |
-| `String` | 字符串 | `"Hello"` |
-| `Character` | 单个字符 | `'A'` |
-| `Unit` | 空值 | `()` |
-| `Nothing` | 永不返回 | `panic()` 的返回类型 |
+| `complex float` | 双精度复数 | `1.0 + 2.0i` |
+| `complex 32-bit float` | 单精度复数 | `(1.0f32, 2.0f32)` |
+| `complex 64-bit float` | 双精度复数 | `(1.0, 2.0)` |
+| `complex 128-bit float` | 四精度复数 | `(1.0f128, 2.0f128)` |
+| `imaginary float` | 双精度纯虚数 | `2.0i` |
+| `imaginary 32-bit float` | 单精度纯虚数 | `2.0fi32` |
+| `imaginary 64-bit float` | 双精度纯虚数 | `2.0fi64` |
 
 ```x
-define age: Integer = 25
-define pi: Float = 3.14159
-define active: Boolean = true
-define grade: Character = 'A'
-define name: String = "X Language"
-define result: Unit = println("Hello")
+// 复数
+let z: complex float = 1.0 + 2.0i
+let z32: complex 32-bit float = (1.0f32, 2.0f32)
+
+// 纯虚数
+let im: imaginary float = 2.0i
+let im64: imaginary 64-bit float = 3.0fi64
+
+// 复数运算
+let sum: complex float = z + (3.0 + 4.0i)
+let product: complex float = z * (2.0 + 1.0i)
+```
+
+#### 2.1.4 布尔类型
+
+```ebnf
+boolean_type = "boolean" ;
+```
+
+| 类型 | 描述 | 示例 |
+|------|------|------|
+| `boolean` | 布尔值 | `true` / `false` |
+
+```x
+let active: boolean = true
+let disabled: boolean = false
+let result: boolean = 5 > 3  // true
+```
+
+#### 2.1.5 字符类型
+
+```ebnf
+character_type = "character"           (* Unicode 码点，默认 UTF-32 *)
+               | "utf-8 character"     (* UTF-8 编码字符 *)
+               | "utf-16 character"    (* UTF-16 编码字符 *)
+               | "utf-32 character" ;  (* UTF-32 编码字符 *)
+```
+
+| 类型 | 描述 | 大小 | 示例 |
+|------|------|------|------|
+| `character` | Unicode 码点 | 32 位 | `'A'`、`'中'`、`'😀'` |
+| `utf-8 character` | UTF-8 编码 | 1-4 字节 | `'A'` |
+| `utf-16 character` | UTF-16 编码 | 2 或 4 字节 | `'A'` |
+| `utf-32 character` | UTF-32 编码 | 4 字节 | `'A'` |
+
+```x
+let letter: character = 'A'
+let chinese: character = '中'
+let emoji: character = '😀'
+
+// 特定编码
+let utf8_char: utf-8 character = 'A'
+let utf16_char: utf-16 character = '中'
+```
+
+#### 2.1.6 字符串类型
+
+```ebnf
+string_type = "string"           (* UTF-8 字符串 *)
+            | "utf-8 string"     (* 明确 UTF-8 编码 *)
+            | "utf-16 string"    (* UTF-16 字符串 *)
+            | "utf-32 string" ;  (* UTF-32 字符串 *)
+```
+
+| 类型 | 描述 | 编码 | 示例 |
+|------|------|------|------|
+| `string` | 字符串 | UTF-8 | `"Hello"` |
+| `utf-8 string` | UTF-8 字符串 | UTF-8 | `"你好"` |
+| `utf-16 string` | UTF-16 字符串 | UTF-16 | `"世界"` |
+| `utf-32 string` | UTF-32 字符串 | UTF-32 | `"🌍"` |
+
+```x
+let name: string = "X Language"
+let greeting: string = "Hello, 世界! 🌍"
+
+// 字符串插值
+let message: string = "Hello, $name!"
+
+// 多行字符串
+let multiline: string = """
+    This is a
+    multi-line string.
+    """
+
+// 原始字符串（不转义）
+let path: string = `C:\Users\Documents\file.txt`
+```
+
+#### 2.1.7 特殊类型
+
+```ebnf
+special_type = "Unit"       (* 空值，无返回值 *)
+             | "Nothing"    (* 永不返回，底类型 *)
+             | "Void" ;     (* C FFI 兼容的无类型 *)
+```
+
+| 类型 | 描述 | 示例 |
+|------|------|------|
+| `Unit` | 空值，表示无有意义的返回值 | `()` |
+| `Nothing` | 永不返回（底类型），用于 `panic()`、无限循环等 | `panic("error")` |
+| `Void` | C FFI 兼容的无类型 | `foreign function foo() -> Void` |
+
+```x
+// Unit 类型
+let result: Unit = println("Hello")
+
+// Nothing 类型（永不返回）
+function panic(message: string) -> Nothing {
+    // 永不返回
+}
+
+// 底类型用于类型推断
+function fail() -> Nothing = panic("error")
+
+function compute(x: integer) -> integer {
+    when x is {
+        0 => 0
+        _ => fail()  // Nothing 是所有类型的子类型，这里返回 integer
+    }
+}
+```
+
+#### 2.1.8 类型别名速查表
+
+为方便使用，X 语言提供常用类型的简写别名：
+
+| 完整类型 | 简写别名 | 描述 |
+|----------|----------|------|
+| `integer` | `int` | 默认整数 |
+| `signed 8-bit integer` | `i8` | 8 位有符号整数 |
+| `signed 16-bit integer` | `i16` | 16 位有符号整数 |
+| `signed 32-bit integer` | `i32` | 32 位有符号整数 |
+| `signed 64-bit integer` | `i64` | 64 位有符号整数 |
+| `signed 128-bit integer` | `i128` | 128 位有符号整数 |
+| `unsigned 8-bit integer` | `u8`, `byte` | 8 位无符号整数 |
+| `unsigned 16-bit integer` | `u16` | 16 位无符号整数 |
+| `unsigned 32-bit integer` | `u32` | 32 位无符号整数 |
+| `unsigned 64-bit integer` | `u64` | 64 位无符号整数 |
+| `unsigned 128-bit integer` | `u128` | 128 位无符号整数 |
+| `float` | `f64` | 双精度浮点 |
+| `16-bit float` | `f16` | 半精度浮点 |
+| `32-bit float` | `f32` | 单精度浮点 |
+| `128-bit float` | `f128` | 四精度浮点 |
+| `boolean` | `bool` | 布尔类型 |
+| `character` | `char` | 字符类型 |
+
+```x
+// 使用完整类型名
+let a: signed 32-bit integer = 42
+let b: unsigned 64-bit integer = 100u64
+let c: 32-bit float = 3.14f32
+
+// 使用简写别名
+let a: i32 = 42
+let b: u64 = 100u64
+let c: f32 = 3.14f32
+
+// 使用默认类型（类型推断）
+let x = 42          // 推断为 integer (i32)
+let y = 3.14        // 推断为 float (f64)
+let z = true        // 推断为 boolean
+let s = "hello"     // 推断为 string
+let ch = 'A'        // 推断为 character
 ```
 
 ### 2.2 复合类型
@@ -368,38 +648,38 @@ result_type = "Result" "<" type "," type ">" ;
 
 ```x
 // 列表类型
-define numbers: List<Integer> = [1, 2, 3]
-define names: List<String> = ["Alice", "Bob"]
+let numbers: List<integer> = [1, 2, 3]
+let names: List<string> = ["Alice", "Bob"]
 
 // 字典类型
-define scores: Map<String, Integer> = { Alice: 95, Bob: 87 }
+let scores: Map<string, integer> = { Alice: 95, Bob: 87 }
 
 // 元组类型
-define point: (Float, Float) = (10.5, 20.5)
-define person: (String, Integer, Boolean) = ("Alice", 30, true)
+let point: (float, float) = (10.5, 20.5)
+let person: (string, integer, boolean) = ("Alice", 30, true)
 
 // 嵌套类型
-define matrix: List<List<Integer>> = [[1, 2], [3, 4]]
+let matrix: List<List<integer>> = [[1, 2], [3, 4]]
 
 // Optional 和 Result 类型
-define maybe: Optional<Integer> = Some(42)
-define outcome: Result<String, IoError> = Success("ok")
+let maybe: Optional<integer> = Some(42)
+let outcome: Result<string, IoError> = Success("ok")
 ```
 
 ### 2.3 函数类型
 
 ```ebnf
-function_type = "function" "from" "(" [ param_type_list ] ")" "returns" type ;
+function_type = "function" "(" [ param_type_list ] ")" "->" type ;
 param_type_list = type { "," type } ;
 ```
 
 ```x
-// 函数类型使用自然语言风格
-define add: function from (Integer, Integer) returns Integer = (a, b) -> a + b
-define greet: function from (String) returns String = name -> "Hello, " + name
+// 函数类型
+let add: function (integer, integer) -> integer = (a, b) -> a + b
+let greet: function (string) -> string = name -> "Hello, " + name
 
 // 高阶函数
-define apply: function from (function from (Integer) returns Integer, Integer) returns Integer = (f, x) -> f(x)
+let apply: function (function (integer) -> integer, integer) -> integer = (f, x) -> f(x)
 ```
 
 ### 2.4 Optional 和 Result
@@ -417,11 +697,11 @@ type Optional<T> = Some(T) | None
 type Result<T, E> = Success(T) | Failure(E)
 
 // 使用示例
-define maybe_number: Optional<Integer> = Some(42)
-define no_value: Optional<Integer> = None
+let maybe_number: Optional<integer> = Some(42)
+let no_value: Optional<integer> = None
 
-define success: Result<Integer, String> = Success(100)
-define failure: Result<Integer, String> = Failure("error occurred")
+let success: Result<integer, string> = Success(100)
+let failure: Result<integer, string> = Failure("error occurred")
 ```
 
 ### 2.5 代数数据类型
@@ -430,53 +710,53 @@ define failure: Result<Integer, String> = Failure("error occurred")
 type_definition = enum_definition | record_definition | alias_definition ;
 
 (* 枚举 *)
-enum_definition = "define" "enum" identifier [ type_parameters ] "{" { enum_variant } "}" ;
+enum_definition = "enum" identifier [ type_parameters ] "{" { enum_variant } "}" ;
 enum_variant = identifier
              | identifier "(" type_list ")"
              | identifier "{" field_list "}" ;
 
 (* 记录 *)
-record_definition = "define" "record" identifier [ type_parameters ] "{" field_list "}" ;
+record_definition = "record" identifier [ type_parameters ] "{" field_list "}" ;
 field_list = field { "," field } ;
 field = identifier ":" type [ default_value ] ;
 default_value = "=" expression ;
 
 (* 别名 *)
-alias_definition = "define" "type" identifier [ type_parameters ] "=" type ;
+alias_definition = "type" identifier [ type_parameters ] "=" type ;
 type_parameters = "<" identifier { "," identifier } ">" ;
 ```
 
 ```x
 // 枚举（sum type）- "或"的关系
-define enum Color {
+enum Color {
     Red
     Green
     Blue
-    RGB(Integer, Integer, Integer)
+    RGB(integer, integer, integer)
 }
 
 // 带泛型的枚举
-define enum Optional<T> {
+enum Optional<T> {
     Some(T)
     None
 }
 
-define enum Result<T, E> {
+enum Result<T, E> {
     Success(T)
     Failure(E)
 }
 
 // 记录（product type）- "和"的关系
-define record Person {
-    name: String
-    age: Integer
-    email: String = ""  // 默认值
+record Person {
+    name: string
+    age: integer
+    email: string = ""  // 默认值
 }
 
 // 类型别名
-define type UserId = Integer
-define type Point = (Float, Float)
-define type Name = String
+type UserId = integer
+type Point = (float, float)
+type Name = string
 ```
 
 ### 2.6 泛型
@@ -487,16 +767,16 @@ type_arguments = "<" type { "," type } ">" ;
 ```
 
 ```x
-function first<T>(list: List<T>) returns Optional<T> {
+function first<T>(list: List<T>) -> Optional<T> {
     when list is {
         [] => None
         [x, ...] => Some(x)
     }
 }
 
-function identity<T>(value: T) returns T = value
+function identity<T>(value: T) -> T = value
 
-function pair<A, B>(a: A, b: B) returns (A, B) = (a, b)
+function pair<A, B>(a: A, b: B) -> (A, B) = (a, b)
 ```
 
 ---
@@ -544,41 +824,41 @@ unary_expr = ("-" | "+") unary_expr | postfix_expr ;
 
 ```x
 // 算术运算
-define sum = a + b
-define diff = a - b
-define product = a * b
-define quotient = a / b
-define remainder = a % b
+let sum = a + b
+let diff = a - b
+let product = a * b
+let quotient = a / b
+let remainder = a % b
 
 // 逻辑运算 - 使用英文单词
-define both_true = a and b
-define either_true = a or b
-define negated = not a
+let both_true = a and b
+let either_true = a or b
+let negated = not a
 
 // 比较
-define is_equal = a == b
-define is_different = a != b
-define is_less = a < b
-define is_greater = a > b
-define is_less_or_equal = a <= b
-define is_greater_or_equal = a >= b
+let is_equal = a == b
+let is_different = a != b
+let is_less = a < b
+let is_greater = a > b
+let is_less_or_equal = a <= b
+let is_greater_or_equal = a >= b
 
 // 复合表达式
-define complex = (a + b) * c and not (d > e)
+let complex = (a + b) * c and not (d > e)
 ```
 
 ### 3.3 管道运算符
 
 ```x
 // 管道让操作顺序从左到右，更自然
-define result = numbers
+let result = numbers
     |> filter(is_even)
     |> map(square)
     |> take(10)
     |> sum
 
 // 等价于嵌套调用（从内到外，难以阅读）
-define result_equivalent = sum(take(map(filter(numbers, is_even), square), 10))
+let result_equivalent = sum(take(map(filter(numbers, is_even), square), 10))
 ```
 
 ### 3.4 函数调用与成员访问
@@ -597,28 +877,28 @@ named_argument = identifier ":" expression ;
 
 ```x
 // 函数调用
-define result = calculate(a, b, c)
+let result = calculate(a, b, c)
 
 // 命名参数，更清晰
-define greeting = greet(name: "Alice", title: "Dr.")
+let greeting = greet(name: "Alice", title: "Dr.")
 
 // 方法调用
-define upper_name = name.to_upper()
-define sorted = numbers.sort()
+let upper_name = name.to_upper()
+let sorted = numbers.sort()
 
 // 链式调用
-define processed = text.trim().to_lower().split(" ")
+let processed = text.trim().to_lower().split(" ")
 
 // 成员访问
-define person_name = person.name
-define deep_value = config.server.host
+let person_name = person.name
+let deep_value = config.server.host
 
 // 索引访问
-define first = numbers[0]
-define value = scores["Alice"]
+let first = numbers[0]
+let value = scores["Alice"]
 
 // 可选链
-define email = user?.profile?.email
+let email = user?.profile?.email
 ```
 
 ### 3.5 Lambda 表达式
@@ -632,25 +912,25 @@ lambda_param = identifier [ ":" type ] ;
 
 ```x
 // 单参数简写
-define square = x -> x * x
+let square = x -> x * x
 
 // 多参数
-define add = (a, b) -> a + b
+let add = (a, b) -> a + b
 
 // 带类型注解
-define multiply = (a: Integer, b: Integer) -> a * b
+let multiply = (a: integer, b: integer) -> a * b
 
 // 块体 lambda
-define process = (x, y) -> {
-    define sum = x + y
-    define diff = x - y
+let process = (x, y) -> {
+    val sum = x + y
+    val diff = x - y
     sum * diff
 }
 
 // 在高阶函数中使用
-define doubled = numbers.map(x -> x * 2)
-define evens = numbers.filter(x -> x % 2 == 0)
-define sum = numbers.reduce((acc, x) -> acc + x, 0)
+let doubled = numbers.map(x -> x * 2)
+let evens = numbers.filter(x -> x % 2 == 0)
+let sum = numbers.reduce((acc, x) -> acc + x, 0)
 ```
 
 ### 3.6 if 表达式
@@ -669,16 +949,16 @@ if score >= 60 then {
 }
 
 // if 表达式（返回值）
-define grade = if score >= 90 then "A"
+let grade = if score >= 90 then "A"
             else if score >= 80 then "B"
             else if score >= 70 then "C"
             else "F"
 
 // 单行形式
-define max = if a > b then a else b
+let max = if a > b then a else b
 
 // 嵌套
-define description = if x > 0 then {
+let description = if x > 0 then {
     if x > 100 then "very large"
     else "positive"
 } else if x < 0 then {
@@ -698,15 +978,15 @@ guard = "if" expression ;
 
 ```x
 // 基本模式匹配
-define description = when score is {
+let description = when score is {
     100 => "perfect"
     n if n >= 90 => "excellent"
     n if n >= 60 => "passed"
-    otherwise => "failed"
+    _ => "failed"
 }
 
 // 解构匹配
-define location = when point is {
+let location = when point is {
     (0, 0) => "origin"
     (x, 0) => "on x-axis at " + x
     (0, y) => "on y-axis at " + y
@@ -714,17 +994,17 @@ define location = when point is {
 }
 
 // 列表匹配
-define head = when list is {
+let head = when list is {
     [] => None
     [first, ...] => Some(first)
 }
 
 // 类型匹配
-define info = when value is {
-    s as String => "string: " + s
-    n as Integer => "number: " + n
-    b as Boolean => "boolean: " + b
-    otherwise => "unknown type"
+let info = when value is {
+    s as string => "string: " + s
+    n as integer => "number: " + n
+    b as boolean => "boolean: " + b
+    _ => "unknown type"
 }
 ```
 
@@ -737,21 +1017,21 @@ block = "{" { statement } [ expression ] "}" ;
 
 ```x
 // 块作为表达式
-define result = {
-    define x = 10
-    define y = 20
+let result = {
+    val x = 10
+    val y = 20
     x + y  // 最后一个表达式作为返回值
 }
 
 // 带副作用
-define processed = {
-    define temp = calculate()
+let processed = {
+    val temp = calculate()
     log("calculated: " + temp)
     transform(temp)
 }
 
 // 用于控制流
-define value = if condition then {
+let value = if condition then {
     prepare()
     compute()
 } else {
@@ -770,16 +1050,16 @@ named_arg = identifier ":" expression ;
 
 ```x
 // 构造枚举变体
-define some_value = Some(42)
-define none_value = None
-define success = Success("data")
-define failure = Failure("error message")
+let some_value = Some(42)
+let none_value = None
+let success = Success("data")
+let failure = Failure("error message")
 
 // 构造记录
-define person = Person(name: "Alice", age: 30)
+let person = Person(name: "Alice", age: 30)
 
 // 构造带位置参数的变体
-define color = Color.RGB(255, 128, 0)
+let color = Color.RGB(255, 128, 0)
 ```
 
 ---
@@ -789,23 +1069,26 @@ define color = Color.RGB(255, 128, 0)
 ### 4.1 变量绑定
 
 ```ebnf
-let_statement = "define" [ "mutable" ] identifier [ ":" type ] "=" expression ;
-const_statement = "constant" identifier [ ":" type ] "=" expression ;
+let_statement = "let" [ "mutable" | "constant" ] identifier [ ":" type ] "=" expression ;
+(* 不带修饰符: 不可变绑定，编译器推断是编译期常量还是运行期值 *)
+(* 带 mutable: 可变变量 *)
+(* 带 constant: 编译期常量，必须能在编译期求值 *)
 ```
 
 ```x
-// 不可变绑定（推荐）
-define name = "X Language"
-define age: Integer = 25
+// 不可变绑定（推荐，编译器自动推断编译期/运行期）
+let name = "X Language"
+let age: integer = 25
+let MAX_SIZE = 1024        // 编译期推断为常量
+let PI = 3.14159           // 编译期推断为常量
 
-// 可变绑定
-define mutable counter = 0
+// 可变变量
+let mutable counter = 0
 counter = counter + 1
 
-// 常量（编译时确定）
-constant MAX_SIZE = 1024
-constant GREETING: String = "Hello, World!"
-constant PI = 3.14159
+// 编译期常量（显式声明）
+let constant BUFFER_SIZE = 4096
+let constant VERSION = "1.0.0"
 ```
 
 ### 4.2 控制流
@@ -828,7 +1111,7 @@ if temperature > 30 then {
 }
 
 // 表达式形式
-define action = if danger_level > 5 then "evacuate" else "stay calm"
+let action = if danger_level > 5 then "evacuate" else "stay calm"
 ```
 
 ### 4.3 循环
@@ -860,7 +1143,7 @@ while has_more_data() {
 
 // 无限循环
 loop {
-    define input = read_input()
+    val input = read_input()
     if input == "quit" then break
     handle(input)
 }
@@ -880,8 +1163,8 @@ for each item in items {
 ### 5.1 函数定义
 
 ```ebnf
-function_decl = [ "public" ] "function" identifier [ type_parameters ]
-              "(" [ param_list ] ")" [ "returns" type ] [ "requires" effect_list ]
+function_decl = "function" identifier [ type_parameters ]
+              "(" [ param_list ] ")" [ "->" type ] [ "requires" effect_list ]
               ( block | "=" expression ) ;
 
 param_list = param { "," param } ;
@@ -893,32 +1176,32 @@ type_parameters = "of" identifier { "," identifier } ;
 
 ```x
 // 基本函数
-function greet(name: String) returns String {
+function greet(name: string) -> string {
     return "Hello, " + name + "!"
 }
 
 // 单表达式函数
-function square(x: Integer) returns Integer = x * x
+function square(x: integer) -> integer = x * x
 
 // 数学风格（简洁）
-function f(x) returns Integer = x * x
+function f(x) -> integer = x * x
 
 // 多返回值
-function divide_and_remainder(a: Integer, b: Integer) returns (Integer, Integer) {
+function divide_and_remainder(a: integer, b: integer) -> (integer, integer) {
     return (a / b, a % b)
 }
 
 // 默认参数
-function greet_person(name: String, greeting: String = "Hello") returns String {
+function greet_person(name: string, greeting: string = "Hello") -> string {
     greeting + ", " + name + "!"
 }
 
 // 调用时使用默认参数
-define message = greet_person("Alice")  // "Hello, Alice!"
-define custom = greet_person("Bob", "Hi")  // "Hi, Bob!"
+let message = greet_person("Alice")  // "Hello, Alice!"
+let custom = greet_person("Bob", "Hi")  // "Hi, Bob!"
 
 // 泛型函数
-function first<T>(list: List<T>) returns Optional<T> {
+function first<T>(list: List<T>) -> Optional<T> {
     when list is {
         [] => None
         [x, ...] => Some(x)
@@ -926,7 +1209,7 @@ function first<T>(list: List<T>) returns Optional<T> {
 }
 
 // 带效果要求
-function read_config() returns String requires Io {
+function read_config() -> string requires Io {
     needs Io.read_file("config.toml")
 }
 ```
@@ -938,7 +1221,7 @@ return_expr = "return" [ expression ] ;
 ```
 
 ```x
-function find_first_negative(numbers: List<Integer>) returns Optional<Integer> {
+function find_first_negative(numbers: List<integer>) -> Optional<integer> {
     for each n in numbers {
         if n < 0 then return Some(n)
     }
@@ -946,7 +1229,7 @@ function find_first_negative(numbers: List<Integer>) returns Optional<Integer> {
 }
 
 // 单表达式返回
-function absolute(x: Integer) returns Integer {
+function absolute(x: integer) -> integer {
     if x < 0 then return -x
     x
 }
@@ -955,20 +1238,20 @@ function absolute(x: Integer) returns Integer {
 ### 5.3 方法定义
 
 ```ebnf
-method_decl = "method" identifier [ type_parameters ] "(" [ param_list ] ")"
-            [ "returns" type ] ( block | "=" expression ) ;
+method_decl = identifier [ type_parameters ] "(" [ param_list ] ")"
+            [ "->" type ] ( block | "=" expression ) ;
 ```
 
 ```x
-define class Calculator {
-    field mutable value: Integer = 0
+class Calculator {
+    mutable value: integer = 0
 
-    method add(n: Integer) returns Integer {
+    add(n: integer) -> integer {
         self.value = self.value + n
         self.value
     }
 
-    method reset() returns Unit {
+    reset() -> Unit {
         self.value = 0
     }
 }
@@ -981,81 +1264,81 @@ define class Calculator {
 ### 6.1 类定义
 
 ```ebnf
-class_decl = [ "public" ] "define" "class" identifier [ type_parameters ] "{" { class_member } "}" ;
+class_decl = "class" identifier [ type_parameters ] "{" { class_member } "}" ;
 
-class_member = field_decl | method_decl | constructor_decl ;
-field_decl = [ "public" ] "field" [ "mutable" ] identifier ":" type [ default_value ] ;
-method_decl = "method" identifier [ type_parameters ] "(" [ param_list ] ")"
-            [ "returns" type ] ( block | "=" expression ) ;
+class_member = property_decl | function_decl | constructor_decl ;
+property_decl = [ "mutable" ] identifier ":" type [ default_value ] ;
+function_decl = identifier [ type_parameters ] "(" [ param_list ] ")"
+              [ "->" type ] ( block | "=" expression ) ;
 constructor_decl = "constructor" "(" [ param_list ] ")" block ;
 ```
 
 ```x
-define class Person {
-    field name: String
-    field age: Integer
-    field mutable score: Integer = 0
+class Person {
+    name: string
+    age: integer
+    mutable score: integer = 0
 
-    constructor(name: String, age: Integer) {
+    constructor(name: string, age: integer) {
         Self(name, age, 0)  // 调用主构造器初始化字段
     }
 
-    method greet() returns String {
+    greet() -> string {
         "Hello, I'm " + self.name
     }
 
-    method is_adult() returns Boolean = self.age >= 18
+    is_adult() -> boolean = self.age >= 18
 
-    method have_birthday() returns Unit {
+    have_birthday() -> Unit {
         self.age = self.age + 1
         println("Happy birthday! Now " + self.age)
     }
 }
 
 // 使用
-define alice = Person("Alice", 30)
-define greeting = alice.greet()
+let alice = Person("Alice", 30)
+let greeting = alice.greet()
 alice.have_birthday()
 ```
 
 ### 6.2 trait 定义
 
 ```ebnf
-trait_decl = [ "public" ] "define" "trait" identifier [ type_parameters ]
+trait_decl = "trait" identifier [ type_parameters ]
            [ "extends" trait_list ] "{" { trait_method } "}" ;
 
 trait_list = type_name { "," type_name } ;
 
-trait_method = "method" identifier "(" [ param_list ] ")" [ "returns" type ] ;
+trait_method = identifier "(" [ param_list ] ")" [ "->" type ] ;
 ```
 
 ```x
 // 基础 trait
-define trait Printable {
-    method to_string() returns String
+trait Printable {
+    to_string() -> string
 }
 
 // 泛型 trait
-define trait Comparable<T> {
-    method compare(other: T) returns Integer
-    method is_less_than(other: T) returns Boolean = self.compare(other) < 0
-    method is_equal_to(other: T) returns Boolean = self.compare(other) == 0
+trait Comparable<T> {
+    compare(other: T) -> integer
+    is_less_than(other: T) -> boolean = self.compare(other) < 0
+    is_equal_to(other: T) -> boolean = self.compare(other) == 0
 }
 
 // 多方法 trait
-define trait Iterator<Item> {
-    method next() returns Optional<Item>
-    method has_next() returns Boolean
+trait Iterator<Item> {
+    next() -> Optional<Item>
+    has_next() -> boolean
 }
 
 // trait 继承
-define trait Showable extends Printable {
-    method show() returns String = self.to_string()
+trait Showable extends Printable {
+    show() -> string = self.to_string()
 }
 
 // 多继承
-define trait ComparableHashable extends Comparable, Hashable {
-    method compare_hash(other: Self) returns Integer
+trait ComparableHashable extends Comparable, Hashable {
+    compare_hash(other: Self) -> integer
 }
 ```
 
@@ -1065,7 +1348,7 @@ define trait ComparableHashable extends Comparable, Hashable {
 implement_decl = "implement" [ type_parameters ] type_name "for" type_name
                [ "where" where_clause ] "{" { implement_method } "}" ;
 
-implement_method = "method" identifier "(" [ param_list ] ")" [ "returns" type ]
+implement_method = identifier "(" [ param_list ] ")" [ "->" type ]
                  ( block | "=" expression ) ;
 
 where_clause = where_constraint { "," where_constraint } ;
@@ -1074,29 +1357,29 @@ where_constraint = identifier ":" type_name ;
 
 ```x
 implement Printable for Person {
-    method to_string() returns String {
+    to_string() -> string {
         "Person(name: " + self.name + ", age: " + self.age + ")"
     }
 }
 
-implement Comparable<Integer> for Integer {
-    method compare(other: Integer) returns Integer = self - other
+implement Comparable<integer> for integer {
+    compare(other: integer) -> integer = self - other
 }
 
 // 泛型实现（带约束）
 implement<T> Printable for List<T> where T: Printable {
-    method to_string() returns String {
+    to_string() -> string {
         "[" + self.map(x -> x.to_string()).join(", ") + "]"
     }
 }
 
 // 多 trait 实现
-implement Printable for Integer {
-    method to_string() returns String = Integer.to_string(self)
+implement Printable for integer {
+    to_string() -> string = integer.to_string(self)
 }
 
-implement Comparable<Integer> for Integer {
-    method compare(other: Integer) returns Integer = self - other
+implement Comparable<integer> for integer {
+    compare(other: integer) -> integer = self - other
 }
 ```
 
@@ -1114,18 +1397,18 @@ guard = "if" expression ;
 
 ```x
 // 基本匹配
-define description = when score is {
+let description = when score is {
     100 => "perfect"
     90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 => "excellent"
     n if n >= 80 => "good"
     n if n >= 60 => "passed"
-    otherwise => "failed"
+    _ => "failed"
 }
 
 // 带块体
 when status is {
     "success" => {
-        define data = fetch_data()
+        val data = fetch_data()
         process(data)
         save(data)
     }
@@ -1133,7 +1416,7 @@ when status is {
         log_error()
         notify_admin()
     }
-    otherwise => println("unknown status")
+    _ => println("unknown status")
 }
 ```
 
@@ -1152,7 +1435,7 @@ pattern = literal_pattern
 
 literal_pattern = integer_literal | float_literal | boolean_literal | string_literal | char_literal ;
 identifier_pattern = identifier [ "@" pattern ] ;
-wildcard_pattern = "_" | "otherwise" ;
+wildcard_pattern = "_" ;
 tuple_pattern = "(" [ pattern { "," pattern } ] ")" ;
 list_pattern = "[" [ pattern_list ] "]" ;
 pattern_list = pattern { "," pattern } [ "," spread_pattern ] | spread_pattern ;
@@ -1167,15 +1450,15 @@ type_pattern = identifier "as" type_name ;  (* 使用 "as" 关键字避免与字
 
 ```x
 // 字面量模式
-define describe = when number is {
+let describe = when number is {
     0 => "zero"
     1 => "one"
     2 => "two"
-    otherwise => "many"
+    _ => "many"
 }
 
 // 元组解构
-define locate = when point is {
+let locate = when point is {
     (0, 0) => "at origin"
     (x, 0) => "on x-axis at x=" + x
     (0, y) => "on y-axis at y=" + y
@@ -1183,7 +1466,7 @@ define locate = when point is {
 }
 
 // 列表模式
-define analyze = when list is {
+let analyze = when list is {
     [] => "empty list"
     [x] => "single element: " + x
     [first, second] => "two elements: " + first + " and " + second
@@ -1191,37 +1474,37 @@ define analyze = when list is {
 }
 
 // 构造器模式
-define handle_result = when result is {
+let handle_result = when result is {
     Success(value) => "got: " + value
     Failure(error) => "error: " + error
 }
 
 // 范围模式
-define grade_level = when score is {
+let grade_level = when score is {
     90..100 => "A"
     80..89 => "B"
     70..79 => "C"
     60..69 => "D"
-    otherwise => "F"
+    _ => "F"
 }
 
 // 或模式
-define classify = when character is {
+let classify = when character is {
     'a' | 'e' | 'i' | 'o' | 'u' => "vowel"
     'A' | 'E' | 'I' | 'O' | 'U' => "capital vowel"
-    otherwise => "consonant"
+    _ => "consonant"
 }
 
 // 类型模式 - 使用 "as" 关键字
-define describe_value = when value is {
-    s as String => "a string: " + s
-    n as Integer => "an integer: " + n
-    b as Boolean => "a boolean: " + b
-    otherwise => "something else"
+let describe_value = when value is {
+    s as string => "a string: " + s
+    n as integer => "an integer: " + n
+    b as boolean => "a boolean: " + b
+    _ => "something else"
 }
 
 // 嵌套模式
-define nested = when container is {
+let nested = when container is {
     Some((x, y)) => "contains pair (" + x + ", " + y + ")"
     Some(single) => "contains single value"
     None => "is empty"
@@ -1233,20 +1516,20 @@ define nested = when container is {
 编译器确保 `when` 表达式覆盖所有可能的情况。
 
 ```x
-define enum Direction { North, South, East, West }
+enum Direction { North, South, East, West }
 
 // 编译器会检查所有变体
-function to_string(dir: Direction) returns String {
+function to_string(dir: Direction) -> string {
     when dir is {
         Direction.North => "N"
         Direction.South => "S"
         Direction.East => "E"
-        // 编译错误：缺少 Direction.West，或使用 otherwise
+        // 编译错误：缺少 Direction.West，或使用 _
     }
 }
 
 // 正确写法
-function to_string_complete(dir: Direction) returns String {
+function to_string_complete(dir: Direction) -> string {
     when dir is {
         Direction.North => "N"
         Direction.South => "S"
@@ -1255,11 +1538,11 @@ function to_string_complete(dir: Direction) returns String {
     }
 }
 
-// 或使用 otherwise
-function to_string_safe(dir: Direction) returns String {
+// 或使用通配符 _
+function to_string_safe(dir: Direction) -> string {
     when dir is {
         Direction.North => "North"
-        otherwise => "Not North"
+        _ => "Not North"
     }
 }
 ```
@@ -1271,32 +1554,32 @@ function to_string_safe(dir: Direction) returns String {
 ### 8.1 效果声明
 
 ```ebnf
-effect_decl = "define" "effect" identifier [ type_parameters ] "{" { effect_operation } "}" ;
-effect_operation = "operation" identifier "(" [ param_list ] ")" "returns" type ;
+effect_decl = "effect" identifier [ type_parameters ] "{" { effect_operation } "}" ;
+effect_operation = "operation" identifier "(" [ param_list ] ")" "->" type ;
 ```
 
 ```x
 // 基础效果
-define effect Io {
-    operation read_file(path: String) returns String
-    operation write_file(path: String, content: String) returns Unit
-    operation delete_file(path: String) returns Unit
+effect Io {
+    operation read_file(path: string) -> string
+    operation write_file(path: string, content: string) -> Unit
+    operation delete_file(path: string) -> Unit
 }
 
 // 泛型效果
-define effect State<S> {
-    operation get() returns S
-    operation set(value: S) returns Unit
-    operation update(f: function from (S) returns S) returns Unit
+effect State<S> {
+    operation get() -> S
+    operation set(value: S) -> Unit
+    operation update(f: function (S) -> S) -> Unit
 }
 
 // 多操作效果
-define effect Database {
-    operation query(sql: String) returns List<Row>
-    operation execute(sql: String) returns Integer
-    operation begin_transaction() returns Unit
-    operation commit() returns Unit
-    operation rollback() returns Unit
+effect Database {
+    operation query(sql: string) -> List<Row>
+    operation execute(sql: string) -> integer
+    operation begin_transaction() -> Unit
+    operation commit() -> Unit
+    operation rollback() -> Unit
 }
 ```
 
@@ -1310,19 +1593,19 @@ effect_call = identifier "." identifier "(" [ argument_list ] ")" ;
 
 ```x
 // 声明函数需要的效果
-function read_config() returns String requires Io {
+function read_config() -> string requires Io {
     needs Io.read_file("config.toml")
 }
 
 // 多效果
-function fetch_and_save(url: String, path: String) returns Unit requires Io, Network {
-    define data = needs Network.fetch(url)
+function fetch_and_save(url: string, path: string) -> Unit requires Io, Network {
+    val data = needs Network.fetch(url)
     needs Io.write_file(path, data)
 }
 
 // 效果传播
-function process_file(path: String) returns Result<Data, ParseError> requires Io, Parse {
-    define content = needs Io.read_file(path)
+function process_file(path: string) -> Result<Data, ParseError> requires Io, Parse {
+    val content = needs Io.read_file(path)
     needs Parse.parse(content)
 }
 ```
@@ -1331,36 +1614,36 @@ function process_file(path: String) returns Result<Data, ParseError> requires Io
 
 ```ebnf
 effect_handler = "given" effect_list "{" { effect_impl } "}" ;
-effect_impl = "operation" identifier "(" [ param_list ] ")" "returns" type block ;
+effect_impl = "operation" identifier "(" [ param_list ] ")" "->" type block ;
 ```
 
 ```x
 // 提供效果实现
-function main() returns Unit {
+function main() -> Unit {
     given Io {
-        operation read_file(path: String) returns String {
+        operation read_file(path: string) -> string {
             std.fs.read_text_file(path)
         }
-        operation write_file(path: String, content: String) returns Unit {
+        operation write_file(path: string, content: string) -> Unit {
             std.fs.write_text_file(path, content)
         }
-        operation delete_file(path: String) returns Unit {
+        operation delete_file(path: string) -> Unit {
             std.fs.delete_file(path)
         }
     }
 
     // 在此作用域内，Io 效果可用
-    define config = read_config()
+    val config = read_config()
     println(config)
 }
 
 // 多效果处理
-function run_server() returns Unit {
+function run_server() -> Unit {
     given Io, Network, Logger {
         // 所有效果的具体实现
-        operation read_file(path: String) returns String { ... }
-        operation send_request(url: String) returns String { ... }
-        operation log(message: String) returns Unit { ... }
+        operation read_file(path: string) -> string { ... }
+        operation send_request(url: string) -> string { ... }
+        operation log(message: string) -> Unit { ... }
     }
 
     start_server()
@@ -1381,47 +1664,33 @@ module_path = identifier { "." identifier } ;
 ```x
 module math.utils
 
-export constant PI = 3.14159
-export function add(a: Integer, b: Integer) returns Integer = a + b
+export let constant PI = 3.14159
+export function add(a: integer, b: integer) -> integer = a + b
 ```
 
 ### 9.2 导入导出
 
 ```ebnf
-import_decl = "use" module_path [ import_list ]
-            | "from" module_path "use" import_list ;
+import_decl = "import" module_path [ import_list ] ;
 import_list = "{" identifier { "," identifier } "}" ;
 
 export_decl = "export" declaration ;
-public_decl = "public" declaration ;
 ```
 
 ```x
 // 完整模块导入
-use std.collections
+import std.collections
 
 // 选择性导入
-use std.collections { HashMap, HashSet, LinkedList }
-
-// from-use 风格
-from std.io use { read_file, write_file }
+import std.collections { HashMap, HashSet, LinkedList }
 
 // 重命名导入
-use std.collections.HashMap as HM
+import std.collections.HashMap as HM
 
 // 导出
-export function add(a: Integer, b: Integer) returns Integer = a + b
-export constant PI = 3.14159
-export define type Point = (Float, Float)
-
-// public 声明（同时导出）
-public function api_endpoint() returns String {
-    "Hello from API"
-}
-
-public define class Service {
-    // ...
-}
+export function add(a: integer, b: integer) -> integer = a + b
+export let constant PI = 3.14159
+export type Point = (float, float)
 ```
 
 ---
@@ -1443,13 +1712,13 @@ public define class Service {
 
 ```x
 // 编译器自动管理内存
-define a = [1, 2, 3]  // 引用计数 = 1
-define b = a          // dup: 引用计数 = 2
+let a = [1, 2, 3]  // 引用计数 = 1
+let b = a          // dup: 引用计数 = 2
 // b 离开作用域: drop: 引用计数 = 1
 // a 离开作用域: drop: 引用计数 = 0, 释放内存
 
 // FBIP: 函数式但原地更新
-define mutable list = [1, 2, 3]
+let mutable list = [1, 2, 3]
 list = list.push(4)  // 如果引用计数为 1，原地追加，无需分配
 ```
 
@@ -1460,14 +1729,14 @@ weak_type = "weak" type ;
 ```
 
 ```x
-define class Node {
-    field value: Integer
-    field next: Optional<Node>
-    field parent: weak Optional<Node>  // 不参与引用计数
+class Node {
+    value: integer
+    next: Optional<Node>
+    parent: weak Optional<Node>  // 不参与引用计数
 }
 
 // 使用弱引用需要升级
-function get_parent(node: Node) returns Optional<Node> {
+function get_parent(node: Node) -> Optional<Node> {
     when node.parent.upgrade() is {
         Some(parent) => Some(parent)
         None => None  // 父节点已被释放
@@ -1479,13 +1748,13 @@ function get_parent(node: Node) returns Optional<Node> {
 
 ```x
 // 函数式风格代码，编译器优化为原地操作
-function append<T>(list: List<T>, item: T) returns List<T> {
+function append<T>(list: List<T>, item: T) -> List<T> {
     list.push(item)  // 如果是唯一引用，原地追加
 }
 
 // 编译器自动分析
-function process() returns List<Integer> {
-    define mutable data = [1, 2, 3]
+function process() -> List<integer> {
+    var data = [1, 2, 3]
     data = data.push(4)   // 原地更新
     data = data.push(5)   // 原地更新
     data                  // 最终 [1, 2, 3, 4, 5]，无额外内存分配
@@ -1499,7 +1768,7 @@ function process() returns List<Integer> {
 ### 11.1 Optional 用法
 
 ```x
-function find_user(users: List<User>, id: Integer) returns Optional<User> {
+function find_user(users: List<User>, id: integer) -> Optional<User> {
     users.filter(u -> u.id == id).first()
 }
 
@@ -1510,28 +1779,28 @@ when find_user(users, 42) is {
 }
 
 // 可选链
-define email = user?.profile?.email
+let email = user?.profile?.email
 
 // 空合并运算符
-define name = user?.name ?? "anonymous"
-define timeout = config?.timeout ?? 30
+let name = user?.name ?? "anonymous"
+let timeout = config?.timeout ?? 30
 ```
 
 ### 11.2 Result 用法
 
 ```x
-function read_file(path: String) returns Result<String, IoError> {
+function read_file(path: string) -> Result<String, IoError> {
     // 尝试读取文件
 }
 
 // ? 运算符传播错误
-function load_config() returns Result<Config, IoError> {
-    define content = read_file("config.toml")?
+function load_config() -> Result<Config, IoError> {
+    val content = read_file("config.toml")?
     parse_config(content)?
 }
 
 // 链式处理
-function process_file(path: String) returns Result<Data, Error> {
+function process_file(path: string) -> Result<Data, Error> {
     read_file(path)?
     |> parse?
     |> validate?
@@ -1559,8 +1828,8 @@ throw_expr = "throw" expression ;
 
 ```x
 // try-catch 作为控制流（非异常机制）
-function risky_operation() returns Result<Integer, Error> {
-    define result = try {
+function risky_operation() -> Result<Integer, Error> {
+    val result = try {
         might_fail()
     } catch (e) {
         return Failure(e)
@@ -1569,8 +1838,8 @@ function risky_operation() returns Result<Integer, Error> {
 }
 
 // with finally
-function with_resource() returns Unit {
-    define resource = acquire_resource()
+function with_resource() -> Unit {
+    val resource = acquire_resource()
     try {
         use_resource(resource)
     } finally {
@@ -1579,7 +1848,7 @@ function with_resource() returns Unit {
 }
 
 // throw 用于效果系统
-function validate(input: String) returns String requires Error {
+function validate(input: string) -> string requires Error {
     if input == "" then throw EmptyInputError
     if input.length() > 100 then throw InputTooLongError
     input
@@ -1593,28 +1862,28 @@ function validate(input: String) returns String requires Error {
 ### 12.1 async/await
 
 ```ebnf
-async_function = "async" "function" identifier "(" [ param_list ] ")" [ "returns" type ]
+async_function = "async" "function" identifier "(" [ param_list ] ")" [ "->" type ]
                ( block | "=" expression ) ;
 await_expr = "await" expression ;
 ```
 
 ```x
 // 异步函数
-async function fetch_data(url: String) returns Result<String, NetworkError> {
-    define response = await http_get(url)
+async function fetch_data(url: string) -> Result<String, NetworkError> {
+    val response = await http_get(url)
     Success(response.body)
 }
 
 // 多个异步操作
-async function fetch_all(urls: List<String>) returns List<String> {
-    define results = await Promise.all(urls.map(fetch_data))
+async function fetch_all(urls: List<string>) -> List<string> {
+    val results = await Promise.all(urls.map(fetch_data))
     results
 }
 
 // async 块
-define future = async {
-    define a = await fetch("url_a")
-    define b = await fetch("url_b")
+let future = async {
+    val a = await fetch("url_a")
+    val b = await fetch("url_b")
     a + b
 }
 ```
@@ -1628,7 +1897,7 @@ race_expr = "race" block ;
 
 ```x
 // concurrently: 并发执行所有任务，等待全部完成
-define results = concurrently {
+let results = concurrently {
     fetch_from_server_a()
     fetch_from_server_b()
     fetch_from_server_c()
@@ -1636,7 +1905,7 @@ define results = concurrently {
 // results = (result_a, result_b, result_c)
 
 // race: 竞态，返回最先完成的
-define winner = race {
+let winner = race {
     fetch_from_cache()
     fetch_from_database()
     fetch_from_remote()
@@ -1644,7 +1913,7 @@ define winner = race {
 // winner = 最先返回的结果
 
 // 实际应用
-async function fetch_with_fallback(url: String) returns String {
+async function fetch_with_fallback(url: string) -> string {
     race {
         fetch_from_primary(url)
         fetch_from_backup(url)
@@ -1662,7 +1931,7 @@ retry_statement = "retry" [ integer_literal ] "times" block ;
 
 ```x
 // 原子变量
-define mutable counter = atomic 0
+let mutable counter = atomic 0
 
 // 原子操作块
 atomic {
@@ -1670,9 +1939,9 @@ atomic {
 }
 
 // 比较并交换
-function increment_if_positive(c: Atomic<Integer>) returns Boolean {
+function increment_if_positive(c: Atomic<integer>) -> boolean {
     atomic {
-        define current = c.load()
+        val current = c.load()
         if current > 0 then {
             c.store(current + 1)
             true
@@ -1683,9 +1952,9 @@ function increment_if_positive(c: Atomic<Integer>) returns Boolean {
 }
 
 // 重试机制
-function with_retry<T>(operation: function from () returns T) returns T {
+function with_retry<T>(operation: function () -> T) -> T {
     retry 3 times {
-        define result = operation()
+        val result = operation()
         if result.is_success() then return result
     }
 }
@@ -1716,19 +1985,33 @@ other_op = "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "?" | "??" | "|>" | ".." ;
 
 ---
 
-## 14. 保留字
+## 14. 关键字
+
+### 14.1 关键字列表
+
+以下标识符是语言关键字，不能用作标识符：
 
 ```ebnf
-reserved = "abstract" | "assert" | "become" | "box"
-         | "do" | "dyn" | "final" | "macro" | "move"
-         | "override" | "priv" | "pure" | "ref" | "sealed"
-         | "sizeof" | "static" | "super" | "typeof" | "unsafe"
-         | "virtual" | "yield" ;
+keyword = "let" | "mutable" | "constant"          (* 变量声明 *)
+        | "function" | "async" | "await" | "return" (* 函数与异步返回 *)
+        | "if" | "then" | "else"                  (* 条件 *)
+        | "when" | "is"                           (* 模式匹配 *)
+        | "for" | "each" | "in" | "while" | "loop" | "break" | "continue"  (* 循环 *)
+        | "enum" | "record" | "type"              (* 类型定义 *)
+        | "class" | "trait" | "effect"            (* 结构定义 *)
+        | "implement" | "extends"                 (* 实现 *)
+        | "constructor"                           (* 类构造器 *)
+        | "module" | "import" | "export"          (* 模块 *)
+        | "public" | "private" | "static"         (* 访问控制与静态成员 *)
+        | "try" | "catch" | "finally" | "throw"   (* 异常 *)
+        | "concurrently" | "race" | "atomic" | "retry"  (* 并发 *)
+        | "true" | "false"                        (* 布尔字面量 *)
+        | "and" | "or" | "not"                    (* 逻辑运算 *)
+        | "with" | "perform" | "handle" | "operation" | "given" (* 效果系统 *)
+        | "extends" | "super"                     (* 继承 *)
+        | "self" | "Self" | "unsafe"              (* 自身引用与不安全代码 *)
+        ;
 ```
-
-以下标识符保留供未来使用：
-
-`abstract`, `assert`, `become`, `box`, `do`, `dyn`, `final`, `macro`, `move`, `override`, `priv`, `pure`, `ref`, `sealed`, `sizeof`, `static`, `super`, `typeof`, `unsafe`, `virtual`, `yield`
 
 ---
 
@@ -1736,13 +2019,13 @@ reserved = "abstract" | "assert" | "become" | "box"
 
 ```x
 // 变量
-define x = 42
-define mutable counter = 0
-constant MAX = 100
+let x = 42
+let mutable counter = 0
+let MAX = 100
 
 // 函数
-function add(a: Integer, b: Integer) returns Integer = a + b
-define add = (a, b) -> a + b
+function add(a: integer, b: integer) -> integer = a + b
+let add = (a, b) -> a + b
 
 // 控制流
 if condition then { } else { }
@@ -1752,21 +2035,21 @@ loop { if done then break }
 when value is { pattern => result }
 
 // 类型
-define type Point = (Float, Float)
-define enum Optional<T> { Some(T), None }
-define record Person { name: String, age: Integer }
+type Point = (float, float)
+enum Optional<T> { Some(T), None }
+record Person { name: string, age: integer }
 
 // 类
-define class Point { field x: Integer, field y: Integer }
-define trait Printable { method to_string() returns String }
+class Point { x: integer, y: integer }
+trait Printable { to_string() -> string }
 
 // 效果
-function foo() returns T requires Io { needs Io.read_file("...") }
+function foo() -> T requires Io { needs Io.read_file("...") }
 
 // 并发
-async function fetch() returns String { await http_get(url) }
-define results = concurrently { task_a(), task_b() }
-define winner = race { fast(), slow() }
+async function fetch() -> string { await http_get(url) }
+let results = concurrently { task_a(), task_b() }
+let winner = race { fast(), slow() }
 ```
 
 ---
@@ -1775,9 +2058,10 @@ define winner = race { fast(), slow() }
 
 | 特性 | X | Rust | Python | TypeScript |
 |------|---|------|--------|------------|
-| 变量声明 | `define x = 1` | `let x = 1` | `x = 1` | `const x = 1` |
-| 函数声明 | `function f() returns T` | `fn f() -> T` | `def f() -> T` | `function f(): T` |
-| 泛型语法 | `List<Integer>` | `List<Integer>` | `list[int]` | `List<number>` |
+| 变量声明 | `let x = 1` | `let x = 1` | `x = 1` | `const x = 1` |
+| 可变变量 | `let mutable x = 1` | `let mut x = 1` | `x = 1` | `let x = 1` |
+| 函数声明 | `function f() -> T` | `fn f() -> T` | `def f() -> T` | `function f(): T` |
+| 泛型语法 | `List<integer>` | `List<integer>` | `list[int]` | `List<number>` |
 | 模式匹配 | `when x is { }` | `match x { }` | `match x:` | - |
 | 错误类型 | `Result<T, E>` | `Result<T, E>` | 异常 | 异常 |
 | 空安全 | `Optional<T>` | `Option<T>` | `None` | `undefined` |
@@ -1802,7 +2086,7 @@ fn process<T: Clone>(list: Vec<T>) -> Option<T> {
 
 **X 语言**：
 ```x
-function process<T>(list: List<T>) returns Optional<T> where T: Clone {
+function process<T>(list: List<T>) -> Optional<T> where T: Clone {
     when list.first() is {
         Some(x) => Some(x)
         None => None
@@ -1814,22 +2098,22 @@ function process<T>(list: List<T>) returns Optional<T> where T: Clone {
 
 ```x
 // 定义一个用户服务
-define class UserService {
-    field database: Database
-    field cache: Cache
+class UserService {
+    database: Database
+    cache: Cache
 
     constructor(database: Database, cache: Cache) {
         Self(database, cache)
     }
 
     // 方法名和参数清晰表达意图
-    method find_user_by_id(id: Integer) returns Optional<User> {
+    find_user_by_id(id: integer) -> Optional<User> {
         // 先查缓存
         when self.cache.get(id) is {
             Some(user) => Some(user)
             None => {
                 // 缓存未命中，查询数据库
-                define user = self.database.find_user(id)
+                let user = self.database.find_user(id)
                 when user is {
                     Some(u) => {
                         self.cache.set(id, u)
@@ -1842,7 +2126,7 @@ define class UserService {
     }
 
     // 单表达式方法
-    method user_exists(id: Integer) returns Boolean =
+    user_exists(id: integer) -> boolean =
         self.find_user_by_id(id).is_some()
 }
 ```

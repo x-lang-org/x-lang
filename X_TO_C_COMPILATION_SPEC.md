@@ -39,10 +39,6 @@
 | `unsigned 64-bit integer` | `uint64_t` |
 | `unsigned 128-bit integer` | `unsigned _BitInt(128)` |
 | `unsigned N-bit integer` | `unsigned _BitInt(N)` |
-| `size` | `size_t` |
-| `ptrdiff` | `ptrdiff_t` |
-| `intptr` | `intptr_t` |
-| `uintptr` | `uintptr_t` |
 
 ### 1.2 浮点类型
 
