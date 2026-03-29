@@ -16,6 +16,7 @@
 use std::fmt::Write;
 use std::path::PathBuf;
 use x_parser::ast::{self, ExpressionKind, StatementKind, Program as AstProgram};
+use x_lir::Program as LirProgram;
 
 /// C# 后端配置
 #[derive(Debug, Clone)]
@@ -1212,9 +1213,229 @@ impl x_codegen::CodeGenerator for CSharpBackend {
 
     fn generate_from_lir(
         &mut self,
-        _lir: &x_lir::Program,
+        lir: &LirProgram,
     ) -> Result<x_codegen::CodegenOutput, Self::Error> {
-        Err(CSharpError::Unimplemented("C# 后端 LIR 生成尚未实现".to_string()))
+        // LIR -> C# 代码生成
+        self.output.clear();
+        self.indent = 0;
+
+        self.emit_header()?;
+
+        // 获取命名空间
+        let namespace = self.config.namespace.clone().unwrap_or_else(|| "XLang".to_string());
+
+        self.line(&format!("namespace {}", namespace))?;
+        self.line("{")?;
+        self.indent += 1;
+
+        // 开始类定义
+        self.line(&format!("public class Program {{"))?;
+        self.indent += 1;
+
+        // 收集函数
+        let mut has_main = false;
+        for decl in &lir.declarations {
+            if let x_lir::Declaration::Function(f) = decl {
+                if f.name == "main" {
+                    has_main = true;
+                }
+                // 发射函数签名
+                let ret = self.lir_type_to_csharp(&f.return_type);
+                let params: Vec<String> = f.parameters.iter()
+                    .map(|p| format!("{} {}", self.lir_type_to_csharp(&p.type_), p.name))
+                    .collect();
+                self.line(&format!("public static {} {}({}) {{", ret, f.name, params.join(", "))).map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+                self.indent += 1;
+
+                // 发射函数体
+                for stmt in &f.body.statements {
+                    self.emit_lir_statement(stmt).map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+                }
+
+                self.indent -= 1;
+                self.line("    }").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+                self.line("").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+            }
+        }
+
+        // Main 方法入口
+        self.line("    public static void Main(string[] args) {").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+        self.indent += 1;
+        if has_main {
+            self.line("        Main(args);").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+        }
+        self.indent -= 1;
+        self.line("    }").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+
+        self.indent -= 1;
+        self.line("}").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+        self.indent -= 1;
+        self.line("}").map_err(|e| CSharpError::Unimplemented(e.to_string()))?;
+
+        let output_file = x_codegen::OutputFile {
+            path: PathBuf::from("Program.cs"),
+            content: self.output.as_bytes().to_vec(),
+            file_type: x_codegen::FileType::CSharp,
+        };
+
+        Ok(x_codegen::CodegenOutput {
+            files: vec![output_file],
+            dependencies: vec![],
+        })
+    }
+}
+
+/// LIR -> C# 辅助方法
+impl CSharpBackend {
+    /// 将 LIR 类型转换为 C# 类型
+    fn lir_type_to_csharp(&self, ty: &x_lir::Type) -> String {
+        use x_lir::Type::*;
+        match ty {
+            Void => "void".to_string(),
+            Bool => "bool".to_string(),
+            Char => "char".to_string(),
+            Schar | Short => "short".to_string(),
+            Uchar | Ushort | Int | Uint => "int".to_string(),
+            Long | Ulong | LongLong | UlongLong => "long".to_string(),
+            Float => "float".to_string(),
+            Double | LongDouble => "double".to_string(),
+            Size | Ptrdiff | Intptr | Uintptr => "long".to_string(),
+            Pointer(inner) => format!("{}*", self.lir_type_to_csharp(inner)), // unsafe
+            Array(inner, _) => format!("{}[]", self.lir_type_to_csharp(inner)),
+            FunctionPointer(_, _) => "Func<object, object>".to_string(),
+            Named(n) => n.clone(),
+            Qualified(_, inner) => self.lir_type_to_csharp(inner),
+        }
+    }
+
+    /// 发射 LIR 语句
+    fn emit_lir_statement(&mut self, stmt: &x_lir::Statement) -> CSharpResult<()> {
+        use x_lir::Statement::*;
+        match stmt {
+            Expression(e) => {
+                let s = self.emit_lir_expr(e)?;
+                self.line(&format!("{};", s))?;
+            }
+            Variable(v) => {
+                let ty = self.lir_type_to_csharp(&v.type_);
+                if let Some(init) = &v.initializer {
+                    let init_str = self.emit_lir_expr(init)?;
+                    self.line(&format!("{} {} = {};", ty, v.name, init_str))?;
+                } else {
+                    self.line(&format!("{} {};", ty, v.name))?;
+                }
+            }
+            If(i) => {
+                let cond = self.emit_lir_expr(&i.condition)?;
+                self.line(&format!("if ({}) {{", cond))?;
+                self.indent += 1;
+                self.emit_lir_statement(&i.then_branch)?;
+                self.indent -= 1;
+                if let Some(else_br) = &i.else_branch {
+                    self.line("} else {")?;
+                    self.indent += 1;
+                    self.emit_lir_statement(else_br)?;
+                    self.indent -= 1;
+                }
+                self.line("}")?;
+            }
+            While(w) => {
+                let cond = self.emit_lir_expr(&w.condition)?;
+                self.line(&format!("while ({}) {{", cond))?;
+                self.indent += 1;
+                self.emit_lir_statement(&w.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            Return(r) => {
+                if let Some(e) = r {
+                    let val = self.emit_lir_expr(e)?;
+                    self.line(&format!("return {};", val))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            Break => self.line("break;")?,
+            Continue => self.line("continue;")?,
+            _ => self.line("// unsupported statement")?,
+        }
+        Ok(())
+    }
+
+    /// 发射 LIR 表达式
+    fn emit_lir_expr(&self, expr: &x_lir::Expression) -> CSharpResult<String> {
+        use x_lir::Expression::*;
+        match expr {
+            Literal(l) => self.emit_lir_literal(l),
+            Variable(n) => Ok(n.clone()),
+            Binary(op, l, r) => {
+                let left = self.emit_lir_expr(l)?;
+                let right = self.emit_lir_expr(r)?;
+                let op_str = self.map_lir_binop(op);
+                Ok(format!("({} {} {})", left, op_str, right))
+            }
+            Unary(op, e) => {
+                let e = self.emit_lir_expr(e)?;
+                let op_str = self.map_lir_unaryop(op);
+                Ok(format!("({}{})", op_str, e))
+            }
+            Call(callee, args) => {
+                let callee_str = self.emit_lir_expr(callee)?;
+                let args_str: Vec<String> = args.iter()
+                    .map(|a| self.emit_lir_expr(a))
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok(format!("{}({})", callee_str, args_str.join(", ")))
+            }
+            Member(obj, member) => {
+                let obj_str = self.emit_lir_expr(obj)?;
+                Ok(format!("{}.{}", obj_str, member))
+            }
+            Index(arr, idx) => {
+                let arr_str = self.emit_lir_expr(arr)?;
+                let idx_str = self.emit_lir_expr(idx)?;
+                Ok(format!("{}[{}]", arr_str, idx_str))
+            }
+            _ => Ok("null".to_string()),
+        }
+    }
+
+    /// 发射 LIR 字面量
+    fn emit_lir_literal(&self, lit: &x_lir::Literal) -> CSharpResult<String> {
+        use x_lir::Literal::*;
+        match lit {
+            Integer(n) | Long(n) | LongLong(n) => Ok(n.to_string()),
+            UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(format!("{}UL", n)),
+            Float(f) | Double(f) => Ok(f.to_string()),
+            String(s) => Ok(format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\""))),
+            Char(c) => Ok(format!("'{}'", c)),
+            Bool(b) => Ok(b.to_string()),
+            NullPointer => Ok("null".to_string()),
+        }
+    }
+
+    /// 映射 LIR 二元运算符
+    fn map_lir_binop(&self, op: &x_lir::BinaryOp) -> String {
+        use x_lir::BinaryOp::*;
+        match op {
+            Add => "+", Subtract => "-", Multiply => "*", Divide => "/", Modulo => "%",
+            LessThan => "<", LessThanEqual => "<=", GreaterThan => ">", GreaterThanEqual => ">=",
+            Equal => "==", NotEqual => "!=",
+            BitAnd => "&", BitOr => "|", BitXor => "^",
+            LeftShift => "<<", RightShift => ">>", RightShiftArithmetic => ">>>",
+            LogicalAnd => "&&", LogicalOr => "||",
+        }.to_string()
+    }
+
+    /// 映射 LIR 一元运算符
+    fn map_lir_unaryop(&self, op: &x_lir::UnaryOp) -> String {
+        use x_lir::UnaryOp::*;
+        match op {
+            Plus => "+".to_string(),
+            Minus => "-".to_string(),
+            Not => "!".to_string(),
+            BitNot => "~".to_string(),
+            _ => "".to_string(),
+        }
     }
 }
 
