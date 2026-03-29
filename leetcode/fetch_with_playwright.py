@@ -15,8 +15,9 @@ RETRY_MAX = 2
 RETRY_DELAY_SEC = 1
 MAX_CONTENT_LENGTH_THRESHOLD = 100  # Content longer than this is considered complete
 
-PROBLEMS_JSON = "leetcode/problems_cn.json"
-OUTPUT_JSON = "leetcode/problems_cn.json"
+# When running from leetcode directory, use local paths
+PROBLEMS_JSON = "problems_cn.json"
+OUTPUT_JSON = "problems_cn.json"
 
 def map_difficulty(difficulty: int) -> str:
     """Map difficulty level to Chinese name."""
@@ -92,7 +93,7 @@ def generate_markdown_file(problem: Dict) -> None:
     """Generate markdown file for a problem."""
     difficulty_cn = map_difficulty(problem["difficulty"])
     difficulty_folder = {1: "easy", 2: "medium", 3: "hard"}[problem["difficulty"]]
-    filename = f"leetcode/{difficulty_folder}/{problem['id']}.{problem['slug']}.md"
+    filename = f"{difficulty_folder}/{problem['id']}.{problem['slug']}.md"
     content = f"""# {problem['id']} {problem['title']}
 
 **难度**: {difficulty_cn}
