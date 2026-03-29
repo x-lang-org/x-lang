@@ -1,0 +1,41 @@
+{
+  "title": "Guess Numbers",
+  "titleCn": "猜数字",
+  "titleSlug": "guess-numbers",
+  "difficulty": "EASY",
+  "acRate": 0.8443129125125448,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "guess-numbers",
+    "questionId": "100107",
+    "title": "Guess Numbers",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.<br />\r\n&nbsp;</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int game(vector<int>& guess, vector<int>& answer) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int game(int[] guess, int[] answer) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def game(self, guess: List[int], answer: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n[1,2,3]\n[2,2,3]\n[3,2,1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:32.776Z"
+}

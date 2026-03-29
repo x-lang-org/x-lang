@@ -1,0 +1,49 @@
+{
+  "title": "Find Majority Element LCCI",
+  "titleCn": "主要元素",
+  "titleSlug": "find-majority-element-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5587447276971642,
+  "topicTags": [
+    "array",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "find-majority-element-lcci",
+    "questionId": "1000038",
+    "title": "Find Majority Element LCCI",
+    "content": "<p>A majority element is an element that makes up more than half of the items in an array. Given a&nbsp;integers array, find the majority element. If there is no majority element, return -1. Do this in O(N) time and O(1) space.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[1,2,5,9,5,9,5,5,5]\r\n<strong>Output: </strong>5</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[3,2]\r\n<strong>Output: </strong>-1</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example 3: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[2,2,1,1,1,2,2]\r\n<strong>Output: </strong>2\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int majorityElement(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def majorityElement(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,2,3]\n[2,2,1,1,1,2,2]\n[1]",
+    "hints": [
+      "从蛮力解法开始。你能检查一下每个值是否为主要元素吗?",
+      "考虑蛮力解法。我们选择一个元素，然后通过计算匹配和非匹配元素的数量来验证它是否是主要元素。假设对于第一个元素，前几次检查显示 7 个不匹配的元素和 3 个匹配的元素。有必要继续检查这个元素吗?",
+      "主要元素一开始看起来并不一定像主要元素。例如，有可能主要元素出现在数组的第一个元素中，然后在接下来的 8 个元素中都不再出现。但是，在这些情况下，主要元素将在数组的后面出现(实际上，在数组的后面会出现很多次)。当某个元素看起来“不太像”主要元素时，继续检查它并不一定很重要。",
+      "还要注意，主要元素对于某些子数组也必须是主要元素，而且子数组不能拥有多个主要元素。",
+      "试试这个:给定一个元素，开始检查它是否是一个子数组的开始，同时对于这个子数组，该元素是它的主要元素。一旦它变得“不太可能”(出现的次数少于一半)，就开始检查下一个元素(子数组之后的元素)。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:48.286Z"
+}

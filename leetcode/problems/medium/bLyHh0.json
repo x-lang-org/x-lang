@@ -1,0 +1,47 @@
+{
+  "title": "省份数量",
+  "titleCn": "省份数量",
+  "titleSlug": "bLyHh0",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6697198827892871,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "detail": {
+    "titleSlug": "bLyHh0",
+    "questionId": "1000346",
+    "title": "省份数量",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "graph"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findCircleNum(vector<vector<int>>& isConnected) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findCircleNum(int[][] isConnected) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findCircleNum(self, isConnected: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[1,1,0],[1,1,0],[0,0,1]]\n[[1,0,0],[0,1,0],[0,0,1]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:28.501Z"
+}

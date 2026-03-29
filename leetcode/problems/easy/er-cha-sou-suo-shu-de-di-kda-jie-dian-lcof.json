@@ -1,0 +1,47 @@
+{
+  "title": "寻找二叉搜索树中的目标节点",
+  "titleCn": "寻找二叉搜索树中的目标节点",
+  "titleSlug": "er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7648735312634688,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof",
+    "questionId": "100333",
+    "title": "寻找二叉搜索树中的目标节点",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-search-tree",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int findTargetNode(TreeNode* root, int cnt) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int findTargetNode(TreeNode root, int cnt) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def findTargetNode(self, root: Optional[TreeNode], cnt: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[7,3,9,1,5]\n2\n[10,5,15,2,7,null,20,1,null,6,8]\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:08.010Z"
+}

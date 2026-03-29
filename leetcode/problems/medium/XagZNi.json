@@ -1,0 +1,45 @@
+{
+  "title": "行星碰撞",
+  "titleCn": "行星碰撞",
+  "titleSlug": "XagZNi",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46753970135103107,
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "XagZNi",
+    "questionId": "1000281",
+    "title": "行星碰撞",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> asteroidCollision(vector<int>& asteroids) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] asteroidCollision(int[] asteroids) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def asteroidCollision(self, asteroids: List[int]) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "[5,10,-5]\n[8,-8]\n[10,2,-5]\n[-2,-1,1,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:07.372Z"
+}

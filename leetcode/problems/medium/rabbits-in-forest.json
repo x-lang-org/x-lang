@@ -1,0 +1,52 @@
+{
+  "title": "Rabbits in Forest",
+  "titleCn": "森林中的兔子",
+  "titleSlug": "rabbits-in-forest",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5795360549296908,
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "rabbits-in-forest",
+    "questionId": "797",
+    "title": "Rabbits in Forest",
+    "content": "<p>There is a forest with an unknown number of rabbits. We asked n rabbits <strong>&quot;How many other rabbits have the same color as you?&quot;</strong> and collected the answers in an integer array <code>answers</code> where <code>answers[i]</code> is the answer of the <code>i<sup>th</sup></code> rabbit.</p>\n\n<p>Given the array <code>answers</code>, return <em>the minimum number of rabbits that could be in the forest</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> answers = [1,1,2]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong>\nThe two rabbits that answered &quot;1&quot; could both be the same color, say red.\nThe rabbit that answered &quot;2&quot; can&#39;t be red or the answers would be inconsistent.\nSay the rabbit that answered &quot;2&quot; was blue.\nThen there should be 2 other blue rabbits in the forest that didn&#39;t answer into the array.\nThe smallest possible number of rabbits in the forest is therefore 5: 3 that answered plus 2 that didn&#39;t.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> answers = [10,10,10]\n<strong>Output:</strong> 11\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= answers.length &lt;= 1000</code></li>\n\t<li><code>0 &lt;= answers[i] &lt; 1000</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "hash-table",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numRabbits(vector<int>& answers) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numRabbits(int[] answers) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numRabbits(self, answers: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,1,2]\n[10,10,10]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "group-the-people-given-the-group-size-they-belong-to",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:49.649Z"
+}

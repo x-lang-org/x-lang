@@ -1,0 +1,44 @@
+{
+  "title": "Number of Bit Changes to Make Two Integers Equal",
+  "titleCn": "使两个整数相等的位更改次数",
+  "titleSlug": "number-of-bit-changes-to-make-two-integers-equal",
+  "difficulty": "EASY",
+  "acRate": 0.7559962646220387,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "number-of-bit-changes-to-make-two-integers-equal",
+    "questionId": "3508",
+    "title": "Number of Bit Changes to Make Two Integers Equal",
+    "content": "<p>You are given two positive integers <code>n</code> and <code>k</code>.</p>\n\n<p>You can choose <strong>any</strong> bit in the <strong>binary representation</strong> of <code>n</code> that is equal to 1 and change it to 0.</p>\n\n<p>Return the <em>number of changes</em> needed to make <code>n</code> equal to <code>k</code>. If it is impossible, return -1.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 13, k = 4</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n\n<p><strong>Explanation:</strong><br />\nInitially, the binary representations of <code>n</code> and <code>k</code> are <code>n = (1101)<sub>2</sub></code> and <code>k = (0100)<sub>2</sub></code>.<br />\nWe can change the first and fourth bits of <code>n</code>. The resulting integer is <code>n = (<u><strong>0</strong></u>10<u><strong>0</strong></u>)<sub>2</sub> = k</code>.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 21, k = 21</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">0</span></p>\n\n<p><strong>Explanation:</strong><br />\n<code>n</code> and <code>k</code> are already equal, so no changes are needed.</p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 14, k = 13</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">-1</span></p>\n\n<p><strong>Explanation:</strong><br />\nIt is not possible to make <code>n</code> equal to <code>k</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n, k &lt;= 10<sup>6</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minChanges(int n, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minChanges(int n, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minChanges(self, n: int, k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "13\n4\n21\n21\n14\n13",
+    "hints": [
+      "Find the binary representations of <code>n</code> and <code>k</code>.",
+      "Any bit that is equal to 1 in <code>n</code> and equal to 0 in <code>k</code> needs to be changed."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:51.924Z"
+}

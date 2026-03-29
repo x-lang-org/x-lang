@@ -1,0 +1,45 @@
+{
+  "title": "图书整理 II",
+  "titleCn": "图书整理 II",
+  "titleSlug": "yong-liang-ge-zhan-shi-xian-dui-lie-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7040320178790348,
+  "topicTags": [
+    "stack",
+    "design",
+    "queue"
+  ],
+  "detail": {
+    "titleSlug": "yong-liang-ge-zhan-shi-xian-dui-lie-lcof",
+    "questionId": "100273",
+    "title": "图书整理 II",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "design",
+      "queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class CQueue {\npublic:\n    CQueue() {\n        \n    }\n    \n    void appendTail(int value) {\n        \n    }\n    \n    int deleteHead() {\n        \n    }\n};\n\n/**\n * Your CQueue object will be instantiated and called as such:\n * CQueue* obj = new CQueue();\n * obj->appendTail(value);\n * int param_2 = obj->deleteHead();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class CQueue {\n\n    public CQueue() {\n        \n    }\n    \n    public void appendTail(int value) {\n        \n    }\n    \n    public int deleteHead() {\n        \n    }\n}\n\n/**\n * Your CQueue object will be instantiated and called as such:\n * CQueue obj = new CQueue();\n * obj.appendTail(value);\n * int param_2 = obj.deleteHead();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class CQueue:\n\n    def __init__(self):\n        \n\n    def appendTail(self, value: int) -> None:\n        \n\n    def deleteHead(self) -> int:\n        \n\n\n# Your CQueue object will be instantiated and called as such:\n# obj = CQueue()\n# obj.appendTail(value)\n# param_2 = obj.deleteHead()"
+      }
+    ],
+    "exampleTestcases": "[\"CQueue\",\"appendTail\",\"deleteHead\",\"deleteHead\",\"deleteHead\"]\n[[],[3],[],[],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:18.965Z"
+}

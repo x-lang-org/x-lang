@@ -1,0 +1,18 @@
+{
+  "problemId": "51",
+  "titleSlug": "n-queens",
+  "title": "N-Queens",
+  "titleCn": "N 皇后",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.7541483425317376,
+  "testcases": [
+    {
+      "input": "4",
+      "expectedOutput": "1"
+    }
+  ]
+}

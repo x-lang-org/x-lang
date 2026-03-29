@@ -1,0 +1,37 @@
+{
+  "title": "Remove Vowels from a String",
+  "titleCn": "删去字符串中的元音",
+  "titleSlug": "remove-vowels-from-a-string",
+  "difficulty": "EASY",
+  "acRate": 0.8717716357045764,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "remove-vowels-from-a-string",
+    "questionId": "1089",
+    "title": "Remove Vowels from a String",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"leetcodeisacommunityforcoders\"\n\"aeiou\"",
+    "hints": [
+      "How to erase vowels in a string?",
+      "Loop over the string and check every character, if it is a vowel ignore it otherwise add it to the answer."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "reverse-vowels-of-a-string",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "remove-digit-from-number-to-maximize-result",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:02:57.833Z"
+}

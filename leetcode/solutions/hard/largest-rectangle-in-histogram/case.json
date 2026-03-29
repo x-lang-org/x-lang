@@ -1,0 +1,19 @@
+{
+  "problemId": "84",
+  "titleSlug": "largest-rectangle-in-histogram",
+  "title": "Largest Rectangle in Histogram",
+  "titleCn": "柱状图中最大的矩形",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.491786063790014,
+  "testcases": [
+    {
+      "input": "[2,1,5,6,2,3]",
+      "expectedOutput": "[2,4]"
+    }
+  ]
+}

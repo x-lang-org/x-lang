@@ -1,0 +1,47 @@
+{
+  "title": "最小展台数量",
+  "titleCn": "最小展台数量",
+  "titleSlug": "600YaG",
+  "difficulty": "EASY",
+  "acRate": 0.7761014915138008,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "600YaG",
+    "questionId": "1000481",
+    "title": "最小展台数量",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minNumBooths(vector<string>& demand) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minNumBooths(String[] demand) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minNumBooths(self, demand: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"acd\",\"bed\",\"accd\"]\n[\"abc\",\"ab\",\"ac\",\"b\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:11.758Z"
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Sparse Similarity LCCI",
+  "titleCn": "稀疏相似度",
+  "titleSlug": "sparse-similarity-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.3506268914829226,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sparse-similarity-lcci",
+    "questionId": "1000051",
+    "title": "Sparse Similarity LCCI",
+    "content": "<p>The similarity of two documents (each with distinct words) is defined to be the size of the intersection divided by the size of the union. For example, if the documents consist of integers, the similarity of {1, 5, 3} and {1, 7, 2, 3} is 0.4, because the intersection has size 2 and the union has size 5.&nbsp;We have a long list of documents (with distinct values and each with an associated ID) where the similarity is believed to be &quot;sparse&quot;. That is, any two arbitrarily selected documents are very likely to have similarity 0. Design an algorithm that returns a list of pairs of document IDs and the associated similarity.</p>\r\n\r\n<p>Input is a 2D array&nbsp;<code>docs</code>, where&nbsp;<code>docs[i]</code>&nbsp;is the document with id&nbsp;<code>i</code>. Return an array of strings, where each string represents a pair of documents with similarity greater than 0. The string should be formatted as&nbsp; <code>{id1},{id2}: {similarity}</code>, where <code>id1</code>&nbsp;is the smaller id in the two documents, and <code>similarity</code> is the similarity rounded to four decimal places. You can return the array in any order.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> \r\n<code>[\r\n&nbsp; [14, 15, 100, 9, 3],\r\n&nbsp; [32, 1, 9, 3, 5],\r\n&nbsp; [15, 29, 2, 6, 8, 7],\r\n&nbsp; [7, 10]\r\n]</code>\r\n<strong>Output:</strong>\r\n[\r\n&nbsp; &quot;0,1: 0.2500&quot;,\r\n&nbsp; &quot;0,2: 0.1000&quot;,\r\n&nbsp; &quot;2,3: 0.1429&quot;\r\n]</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>docs.length &lt;= 500</code></li>\r\n\t<li><code>docs[i].length &lt;= 500</code></li>\r\n\t<li>The number of document pairs with similarity greater than 0 will not exceed 1000.</li>\r\n</ul>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> computeSimilarities(vector<vector<int>>& docs) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> computeSimilarities(int[][] docs) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def computeSimilarities(self, docs: List[List[int]]) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "",
+    "hints": [
+      "解法1：从一个简单的算法开始，将每个文档依次与其他文档进行比较。你如何尽快计算两个文档的相似度？",
+      "解法1：要计算两个文档的相似性，可以尝试用某种方式重新组织数据。排序？使用其他的数据结构?",
+      "解法1：你应该能够得到一个O(A+B) 的算法来计算两个文档的相似性。",
+      "解法1：交集和并集之间是什么关系？你能用一个计算出另一个吗？",
+      "解法1：要理解两个集合的交集和并集的关系，考虑用Venn图（一个圆与另一个圆重叠的图）。",
+      "解法2：人们很容易想到一些小的优化——例如，在每个数组中跟踪最小和最大元素。然后，在特定情况下，你可以快速计算出两个数组是否不重叠。这样做（以及其他类似的优化）的问题是，仍然需要将所有文档与其他文档进行比较。它没有利用相似度是“稀疏”的这一事实。考虑到我们有很多文档，真的不需要将所有文档与其他文档进行比较（即使比较运算速度很快）。所有这类解复杂度都是O(D²)，其中D是文档的数量。我们不应该将所有的文档与其他文档进行比较。",
+      "解法2：如果我们不能将所有文档与其他文档进行比较，那么就需要进一步比较其元素。考虑一个简单的解决方案，看看是否可以将其扩展到多个文档。",
+      "解法2：思考这个问题的一种方法是，我们需要能够非常快速地找到与特定文档有某一相似值的所有文档的列表（同样地，我们不应该“查看所有文档并快速消除不具备某相似值的文档”。那样的话时间复杂度至少是O(D²)）。",
+      "解法2：根据前面的提示，我们可以思考是什么构成了与特定文档（类似于{13, 16, 21, 3}文档）有指定相似度的文档。这个列表有哪些属性？我们如何收集所有的那样的文档？",
+      "解法2：与{13, 16, 21, 3}相似的文档列表包括所有包含3、16、21和3的文档。如何才能有效地找到这个列表？记住，我们将对许多文档做此计算，所以一些预处理是必要的。",
+      "解法2：尝试构建一个散列表，使其从每个单词映射到包含此单词的文档。这将允许我们轻松地找到所有与{13, 16, 21, 3}有特定相似值的文档。",
+      "解法2：一旦有了一种方法可以容易地找到与特定文档有某一相似值的所有文档，你就可以通过一个简单的算法进行计算。你能让算法更快一些吗？具体来说，可以直接从散列表计算相似度吗？",
+      "解法2：假设你正在通过查找一个从单词映射到文档的散列表来查找与{1, 4, 6}相似的文档。执行此查找时，同一文档ID会出现多次。这说明了什么？",
+      "解法3：有另一种解决方案。考虑从所有的文档中提取所有的单词，将它们放入一个巨大的列表中，并对这个列表进行排序。假设你仍然知道每个单词来自哪个文档。如何跟踪相似的文档?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:14.744Z"
+}

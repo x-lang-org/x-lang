@@ -1,0 +1,49 @@
+{
+  "title": "Brace Expansion",
+  "titleCn": "花括号展开",
+  "titleSlug": "brace-expansion",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5837291561394644,
+  "topicTags": [
+    "stack",
+    "breadth-first-search",
+    "string",
+    "backtracking",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "brace-expansion",
+    "questionId": "1076",
+    "title": "Brace Expansion",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "breadth-first-search",
+      "string",
+      "backtracking",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"{a,b}c{d,e}f\"\n\"abcd\"",
+    "hints": [
+      "All generated strings are of the same size. How can we generate all of these strings?",
+      "Do a backtracking on which each level of it has to choose one single (e.g. 'a') character or any character of the given parenthesized group (e.g. \"{a,b,c}\")"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "decode-string",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "letter-case-permutation",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "brace-expansion-ii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:26:41.737Z"
+}

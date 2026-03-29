@@ -1,0 +1,33 @@
+{
+  "title": "Match Alphanumerical Pattern in Matrix I",
+  "titleCn": "矩阵中的字母数字模式匹配 I",
+  "titleSlug": "match-alphanumerical-pattern-in-matrix-i",
+  "difficulty": "MEDIUM",
+  "acRate": 0.1837979094076655,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "match-alphanumerical-pattern-in-matrix-i",
+    "questionId": "3385",
+    "title": "Match Alphanumerical Pattern in Matrix I",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,2,2],[2,2,3],[2,3,3]]\n[\"ab\",\"bb\"]\n[[1,1,2],[3,3,4],[6,6,6]]\n[\"ab\",\"66\"]\n[[1,2],[2,1]]\n[\"xx\"]",
+    "hints": [
+      "Use brute force and check all the possible submatrices."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:12.362Z"
+}

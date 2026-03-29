@@ -1,0 +1,26 @@
+{
+  "problemId": "35",
+  "titleSlug": "search-insert-position",
+  "title": "Search Insert Position",
+  "titleCn": "搜索插入位置",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.4933736175736037,
+  "testcases": [
+    {
+      "input": "[1,3,5,6]",
+      "expectedOutput": "5"
+    },
+    {
+      "input": "[1,3,5,6]",
+      "expectedOutput": "2"
+    },
+    {
+      "input": "[1,3,5,6]",
+      "expectedOutput": "7"
+    }
+  ]
+}

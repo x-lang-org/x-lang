@@ -1,0 +1,45 @@
+{
+  "title": "Design Video Sharing Platform",
+  "titleCn": "设计视频共享平台",
+  "titleSlug": "design-video-sharing-platform",
+  "difficulty": "HARD",
+  "acRate": 0.2814614343707713,
+  "topicTags": [
+    "design",
+    "hash-table",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "design-video-sharing-platform",
+    "questionId": "2396",
+    "title": "Design Video Sharing Platform",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "design",
+      "hash-table",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"VideoSharingPlatform\",\"upload\",\"upload\",\"remove\",\"remove\",\"upload\",\"watch\",\"watch\",\"like\",\"dislike\",\"dislike\",\"getLikesAndDislikes\",\"getViews\"]\n[[],[\"123\"],[\"456\"],[4],[0],[\"789\"],[1,0,5],[1,0,1],[1],[1],[1],[1],[1]]\n[\"VideoSharingPlatform\",\"remove\",\"watch\",\"like\",\"dislike\",\"getLikesAndDislikes\",\"getViews\"]\n[[],[0],[0,0,1],[0],[0],[0],[0]]",
+    "hints": [
+      "How can we keep track of the videoId’s of removed videos?",
+      "When you remove a video, keep track of its videoId in an array called usedId. When a new video is uploaded, first check if usedId contains any elements, if it does, use the smallest value in usedId."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "tweet-counts-per-frequency",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "design-browser-history",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "most-popular-video-creator",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:39.732Z"
+}

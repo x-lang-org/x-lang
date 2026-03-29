@@ -1,0 +1,46 @@
+{
+  "title": "Minimum Cost to Reach City With Discounts",
+  "titleCn": "前往目标城市的最小费用",
+  "titleSlug": "minimum-cost-to-reach-city-with-discounts",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5706051873198847,
+  "topicTags": [
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "minimum-cost-to-reach-city-with-discounts",
+    "questionId": "2230",
+    "title": "Minimum Cost to Reach City With Discounts",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "graph",
+      "shortest-path",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[[0,1,4],[2,1,3],[1,4,11],[3,2,3],[3,4,2]]\n1\n4\n[[1,3,17],[1,2,7],[3,2,5],[0,1,6],[3,0,20]]\n20\n4\n[[0,1,3],[2,3,2]]\n0",
+    "hints": [
+      "Try to construct a graph out of highways. What type of graph is this?",
+      "We essentially need to find the minimum distance to get from node 0 to node n - 1 in an undirected weighted graph. What algorithm should we use to do this?",
+      "Use Dijkstra's algorithm to find the minimum weight path. Keep track of the minimum distance to each vertex with d discounts left"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "cheapest-flights-within-k-stops",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "connecting-cities-with-minimum-cost",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "maximum-cost-of-trip-with-k-highways",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:53:40.925Z"
+}

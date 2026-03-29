@@ -1,0 +1,46 @@
+{
+  "title": "Tree Diameter",
+  "titleCn": "树的直径",
+  "titleSlug": "tree-diameter",
+  "difficulty": "MEDIUM",
+  "acRate": 0.566993981628128,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "detail": {
+    "titleSlug": "tree-diameter",
+    "questionId": "1177",
+    "title": "Tree Diameter",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1],[0,2]]\n[[0,1],[1,2],[2,3],[1,4],[4,5]]",
+    "hints": [
+      "Start at any node A and traverse the tree to find the furthest node from it, let's call it B.",
+      "Having found the furthest node B, traverse the tree from B to find the furthest node from it, lets call it C.",
+      "The distance between B and C is the tree diameter."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-subtrees-with-max-distance-between-cities",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-minimum-diameter-after-merging-two-trees",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:18.274Z"
+}

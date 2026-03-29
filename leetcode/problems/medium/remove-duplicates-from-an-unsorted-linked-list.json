@@ -1,0 +1,39 @@
+{
+  "title": "Remove Duplicates From an Unsorted Linked List",
+  "titleCn": "从未排序的链表中移除重复元素",
+  "titleSlug": "remove-duplicates-from-an-unsorted-linked-list",
+  "difficulty": "MEDIUM",
+  "acRate": 0.737927292457949,
+  "topicTags": [
+    "hash-table",
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "remove-duplicates-from-an-unsorted-linked-list",
+    "questionId": "1982",
+    "title": "Remove Duplicates From an Unsorted Linked List",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "linked-list"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,2]\n[2,1,1,2]\n[3,2,2,1,3,2,4]",
+    "hints": [
+      "Is there a way we can know beforehand which nodes to delete?",
+      "Count the number of appearances for each number."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "remove-duplicates-from-sorted-list-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "remove-duplicates-from-sorted-list",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:02:42.471Z"
+}

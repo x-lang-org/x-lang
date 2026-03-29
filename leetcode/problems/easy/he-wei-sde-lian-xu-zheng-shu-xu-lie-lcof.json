@@ -1,0 +1,45 @@
+{
+  "title": "文件组合",
+  "titleCn": "文件组合",
+  "titleSlug": "he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.703619523090061,
+  "topicTags": [
+    "math",
+    "two-pointers",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof",
+    "questionId": "100324",
+    "title": "文件组合",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "two-pointers",
+      "enumeration"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> fileCombination(int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[][] fileCombination(int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def fileCombination(self, target: int) -> List[List[int]]:\n        "
+      }
+    ],
+    "exampleTestcases": "12\n18",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:50.062Z"
+}

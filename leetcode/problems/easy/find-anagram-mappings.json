@@ -1,0 +1,29 @@
+{
+  "title": "Find Anagram Mappings",
+  "titleCn": "找出变位映射",
+  "titleSlug": "find-anagram-mappings",
+  "difficulty": "EASY",
+  "acRate": 0.8498171125295847,
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "find-anagram-mappings",
+    "questionId": "762",
+    "title": "Find Anagram Mappings",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[12,28,46,32,50]\n[50,12,32,46,28]\n[84,46]\n[84,46]",
+    "hints": [
+      "Create a hashmap so that D[x] = i  whenever B[i] = x.  Then, the answer is [D[x] for x in A]."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:58.844Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Factor Combinations",
+  "titleCn": "因子的组合",
+  "titleSlug": "factor-combinations",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5794492363693915,
+  "topicTags": [
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "factor-combinations",
+    "questionId": "254",
+    "title": "Factor Combinations",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n12\n37",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "combination-sum",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:38:28.914Z"
+}

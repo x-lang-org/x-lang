@@ -1,0 +1,29 @@
+{
+  "title": "Sparse Matrix Multiplication",
+  "titleCn": "稀疏矩阵的乘法",
+  "titleSlug": "sparse-matrix-multiplication",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7606200449650928,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "sparse-matrix-multiplication",
+    "questionId": "311",
+    "title": "Sparse Matrix Multiplication",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,0,0],[-1,0,3]]\n[[7,0,0],[0,0,0],[0,0,1]]\n[[0]]\n[[0]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:12.813Z"
+}

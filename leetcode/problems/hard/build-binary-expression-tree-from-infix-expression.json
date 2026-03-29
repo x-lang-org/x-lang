@@ -1,0 +1,43 @@
+{
+  "title": "Build Binary Expression Tree From Infix Expression",
+  "titleCn": "根据中缀表达式构造二叉表达式树",
+  "titleSlug": "build-binary-expression-tree-from-infix-expression",
+  "difficulty": "HARD",
+  "acRate": 0.658904971680302,
+  "topicTags": [
+    "stack",
+    "tree",
+    "string",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "build-binary-expression-tree-from-infix-expression",
+    "questionId": "1736",
+    "title": "Build Binary Expression Tree From Infix Expression",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "tree",
+      "string",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"3*4-2*5\"\n\"2-3/(5*2)+1\"\n\"1+2+3+4+5\"",
+    "hints": [
+      "Convert infix expression to postfix expression.",
+      "Build an expression tree from the postfix expression."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "basic-calculator-iii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "check-if-two-expression-trees-are-equivalent",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:27:06.407Z"
+}

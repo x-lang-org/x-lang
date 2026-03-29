@@ -1,0 +1,37 @@
+{
+  "title": "与非的谜题",
+  "titleCn": "与非的谜题",
+  "titleSlug": "ryfUiz",
+  "difficulty": "HARD",
+  "acRate": 0.46461824953445063,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "ryfUiz",
+    "questionId": "1000569",
+    "title": "与非的谜题",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getNandResult(int k, vector<int>& arr, vector<vector<int>>& operations) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getNandResult(int k, int[] arr, int[][] operations) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getNandResult(self, k: int, arr: List[int], operations: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "3\n[1,2]\n[[1,2,3],[0,0,3],[1,2,2]]\n4\n[4,6,4,7,10,9,11]\n[[1,5,7],[1,7,14],[0,6,7],[1,6,5]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:56.207Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "The Airport With the Most Traffic",
+  "titleCn": "最繁忙的机场",
+  "titleSlug": "the-airport-with-the-most-traffic",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6886934134305943,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-airport-with-the-most-traffic",
+    "questionId": "2252",
+    "title": "The Airport With the Most Traffic",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Flights\":[\"departure_airport\",\"arrival_airport\",\"flights_count\"]},\"rows\":{\"Flights\":[[1,2,4],[2,1,5],[2,4,5]]}}\n{\"headers\":{\"Flights\":[\"departure_airport\",\"arrival_airport\",\"flights_count\"]},\"rows\":{\"Flights\":[[1,2,4],[2,1,5],[3,4,5],[4,3,4],[5,6,7]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:21.846Z"
+}

@@ -1,0 +1,43 @@
+{
+  "title": "训练计划 VI",
+  "titleCn": "训练计划 VI",
+  "titleSlug": "shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8052611259300856,
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof",
+    "questionId": "100321",
+    "title": "训练计划 VI",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int trainingPlan(vector<int>& actions) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int trainingPlan(int[] actions) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trainingPlan(self, actions: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[5,7,5,5]\n[12,1,6,12,6,12,6]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:04.790Z"
+}

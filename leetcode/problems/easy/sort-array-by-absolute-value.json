@@ -1,0 +1,33 @@
+{
+  "title": "Sort Array By Absolute Value",
+  "titleCn": "按绝对值排序数组",
+  "titleSlug": "sort-array-by-absolute-value",
+  "difficulty": "EASY",
+  "acRate": 0.8826086956521739,
+  "topicTags": [
+    "array",
+    "math",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sort-array-by-absolute-value",
+    "questionId": "4029",
+    "title": "Sort Array By Absolute Value",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,-1,-4,1,5]\n[-100,100]",
+    "hints": [
+      "Sort the values in <code>nums</code> by their absolute values."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:53.556Z"
+}

@@ -1,0 +1,55 @@
+{
+  "title": "Separate Squares II",
+  "titleCn": "分割正方形 II",
+  "titleSlug": "separate-squares-ii",
+  "difficulty": "HARD",
+  "acRate": 0.6177718832891247,
+  "topicTags": [
+    "segment-tree",
+    "array",
+    "binary-search",
+    "line-sweep"
+  ],
+  "detail": {
+    "titleSlug": "separate-squares-ii",
+    "questionId": "3775",
+    "title": "Separate Squares II",
+    "content": "<p>You are given a 2D integer array <code>squares</code>. Each <code>squares[i] = [x<sub>i</sub>, y<sub>i</sub>, l<sub>i</sub>]</code> represents the coordinates of the bottom-left point and the side length of a square parallel to the x-axis.</p>\n\n<p>Find the <strong>minimum</strong> y-coordinate value of a horizontal line such that the total area covered by squares above the line <em>equals</em> the total area covered by squares below the line.</p>\n\n<p>Answers within <code>10<sup>-5</sup></code> of the actual answer will be accepted.</p>\n\n<p><strong>Note</strong>: Squares <strong>may</strong> overlap. Overlapping areas should be counted <strong>only once</strong> in this version.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">squares = [[0,0,1],[2,2,1]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">1.00000</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><img alt=\"\" src=\"https://assets.leetcode.com/uploads/2025/01/15/4065example1drawio.png\" style=\"width: 269px; height: 203px;\" /></p>\n\n<p>Any horizontal line between <code>y = 1</code> and <code>y = 2</code> results in an equal split, with 1 square unit above and 1 square unit below. The minimum y-value is 1.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">squares = [[0,0,2],[1,1,1]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">1.00000</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p><img alt=\"\" src=\"https://assets.leetcode.com/uploads/2025/01/15/4065example2drawio.png\" style=\"width: 269px; height: 203px;\" /></p>\n\n<p>Since the blue square overlaps with the red square, it will not be counted again. Thus, the line <code>y = 1</code> splits the squares into two equal parts.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= squares.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>squares[i] = [x<sub>i</sub>, y<sub>i</sub>, l<sub>i</sub>]</code></li>\n\t<li><code>squares[i].length == 3</code></li>\n\t<li><code>0 &lt;= x<sub>i</sub>, y<sub>i</sub> &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= l<sub>i</sub> &lt;= 10<sup>9</sup></code></li>\n\t<li>The total area of all the squares will not exceed <code>10<sup>15</sup></code>.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "segment-tree",
+      "array",
+      "binary-search",
+      "line-sweep"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    double separateSquares(vector<vector<int>>& squares) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double separateSquares(int[][] squares) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def separateSquares(self, squares: List[List[int]]) -> float:\n        "
+      }
+    ],
+    "exampleTestcases": "[[0,0,1],[2,2,1]]\n[[0,0,2],[1,1,1]]",
+    "hints": [
+      "Use a line sweep and a segment tree.",
+      "The line must lie in one of the squares."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "rectangle-area-ii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:24.369Z"
+}

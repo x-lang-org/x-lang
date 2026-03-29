@@ -1,0 +1,47 @@
+{
+  "title": "二进制求和",
+  "titleCn": "二进制求和",
+  "titleSlug": "JFETK5",
+  "difficulty": "EASY",
+  "acRate": 0.5397830632317087,
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "JFETK5",
+    "questionId": "1000231",
+    "title": "二进制求和",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "math",
+      "string",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String addBinary(String a, String b) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def addBinary(self, a: str, b: str) -> str:"
+      }
+    ],
+    "exampleTestcases": "\"11\"\n\"10\"\n\"1010\"\n\"1011\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:54.754Z"
+}

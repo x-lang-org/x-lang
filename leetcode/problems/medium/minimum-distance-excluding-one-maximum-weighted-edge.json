@@ -1,0 +1,25 @@
+{
+  "title": "Minimum Distance Excluding One Maximum Weighted Edge",
+  "titleCn": "排除一个最大权重边的最小距离",
+  "titleSlug": "minimum-distance-excluding-one-maximum-weighted-edge",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5730994152046783,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "minimum-distance-excluding-one-maximum-weighted-edge",
+    "questionId": "4127",
+    "title": "Minimum Distance Excluding One Maximum Weighted Edge",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[[0,1,2],[1,2,7],[2,3,7],[3,4,4]]\n3\n[[0,1,1],[1,2,1],[0,2,50000]]",
+    "hints": [
+      "Use Dijkstra",
+      "The problem is the same as finding the minimum path from 0 to <code>n - 1</code> with one edge excluded",
+      "Use states <code>(dist, node, excluded)</code> as your Dijkstra elements"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:53:57.721Z"
+}

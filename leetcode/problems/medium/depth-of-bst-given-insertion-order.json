@@ -1,0 +1,36 @@
+{
+  "title": "Depth of BST Given Insertion Order",
+  "titleCn": "给定二叉搜索树的插入顺序求深度",
+  "titleSlug": "depth-of-bst-given-insertion-order",
+  "difficulty": "MEDIUM",
+  "acRate": 0.45083932853717024,
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "array",
+    "binary-tree",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "depth-of-bst-given-insertion-order",
+    "questionId": "2052",
+    "title": "Depth of BST Given Insertion Order",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "binary-search-tree",
+      "array",
+      "binary-tree",
+      "ordered-set"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,1,4,3]\n[2,1,3,4]\n[1,2,3,4]",
+    "hints": [
+      "There are at most 2 possible places where a new node can be inserted?",
+      "How can we keep track of the depth of each node?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:06.687Z"
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Check if All Characters Have Equal Number of Occurrences",
+  "titleCn": "检查是否所有字符出现次数相同",
+  "titleSlug": "check-if-all-characters-have-equal-number-of-occurrences",
+  "difficulty": "EASY",
+  "acRate": 0.7445290374783919,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "check-if-all-characters-have-equal-number-of-occurrences",
+    "questionId": "2053",
+    "title": "Check if All Characters Have Equal Number of Occurrences",
+    "content": "<p>Given a string <code>s</code>, return <code>true</code><em> if </em><code>s</code><em> is a <strong>good</strong> string, or </em><code>false</code><em> otherwise</em>.</p>\n\n<p>A string <code>s</code> is <strong>good</strong> if <strong>all</strong> the characters that appear in <code>s</code> have the <strong>same</strong> number of occurrences (i.e., the same frequency).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;abacbc&quot;\n<strong>Output:</strong> true\n<strong>Explanation:</strong> The characters that appear in s are &#39;a&#39;, &#39;b&#39;, and &#39;c&#39;. All characters occur 2 times in s.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;aaabb&quot;\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The characters that appear in s are &#39;a&#39; and &#39;b&#39;.\n&#39;a&#39; occurs 3 times while &#39;b&#39; occurs 2 times, which is not the same number of times.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool areOccurrencesEqual(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean areOccurrencesEqual(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def areOccurrencesEqual(self, s: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"abacbc\"\n\"aaabb\"",
+    "hints": [
+      "Build a dictionary containing the frequency of each character appearing in s",
+      "Check if all values in the dictionary are the same."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "rings-and-rods",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "make-number-of-distinct-characters-equal",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:29:04.128Z"
+}

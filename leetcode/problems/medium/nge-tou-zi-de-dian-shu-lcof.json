@@ -1,0 +1,45 @@
+{
+  "title": "统计结果概率",
+  "titleCn": "统计结果概率",
+  "titleSlug": "nge-tou-zi-de-dian-shu-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5802992529047941,
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "probability-and-statistics"
+  ],
+  "detail": {
+    "titleSlug": "nge-tou-zi-de-dian-shu-lcof",
+    "questionId": "100339",
+    "title": "统计结果概率",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming",
+      "probability-and-statistics"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<double> statisticsProbability(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double[] statisticsProbability(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def statisticsProbability(self, num: int) -> List[float]:\n        "
+      }
+    ],
+    "exampleTestcases": "3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:34.958Z"
+}

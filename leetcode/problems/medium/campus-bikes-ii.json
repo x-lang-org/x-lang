@@ -1,0 +1,40 @@
+{
+  "title": "Campus Bikes II",
+  "titleCn": "校园自行车分配 II",
+  "titleSlug": "campus-bikes-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.538641975308642,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "campus-bikes-ii",
+    "questionId": "1067",
+    "title": "Campus Bikes II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "dynamic-programming",
+      "backtracking",
+      "bitmask"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,0],[2,1]]\n[[1,2],[3,3]]\n[[0,0],[1,1],[2,0]]\n[[1,0],[2,2],[2,1]]\n[[0,0],[1,0],[2,0],[3,0],[4,0]]\n[[0,999],[1,999],[2,999],[3,999],[4,999]]",
+    "hints": [
+      "Model the problem with a dp(pos, mask) where pos represents the current bike to be assigned and mask the set of available workers."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "campus-bikes",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:27:52.692Z"
+}

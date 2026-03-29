@@ -1,0 +1,47 @@
+{
+  "title": "早餐组合",
+  "titleCn": "早餐组合",
+  "titleSlug": "2vYnGI",
+  "difficulty": "EASY",
+  "acRate": 0.33143258426966293,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "2vYnGI",
+    "questionId": "1000146",
+    "title": "早餐组合",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "binary-search",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int breakfastNumber(vector<int>& staple, vector<int>& drinks, int x) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int breakfastNumber(int[] staple, int[] drinks, int x) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def breakfastNumber(self, staple: List[int], drinks: List[int], x: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[10,20,5]\n[5,5,2]\n15\n[2,1,1]\n[8,9,5,1]\n9",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:48.444Z"
+}

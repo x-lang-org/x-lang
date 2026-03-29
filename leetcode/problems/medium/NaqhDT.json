@@ -1,0 +1,47 @@
+{
+  "title": "完全二叉树插入器",
+  "titleCn": "完全二叉树插入器",
+  "titleSlug": "NaqhDT",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6349159739790387,
+  "topicTags": [
+    "tree",
+    "breadth-first-search",
+    "design",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "NaqhDT",
+    "questionId": "1000295",
+    "title": "完全二叉树插入器",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n\n<div>\n<div>&nbsp;</div>\n</div>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "breadth-first-search",
+      "design",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass CBTInserter {\npublic:\n    CBTInserter(TreeNode* root) {\n\n    }\n    \n    int insert(int v) {\n\n    }\n    \n    TreeNode* get_root() {\n\n    }\n};\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * CBTInserter* obj = new CBTInserter(root);\n * int param_1 = obj->insert(v);\n * TreeNode* param_2 = obj->get_root();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass CBTInserter {\n\n    public CBTInserter(TreeNode root) {\n\n    }\n    \n    public int insert(int v) {\n\n    }\n    \n    public TreeNode get_root() {\n\n    }\n}\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * CBTInserter obj = new CBTInserter(root);\n * int param_1 = obj.insert(v);\n * TreeNode param_2 = obj.get_root();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass CBTInserter:\n\n    def __init__(self, root: TreeNode):\n\n\n    def insert(self, v: int) -> int:\n\n\n    def get_root(self) -> TreeNode:\n\n\n\n# Your CBTInserter object will be instantiated and called as such:\n# obj = CBTInserter(root)\n# param_1 = obj.insert(v)\n# param_2 = obj.get_root()"
+      }
+    ],
+    "exampleTestcases": "[\"CBTInserter\",\"insert\",\"get_root\"]\n[[[1]],[2],[]]\n[\"CBTInserter\",\"insert\",\"insert\",\"get_root\"]\n[[[1,2,3,4,5,6]],[7],[8],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:22.771Z"
+}

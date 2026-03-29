@@ -1,0 +1,30 @@
+{
+  "title": "Color the Triangle Red",
+  "titleCn": "把三角形染成红色",
+  "titleSlug": "color-the-triangle-red",
+  "difficulty": "HARD",
+  "acRate": 0.3935643564356436,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "color-the-triangle-red",
+    "questionId": "2540",
+    "title": "Color the Triangle Red",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n2",
+    "hints": [
+      "Calculate the minimal value of k by strategically designing a monovariant.",
+      "Construct the solution four rows at a time, going bottom up."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:30.227Z"
+}

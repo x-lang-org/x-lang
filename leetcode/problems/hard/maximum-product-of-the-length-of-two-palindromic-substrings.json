@@ -1,0 +1,60 @@
+{
+  "title": "Maximum Product of the Length of Two Palindromic Substrings",
+  "titleCn": "两个回文子字符串长度的最大乘积",
+  "titleSlug": "maximum-product-of-the-length-of-two-palindromic-substrings",
+  "difficulty": "HARD",
+  "acRate": 0.34071613141380586,
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "maximum-product-of-the-length-of-two-palindromic-substrings",
+    "questionId": "1336",
+    "title": "Maximum Product of the Length of Two Palindromic Substrings",
+    "content": "<p>You are given a <strong>0-indexed</strong> string <code>s</code> and are tasked with finding two <strong>non-intersecting palindromic </strong>substrings of <strong>odd</strong> length such that the product of their lengths is maximized.</p>\n\n<p>More formally, you want to choose four integers <code>i</code>, <code>j</code>, <code>k</code>, <code>l</code> such that <code>0 &lt;= i &lt;= j &lt; k &lt;= l &lt; s.length</code> and both the substrings <code>s[i...j]</code> and <code>s[k...l]</code> are palindromes and have odd lengths. <code>s[i...j]</code> denotes a substring from index <code>i</code> to index <code>j</code> <strong>inclusive</strong>.</p>\n\n<p>Return <em>the <strong>maximum</strong> possible product of the lengths of the two non-intersecting palindromic substrings.</em></p>\n\n<p>A <strong>palindrome</strong> is a string that is the same forward and backward. A <strong>substring</strong> is a contiguous sequence of characters in a string.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;ababbb&quot;\n<strong>Output:</strong> 9\n<strong>Explanation:</strong> Substrings &quot;aba&quot; and &quot;bbb&quot; are palindromes with odd length. product = 3 * 3 = 9.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;zaaaxbbby&quot;\n<strong>Output:</strong> 9\n<strong>Explanation:</strong> Substrings &quot;aaa&quot; and &quot;bbb&quot; are palindromes with odd length. product = 3 * 3 = 9.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "two-pointers",
+      "string",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long maxProduct(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long maxProduct(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxProduct(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"ababbb\"\n\"zaaaxbbby\"",
+    "hints": [
+      "You can use Manacher's algorithm to get the maximum palindromic substring centered at each index",
+      "After using Manacher's for each center use a line sweep from the center to the left and from the center to the right to find for each index the farthest center to it with distance ≤ palin[center]",
+      "After that, find the maximum palindrome size for each prefix in the string and for each suffix and the answer would be max(prefix[i] * suffix[i + 1])"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-product-of-the-length-of-two-palindromic-subsequences",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-cost-to-make-array-equal",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:51:04.360Z"
+}

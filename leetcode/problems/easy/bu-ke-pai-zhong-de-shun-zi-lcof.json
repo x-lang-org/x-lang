@@ -1,0 +1,43 @@
+{
+  "title": "文物朝代判断",
+  "titleCn": "文物朝代判断",
+  "titleSlug": "bu-ke-pai-zhong-de-shun-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.4503016288332389,
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "bu-ke-pai-zhong-de-shun-zi-lcof",
+    "questionId": "100341",
+    "title": "文物朝代判断",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool checkDynasty(vector<int>& places) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean checkDynasty(int[] places) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def checkDynasty(self, places: List[int]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[0,6,9,0,7]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:56.966Z"
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Distance to a Cycle in Undirected Graph",
+  "titleCn": "无向图中到环的距离",
+  "titleSlug": "distance-to-a-cycle-in-undirected-graph",
+  "difficulty": "HARD",
+  "acRate": 0.5851142225497421,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "detail": {
+    "titleSlug": "distance-to-a-cycle-in-undirected-graph",
+    "questionId": "1347",
+    "title": "Distance to a Cycle in Undirected Graph",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "7\n[[1,2],[2,4],[4,3],[3,1],[0,1],[5,2],[6,5]]\n9\n[[0,1],[1,2],[0,2],[2,6],[6,7],[6,8],[0,3],[3,4],[3,5]]",
+    "hints": [
+      "This problem can be broken down into two parts: finding the cycle, and finding the distance between each node and the cycle.",
+      "How can we find the cycle? We can use DFS and keep track of the nodes we’ve seen, and the order that we see them in. Once we see a node we’ve already visited, we know that the cycle contains the node that was seen twice and all the nodes that we visited in between.",
+      "Now that we know which nodes are part of the cycle, how can we find the distances? We can run a multi-source BFS starting from the nodes in the cycle and expanding outward."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "paths-in-maze-that-lead-to-same-room",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:08.283Z"
+}

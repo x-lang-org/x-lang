@@ -1,0 +1,47 @@
+{
+  "title": "Shortest Path to Get Food",
+  "titleCn": "获取食物的最短路径",
+  "titleSlug": "shortest-path-to-get-food",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4860797592174567,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "shortest-path-to-get-food",
+    "questionId": "550",
+    "title": "Shortest Path to Get Food",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"X\",\"X\",\"X\",\"X\",\"X\",\"X\"],[\"X\",\"*\",\"O\",\"O\",\"O\",\"X\"],[\"X\",\"O\",\"O\",\"#\",\"O\",\"X\"],[\"X\",\"X\",\"X\",\"X\",\"X\",\"X\"]]\n[[\"X\",\"X\",\"X\",\"X\",\"X\"],[\"X\",\"*\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"#\",\"X\"],[\"X\",\"X\",\"X\",\"X\",\"X\"]]\n[[\"X\",\"X\",\"X\",\"X\",\"X\",\"X\",\"X\",\"X\"],[\"X\",\"*\",\"O\",\"X\",\"O\",\"#\",\"O\",\"X\"],[\"X\",\"O\",\"O\",\"X\",\"O\",\"O\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"O\",\"O\",\"#\",\"O\",\"X\"],[\"X\",\"X\",\"X\",\"X\",\"X\",\"X\",\"X\",\"X\"]]\n[[\"X\",\"X\",\"X\",\"X\",\"X\"],[\"X\",\"*\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"#\",\"X\"],[\"O\",\"O\",\"O\",\"O\",\"O\"]]",
+    "hints": [
+      "Run BFS starting from the '*' position.",
+      "Keep the current number of the steps as a state in the queue.",
+      "The first time you reach a food, return the number of steps as the answer.",
+      "In case the queue is empty and you still did not manage to reach a food, return -1."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "01-matrix",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shortest-path-in-a-grid-with-obstacles-elimination",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "amount-of-time-for-binary-tree-to-be-infected",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:51.133Z"
+}

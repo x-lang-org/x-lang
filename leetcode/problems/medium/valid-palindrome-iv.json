@@ -1,0 +1,43 @@
+{
+  "title": "Valid Palindrome IV",
+  "titleCn": "验证回文串 IV",
+  "titleSlug": "valid-palindrome-iv",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7030497592295345,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "valid-palindrome-iv",
+    "questionId": "2468",
+    "title": "Valid Palindrome IV",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcdba\"\n\"aa\"\n\"abcdef\"",
+    "hints": [
+      "Count the number of pairs of characters that should be equal if s were a palindrome, but are not equal.",
+      "If the number of pairs is 0, then s is already palindrome. You can pick any pair of characters and change them both to a different character and s will stay a palindrome."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "valid-palindrome",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "valid-palindrome-ii",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "valid-palindrome-iii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:09.712Z"
+}

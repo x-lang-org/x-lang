@@ -1,0 +1,25 @@
+{
+  "title": "Find Cities in Each State II",
+  "titleCn": "查找每个州的城市 II",
+  "titleSlug": "find-cities-in-each-state-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5975197294250282,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-cities-in-each-state-ii",
+    "questionId": "3650",
+    "title": "Find Cities in Each State II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"cities\":[\"state\",\"city\"]},\"rows\":{\"cities\":[[\"New York\",\"New York City\"],[\"New York\",\"Newark\"],[\"New York\",\"Buffalo\"],[\"New York\",\"Rochester\"],[\"California\",\"San Francisco\"],[\"California\",\"Sacramento\"],[\"California\",\"San Diego\"],[\"California\",\"Los Angeles\"],[\"Texas\",\"Tyler\"],[\"Texas\",\"Temple\"],[\"Texas\",\"Taylor\"],[\"Texas\",\"Dallas\"],[\"Pennsylvania\",\"Philadelphia\"],[\"Pennsylvania\",\"Pittsburgh\"],[\"Pennsylvania\",\"Pottstown\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:13.249Z"
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "10",
+  "titleSlug": "regular-expression-matching",
+  "title": "Regular Expression Matching",
+  "titleCn": "正则表达式匹配",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.3115573432239428,
+  "testcases": [
+    {
+      "input": "\"aa\"",
+      "expectedOutput": "\"a\""
+    },
+    {
+      "input": "\"aa\"",
+      "expectedOutput": "\"a*\""
+    },
+    {
+      "input": "\"ab\"",
+      "expectedOutput": "\".*\""
+    }
+  ]
+}

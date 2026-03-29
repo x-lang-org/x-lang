@@ -1,0 +1,45 @@
+{
+  "title": "寻找文件副本",
+  "titleCn": "寻找文件副本",
+  "titleSlug": "shu-zu-zhong-zhong-fu-de-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6694833072543425,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "shu-zu-zhong-zhong-fu-de-shu-zi-lcof",
+    "questionId": "100275",
+    "title": "寻找文件副本",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findRepeatDocument(vector<int>& documents) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findRepeatDocument(int[] documents) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findRepeatDocument(self, documents: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2, 5, 3, 0, 5, 0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:05.933Z"
+}

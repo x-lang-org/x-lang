@@ -1,0 +1,65 @@
+{
+  "title": "Amount of Time for Binary Tree to Be Infected",
+  "titleCn": "感染二叉树需要的总时间",
+  "titleSlug": "amount-of-time-for-binary-tree-to-be-infected",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5202694207453974,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "amount-of-time-for-binary-tree-to-be-infected",
+    "questionId": "2461",
+    "title": "Amount of Time for Binary Tree to Be Infected",
+    "content": "<p>You are given the <code>root</code> of a binary tree with <strong>unique</strong> values, and an integer <code>start</code>. At minute <code>0</code>, an <strong>infection</strong> starts from the node with value <code>start</code>.</p>\n\n<p>Each minute, a node becomes infected if:</p>\n\n<ul>\n\t<li>The node is currently uninfected.</li>\n\t<li>The node is adjacent to an infected node.</li>\n</ul>\n\n<p>Return <em>the number of minutes needed for the entire tree to be infected.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/06/25/image-20220625231744-1.png\" style=\"width: 400px; height: 306px;\" />\n<pre>\n<strong>Input:</strong> root = [1,5,3,null,4,10,6,9,2], start = 3\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The following nodes are infected during:\n- Minute 0: Node 3\n- Minute 1: Nodes 1, 10 and 6\n- Minute 2: Node 5\n- Minute 3: Node 4\n- Minute 4: Nodes 9 and 2\nIt takes 4 minutes for the whole tree to be infected so we return 4.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/06/25/image-20220625231812-2.png\" style=\"width: 75px; height: 66px;\" />\n<pre>\n<strong>Input:</strong> root = [1], start = 1\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> At minute 0, the only node in the tree is infected so we return 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>5</sup>]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li>Each node has a <strong>unique</strong> value.</li>\n\t<li>A node with a value of <code>start</code> exists in the tree.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int amountOfTime(TreeNode* root, int start) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int amountOfTime(TreeNode root, int start) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,5,3,null,4,10,6,9,2]\n3\n[1]\n1",
+    "hints": [
+      "Convert the tree to an undirected graph to make it easier to handle.",
+      "Use BFS starting at the start node to find the distance between each node and the start node. The answer is the maximum distance."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-depth-of-binary-tree",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "shortest-path-to-get-food",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "all-nodes-distance-k-in-binary-tree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:22:57.306Z"
+}

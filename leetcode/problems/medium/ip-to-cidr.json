@@ -1,0 +1,38 @@
+{
+  "title": "IP to CIDR",
+  "titleCn": "IP 到 CIDR",
+  "titleSlug": "ip-to-cidr",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4763110307414105,
+  "topicTags": [
+    "bit-manipulation",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "ip-to-cidr",
+    "questionId": "752",
+    "title": "IP to CIDR",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"255.0.0.7\"\n10\n\"117.145.102.62\"\n8",
+    "hints": [
+      "Convert the ip addresses to and from (long) integers.  You want to know what is the most addresses you can put in this block starting from the \"start\" ip, up to n.  It is the smallest between the lowest bit of start and the highest bit of n.  Then, repeat this process with a new start and n."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "restore-ip-addresses",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "validate-ip-address",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:44:44.694Z"
+}

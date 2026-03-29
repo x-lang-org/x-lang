@@ -1,0 +1,43 @@
+{
+  "title": "粉刷房子",
+  "titleCn": "粉刷房子",
+  "titleSlug": "JEj789",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7681794641842136,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "JEj789",
+    "questionId": "1000268",
+    "title": "粉刷房子",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minCost(vector<vector<int>>& costs) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minCost(int[][] costs) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minCost(self, costs: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[17,2,17],[16,16,5],[14,3,19]]\n[[7,6,2]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:53.072Z"
+}

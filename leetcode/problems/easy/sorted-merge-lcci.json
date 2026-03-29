@@ -1,0 +1,47 @@
+{
+  "title": "Sorted Merge LCCI",
+  "titleCn": "合并排序的数组",
+  "titleSlug": "sorted-merge-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5623941416757996,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sorted-merge-lcci",
+    "questionId": "1000012",
+    "title": "Sorted Merge LCCI",
+    "content": "<p>You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. Write a method to merge B into A in sorted order.</p>\r\n\r\n<p>Initially the number of elements in A and B are&nbsp;<em>m</em>&nbsp;and&nbsp;<em>n</em> respectively.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\nA = [1,2,3,0,0,0], m = 3\r\nB = [2,5,6],       n = 3\r\n\r\n<strong>Output:</strong>&nbsp;[1,2,2,3,5,6]</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ul>\r\n\t<li><code>A.length == n + m</code></li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    void merge(vector<int>& A, int m, vector<int>& B, int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public void merge(int[] A, int m, int[] B, int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def merge(self, A: List[int], m: int, B: List[int], n: int) -> None:\n        \"\"\"\n        Do not return anything, modify A in-place instead.\n        \"\"\"\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,0,0,0]\n3\n[2,5,6]\n3",
+    "hints": [
+      "尝试从数组的末端向前端移动。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:10.294Z"
+}

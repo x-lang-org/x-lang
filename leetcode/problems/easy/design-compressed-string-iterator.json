@@ -1,0 +1,40 @@
+{
+  "title": "Design Compressed String Iterator",
+  "titleCn": "迭代压缩字符串",
+  "titleSlug": "design-compressed-string-iterator",
+  "difficulty": "EASY",
+  "acRate": 0.38503065849106904,
+  "topicTags": [
+    "design",
+    "array",
+    "string",
+    "iterator"
+  ],
+  "detail": {
+    "titleSlug": "design-compressed-string-iterator",
+    "questionId": "604",
+    "title": "Design Compressed String Iterator",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "design",
+      "array",
+      "string",
+      "iterator"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"StringIterator\",\"next\",\"next\",\"next\",\"next\",\"next\",\"next\",\"hasNext\",\"next\",\"hasNext\"]\n[[\"L1e2t1C1o1d1e1\"],[],[],[],[],[],[],[],[],[]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "lru-cache",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "string-compression",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:21.390Z"
+}

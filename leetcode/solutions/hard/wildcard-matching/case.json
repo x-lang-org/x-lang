@@ -1,0 +1,28 @@
+{
+  "problemId": "44",
+  "titleSlug": "wildcard-matching",
+  "title": "Wildcard Matching",
+  "titleCn": "通配符匹配",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "recursion",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.3477575143658363,
+  "testcases": [
+    {
+      "input": "\"aa\"",
+      "expectedOutput": "\"a\""
+    },
+    {
+      "input": "\"aa\"",
+      "expectedOutput": "\"*\""
+    },
+    {
+      "input": "\"cb\"",
+      "expectedOutput": "\"?a\""
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Evaluate Valid Expressions",
+  "titleCn": "计算有效表达式",
+  "titleSlug": "evaluate-valid-expressions",
+  "difficulty": "HARD",
+  "acRate": 0.8445378151260504,
+  "topicTags": [
+    "stack",
+    "hash-table",
+    "math",
+    "string",
+    "divide-and-conquer"
+  ],
+  "detail": {
+    "titleSlug": "evaluate-valid-expressions",
+    "questionId": "4140",
+    "title": "Evaluate Valid Expressions",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "hash-table",
+      "math",
+      "string",
+      "divide-and-conquer"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"add(2,3)\"\n\"-42\"\n\"div(mul(4,sub(9,5)),add(1,1))\"",
+    "hints": [
+      "Use a stack or recursion to evaluate the expression"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "basic-calculator-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:38:18.552Z"
+}

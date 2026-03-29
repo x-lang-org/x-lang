@@ -1,0 +1,49 @@
+{
+  "title": "实现一个魔法字典",
+  "titleCn": "实现一个魔法字典",
+  "titleSlug": "US1pGT",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6124477304405793,
+  "topicTags": [
+    "depth-first-search",
+    "design",
+    "trie",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "US1pGT",
+    "questionId": "1000328",
+    "title": "实现一个魔法字典",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "design",
+      "trie",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MagicDictionary {\npublic:\n    /** Initialize your data structure here. */\n    MagicDictionary() {\n\n    }\n    \n    void buildDict(vector<string> dictionary) {\n\n    }\n    \n    bool search(string searchWord) {\n\n    }\n};\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary* obj = new MagicDictionary();\n * obj->buildDict(dictionary);\n * bool param_2 = obj->search(searchWord);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MagicDictionary {\n\n    /** Initialize your data structure here. */\n    public MagicDictionary() {\n\n    }\n    \n    public void buildDict(String[] dictionary) {\n\n    }\n    \n    public boolean search(String searchWord) {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary obj = new MagicDictionary();\n * obj.buildDict(dictionary);\n * boolean param_2 = obj.search(searchWord);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MagicDictionary:\n\n    def __init__(self):\n        \"\"\"\n        Initialize your data structure here.\n        \"\"\"\n\n\n    def buildDict(self, dictionary: List[str]) -> None:\n\n\n    def search(self, searchWord: str) -> bool:\n\n\n\n# Your MagicDictionary object will be instantiated and called as such:\n# obj = MagicDictionary()\n# obj.buildDict(dictionary)\n# param_2 = obj.search(searchWord)"
+      }
+    ],
+    "exampleTestcases": "[\"MagicDictionary\", \"buildDict\", \"search\", \"search\", \"search\", \"search\"]\n[[], [[\"hello\",\"leetcode\"]], [\"hello\"], [\"hhllo\"], [\"hell\"], [\"leetcoded\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:58.815Z"
+}

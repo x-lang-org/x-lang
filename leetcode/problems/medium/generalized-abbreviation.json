@@ -1,0 +1,42 @@
+{
+  "title": "Generalized Abbreviation",
+  "titleCn": "列举单词的全部缩写",
+  "titleSlug": "generalized-abbreviation",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7048573815491108,
+  "topicTags": [
+    "bit-manipulation",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "generalized-abbreviation",
+    "questionId": "320",
+    "title": "Generalized Abbreviation",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"word\"\n\"a\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "subsets",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "unique-word-abbreviation",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-unique-word-abbreviation",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:02.421Z"
+}

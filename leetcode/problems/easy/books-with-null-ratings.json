@@ -1,0 +1,25 @@
+{
+  "title": "Books with NULL Ratings",
+  "titleCn": "评分为 NULL 的图书",
+  "titleSlug": "books-with-null-ratings",
+  "difficulty": "EASY",
+  "acRate": 0.8444976076555024,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "books-with-null-ratings",
+    "questionId": "3695",
+    "title": "Books with NULL Ratings",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"books\":[\"book_id\",\"title\",\"author\",\"published_year\",\"rating\"]},\"rows\":{\"books\":[[1,\"The Great Gatsby\",\"F. Scott\",1925,4.5],[2,\"To Kill a Mockingbird\",\"Harper Lee\",1960,null],[3,\"Pride and Prejudice\",\"Jane Austen\",1813,4.8],[4,\"The Catcher in the Rye\",\"J.D. Salinger\",1951,null],[5,\"Animal Farm\",\"George Orwell\",1945,4.2],[6,\"Lord of the Flies\",\"William Golding\",1954,null]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:35.461Z"
+}

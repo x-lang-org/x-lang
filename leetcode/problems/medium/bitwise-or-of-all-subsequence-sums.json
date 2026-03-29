@@ -1,0 +1,42 @@
+{
+  "title": "Bitwise OR of All Subsequence Sums",
+  "titleCn": "所有子序列和的按位或",
+  "titleSlug": "bitwise-or-of-all-subsequence-sums",
+  "difficulty": "MEDIUM",
+  "acRate": 0.470076169749728,
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "array",
+    "math",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "bitwise-or-of-all-subsequence-sums",
+    "questionId": "2644",
+    "title": "Bitwise OR of All Subsequence Sums",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "brainteaser",
+      "array",
+      "math",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,1,0,3]\n[0,0,0]",
+    "hints": [
+      "Think of each bit separately, i.e. try to figure out if <code>i<sup>th</sup></code> bit is set in the answer.",
+      "<code>i<sup>th</sup></code> bit is set in the answer if it's set in one of the array elements or it can be made using some of them.",
+      "Try to sum up lower bits and make higher bits."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "bitwise-ors-of-subarrays",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:26:19.086Z"
+}

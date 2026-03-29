@@ -1,0 +1,57 @@
+{
+  "title": "Length of the Longest Alphabetical Continuous Substring",
+  "titleCn": "最长的字母序连续子字符串的长度",
+  "titleSlug": "length-of-the-longest-alphabetical-continuous-substring",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6924308833445718,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "length-of-the-longest-alphabetical-continuous-substring",
+    "questionId": "2492",
+    "title": "Length of the Longest Alphabetical Continuous Substring",
+    "content": "<p>An <strong>alphabetical continuous string</strong> is a string consisting of consecutive letters in the alphabet. In other words, it is any substring of the string <code>&quot;abcdefghijklmnopqrstuvwxyz&quot;</code>.</p>\n\n<ul>\n\t<li>For example, <code>&quot;abc&quot;</code> is an alphabetical continuous string, while <code>&quot;acb&quot;</code> and <code>&quot;za&quot;</code> are not.</li>\n</ul>\n\n<p>Given a string <code>s</code> consisting of lowercase letters only, return the <em>length of the <strong>longest</strong> alphabetical continuous substring.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;abacaba&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> There are 4 distinct continuous substrings: &quot;a&quot;, &quot;b&quot;, &quot;c&quot; and &quot;ab&quot;.\n&quot;ab&quot; is the longest continuous substring.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;abcde&quot;\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> &quot;abcde&quot; is the longest continuous substring.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> consists of only English lowercase letters.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestContinuousSubstring(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestContinuousSubstring(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestContinuousSubstring(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"abacaba\"\n\"abcde\"",
+    "hints": [
+      "What is the longest possible continuous substring?",
+      "The size of the longest possible continuous substring is at most 26, so we can just brute force the answer."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-consecutive-sequence",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "arithmetic-slices",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "max-consecutive-ones",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:11.475Z"
+}

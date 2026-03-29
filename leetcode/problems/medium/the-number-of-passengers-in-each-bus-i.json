@@ -1,0 +1,25 @@
+{
+  "title": "The Number of Passengers in Each Bus I",
+  "titleCn": "每辆车的乘客人数 I",
+  "titleSlug": "the-number-of-passengers-in-each-bus-i",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46968545813706125,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-number-of-passengers-in-each-bus-i",
+    "questionId": "2281",
+    "title": "The Number of Passengers in Each Bus I",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Buses\":[\"bus_id\",\"arrival_time\"],\"Passengers\":[\"passenger_id\",\"arrival_time\"]},\"rows\":{\"Buses\":[[1,2],[2,4],[3,7]],\"Passengers\":[[11,1],[12,5],[13,6],[14,7]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:36.753Z"
+}

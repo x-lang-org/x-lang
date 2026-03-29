@@ -1,0 +1,47 @@
+{
+  "title": "Most Expensive Item That Can Not Be Bought",
+  "titleCn": "最贵的无法购买的商品",
+  "titleSlug": "most-expensive-item-that-can-not-be-bought",
+  "difficulty": "MEDIUM",
+  "acRate": 0.30042918454935624,
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "most-expensive-item-that-can-not-be-bought",
+    "questionId": "3273",
+    "title": "Most Expensive Item That Can Not Be Bought",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming",
+      "number-theory"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n5\n5\n7",
+    "hints": [
+      "Write out a few cases. It can be seen that all items greater than <code>primeOne * primeTwo</code> can always be bought.",
+      "If we can buy items with cost <code>i</code>, we can also buy items with price <code>i + primeOne</code> and <code>i + primeTwo</code>.",
+      "Use dynamic programming.",
+      "There is an O(1) solution: Use the Chicken McNugget Theorem."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "coin-change",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-cost-for-tickets",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-number-of-coins-to-be-added",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:59.088Z"
+}

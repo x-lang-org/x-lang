@@ -1,0 +1,22 @@
+{
+  "problemId": "86",
+  "titleSlug": "partition-list",
+  "title": "Partition List",
+  "titleCn": "分隔链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.6583732869023803,
+  "testcases": [
+    {
+      "input": "[1,4,3,2,5,2]",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "[2,1]",
+      "expectedOutput": "2"
+    }
+  ]
+}

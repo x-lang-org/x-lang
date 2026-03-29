@@ -1,0 +1,21 @@
+{
+  "title": "Repeat String",
+  "titleCn": "重复字符串",
+  "titleSlug": "repeat-string",
+  "difficulty": "EASY",
+  "acRate": 0.8917808219178082,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "repeat-string",
+    "questionId": "2899",
+    "title": "Repeat String",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "\"hello\"\n2\n\"code\"\n3\n\"js\"\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:05.232Z"
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Maximum Size Subarray Sum Equals k",
+  "titleCn": "和等于 k 的最长子数组长度",
+  "titleSlug": "maximum-size-subarray-sum-equals-k",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5245804394572283,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "maximum-size-subarray-sum-equals-k",
+    "questionId": "325",
+    "title": "Maximum Size Subarray Sum Equals k",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,-1,5,-2,3]\n3\n[-2,-1,2,1]\n1",
+    "hints": [
+      "Compute the prefix sum array where psum[i] is the sum of all the elements from <i>0</i> to <i>i</i>.",
+      "At each index <i>i</i>, the sum of the prefix is psum[i], so we are searching for the index x where psum[x] = psum[i] - k.\r\nThe subarray [x + 1, i] will be of sum k.",
+      "Use a hashmap to get the index x efficiently or to determine that it does not exist."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-size-subarray-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "range-sum-query-immutable",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "contiguous-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:51:28.690Z"
+}

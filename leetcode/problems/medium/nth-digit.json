@@ -1,0 +1,43 @@
+{
+  "title": "Nth Digit",
+  "titleCn": "第 N 位数字",
+  "titleSlug": "nth-digit",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4575632936914134,
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "nth-digit",
+    "questionId": "400",
+    "title": "Nth Digit",
+    "content": "<p>Given an integer <code>n</code>, return the <code>n<sup>th</sup></code> digit of the infinite integer sequence <code>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...]</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 3\n<strong>Output:</strong> 3\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 11\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> The 11<sup>th</sup> digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findNthDigit(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findNthDigit(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findNthDigit(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "3\n11",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:42.005Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Calculate Product Final Price",
+  "titleCn": "计算产品最终价格",
+  "titleSlug": "calculate-product-final-price",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8059895833333334,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "calculate-product-final-price",
+    "questionId": "3609",
+    "title": "Calculate Product Final Price",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Products\":[\"product_id\",\"category\",\"price\"],\"Discounts\":[\"category\",\"discount\"]},\"rows\":{\"Products\":[[1,\"Electronics\",1000],[2,\"Clothing\",50],[3,\"Electronics\",1200],[4,\"Home\",500]],\"Discounts\":[[\"Electronics\",10],[\"Clothing\",20]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:27:36.231Z"
+}

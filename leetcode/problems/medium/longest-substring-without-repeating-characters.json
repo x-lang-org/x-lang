@@ -1,0 +1,60 @@
+{
+  "title": "Longest Substring Without Repeating Characters",
+  "titleCn": "无重复字符的最长子串",
+  "titleSlug": "longest-substring-without-repeating-characters",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4225242883988473,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "longest-substring-without-repeating-characters",
+    "questionId": "3",
+    "title": "Longest Substring Without Repeating Characters",
+    "content": "<p>Given a string <code>s</code>, find the length of the <strong>longest</strong> <span data-keyword=\"substring-nonempty\"><strong>substring</strong></span> without duplicate characters.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;abcabcbb&quot;\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is &quot;abc&quot;, with the length of 3. Note that <code>&quot;bca&quot;</code> and <code>&quot;cab&quot;</code> are also correct answers.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;bbbbb&quot;\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The answer is &quot;b&quot;, with the length of 1.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;pwwkew&quot;\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The answer is &quot;wke&quot;, with the length of 3.\nNotice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of English letters, digits, symbols and spaces.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"abcabcbb\"\n\"bbbbb\"\n\"pwwkew\"",
+    "hints": [
+      "Since maximum string size is at most 26, generate and check all possible substrings with length at most 26."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-substring-with-at-most-two-distinct-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longest-substring-with-at-most-k-distinct-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "subarrays-with-k-different-integers",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:26.965Z"
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Count the Number of K-Big Indices",
+  "titleCn": "统计 K-Big 索引的数量",
+  "titleSlug": "count-the-number-of-k-big-indices",
+  "difficulty": "HARD",
+  "acRate": 0.5787781350482315,
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "ordered-set",
+    "merge-sort"
+  ],
+  "detail": {
+    "titleSlug": "count-the-number-of-k-big-indices",
+    "questionId": "2658",
+    "title": "Count the Number of K-Big Indices",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "binary-indexed-tree",
+      "segment-tree",
+      "array",
+      "binary-search",
+      "divide-and-conquer",
+      "ordered-set",
+      "merge-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,3,6,5,2,3]\n2\n[1,1,1]\n3",
+    "hints": [
+      "The intended solution uses Fenwick Tree.",
+      "Let’s describe the solution for counting the number of elements smaller than nums[i] in the range [0, i - 1], and counting in the range [i + 1, nums.length - 1] can be done similarly by simply reversing the array.",
+      "Iterate from left to right and maintain the Fenwick Tree. Save the value of the query(nums[i]) and update nums[i] + 1 by 1."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-of-smaller-numbers-after-self",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-all-good-indices",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:34:43.900Z"
+}

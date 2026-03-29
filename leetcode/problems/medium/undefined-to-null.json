@@ -1,0 +1,21 @@
+{
+  "title": "Undefined to Null",
+  "titleCn": "将 undefined 转为 null",
+  "titleSlug": "undefined-to-null",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7626527050610821,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "undefined-to-null",
+    "questionId": "2781",
+    "title": "Undefined to Null",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"a\": undefined, \"b\":3}\n{\"a\": undefined, \"b\":[\"a\", undefined]}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:44.153Z"
+}

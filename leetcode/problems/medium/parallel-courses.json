@@ -1,0 +1,44 @@
+{
+  "title": "Parallel Courses",
+  "titleCn": "并行课程",
+  "titleSlug": "parallel-courses",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6155987172505597,
+  "topicTags": [
+    "graph",
+    "topological-sort"
+  ],
+  "detail": {
+    "titleSlug": "parallel-courses",
+    "questionId": "1101",
+    "title": "Parallel Courses",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "graph",
+      "topological-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n[[1,3],[2,3]]\n3\n[[1,2],[2,3],[3,1]]",
+    "hints": [
+      "Try to think of it as a graph problem. It will be impossible to study all the courses if the graph had a cycle.",
+      "The graph is a directed acyclic graph (DAG). The answer is the longes path in this DAG.",
+      "You can use DP to find the longest path in the DAG."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "course-schedule-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "parallel-courses-ii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "parallel-courses-iii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:03.134Z"
+}

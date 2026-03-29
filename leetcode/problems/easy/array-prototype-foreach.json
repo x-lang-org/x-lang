@@ -1,0 +1,21 @@
+{
+  "title": "Array Prototype ForEach",
+  "titleCn": "数组原型的 forEach 方法",
+  "titleSlug": "array-prototype-foreach",
+  "difficulty": "EASY",
+  "acRate": 0.8800705467372134,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "array-prototype-foreach",
+    "questionId": "2907",
+    "title": "Array Prototype ForEach",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3]\nfunction(val, i, arr){ arr[i] = val * 2 }\n{\"context\": true}\n[true, true, false, false]\nfunction(val, i, arr){ arr[i] = this }\n{\"context\": false}\n[true, true, false, false]\nfunction(val, i, arr){ arr[i] = !val }\n{\"context\": 5}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:46.719Z"
+}

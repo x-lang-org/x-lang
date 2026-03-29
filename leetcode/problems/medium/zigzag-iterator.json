@@ -1,0 +1,44 @@
+{
+  "title": "Zigzag Iterator",
+  "titleCn": "锯齿迭代器",
+  "titleSlug": "zigzag-iterator",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7517698311853331,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "iterator"
+  ],
+  "detail": {
+    "titleSlug": "zigzag-iterator",
+    "questionId": "281",
+    "title": "Zigzag Iterator",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "iterator"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2]\n[3,4,5,6]\n[1]\n[]\n[]\n[1]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-search-tree-iterator",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "flatten-2d-vector",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "peeking-iterator",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:11:29.380Z"
+}

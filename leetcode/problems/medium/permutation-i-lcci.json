@@ -1,0 +1,52 @@
+{
+  "title": "Permutation I LCCI",
+  "titleCn": "无重复字符串的排列组合",
+  "titleSlug": "permutation-i-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8119217683691132,
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "permutation-i-lcci",
+    "questionId": "100241",
+    "title": "Permutation I LCCI",
+    "content": "<p>Write a method to compute all permutations of a string of unique characters.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: S = &quot;qwe&quot;\r\n<strong> Output</strong>: [&quot;qwe&quot;, &quot;qew&quot;, &quot;wqe&quot;, &quot;weq&quot;, &quot;ewq&quot;, &quot;eqw&quot;]\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: S = &quot;ab&quot;\r\n<strong> Output</strong>: [&quot;ab&quot;, &quot;ba&quot;]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li>All charaters are English letters.</li>\r\n\t<li><code>1 &lt;= S.length &lt;= 9</code></li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> permutation(string S) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String[] permutation(String S) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def permutation(self, S: str) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"qwe\"\n\"ab\"",
+    "hints": [
+      "方法1：假设你有abc的所有排列。你怎么用它来得到abcd的所有排列？",
+      "方法1：abc的排列组合表示abc的所有组合方式。现在，我们要创建abcd的所有组合方式。选择abcd的特定组合，如bdca。这个bdca字符串也代表abc的一种排列方式：删除d，你会得到bca。那么给定字符串bca，你是否可以创建包含d 的所有“相关”排列组合？",
+      "方法1：给定一个字符串，比如bca，可以通过将d 插入到每个可能的位置：dbca、bdca、bcda、bcad，来创建abcd（其中abc顺序一定）的所有排列组合。给定abc的所有排列，你可以创建所有abcd的排列吗？",
+      "方法1：你可以通过计算abc的所有排列，然后在每个可能的位置插入d，从而创建abcd的所有排列。",
+      "方法2：如果你拥有两个字符所有排列的子串，可以生成三个字符全排列的子串吗？",
+      "方法2：生成一个abcd的全排列，需要选择一个初始字符。它可以是a、b、c或d。然后你可以排列其余的字符。如何使用这种方法生成完整字符串的所有排列？",
+      "方法 2：要生成abcd的所有排列组合，请选择每个字符（a、b、c、d）作为首字符。排列剩余的字符并追加首字符。如何排列剩余的字符？使用遵循相同逻辑的递归过程。",
+      "方法 2：你可以通过让递归函数返回字符串列表来实现该方法，然后在它上面追加首字符。或者，你可以将前缀下推到递归调用中。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:38.735Z"
+}

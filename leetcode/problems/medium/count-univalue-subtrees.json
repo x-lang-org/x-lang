@@ -1,0 +1,38 @@
+{
+  "title": "Count Univalue Subtrees",
+  "titleCn": "统计同值子树",
+  "titleSlug": "count-univalue-subtrees",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6550746646418628,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "count-univalue-subtrees",
+    "questionId": "250",
+    "title": "Count Univalue Subtrees",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,1,5,5,5,null,5]\n[]\n[5,5,5,5,5,null,5]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "subtree-of-another-tree",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "longest-univalue-path",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:34:54.002Z"
+}

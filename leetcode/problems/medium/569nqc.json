@@ -1,0 +1,47 @@
+{
+  "title": "最小时间差",
+  "titleCn": "最小时间差",
+  "titleSlug": "569nqc",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6631194180351484,
+  "topicTags": [
+    "array",
+    "math",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "569nqc",
+    "questionId": "1000278",
+    "title": "最小时间差",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findMinDifference(vector<string>& timePoints) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findMinDifference(List<String> timePoints) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findMinDifference(self, timePoints: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"23:59\",\"00:00\"]\n[\"00:00\",\"23:59\",\"00:00\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:09.108Z"
+}

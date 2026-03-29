@@ -1,0 +1,35 @@
+{
+  "title": "Lexicographically Smallest String After Reverse II",
+  "titleCn": "反转后字典序最小的字符串 II",
+  "titleSlug": "lexicographically-smallest-string-after-reverse-ii",
+  "difficulty": "HARD",
+  "acRate": 0.7335640138408305,
+  "topicTags": [
+    "string",
+    "binary-search",
+    "suffix-array",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "lexicographically-smallest-string-after-reverse-ii",
+    "questionId": "4106",
+    "title": "Lexicographically Smallest String After Reverse II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "binary-search",
+      "suffix-array",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"dcab\"\n\"abba\"\n\"zxy\"",
+    "hints": [
+      "Use binary search and hashing for faster lexicographically smaller comparisons"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:26.046Z"
+}

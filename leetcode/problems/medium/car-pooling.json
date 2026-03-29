@@ -1,0 +1,56 @@
+{
+  "title": "Car Pooling",
+  "titleCn": "拼车",
+  "titleSlug": "car-pooling",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5381063460733297,
+  "topicTags": [
+    "array",
+    "prefix-sum",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "car-pooling",
+    "questionId": "1184",
+    "title": "Car Pooling",
+    "content": "<p>There is a car with <code>capacity</code> empty seats. The vehicle only drives east (i.e., it cannot turn around and drive west).</p>\n\n<p>You are given the integer <code>capacity</code> and an array <code>trips</code> where <code>trips[i] = [numPassengers<sub>i</sub>, from<sub>i</sub>, to<sub>i</sub>]</code> indicates that the <code>i<sup>th</sup></code> trip has <code>numPassengers<sub>i</sub></code> passengers and the locations to pick them up and drop them off are <code>from<sub>i</sub></code> and <code>to<sub>i</sub></code> respectively. The locations are given as the number of kilometers due east from the car&#39;s initial location.</p>\n\n<p>Return <code>true</code><em> if it is possible to pick up and drop off all passengers for all the given trips, or </em><code>false</code><em> otherwise</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> trips = [[2,1,5],[3,3,7]], capacity = 4\n<strong>Output:</strong> false\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> trips = [[2,1,5],[3,3,7]], capacity = 5\n<strong>Output:</strong> true\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= trips.length &lt;= 1000</code></li>\n\t<li><code>trips[i].length == 3</code></li>\n\t<li><code>1 &lt;= numPassengers<sub>i</sub> &lt;= 100</code></li>\n\t<li><code>0 &lt;= from<sub>i</sub> &lt; to<sub>i</sub> &lt;= 1000</code></li>\n\t<li><code>1 &lt;= capacity &lt;= 10<sup>5</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "prefix-sum",
+      "sorting",
+      "simulation",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool carPooling(vector<vector<int>>& trips, int capacity) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean carPooling(int[][] trips, int capacity) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[[2,1,5],[3,3,7]]\n4\n[[2,1,5],[3,3,7]]\n5",
+    "hints": [
+      "Sort the pickup and dropoff events by location, then process them in order."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "meeting-rooms-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:28:13.884Z"
+}

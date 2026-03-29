@@ -1,0 +1,19 @@
+{
+  "problemId": "5",
+  "titleSlug": "longest-palindromic-substring",
+  "title": "Longest Palindromic Substring",
+  "titleCn": "最长回文子串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.40613887201349286,
+  "testcases": [
+    {
+      "input": "\"babad\"",
+      "expectedOutput": "\"cbbd\""
+    }
+  ]
+}

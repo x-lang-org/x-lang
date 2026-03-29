@@ -1,0 +1,48 @@
+{
+  "title": "Flip String to Monotone Increasing",
+  "titleCn": "将字符串翻转到单调递增",
+  "titleSlug": "flip-string-to-monotone-increasing",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6403121484814398,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "flip-string-to-monotone-increasing",
+    "questionId": "962",
+    "title": "Flip String to Monotone Increasing",
+    "content": "<p>A binary string is monotone increasing if it consists of some number of <code>0</code>&#39;s (possibly none), followed by some number of <code>1</code>&#39;s (also possibly none).</p>\n\n<p>You are given a binary string <code>s</code>. You can flip <code>s[i]</code> changing it from <code>0</code> to <code>1</code> or from <code>1</code> to <code>0</code>.</p>\n\n<p>Return <em>the minimum number of flips to make </em><code>s</code><em> monotone increasing</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;00110&quot;\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> We flip the last digit to get 00111.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;010110&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> We flip to get 011111, or alternatively 000111.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;00011000&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> We flip to get 00000000.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s[i]</code> is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minFlipsMonoIncr(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minFlipsMonoIncr(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minFlipsMonoIncr(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"00110\"\n\"010110\"\n\"00011000\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-cost-to-make-all-characters-equal",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:34.136Z"
+}

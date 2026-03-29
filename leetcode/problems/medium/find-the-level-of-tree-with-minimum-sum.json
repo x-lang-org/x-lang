@@ -1,0 +1,39 @@
+{
+  "title": "Find the Level of Tree with Minimum Sum",
+  "titleCn": "找到具有最小和的树的层数",
+  "titleSlug": "find-the-level-of-tree-with-minimum-sum",
+  "difficulty": "MEDIUM",
+  "acRate": 0.27801724137931033,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "find-the-level-of-tree-with-minimum-sum",
+    "questionId": "3467",
+    "title": "Find the Level of Tree with Minimum Sum",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[50,6,2,30,80,7]\n[36,17,10,null,null,24]\n[5,null,5,null,5]",
+    "hints": [
+      "Run a DFS on the tree and update an array sum where sum[i] is the sum for level i.",
+      "The answer is the first minimum element of sum."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "kth-largest-sum-in-a-binary-tree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:00.586Z"
+}

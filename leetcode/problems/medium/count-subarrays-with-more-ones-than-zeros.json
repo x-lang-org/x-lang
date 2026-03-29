@@ -1,0 +1,56 @@
+{
+  "title": "Count Subarrays With More Ones Than Zeros",
+  "titleCn": "1 比 0 多的子数组个数",
+  "titleSlug": "count-subarrays-with-more-ones-than-zeros",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5410509031198686,
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "hash-table",
+    "binary-search",
+    "divide-and-conquer",
+    "ordered-set",
+    "merge-sort"
+  ],
+  "detail": {
+    "titleSlug": "count-subarrays-with-more-ones-than-zeros",
+    "questionId": "510",
+    "title": "Count Subarrays With More Ones Than Zeros",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "binary-indexed-tree",
+      "segment-tree",
+      "array",
+      "hash-table",
+      "binary-search",
+      "divide-and-conquer",
+      "ordered-set",
+      "merge-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,1,1,0,1]\n[0]\n[1]",
+    "hints": [
+      "Change the zeros in nums to -1 and create a prefix sum array prefixSum using the new nums.",
+      "If prefixSum[i] for any index i in the range 0 <= i < prefixSum.length is positive, that means that there are more ones than zeros in the prefix ending at index i.",
+      "If prefixSum[j] > prefixSum[i] for two indexes i and j such that 0 <= i < j < prefixSum.length, that means that there are more ones than zeros in nums in the range [i + 1 : j] (inclusive)"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "ones-and-zeroes",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longer-contiguous-segments-of-ones-than-zeros",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "all-divisions-with-the-highest-score-of-a-binary-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:34:22.554Z"
+}

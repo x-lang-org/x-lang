@@ -1,0 +1,30 @@
+{
+  "title": "Countries You Can Safely Invest In",
+  "titleCn": "可以放心投资的国家",
+  "titleSlug": "countries-you-can-safely-invest-in",
+  "difficulty": "MEDIUM",
+  "acRate": 0.546935210399219,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "countries-you-can-safely-invest-in",
+    "questionId": "1641",
+    "title": "Countries You Can Safely Invest In",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Person\":[\"id\",\"name\",\"phone_number\"],\"Country\":[\"name\",\"country_code\"],\"Calls\":[\"caller_id\",\"callee_id\",\"duration\"]},\"rows\":{\"Person\":[[3,\"Jonathan\",\"051-1234567\"],[12,\"Elvis\",\"051-7654321\"],[1,\"Moncef\",\"212-1234567\"],[2,\"Maroua\",\"212-6523651\"],[7,\"Meir\",\"972-1234567\"],[9,\"Rachel\",\"972-0011100\"]],\"Country\":[[\"Peru\",\"051\"],[\"Israel\",\"972\"],[\"Morocco\",\"212\"],[\"Germany\",\"049\"],[\"Ethiopia\",\"251\"]],\"Calls\":[[1,9,33],[2,9,4],[1,2,59],[3,12,102],[3,12,330],[12,3,5],[7,9,13],[7,1,3],[9,7,1],[1,7,7]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "average-salary-departments-vs-company",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:06.265Z"
+}

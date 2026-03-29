@@ -1,0 +1,33 @@
+{
+  "title": "Maximum Number of Removal Queries That Can Be Processed I",
+  "titleCn": "可处理的最大删除操作数 I",
+  "titleSlug": "maximum-number-of-removal-queries-that-can-be-processed-i",
+  "difficulty": "HARD",
+  "acRate": 0.3252032520325203,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-removal-queries-that-can-be-processed-i",
+    "questionId": "3323",
+    "title": "Maximum Number of Removal Queries That Can Be Processed I",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n[1,2,3,4,6]\n[2,3,2]\n[2,2,3]\n[3,4,3]\n[4,3,2]",
+    "hints": [
+      "Think of dynamic programming.",
+      "The definition of <code>dp</code> is a little unusual. Try to think more.",
+      "Let <code>dp[l][r]</code> be the maximum number of queries we can process if we want <code>a[l], a[l + 1], ..., a[r - 1]</code> not to be removed after processing <code>dp[l][r]</code> queries.",
+      "So <code>dp[0][n] = 0</code> since we can not remove anything.",
+      "The answer would be <code>max(dp[i][i])</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:38.160Z"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Minimum Cost Path with Alternating Directions I",
+  "titleCn": "交替方向的最小路径代价 I",
+  "titleSlug": "minimum-cost-path-with-alternating-directions-i",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7371428571428571,
+  "topicTags": [
+    "brainteaser",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "minimum-cost-path-with-alternating-directions-i",
+    "questionId": "3925",
+    "title": "Minimum Cost Path with Alternating Directions I",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "brainteaser",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n1\n2\n1",
+    "hints": [
+      "There are only three grid sizes for which reaching <code>(m - 1, n - 1)</code> is possible under the move rules: <code>m = 1, n = 1</code>; <code>m = 1, n = 2</code>; <code>m = 2, n = 1</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:53:22.673Z"
+}

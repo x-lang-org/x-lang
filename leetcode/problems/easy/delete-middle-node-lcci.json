@@ -1,0 +1,43 @@
+{
+  "title": "Delete Middle Node LCCI",
+  "titleCn": "删除中间节点",
+  "titleSlug": "delete-middle-node-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.8600783530496235,
+  "topicTags": [
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "delete-middle-node-lcci",
+    "questionId": "100187",
+    "title": "Delete Middle Node LCCI",
+    "content": "<p>Implement an algorithm to delete a node in the middle (i.e., any node but the first and last node, not necessarily the exact middle) of a singly linked list, given only access to that node.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>the node c from the linked list a-&gt;b-&gt;c-&gt;d-&gt;e-&gt;f\r\n<strong>Output: </strong>nothing is returned, but the new linked list looks like a-&gt;b-&gt;d-&gt;e-&gt;f\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    void deleteNode(ListNode* node) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public void deleteNode(ListNode node) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def deleteNode(self, node):\n        \"\"\"\n        :type node: ListNode\n        :rtype: void Do not return anything, modify node in-place instead.\n        \"\"\"\n        "
+      }
+    ],
+    "exampleTestcases": "[4,5,1,9]\n5",
+    "hints": [
+      "列出清单1 -> 5 -> 9 -> 12。删除9会使它看起来像1 -> 5 -> 12。你只能访问9节点。你能让它看起来像正确的答案吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:58.983Z"
+}

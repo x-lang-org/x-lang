@@ -1,0 +1,36 @@
+{
+  "title": "Number of Same-End Substrings",
+  "titleCn": "同端子串的数量",
+  "titleSlug": "number-of-same-end-substrings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.38577154308617234,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "number-of-same-end-substrings",
+    "questionId": "3247",
+    "title": "Number of Same-End Substrings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "counting",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcaab\"\n[[0,0],[1,4],[2,5],[0,5]]\n\"abcd\"\n[[0,3]]",
+    "hints": [
+      "If there are <code>t</code> occurrences of a character in a substring, there exists <code>t * (t + 1) / 2</code> Same-End substrings with that character.",
+      "Try to calculate the number of occurrences of a character in a substring in <code>O(1)</code> using partial sum."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:32.942Z"
+}

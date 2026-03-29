@@ -1,0 +1,22 @@
+{
+  "problemId": "46",
+  "titleSlug": "permutations",
+  "title": "Permutations",
+  "titleCn": "全排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.8033567801882927,
+  "testcases": [
+    {
+      "input": "[1,2,3]",
+      "expectedOutput": "[0,1]"
+    },
+    {
+      "input": "[1]",
+      "expectedOutput": ""
+    }
+  ]
+}

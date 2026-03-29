@@ -1,0 +1,51 @@
+{
+  "title": "Binary Number to String LCCI",
+  "titleCn": "二进制数转字符串",
+  "titleSlug": "binary-number-to-string-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7680089485458613,
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "binary-number-to-string-lcci",
+    "questionId": "100203",
+    "title": "Binary Number to String LCCI",
+    "content": "<p>Given a real number between 0 and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be represented accurately in binary with at most 32 characters, print &quot;ERROR&quot;.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: 0.625\r\n<strong> Output</strong>: &quot;0.101&quot;\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: 0.1\r\n<strong> Output</strong>: &quot;ERROR&quot;\r\n<strong> Note</strong>: 0.1 cannot be represented accurately in binary.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li>This two charaters &quot;0.&quot; should be counted into 32 characters.</li>\r\n\t<li>The number of decimal places for <code>num</code> is at most 6 digits</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "math",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string printBin(double num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String printBin(double num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def printBin(self, num: float) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "0.625\n0.1",
+    "hints": [
+      "为了解决这个问题，试着想想如何用它来处理整数。",
+      "像0.893这样的数字（以10为底），每个数字代表什么？那么以2为底的0.10 010中的每个数字代表什么？",
+      "一个数字如0.893（以10为底）表示8×101 + 9×102 + 3×103。将此系统转换为以2为底。",
+      "你将如何获得0.893中的第一个数字？如果乘以10，那么你会改变值得到8.93。如果乘以2，结果会是什么？",
+      "想想那些不能用二进制精确表示的值会发生什么。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:25:29.486Z"
+}

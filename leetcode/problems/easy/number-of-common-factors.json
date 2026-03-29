@@ -1,0 +1,52 @@
+{
+  "title": "Number of Common Factors",
+  "titleCn": "公因子的数目",
+  "titleSlug": "number-of-common-factors",
+  "difficulty": "EASY",
+  "acRate": 0.7920629053395611,
+  "topicTags": [
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "number-of-common-factors",
+    "questionId": "2507",
+    "title": "Number of Common Factors",
+    "content": "<p>Given two positive integers <code>a</code> and <code>b</code>, return <em>the number of <strong>common</strong> factors of </em><code>a</code><em> and </em><code>b</code>.</p>\n\n<p>An integer <code>x</code> is a <strong>common factor</strong> of <code>a</code> and <code>b</code> if <code>x</code> divides both <code>a</code> and <code>b</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> a = 12, b = 6\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The common factors of 12 and 6 are 1, 2, 3, 6.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> a = 25, b = 30\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The common factors of 25 and 30 are 1, 5.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= a, b &lt;= 1000</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "enumeration",
+      "number-theory"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int commonFactors(int a, int b) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int commonFactors(int a, int b) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def commonFactors(self, a: int, b: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "12\n6\n25\n30",
+    "hints": [
+      "For each integer in range [1,1000], check if it’s divisible by both A and B."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-primes",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:58.185Z"
+}

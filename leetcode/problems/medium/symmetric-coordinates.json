@@ -1,0 +1,25 @@
+{
+  "title": "Symmetric Coordinates",
+  "titleCn": "对称坐标",
+  "titleSlug": "symmetric-coordinates",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3986371379897785,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "symmetric-coordinates",
+    "questionId": "3253",
+    "title": "Symmetric Coordinates",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Coordinates\":[\"X\",\"Y\"]},\"rows\":{\"Coordinates\":[[20,20],[20,20],[20,21],[23,22],[22,23],[21,20]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:09.332Z"
+}

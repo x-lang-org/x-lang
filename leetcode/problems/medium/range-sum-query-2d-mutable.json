@@ -1,0 +1,46 @@
+{
+  "title": "Range Sum Query 2D - Mutable",
+  "titleCn": "二维区域和检索 - 矩阵可修改",
+  "titleSlug": "range-sum-query-2d-mutable",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5981012658227848,
+  "topicTags": [
+    "design",
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "range-sum-query-2d-mutable",
+    "questionId": "308",
+    "title": "Range Sum Query 2D - Mutable",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "binary-indexed-tree",
+      "segment-tree",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"NumMatrix\",\"sumRegion\",\"update\",\"sumRegion\"]\n[[[[3,0,1,4,2],[5,6,3,2,1],[1,2,0,1,5],[4,1,0,1,7],[1,0,3,0,5]]],[2,1,4,3],[3,2,2],[2,1,4,3]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "range-sum-query-2d-immutable",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "range-sum-query-mutable",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "increment-submatrices-by-one",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:58.224Z"
+}

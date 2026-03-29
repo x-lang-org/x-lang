@@ -1,0 +1,27 @@
+{
+  "title": "Minimum Total Operations",
+  "titleCn": "最小总操作数",
+  "titleSlug": "minimum-total-operations",
+  "difficulty": "EASY",
+  "acRate": 0.25844594594594594,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "minimum-total-operations",
+    "questionId": "3694",
+    "title": "Minimum Total Operations",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,4,2]\n[10,10,10]",
+    "hints": [
+      "Would you ever change the last element of the array?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:39.438Z"
+}

@@ -1,0 +1,56 @@
+{
+  "title": "Delete Operation for Two Strings",
+  "titleCn": "两个字符串的删除操作",
+  "titleSlug": "delete-operation-for-two-strings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6873025077446423,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "delete-operation-for-two-strings",
+    "questionId": "583",
+    "title": "Delete Operation for Two Strings",
+    "content": "<p>Given two strings <code>word1</code> and <code>word2</code>, return <em>the minimum number of <strong>steps</strong> required to make</em> <code>word1</code> <em>and</em> <code>word2</code> <em>the same</em>.</p>\n\n<p>In one <strong>step</strong>, you can delete exactly one character in either string.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> word1 = &quot;sea&quot;, word2 = &quot;eat&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> You need one step to make &quot;sea&quot; to &quot;ea&quot; and another step to make &quot;eat&quot; to &quot;ea&quot;.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> word1 = &quot;leetcode&quot;, word2 = &quot;etco&quot;\n<strong>Output:</strong> 4\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= word1.length, word2.length &lt;= 500</code></li>\n\t<li><code>word1</code> and <code>word2</code> consist of only lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minDistance(String word1, String word2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minDistance(self, word1: str, word2: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"sea\"\n\"eat\"\n\"leetcode\"\n\"etco\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "edit-distance",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-ascii-delete-sum-for-two-strings",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longest-common-subsequence",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:02.668Z"
+}

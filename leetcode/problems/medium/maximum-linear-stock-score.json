@@ -1,0 +1,33 @@
+{
+  "title": "Maximum Linear Stock Score",
+  "titleCn": "最大线性股票得分",
+  "titleSlug": "maximum-linear-stock-score",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2612681436210848,
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "maximum-linear-stock-score",
+    "questionId": "3182",
+    "title": "Maximum Linear Stock Score",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,5,3,7,8]\n[5,6,7,8,9]",
+    "hints": [
+      "Let's look at the condition as: <code>prices[indexes[i]] - indexes[i] == prices[indexes[j]] - indexes[j]</code>.",
+      "So now we define a new array named <code>group</code> and is constructed as <code>group[i] = prices[i] - i</code>.",
+      "A subarray of <code>prices</code> is linear if they belong to the same group.",
+      "Since all elements are positive, if we choose some index <code>i</code>, the optimum way is to choose all elements from <code>group[i]</code>.",
+      "So for each group, we calculate the sum of its prices and the answer would be the maximum sum over all groups."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:03.812Z"
+}

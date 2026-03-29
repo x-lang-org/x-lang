@@ -1,0 +1,25 @@
+{
+  "problemId": "85",
+  "titleSlug": "maximal-rectangle",
+  "title": "Maximal Rectangle",
+  "titleCn": "最大矩形",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "monotonic-stack"
+  ],
+  "acRate": 0.5681384423830292,
+  "testcases": [
+    {
+      "input": "[[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]",
+      "expectedOutput": "[[\"0\"]]"
+    },
+    {
+      "input": "[[\"1\"]]",
+      "expectedOutput": ""
+    }
+  ]
+}

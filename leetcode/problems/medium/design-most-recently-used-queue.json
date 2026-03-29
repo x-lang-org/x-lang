@@ -1,0 +1,44 @@
+{
+  "title": "Design Most Recently Used Queue",
+  "titleCn": "设计最近使用（MRU）队列",
+  "titleSlug": "design-most-recently-used-queue",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6319154851264943,
+  "topicTags": [
+    "design",
+    "array",
+    "linked-list",
+    "divide-and-conquer",
+    "doubly-linked-list",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "design-most-recently-used-queue",
+    "questionId": "1903",
+    "title": "Design Most Recently Used Queue",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "linked-list",
+      "divide-and-conquer",
+      "doubly-linked-list",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"MRUQueue\",\"fetch\",\"fetch\",\"fetch\",\"fetch\"]\n[[8],[3],[5],[2],[8]]",
+    "hints": [
+      "You can store the data in an array and apply each fetch by moving the ith element to the end of the array (i.e, O(n) per operation).",
+      "A better way is to use the square root decomposition technique.",
+      "You can build chunks of size sqrt(n). For each fetch operation, You can search for the chunk which has the ith element and update it (i.e., O(sqrt(n)) per operation), and move this element to an empty chunk at the end."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "lru-cache",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:29.573Z"
+}

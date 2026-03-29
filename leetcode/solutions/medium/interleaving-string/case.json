@@ -1,0 +1,34 @@
+{
+  "problemId": "97",
+  "titleSlug": "interleaving-string",
+  "title": "Interleaving String",
+  "titleCn": "交错字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4674576938128215,
+  "testcases": [
+    {
+      "input": "\"aabcc\"",
+      "expectedOutput": "\"dbbca\""
+    },
+    {
+      "input": "\"aadbbcbcac\"",
+      "expectedOutput": "\"aabcc\""
+    },
+    {
+      "input": "\"dbbca\"",
+      "expectedOutput": "\"aadbbbaccc\""
+    },
+    {
+      "input": "\"\"",
+      "expectedOutput": "\"\""
+    },
+    {
+      "input": "\"\"",
+      "expectedOutput": ""
+    }
+  ]
+}

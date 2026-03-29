@@ -1,0 +1,52 @@
+{
+  "title": "Longest Word LCCI",
+  "titleCn": "最长单词",
+  "titleSlug": "longest-word-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4088718220338983,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "longest-word-lcci",
+    "questionId": "1000022",
+    "title": "Longest Word LCCI",
+    "content": "<p>Given a list of words, write a program to find the longest word made of other words in the list. If there are more than one answer, return the one that has smallest lexicographic order. If no answer, return an empty string.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> [&quot;cat&quot;,&quot;banana&quot;,&quot;dog&quot;,&quot;nana&quot;,&quot;walk&quot;,&quot;walker&quot;,&quot;dogwalker&quot;]\r\n<strong>Output: </strong> &quot;dogwalker&quot;\r\n<strong>Explanation: </strong> &quot;dogwalker&quot; can be made of &quot;dog&quot; and &quot;walker&quot;.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= len(words) &lt;= 200</code></li>\r\n\t<li><code>1 &lt;= len(words[i]) &lt;= 100</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string longestWord(vector<string>& words) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String longestWord(String[] words) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestWord(self, words: List[str]) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"\"]",
+    "hints": [
+      "试着简化这个问题：如果你只需要知道由列表中其他两个单词组成的最长单词会如何？",
+      "如果只想知道由列表中其他两个单词组成的最长单词，那么可以遍历全部单词，从最长到最短，检查每个单词是否可以由其他两个单词组成。为了检查，我们可以将字符串从所有可能的位置分开。",
+      "将前面的想法扩展到多个单词的情况。我们能不能把每个单词都拆分为所有可能的形式?",
+      "当你得到非常低效的递归算法时，试着查找重复发生的子问题。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:35.523Z"
+}

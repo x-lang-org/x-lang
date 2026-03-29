@@ -1,0 +1,43 @@
+{
+  "title": "组合",
+  "titleCn": "组合",
+  "titleSlug": "uUsW3B",
+  "difficulty": "MEDIUM",
+  "acRate": 0.814366290643663,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "uUsW3B",
+    "questionId": "1000344",
+    "title": "组合",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> combine(int n, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> combine(int n, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def combine(self, n: int, k: int) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "4\n2\n1\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:04.853Z"
+}

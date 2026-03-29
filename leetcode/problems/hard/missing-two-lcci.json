@@ -1,0 +1,56 @@
+{
+  "title": "Missing Two LCCI",
+  "titleCn": "消失的两个数字",
+  "titleSlug": "missing-two-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.6018179059947916,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "missing-two-lcci",
+    "questionId": "1000044",
+    "title": "Missing Two LCCI",
+    "content": "<p>You are given an array with all the numbers from 1 to N appearing exactly once, except for two number that is missing. How can you find the missing number in O(N) time and 0(1) space?</p>\r\n\r\n<p>You can return the missing numbers in any order.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>[1]</code>\r\n<strong>Output: </strong>[2,3]</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>[2,3]</code>\r\n<strong>Output: </strong>[1,4]</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>nums.length &lt;=&nbsp;30000</code></li>\r\n</ul>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> missingTwo(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] missingTwo(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def missingTwo(self, nums: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1]\n[2]",
+    "hints": [
+      "从第一部分开始：如果只缺少一个数字，那么找到它。",
+      "第1部分：如果你必须在O(1)的空间复杂度和O(N)的时间复杂度下找到丢失的数字，那么只能在数组中执行常数次遍历，并且只能存储少许变量。",
+      "第1部分：如果将数组中的所有值相加会怎么样？然后你能算出缺失的数字吗？",
+      "第2部分：我们现在正在寻找两个缺失的数字，可以称其为a和b。第1部分中的计算方法将告诉我们a和b的和，但它实际上不会告诉我们a和b。还需要做什么计算？",
+      "第2部分：有很多不同的计算方法可以试一试。例如，可以把所有的数都相乘，但这只会得到a和b的乘积。",
+      "第2部分：把数字加在一起会得到a + b的结果。把数字相乘会得到a × b的结果。怎样才能得到a和b的确切值？",
+      "第2部分：我们可以两者都计算。如果知道a + b = 87，a×b = 962，那么就解出a和b : a = 13且b = 74。但这也将导致必须对非常大的数相乘。所有数的乘积可以大于10^157。还有更简单的计算方法吗？",
+      "第2部分：几乎任何我们能想到的“方程”都可以用在这里（只要它和线性和不等价）。只要保持这个和很小就可以。",
+      "第2部分：试着求所有值的平方的和。",
+      "第2部分：你可能需要二次公式。如果你不记得也没什么大不了的，大多数人都不会记得。知道二次公式的存在即可。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:50.753Z"
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Maximum Sum With at Most K Elements",
+  "titleCn": "提取至多 K 个元素的最大总和",
+  "titleSlug": "maximum-sum-with-at-most-k-elements",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5957992777038585,
+  "topicTags": [
+    "greedy",
+    "array",
+    "matrix",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "maximum-sum-with-at-most-k-elements",
+    "questionId": "3764",
+    "title": "Maximum Sum With at Most K Elements",
+    "content": "<p data-pm-slice=\"1 3 []\">You are given a 2D integer matrix <code>grid</code> of size <code>n x m</code>, an integer array <code>limits</code> of length <code>n</code>, and an integer <code>k</code>. The task is to find the <strong>maximum sum</strong> of <strong>at most</strong> <code>k</code> elements from the matrix <code>grid</code> such that:</p>\n\n<ul data-spread=\"false\">\n\t<li>\n\t<p>The number of elements taken from the <code>i<sup>th</sup></code> row of <code>grid</code> does not exceed <code>limits[i]</code>.</p>\n\t</li>\n</ul>\n\n<p data-pm-slice=\"1 1 []\">Return the <strong>maximum sum</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">grid = [[1,2],[3,4]], limits = [1,2], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">7</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>From the second row, we can take at most 2 elements. The elements taken are 4 and 3.</li>\n\t<li>The maximum possible sum of at most 2 selected elements is <code>4 + 3 = 7</code>.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">grid = [[5,3,7],[8,2,6]], limits = [2,2], k = 3</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">21</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>From the first row, we can take at most 2 elements. The element taken is 7.</li>\n\t<li>From the second row, we can take at most 2 elements. The elements taken are 8 and 6.</li>\n\t<li>The maximum possible sum of at most 3 selected elements is <code>7 + 8 + 6 = 21</code>.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == grid.length == limits.length</code></li>\n\t<li><code>m == grid[i].length</code></li>\n\t<li><code>1 &lt;= n, m &lt;= 500</code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= limits[i] &lt;= m</code></li>\n\t<li><code>0 &lt;= k &lt;= min(n * m, sum(limits))</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "matrix",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long maxSum(vector<vector<int>>& grid, vector<int>& limits, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long maxSum(int[][] grid, int[] limits, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxSum(self, grid: List[List[int]], limits: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,2],[3,4]]\n[1,2]\n2\n[[5,3,7],[8,2,6]]\n[2,2]\n3",
+    "hints": [
+      "Sort each row in descending order and extract the top <code>limits[i]</code> elements.",
+      "Use a max-heap to efficiently pick the largest <code>k</code> elements across all rows."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:52.064Z"
+}

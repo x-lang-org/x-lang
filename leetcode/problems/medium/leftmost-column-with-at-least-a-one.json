@@ -1,0 +1,34 @@
+{
+  "title": "Leftmost Column with at Least a One",
+  "titleCn": "至少有一个 1 的最左端列",
+  "titleSlug": "leftmost-column-with-at-least-a-one",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6423995340710542,
+  "topicTags": [
+    "array",
+    "binary-search",
+    "interactive",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "leftmost-column-with-at-least-a-one",
+    "questionId": "1374",
+    "title": "Leftmost Column with at Least a One",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search",
+      "interactive",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,0],[1,1]]\n[[0,0],[0,1]]\n[[0,0],[0,0]]",
+    "hints": [
+      "1. (Binary Search) For each row do a binary search to find the leftmost one on that row and update the answer.",
+      "2. (Optimal Approach) Imagine there is a pointer p(x, y) starting from top right corner. p can only move left or down. If the value at p is 0, move down. If the value at p is 1, move left. Try to figure out the correctness and time complexity of this algorithm."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:06.998Z"
+}

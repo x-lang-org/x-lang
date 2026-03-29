@@ -1,0 +1,30 @@
+{
+  "title": "The Most Recent Three Orders",
+  "titleCn": "最近的三笔订单",
+  "titleSlug": "the-most-recent-three-orders",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6378137150936727,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-most-recent-three-orders",
+    "questionId": "1671",
+    "title": "The Most Recent Three Orders",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Customers\":[\"customer_id\",\"name\"],\"Orders\":[\"order_id\",\"order_date\",\"customer_id\",\"cost\"]},\"rows\":{\"Customers\":[[1,\"Winston\"],[2,\"Jonathan\"],[3,\"Annabelle\"],[4,\"Marwan\"],[5,\"Khaled\"]],\"Orders\":[[1,\"2020-07-31\",1,30],[2,\"2020-7-30\",2,40],[3,\"2020-07-31\",3,70],[4,\"2020-07-29\",4,100],[5,\"2020-06-10\",1,1010],[6,\"2020-08-01\",2,102],[7,\"2020-08-01\",3,111],[8,\"2020-08-03\",1,99],[9,\"2020-08-07\",2,32],[10,\"2020-07-15\",1,2]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "the-most-recent-orders-for-each-product",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:08:33.703Z"
+}

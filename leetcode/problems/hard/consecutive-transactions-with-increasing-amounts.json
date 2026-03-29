@@ -1,0 +1,25 @@
+{
+  "title": "Consecutive Transactions with Increasing Amounts",
+  "titleCn": "连续递增交易",
+  "titleSlug": "consecutive-transactions-with-increasing-amounts",
+  "difficulty": "HARD",
+  "acRate": 0.3117692907248636,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "consecutive-transactions-with-increasing-amounts",
+    "questionId": "2853",
+    "title": "Consecutive Transactions with Increasing Amounts",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Transactions\":[\"transaction_id\",\"customer_id\",\"transaction_date\",\"amount\"]},\"rows\":{\"Transactions\":[[1,101,\"2023-05-01\",100],[2,101,\"2023-05-02\",150],[3,101,\"2023-05-03\",200],[4,102,\"2023-05-01\",50],[5,102,\"2023-05-03\",100],[6,102,\"2023-05-04\",200],[7,105,\"2023-05-01\",100],[8,105,\"2023-05-02\",150],[9,105,\"2023-05-03\",200],[10,105,\"2023-05-04\",300],[11,105,\"2023-05-12\",250],[12,105,\"2023-05-13\",260],[13,105,\"2023-05-14\",270]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:10.700Z"
+}

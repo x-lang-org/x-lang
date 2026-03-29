@@ -1,0 +1,33 @@
+{
+  "title": "Number of Equal Numbers Blocks",
+  "titleCn": "包含相等值数字块的数量",
+  "titleSlug": "number-of-equal-numbers-blocks",
+  "difficulty": "MEDIUM",
+  "acRate": 0.42677514792899407,
+  "topicTags": [
+    "array",
+    "binary-search",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "number-of-equal-numbers-blocks",
+    "questionId": "3222",
+    "title": "Number of Equal Numbers Blocks",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,3,3,3,3]\n[1,1,1,3,9,9,9,2,10,10]\n[1,2,3,4,5,6,7]",
+    "hints": [
+      "Start from the beginning of the array <code>nums.at(0)</code>.",
+      "Do a binary search on the last index <code>last</code> such that <code>nums.at(0) == nums.at(last)</code>.",
+      "Continue this process until you get to the end of the array (<code>nums.size()</code>)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:10.760Z"
+}

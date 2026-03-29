@@ -1,0 +1,22 @@
+{
+  "problemId": "72",
+  "titleSlug": "edit-distance",
+  "title": "Edit Distance",
+  "titleCn": "编辑距离",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6406360964648875,
+  "testcases": [
+    {
+      "input": "\"horse\"",
+      "expectedOutput": "\"ros\""
+    },
+    {
+      "input": "\"intention\"",
+      "expectedOutput": "\"execution\""
+    }
+  ]
+}

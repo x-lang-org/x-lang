@@ -1,0 +1,55 @@
+{
+  "title": "Word Transformer LCCI",
+  "titleCn": "单词转换",
+  "titleSlug": "word-transformer-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.41112179562351947,
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "word-transformer-lcci",
+    "questionId": "1000030",
+    "title": "Word Transformer LCCI",
+    "content": "<p>Given two words of equal length that are in a dictionary, write a method to transform one word into another word by changing only one letter at a time. The new word you get in each step must be in the dictionary.</p>\r\n\r\n<p>Write code to return a possible transforming sequence. If there is more than one sequence, return any of them.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\nbeginWord = &quot;hit&quot;,\r\nendWord = &quot;cog&quot;,\r\nwordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]\r\n\r\n<strong>Output:</strong>\r\n[&quot;hit&quot;,&quot;hot&quot;,&quot;dot&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\nbeginWord = &quot;hit&quot;\r\nendWord = &quot;cog&quot;\r\nwordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]\r\n\r\n<strong>Output: </strong>[]\r\n\r\n<strong>Explanation:</strong>&nbsp;<em>endWord</em> &quot;cog&quot; is not in the dictionary, so there&#39;s no possible transforming sequence.</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "hash-table",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> findLadders(string beginWord, string endWord, vector<string>& wordList) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> findLadders(String beginWord, String endWord, List<String> wordList) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"hit\"\n\"cog\"\n[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]\n\"hit\"\n\"cog\"\n[\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]",
+    "hints": [
+      "从一个蛮力的递归解法开始。只需要创建所有一次编辑的单词，检查它们是否在字典中，然后尝试该编辑路径。",
+      "一旦你有了一个蛮力解法，就可以尝试找到一个更快的方法以得到所有一次编辑的有效单词。当绝大多数字符串都不是有效的字典单词时，你不会想创建所有一次编辑的字符串。",
+      "为了快速得到编辑距离为1的有效单词，试着将字典中的单词以一种有效的方式进行分组。注意，b_ll形式的所有单词（如bill、ball、bell和bull）的编辑距离为1。然而，这些并不是仅有的编辑距离为1的单词。",
+      "创建从通配符形式（如b_ll）到该通配符所匹配的所有单词的映射。然后，当你想要查找与bill相隔编辑距离为1的所有单词时，可以在映射中查找_ill、b_ll、bi_l和bil_。",
+      "你之前的算法可能类似于深度优先搜索。你能使它更快吗?",
+      "广度优先的搜索通常比深度优先的搜索要快。在最坏的情况下未必如此，但在很多情况下都是这样。为什么？你能找到更快的方法吗？",
+      "如果同时从起始单词和目标单词开始进行广度优先搜索，结果会怎样？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:03.385Z"
+}

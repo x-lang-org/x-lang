@@ -1,0 +1,45 @@
+{
+  "title": "模糊搜索验证",
+  "titleCn": "模糊搜索验证",
+  "titleSlug": "zheng-ze-biao-da-shi-pi-pei-lcof",
+  "difficulty": "HARD",
+  "acRate": 0.3809802021721211,
+  "topicTags": [
+    "recursion",
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "zheng-ze-biao-da-shi-pi-pei-lcof",
+    "questionId": "100297",
+    "title": "模糊搜索验证",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "recursion",
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool articleMatch(string s, string p) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean articleMatch(String s, String p) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def articleMatch(self, s: str, p: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"aa\"\n\"a\"\n\"aa\"\n\"a*\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:25.624Z"
+}

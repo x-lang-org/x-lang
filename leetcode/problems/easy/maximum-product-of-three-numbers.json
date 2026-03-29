@@ -1,0 +1,54 @@
+{
+  "title": "Maximum Product of Three Numbers",
+  "titleCn": "三个数的最大乘积",
+  "titleSlug": "maximum-product-of-three-numbers",
+  "difficulty": "EASY",
+  "acRate": 0.5183952853690782,
+  "topicTags": [
+    "array",
+    "math",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-product-of-three-numbers",
+    "questionId": "628",
+    "title": "Maximum Product of Three Numbers",
+    "content": "<p>Given an integer array <code>nums</code>, <em>find three numbers whose product is maximum and return the maximum product</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3]\n<strong>Output:</strong> 6\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,3,4]\n<strong>Output:</strong> 24\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [-1,-2,-3]\n<strong>Output:</strong> -6\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>3 &lt;= nums.length &lt;=&nbsp;10<sup>4</sup></code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maximumProduct(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maximumProduct(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maximumProduct(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n[1,2,3,4]\n[-1,-2,-3]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-product-subarray",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "maximum-product-of-three-elements-after-one-replacement",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:51:05.311Z"
+}

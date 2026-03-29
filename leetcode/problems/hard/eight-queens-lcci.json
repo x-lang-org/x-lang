@@ -1,0 +1,47 @@
+{
+  "title": "Eight Queens LCCI",
+  "titleCn": "八皇后",
+  "titleSlug": "eight-queens-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.764475271411339,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "eight-queens-lcci",
+    "questionId": "100233",
+    "title": "Eight Queens LCCI",
+    "content": "<p>Write an algorithm to print all ways of arranging n queens on an n x n&nbsp;chess board so that none of them share the same row, column, or diagonal. In this case, &quot;diagonal&quot; means all diagonals, not just the two that bisect the board.</p>\r\n\r\n<p><strong>Notes: </strong>This&nbsp;problem is a generalization of the original one in the book.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: 4\r\n<strong> Output</strong>: [[&quot;.Q..&quot;,&quot;...Q&quot;,&quot;Q...&quot;,&quot;..Q.&quot;],[&quot;..Q.&quot;,&quot;Q...&quot;,&quot;...Q&quot;,&quot;.Q..&quot;]]\r\n<strong> Explanation</strong>: 4 queens has following two solutions\r\n[\r\n&nbsp;[&quot;.Q..&quot;, &nbsp;// solution 1\r\n&nbsp; &quot;...Q&quot;,\r\n&nbsp; &quot;Q...&quot;,\r\n&nbsp; &quot;..Q.&quot;],\r\n\r\n&nbsp;[&quot;..Q.&quot;, &nbsp;// solution 2\r\n&nbsp; &quot;Q...&quot;,\r\n&nbsp; &quot;...Q&quot;,\r\n&nbsp; &quot;.Q..&quot;]\r\n]\r\n</pre>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<string>> solveNQueens(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<String>> solveNQueens(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def solveNQueens(self, n: int) -> List[List[str]]:\n        "
+      }
+    ],
+    "exampleTestcases": "4",
+    "hints": [
+      "我们知道每一行都有一个皇后。你能试试所有的可能性吗？",
+      "每行都必须有个皇后。从最后一行开始。有8个不同的列你可以放皇后。你能挨个试试吗？",
+      "把它拆分成更小的子问题。第8行的皇后必定在第1、2、3、4、5、6、7或8列。当一个皇后在第8行第3列，你能输出所有可能的八皇后位置吗？然后你需要做的就是检查将一个皇后放在第7行的所有情况。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:44.208Z"
+}

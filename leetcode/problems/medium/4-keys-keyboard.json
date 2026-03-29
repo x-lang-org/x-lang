@@ -1,0 +1,32 @@
+{
+  "title": "4 Keys Keyboard",
+  "titleCn": "四个键的键盘",
+  "titleSlug": "4-keys-keyboard",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6083949157552468,
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "4-keys-keyboard",
+    "questionId": "651",
+    "title": "4 Keys Keyboard",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n7",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "2-keys-keyboard",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:20:59.222Z"
+}

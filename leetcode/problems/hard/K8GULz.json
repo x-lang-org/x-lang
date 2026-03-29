@@ -1,0 +1,47 @@
+{
+  "title": "环形闯关游戏",
+  "titleCn": "环形闯关游戏",
+  "titleSlug": "K8GULz",
+  "difficulty": "HARD",
+  "acRate": 0.4013173944864601,
+  "topicTags": [
+    "bit-manipulation",
+    "union-find",
+    "array",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "K8GULz",
+    "questionId": "1000359",
+    "title": "环形闯关游戏",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "union-find",
+      "array",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long ringGame(vector<long long>& challenge) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long ringGame(long[] challenge) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def ringGame(self, challenge: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[5,4,6,2,7]\n[1,17,1,19,1]\n[12,7,11,3,9]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:18.949Z"
+}

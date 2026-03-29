@@ -1,0 +1,19 @@
+{
+  "problemId": "73",
+  "titleSlug": "set-matrix-zeroes",
+  "title": "Set Matrix Zeroes",
+  "titleCn": "矩阵置零",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.715481014558007,
+  "testcases": [
+    {
+      "input": "[[1,1,1],[1,0,1],[1,1,1]]",
+      "expectedOutput": "[[0,1,2,0],[3,4,5,2],[1,3,1,5]]"
+    }
+  ]
+}

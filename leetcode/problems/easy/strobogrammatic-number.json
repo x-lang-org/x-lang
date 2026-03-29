@@ -1,0 +1,42 @@
+{
+  "title": "Strobogrammatic Number",
+  "titleCn": "中心对称数",
+  "titleSlug": "strobogrammatic-number",
+  "difficulty": "EASY",
+  "acRate": 0.47730010670154543,
+  "topicTags": [
+    "hash-table",
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "strobogrammatic-number",
+    "questionId": "246",
+    "title": "Strobogrammatic Number",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"69\"\n\"88\"\n\"962\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "strobogrammatic-number-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "strobogrammatic-number-iii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "confusing-number",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:59.859Z"
+}

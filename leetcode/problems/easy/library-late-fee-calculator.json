@@ -1,0 +1,29 @@
+{
+  "title": "Library Late Fee Calculator",
+  "titleCn": "图书馆逾期罚款计算器",
+  "titleSlug": "library-late-fee-calculator",
+  "difficulty": "EASY",
+  "acRate": 0.6680851063829787,
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "library-late-fee-calculator",
+    "questionId": "4060",
+    "title": "Library Late Fee Calculator",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,1,7]\n[1,1]",
+    "hints": [
+      "Simulate as described"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:30.915Z"
+}

@@ -1,0 +1,43 @@
+{
+  "title": "乘积小于 K 的子数组",
+  "titleCn": "乘积小于 K 的子数组",
+  "titleSlug": "ZVAVXX",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5350905805086613,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "ZVAVXX",
+    "questionId": "1000244",
+    "title": "乘积小于 K 的子数组",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numSubarrayProductLessThanK(vector<int>& nums, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numSubarrayProductLessThanK(int[] nums, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[10,5,2,6]\n100\n[1,2,3]\n0",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:34.963Z"
+}

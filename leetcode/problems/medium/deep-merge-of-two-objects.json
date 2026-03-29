@@ -1,0 +1,21 @@
+{
+  "title": "Deep Merge of Two Objects",
+  "titleCn": "深度合并两个对象",
+  "titleSlug": "deep-merge-of-two-objects",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5684485006518905,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "deep-merge-of-two-objects",
+    "questionId": "2795",
+    "title": "Deep Merge of Two Objects",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"a\": 1, \"c\": 3}\n{\"a\": 2, \"b\": 2}\n[{}, 2, 3]\n[[], 5]\n{\"a\": 1, \"b\": {\"c\": [1,[2,7],5], \"d\": 2}}\n{\"a\": 1, \"b\": {\"c\": [6,[6],[9]], \"e\": 3}}\ntrue\nnull",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:51.016Z"
+}

@@ -1,0 +1,54 @@
+{
+  "title": "Longest Duplicate Substring",
+  "titleCn": "最长重复子串",
+  "titleSlug": "longest-duplicate-substring",
+  "difficulty": "HARD",
+  "acRate": 0.35311725452812204,
+  "topicTags": [
+    "string",
+    "binary-search",
+    "suffix-array",
+    "sliding-window",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "longest-duplicate-substring",
+    "questionId": "1122",
+    "title": "Longest Duplicate Substring",
+    "content": "<p>Given a string <code>s</code>, consider all <em>duplicated substrings</em>: (contiguous) substrings of s that occur 2 or more times.&nbsp;The occurrences&nbsp;may overlap.</p>\n\n<p>Return <strong>any</strong> duplicated&nbsp;substring that has the longest possible length.&nbsp;If <code>s</code> does not have a duplicated substring, the answer is <code>&quot;&quot;</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> s = \"banana\"\n<strong>Output:</strong> \"ana\"\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> s = \"abcd\"\n<strong>Output:</strong> \"\"\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= s.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "binary-search",
+      "suffix-array",
+      "sliding-window",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string longestDupSubstring(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String longestDupSubstring(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestDupSubstring(self, s: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"banana\"\n\"abcd\"",
+    "hints": [
+      "Binary search for the length of the answer.  (If there's an answer of length 10, then there are answers of length 9, 8, 7, ...)",
+      "To check whether an answer of length K exists, we can use Rabin-Karp 's algorithm."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:57.863Z"
+}

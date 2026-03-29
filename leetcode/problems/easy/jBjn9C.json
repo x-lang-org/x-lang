@@ -1,0 +1,51 @@
+{
+  "title": "数据流中的第 K 大元素",
+  "titleCn": "数据流中的第 K 大元素",
+  "titleSlug": "jBjn9C",
+  "difficulty": "EASY",
+  "acRate": 0.623031418945389,
+  "topicTags": [
+    "tree",
+    "design",
+    "binary-search-tree",
+    "binary-tree",
+    "data-stream",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "jBjn9C",
+    "questionId": "1000323",
+    "title": "数据流中的第 K 大元素",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "design",
+      "binary-search-tree",
+      "binary-tree",
+      "data-stream",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class KthLargest {\npublic:\n    KthLargest(int k, vector<int>& nums) {\n        \n    }\n    \n    int add(int val) {\n        \n    }\n};\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest* obj = new KthLargest(k, nums);\n * int param_1 = obj->add(val);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class KthLargest {\n\n    public KthLargest(int k, int[] nums) {\n        \n    }\n    \n    public int add(int val) {\n        \n    }\n}\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest obj = new KthLargest(k, nums);\n * int param_1 = obj.add(val);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class KthLargest:\n\n    def __init__(self, k: int, nums: List[int]):\n        \n\n    def add(self, val: int) -> int:\n        \n\n\n# Your KthLargest object will be instantiated and called as such:\n# obj = KthLargest(k, nums)\n# param_1 = obj.add(val)"
+      }
+    ],
+    "exampleTestcases": "[\"KthLargest\",\"add\",\"add\",\"add\",\"add\",\"add\"]\n[[3,[4,5,8,2]],[3],[5],[10],[9],[4]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:52.299Z"
+}

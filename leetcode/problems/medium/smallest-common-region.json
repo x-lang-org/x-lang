@@ -1,0 +1,48 @@
+{
+  "title": "Smallest Common Region",
+  "titleCn": "最小公共区域",
+  "titleSlug": "smallest-common-region",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6145318096537609,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "smallest-common-region",
+    "questionId": "1190",
+    "title": "Smallest Common Region",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"Earth\",\"North America\",\"South America\"],[\"North America\",\"United States\",\"Canada\"],[\"United States\",\"New York\",\"Boston\"],[\"Canada\",\"Ontario\",\"Quebec\"],[\"South America\",\"Brazil\"]]\n\"Quebec\"\n\"New York\"\n[[\"Earth\", \"North America\", \"South America\"],[\"North America\", \"United States\", \"Canada\"],[\"United States\", \"New York\", \"Boston\"],[\"Canada\", \"Ontario\", \"Quebec\"],[\"South America\", \"Brazil\"]]\n\"Canada\"\n\"South America\"",
+    "hints": [
+      "Try to model the problem as a graph problem.",
+      "The given graph is a tree.",
+      "The problem is reduced to finding the lowest common ancestor of two nodes in a tree."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-search-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:22.635Z"
+}

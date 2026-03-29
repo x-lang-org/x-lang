@@ -1,0 +1,47 @@
+{
+  "title": "字母迷宫",
+  "titleCn": "字母迷宫",
+  "titleSlug": "ju-zhen-zhong-de-lu-jing-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.45760754438484624,
+  "topicTags": [
+    "array",
+    "string",
+    "backtracking",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "ju-zhen-zhong-de-lu-jing-lcof",
+    "questionId": "100279",
+    "title": "字母迷宫",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "string",
+      "backtracking",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool wordPuzzle(vector<vector<char>>& grid, string target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean wordPuzzle(char[][] grid, String target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def wordPuzzle(self, grid: List[List[str]], target: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]\n\"ABCCED\"\n[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]\n\"SEE\"\n[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]\n\"ABCB\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:00.741Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Sort the Olympic Table",
+  "titleCn": "整理奥运表",
+  "titleSlug": "sort-the-olympic-table",
+  "difficulty": "EASY",
+  "acRate": 0.8247066942719117,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "sort-the-olympic-table",
+    "questionId": "2516",
+    "title": "Sort the Olympic Table",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Olympic\":[\"country\",\"gold_medals\",\"silver_medals\",\"bronze_medals\"]},\"rows\":{\"Olympic\":[[\"China\",10,10,20],[\"South Sudan\",0,0,1],[\"USA\",10,10,20],[\"Israel\",2,2,3],[\"Egypt\",2,2,2]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:04.259Z"
+}

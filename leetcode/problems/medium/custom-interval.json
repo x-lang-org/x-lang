@@ -1,0 +1,21 @@
+{
+  "title": "Custom Interval",
+  "titleCn": "自定义间隔",
+  "titleSlug": "custom-interval",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8048128342245989,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "custom-interval",
+    "questionId": "2908",
+    "title": "Custom Interval",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "50\n20\n225\n20\n20\n150\n100\n200\n500",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:22.758Z"
+}

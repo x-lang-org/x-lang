@@ -1,0 +1,25 @@
+{
+  "title": "Binary Tree Nodes",
+  "titleCn": "二叉树节点",
+  "titleSlug": "binary-tree-nodes",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7721617418351477,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "binary-tree-nodes",
+    "questionId": "3259",
+    "title": "Binary Tree Nodes",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Tree\":[\"N\",\"P\"]},\"rows\":{\"Tree\":[[1,2],[3,2],[6,8],[9,8],[2,5],[8,5],[5,null]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:25:54.727Z"
+}

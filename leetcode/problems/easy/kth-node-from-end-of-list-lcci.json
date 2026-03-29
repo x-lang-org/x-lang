@@ -1,0 +1,49 @@
+{
+  "title": "Kth Node From End of List LCCI",
+  "titleCn": "返回倒数第 k 个节点",
+  "titleSlug": "kth-node-from-end-of-list-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.764946720696383,
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "kth-node-from-end-of-list-lcci",
+    "questionId": "1000007",
+    "title": "Kth Node From End of List LCCI",
+    "content": "<p>Implement an algorithm to find the kth to last element of a singly linked list.&nbsp;Return the value of the element.</p>\r\n\r\n<p><strong>Note: </strong>This problem is slightly different from the original one in the book.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> 1-&gt;2-&gt;3-&gt;4-&gt;5 和 <em>k</em> = 2\r\n<strong>Output:  </strong>4</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<p>k is always valid.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    int kthToLast(ListNode* head, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public int kthToLast(ListNode head, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def kthToLast(self, head: Optional[ListNode], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5]\n2",
+    "hints": [
+      "如果你知道链表大小，会怎么样？找到最后第k个元素和找到第x个元素有何区别？",
+      "如果你不知道链表的大小，你能计算它吗？这将如何影响运行时间？",
+      "尝试用递归法实现。如果你能找到(k − 1)到最后一个元素，可以找到第k个元素吗？",
+      "你可能会发现返回多个值大有用处。有些语言不直接支持这一点，但基本上使用任何语言都有解决方法。这些解决方法有哪些？",
+      "你能通过递归做到吗？想象一下，如果有两个指针指向相邻节点，它们通过链表以相同的速度移动。当一个到达链表的结尾时，另一个在哪里？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:28.592Z"
+}

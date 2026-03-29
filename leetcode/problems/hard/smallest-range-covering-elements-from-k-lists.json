@@ -1,0 +1,56 @@
+{
+  "title": "Smallest Range Covering Elements from K Lists",
+  "titleCn": "最小区间",
+  "titleSlug": "smallest-range-covering-elements-from-k-lists",
+  "difficulty": "HARD",
+  "acRate": 0.6444666459652486,
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "sorting",
+    "sliding-window",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "smallest-range-covering-elements-from-k-lists",
+    "questionId": "632",
+    "title": "Smallest Range Covering Elements from K Lists",
+    "content": "<p>You have <code>k</code> lists of sorted integers in <strong>non-decreasing&nbsp;order</strong>. Find the <b>smallest</b> range that includes at least one number from each of the <code>k</code> lists.</p>\n\n<p>We define the range <code>[a, b]</code> is smaller than range <code>[c, d]</code> if <code>b - a &lt; d - c</code> <strong>or</strong> <code>a &lt; c</code> if <code>b - a == d - c</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]\n<strong>Output:</strong> [20,24]\n<strong>Explanation: </strong>\nList 1: [4, 10, 15, 24,26], 24 is in range [20,24].\nList 2: [0, 9, 12, 20], 20 is in range [20,24].\nList 3: [5, 18, 22, 30], 22 is in range [20,24].\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [[1,2,3],[1,2,3],[1,2,3]]\n<strong>Output:</strong> [1,1]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>nums.length == k</code></li>\n\t<li><code>1 &lt;= k &lt;= 3500</code></li>\n\t<li><code>1 &lt;= nums[i].length &lt;= 50</code></li>\n\t<li><code>-10<sup>5</sup> &lt;= nums[i][j] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>nums[i]</code>&nbsp;is sorted in <strong>non-decreasing</strong> order.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "hash-table",
+      "sorting",
+      "sliding-window",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> smallestRange(vector<vector<int>>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] smallestRange(List<List<Integer>> nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def smallestRange(self, nums: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]\n[[1,2,3],[1,2,3],[1,2,3]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-window-substring",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:39.398Z"
+}

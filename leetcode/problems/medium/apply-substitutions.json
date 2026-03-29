@@ -1,0 +1,45 @@
+{
+  "title": "Apply Substitutions",
+  "titleCn": "应用替换",
+  "titleSlug": "apply-substitutions",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8495297805642633,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "apply-substitutions",
+    "questionId": "3825",
+    "title": "Apply Substitutions",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"A\",\"abc\"],[\"B\",\"def\"]]\n\"%A%_%B%\"\n[[\"A\",\"bce\"],[\"B\",\"ace\"],[\"C\",\"abc%B%\"]]\n\"%A%_%B%_%C%\"",
+    "hints": [
+      "Build a dependency graph where each key is a node, and add an edge from key <code>X</code> to key <code>Y</code> if the replacement value for <code>Y</code> contains the placeholder <code>%X%</code>. Then perform a topological sort to determine a valid order for substitution.",
+      "Process the keys in the topologically sorted order by replacing placeholders in each replacement value with its fully expanded value. Finally, substitute the placeholders in the text using these computed values."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "evaluate-the-bracket-pairs-of-a-string",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:23:29.834Z"
+}

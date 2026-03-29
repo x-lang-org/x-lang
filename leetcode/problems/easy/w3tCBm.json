@@ -1,0 +1,43 @@
+{
+  "title": "比特位计数",
+  "titleCn": "比特位计数",
+  "titleSlug": "w3tCBm",
+  "difficulty": "EASY",
+  "acRate": 0.7825251831700809,
+  "topicTags": [
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "w3tCBm",
+    "questionId": "1000230",
+    "title": "比特位计数",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> countBits(int n) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] countBits(int n) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countBits(self, n: int) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "2\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:32.155Z"
+}

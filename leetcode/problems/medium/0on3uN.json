@@ -1,0 +1,43 @@
+{
+  "title": "复原 IP 地址",
+  "titleCn": "复原 IP 地址",
+  "titleSlug": "0on3uN",
+  "difficulty": "MEDIUM",
+  "acRate": 0.635866045501076,
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "0on3uN",
+    "questionId": "1000241",
+    "title": "复原 IP 地址",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> restoreIpAddresses(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> restoreIpAddresses(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def restoreIpAddresses(self, s: str) -> List[str]:"
+      }
+    ],
+    "exampleTestcases": "\"25525511135\"\n\"0000\"\n\"1111\"\n\"010010\"\n\"101023\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:27.306Z"
+}

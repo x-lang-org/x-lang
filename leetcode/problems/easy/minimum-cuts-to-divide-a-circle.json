@@ -1,0 +1,55 @@
+{
+  "title": "Minimum Cuts to Divide a Circle",
+  "titleCn": "分割圆的最少切割次数",
+  "titleSlug": "minimum-cuts-to-divide-a-circle",
+  "difficulty": "EASY",
+  "acRate": 0.5938983916262446,
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "minimum-cuts-to-divide-a-circle",
+    "questionId": "2575",
+    "title": "Minimum Cuts to Divide a Circle",
+    "content": "<p>A <strong>valid cut</strong> in a circle can be:</p>\n\n<ul>\n\t<li>A cut that is represented by a straight line that touches two points on the edge of the circle and passes through its center, or</li>\n\t<li>A cut that is represented by a straight line that touches one point on the edge of the circle and its center.</li>\n</ul>\n\n<p>Some valid and invalid cuts are shown in the figures below.</p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/10/29/alldrawio.png\" style=\"width: 450px; height: 174px;\" />\n<p>Given the integer <code>n</code>, return <em>the <strong>minimum</strong> number of cuts needed to divide a circle into </em><code>n</code><em> equal slices</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/10/24/11drawio.png\" style=\"width: 200px; height: 200px;\" />\n<pre>\n<strong>Input:</strong> n = 4\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> \nThe above figure shows how cutting the circle twice through the middle divides it into 4 equal slices.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/10/24/22drawio.png\" style=\"width: 200px; height: 201px;\" />\n<pre>\n<strong>Input:</strong> n = 3\n<strong>Output:</strong> 3\n<strong>Explanation:</strong>\nAt least 3 cuts are needed to divide the circle into 3 equal slices. \nIt can be shown that less than 3 cuts cannot result in 3 slices of equal size and shape.\nAlso note that the first cut will not divide the circle into distinct parts.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 100</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "geometry",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numberOfCuts(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numberOfCuts(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numberOfCuts(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "4\n3",
+    "hints": [
+      "Think about odd and even values separately.",
+      "When will we not have to cut the circle at all?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "smallest-even-multiple",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "count-total-number-of-colored-cells",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:53:47.927Z"
+}

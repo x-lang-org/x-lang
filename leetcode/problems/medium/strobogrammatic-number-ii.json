@@ -1,0 +1,44 @@
+{
+  "title": "Strobogrammatic Number II",
+  "titleCn": "中心对称数 II",
+  "titleSlug": "strobogrammatic-number-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5609086819613135,
+  "topicTags": [
+    "recursion",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "strobogrammatic-number-ii",
+    "questionId": "247",
+    "title": "Strobogrammatic Number II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "recursion",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n1",
+    "hints": [
+      "Try to use recursion and notice that it should recurse with <i>n</i> - 2 instead of <i>n</i> - 1."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "strobogrammatic-number",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "strobogrammatic-number-iii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "sum-of-k-mirror-numbers",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:07:00.950Z"
+}

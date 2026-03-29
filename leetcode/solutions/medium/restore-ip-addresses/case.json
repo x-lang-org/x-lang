@@ -1,0 +1,22 @@
+{
+  "problemId": "93",
+  "titleSlug": "restore-ip-addresses",
+  "title": "Restore IP Addresses",
+  "titleCn": "复原 IP 地址",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.6215118561303764,
+  "testcases": [
+    {
+      "input": "\"25525511135\"",
+      "expectedOutput": "\"0000\""
+    },
+    {
+      "input": "\"101023\"",
+      "expectedOutput": ""
+    }
+  ]
+}

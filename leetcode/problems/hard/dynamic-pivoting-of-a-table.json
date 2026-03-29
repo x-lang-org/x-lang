@@ -1,0 +1,30 @@
+{
+  "title": "Dynamic Pivoting of a Table",
+  "titleCn": "表的动态旋转",
+  "titleSlug": "dynamic-pivoting-of-a-table",
+  "difficulty": "HARD",
+  "acRate": 0.5839598997493735,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "dynamic-pivoting-of-a-table",
+    "questionId": "2381",
+    "title": "Dynamic Pivoting of a Table",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Products\":[\"product_id\",\"store\",\"price\"]},\"rows\":{\"Products\":[[1,\"Shop\",110],[1,\"LC_Store\",100],[2,\"Nozama\",200],[2,\"Souq\",190],[3,\"Shop\",1000],[3,\"Souq\",1900]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "products-price-for-each-store",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:37.497Z"
+}

@@ -1,0 +1,43 @@
+{
+  "title": "回文子串",
+  "titleCn": "回文子串",
+  "titleSlug": "a7VOhD",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7065281341929023,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "a7VOhD",
+    "questionId": "1000256",
+    "title": "回文子串",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int countSubstrings(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int countSubstrings(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countSubstrings(self, s: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"abc\"\n\"aaa\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:28.859Z"
+}

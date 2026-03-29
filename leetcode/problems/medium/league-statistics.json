@@ -1,0 +1,25 @@
+{
+  "title": "League Statistics",
+  "titleCn": "联赛信息统计",
+  "titleSlug": "league-statistics",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5281674208144796,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "league-statistics",
+    "questionId": "1991",
+    "title": "League Statistics",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Teams\":[\"team_id\",\"team_name\"],\"Matches\":[\"home_team_id\",\"away_team_id\",\"home_team_goals\",\"away_team_goals\"]},\"rows\":{\"Teams\":[[1,\"Ajax\"],[4,\"Dortmund\"],[6,\"Arsenal\"]],\"Matches\":[[1,4,0,1],[1,6,3,3],[4,1,5,2],[6,1,0,0]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:02.417Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Total Sales Amount by Year",
+  "titleCn": "按年度列出销售总额",
+  "titleSlug": "total-sales-amount-by-year",
+  "difficulty": "HARD",
+  "acRate": 0.5906005670590256,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "total-sales-amount-by-year",
+    "questionId": "1518",
+    "title": "Total Sales Amount by Year",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Product\": [\"product_id\", \"product_name\"], \"Sales\": [\"product_id\", \"period_start\", \"period_end\", \"average_daily_sales\"]}, \"rows\": {\"Product\": [[1, \"LC Phone \"], [2, \"LC T-Shirt\"], [3, \"LC Keychain\"]], \"Sales\": [[1, \"2019-01-25\", \"2019-02-28\", 100], [2, \"2018-12-01\", \"2020-01-01\", 10], [3, \"2019-12-01\", \"2020-01-31\", 1]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:07.804Z"
+}

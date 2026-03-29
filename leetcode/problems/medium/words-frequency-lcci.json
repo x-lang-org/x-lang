@@ -1,0 +1,52 @@
+{
+  "title": "Words Frequency LCCI",
+  "titleCn": "单词频率",
+  "titleSlug": "words-frequency-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7750240615976901,
+  "topicTags": [
+    "design",
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "words-frequency-lcci",
+    "questionId": "100259",
+    "title": "Words Frequency LCCI",
+    "content": "<p>Design a method to find the frequency of occurrences of any given word in a book. What if we were running this algorithm multiple times?</p>\r\n\r\n<p>You should implement following methods:</p>\r\n\r\n<ul>\r\n\t<li><code>WordsFrequency(book)</code> constructor, parameter is a array of strings, representing the book.</li>\r\n\t<li><code>get(word)</code>&nbsp;get the frequency of <code>word</code> in the book.&nbsp;</li>\r\n</ul>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\nWordsFrequency wordsFrequency = new WordsFrequency({&quot;i&quot;, &quot;have&quot;, &quot;an&quot;, &quot;apple&quot;, &quot;he&quot;, &quot;have&quot;, &quot;a&quot;, &quot;pen&quot;});\r\nwordsFrequency.get(&quot;you&quot;); //returns 0，&quot;you&quot; is not in the book\r\nwordsFrequency.get(&quot;have&quot;); //returns 2，&quot;have&quot; occurs twice in the book\r\nwordsFrequency.get(&quot;an&quot;); //returns 1\r\nwordsFrequency.get(&quot;apple&quot;); //returns 1\r\nwordsFrequency.get(&quot;pen&quot;); //returns 1\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>There are only lowercase letters in book[i].</code></li>\r\n\t<li><code>1 &lt;= book.length &lt;= 100000</code></li>\r\n\t<li><code>1 &lt;= book[i].length &lt;= 10</code></li>\r\n\t<li><code>get</code>&nbsp;function will not be called more than&nbsp;100000 times.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "trie",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class WordsFrequency {\npublic:\n    WordsFrequency(vector<string>& book) {\n        \n    }\n    \n    int get(string word) {\n        \n    }\n};\n\n/**\n * Your WordsFrequency object will be instantiated and called as such:\n * WordsFrequency* obj = new WordsFrequency(book);\n * int param_1 = obj->get(word);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class WordsFrequency {\n\n    public WordsFrequency(String[] book) {\n        \n    }\n    \n    public int get(String word) {\n        \n    }\n}\n\n/**\n * Your WordsFrequency object will be instantiated and called as such:\n * WordsFrequency obj = new WordsFrequency(book);\n * int param_1 = obj.get(word);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class WordsFrequency:\n\n    def __init__(self, book: List[str]):\n        \n\n    def get(self, word: str) -> int:\n        \n\n\n# Your WordsFrequency object will be instantiated and called as such:\n# obj = WordsFrequency(book)\n# param_1 = obj.get(word)"
+      }
+    ],
+    "exampleTestcases": "[\"WordsFrequency\",\"get\",\"get\",\"get\",\"get\",\"get\"]\n[[[\"i\",\"have\",\"an\",\"apple\",\"he\",\"have\",\"a\",\"pen\"]],[\"you\"],[\"have\"],[\"an\"],[\"apple\"],[\"pen\"]]",
+    "hints": [
+      "想想这个问题的最佳运行时间是多少。如果你的解法匹配最理想的运行时间，那么你可能无法做的更好了。",
+      "可以使用散列表来优化重复的情况吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:04.336Z"
+}

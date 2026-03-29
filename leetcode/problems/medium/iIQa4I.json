@@ -1,0 +1,45 @@
+{
+  "title": "每日温度",
+  "titleCn": "每日温度",
+  "titleSlug": "iIQa4I",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7506218992874509,
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "iIQa4I",
+    "questionId": "1000282",
+    "title": "每日温度",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "[73,74,75,71,69,72,76,73]\n[30,40,50,60]\n[30,60,90]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:10.284Z"
+}

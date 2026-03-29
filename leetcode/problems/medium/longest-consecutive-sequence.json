@@ -1,0 +1,58 @@
+{
+  "title": "Longest Consecutive Sequence",
+  "titleCn": "最长连续序列",
+  "titleSlug": "longest-consecutive-sequence",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49073095094042696,
+  "topicTags": [
+    "union-find",
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "longest-consecutive-sequence",
+    "questionId": "128",
+    "title": "Longest Consecutive Sequence",
+    "content": "<p>Given an unsorted array of integers <code>nums</code>, return <em>the length of the longest consecutive elements sequence.</em></p>\n\n<p>You must write an algorithm that runs in&nbsp;<code>O(n)</code>&nbsp;time.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [100,4,200,1,3,2]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The longest consecutive elements sequence is <code>[1, 2, 3, 4]</code>. Therefore its length is 4.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [0,3,7,2,5,8,4,6,0,1]\n<strong>Output:</strong> 9\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,0,1,2]\n<strong>Output:</strong> 3\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "union-find",
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[100,4,200,1,3,2]\n[0,3,7,2,5,8,4,6,0,1]\n[1,0,1,2]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-tree-longest-consecutive-sequence",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-three-consecutive-integers-that-sum-to-a-given-number",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "maximum-consecutive-floors-without-special-floors",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:54.879Z"
+}

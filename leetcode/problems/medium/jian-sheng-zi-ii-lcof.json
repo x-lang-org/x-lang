@@ -1,0 +1,43 @@
+{
+  "title": "砍竹子 II",
+  "titleCn": "砍竹子 II",
+  "titleSlug": "jian-sheng-zi-ii-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.31230228204027843,
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "jian-sheng-zi-ii-lcof",
+    "questionId": "100285",
+    "title": "砍竹子 II",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int cuttingBamboo(int bamboo_len) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int cuttingBamboo(int bamboo_len) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def cuttingBamboo(self, bamboo_len: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "12",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:56.085Z"
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Divide Chocolate",
+  "titleCn": "分享巧克力",
+  "titleSlug": "divide-chocolate",
+  "difficulty": "HARD",
+  "acRate": 0.618659870711089,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "divide-chocolate",
+    "questionId": "1192",
+    "title": "Divide Chocolate",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5,6,7,8,9]\n5\n[5,6,7,8,9,1,2,3,4]\n8\n[1,2,2,1,2,2,1,2,2]\n2",
+    "hints": [
+      "After dividing the array into K+1 sub-arrays, you will pick the sub-array with the minimum sum.",
+      "Divide the sub-array into K+1 sub-arrays such that the minimum sub-array sum is as maximum as possible.",
+      "Use binary search with greedy check."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "split-array-largest-sum",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "capacity-to-ship-packages-within-d-days",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:22.143Z"
+}

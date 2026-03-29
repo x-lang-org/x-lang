@@ -1,0 +1,38 @@
+{
+  "title": "Array Upper Bound",
+  "titleCn": "数组的上界",
+  "titleSlug": "array-upper-bound",
+  "difficulty": "EASY",
+  "acRate": 0.8078880407124682,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "array-upper-bound",
+    "questionId": "2768",
+    "title": "Array Upper Bound",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,4,5]\n5\n[1,4,5]\n2\n[3,4,6,6,6,6,7]\n6",
+    "hints": [
+      "Inside the Array.prototype.upperBound function you have access to the \"this\" keyword. You can access array elements, values, and methods. For example \"this[0]\", \"this[1]\", \"this.length\", \"this.map()\", etc.",
+      "The most efficient way to solve this problem is with binary search.",
+      "Choose the middle element and check if it's less than or equal to the goal value. If so, you can rule out the left side of the array."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "array-prototype-last",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "group-by",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "snail-traversal",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:23:52.494Z"
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Number of Substrings With Fixed Ratio",
+  "titleCn": "固定比率的子字符串数",
+  "titleSlug": "number-of-substrings-with-fixed-ratio",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5929778933680104,
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "number-of-substrings-with-fixed-ratio",
+    "questionId": "2629",
+    "title": "Number of Substrings With Fixed Ratio",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "math",
+      "string",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"0110011\"\n1\n2\n\"10101\"\n3\n1",
+    "hints": [
+      "Let Func(i) denote the number of 0’s in the prefix [0…i]. We want to find the number of pairs of indices L and R such that Func(R) - Func(L) : R - L - Func(R) + Func(L) = num1 : num2.",
+      "It is better to simplify the formula.",
+      "Func(R) * (num1 + num2) - R * num1 = Func(L) * (num1 + num2) - L * num1.",
+      "Iterate from left to right and use a hash map to count the number of indices having the same value for the above formula."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-binary-substrings",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:52.873Z"
+}

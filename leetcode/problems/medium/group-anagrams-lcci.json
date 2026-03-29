@@ -1,0 +1,52 @@
+{
+  "title": "Group Anagrams LCCI",
+  "titleCn": "变位词组",
+  "titleSlug": "group-anagrams-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7460581583198708,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "group-anagrams-lcci",
+    "questionId": "1000040",
+    "title": "Group Anagrams LCCI",
+    "content": "<p>Write a method to sort an array of strings so that all the anagrams are in the same group.</p>\r\n\r\n<p><b>Note:&nbsp;</b>This problem is slightly different from the original one the book.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>[&quot;eat&quot;, &quot;tea&quot;, &quot;tan&quot;, &quot;ate&quot;, &quot;nat&quot;, &quot;bat&quot;]</code>,\r\n<strong>Output:</strong>\r\n[\r\n  [&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;],\r\n  [&quot;nat&quot;,&quot;tan&quot;],\r\n  [&quot;bat&quot;]\r\n]</pre>\r\n\r\n<p><strong>Notes: </strong></p>\r\n\r\n<ul>\r\n\t<li>All inputs will be in lowercase.</li>\r\n\t<li>The order of your output does not&nbsp;matter.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]",
+    "hints": [
+      "你如何检查两个单词是否互为变位词？想一想如何定义“变位词”。用你自己的话来解释一下。",
+      "两个单词互为变位词是指含有相同的字符，但顺序不同。怎么才能把字符排好序呢？",
+      "你能利用标准排序算法吗？",
+      "你真的需要真正的排序吗？或者仅需重新组织列表就够了？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:24.995Z"
+}

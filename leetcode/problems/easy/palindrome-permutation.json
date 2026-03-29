@@ -1,0 +1,46 @@
+{
+  "title": "Palindrome Permutation",
+  "titleCn": "回文排列",
+  "titleSlug": "palindrome-permutation",
+  "difficulty": "EASY",
+  "acRate": 0.7090673484397436,
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "palindrome-permutation",
+    "questionId": "266",
+    "title": "Palindrome Permutation",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"code\"\n\"aab\"\n\"carerac\"",
+    "hints": [
+      "Consider the palindromes of odd vs even length. What difference do you notice?",
+      "Count the frequency of each character.",
+      "If each character occurs even number of times, then it must be a palindrome. How about character which occurs odd number of times?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-palindromic-substring",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "valid-anagram",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "palindrome-permutation-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:57.901Z"
+}

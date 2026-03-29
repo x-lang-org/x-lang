@@ -1,0 +1,25 @@
+{
+  "title": "Find Cities in Each State",
+  "titleCn": "查找每个州的城市",
+  "titleSlug": "find-cities-in-each-state",
+  "difficulty": "EASY",
+  "acRate": 0.6719242902208202,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-cities-in-each-state",
+    "questionId": "3505",
+    "title": "Find Cities in Each State",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"cities\":[\"state\",\"city\"]},\"rows\":{\"cities\":[[\"California\",\"Los Angeles\"],[\"California\",\"San Francisco\"],[\"California\",\"San Diego\"],[\"Texas\",\"Houston\"],[\"Texas\",\"Austin\"],[\"Texas\",\"Dallas\"],[\"New York\",\"New York City\"],[\"New York\",\"Buffalo\"],[\"New York\",\"Rochester\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:12.738Z"
+}

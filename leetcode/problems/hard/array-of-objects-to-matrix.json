@@ -1,0 +1,34 @@
+{
+  "title": "Array of Objects to Matrix",
+  "titleCn": "将对象数组转换为矩阵",
+  "titleSlug": "array-of-objects-to-matrix",
+  "difficulty": "HARD",
+  "acRate": 0.5695652173913044,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "array-of-objects-to-matrix",
+    "questionId": "2769",
+    "title": "Array of Objects to Matrix",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[{\"b\":1,\"a\":2},{\"b\":3,\"a\":4}]\n[{\"a\":1,\"b\":2},{\"c\":3,\"d\":4},{}]\n[{\"a\":{\"b\":1,\"c\":2}},{\"a\":{\"b\":3,\"d\":4}}]\n[[{\"a\":null}],[{\"b\":true}],[{\"c\":\"x\"}]]\n[{},{},{}]",
+    "hints": [
+      "How could you split the problem up into sub-problems?",
+      "1.) Write a function that converts a single object into a dictionary that maps the path name to values. You can solve this recursively by keeping track of current path list.",
+      "2.) Write a function that converts a list of dictionaries into a matrix. Start by creating a list of all possible paths in any of the dictionaries. This will represent the columns."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "json-deep-equal",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "convert-object-to-json-string",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:23:44.140Z"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Convert Number Words to Digits",
+  "titleCn": "将数字词转换为数字",
+  "titleSlug": "convert-number-words-to-digits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8121546961325967,
+  "topicTags": [
+    "trie",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "convert-number-words-to-digits",
+    "questionId": "4148",
+    "title": "Convert Number Words to Digits",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"onefourthree\"\n\"ninexsix\"\n\"zeero\"\n\"tw\"",
+    "hints": [
+      "Parse the string from left to right as described, matching against the valid number words"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:43.432Z"
+}

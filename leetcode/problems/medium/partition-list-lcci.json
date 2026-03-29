@@ -1,0 +1,46 @@
+{
+  "title": "Partition List LCCI",
+  "titleCn": "分割链表",
+  "titleSlug": "partition-list-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5855818252288244,
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "partition-list-lcci",
+    "questionId": "1000008",
+    "title": "Partition List LCCI",
+    "content": "<p>Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can appear anywhere in the &quot;right partition&quot;; it does not need to appear between the left and right partitions.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> head = 3-&gt;5-&gt;8-&gt;5-&gt;10-&gt;2-&gt;1, <em>x</em> = 5\r\n<strong>Output:</strong> 3-&gt;1-&gt;2-&gt;10-&gt;5-&gt;5-&gt;8\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* partition(ListNode* head, int x) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode partition(ListNode head, int x) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,4,3,2,5,2]\n3\n[]\n0",
+    "hints": [
+      "这个问题有很多解法，其中大部分都有最优的运行时间。有些代码比其他代码更短，更干净。你可以想出不同的解法吗？",
+      "考虑元素不必保持相同的相对顺序。我们只需要确保小于基准点的元素必须位于比基准点大的元素之前。这有助于你想出更多的解法吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:14.557Z"
+}

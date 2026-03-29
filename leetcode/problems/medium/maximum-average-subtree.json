@@ -1,0 +1,42 @@
+{
+  "title": "Maximum Average Subtree",
+  "titleCn": "子树的最大平均值",
+  "titleSlug": "maximum-average-subtree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6608763966480447,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "maximum-average-subtree",
+    "questionId": "1091",
+    "title": "Maximum Average Subtree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,6,1]\n[0,null,1]",
+    "hints": [
+      "Can you find the sum of values and the number of nodes for every sub-tree ?",
+      "Can you find the sum of values and the number of nodes for a sub-tree given the sum of values and the number of nodes of it's left and right sub-trees ?",
+      "Use depth first search to recursively find the solution for the children of a node then use their solutions to compute the current node's solution."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-nodes-equal-to-sum-of-descendants",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-nodes-equal-to-average-of-subtree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:49:12.601Z"
+}

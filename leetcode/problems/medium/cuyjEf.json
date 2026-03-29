@@ -1,0 +1,49 @@
+{
+  "title": "按权重随机选择",
+  "titleCn": "按权重随机选择",
+  "titleSlug": "cuyjEf",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5084924671336724,
+  "topicTags": [
+    "array",
+    "math",
+    "binary-search",
+    "prefix-sum",
+    "randomized"
+  ],
+  "detail": {
+    "titleSlug": "cuyjEf",
+    "questionId": "1000335",
+    "title": "按权重随机选择",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "binary-search",
+      "prefix-sum",
+      "randomized"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    Solution(vector<int>& w) {\n\n    }\n    \n    int pickIndex() {\n\n    }\n};\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution* obj = new Solution(w);\n * int param_1 = obj->pickIndex();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n\n    public Solution(int[] w) {\n\n    }\n    \n    public int pickIndex() {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution obj = new Solution(w);\n * int param_1 = obj.pickIndex();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n\n    def __init__(self, w: List[int]):\n\n\n    def pickIndex(self) -> int:\n\n\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution(w)\n# param_1 = obj.pickIndex()"
+      }
+    ],
+    "exampleTestcases": "[\"Solution\",\"pickIndex\"]\n[[[1]],[]]\n[\"Solution\",\"pickIndex\",\"pickIndex\",\"pickIndex\",\"pickIndex\",\"pickIndex\"]\n[[[1,3]],[],[],[],[],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:31.413Z"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Winner of the Linked List Game",
+  "titleCn": "链表游戏的获胜者",
+  "titleSlug": "winner-of-the-linked-list-game",
+  "difficulty": "EASY",
+  "acRate": 0.49606299212598426,
+  "topicTags": [
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "winner-of-the-linked-list-game",
+    "questionId": "3368",
+    "title": "Winner of the Linked List Game",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "linked-list"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,1]",
+    "hints": [
+      "Traverse linked list and try to find pairs.",
+      "For each team, keep the number of its winning games in a variable.",
+      "Compare the winning variables and find the answer."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:51.547Z"
+}

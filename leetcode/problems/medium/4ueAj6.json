@@ -1,0 +1,41 @@
+{
+  "title": "循环有序列表的插入",
+  "titleCn": "循环有序列表的插入",
+  "titleSlug": "4ueAj6",
+  "difficulty": "MEDIUM",
+  "acRate": 0.33894362590014765,
+  "topicTags": [
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "4ueAj6",
+    "questionId": "1000265",
+    "title": "循环有序列表的插入",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* next;\n\n    Node() {}\n\n    Node(int _val) {\n        val = _val;\n        next = NULL;\n    }\n\n    Node(int _val, Node* _next) {\n        val = _val;\n        next = _next;\n    }\n};\n*/\n\nclass Solution {\npublic:\n    Node* insert(Node* head, int insertVal) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public Node next;\n\n    public Node() {}\n\n    public Node(int _val) {\n        val = _val;\n    }\n\n    public Node(int _val, Node _next) {\n        val = _val;\n        next = _next;\n    }\n};\n*/\n\nclass Solution {\n    public Node insert(Node head, int insertVal) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val=None, next=None):\n        self.val = val\n        self.next = next\n\"\"\"\n\nclass Solution:\n    def insert(self, head: 'Node', insertVal: int) -> 'Node':\n        "
+      }
+    ],
+    "exampleTestcases": "[3,4,1]\n2\n[]\n1\n[1]\n0",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:04.652Z"
+}

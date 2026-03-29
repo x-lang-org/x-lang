@@ -1,0 +1,45 @@
+{
+  "title": "验证图书取出顺序",
+  "titleCn": "验证图书取出顺序",
+  "titleSlug": "zhan-de-ya-ru-dan-chu-xu-lie-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6116214294930012,
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "zhan-de-ya-ru-dan-chu-xu-lie-lcof",
+    "questionId": "100306",
+    "title": "验证图书取出顺序",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool validateBookSequences(vector<int>& putIn, vector<int>& takeOut) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean validateBookSequences(int[] putIn, int[] takeOut) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def validateBookSequences(self, putIn: List[int], takeOut: List[int]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[6,7,8,9,10,11]\n[9,11,10,8,7,6]\n[6,7,8,9,10,11]\n[11,9,8,10,6,7]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:26.251Z"
+}

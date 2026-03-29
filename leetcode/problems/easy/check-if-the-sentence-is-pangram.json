@@ -1,0 +1,46 @@
+{
+  "title": "Check if the Sentence Is Pangram",
+  "titleCn": "判断句子是否为全字母句",
+  "titleSlug": "check-if-the-sentence-is-pangram",
+  "difficulty": "EASY",
+  "acRate": 0.8413834145261293,
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "check-if-the-sentence-is-pangram",
+    "questionId": "1960",
+    "title": "Check if the Sentence Is Pangram",
+    "content": "<p>A <strong>pangram</strong> is a sentence where every letter of the English alphabet appears at least once.</p>\n\n<p>Given a string <code>sentence</code> containing only lowercase English letters, return<em> </em><code>true</code><em> if </em><code>sentence</code><em> is a <strong>pangram</strong>, or </em><code>false</code><em> otherwise.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> sentence = &quot;thequickbrownfoxjumpsoverthelazydog&quot;\n<strong>Output:</strong> true\n<strong>Explanation:</strong> sentence contains at least one of every letter of the English alphabet.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> sentence = &quot;leetcode&quot;\n<strong>Output:</strong> false\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= sentence.length &lt;= 1000</code></li>\n\t<li><code>sentence</code> consists of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool checkIfPangram(string sentence) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean checkIfPangram(String sentence) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def checkIfPangram(self, sentence: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"thequickbrownfoxjumpsoverthelazydog\"\n\"leetcode\"",
+    "hints": [
+      "Iterate over the string and mark each character as found (using a boolean array, bitmask, or any other similar way).",
+      "Check if the number of found characters equals the alphabet length."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:29:55.996Z"
+}

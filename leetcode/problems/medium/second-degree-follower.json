@@ -1,0 +1,25 @@
+{
+  "title": "Second Degree Follower",
+  "titleCn": "二级关注者",
+  "titleSlug": "second-degree-follower",
+  "difficulty": "MEDIUM",
+  "acRate": 0.39187761649516806,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "second-degree-follower",
+    "questionId": "614",
+    "title": "Second Degree Follower",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Follow\":[\"followee\",\"follower\"]},\"rows\":{\"Follow\":[[\"Alice\", \"Bob\"], [\"Bob\", \"Cena\"], [\"Bob\", \"Donald\"], [\"Donald\", \"Edward\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:04:10.877Z"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Check if String Is Decomposable Into Value-Equal Substrings",
+  "titleCn": "判断字符串是否可分解为值均等的子串",
+  "titleSlug": "check-if-string-is-decomposable-into-value-equal-substrings",
+  "difficulty": "EASY",
+  "acRate": 0.49070146818923327,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "check-if-string-is-decomposable-into-value-equal-substrings",
+    "questionId": "2070",
+    "title": "Check if String Is Decomposable Into Value-Equal Substrings",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"000111000\"\n\"00011111222\"\n\"011100022233\"",
+    "hints": [
+      "Keep looking for 3-equals, if you find a 3-equal, keep going. If you don't find a 3-equal, check if it is a 2-equal.",
+      "Make sure that it is the only 2-equal.",
+      "If it is neither a 3-equal nor a 2-equal, then it is impossible."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:29:48.185Z"
+}

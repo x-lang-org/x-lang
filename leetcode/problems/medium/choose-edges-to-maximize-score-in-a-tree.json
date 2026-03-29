@@ -1,0 +1,43 @@
+{
+  "title": "Choose Edges to Maximize Score in a Tree",
+  "titleCn": "选择边来最大化树的得分",
+  "titleSlug": "choose-edges-to-maximize-score-in-a-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.461038961038961,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "choose-edges-to-maximize-score-in-a-tree",
+    "questionId": "2517",
+    "title": "Choose Edges to Maximize Score in a Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[-1,-1],[0,5],[0,10],[2,6],[2,4]]\n[[-1,-1],[0,5],[0,-6],[0,7]]",
+    "hints": [
+      "Use dynamic programming to recursively solve the problem for smaller subtrees.",
+      "You can ignore the edges with negative weights.",
+      "The states of the dp are the following: the root of the subtree you are at, and a boolean variable that will tell you if you have chosen the edge that connects that node and its parent.",
+      "What are the transitions of this dp?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-tree-cameras",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "longest-path-with-different-adjacent-characters",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:30:24.327Z"
+}

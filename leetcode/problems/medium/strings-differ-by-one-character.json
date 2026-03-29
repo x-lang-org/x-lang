@@ -1,0 +1,39 @@
+{
+  "title": "Strings Differ by One Character",
+  "titleCn": "只有一个不同字符的字符串",
+  "titleSlug": "strings-differ-by-one-character",
+  "difficulty": "MEDIUM",
+  "acRate": 0.42554183174085297,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "strings-differ-by-one-character",
+    "questionId": "1697",
+    "title": "Strings Differ by One Character",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"abcd\",\"acbd\", \"aacd\"]\n[\"ab\",\"cd\",\"yz\"]\n[\"abcd\",\"cccc\",\"abyd\",\"abab\"]",
+    "hints": [
+      "BruteForce, check all pairs and verify if they differ in one character. O(n^2 * m) where n is the number of words and m is the length of each string.",
+      "O(m^2 * n), Use hashset, to insert all possible combinations adding a character \"*\". For example: If dict[i] = \"abc\", insert (\"*bc\", \"a*c\" and \"ab*\")."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-words-obtained-after-adding-a-letter",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:59.206Z"
+}

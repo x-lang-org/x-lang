@@ -1,0 +1,64 @@
+{
+  "title": "Couples Holding Hands",
+  "titleCn": "情侣牵手",
+  "titleSlug": "couples-holding-hands",
+  "difficulty": "HARD",
+  "acRate": 0.6703111217589215,
+  "topicTags": [
+    "greedy",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "detail": {
+    "titleSlug": "couples-holding-hands",
+    "questionId": "770",
+    "title": "Couples Holding Hands",
+    "content": "<p>There are <code>n</code> couples sitting in <code>2n</code> seats arranged in a row and want to hold hands.</p>\n\n<p>The people and seats are represented by an integer array <code>row</code> where <code>row[i]</code> is the ID of the person sitting in the <code>i<sup>th</sup></code> seat. The couples are numbered in order, the first couple being <code>(0, 1)</code>, the second couple being <code>(2, 3)</code>, and so on with the last couple being <code>(2n - 2, 2n - 1)</code>.</p>\n\n<p>Return <em>the minimum number of swaps so that every couple is sitting side by side</em>. A swap consists of choosing any two people, then they stand up and switch seats.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> row = [0,2,1,3]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> We only need to swap the second (row[1]) and third (row[2]) person.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> row = [3,2,0,1]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> All couples are already seated side by side.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2n == row.length</code></li>\n\t<li><code>2 &lt;= n &lt;= 30</code>​​​​​​​</li>\n\t<li><code>0 &lt;= row[i] &lt; 2n</code></li>\n\t<li>All the elements of <code>row</code> are <strong>unique</strong>.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "graph"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minSwapsCouples(vector<int>& row) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minSwapsCouples(int[] row) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minSwapsCouples(self, row: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[0,2,1,3]\n[3,2,0,1]",
+    "hints": [
+      "Say there are N two-seat couches.  For each couple, draw an edge from the couch of one partner to the couch of the other partner."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "first-missing-positive",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "missing-number",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "k-similar-strings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:07.698Z"
+}

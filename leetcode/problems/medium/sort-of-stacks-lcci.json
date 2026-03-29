@@ -1,0 +1,49 @@
+{
+  "title": "Sort of Stacks LCCI",
+  "titleCn": "栈排序",
+  "titleSlug": "sort-of-stacks-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5410870685213808,
+  "topicTags": [
+    "stack",
+    "design",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "sort-of-stacks-lcci",
+    "questionId": "100173",
+    "title": "Sort of Stacks LCCI",
+    "content": "<p>Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy the elements into any other data structure (such as an array). The stack supports the following operations: <code>push</code>, <code>pop</code>, <code>peek</code>, and <code>isEmpty</code>. When the stack is empty, <code>peek</code> should return -1.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: \r\n[&quot;SortedStack&quot;, &quot;push&quot;, &quot;push&quot;, &quot;peek&quot;, &quot;pop&quot;, &quot;peek&quot;]\r\n[[], [1], [2], [], [], []]\r\n<strong> Output</strong>: \r\n[null,null,null,1,null,2]\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>:  \r\n[&quot;SortedStack&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;push&quot;, &quot;pop&quot;, &quot;isEmpty&quot;]\r\n[[], [], [], [1], [], []]\r\n<strong> Output</strong>: \r\n[null,null,null,null,null,true]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li>The total number of elements in the stack is within the range [0, 5000].</li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "design",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class SortedStack {\npublic:\n    SortedStack() {\n        \n    }\n    \n    void push(int val) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int peek() {\n        \n    }\n    \n    bool isEmpty() {\n        \n    }\n};\n\n/**\n * Your SortedStack object will be instantiated and called as such:\n * SortedStack* obj = new SortedStack();\n * obj->push(val);\n * obj->pop();\n * int param_3 = obj->peek();\n * bool param_4 = obj->isEmpty();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class SortedStack {\n\n    public SortedStack() {\n        \n    }\n    \n    public void push(int val) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int peek() {\n        \n    }\n    \n    public boolean isEmpty() {\n        \n    }\n}\n\n/**\n * Your SortedStack object will be instantiated and called as such:\n * SortedStack obj = new SortedStack();\n * obj.push(val);\n * obj.pop();\n * int param_3 = obj.peek();\n * boolean param_4 = obj.isEmpty();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class SortedStack:\n\n    def __init__(self):\n        \n\n    def push(self, val: int) -> None:\n        \n\n    def pop(self) -> None:\n        \n\n    def peek(self) -> int:\n        \n\n    def isEmpty(self) -> bool:\n        \n\n\n# Your SortedStack object will be instantiated and called as such:\n# obj = SortedStack()\n# obj.push(val)\n# obj.pop()\n# param_3 = obj.peek()\n# param_4 = obj.isEmpty()"
+      }
+    ],
+    "exampleTestcases": "[\"SortedStack\", \"push\", \"push\", \"peek\", \"pop\", \"peek\"]\n[[], [1], [2], [], [], []]\n[\"SortedStack\", \"pop\", \"pop\", \"push\", \"pop\", \"isEmpty\"]\n[[], [], [], [1], [], []]",
+    "hints": [
+      "排序数组的一种方法是遍历数组，并将每个元素按排序顺序插入到一个新数组中。你可以用一个栈实现吗？",
+      "假设二级栈已排序。你能按顺序插入元素吗？你可能需要一些额外的存储空间。你可以使用什么额外的存储？",
+      "保持二级栈的排序顺序，最大的元素在顶部。使用主栈进行额外的存储。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:02.362Z"
+}

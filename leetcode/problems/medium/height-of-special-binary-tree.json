@@ -1,0 +1,36 @@
+{
+  "title": "Height of Special Binary Tree",
+  "titleCn": "特殊二叉树的高度",
+  "titleSlug": "height-of-special-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3774193548387097,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "height-of-special-binary-tree",
+    "questionId": "2944",
+    "title": "Height of Special Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,null,null,4,5]\n[1,2]\n[1,2,3,null,null,4,null,5,6]",
+    "hints": [
+      "To solve the problem, we must first distinguish leaves from internal nodes.",
+      "For some node v, if v.left == null or v.right == null, then v is not a leaf.",
+      "If the previous condition does not hold, and v.left.right == v, then v is a leaf node.",
+      "Now that we can check if some node is a leaf, we can make the function “heightOfTree” a recursive function that returns the tree's height in which its input is the root of that subtree."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:52.740Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Time Taken to Cross the Door",
+  "titleCn": "通过门的时间",
+  "titleSlug": "time-taken-to-cross-the-door",
+  "difficulty": "HARD",
+  "acRate": 0.545663852647736,
+  "topicTags": [
+    "queue",
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "time-taken-to-cross-the-door",
+    "questionId": "2617",
+    "title": "Time Taken to Cross the Door",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "queue",
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,1,1,2,4]\n[0,1,0,0,1]\n[0,0,0]\n[1,0,1]",
+    "hints": [
+      "Use a queue to store the people who want to enter or exit and their corresponding times.",
+      "Simulate the process described in the statement and apply the 4 rules to the people crossing the door."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "the-latest-time-to-catch-a-bus",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:08:56.149Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Maximum Frequency Score of a Subarray",
+  "titleCn": "子数组的最大频率分数",
+  "titleSlug": "maximum-frequency-score-of-a-subarray",
+  "difficulty": "HARD",
+  "acRate": 0.42240080361627325,
+  "topicTags": [
+    "stack",
+    "array",
+    "hash-table",
+    "math",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "maximum-frequency-score-of-a-subarray",
+    "questionId": "2667",
+    "title": "Maximum Frequency Score of a Subarray",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "array",
+      "hash-table",
+      "math",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,1,1,2,1,2]\n3\n[1,1,1,1,1,1]\n4",
+    "hints": [
+      "Calculate the frequency score of each subarray of size k and return the maximum one.",
+      "Use the sliding window technique to keep the frequency scores."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:47.634Z"
+}

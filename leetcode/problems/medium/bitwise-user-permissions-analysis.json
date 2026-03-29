@@ -1,0 +1,25 @@
+{
+  "title": "Bitwise User Permissions Analysis",
+  "titleCn": "按位用户权限分析",
+  "titleSlug": "bitwise-user-permissions-analysis",
+  "difficulty": "MEDIUM",
+  "acRate": 0.9299820466786356,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "bitwise-user-permissions-analysis",
+    "questionId": "3512",
+    "title": "Bitwise User Permissions Analysis",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"user_permissions\":[\"user_id\",\"permissions\"]},\"rows\":{\"user_permissions\":[[1,5],[2,12],[3,7],[4,3]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:23.808Z"
+}

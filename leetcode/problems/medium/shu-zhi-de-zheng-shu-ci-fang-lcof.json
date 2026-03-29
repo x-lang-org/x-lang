@@ -1,0 +1,43 @@
+{
+  "title": "Pow(x, n)",
+  "titleCn": "Pow(x, n)",
+  "titleSlug": "shu-zhi-de-zheng-shu-ci-fang-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.35278491474445123,
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "shu-zhi-de-zheng-shu-ci-fang-lcof",
+    "questionId": "100295",
+    "title": "Pow(x, n)",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "recursion",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    double myPow(double x, int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double myPow(double x, int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def myPow(self, x: float, n: int) -> float:\n        "
+      }
+    ],
+    "exampleTestcases": "2.00000\n10\n2.10000\n3\n2.00000\n-2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:02.560Z"
+}

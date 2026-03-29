@@ -1,0 +1,25 @@
+{
+  "title": "Year on Year Growth Rate",
+  "titleCn": "同比增长率",
+  "titleSlug": "year-on-year-growth-rate",
+  "difficulty": "HARD",
+  "acRate": 0.5436022819885901,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "year-on-year-growth-rate",
+    "questionId": "3520",
+    "title": "Year on Year Growth Rate",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"user_transactions\":[\"transaction_id\",\"product_id\",\"spend\",\"transaction_date\"]},\"rows\":{\"user_transactions\":[[1341,123424,1500.60,\"2019-12-31 12:00:00\"],[1423,123424,1000.20,\"2020-12-31 12:00:00\"],[1623,123424,1246.44,\"2021-12-31 12:00:00\"],[1322,123424,2145.32,\"2022-12-31 12:00:00\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:16.857Z"
+}

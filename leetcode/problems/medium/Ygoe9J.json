@@ -1,0 +1,43 @@
+{
+  "title": "组合总和",
+  "titleCn": "组合总和",
+  "titleSlug": "Ygoe9J",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7926651735722284,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "Ygoe9J",
+    "questionId": "1000229",
+    "title": "组合总和",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> combinationSum(int[] candidates, int target) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[2,3,6,7]\n7\n[2,3,5]\n8\n[2]\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:18.541Z"
+}

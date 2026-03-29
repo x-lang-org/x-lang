@@ -1,0 +1,35 @@
+{
+  "title": "Subarrays with XOR at Least K",
+  "titleCn": "异或至少为 K 的子数组数目",
+  "titleSlug": "subarrays-with-xor-at-least-k",
+  "difficulty": "HARD",
+  "acRate": 0.5900383141762452,
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "subarrays-with-xor-at-least-k",
+    "questionId": "3929",
+    "title": "Subarrays with XOR at Least K",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "trie",
+      "array",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,1,2,3]\n2\n[0,0,0]\n0",
+    "hints": [
+      "Use a prefix XOR array",
+      "For each ending index, count how many subarrays have <code>XOR >= k</code>",
+      "Use a Trie to query those counts efficiently"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:11.054Z"
+}

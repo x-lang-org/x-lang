@@ -1,0 +1,48 @@
+{
+  "title": "Unique Substrings With Equal Digit Frequency",
+  "titleCn": "每个数字的频率都相同的不同子字符串的数量",
+  "titleSlug": "unique-substrings-with-equal-digit-frequency",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5748078060319338,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "unique-substrings-with-equal-digit-frequency",
+    "questionId": "2303",
+    "title": "Unique Substrings With Equal Digit Frequency",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"1212\"\n\"12321\"",
+    "hints": [
+      "With the constraints, could we try every substring?",
+      "Yes, checking every substring has runtime O(n^2), which will pass.",
+      "How can we make sure we only count unique substrings?",
+      "Use a set to store previously counted substrings. Hashing a string s of length m takes O(m) time. Is there a fast way to compute the hash of s if we know the hash of s[0..m - 2]?",
+      "Use a rolling hash."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-equal-count-substrings",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "substrings-that-begin-and-end-with-the-same-letter",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:52.261Z"
+}

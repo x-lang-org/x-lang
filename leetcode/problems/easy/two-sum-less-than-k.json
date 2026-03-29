@@ -1,0 +1,47 @@
+{
+  "title": "Two Sum Less Than K",
+  "titleCn": "小于 K 的两数之和",
+  "titleSlug": "two-sum-less-than-k",
+  "difficulty": "EASY",
+  "acRate": 0.6141233276330349,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "two-sum-less-than-k",
+    "questionId": "1083",
+    "title": "Two Sum Less Than K",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "binary-search",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[34,23,1,24,75,33,54,8]\n60\n[10,20,30]\n15",
+    "hints": [
+      "What if we have the array sorted?",
+      "Loop the array and get the value A[i] then we need to find a value A[j] such that A[i] + A[j] < K  which means A[j] < K - A[i]. In order to do that we can find that value with a binary search."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "two-sum",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "two-sum-ii-input-array-is-sorted",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "3sum-smaller",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:34.500Z"
+}

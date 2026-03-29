@@ -1,0 +1,37 @@
+{
+  "title": "提取咒文",
+  "titleCn": "提取咒文",
+  "titleSlug": "kjpLFZ",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3104491153787993,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "kjpLFZ",
+    "questionId": "1000567",
+    "title": "提取咒文",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int extractMantra(vector<string>& matrix, string mantra) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int extractMantra(String[] matrix, String mantra) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def extractMantra(self, matrix: List[str], mantra: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"sd\",\"ep\"]\n\"speed\"\n[\"abc\",\"daf\",\"geg\"]\n\"sad\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:21.926Z"
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Count Good Nodes in Binary Tree",
+  "titleCn": "统计二叉树中好节点的数目",
+  "titleSlug": "count-good-nodes-in-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7356229668036559,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "count-good-nodes-in-binary-tree",
+    "questionId": "1544",
+    "title": "Count Good Nodes in Binary Tree",
+    "content": "<p>Given a binary tree <code>root</code>, a node <em>X</em> in the tree is named&nbsp;<strong>good</strong> if in the path from root to <em>X</em> there are no nodes with a value <em>greater than</em> X.</p>\r\n\r\n<p>Return the number of <strong>good</strong> nodes in the binary tree.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong class=\"example\">Example 1:</strong></p>\r\n\r\n<p><strong><img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/04/02/test_sample_1.png\" style=\"width: 263px; height: 156px;\" /></strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> root = [3,1,4,3,null,1,5]\r\n<strong>Output:</strong> 4\r\n<strong>Explanation:</strong> Nodes in blue are <strong>good</strong>.\r\nRoot Node (3) is always a good node.\r\nNode 4 -&gt; (3,4) is the maximum value in the path starting from the root.\r\nNode 5 -&gt; (3,4,5) is the maximum value in the path\r\nNode 3 -&gt; (3,1,3) is the maximum value in the path.</pre>\r\n\r\n<p><strong class=\"example\">Example 2:</strong></p>\r\n\r\n<p><strong><img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/04/02/test_sample_2.png\" style=\"width: 157px; height: 161px;\" /></strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> root = [3,3,null,4,2]\r\n<strong>Output:</strong> 3\r\n<strong>Explanation:</strong> Node 2 -&gt; (3, 3, 2) is not good, because &quot;3&quot; is higher than it.</pre>\r\n\r\n<p><strong class=\"example\">Example 3:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> root = [1]\r\n<strong>Output:</strong> 1\r\n<strong>Explanation:</strong> Root is considered as <strong>good</strong>.</pre>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong>Constraints:</strong></p>\r\n\r\n<ul>\r\n\t<li>The number of nodes in the binary tree is in the range&nbsp;<code>[1, 10^5]</code>.</li>\r\n\t<li>Each node&#39;s value is between <code>[-10^4, 10^4]</code>.</li>\r\n</ul>",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int goodNodes(TreeNode* root) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public int goodNodes(TreeNode root) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def goodNodes(self, root: Optional[TreeNode]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,1,4,3,null,1,5]\n[3,3,null,4,2]\n[1]",
+    "hints": [
+      "Use DFS (Depth First Search) to traverse the tree, and constantly keep track of the current path maximum."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:33:18.045Z"
+}

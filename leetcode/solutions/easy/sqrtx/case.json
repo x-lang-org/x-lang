@@ -1,0 +1,18 @@
+{
+  "problemId": "69",
+  "titleSlug": "sqrtx",
+  "title": "Sqrt(x)",
+  "titleCn": "x 的平方根 ",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.3889961698401908,
+  "testcases": [
+    {
+      "input": "4",
+      "expectedOutput": "8"
+    }
+  ]
+}

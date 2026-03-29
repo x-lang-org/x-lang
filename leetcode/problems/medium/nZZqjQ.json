@@ -1,0 +1,43 @@
+{
+  "title": "爱吃香蕉的狒狒",
+  "titleCn": "爱吃香蕉的狒狒",
+  "titleSlug": "nZZqjQ",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5335575626163118,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "nZZqjQ",
+    "questionId": "1000337",
+    "title": "爱吃香蕉的狒狒",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minEatingSpeed(int[] piles, int h) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minEatingSpeed(self, piles: List[int], h: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[3,6,7,11]\n8",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:26.589Z"
+}

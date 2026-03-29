@@ -1,0 +1,60 @@
+{
+  "title": "Shortest Palindrome",
+  "titleCn": "最短回文串",
+  "titleSlug": "shortest-palindrome",
+  "difficulty": "HARD",
+  "acRate": 0.4103166324573505,
+  "topicTags": [
+    "string",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "shortest-palindrome",
+    "questionId": "214",
+    "title": "Shortest Palindrome",
+    "content": "<p>You are given a string <code>s</code>. You can convert <code>s</code> to a <span data-keyword=\"palindrome-string\">palindrome</span> by adding characters in front of it.</p>\n\n<p>Return <em>the shortest palindrome you can find by performing this transformation</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> s = \"aacecaaa\"\n<strong>Output:</strong> \"aaacecaaa\"\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> s = \"abcd\"\n<strong>Output:</strong> \"dcbabcd\"\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= s.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>s</code> consists of lowercase English letters only.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "string-matching",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string shortestPalindrome(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String shortestPalindrome(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def shortestPalindrome(self, s: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"aacecaaa\"\n\"abcd\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-palindromic-substring",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-the-index-of-the-first-occurrence-in-a-string",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "palindrome-pairs",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:45.790Z"
+}

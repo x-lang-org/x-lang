@@ -1,0 +1,38 @@
+{
+  "title": "Number of Spaces Cleaning Robot Cleaned",
+  "titleCn": "扫地机器人清扫过的空间个数",
+  "titleSlug": "number-of-spaces-cleaning-robot-cleaned",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5145024542614904,
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "number-of-spaces-cleaning-robot-cleaned",
+    "questionId": "2203",
+    "title": "Number of Spaces Cleaning Robot Cleaned",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "matrix",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,0,0],[1,1,0],[0,0,0]]\n[[0,1,0],[1,0,0],[0,0,0]]\n[[0,0,0],[0,0,0],[0,0,0]]",
+    "hints": [
+      "Simulate how the robot moves and keep track of how many spaces it has cleaned so far.",
+      "When can we stop the simulation?",
+      "When the robot reaches a space that it has already cleaned and is facing the same direction as before, we can stop the simulation."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "robot-room-cleaner",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:37.153Z"
+}

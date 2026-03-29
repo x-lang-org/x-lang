@@ -1,0 +1,19 @@
+{
+  "problemId": "17",
+  "titleSlug": "letter-combinations-of-a-phone-number",
+  "title": "Letter Combinations of a Phone Number",
+  "titleCn": "电话号码的字母组合",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.634344057886295,
+  "testcases": [
+    {
+      "input": "\"23\"",
+      "expectedOutput": "\"2\""
+    }
+  ]
+}

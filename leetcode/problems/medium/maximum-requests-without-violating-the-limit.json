@@ -1,0 +1,37 @@
+{
+  "title": "Maximum Requests Without Violating the Limit",
+  "titleCn": "不违反限制的最大请求数",
+  "titleSlug": "maximum-requests-without-violating-the-limit",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7407407407407407,
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "sorting",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "maximum-requests-without-violating-the-limit",
+    "questionId": "4250",
+    "title": "Maximum Requests Without Violating the Limit",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "hash-table",
+      "sorting",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1],[2,1],[1,7],[2,8]]\n1\n4\n[[1,2],[1,5],[1,2],[1,6]]\n2\n5\n[[1,1],[2,5],[1,2],[3,9]]\n1\n1",
+    "hints": [
+      "Use a sliding-window approach.",
+      "For each user, maintain a sorted list (array) of their request times.",
+      "For each user, slide a window over their times; if the count inside any inclusive interval of length <code>window</code> exceeds <code>k</code>, remove the most recent request(s) in that interval until the count <= <code>k</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:14.057Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Maximum Number of Matching Indices After Right Shifts",
+  "titleCn": "右移后的最大匹配索引数",
+  "titleSlug": "maximum-number-of-matching-indices-after-right-shifts",
+  "difficulty": "MEDIUM",
+  "acRate": 0.21134593993325917,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-matching-indices-after-right-shifts",
+    "questionId": "3740",
+    "title": "Maximum Number of Matching Indices After Right Shifts",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,1,2,3,1,2]\n[1,2,3,1,2,3]\n[1,4,2,5,3,1]\n[2,3,1,2,4,6]",
+    "hints": [
+      "Simulate the right shifts and check number of equal elements."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "rotate-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:50:26.775Z"
+}

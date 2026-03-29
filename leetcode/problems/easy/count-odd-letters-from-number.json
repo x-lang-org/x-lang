@@ -1,0 +1,33 @@
+{
+  "title": "Count Odd Letters from Number",
+  "titleCn": "计算数字中的奇数字母数量",
+  "titleSlug": "count-odd-letters-from-number",
+  "difficulty": "EASY",
+  "acRate": 0.8206106870229007,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "count-odd-letters-from-number",
+    "questionId": "3924",
+    "title": "Count Odd Letters from Number",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "41\n20",
+    "hints": [
+      "Simulate as described"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:33:48.338Z"
+}

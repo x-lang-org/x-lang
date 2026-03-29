@@ -1,0 +1,33 @@
+{
+  "title": "Dot Product of Two Sparse Vectors",
+  "titleCn": "两个稀疏向量的点积",
+  "titleSlug": "dot-product-of-two-sparse-vectors",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8713184173935027,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "dot-product-of-two-sparse-vectors",
+    "questionId": "1713",
+    "title": "Dot Product of Two Sparse Vectors",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "two-pointers"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,0,0,2,3]\n[0,3,0,4,0]\n[0,1,0,0,0]\n[0,0,0,0,2]\n[0,1,0,0,2,0,0]\n[1,0,0,0,3,0,4]",
+    "hints": [
+      "Because the vector is sparse, use a data structure that stores the index and value where the element is nonzero."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:28.769Z"
+}

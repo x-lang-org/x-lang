@@ -1,0 +1,45 @@
+{
+  "title": "Count Pairs in Two Arrays",
+  "titleCn": "统计数对",
+  "titleSlug": "count-pairs-in-two-arrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5434173669467787,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "count-pairs-in-two-arrays",
+    "questionId": "2036",
+    "title": "Count Pairs in Two Arrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "binary-search",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,1,2,1]\n[1,2,1,2]\n[1,10,6,2]\n[1,4,1,5]",
+    "hints": [
+      "We can write it as nums1[i] - nums2[i] > nums2[j] - nums1[j] instead of nums1[i] + nums1[j] > nums2[i] + nums2[j].",
+      "Store nums1[idx] - nums2[idx] in a data structure.",
+      "Store nums2[idx] - nums1[idx] in a different data structure.",
+      "For each integer in the first data structure, count the number of the strictly smaller integers in the second data structure with a larger index in the original array."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "max-value-of-equation",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "substrings-that-begin-and-end-with-the-same-letter",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:33:54.482Z"
+}

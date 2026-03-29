@@ -1,0 +1,25 @@
+{
+  "title": "Article Views II",
+  "titleCn": "文章浏览 II",
+  "titleSlug": "article-views-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.44193901485535575,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "article-views-ii",
+    "questionId": "1259",
+    "title": "Article Views II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Views\":[\"article_id\",\"author_id\",\"viewer_id\",\"view_date\"]},\"rows\":{\"Views\":[[1,3,5,\"2019-08-01\"],[3,4,5,\"2019-08-01\"],[1,3,6,\"2019-08-02\"],[2,7,7,\"2019-08-01\"],[2,7,6,\"2019-08-02\"],[4,7,1,\"2019-07-22\"],[3,4,4,\"2019-07-21\"],[3,4,4,\"2019-07-21\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:58.706Z"
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "40",
+  "titleSlug": "combination-sum-ii",
+  "title": "Combination Sum II",
+  "titleCn": "组合总和 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.6007914800624972,
+  "testcases": [
+    {
+      "input": "[10,1,2,7,6,1,5]",
+      "expectedOutput": "8"
+    },
+    {
+      "input": "[2,5,2,1,2]",
+      "expectedOutput": "5"
+    }
+  ]
+}

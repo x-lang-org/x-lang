@@ -1,0 +1,60 @@
+{
+  "title": "Longest Increasing Path in a Matrix",
+  "titleCn": "矩阵中的最长递增路径",
+  "titleSlug": "longest-increasing-path-in-a-matrix",
+  "difficulty": "HARD",
+  "acRate": 0.535623127512611,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "memoization",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "longest-increasing-path-in-a-matrix",
+    "questionId": "329",
+    "title": "Longest Increasing Path in a Matrix",
+    "content": "<p>Given an <code>m x n</code> integers <code>matrix</code>, return <em>the length of the longest increasing path in </em><code>matrix</code>.</p>\n\n<p>From each cell, you can either move in four directions: left, right, up, or down. You <strong>may not</strong> move <strong>diagonally</strong> or move <strong>outside the boundary</strong> (i.e., wrap-around is not allowed).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/05/grid1.jpg\" style=\"width: 242px; height: 242px;\" />\n<pre>\n<strong>Input:</strong> matrix = [[9,9,4],[6,6,8],[2,1,1]]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The longest increasing path is <code>[1, 2, 6, 9]</code>.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/01/27/tmp-grid.jpg\" style=\"width: 253px; height: 253px;\" />\n<pre>\n<strong>Input:</strong> matrix = [[3,4,5],[3,2,6],[2,2,1]]\n<strong>Output:</strong> 4\n<strong>Explanation: </strong>The longest increasing path is <code>[3, 4, 5, 6]</code>. Moving diagonally is not allowed.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> matrix = [[1]]\n<strong>Output:</strong> 1\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == matrix.length</code></li>\n\t<li><code>n == matrix[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 200</code></li>\n\t<li><code>0 &lt;= matrix[i][j] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort",
+      "memoization",
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestIncreasingPath(int[][] matrix) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[[9,9,4],[6,6,8],[2,1,1]]\n[[3,4,5],[3,2,6],[2,2,1]]\n[[1]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-increasing-paths-in-a-grid",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:02.465Z"
+}

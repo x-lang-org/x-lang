@@ -1,0 +1,51 @@
+{
+  "title": "Boolean Evaluation LCCI",
+  "titleCn": "布尔运算",
+  "titleSlug": "boolean-evaluation-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5111313236313236,
+  "topicTags": [
+    "memoization",
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "boolean-evaluation-lcci",
+    "questionId": "1000031",
+    "title": "Boolean Evaluation LCCI",
+    "content": "<p>Given a boolean expression consisting of the symbols <code>0</code> (false), <code>1</code> (true), <code>&amp;</code> (AND), <code>|</code> (OR), and <code>^</code>&nbsp;(XOR), and a desired boolean result value result, implement a function to count the number of ways of parenthesizing the expression such that it evaluates to result.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>s = &quot;1^0|0|1&quot;, result = 0\r\n\r\n<strong>Output: </strong>2\r\n<strong>Explanation:</strong>&nbsp;Two possible parenthesizing ways are:\r\n1^(0|(0|1))\r\n1^((0|0)|1)\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>s = &quot;0&amp;0&amp;0&amp;1^1|0&quot;, result = 1\r\n\r\n<strong>Output: </strong>10</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li>There are no more than&nbsp;19 operators in <code>s</code>.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "memoization",
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int countEval(string s, int result) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int countEval(String s, int result) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countEval(self, s: str, result: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"1\"\n0\n\"0\"\n0",
+    "hints": [
+      "我们能试试所有的可能性吗？这看起来像什么？",
+      "我们可以把每种可能性都看作是每个可以放置括号的地方。这意味着围绕每个操作符，使表达式在运算符上被分割。基线条件是什么？",
+      "基本情况是我们有一个值，1或0。",
+      "如果你的代码看起来很长，有很多的if（基于每个可能的操作符、“目标”布尔结果和左/右侧），考虑不同部分之间的关系。尽量简化代码。它不需要大量复杂的if语句。例如，考虑<LEFT>OR<RIGHT>与<LEFT>AND<RIGHT>的表达式。两者可能都需要知道<LEFT>计算结果为true的数量。看看你可以重用哪些代码。",
+      "着眼于你的递归上。有重复调用吗？可以将结果存起来吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:36.961Z"
+}

@@ -1,0 +1,48 @@
+{
+  "title": "Number of Ways to Build Sturdy Brick Wall",
+  "titleCn": "建造坚实的砖墙的方法数",
+  "titleSlug": "number-of-ways-to-build-sturdy-brick-wall",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5279421433267587,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "number-of-ways-to-build-sturdy-brick-wall",
+    "questionId": "2322",
+    "title": "Number of Ways to Build Sturdy Brick Wall",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "dynamic-programming",
+      "bitmask"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n3\n[1,2]\n1\n1\n[5]",
+    "hints": [
+      "A row of bricks can be represented uniquely by the points where two bricks are joined together.",
+      "For a given row of bricks, how many configurations of bricks could you have put below this row such that the wall is sturdy?",
+      "Use dynamic programming to store the number of possible sturdy walls with a given height and configuration of bricks on the top row."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "brick-wall",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "bricks-falling-when-hit",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-time-to-kill-all-monsters",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:08.818Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Convert Date Format",
+  "titleCn": "转换日期格式",
+  "titleSlug": "convert-date-format",
+  "difficulty": "EASY",
+  "acRate": 0.6583106267029972,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "convert-date-format",
+    "questionId": "2004",
+    "title": "Convert Date Format",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Days\":[\"day\"]},\"rows\":{\"Days\":[[\"2022-04-12\"],[\"2021-08-09\"],[\"2020-06-26\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:39.608Z"
+}

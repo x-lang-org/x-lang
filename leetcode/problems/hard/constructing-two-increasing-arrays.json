@@ -1,0 +1,30 @@
+{
+  "title": "Constructing Two Increasing Arrays",
+  "titleCn": "构建两个递增数组",
+  "titleSlug": "constructing-two-increasing-arrays",
+  "difficulty": "HARD",
+  "acRate": 0.2668711656441718,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "constructing-two-increasing-arrays",
+    "questionId": "3586",
+    "title": "Constructing Two Increasing Arrays",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[]\n[1,0,1,1]\n[0,1,0,1]\n[1,0,0,1]\n[0,1,0,0,1]\n[0,0,0,1]",
+    "hints": [
+      "Think of dynamic programming.",
+      "Define <code>dp[i][j][flag]</code> as the answer to the problem if we only consider the first <code>i</code> elements of the first array, the first <code>j</code> elements of the second array, and flag is either 0 or 1 indicating which array contains the largest element."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:27.017Z"
+}

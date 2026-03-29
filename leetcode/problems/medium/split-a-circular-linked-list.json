@@ -1,0 +1,37 @@
+{
+  "title": "Split a Circular Linked List",
+  "titleCn": "拆分循环链表",
+  "titleSlug": "split-a-circular-linked-list",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4961890243902439,
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "split-a-circular-linked-list",
+    "questionId": "2835",
+    "title": "Split a Circular Linked List",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,5,7]\n[2,6,1,5]",
+    "hints": [
+      "Do a while loop to calculate the size of the linked list.",
+      "Determine the size of the first half and create a new linked list in its size.",
+      "Do not forget that this half itself should be circular!",
+      "Use the previous hints for the second half."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "split-linked-list-in-parts",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:20.583Z"
+}

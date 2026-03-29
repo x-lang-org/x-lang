@@ -1,0 +1,17 @@
+{
+  "problemId": "83",
+  "titleSlug": "remove-duplicates-from-sorted-list",
+  "title": "Remove Duplicates from Sorted List",
+  "titleCn": "删除排序链表中的重复元素",
+  "difficulty": "EASY",
+  "topicTags": [
+    "linked-list"
+  ],
+  "acRate": 0.5478903390649817,
+  "testcases": [
+    {
+      "input": "[1,1,2]",
+      "expectedOutput": "[1,1,2,3,3]"
+    }
+  ]
+}

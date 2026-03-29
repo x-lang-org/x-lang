@@ -1,0 +1,23 @@
+{
+  "problemId": "28",
+  "titleSlug": "find-the-index-of-the-first-occurrence-in-a-string",
+  "title": "Find the Index of the First Occurrence in a String",
+  "titleCn": "找出字符串中第一个匹配项的下标",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.45316779714624866,
+  "testcases": [
+    {
+      "input": "\"sadbutsad\"",
+      "expectedOutput": "\"sad\""
+    },
+    {
+      "input": "\"leetcode\"",
+      "expectedOutput": "\"leeto\""
+    }
+  ]
+}

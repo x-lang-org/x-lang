@@ -1,0 +1,44 @@
+{
+  "title": "Correct a Binary Tree",
+  "titleCn": "纠正二叉树",
+  "titleSlug": "correct-a-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7356481481481482,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "correct-a-binary-tree",
+    "questionId": "1796",
+    "title": "Correct a Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3]\n2\n3\n[8,3,1,7,null,9,4,2,null,null,null,5,6]\n7\n4",
+    "hints": [
+      "If you traverse the tree from right to left, the invalid node will point to a node that has already been visited."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "flatten-binary-tree-to-linked-list",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "flatten-a-multilevel-doubly-linked-list",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:32:48.875Z"
+}

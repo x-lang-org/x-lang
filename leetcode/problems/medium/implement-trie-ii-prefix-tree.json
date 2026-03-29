@@ -1,0 +1,44 @@
+{
+  "title": "Implement Trie II (Prefix Tree)",
+  "titleCn": "实现 Trie （前缀树） II",
+  "titleSlug": "implement-trie-ii-prefix-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5655136268343816,
+  "topicTags": [
+    "design",
+    "trie",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "implement-trie-ii-prefix-tree",
+    "questionId": "1949",
+    "title": "Implement Trie II (Prefix Tree)",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "trie",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Trie\",\"insert\",\"insert\",\"countWordsEqualTo\",\"countWordsStartingWith\",\"erase\",\"countWordsEqualTo\",\"countWordsStartingWith\",\"erase\",\"countWordsStartingWith\"]\n[[],[\"apple\"],[\"apple\"],[\"apple\"],[\"app\"],[\"apple\"],[\"apple\"],[\"app\"],[\"apple\"],[\"app\"]]",
+    "hints": [
+      "Try to solve the first version first and reuse your code.",
+      "To implement the delete function, you should delete the trie nodes of the word if they are not shared with other words.",
+      "You should keep for each trie node a counter of how many words share this node."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "implement-trie-prefix-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "encrypt-and-decrypt-strings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:44:19.195Z"
+}

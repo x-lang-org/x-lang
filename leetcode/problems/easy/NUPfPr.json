@@ -1,0 +1,45 @@
+{
+  "title": "分割等和子集",
+  "titleCn": "分割等和子集",
+  "titleSlug": "NUPfPr",
+  "difficulty": "EASY",
+  "acRate": 0.4853422309929373,
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "NUPfPr",
+    "questionId": "1000287",
+    "title": "分割等和子集",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean canPartition(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def canPartition(self, nums: List[int]) -> bool:"
+      }
+    ],
+    "exampleTestcases": "[1,5,11,5]\n[1,2,3,5]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:24.747Z"
+}

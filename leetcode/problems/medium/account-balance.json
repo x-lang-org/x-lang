@@ -1,0 +1,25 @@
+{
+  "title": "Account Balance",
+  "titleCn": "账户余额",
+  "titleSlug": "account-balance",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7912178956089478,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "account-balance",
+    "questionId": "2208",
+    "title": "Account Balance",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Transactions\":[\"account_id\",\"day\",\"type\",\"amount\"]},\"rows\":{\"Transactions\":[[1,\"2021-11-07\",\"Deposit\",2000],[1,\"2021-11-09\",\"Withdraw\",1000],[1,\"2021-11-11\",\"Deposit\",3000],[2,\"2021-12-07\",\"Deposit\",7000],[2,\"2021-12-12\",\"Withdraw\",7000]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:34.335Z"
+}

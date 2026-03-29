@@ -1,0 +1,45 @@
+{
+  "title": "Check if There is a Path With Equal Number of 0's And 1's",
+  "titleCn": "检查是否有路径经过相同数量的 0 和 1",
+  "titleSlug": "check-if-there-is-a-path-with-equal-number-of-0s-and-1s",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6358658453114305,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "check-if-there-is-a-path-with-equal-number-of-0s-and-1s",
+    "questionId": "2653",
+    "title": "Check if There is a Path With Equal Number of 0's And 1's",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1,0,0],[0,1,0,0],[1,0,1,0]]\n[[1,1,0],[0,0,1],[1,0,0]]",
+    "hints": [
+      "Can you use dynamic programming to solve the problem?",
+      "Let dp[i][j][diff] be true if there is a path from the cell (i, j) to (m - 1, n - 1) such that the difference between the number of 0’s and the number of 1’s that we visited so far is diff, or false otherwise. The answer to the problem will be dp[0][0][0]. How do you compute this dp?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-path-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "dungeon-game",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-cost-homecoming-of-a-robot-in-a-grid",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:29:57.309Z"
+}

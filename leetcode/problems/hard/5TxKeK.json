@@ -1,0 +1,45 @@
+{
+  "title": "数字游戏",
+  "titleCn": "数字游戏",
+  "titleSlug": "5TxKeK",
+  "difficulty": "HARD",
+  "acRate": 0.5876717376427857,
+  "topicTags": [
+    "array",
+    "math",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "5TxKeK",
+    "questionId": "1000131",
+    "title": "数字游戏",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "math",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> numsGame(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] numsGame(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numsGame(self, nums: List[int]) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "[3,4,5,1,6,7]\n[1,2,3,4,5]\n[1,1,1,2,3,4]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:10.432Z"
+}

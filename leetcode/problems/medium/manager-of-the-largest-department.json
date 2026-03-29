@@ -1,0 +1,25 @@
+{
+  "title": "Manager of the Largest Department",
+  "titleCn": "最大部门的经理",
+  "titleSlug": "manager-of-the-largest-department",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7620915032679738,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "manager-of-the-largest-department",
+    "questionId": "3285",
+    "title": "Manager of the Largest Department",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Employees\":[\"emp_id\",\"emp_name\",\"dep_id\",\"position\"]},\"rows\":{\"Employees\":[[156,\"Michael\",107,\"Manager\"],[112,\"Lucas\",107,\"Consultant\"],[8,\"Isabella\",101,\"Manager\"],[160,\"Joseph\",100,\"Manager\"],[80,\"Aiden\",100,\"Engineer\"],[190,\"Skylar\",100,\"Freelancer\"],[196,\"Stella\",101,\"Coordinator\"],[167,\"Audrey\",100,\"Consultant\"],[97,\"Nathan\",101,\"Supervisor\"],[128,\"Ian\",101,\"Administrator\"],[81,\"Ethan\",107,\"Administrator\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:05.160Z"
+}

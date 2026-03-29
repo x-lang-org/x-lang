@@ -1,0 +1,27 @@
+{
+  "problemId": "68",
+  "titleSlug": "text-justification",
+  "title": "Text Justification",
+  "titleCn": "文本左右对齐",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.5719164048627237,
+  "testcases": [
+    {
+      "input": "[\"This\", \"is\", \"an\", \"example\", \"of\", \"text\", \"justification.\"]",
+      "expectedOutput": "16"
+    },
+    {
+      "input": "[\"What\",\"must\",\"be\",\"acknowledgment\",\"shall\",\"be\"]",
+      "expectedOutput": "16"
+    },
+    {
+      "input": "[\"Science\",\"is\",\"what\",\"we\",\"understand\",\"well\",\"enough\",\"to\",\"explain\",\"to\",\"a\",\"computer.\",\"Art\",\"is\",\"everything\",\"else\",\"we\",\"do\"]",
+      "expectedOutput": "20"
+    }
+  ]
+}

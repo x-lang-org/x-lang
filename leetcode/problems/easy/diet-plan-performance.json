@@ -1,0 +1,29 @@
+{
+  "title": "Diet Plan Performance",
+  "titleCn": "健身计划评估",
+  "titleSlug": "diet-plan-performance",
+  "difficulty": "EASY",
+  "acRate": 0.5597753083404567,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "diet-plan-performance",
+    "questionId": "1280",
+    "title": "Diet Plan Performance",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n1\n3\n3\n[3,2]\n2\n0\n1\n[6,5,0,0]\n2\n1\n5",
+    "hints": [
+      "Use sliding window technique (aka two pointers)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:58.187Z"
+}

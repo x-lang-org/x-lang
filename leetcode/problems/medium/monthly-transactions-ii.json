@@ -1,0 +1,30 @@
+{
+  "title": "Monthly Transactions II",
+  "titleCn": "每月交易 II",
+  "titleSlug": "monthly-transactions-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4455270801926683,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "monthly-transactions-ii",
+    "questionId": "1328",
+    "title": "Monthly Transactions II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Transactions\":[\"id\",\"country\",\"state\",\"amount\",\"trans_date\"],\"Chargebacks\":[\"trans_id\",\"trans_date\"]},\"rows\":{\"Transactions\":[[101,\"US\",\"approved\",1000,\"2019-05-18\"],[102,\"US\",\"declined\",2000,\"2019-05-19\"],[103,\"US\",\"approved\",3000,\"2019-06-10\"],[104,\"US\",\"declined\",4000,\"2019-06-13\"],[105,\"US\",\"approved\",5000,\"2019-06-15\"]],\"Chargebacks\":[[102,\"2019-05-29\"],[101,\"2019-06-30\"],[105,\"2019-09-18\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "monthly-transactions-i",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:55.961Z"
+}

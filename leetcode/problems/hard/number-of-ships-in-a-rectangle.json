@@ -1,0 +1,33 @@
+{
+  "title": "Number of Ships in a Rectangle",
+  "titleCn": "矩形内船只的数目",
+  "titleSlug": "number-of-ships-in-a-rectangle",
+  "difficulty": "HARD",
+  "acRate": 0.6588953649736331,
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "number-of-ships-in-a-rectangle",
+    "questionId": "1233",
+    "title": "Number of Ships in a Rectangle",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "divide-and-conquer",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1],[2,2],[3,3],[5,5]]\n[4,4]\n[0,0]\n[[1,1],[2,2],[3,3]]\n[1000,1000]\n[0,0]",
+    "hints": [
+      "Use divide and conquer technique.",
+      "Divide the query rectangle into 4 rectangles.",
+      "Use recursion to continue with the rectangles that has ships only."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:35.282Z"
+}

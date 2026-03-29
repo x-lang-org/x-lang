@@ -1,0 +1,32 @@
+{
+  "title": "Find the Shortest Superstring II",
+  "titleCn": "最短超级串 II",
+  "titleSlug": "find-the-shortest-superstring-ii",
+  "difficulty": "EASY",
+  "acRate": 0.574468085106383,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "find-the-shortest-superstring-ii",
+    "questionId": "3911",
+    "title": "Find the Shortest Superstring II",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aba\"\n\"bab\"\n\"aa\"\n\"aaa\"",
+    "hints": [
+      "Check for the maximum suffix of one string that matches a prefix of the other (in both directions) and merge accordingly."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-the-shortest-superstring",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:39.482Z"
+}

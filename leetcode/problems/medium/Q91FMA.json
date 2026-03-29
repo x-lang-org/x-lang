@@ -1,0 +1,45 @@
+{
+  "title": "最长的斐波那契子序列的长度",
+  "titleCn": "最长的斐波那契子序列的长度",
+  "titleSlug": "Q91FMA",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5661376773515502,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "Q91FMA",
+    "questionId": "1000271",
+    "title": "最长的斐波那契子序列的长度",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int lenLongestFibSubseq(vector<int>& arr) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int lenLongestFibSubseq(int[] arr) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def lenLongestFibSubseq(self, arr: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5,6,7,8]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:35.078Z"
+}

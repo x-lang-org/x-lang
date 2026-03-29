@@ -1,0 +1,25 @@
+{
+  "title": "The Change in Global Rankings",
+  "titleCn": "世界排名的变化",
+  "titleSlug": "the-change-in-global-rankings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5398105220721628,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-change-in-global-rankings",
+    "questionId": "2315",
+    "title": "The Change in Global Rankings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"TeamPoints\": [\"team_id\", \"name\", \"points\"], \"PointsChange\": [\"team_id\", \"points_change\"]}, \"rows\": {\"TeamPoints\": [[3, \"Algeria\", 1431], [1, \"Senegal\", 2132], [2, \"New Zealand\", 1402], [4, \"Croatia\", 1817]], \"PointsChange\": [[3, 399], [2, 0], [4, 13], [1, -22]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:22.952Z"
+}

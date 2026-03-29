@@ -1,0 +1,50 @@
+{
+  "title": "First Element with Unique Frequency",
+  "titleCn": "频率唯一的第一个元素",
+  "titleSlug": "first-element-with-unique-frequency",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5556483027267668,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "first-element-with-unique-frequency",
+    "questionId": "4217",
+    "title": "First Element with Unique Frequency",
+    "content": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Return an integer denoting the <strong>first</strong> element (scanning from left to right) in <code>nums</code> whose <strong>frequency</strong> is <strong>unique</strong>. That is, no other integer appears the same number of times in <code>nums</code>. If there is no such element, return -1.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [20,10,30,30]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">30</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>20 appears once.</li>\n\t<li>10 appears once.</li>\n\t<li>30 appears twice.</li>\n\t<li>The frequency of 30 is unique because no other integer appears exactly twice.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [20,20,10,30,30,30]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">20</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>20 appears twice.</li>\n\t<li>10 appears once.</li>\n\t<li>30 appears 3 times.</li>\n\t<li>The frequency of 20, 10, and 30 are unique. The first element that has unique frequency is 20.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [10,10,20,20]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">-1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>10 appears twice.</li>\n\t<li>20 appears twice.</li>\n\t<li>No element has a unique frequency.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int firstUniqueFreq(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int firstUniqueFreq(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def firstUniqueFreq(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[20,10,30,30]\n[20,20,10,30,30,30]\n[10,10,20,20]",
+    "hints": [
+      "Use two hash maps: one <code>freq</code> and one <code>freqCount</code>",
+      "First pass: for each <code>x</code> in <code>nums</code> do <code>freq[x] += 1</code>",
+      "Build counts of frequencies: for each <code>f</code> in values of <code>freq</code> do <code>freqCount[f] += 1</code>",
+      "Scan <code>nums</code> from left to right and return the first <code>x</code> with <code>freqCount[freq[x]] == 1</code>; return <code>-1</code> if none"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:17.573Z"
+}

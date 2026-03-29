@@ -1,0 +1,39 @@
+{
+  "title": "Sum of Remoteness of All Cells",
+  "titleCn": "所有单元格的远离程度之和",
+  "titleSlug": "sum-of-remoteness-of-all-cells",
+  "difficulty": "MEDIUM",
+  "acRate": 0.29234012649332397,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-remoteness-of-all-cells",
+    "questionId": "3148",
+    "title": "Sum of Remoteness of All Cells",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "hash-table",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[-1,1,-1],[5,-1,4],[-1,3,-1]]\n[[-1,3,4],[-1,-1,-1],[3,-1,-1]]\n[[1]]",
+    "hints": [
+      "We consider each cell of <code>grid</code> a node on a graph, and there is an edge between two nodes if one of them doesn't contain <code>-1</code> and they share an edge on the grid.",
+      "We find the connected components of said graph.",
+      "The nodes of each connected component have the same value for <code>R</code> and it's the sum of the values of all nodes in other connected components."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:51.875Z"
+}

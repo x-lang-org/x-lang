@@ -1,0 +1,47 @@
+{
+  "title": "重排链表",
+  "titleCn": "重排链表",
+  "titleSlug": "LGjMqU",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6483812583885793,
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "LGjMqU",
+    "questionId": "1000262",
+    "title": "重排链表",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "recursion",
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    void reorderList(ListNode* head) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public void reorderList(ListNode head) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reorderList(self, head: ListNode) -> None:\n        \"\"\"\n        Do not return anything, modify head in-place instead.\n        \"\"\""
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4]\n[1,2,3,4,5]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:27.970Z"
+}

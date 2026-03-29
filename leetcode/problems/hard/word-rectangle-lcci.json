@@ -1,0 +1,51 @@
+{
+  "title": "Word Rectangle LCCI",
+  "titleCn": "单词矩阵",
+  "titleSlug": "word-rectangle-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.5074217857958438,
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "word-rectangle-lcci",
+    "questionId": "1000049",
+    "title": "Word Rectangle LCCI",
+    "content": "<p>Given a list of millions of words, design an algorithm to create the largest possible rectangle of letters such that every row forms a word (reading left to right) and every column forms a word (reading top to bottom). The words need not be chosen consecutively from the list but all rows must be the same length and all columns must be the same height.</p>\r\n\r\n<p>If there are more than one answer, return any one of them. A word can be used more than once.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>[&quot;this&quot;, &quot;real&quot;, &quot;hard&quot;, &quot;trh&quot;, &quot;hea&quot;, &quot;iar&quot;, &quot;sld&quot;]</code>\r\n<strong>Output:\r\n</strong><code>[\r\n&nbsp;  &quot;this&quot;,\r\n&nbsp;  &quot;real&quot;,\r\n&nbsp;  &quot;hard&quot;</code>\r\n]</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>[&quot;aa&quot;]</code>\r\n<strong>Output: </strong>[&quot;aa&quot;,&quot;aa&quot;]</pre>\r\n\r\n<p><strong>Notes: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>words.length &lt;= 1000</code></li>\r\n\t<li><code>words[i].length &lt;= 100</code></li>\r\n\t<li>It&#39;s guaranteed that&nbsp;all the words are randomly generated.</li>\r\n</ul>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "trie",
+      "array",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> maxRectangle(vector<string>& words) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String[] maxRectangle(String[] words) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxRectangle(self, words: List[str]) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"this\", \"real\", \"hard\", \"trh\", \"hea\", \"iar\", \"sld\"]\n[\"aa\"]",
+    "hints": [
+      "首先根据单词长度对字典进行分组，因为你知道每一列的长度必须相同，每一行的长度也必须相同。",
+      "你能找到一个特定长宽的单词矩阵吗？如果尝试了所有的选项会怎样？",
+      "当矩形看起来无效时，可以使用trie提前终止吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:58.094Z"
+}

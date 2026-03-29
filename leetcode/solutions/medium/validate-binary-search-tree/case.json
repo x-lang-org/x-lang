@@ -1,0 +1,20 @@
+{
+  "problemId": "98",
+  "titleSlug": "validate-binary-search-tree",
+  "title": "Validate Binary Search Tree",
+  "titleCn": "验证二叉搜索树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.4077528028483125,
+  "testcases": [
+    {
+      "input": "[2,1,3]",
+      "expectedOutput": "[5,1,4,null,null,3,6]"
+    }
+  ]
+}

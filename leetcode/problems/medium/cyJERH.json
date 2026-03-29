@@ -1,0 +1,43 @@
+{
+  "title": "将字符串翻转到单调递增",
+  "titleCn": "将字符串翻转到单调递增",
+  "titleSlug": "cyJERH",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6822573452905911,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "cyJERH",
+    "questionId": "1000269",
+    "title": "将字符串翻转到单调递增",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minFlipsMonoIncr(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minFlipsMonoIncr(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minFlipsMonoIncr(self, s: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"00110\"\n\"010110\"\n\"00011000\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:33.462Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Minimize Product Sum of Two Arrays",
+  "titleCn": "两个数组的最小乘积和",
+  "titleSlug": "minimize-product-sum-of-two-arrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.827447474295932,
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "minimize-product-sum-of-two-arrays",
+    "questionId": "2029",
+    "title": "Minimize Product Sum of Two Arrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,3,4,2]\n[4,2,2,5]\n[2,1,4,5,7]\n[3,2,4,8,6]",
+    "hints": [
+      "Is there a particular way we should order the arrays such that the product sum is minimized?",
+      "Would you want to multiply two numbers that are closer to one another or further?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "choose-numbers-from-two-arrays-in-range",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:52:51.944Z"
+}

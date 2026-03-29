@@ -1,0 +1,41 @@
+{
+  "title": "路径加密",
+  "titleCn": "路径加密",
+  "titleSlug": "ti-huan-kong-ge-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7492019870841499,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "ti-huan-kong-ge-lcof",
+    "questionId": "100280",
+    "title": "路径加密",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string pathEncryption(string path) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String pathEncryption(String path) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def pathEncryption(self, path: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"a.aef.qerf.bb\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:52.236Z"
+}

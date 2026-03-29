@@ -1,0 +1,43 @@
+{
+  "title": "宝石补给",
+  "titleCn": "宝石补给",
+  "titleSlug": "WHnhjV",
+  "difficulty": "EASY",
+  "acRate": 0.7524850894632207,
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "WHnhjV",
+    "questionId": "1000433",
+    "title": "宝石补给",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int giveGem(vector<int>& gem, vector<vector<int>>& operations) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int giveGem(int[] gem, int[][] operations) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def giveGem(self, gem: List[int], operations: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[3,1,2]\n[[0,2],[2,1],[2,0]]\n[100,0,50,100]\n[[0,2],[0,1],[3,0],[3,0]]\n[0,0,0,0]\n[[1,2],[3,1],[1,2]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:46.716Z"
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Deep Dark Fraction",
+  "titleCn": "分式化简",
+  "titleSlug": "deep-dark-fraction",
+  "difficulty": "EASY",
+  "acRate": 0.7026528885665941,
+  "topicTags": [
+    "array",
+    "math",
+    "number-theory",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "deep-dark-fraction",
+    "questionId": "100092",
+    "title": "Deep Dark Fraction",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.<br />\r\n&nbsp;</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math",
+      "number-theory",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> fraction(vector<int>& cont) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] fraction(int[] cont) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def fraction(self, cont: List[int]) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "[3, 2, 0, 2]\n[0, 0, 3]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:50.391Z"
+}

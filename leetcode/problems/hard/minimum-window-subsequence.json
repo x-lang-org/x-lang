@@ -1,0 +1,40 @@
+{
+  "title": "Minimum Window Subsequence",
+  "titleCn": "最小窗口子序列",
+  "titleSlug": "minimum-window-subsequence",
+  "difficulty": "HARD",
+  "acRate": 0.4343772412144394,
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "minimum-window-subsequence",
+    "questionId": "727",
+    "title": "Minimum Window Subsequence",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "dynamic-programming",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcdebdde\"\n\"bde\"\n\"jmeqksfrsdcmsiwvaovztaqenprpvnbstl\"\n\"u\"",
+    "hints": [
+      "Let dp[j][e] = s be the largest index for which S[s:e+1] has T[:j] as a substring."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-window-substring",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "longest-continuous-increasing-subsequence",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:43.669Z"
+}

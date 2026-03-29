@@ -1,0 +1,47 @@
+{
+  "title": "游乐园的迷宫",
+  "titleCn": "游乐园的迷宫",
+  "titleSlug": "you-le-yuan-de-mi-gong",
+  "difficulty": "HARD",
+  "acRate": 0.6184530003468609,
+  "topicTags": [
+    "greedy",
+    "geometry",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "you-le-yuan-de-mi-gong",
+    "questionId": "1000088",
+    "title": "游乐园的迷宫",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "geometry",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> visitOrder(vector<vector<int>>& points, string direction) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] visitOrder(int[][] points, String direction) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def visitOrder(self, points: List[List[int]], direction: str) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,1],[1,4],[3,2],[2,1]]\n\"LL\"\n[[1,3],[2,4],[3,3],[2,1]]\n\"LR\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:19.878Z"
+}

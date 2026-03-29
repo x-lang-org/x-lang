@@ -1,0 +1,25 @@
+{
+  "title": "Build the Equation",
+  "titleCn": "建立方程",
+  "titleSlug": "build-the-equation",
+  "difficulty": "HARD",
+  "acRate": 0.5691924581999288,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "build-the-equation",
+    "questionId": "2253",
+    "title": "Build the Equation",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Terms\":[\"power\",\"factor\"]},\"rows\":{\"Terms\":[[2,1],[1,-4],[0,2]]}}\n{\"headers\":{\"Terms\":[\"power\",\"factor\"]},\"rows\":{\"Terms\":[[4,-4],[2,1],[1,-1]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:27:07.734Z"
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Shortest Word Distance II",
+  "titleCn": "最短单词距离 II",
+  "titleSlug": "shortest-word-distance-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.596828286699885,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "shortest-word-distance-ii",
+    "questionId": "244",
+    "title": "Shortest Word Distance II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"WordDistance\",\"shortest\",\"shortest\"]\n[[[\"practice\",\"makes\",\"perfect\",\"coding\",\"makes\"]],[\"coding\",\"practice\"],[\"makes\",\"coding\"]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "merge-two-sorted-lists",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "shortest-word-distance",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "shortest-word-distance-iii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:00.425Z"
+}

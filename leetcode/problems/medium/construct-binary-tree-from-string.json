@@ -1,0 +1,38 @@
+{
+  "title": "Construct Binary Tree from String",
+  "titleCn": "从字符串生成二叉树",
+  "titleSlug": "construct-binary-tree-from-string",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5663036515054453,
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search",
+    "string",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "construct-binary-tree-from-string",
+    "questionId": "536",
+    "title": "Construct Binary Tree from String",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "tree",
+      "depth-first-search",
+      "string",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"4(2(3)(1))(6(5))\"\n\"4(2(3)(1))(6(5)(7))\"\n\"-4(2(3)(1))(6(5)(7))\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "construct-string-from-binary-tree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:32:15.131Z"
+}

@@ -1,0 +1,47 @@
+{
+  "title": "单词替换",
+  "titleCn": "单词替换",
+  "titleSlug": "UhWRSj",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7169863468022774,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "UhWRSj",
+    "questionId": "1000327",
+    "title": "单词替换",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string replaceWords(vector<string>& dictionary, string sentence) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String replaceWords(List<String> dictionary, String sentence) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def replaceWords(self, dictionary: List[str], sentence: str) -> str:"
+      }
+    ],
+    "exampleTestcases": "[\"cat\",\"bat\",\"rat\"]\n\"the cattle was rattled by the battery\"\n[\"a\",\"b\",\"c\"]\n\"aadsfasf absbs bbab cadsfafs\"\n[\"a\", \"aa\", \"aaa\", \"aaaa\"]\n\"a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa\"\n[\"catt\",\"cat\",\"bat\",\"rat\"]\n\"the cattle was rattled by the battery\"\n[\"ac\",\"ab\"]\n\"it is abnormal that this solution is accepted\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:40.907Z"
+}

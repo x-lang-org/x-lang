@@ -1,0 +1,36 @@
+{
+  "title": "Is Array a Preorder of Some ‌Binary Tree",
+  "titleCn": "数组是否表示某二叉树的前序遍历",
+  "titleSlug": "is-array-a-preorder-of-some-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.32846320346320346,
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "is-array-a-preorder-of-some-binary-tree",
+    "questionId": "2918",
+    "title": "Is Array a Preorder of Some ‌Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,-1],[1,0],[2,0],[3,2],[4,2]]\n[[0,-1],[1,0],[2,0],[3,1],[4,1]]",
+    "hints": [
+      "Think of using the stack data structure.",
+      "Put the first node in the stack.",
+      "Iterate over the array and check if the node at the top of the stack is its parent; if it’s not, then pop the last element of the stack and check until you reach the parent of the current node in the array.",
+      "If the stack gets empty at any point, then the array is not the preorder."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:47.197Z"
+}

@@ -1,0 +1,39 @@
+{
+  "title": "Digit Count in Range",
+  "titleCn": "范围内的数字计数",
+  "titleSlug": "digit-count-in-range",
+  "difficulty": "HARD",
+  "acRate": 0.4903863761215895,
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "digit-count-in-range",
+    "questionId": "1068",
+    "title": "Digit Count in Range",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n1\n13\n3\n100\n250",
+    "hints": [
+      "Define a function f(x) to get the requested sum from 1 to x. So the answer will be f(hi) - f(lo - 1)",
+      "In order to solve f(x) we need to do a DP over digits approach."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-digit-one",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "sum-of-numbers-with-units-digit-k",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:02.731Z"
+}

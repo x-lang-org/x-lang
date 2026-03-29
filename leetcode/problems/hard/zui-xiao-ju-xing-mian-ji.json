@@ -1,0 +1,51 @@
+{
+  "title": "最小矩形面积",
+  "titleCn": "最小矩形面积",
+  "titleSlug": "zui-xiao-ju-xing-mian-ji",
+  "difficulty": "HARD",
+  "acRate": 0.24618149146451032,
+  "topicTags": [
+    "greedy",
+    "geometry",
+    "array",
+    "math",
+    "combinatorics",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "zui-xiao-ju-xing-mian-ji",
+    "questionId": "1000091",
+    "title": "最小矩形面积",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "geometry",
+      "array",
+      "math",
+      "combinatorics",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    double minRecSize(vector<vector<int>>& lines) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double minRecSize(int[][] lines) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minRecSize(self, lines: List[List[int]]) -> float:"
+      }
+    ],
+    "exampleTestcases": "[[2,3],[3,0],[4,1]]\n[[1,1],[2,3]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:33.001Z"
+}

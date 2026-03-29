@@ -1,0 +1,49 @@
+{
+  "title": "最大矩形",
+  "titleCn": "最大矩形",
+  "titleSlug": "PLYXKQ",
+  "difficulty": "HARD",
+  "acRate": 0.5914440405683637,
+  "topicTags": [
+    "stack",
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "PLYXKQ",
+    "questionId": "1000284",
+    "title": "最大矩形",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "array",
+      "dynamic-programming",
+      "matrix",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maximalRectangle(vector<string>& matrix) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maximalRectangle(String[] matrix) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maximalRectangle(self, matrix: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"10100\",\"10111\",\"11111\",\"10010\"]\n[]\n[\"0\"]\n[\"1\"]\n[\"00\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:48.465Z"
+}

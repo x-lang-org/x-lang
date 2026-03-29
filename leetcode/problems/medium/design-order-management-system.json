@@ -1,0 +1,31 @@
+{
+  "title": "Design Order Management System",
+  "titleCn": "设计订单管理系统",
+  "titleSlug": "design-order-management-system",
+  "difficulty": "MEDIUM",
+  "acRate": 0.9315068493150684,
+  "topicTags": [
+    "design",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "design-order-management-system",
+    "questionId": "4201",
+    "title": "Design Order Management System",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"OrderManagementSystem\",\"addOrder\",\"addOrder\",\"addOrder\",\"getOrdersAtPrice\",\"modifyOrder\",\"modifyOrder\",\"getOrdersAtPrice\",\"cancelOrder\",\"cancelOrder\",\"getOrdersAtPrice\"]\n[[],[1,\"buy\",1],[2,\"buy\",1],[3,\"sell\",2],[\"buy\",1],[1,3],[2,1],[\"buy\",1],[3],[2],[\"buy\",1]]",
+    "hints": [
+      "Keep track of orders by their <code>orderId</code> so you can quickly modify or cancel them.",
+      "Group active orders by <code>(orderType, price)</code> to efficiently answer queries.",
+      "When an order is modified or canceled, make sure all related data structures stay in sync."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:31.109Z"
+}

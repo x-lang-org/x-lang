@@ -1,0 +1,19 @@
+{
+  "problemId": "14",
+  "titleSlug": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "titleCn": "最长公共前缀",
+  "difficulty": "EASY",
+  "topicTags": [
+    "trie",
+    "array",
+    "string"
+  ],
+  "acRate": 0.45136620433545754,
+  "testcases": [
+    {
+      "input": "[\"flower\",\"flow\",\"flight\"]",
+      "expectedOutput": "[\"dog\",\"racecar\",\"car\"]"
+    }
+  ]
+}

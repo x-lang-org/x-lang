@@ -1,0 +1,45 @@
+{
+  "title": "连续数组",
+  "titleCn": "连续数组",
+  "titleSlug": "A1NYOS",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5450397361734335,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "A1NYOS",
+    "questionId": "1000247",
+    "title": "连续数组",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findMaxLength(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findMaxLength(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findMaxLength(self, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[0,1]\n[0,1,0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:27.639Z"
+}

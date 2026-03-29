@@ -1,0 +1,41 @@
+{
+  "title": "有效数字",
+  "titleCn": "有效数字",
+  "titleSlug": "biao-shi-shu-zhi-de-zi-fu-chuan-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.24833664708884673,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "biao-shi-shu-zhi-de-zi-fu-chuan-lcof",
+    "questionId": "100290",
+    "title": "有效数字",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool validNumber(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean validNumber(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def validNumber(self, s: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"0\"\n\"e\"\n\".\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:25:21.322Z"
+}

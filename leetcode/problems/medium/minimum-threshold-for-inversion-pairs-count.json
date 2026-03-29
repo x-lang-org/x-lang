@@ -1,0 +1,34 @@
+{
+  "title": "Minimum Threshold for Inversion Pairs Count",
+  "titleCn": "逆序对计数的最小阈值",
+  "titleSlug": "minimum-threshold-for-inversion-pairs-count",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6653620352250489,
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "minimum-threshold-for-inversion-pairs-count",
+    "questionId": "3861",
+    "title": "Minimum Threshold for Inversion Pairs Count",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "binary-indexed-tree",
+      "segment-tree",
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,3,2,1]\n7\n[10,9,9,9,1]\n4",
+    "hints": [
+      "Perform a binary search to find the minimum threshold",
+      "Use a segment tree with value compression to count inversion pairs efficiently during the binary search"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:20.013Z"
+}

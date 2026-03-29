@@ -1,0 +1,36 @@
+{
+  "title": "Encode String with Shortest Length",
+  "titleCn": "编码最短长度的字符串",
+  "titleSlug": "encode-string-with-shortest-length",
+  "difficulty": "HARD",
+  "acRate": 0.5951506245407788,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "encode-string-with-shortest-length",
+    "questionId": "471",
+    "title": "Encode String with Shortest Length",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aaa\"\n\"aaaaa\"\n\"aaaaaaaaaa\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "decode-string",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-atoms",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:57.522Z"
+}

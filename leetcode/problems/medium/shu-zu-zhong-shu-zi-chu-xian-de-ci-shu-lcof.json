@@ -1,0 +1,43 @@
+{
+  "title": "撞色搭配",
+  "titleCn": "撞色搭配",
+  "titleSlug": "shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6889941881939204,
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof",
+    "questionId": "100320",
+    "title": "撞色搭配",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> sockCollocation(vector<int>& sockets) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] sockCollocation(int[] sockets) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sockCollocation(self, sockets: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,5,2,4,6,6]\n[1,2,4,1,4,3,12,3]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:05.417Z"
+}

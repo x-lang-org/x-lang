@@ -1,0 +1,52 @@
+{
+  "title": "Longest Arithmetic Subsequence",
+  "titleCn": "最长等差数列",
+  "titleSlug": "longest-arithmetic-subsequence",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5127848849280501,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "longest-arithmetic-subsequence",
+    "questionId": "1087",
+    "title": "Longest Arithmetic Subsequence",
+    "content": "<p>Given an array <code>nums</code> of integers, return <em>the length of the longest arithmetic subsequence in</em> <code>nums</code>.</p>\n\n<p><strong>Note</strong> that:</p>\n\n<ul>\n\t<li>A <strong>subsequence</strong> is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.</li>\n\t<li>A sequence <code>seq</code> is arithmetic if <code>seq[i + 1] - seq[i]</code> are all the same value (for <code>0 &lt;= i &lt; seq.length - 1</code>).</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [3,6,9,12]\n<strong>Output:</strong> 4\n<strong>Explanation: </strong> The whole array is an arithmetic sequence with steps of length = 3.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [9,4,7,2,10]\n<strong>Output:</strong> 3\n<strong>Explanation: </strong> The longest arithmetic subsequence is [4,7,10].\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [20,1,15,3,10,5,8]\n<strong>Output:</strong> 4\n<strong>Explanation: </strong> The longest arithmetic subsequence is [20,15,10,5].\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 1000</code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 500</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "binary-search",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestArithSeqLength(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestArithSeqLength(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestArithSeqLength(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,6,9,12]\n[9,4,7,2,10]\n[20,1,15,3,10,5,8]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "destroy-sequential-targets",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:46.697Z"
+}

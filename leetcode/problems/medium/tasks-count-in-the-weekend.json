@@ -1,0 +1,25 @@
+{
+  "title": "Tasks Count in the Weekend",
+  "titleCn": "周末任务计数",
+  "titleSlug": "tasks-count-in-the-weekend",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7758572623362141,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "tasks-count-in-the-weekend",
+    "questionId": "2440",
+    "title": "Tasks Count in the Weekend",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Tasks\": [\"task_id\", \"assignee_id\", \"submit_date\"]}, \"rows\": {\"Tasks\": [[1, 1, \"2022-06-13\"], [2, 6, \"2022-06-14\"], [3, 6, \"2022-06-15\"], [4, 3, \"2022-06-18\"], [5, 5, \"2022-06-19\"], [6, 7, \"2022-06-19\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:17.318Z"
+}

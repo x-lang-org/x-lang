@@ -1,0 +1,29 @@
+{
+  "problemId": "79",
+  "titleSlug": "word-search",
+  "title": "Word Search",
+  "titleCn": "单词搜索",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "array",
+    "string",
+    "backtracking",
+    "matrix"
+  ],
+  "acRate": 0.5078294379859449,
+  "testcases": [
+    {
+      "input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]",
+      "expectedOutput": "\"ABCCED\""
+    },
+    {
+      "input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]",
+      "expectedOutput": "\"SEE\""
+    },
+    {
+      "input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]",
+      "expectedOutput": "\"ABCB\""
+    }
+  ]
+}

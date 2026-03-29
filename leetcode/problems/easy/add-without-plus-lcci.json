@@ -1,0 +1,53 @@
+{
+  "title": "Add Without Plus LCCI",
+  "titleCn": "不用加号的加法",
+  "titleSlug": "add-without-plus-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.6461178225823162,
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "add-without-plus-lcci",
+    "questionId": "1000025",
+    "title": "Add Without Plus LCCI",
+    "content": "<p>Write a function that adds two numbers. You should not use + or any arithmetic operators.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> a = 1, b = 1\r\n<strong>Output:</strong> 2</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>a</code>&nbsp;and&nbsp;<code>b</code>&nbsp;may be 0 or negative.</li>\r\n\t<li>The result fits in 32-bit integer.</li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int add(int a, int b) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int add(int a, int b) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def add(self, a: int, b: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "1\n2",
+    "hints": [
+      "手动（慢慢地）完成二进制加法，尝试真正理解发生了什么。",
+      "你可以把二进制加法看成是对数字的每一位进行迭代、两位进行加和，并在必要时进位。你也可以对操作进行分组。如果首先对每位相加（不进位）会怎样？之后，你可以再处理进位。",
+      "只关注上面的一个步骤。如果你“忘记”进位，那么加法操作会是什么样子?",
+      "仅相加步骤就可以做如下转化：1 + 1 -> 0，1 + 0 -> 1，0 + 1 -> 1，0 + 0 -> 0。没有+号要怎么做?",
+      "可以使用XOR执行加法步骤。",
+      "现在关注进位。在什么情况下两个值会进位？如何使用进位？",
+      "进位在1 + 1时发生。如何将进位应用到数值中？",
+      "可以用AND运算来计算进位。如何使用它？",
+      "你可能需要不止一次地执行加法/进位操作。将进位加到和中可能会产生新的进位值"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:22:07.663Z"
+}

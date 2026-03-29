@@ -1,0 +1,21 @@
+{
+  "title": "Election Results",
+  "titleCn": "选举结果",
+  "titleSlug": "election-results",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6017964071856288,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "election-results",
+    "questionId": "3078",
+    "title": "Election Results",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Votes\":[\"voter\",\"candidate\"]},\"rows\":{\"Votes\":[[\"Kathy\",null],[\"Charles\",\"Ryan\"],[\"Charles\",\"Christine\"],[\"Charles\",\"Kathy\"],[\"Benjamin\",\"Christine\"],[\"Anthony\",\"Ryan\"],[\"Edward\",\"Ryan\"],[\"Terry\",null],[\"Evelyn\",\"Kathy\"],[\"Arthur\",\"Christine\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:45.307Z"
+}

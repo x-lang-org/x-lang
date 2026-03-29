@@ -1,0 +1,25 @@
+{
+  "title": "Order Two Columns Independently",
+  "titleCn": "分别排序两列",
+  "titleSlug": "order-two-columns-independently",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6191263282172373,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "order-two-columns-independently",
+    "questionId": "2302",
+    "title": "Order Two Columns Independently",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Data\":[\"first_col\",\"second_col\"]},\"rows\":{\"Data\":[[4,2],[2,3],[3,1],[1,4]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:41.606Z"
+}

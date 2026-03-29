@@ -1,0 +1,51 @@
+{
+  "title": "除法求值",
+  "titleCn": "除法求值",
+  "titleSlug": "vlzXQL",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6471823958825692,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph",
+    "array",
+    "shortest-path"
+  ],
+  "detail": {
+    "titleSlug": "vlzXQL",
+    "questionId": "1000305",
+    "title": "除法求值",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "graph",
+      "array",
+      "shortest-path"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:"
+      }
+    ],
+    "exampleTestcases": "[[\"a\",\"b\"],[\"b\",\"c\"]]\n[2.0,3.0]\n[[\"a\",\"c\"],[\"b\",\"a\"],[\"a\",\"e\"],[\"a\",\"a\"],[\"x\",\"x\"]]\n[[\"a\",\"b\"],[\"b\",\"c\"],[\"bc\",\"cd\"]]\n[1.5,2.5,5.0]\n[[\"a\",\"c\"],[\"c\",\"b\"],[\"bc\",\"cd\"],[\"cd\",\"bc\"]]\n[[\"a\",\"b\"]]\n[0.5]\n[[\"a\",\"b\"],[\"b\",\"a\"],[\"a\",\"c\"],[\"x\",\"y\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:26.268Z"
+}

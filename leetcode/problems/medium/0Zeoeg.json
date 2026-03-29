@@ -1,0 +1,37 @@
+{
+  "title": "探险营地",
+  "titleCn": "探险营地",
+  "titleSlug": "0Zeoeg",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4733783944029408,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "0Zeoeg",
+    "questionId": "1000561",
+    "title": "探险营地",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int adventureCamp(vector<string>& expeditions) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int adventureCamp(String[] expeditions) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def adventureCamp(self, expeditions: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"leet->code\",\"leet->code->Campsite->Leet\",\"leet->code->leet->courier\"]\n[\"Alice->Dex\",\"\",\"Dex\"]\n[\"\",\"Gryffindor->Slytherin->Gryffindor\",\"Hogwarts->Hufflepuff->Ravenclaw\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:30.052Z"
+}

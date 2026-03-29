@@ -1,0 +1,33 @@
+{
+  "title": "Number Of Corner Rectangles",
+  "titleCn": "角矩形的数量",
+  "titleSlug": "number-of-corner-rectangles",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7199711867459031,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "number-of-corner-rectangles",
+    "questionId": "751",
+    "title": "Number Of Corner Rectangles",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,0,0,1,0],[0,0,1,0,1],[0,0,0,1,0],[1,0,1,0,1]]\n[[1,1,1],[1,1,1],[1,1,1]]\n[[1,1,1,1]]",
+    "hints": [
+      "For each pair of 1s in the new row (say at `new_row[i]` and `new_row[j]`), we could create more rectangles where that pair forms the base.  The number of new rectangles is the number of times some previous row had `row[i] = row[j] = 1`."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:59.869Z"
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "30",
+  "titleSlug": "substring-with-concatenation-of-all-words",
+  "title": "Substring with Concatenation of All Words",
+  "titleCn": "串联所有单词的子串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.3819549962112477,
+  "testcases": [
+    {
+      "input": "\"barfoothefoobarman\"",
+      "expectedOutput": "[\"foo\",\"bar\"]"
+    },
+    {
+      "input": "\"wordgoodgoodgoodbestword\"",
+      "expectedOutput": "[\"word\",\"good\",\"best\",\"word\"]"
+    },
+    {
+      "input": "\"barfoofoobarthefoobarman\"",
+      "expectedOutput": "[\"bar\",\"foo\",\"the\"]"
+    }
+  ]
+}

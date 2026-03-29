@@ -1,0 +1,36 @@
+{
+  "title": "Word Squares",
+  "titleCn": "单词方块",
+  "titleSlug": "word-squares",
+  "difficulty": "HARD",
+  "acRate": 0.6463750985027581,
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "word-squares",
+    "questionId": "425",
+    "title": "Word Squares",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "trie",
+      "array",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"area\",\"lead\",\"wall\",\"lady\",\"ball\"]\n[\"abat\",\"baba\",\"atan\",\"atal\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "valid-word-square",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:11:00.689Z"
+}

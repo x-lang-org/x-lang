@@ -1,0 +1,45 @@
+{
+  "title": "不同路径",
+  "titleCn": "不同路径",
+  "titleSlug": "2AoeFn",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7505427408412483,
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "detail": {
+    "titleSlug": "2AoeFn",
+    "questionId": "1000345",
+    "title": "不同路径",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming",
+      "combinatorics"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int uniquePaths(int m, int n) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int uniquePaths(int m, int n) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "3\n7\n3\n2\n7\n3\n3\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:44.515Z"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Parallel Execution of Promises for Individual Results Retrieval",
+  "titleCn": "并行执行 Promise 以获取独有的结果",
+  "titleSlug": "parallel-execution-of-promises-for-individual-results-retrieval",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8888888888888888,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "parallel-execution-of-promises-for-individual-results-retrieval",
+    "questionId": "2898",
+    "title": "Parallel Execution of Promises for Individual Results Retrieval",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[() => new Promise(resolve => setTimeout(() => resolve(15), 100))]\n[() => new Promise(resolve => setTimeout(() => resolve(20), 100)), () => new Promise(resolve => setTimeout(() => resolve(15), 100))]\n[() => new Promise(resolve => setTimeout(() => resolve(30), 200)), () => new Promise((resolve, reject) => setTimeout(() => reject(\"Error\"), 100))]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:04.508Z"
+}

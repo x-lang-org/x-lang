@@ -1,0 +1,39 @@
+{
+  "title": "Minimum Health to Beat Game",
+  "titleCn": "通关游戏所需的最低生命值",
+  "titleSlug": "minimum-health-to-beat-game",
+  "difficulty": "MEDIUM",
+  "acRate": 0.539224526600541,
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "minimum-health-to-beat-game",
+    "questionId": "2354",
+    "title": "Minimum Health to Beat Game",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,7,4,3]\n4\n[2,5,3,4]\n7\n[3,3,3]\n0",
+    "hints": [
+      "When should you use your armor ability?",
+      "It is always optimal to use your armor ability on the level where you take the most amount of damage."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "dungeon-game",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "eliminate-maximum-number-of-monsters",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:54:09.903Z"
+}

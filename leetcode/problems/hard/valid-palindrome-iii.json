@@ -1,0 +1,41 @@
+{
+  "title": "Valid Palindrome III",
+  "titleCn": "验证回文串 III",
+  "titleSlug": "valid-palindrome-iii",
+  "difficulty": "HARD",
+  "acRate": 0.5713275837692634,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "valid-palindrome-iii",
+    "questionId": "1178",
+    "title": "Valid Palindrome III",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcdeca\"\n2\n\"abbababa\"\n1",
+    "hints": [
+      "Can you reduce this problem to a classic problem?",
+      "The problem is equivalent to finding any palindromic subsequence of length at least N-K where N is the length of the string.",
+      "Try to find the longest palindromic subsequence.",
+      "Use DP to do that."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "valid-palindrome-ii",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "valid-palindrome-iv",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:09.137Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Minimum Operations to Make Numbers Non-positive",
+  "titleCn": "使数字变为非正数的最小操作次数",
+  "titleSlug": "minimum-operations-to-make-numbers-non-positive",
+  "difficulty": "HARD",
+  "acRate": 0.2619634928465713,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "minimum-operations-to-make-numbers-non-positive",
+    "questionId": "2729",
+    "title": "Minimum Operations to Make Numbers Non-positive",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,4,1,7,6]\n4\n2\n[1,2,1]\n2\n1",
+    "hints": [
+      "Given a candidate, can you check if it is possible to decrement all values to be less than or equal to 0 within the given steps in O(N) time?",
+      "If so, run a binary search to look for the minimum such valid candidate."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:55:33.933Z"
+}

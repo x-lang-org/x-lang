@@ -1,0 +1,38 @@
+{
+  "title": "Stepping Numbers",
+  "titleCn": "步进数",
+  "titleSlug": "stepping-numbers",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4535993061578491,
+  "topicTags": [
+    "breadth-first-search",
+    "math",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "stepping-numbers",
+    "questionId": "1151",
+    "title": "Stepping Numbers",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "math",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "0\n21\n10\n15",
+    "hints": [
+      "Try to generate the numbers using recursion.",
+      "In one step in the recursion, add a valid digit to the right of the current number.",
+      "Save the number if it's in the range between low and high."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-stepping-numbers-in-range",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:42.232Z"
+}

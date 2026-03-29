@@ -1,0 +1,21 @@
+{
+  "title": "Next Day",
+  "titleCn": "下一天",
+  "titleSlug": "next-day",
+  "difficulty": "EASY",
+  "acRate": 0.8297213622291022,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "next-day",
+    "questionId": "2822",
+    "title": "Next Day",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "\"2014-06-20\"\n\"2017-10-31\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:29.190Z"
+}

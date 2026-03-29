@@ -1,0 +1,45 @@
+{
+  "title": "Insert Into Bits LCCI",
+  "titleCn": "插入",
+  "titleSlug": "insert-into-bits-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5233253034374131,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "insert-into-bits-lcci",
+    "questionId": "100180",
+    "title": "Insert Into Bits LCCI",
+    "content": "<p>You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method to insert M into N such that M starts at bit j and ends at bit i. You can assume that the bits j through i have enough space to fit all of M. That is, if M = 10011, you can assume that there are at least 5 bits between j and i. You would not, for example, have j = 3 and i = 2, because M could not fully fit between bit 3 and bit 2.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: N = 10000000000, M = 10011, i = 2, j = 6\r\n<strong> Output</strong>: N = 10001001100\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>:  N = 0, M = 11111, i = 0, j = 4\r\n<strong> Output</strong>: N = 11111\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int insertBits(int N, int M, int i, int j) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int insertBits(int N, int M, int i, int j) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def insertBits(self, N: int, M: int, i: int, j: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "1024\n19\n2\n6\n0\n31\n0\n4",
+    "hints": [
+      "把这个分成几个部分。先将精力放在清除适当的位上。",
+      "要清除这些位，创建一个看起来像是一系列1，然后是0，然后是1的“位掩码”。",
+      "在开始或结束时很容易创建一个0的位掩码。但是，有一堆0时，你如何在中间创建一个零位掩码？简单的做法是，为左侧创建一个位掩码，然后为右侧创建一个位掩码。然后你可以合并两边。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:31.344Z"
+}

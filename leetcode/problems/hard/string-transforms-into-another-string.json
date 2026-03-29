@@ -1,0 +1,36 @@
+{
+  "title": "String Transforms Into Another String",
+  "titleCn": "字符串转化",
+  "titleSlug": "string-transforms-into-another-string",
+  "difficulty": "HARD",
+  "acRate": 0.4036566390041494,
+  "topicTags": [
+    "graph",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "string-transforms-into-another-string",
+    "questionId": "1124",
+    "title": "String Transforms Into Another String",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "graph",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aabcc\"\n\"ccdee\"\n\"leetcode\"\n\"codeleet\"",
+    "hints": [
+      "Model the problem as a graph problem. Add an edge from one character to another if you need to convert between them.",
+      "What if one character needs to be converted into more than one character?",
+      "There would be no solution. Thus, every node can have at most one outgoing edge.",
+      "How to process a linked list?",
+      "How to process a cycle?",
+      "What if there is a character with no outgoing edge? You can use it to break all cycles!"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:57.517Z"
+}

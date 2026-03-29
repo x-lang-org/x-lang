@@ -1,0 +1,36 @@
+{
+  "title": "Linked List Frequency",
+  "titleCn": "链表频率",
+  "titleSlug": "linked-list-frequency",
+  "difficulty": "EASY",
+  "acRate": 0.5271715875053488,
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "linked-list-frequency",
+    "questionId": "3359",
+    "title": "Linked List Frequency",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "linked-list",
+      "counting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,1,2,1,2,3]",
+    "hints": [
+      "Traverse the linked list and keep the number of occurrences of values using a HashMap."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "top-k-frequent-elements",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:34.781Z"
+}

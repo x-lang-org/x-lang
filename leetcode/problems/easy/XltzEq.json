@@ -1,0 +1,43 @@
+{
+  "title": "验证回文串",
+  "titleCn": "验证回文串",
+  "titleSlug": "XltzEq",
+  "difficulty": "EASY",
+  "acRate": 0.5159703171404757,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "XltzEq",
+    "questionId": "1000254",
+    "title": "验证回文串",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isPalindrome(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isPalindrome(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isPalindrome(self, s: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"A man, a plan, a canal: Panama\"\n\"race a car\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:09.787Z"
+}

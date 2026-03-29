@@ -1,0 +1,43 @@
+{
+  "title": "Sort Transformed Array",
+  "titleCn": "有序转化数组",
+  "titleSlug": "sort-transformed-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6296616022099447,
+  "topicTags": [
+    "array",
+    "math",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sort-transformed-array",
+    "questionId": "360",
+    "title": "Sort Transformed Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[-4,-2,2,4]\n1\n3\n5\n[-4,-2,2,4]\n-1\n3\n5",
+    "hints": [
+      "x^2 + x  will form a parabola.",
+      "Parameter A in:  A * x^2 + B * x + C dictates the shape of the parabola.</br>\r\nPositive A means the parabola remains concave (high-low-high), but negative A inverts the parabola to be convex (low-high-low)."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "squares-of-a-sorted-array",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "minimum-time-to-repair-cars",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:07.325Z"
+}

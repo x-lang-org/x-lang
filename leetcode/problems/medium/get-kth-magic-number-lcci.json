@@ -1,0 +1,55 @@
+{
+  "title": "Get Kth Magic Number LCCI",
+  "titleCn": "第 k 个数",
+  "titleSlug": "get-kth-magic-number-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5539061746390714,
+  "topicTags": [
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "get-kth-magic-number-lcci",
+    "questionId": "1000037",
+    "title": "Get Kth Magic Number LCCI",
+    "content": "<p>Design an algorithm to find the kth number such that the only prime factors are 3, 5, and 7. Note that 3, 5, and 7 do not have to be factors, but it should not have any other prime factors. For example, the first several multiples would be (in order) 1, 3, 5, 7, 9, 15, 21.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>k = 5\r\n\r\n<strong>Output: </strong>9\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "math",
+      "dynamic-programming",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getKthMagicNumber(int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getKthMagicNumber(int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getKthMagicNumber(self, k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "1",
+    "hints": [
+      "明确这个问题的要求。要求满足 3a× 5b× 7c 这一形式的第 k 小的值。",
+      "蛮力解法得到的形如 3a× 5b × 7c 的第 k 小的值是什么样的?",
+      "在寻找 3a × 5b × 7c 的第 k 个最小值时，我们知道 a、b、c 将小于等于 k。你能生成所有可能的数字吗?",
+      "查看 3a×5b×7c 对应的所有值的列表，可以观察到列表中的每个值都是 3×(列表中前面的某值)、5×(列表中前面的某值)或 7×(列表中前面的某值)。",
+      "由于每个数字都是列表中先前值的 3 倍、5 倍或 7 倍，因此我们可以检查所有可能的值，然后选择下一个还没有看到的值。这将导致许多重复的工作。如何才能避免这种情况呢?",
+      "不要检查列表中的所有值来寻找下一个值(通过将每个值乘以 3、5、7)，而是这样考虑:当你将一个值 x 插入列表时，可以“构造”3x、5x 和 7x 以供以后使用。",
+      "当你将 x 添加到前 k 个值的列表中时，可以将 3x、5x 和 7x 添加到新的列表中。如何使其尽可能地优化?保留多个队列如何?总是需要插入 3x、5x 和 7x 吗? 或者，有时你只需要插入 7x?你需要避免相同的数字出现两次。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:11.529Z"
+}

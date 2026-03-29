@@ -1,0 +1,45 @@
+{
+  "title": "设计自助结算系统",
+  "titleCn": "设计自助结算系统",
+  "titleSlug": "dui-lie-de-zui-da-zhi-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.480136654220836,
+  "topicTags": [
+    "design",
+    "queue",
+    "monotonic-queue"
+  ],
+  "detail": {
+    "titleSlug": "dui-lie-de-zui-da-zhi-lcof",
+    "questionId": "100337",
+    "title": "设计自助结算系统",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "monotonic-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Checkout {\npublic:\n    Checkout() {\n        \n    }\n    \n    int get_max() {\n        \n    }\n    \n    void add(int value) {\n        \n    }\n    \n    int remove() {\n        \n    }\n};\n\n/**\n * Your Checkout object will be instantiated and called as such:\n * Checkout* obj = new Checkout();\n * int param_1 = obj->get_max();\n * obj->add(value);\n * int param_3 = obj->remove();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Checkout {\n\n    public Checkout() {\n        \n    }\n    \n    public int get_max() {\n        \n    }\n    \n    public void add(int value) {\n        \n    }\n    \n    public int remove() {\n        \n    }\n}\n\n/**\n * Your Checkout object will be instantiated and called as such:\n * Checkout obj = new Checkout();\n * int param_1 = obj.get_max();\n * obj.add(value);\n * int param_3 = obj.remove();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Checkout:\n\n    def __init__(self):\n        \n\n    def get_max(self) -> int:\n        \n\n    def add(self, value: int) -> None:\n        \n\n    def remove(self) -> int:\n        \n\n\n# Your Checkout object will be instantiated and called as such:\n# obj = Checkout()\n# param_1 = obj.get_max()\n# obj.add(value)\n# param_3 = obj.remove()"
+      }
+    ],
+    "exampleTestcases": "[\"Checkout\",\"add\",\"add\",\"get_max\",\"remove\",\"get_max\"]\n[[],[4],[7],[],[],[]]\n[\"Checkout\",\"remove\",\"get_max\"]\n[[],[],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:34.262Z"
+}

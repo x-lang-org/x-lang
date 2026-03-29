@@ -1,0 +1,47 @@
+{
+  "title": "数组中两个数的最大异或值",
+  "titleCn": "数组中两个数的最大异或值",
+  "titleSlug": "ms70jA",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6512579467063438,
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "ms70jA",
+    "questionId": "1000331",
+    "title": "数组中两个数的最大异或值",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "trie",
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findMaximumXOR(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findMaximumXOR(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findMaximumXOR(self, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[3,10,5,25,2,8]\n[0]\n[2,4]\n[8,10,2]\n[14,70,53,83,49,91,36,80,92,51,66,70]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:11.701Z"
+}

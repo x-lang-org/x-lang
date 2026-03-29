@@ -1,0 +1,45 @@
+{
+  "title": "黑白翻转棋",
+  "titleCn": "黑白翻转棋",
+  "titleSlug": "fHi6rV",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6797147212543554,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "fHi6rV",
+    "questionId": "1000370",
+    "title": "黑白翻转棋",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int flipChess(vector<string>& chessboard) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int flipChess(String[] chessboard) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def flipChess(self, chessboard: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"....X.\",\"....X.\",\"XOOO..\",\"......\",\"......\"]\n[\".X.\",\".O.\",\"XO.\"]\n[\".......\",\".......\",\".......\",\"X......\",\".O.....\",\"..O....\",\"....OOX\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:37.517Z"
+}

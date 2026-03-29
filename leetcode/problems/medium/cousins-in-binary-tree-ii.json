@@ -1,0 +1,62 @@
+{
+  "title": "Cousins in Binary Tree II",
+  "titleCn": "二叉树的堂兄弟节点 II",
+  "titleSlug": "cousins-in-binary-tree-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7675558519506502,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "cousins-in-binary-tree-ii",
+    "questionId": "2677",
+    "title": "Cousins in Binary Tree II",
+    "content": "<p>Given the <code>root</code> of a binary tree, replace the value of each node in the tree with the <strong>sum of all its cousins&#39; values</strong>.</p>\n\n<p>Two nodes of a binary tree are <strong>cousins</strong> if they have the same depth with different parents.</p>\n\n<p>Return <em>the </em><code>root</code><em> of the modified tree</em>.</p>\n\n<p><strong>Note</strong> that the depth of a node is the number of edges in the path from the root node to it.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2023/01/11/example11.png\" style=\"width: 571px; height: 151px;\" />\n<pre>\n<strong>Input:</strong> root = [5,4,9,1,10,null,7]\n<strong>Output:</strong> [0,0,0,7,7,null,11]\n<strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node.\n- Node with value 5 does not have any cousins so its sum is 0.\n- Node with value 4 does not have any cousins so its sum is 0.\n- Node with value 9 does not have any cousins so its sum is 0.\n- Node with value 1 has a cousin with value 7 so its sum is 7.\n- Node with value 10 has a cousin with value 7 so its sum is 7.\n- Node with value 7 has cousins with values 1 and 10 so its sum is 11.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2023/01/11/diagram33.png\" style=\"width: 481px; height: 91px;\" />\n<pre>\n<strong>Input:</strong> root = [3,1,2]\n<strong>Output:</strong> [0,0,0]\n<strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node.\n- Node with value 3 does not have any cousins so its sum is 0.\n- Node with value 1 does not have any cousins so its sum is 0.\n- Node with value 2 does not have any cousins so its sum is 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>5</sup>]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* replaceValueInTree(TreeNode* root) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode replaceValueInTree(TreeNode root) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[5,4,9,1,10,null,7]\n[3,1,2]",
+    "hints": [
+      "Use DFS two times.",
+      "For the first time, find the sum of values of all the levels of the binary tree.",
+      "For the second time, update the value of the node with the sum of the values of the current level - sibling node’s values."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "cousins-in-binary-tree",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "maximum-level-sum-of-a-binary-tree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:11.490Z"
+}

@@ -1,0 +1,43 @@
+{
+  "title": "三角形最小路径和",
+  "titleCn": "三角形最小路径和",
+  "titleSlug": "IlPe0q",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7334512752469409,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "IlPe0q",
+    "questionId": "1000286",
+    "title": "三角形最小路径和",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minimumTotal(List<List<Integer>> triangle) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[2],[3,4],[6,5,7],[4,1,8,3]]\n[[-10]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:10.917Z"
+}

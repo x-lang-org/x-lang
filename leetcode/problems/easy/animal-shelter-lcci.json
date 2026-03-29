@@ -1,0 +1,47 @@
+{
+  "title": "Animal Shelter LCCI",
+  "titleCn": "动物收容所",
+  "titleSlug": "animal-shelter-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5847502401536984,
+  "topicTags": [
+    "design",
+    "queue"
+  ],
+  "detail": {
+    "titleSlug": "animal-shelter-lcci",
+    "questionId": "100228",
+    "title": "Animal Shelter LCCI",
+    "content": "<p>An animal shelter, which holds only dogs and cats, operates on a strictly&quot;first in, first out&quot; basis. People must adopt either the&quot;oldest&quot; (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this system and implement operations such as <code>enqueue</code>, <code>dequeueAny</code>, <code>dequeueDog</code>, and <code>dequeueCat</code>. You may use the built-in Linked list data structure.</p>\r\n\r\n<p><code>enqueue</code> method has a <code>animal</code> parameter, <code>animal[0]</code> represents the number of the animal, <code>animal[1]</code> represents the type of the animal, 0 for cat and 1 for dog.</p>\r\n\r\n<p><code>dequeue*</code> method returns <code>[animal number, animal type]</code>, if there&#39;s no animal that can be adopted, return <code>[-1, -1]</code>.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: \r\n[&quot;AnimalShelf&quot;, &quot;enqueue&quot;, &quot;enqueue&quot;, &quot;dequeueCat&quot;, &quot;dequeueDog&quot;, &quot;dequeueAny&quot;]\r\n[[], [[0, 0]], [[1, 0]], [], [], []]\r\n<strong> Output</strong>: \r\n[null,null,null,[0,0],[-1,-1],[1,0]]\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: \r\n[&quot;AnimalShelf&quot;, &quot;enqueue&quot;, &quot;enqueue&quot;, &quot;enqueue&quot;, &quot;dequeueDog&quot;, &quot;dequeueCat&quot;, &quot;dequeueAny&quot;]\r\n[[], [[0, 0]], [[1, 0]], [[2, 1]], [], [], []]\r\n<strong> Output</strong>: \r\n[null,null,null,null,[2,1],[0,0],[1,0]]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li>The number of animals in the shelter will not exceed 20000.</li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "design",
+      "queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class AnimalShelf {\npublic:\n    AnimalShelf() {\n        \n    }\n    \n    void enqueue(vector<int> animal) {\n        \n    }\n    \n    vector<int> dequeueAny() {\n        \n    }\n    \n    vector<int> dequeueDog() {\n        \n    }\n    \n    vector<int> dequeueCat() {\n        \n    }\n};\n\n/**\n * Your AnimalShelf object will be instantiated and called as such:\n * AnimalShelf* obj = new AnimalShelf();\n * obj->enqueue(animal);\n * vector<int> param_2 = obj->dequeueAny();\n * vector<int> param_3 = obj->dequeueDog();\n * vector<int> param_4 = obj->dequeueCat();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class AnimalShelf {\n\n    public AnimalShelf() {\n        \n    }\n    \n    public void enqueue(int[] animal) {\n        \n    }\n    \n    public int[] dequeueAny() {\n        \n    }\n    \n    public int[] dequeueDog() {\n        \n    }\n    \n    public int[] dequeueCat() {\n        \n    }\n}\n\n/**\n * Your AnimalShelf object will be instantiated and called as such:\n * AnimalShelf obj = new AnimalShelf();\n * obj.enqueue(animal);\n * int[] param_2 = obj.dequeueAny();\n * int[] param_3 = obj.dequeueDog();\n * int[] param_4 = obj.dequeueCat();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class AnimalShelf:\n\n    def __init__(self):\n        \n\n    def enqueue(self, animal: List[int]) -> None:\n        \n\n    def dequeueAny(self) -> List[int]:\n        \n\n    def dequeueDog(self) -> List[int]:\n        \n\n    def dequeueCat(self) -> List[int]:\n        \n\n\n# Your AnimalShelf object will be instantiated and called as such:\n# obj = AnimalShelf()\n# obj.enqueue(animal)\n# param_2 = obj.dequeueAny()\n# param_3 = obj.dequeueDog()\n# param_4 = obj.dequeueCat()"
+      }
+    ],
+    "exampleTestcases": "[\"AnimalShelf\", \"enqueue\", \"enqueue\", \"dequeueCat\", \"dequeueDog\", \"dequeueAny\"]\n[[], [[0, 0]], [[1, 0]], [], [], []]\n[\"AnimalShelf\", \"enqueue\", \"enqueue\", \"enqueue\", \"dequeueDog\", \"dequeueCat\", \"dequeueAny\"]\n[[], [[0, 0]], [[1, 0]], [[2, 1]], [], [], []]",
+    "hints": [
+      "让我们假设用不同的列表存储猫和狗。怎样才能找到所有物种中最老的动物呢？要有创意。",
+      "可以考虑为狗和猫保留一个链表，然后遍历它找到第一只狗（或猫）。这样做的影响是什么？",
+      "想想现实生活中你是怎么做的。你有一个按时间排序的狗列表和一个按时间排序的猫列表。你需要什么数据才能找到最老的动物？你将如何维护这些数据？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:05.580Z"
+}

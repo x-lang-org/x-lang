@@ -1,0 +1,25 @@
+{
+  "title": "Find Expensive Cities",
+  "titleCn": "寻找房价最贵的城市",
+  "titleSlug": "find-expensive-cities",
+  "difficulty": "EASY",
+  "acRate": 0.7658656808379544,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-expensive-cities",
+    "questionId": "3284",
+    "title": "Find Expensive Cities",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Listings\":[\"listing_id\",\"city\",\"price\"]},\"rows\":{\"Listings\":[[113,\"LosAngeles\",7560386],[136,\"SanFrancisco\",2380268],[92,\"Chicago\",9833209],[60,\"Chicago\",5147582],[8,\"Chicago\",5274441],[79,\"SanFrancisco\",8372065],[37,\"Chicago\",7939595],[53,\"LosAngeles\",4965123],[178,\"SanFrancisco\",999207],[51,\"NewYork\",5951718],[121,\"NewYork\",2893760]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:30.055Z"
+}

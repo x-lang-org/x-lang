@@ -1,0 +1,53 @@
+{
+  "title": "Legal Binary Search Tree LCCI",
+  "titleCn": "合法二叉搜索树",
+  "titleSlug": "legal-binary-search-tree-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3632134676331231,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "legal-binary-search-tree-lcci",
+    "questionId": "100177",
+    "title": "Legal Binary Search Tree LCCI",
+    "content": "<p>Implement a function to check if a binary tree is a binary search tree.</p>\r\n\r\n<p><strong>Example&nbsp;1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\n    2\r\n   / \\\r\n  1   3\r\n<strong>Output:</strong> true\r\n</pre>\r\n\r\n<p><strong>Example&nbsp;2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\n    5\r\n   / \\\r\n  1   4\r\n&nbsp;    / \\\r\n&nbsp;   3   6\r\n<strong>Output:</strong> false\r\n<strong>Explanation:</strong> Input: [5,1,4,null,null,3,6].\r\n&nbsp;    the value of root node is 5, but its right child has value 4.</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-search-tree",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isValidBST(TreeNode* root) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isValidBST(TreeNode root) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isValidBST(self, root: Optional[TreeNode]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,1,3]\n[5,1,4,null,null,3,6]",
+    "hints": [
+      "如果使用前序遍历来遍历树，元素的顺序是正确的，这是否表明树实际上是有序的？有重复元素会发生什么？如果允许重复元素，它们必须位于特定的一边（通常是左边）。",
+      "作为一个二叉搜索树，并不是说每个节点都满足left.value <= current.value < right就够了。左边的每个节点必须小于当前节点，该节点还必须小于右边的所有节点。",
+      "如果左边的每个节点必须小于或等于当前节点，那么这就等于左边最大的节点必须小于或等于当前节点。",
+      "相比于根据leftTree.max和rightTree.min来验证当前节点的值，我们可以翻转逻辑吗？验证左子树的节点以确保其小于current.value。",
+      "把checkBST函数当作一个递归函数，保证每个节点在允许范围内(最小, 最大)。首先，这个范围是无限的。当我们遍历左边，最小的是负无穷大，最大的是root.value。你能实现这个递归函数，并且随着遍历而适当调整这些范围吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:08.288Z"
+}

@@ -1,0 +1,55 @@
+{
+  "title": "矩阵中的最长递增路径",
+  "titleCn": "矩阵中的最长递增路径",
+  "titleSlug": "fpTFWP",
+  "difficulty": "HARD",
+  "acRate": 0.5769973860665984,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "memoization",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "fpTFWP",
+    "questionId": "1000308",
+    "title": "矩阵中的最长递增路径",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort",
+      "memoization",
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestIncreasingPath(vector<vector<int>>& matrix) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestIncreasingPath(int[][] matrix) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[9,9,4],[6,6,8],[2,1,1]]\n[[3,4,5],[3,2,6],[2,2,1]]\n[[1]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:41.024Z"
+}

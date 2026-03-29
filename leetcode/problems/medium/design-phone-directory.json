@@ -1,0 +1,38 @@
+{
+  "title": "Design Phone Directory",
+  "titleCn": "电话目录管理系统",
+  "titleSlug": "design-phone-directory",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5818749486484266,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "hash-table",
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "design-phone-directory",
+    "questionId": "379",
+    "title": "Design Phone Directory",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "hash-table",
+      "linked-list"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"PhoneDirectory\",\"get\",\"get\",\"check\",\"get\",\"check\",\"release\",\"check\"]\n[[3],[],[],[2],[],[2],[2],[2]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "seat-reservation-manager",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:32.148Z"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Maximize Profit from Task Assignment",
+  "titleCn": "最大化任务分配的利润",
+  "titleSlug": "maximize-profit-from-task-assignment",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6538461538461539,
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "maximize-profit-from-task-assignment",
+    "questionId": "3818",
+    "title": "Maximize Profit from Task Assignment",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n[[1,100],[2,400],[3,100],[3,400]]\n[10,10000,100000000]\n[[1,100]]\n[7]\n[[3,3],[3,3]]",
+    "hints": [
+      "Use a hashmap to group the tasks by their required skill level <code>tasks[i][0]</code>",
+      "For each worker, assign the highest profit task from the hashmap that matches their exact skill requirement",
+      "Assign the task with the maximum profit among the unassigned tasks to the extra worker"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:44.204Z"
+}

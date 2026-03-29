@@ -1,0 +1,25 @@
+{
+  "title": "Count the Number of Experiments",
+  "titleCn": "统计实验的数量",
+  "titleSlug": "count-the-number-of-experiments",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4909491761429566,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "count-the-number-of-experiments",
+    "questionId": "2143",
+    "title": "Count the Number of Experiments",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Experiments\":[\"experiment_id\",\"platform\",\"experiment_name\"]},\"rows\":{\"Experiments\":[[4,\"IOS\",\"Programming\"],[13,\"IOS\",\"Sports\"],[14,\"Android\",\"Reading\"],[8,\"Web\",\"Reading\"],[12,\"Web\",\"Reading\"],[18,\"Web\",\"Programming\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:34:37.046Z"
+}

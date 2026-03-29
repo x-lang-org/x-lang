@@ -1,0 +1,35 @@
+{
+  "title": "Longest Palindromic Subsequence II",
+  "titleCn": "最长回文子序列 II",
+  "titleSlug": "longest-palindromic-subsequence-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5639905945582802,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "longest-palindromic-subsequence-ii",
+    "questionId": "1822",
+    "title": "Longest Palindromic Subsequence II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"bbabab\"\n\"dcbccacdb\"",
+    "hints": [
+      "As with any good dp problem that uses palindromes, try building the palindrome from the edges",
+      "The prime point is to check that no two adjacent characters are equal, so save the past character while building the palindrome."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-palindromic-subsequence",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:12.448Z"
+}

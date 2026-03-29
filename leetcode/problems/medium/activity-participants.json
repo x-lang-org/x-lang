@@ -1,0 +1,25 @@
+{
+  "title": "Activity Participants",
+  "titleCn": "活动参与者",
+  "titleSlug": "activity-participants",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6525026557520465,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "activity-participants",
+    "questionId": "1494",
+    "title": "Activity Participants",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Friends\": [\"id\", \"name\", \"activity\"], \"Activities\": [\"id\", \"name\"]}, \"rows\": {\"Friends\": [[1, \"Jonathan D.\", \"Eating\"], [2, \"Jade W.\", \"Singing\"], [3, \"Victor J.\", \"Singing\"], [4, \"Elvis Q.\", \"Eating\"], [5, \"Daniel A.\", \"Eating\"], [6, \"Bob B.\", \"Horse Riding\"]], \"Activities\": [[1, \"Eating\"], [2, \"Singing\"], [3, \"Horse Riding\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:41.901Z"
+}

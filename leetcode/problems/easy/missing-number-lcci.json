@@ -1,0 +1,53 @@
+{
+  "title": "Missing Number LCCI",
+  "titleCn": "消失的数字",
+  "titleSlug": "missing-number-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5807184416507623,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "missing-number-lcci",
+    "questionId": "1000032",
+    "title": "Missing Number LCCI",
+    "content": "<p>An array&nbsp;contains all the integers from 0 to n, except for one number which is missing.&nbsp; Write code to find the missing integer. Can you do it in O(n) time?</p>\r\n\r\n<p><strong>Note: </strong>This problem is slightly different from the original one the book.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[3,0,1]\r\n<strong>Output: </strong>2</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[9,6,4,2,3,5,7,0,1]\r\n<strong>Output: </strong>8\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "hash-table",
+      "math",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int missingNumber(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def missingNumber(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,0,1]\n[9,6,4,2,3,5,7,0,1]",
+    "hints": [
+      "你需要多长时间才能算出缺失数字的最小有效位?",
+      "要找到缺失的数字中的最小有效位，你其实知道有多少个 0 和 1。例如，如果你看到最小有效位有 3 个 0 和 3 个 1，那么缺失的数字的最小值必定是 1。想想看:在任何 0 和 1 的序列中，你会得到 0，然后是 1，然后又是 0，然后又是 1，以此类推。",
+      "一旦确定最小有效位是 0(或 1)，就可以排除所有不以 0 作为最小有效位的数。这个问题和前面的有什么不同?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:49.130Z"
+}

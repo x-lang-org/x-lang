@@ -1,0 +1,40 @@
+{
+  "title": "The Wording Game",
+  "titleCn": "单词游戏",
+  "titleSlug": "the-wording-game",
+  "difficulty": "HARD",
+  "acRate": 0.39469578783151327,
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "two-pointers",
+    "string",
+    "game-theory"
+  ],
+  "detail": {
+    "titleSlug": "the-wording-game",
+    "questionId": "3173",
+    "title": "The Wording Game",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "math",
+      "two-pointers",
+      "string",
+      "game-theory"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"avokado\",\"dabar\"]\n[\"brazil\"]\n[\"ananas\",\"atlas\",\"banana\"]\n[\"albatros\",\"cikla\",\"nogomet\"]\n[\"hrvatska\",\"zastava\"]\n[\"bijeli\",\"galeb\"]",
+    "hints": [
+      "If both Alice and Bob for each letter of the alphabet have at least one word beginning with that letter, then the winner is the player who has the lexicographically greatest word.",
+      "What happens if both have words that begin with the first <code>x</code> letters of the alphabet, but only one of them has a word beginning with the <code>x + 1<sup>th</sup></code> letter?",
+      "Suppose Alice has a word beginning with the <code>x + 1<sup>th</sup></code> letter. Note that if Alice has the lexicographically greatest word beginning with one of the first <code>x</code> letters, then she is the winner. But if Bob has such a word, then the game continues.",
+      "Now, we can conclude the winner is determined by the first letter which a player doesn’t have a word beginning with, and the other player has the lexicographically greatest word among all the words beginning with the letters before that letter."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:45.949Z"
+}

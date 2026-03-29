@@ -1,0 +1,53 @@
+{
+  "title": "Minimum Height Tree LCCI",
+  "titleCn": "最小高度树",
+  "titleSlug": "minimum-height-tree-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.7941655869937727,
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "array",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "minimum-height-tree-lcci",
+    "questionId": "100174",
+    "title": "Minimum Height Tree LCCI",
+    "content": "<p>Given a sorted (increasing order) array with unique integer elements, write an algo&shy;rithm to create a binary search tree with minimal height.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\nGiven sorted array: [-10,-3,0,5,9],\r\n\r\nOne possible answer is: [0,-3,9,-10,null,5]，which represents the following tree: \r\n\r\n          0 \r\n         / \\ \r\n       -3   9 \r\n       /   / \r\n     -10  5 \r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "binary-search-tree",
+      "array",
+      "divide-and-conquer",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* sortedArrayToBST(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode sortedArrayToBST(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[-10,-3,0,5,9]",
+    "hints": [
+      "最小的二叉树在每个节点左侧的节点数与右侧相同。现在我们把注意力放到根节点上，你要如何保证位于根的左侧和右侧的节点数量大致相同呢？",
+      "你可以通过找到“理想”的下一个要添加的元素和多次调用insertValue来实现。这样效率会有点儿低，因为你必须反复遍历树。尝试用递归代替。你能把这个问题分解为子问题吗？",
+      "想象一下，我们有一个createMinimalTree方法可以返回给定数组的最小树（但由于一些奇怪的原因不在树的根上操作）。你能用这个操作树的根节点吗？你能写出函数的基线条件吗？非常好！那基本上是整个函数了。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:54:11.104Z"
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Dinner Plate Stacks",
+  "titleCn": "餐盘栈",
+  "titleSlug": "dinner-plate-stacks",
+  "difficulty": "HARD",
+  "acRate": 0.3959791096237704,
+  "topicTags": [
+    "stack",
+    "design",
+    "hash-table",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "dinner-plate-stacks",
+    "questionId": "1270",
+    "title": "Dinner Plate Stacks",
+    "content": "<p>You have an infinite number of stacks arranged in a row and numbered (left to right) from <code>0</code>, each of the stacks has the same maximum capacity.</p>\n\n<p>Implement the <code>DinnerPlates</code> class:</p>\n\n<ul>\n\t<li><code>DinnerPlates(int capacity)</code> Initializes the object with the maximum capacity of the stacks <code>capacity</code>.</li>\n\t<li><code>void push(int val)</code> Pushes the given integer <code>val</code> into the leftmost stack with a size less than <code>capacity</code>.</li>\n\t<li><code>int pop()</code> Returns the value at the top of the rightmost non-empty stack and removes it from that stack, and returns <code>-1</code> if all the stacks are empty.</li>\n\t<li><code>int popAtStack(int index)</code> Returns the value at the top of the stack with the given index <code>index</code> and removes it from that stack or returns <code>-1</code> if the stack with that given index is empty.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;DinnerPlates&quot;, &quot;push&quot;, &quot;push&quot;, &quot;push&quot;, &quot;push&quot;, &quot;push&quot;, &quot;popAtStack&quot;, &quot;push&quot;, &quot;push&quot;, &quot;popAtStack&quot;, &quot;popAtStack&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;]\n[[2], [1], [2], [3], [4], [5], [0], [20], [21], [0], [2], [], [], [], [], []]\n<strong>Output</strong>\n[null, null, null, null, null, null, 2, null, null, 20, 21, 5, 4, 3, 1, -1]\n\n<strong>Explanation:</strong> \nDinnerPlates D = DinnerPlates(2);  // Initialize with capacity = 2\nD.push(1);\nD.push(2);\nD.push(3);\nD.push(4);\nD.push(5);         // The stacks are now:  2  4\n                                           1  3  5\n                                           ﹈ ﹈ ﹈\nD.popAtStack(0);   // Returns 2.  The stacks are now:     4\n                                                       1  3  5\n                                                       ﹈ ﹈ ﹈\nD.push(20);        // The stacks are now: 20  4\n                                           1  3  5\n                                           ﹈ ﹈ ﹈\nD.push(21);        // The stacks are now: 20  4 21\n                                           1  3  5\n                                           ﹈ ﹈ ﹈\nD.popAtStack(0);   // Returns 20.  The stacks are now:     4 21\n                                                        1  3  5\n                                                        ﹈ ﹈ ﹈\nD.popAtStack(2);   // Returns 21.  The stacks are now:     4\n                                                        1  3  5\n                                                        ﹈ ﹈ ﹈ \nD.pop()            // Returns 5.  The stacks are now:      4\n                                                        1  3 \n                                                        ﹈ ﹈  \nD.pop()            // Returns 4.  The stacks are now:   1  3 \n                                                        ﹈ ﹈   \nD.pop()            // Returns 3.  The stacks are now:   1 \n                                                        ﹈   \nD.pop()            // Returns 1.  There are no stacks.\nD.pop()            // Returns -1.  There are still no stacks.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= capacity &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= val &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= index &lt;= 10<sup>5</sup></code></li>\n\t<li>At most <code>2 * 10<sup>5</sup></code> calls will be made to <code>push</code>, <code>pop</code>, and <code>popAtStack</code>.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "design",
+      "hash-table",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class DinnerPlates {\npublic:\n    DinnerPlates(int capacity) {\n        \n    }\n    \n    void push(int val) {\n        \n    }\n    \n    int pop() {\n        \n    }\n    \n    int popAtStack(int index) {\n        \n    }\n};\n\n/**\n * Your DinnerPlates object will be instantiated and called as such:\n * DinnerPlates* obj = new DinnerPlates(capacity);\n * obj->push(val);\n * int param_2 = obj->pop();\n * int param_3 = obj->popAtStack(index);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class DinnerPlates {\n\n    public DinnerPlates(int capacity) {\n        \n    }\n    \n    public void push(int val) {\n        \n    }\n    \n    public int pop() {\n        \n    }\n    \n    public int popAtStack(int index) {\n        \n    }\n}\n\n/**\n * Your DinnerPlates object will be instantiated and called as such:\n * DinnerPlates obj = new DinnerPlates(capacity);\n * obj.push(val);\n * int param_2 = obj.pop();\n * int param_3 = obj.popAtStack(index);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class DinnerPlates:\n\n    def __init__(self, capacity: int):\n        \n\n    def push(self, val: int) -> None:\n        \n\n    def pop(self) -> int:\n        \n\n    def popAtStack(self, index: int) -> int:\n        \n\n\n# Your DinnerPlates object will be instantiated and called as such:\n# obj = DinnerPlates(capacity)\n# obj.push(val)\n# param_2 = obj.pop()\n# param_3 = obj.popAtStack(index)"
+      }
+    ],
+    "exampleTestcases": "[\"DinnerPlates\",\"push\",\"push\",\"push\",\"push\",\"push\",\"popAtStack\",\"push\",\"push\",\"popAtStack\",\"popAtStack\",\"pop\",\"pop\",\"pop\",\"pop\",\"pop\"]\n[[2],[1],[2],[3],[4],[5],[0],[20],[21],[0],[2],[],[],[],[],[]]",
+    "hints": [
+      "Use a data structure to save the plate status. You may need to operate the exact index. Maintain the leftmost vacant stack and the rightmost non-empty stack.",
+      "Use a list of stack to store the plate status. Use heap to maintain the leftmost and rightmost valid stack."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:04.480Z"
+}

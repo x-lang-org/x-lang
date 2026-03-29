@@ -1,0 +1,54 @@
+{
+  "title": "Ugly Number",
+  "titleCn": "丑数",
+  "titleSlug": "ugly-number",
+  "difficulty": "EASY",
+  "acRate": 0.5019978995388832,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "ugly-number",
+    "questionId": "263",
+    "title": "Ugly Number",
+    "content": "<p>An <strong>ugly number</strong> is a <em>positive</em> integer which does not have a prime factor other than 2, 3, and 5.</p>\n\n<p>Given an integer <code>n</code>, return <code>true</code> <em>if</em> <code>n</code> <em>is an <strong>ugly number</strong></em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 6\n<strong>Output:</strong> true\n<strong>Explanation:</strong> 6 = 2 &times; 3\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 1\n<strong>Output:</strong> true\n<strong>Explanation:</strong> 1 has no prime factors.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 14\n<strong>Output:</strong> false\n<strong>Explanation:</strong> 14 is not ugly since it includes the prime factor 7.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>-2<sup>31</sup> &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isUgly(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isUgly(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isUgly(self, n: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "6\n1\n14",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "happy-number",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "count-primes",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "ugly-number-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:37.552Z"
+}

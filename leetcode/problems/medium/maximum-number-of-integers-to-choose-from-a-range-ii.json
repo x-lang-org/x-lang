@@ -1,0 +1,48 @@
+{
+  "title": "Maximum Number of Integers to Choose From a Range II",
+  "titleCn": "从一个范围内选择最多整数 II",
+  "titleSlug": "maximum-number-of-integers-to-choose-from-a-range-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3536269430051813,
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-integers-to-choose-from-a-range-ii",
+    "questionId": "2702",
+    "title": "Maximum Number of Integers to Choose From a Range II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "binary-search",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,4,6]\n6\n4\n[4,3,5,6]\n7\n18",
+    "hints": [
+      "It is optimal always to take the smallest possible integer you can choose.",
+      "Between every consecutive banned integers, can you find how many integers you can choose?",
+      "Think of using binary search to find that."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "first-missing-positive",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-all-numbers-disappeared-in-an-array",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "append-k-integers-with-minimal-sum",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:50:23.999Z"
+}

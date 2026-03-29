@@ -1,0 +1,40 @@
+{
+  "title": "Robot Room Cleaner",
+  "titleCn": "扫地机器人",
+  "titleSlug": "robot-room-cleaner",
+  "difficulty": "HARD",
+  "acRate": 0.6177906823280982,
+  "topicTags": [
+    "backtracking",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "robot-room-cleaner",
+    "questionId": "865",
+    "title": "Robot Room Cleaner",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "backtracking",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1,1,1,1,0,1,1],[1,1,1,1,1,0,1,1],[1,0,1,1,1,1,1,1],[0,0,0,1,0,0,0,0],[1,1,1,1,1,1,1,1]]\n1\n3\n[[1]]\n0\n0",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "walls-and-gates",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shortest-path-in-a-hidden-grid",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-path-cost-in-a-hidden-grid",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:03:44.802Z"
+}

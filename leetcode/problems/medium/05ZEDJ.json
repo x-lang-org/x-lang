@@ -1,0 +1,45 @@
+{
+  "title": "志愿者调配",
+  "titleCn": "志愿者调配",
+  "titleSlug": "05ZEDJ",
+  "difficulty": "MEDIUM",
+  "acRate": 0.47948511665325827,
+  "topicTags": [
+    "graph",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "05ZEDJ",
+    "questionId": "1000373",
+    "title": "志愿者调配",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "graph",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> volunteerDeployment(vector<int>& finalCnt, long long totalNum, vector<vector<int>>& edges, vector<vector<int>>& plans) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] volunteerDeployment(int[] finalCnt, long totalNum, int[][] edges, int[][] plans) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def volunteerDeployment(self, finalCnt: List[int], totalNum: int, edges: List[List[int]], plans: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,16]\n21\n[[0,1],[1,2]]\n[[2,1],[1,0],[3,0]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:22.067Z"
+}

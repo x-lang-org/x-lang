@@ -1,0 +1,55 @@
+{
+  "title": "弹珠游戏",
+  "titleCn": "弹珠游戏",
+  "titleSlug": "EXvqDp",
+  "difficulty": "MEDIUM",
+  "acRate": 0.31661034572394076,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "memoization",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "EXvqDp",
+    "questionId": "1000480",
+    "title": "弹珠游戏",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort",
+      "memoization",
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> ballGame(int num, vector<string>& plate) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[][] ballGame(int num, String[] plate) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def ballGame(self, num: int, plate: List[str]) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "4\n[\"..E.\",\".EOW\",\"..W.\"]\n5\n[\".....\",\"..E..\",\".WO..\",\".....\"]\n3\n[\".....\",\"....O\",\"....O\",\".....\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:28.531Z"
+}

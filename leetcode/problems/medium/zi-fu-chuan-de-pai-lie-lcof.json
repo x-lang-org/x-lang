@@ -1,0 +1,43 @@
+{
+  "title": "套餐内商品的排列顺序",
+  "titleCn": "套餐内商品的排列顺序",
+  "titleSlug": "zi-fu-chuan-de-pai-lie-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5722907327959368,
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "zi-fu-chuan-de-pai-lie-lcof",
+    "questionId": "100308",
+    "title": "套餐内商品的排列顺序",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> goodsOrder(string goods) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String[] goodsOrder(String goods) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def goodsOrder(self, goods: str) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"agew\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:27.943Z"
+}

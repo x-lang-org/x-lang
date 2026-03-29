@@ -1,0 +1,50 @@
+{
+  "title": "Max Sum of a Pair With Equal Sum of Digits",
+  "titleCn": "数位和相等数对的最大和",
+  "titleSlug": "max-sum-of-a-pair-with-equal-sum-of-digits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6434579708474967,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "max-sum-of-a-pair-with-equal-sum-of-digits",
+    "questionId": "2473",
+    "title": "Max Sum of a Pair With Equal Sum of Digits",
+    "content": "<p>You are given a <strong>0-indexed</strong> array <code>nums</code> consisting of <strong>positive</strong> integers. You can choose two indices <code>i</code> and <code>j</code>, such that <code>i != j</code>, and the sum of digits of the number <code>nums[i]</code> is equal to that of <code>nums[j]</code>.</p>\n\n<p>Return the <strong>maximum</strong> value of<em> </em><code>nums[i] + nums[j]</code><em> </em>that you can obtain over all possible indices <code>i</code> and <code>j</code> that satisfy the conditions. If no such pair of indices exists, return -1.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [18,43,36,13,7]\n<strong>Output:</strong> 54\n<strong>Explanation:</strong> The pairs (i, j) that satisfy the conditions are:\n- (0, 2), both numbers have a sum of digits equal to 9, and their sum is 18 + 36 = 54.\n- (1, 4), both numbers have a sum of digits equal to 7, and their sum is 43 + 7 = 50.\nSo the maximum sum that we can obtain is 54.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [10,12,19,14]\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> There are no two numbers that satisfy the conditions, so we return -1.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maximumSum(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maximumSum(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maximumSum(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[18,43,36,13,7]\n[10,12,19,14]",
+    "hints": [
+      "What is the largest possible sum of digits a number can have?",
+      "Group the array elements by the sum of their digits, and find the largest two elements of each group."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:28.711Z"
+}

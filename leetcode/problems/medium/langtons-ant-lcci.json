@@ -1,0 +1,59 @@
+{
+  "title": "Langtons Ant LCCI",
+  "titleCn": "兰顿蚂蚁",
+  "titleSlug": "langtons-ant-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5829803257083687,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "matrix",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "langtons-ant-lcci",
+    "questionId": "1000050",
+    "title": "Langtons Ant LCCI",
+    "content": "<p>An ant is sitting on an infinite grid of white and black squares. It initially faces right. All squares are white initially.</p>\r\n\r\n<p>At each step, it does the following:</p>\r\n\r\n<p>(1) At a white square, flip the color of the square, turn 90 degrees right (clockwise), and move forward one unit.</p>\r\n\r\n<p>(2) At a black square, flip the color of the square, turn 90 degrees left (counter-clockwise), and move forward one unit.</p>\r\n\r\n<p>Write a program to simulate the first K moves that the ant makes and print the final board as a grid.</p>\r\n\r\n<p>The grid should be represented as an array of strings, where each element represents one row in the grid. The black square is represented as <code>&#39;X&#39;</code>, and the white square is represented as <code>&#39;_&#39;</code>, the square which is occupied by the ant is represented as <code>&#39;L&#39;</code>, <code>&#39;U&#39;</code>, <code>&#39;R&#39;</code>, <code>&#39;D&#39;</code>, which means the left, up, right and down orientations respectively. You only need to return the minimum matrix that is able to contain all squares that are passed through by the ant.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 0\r\n<strong>Output: </strong>[&quot;R&quot;]\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 2\r\n<strong>Output:\r\n</strong>[\r\n&nbsp; &quot;_X&quot;,\r\n&nbsp; &quot;LX&quot;\r\n]\r\n</pre>\r\n\r\n<p><strong>Example 3:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 5\r\n<strong>Output:\r\n</strong>[\r\n&nbsp; &quot;_U&quot;,\r\n&nbsp; &quot;X_&quot;,\r\n&nbsp; &quot;XX&quot;\r\n]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>K &lt;= 100000</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "matrix",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> printKMoves(int K) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> printKMoves(int K) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def printKMoves(self, K: int) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "0\n1\n2",
+    "hints": [
+      "棘手的是处理无限网格。你有什么选择？",
+      "选项1：你真的需要一个无线的网络吗？再次审题。你知道网格的最大尺寸吗？",
+      "选项 2：想想ArrayList的工作原理。它能派上用场吗？",
+      "选项2：使用ArrayList是不可能的，因为那样太烦琐了。也许构建自己的列表会更容易，但要专门针对矩阵。",
+      "方法2：一种方法是当蚂蚁到达边缘时，将数组的大小加倍。但是，你将如何处理蚂蚁到达负坐标的问题呢？数组不能有负的索引。",
+      "选项2：注意，问题中没有规定坐标的标签必须保持不变。你能把蚂蚁和所有的单元格信息移动到正坐标吗？换句话说，如果当你需要让数组n向负方向增长时，你重新标记了所有的指标使它们仍然是正的，会发生什么?",
+      "选项3：另一件需要考虑的事情是，你是否真的需要一个网格来实现它。在这个问题中你真正需要什么信息?",
+      "选项3：你实际上需要的是来查看一个单元格是白色的还是黑色的某种方式（当然还有蚂蚁的位置）。你能把所有的白色方格存在一个链表中吗?",
+      "选项3：你可以考虑维护一个所有白色方格的散列集合。不过，你怎么才能打印出整个网格呢?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:35.336Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Count the Number of K-Free Subsets",
+  "titleCn": "统计 K-Free 子集的总数",
+  "titleSlug": "count-the-number-of-k-free-subsets",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2362002567394095,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "combinatorics",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "count-the-number-of-k-free-subsets",
+    "questionId": "2738",
+    "title": "Count the Number of K-Free Subsets",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming",
+      "combinatorics",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,4,6]\n1\n[2,3,5,8]\n5\n[10,5,9,11]\n20",
+    "hints": [
+      "Split all numbers into several groups, with each group being an arithmetic sequence with a common difference of k.",
+      "How many K-free subsets are there for each group? This can be solved by dp: dp[i] = dp[i-1] + dp[i-2], meaning if we choose ith element, we cannot choose (i-1)th; otherwise we can choose (i-1)th element.",
+      "After solving the problem for every group, the final result is just the product of the sub-problems."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:34:44.668Z"
+}

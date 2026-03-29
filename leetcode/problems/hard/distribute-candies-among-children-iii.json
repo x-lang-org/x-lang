@@ -1,0 +1,33 @@
+{
+  "title": "Distribute Candies Among Children III",
+  "titleCn": "给小朋友们分糖果 III",
+  "titleSlug": "distribute-candies-among-children-iii",
+  "difficulty": "HARD",
+  "acRate": 0.30246189917936694,
+  "topicTags": [
+    "math",
+    "combinatorics"
+  ],
+  "detail": {
+    "titleSlug": "distribute-candies-among-children-iii",
+    "questionId": "3216",
+    "title": "Distribute Candies Among Children III",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "math",
+      "combinatorics"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n2\n3\n3",
+    "hints": [
+      "Try to solve the problem using combinatorics.",
+      "If the limit didn’t exist, the problem would be distributing <code>n</code> candies between <code>3</code> children.",
+      "The answer to the above problem would be <code>C(n + 2, 2)</code>.",
+      "Now try to combine this with the Inclusion-exclusion principle.",
+      "Apart from the above solution, there are other mathematical solutions that you can think of."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:14.574Z"
+}

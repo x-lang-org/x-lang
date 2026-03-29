@@ -1,0 +1,28 @@
+{
+  "title": "Remove Interval",
+  "titleCn": "删除区间",
+  "titleSlug": "remove-interval",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6332784485912917,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "remove-interval",
+    "questionId": "1200",
+    "title": "Remove Interval",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,2],[3,4],[5,7]]\n[1,6]\n[[0,5]]\n[2,3]\n[[-5,-4],[-3,-2],[1,2],[3,5],[8,9]]\n[-1,4]",
+    "hints": [
+      "Solve the problem for every interval alone.",
+      "Divide the problem into cases according to the position of the two intervals."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:02:45.409Z"
+}

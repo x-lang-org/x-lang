@@ -1,0 +1,43 @@
+{
+  "title": "训练计划 IV",
+  "titleCn": "训练计划 IV",
+  "titleSlug": "he-bing-liang-ge-pai-xu-de-lian-biao-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7180514709842829,
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "he-bing-liang-ge-pai-xu-de-lian-biao-lcof",
+    "questionId": "100286",
+    "title": "训练计划 IV",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "recursion",
+      "linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* trainningPlan(ListNode* l1, ListNode* l2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode trainningPlan(ListNode l1, ListNode l2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def trainningPlan(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,4]\n[1,3,4]\n[]\n[]\n[]\n[0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:49.075Z"
+}

@@ -1,0 +1,47 @@
+{
+  "title": "长度最小的子数组",
+  "titleCn": "长度最小的子数组",
+  "titleSlug": "2VG8Kg",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5136892769881753,
+  "topicTags": [
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "2VG8Kg",
+    "questionId": "1000242",
+    "title": "长度最小的子数组",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search",
+      "prefix-sum",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "7\n[2,3,1,2,4,3]\n4\n[1,4,4]\n11\n[1,1,1,1,1,1,1,1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:47.002Z"
+}

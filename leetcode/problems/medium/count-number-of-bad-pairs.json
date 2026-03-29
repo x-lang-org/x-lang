@@ -1,0 +1,64 @@
+{
+  "title": "Count Number of Bad Pairs",
+  "titleCn": "统计坏数对的数目",
+  "titleSlug": "count-number-of-bad-pairs",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5706137264343124,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "count-number-of-bad-pairs",
+    "questionId": "2448",
+    "title": "Count Number of Bad Pairs",
+    "content": "<p>You are given a <strong>0-indexed</strong> integer array <code>nums</code>. A pair of indices <code>(i, j)</code> is a <strong>bad pair</strong> if <code>i &lt; j</code> and <code>j - i != nums[j] - nums[i]</code>.</p>\n\n<p>Return<em> the total number of <strong>bad pairs</strong> in </em><code>nums</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [4,1,3,3]\n<strong>Output:</strong> 5\n<strong>Explanation:</strong> The pair (0, 1) is a bad pair since 1 - 0 != 1 - 4.\nThe pair (0, 2) is a bad pair since 2 - 0 != 3 - 4, 2 != -1.\nThe pair (0, 3) is a bad pair since 3 - 0 != 3 - 4, 3 != -1.\nThe pair (1, 2) is a bad pair since 2 - 1 != 3 - 1, 1 != 2.\nThe pair (2, 3) is a bad pair since 3 - 2 != 3 - 3, 1 != 0.\nThere are a total of 5 bad pairs, so we return 5.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,2,3,4,5]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> There are no bad pairs.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "math",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long countBadPairs(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long countBadPairs(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countBadPairs(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,1,3,3]\n[1,2,3,4,5]",
+    "hints": [
+      "Would it be easier to count the number of pairs that are not bad pairs?",
+      "Notice that (j - i != nums[j] - nums[i]) is the same as (nums[i] - i != nums[j] - j).",
+      "Keep a counter of nums[i] - i. To be efficient, use a HashMap."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "k-diff-pairs-in-an-array",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "subarray-sums-divisible-by-k",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-nice-pairs-in-an-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:33:34.480Z"
+}

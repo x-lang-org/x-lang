@@ -1,0 +1,56 @@
+{
+  "title": "Design Circular Deque",
+  "titleCn": "设计循环双端队列",
+  "titleSlug": "design-circular-deque",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5642361352603247,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "design-circular-deque",
+    "questionId": "859",
+    "title": "Design Circular Deque",
+    "content": "<p>Design your implementation of the circular double-ended queue (deque).</p>\n\n<p>Implement the <code>MyCircularDeque</code> class:</p>\n\n<ul>\n\t<li><code>MyCircularDeque(int k)</code> Initializes the deque with a maximum size of <code>k</code>.</li>\n\t<li><code>boolean insertFront()</code> Adds an item at the front of Deque. Returns <code>true</code> if the operation is successful, or <code>false</code> otherwise.</li>\n\t<li><code>boolean insertLast()</code> Adds an item at the rear of Deque. Returns <code>true</code> if the operation is successful, or <code>false</code> otherwise.</li>\n\t<li><code>boolean deleteFront()</code> Deletes an item from the front of Deque. Returns <code>true</code> if the operation is successful, or <code>false</code> otherwise.</li>\n\t<li><code>boolean deleteLast()</code> Deletes an item from the rear of Deque. Returns <code>true</code> if the operation is successful, or <code>false</code> otherwise.</li>\n\t<li><code>int getFront()</code> Returns the front item from the Deque. Returns <code>-1</code> if the deque is empty.</li>\n\t<li><code>int getRear()</code> Returns the last item from Deque. Returns <code>-1</code> if the deque is empty.</li>\n\t<li><code>boolean isEmpty()</code> Returns <code>true</code> if the deque is empty, or <code>false</code> otherwise.</li>\n\t<li><code>boolean isFull()</code> Returns <code>true</code> if the deque is full, or <code>false</code> otherwise.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;MyCircularDeque&quot;, &quot;insertLast&quot;, &quot;insertLast&quot;, &quot;insertFront&quot;, &quot;insertFront&quot;, &quot;getRear&quot;, &quot;isFull&quot;, &quot;deleteLast&quot;, &quot;insertFront&quot;, &quot;getFront&quot;]\n[[3], [1], [2], [3], [4], [], [], [], [4], []]\n<strong>Output</strong>\n[null, true, true, true, false, 2, true, true, true, 4]\n\n<strong>Explanation</strong>\nMyCircularDeque myCircularDeque = new MyCircularDeque(3);\nmyCircularDeque.insertLast(1);  // return True\nmyCircularDeque.insertLast(2);  // return True\nmyCircularDeque.insertFront(3); // return True\nmyCircularDeque.insertFront(4); // return False, the queue is full.\nmyCircularDeque.getRear();      // return 2\nmyCircularDeque.isFull();       // return True\nmyCircularDeque.deleteLast();   // return True\nmyCircularDeque.insertFront(4); // return True\nmyCircularDeque.getFront();     // return 4\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= 1000</code></li>\n\t<li><code>0 &lt;= value &lt;= 1000</code></li>\n\t<li>At most <code>2000</code> calls will be made to <code>insertFront</code>, <code>insertLast</code>, <code>deleteFront</code>, <code>deleteLast</code>, <code>getFront</code>, <code>getRear</code>, <code>isEmpty</code>, <code>isFull</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MyCircularDeque {\npublic:\n    MyCircularDeque(int k) {\n        \n    }\n    \n    bool insertFront(int value) {\n        \n    }\n    \n    bool insertLast(int value) {\n        \n    }\n    \n    bool deleteFront() {\n        \n    }\n    \n    bool deleteLast() {\n        \n    }\n    \n    int getFront() {\n        \n    }\n    \n    int getRear() {\n        \n    }\n    \n    bool isEmpty() {\n        \n    }\n    \n    bool isFull() {\n        \n    }\n};\n\n/**\n * Your MyCircularDeque object will be instantiated and called as such:\n * MyCircularDeque* obj = new MyCircularDeque(k);\n * bool param_1 = obj->insertFront(value);\n * bool param_2 = obj->insertLast(value);\n * bool param_3 = obj->deleteFront();\n * bool param_4 = obj->deleteLast();\n * int param_5 = obj->getFront();\n * int param_6 = obj->getRear();\n * bool param_7 = obj->isEmpty();\n * bool param_8 = obj->isFull();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MyCircularDeque {\n\n    public MyCircularDeque(int k) {\n        \n    }\n    \n    public boolean insertFront(int value) {\n        \n    }\n    \n    public boolean insertLast(int value) {\n        \n    }\n    \n    public boolean deleteFront() {\n        \n    }\n    \n    public boolean deleteLast() {\n        \n    }\n    \n    public int getFront() {\n        \n    }\n    \n    public int getRear() {\n        \n    }\n    \n    public boolean isEmpty() {\n        \n    }\n    \n    public boolean isFull() {\n        \n    }\n}\n\n/**\n * Your MyCircularDeque object will be instantiated and called as such:\n * MyCircularDeque obj = new MyCircularDeque(k);\n * boolean param_1 = obj.insertFront(value);\n * boolean param_2 = obj.insertLast(value);\n * boolean param_3 = obj.deleteFront();\n * boolean param_4 = obj.deleteLast();\n * int param_5 = obj.getFront();\n * int param_6 = obj.getRear();\n * boolean param_7 = obj.isEmpty();\n * boolean param_8 = obj.isFull();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MyCircularDeque:\n\n    def __init__(self, k: int):\n        \n\n    def insertFront(self, value: int) -> bool:\n        \n\n    def insertLast(self, value: int) -> bool:\n        \n\n    def deleteFront(self) -> bool:\n        \n\n    def deleteLast(self) -> bool:\n        \n\n    def getFront(self) -> int:\n        \n\n    def getRear(self) -> int:\n        \n\n    def isEmpty(self) -> bool:\n        \n\n    def isFull(self) -> bool:\n        \n\n\n# Your MyCircularDeque object will be instantiated and called as such:\n# obj = MyCircularDeque(k)\n# param_1 = obj.insertFront(value)\n# param_2 = obj.insertLast(value)\n# param_3 = obj.deleteFront()\n# param_4 = obj.deleteLast()\n# param_5 = obj.getFront()\n# param_6 = obj.getRear()\n# param_7 = obj.isEmpty()\n# param_8 = obj.isFull()"
+      }
+    ],
+    "exampleTestcases": "[\"MyCircularDeque\",\"insertLast\",\"insertLast\",\"insertFront\",\"insertFront\",\"getRear\",\"isFull\",\"deleteLast\",\"insertFront\",\"getFront\"]\n[[3],[1],[2],[3],[4],[],[],[],[4],[]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "design-circular-queue",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "design-front-middle-back-queue",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:20.505Z"
+}

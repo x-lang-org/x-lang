@@ -1,0 +1,31 @@
+{
+  "title": "Guess the Majority in a Hidden Array",
+  "titleCn": "找出隐藏数组中出现次数最多的元素",
+  "titleSlug": "guess-the-majority-in-a-hidden-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5982646420824295,
+  "topicTags": [
+    "array",
+    "math",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "guess-the-majority-in-a-hidden-array",
+    "questionId": "1681",
+    "title": "Guess the Majority in a Hidden Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,0,1,0,1,1,1,1]\n[0,0,1,1,0]\n[1,0,1,0,1,0,1,0]",
+    "hints": [
+      "If you find that 2 indexes in the array (id1, id2) have the same value (nums [id1] == nums [id2]), you could infer the values of (x, y) based on the results of query (id1, id2, x, y)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:33.776Z"
+}

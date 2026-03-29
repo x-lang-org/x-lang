@@ -1,0 +1,21 @@
+{
+  "problemId": "95",
+  "titleSlug": "unique-binary-search-trees-ii",
+  "title": "Unique Binary Search Trees II",
+  "titleCn": "不同的二叉搜索树 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "dynamic-programming",
+    "backtracking",
+    "binary-tree"
+  ],
+  "acRate": 0.7467421346063738,
+  "testcases": [
+    {
+      "input": "3",
+      "expectedOutput": "1"
+    }
+  ]
+}

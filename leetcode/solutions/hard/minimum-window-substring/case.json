@@ -1,0 +1,27 @@
+{
+  "problemId": "76",
+  "titleSlug": "minimum-window-substring",
+  "title": "Minimum Window Substring",
+  "titleCn": "最小覆盖子串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.4906683562615259,
+  "testcases": [
+    {
+      "input": "\"ADOBECODEBANC\"",
+      "expectedOutput": "\"ABC\""
+    },
+    {
+      "input": "\"a\"",
+      "expectedOutput": "\"a\""
+    },
+    {
+      "input": "\"a\"",
+      "expectedOutput": "\"aa\""
+    }
+  ]
+}

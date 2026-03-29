@@ -1,0 +1,47 @@
+{
+  "title": "我的日程安排表 I",
+  "titleCn": "我的日程安排表 I",
+  "titleSlug": "fi9suh",
+  "difficulty": "MEDIUM",
+  "acRate": 0.610812746151092,
+  "topicTags": [
+    "design",
+    "segment-tree",
+    "binary-search",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "fi9suh",
+    "questionId": "1000322",
+    "title": "我的日程安排表 I",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "segment-tree",
+      "binary-search",
+      "ordered-set"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MyCalendar {\npublic:\n    MyCalendar() {\n\n    }\n    \n    bool book(int start, int end) {\n\n    }\n};\n\n/**\n * Your MyCalendar object will be instantiated and called as such:\n * MyCalendar* obj = new MyCalendar();\n * bool param_1 = obj->book(start,end);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MyCalendar {\n\n    public MyCalendar() {\n\n    }\n    \n    public boolean book(int start, int end) {\n\n    }\n}\n\n/**\n * Your MyCalendar object will be instantiated and called as such:\n * MyCalendar obj = new MyCalendar();\n * boolean param_1 = obj.book(start,end);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MyCalendar:\n\n    def __init__(self):\n\n\n    def book(self, start: int, end: int) -> bool:\n\n\n\n# Your MyCalendar object will be instantiated and called as such:\n# obj = MyCalendar()\n# param_1 = obj.book(start,end)"
+      }
+    ],
+    "exampleTestcases": "[\"MyCalendar\",\"book\",\"book\",\"book\"]\n[[],[10,20],[15,25],[20,30]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:37.986Z"
+}

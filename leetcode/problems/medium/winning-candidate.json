@@ -1,0 +1,25 @@
+{
+  "title": "Winning Candidate",
+  "titleCn": "当选者",
+  "titleSlug": "winning-candidate",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6649241561110739,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "winning-candidate",
+    "questionId": "574",
+    "title": "Winning Candidate",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Candidate\":[\"id\",\"name\"],\"Vote\":[\"id\",\"candidateId\"]},\"rows\":{\"Candidate\":[[1,\"A\"],[2,\"B\"],[3,\"C\"],[4,\"D\"],[5,\"E\"]],\"Vote\":[[1,2],[2,4],[3,3],[4,2],[5,5]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:52.213Z"
+}

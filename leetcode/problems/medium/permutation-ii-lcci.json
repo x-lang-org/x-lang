@@ -1,0 +1,48 @@
+{
+  "title": "Permutation II LCCI",
+  "titleCn": "有重复字符串的排列组合",
+  "titleSlug": "permutation-ii-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6935285949559208,
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "permutation-ii-lcci",
+    "questionId": "100348",
+    "title": "Permutation II LCCI",
+    "content": "<p>Write a method to compute all permutations of a string whose characters are not necessarily unique. The list of permutations should not have duplicates.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: S = &quot;qqe&quot;\r\n<strong> Output</strong>: [&quot;eqq&quot;,&quot;qeq&quot;,&quot;qqe&quot;]\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: S = &quot;ab&quot;\r\n<strong> Output</strong>: [&quot;ab&quot;, &quot;ba&quot;]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li>All characters are English letters.</li>\r\n\t<li><code>1 &lt;= S.length &lt;= 9</code></li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> permutation(string S) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String[] permutation(String S) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def permutation(self, S: str) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"qqe\"\n\"ab\"",
+    "hints": [
+      "你可以通过在打印之前检查是否有重复内容（或将它们添加到列表中）来处理此问题。你可以用散列表来做到这一点。在什么情况下，这样是可以的？在什么情况下，这可能不是一个很好的解法？",
+      "如果你还没有解决8.7的问题，就先解决那个。",
+      "试着获得每个字符的计数。例如，abcaac有3个a、2个c和1个b。",
+      "要得到3个a、2个c和1个b的全排列，你首先需要选择一个起始字符：a、b或c。如果是a，那么你需要2个a、2个c和1个b的全排列。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:39.347Z"
+}

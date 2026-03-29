@@ -1,0 +1,34 @@
+{
+  "title": "Page Recommendations II",
+  "titleCn": "页面推荐Ⅱ",
+  "titleSlug": "page-recommendations-ii",
+  "difficulty": "HARD",
+  "acRate": 0.39143861143648173,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "page-recommendations-ii",
+    "questionId": "2046",
+    "title": "Page Recommendations II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Friendship\":[\"user1_id\",\"user2_id\"],\"Likes\":[\"user_id\",\"page_id\"]},\"rows\":{\"Friendship\":[[1,2],[1,3],[1,4],[2,3],[2,4],[2,5],[6,1]],\"Likes\":[[1,88],[2,23],[3,24],[4,56],[5,11],[6,33],[2,77],[3,77],[6,88]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "page-recommendations",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "strong-friendship",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:46.940Z"
+}

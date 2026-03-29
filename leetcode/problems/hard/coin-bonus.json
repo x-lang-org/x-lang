@@ -1,0 +1,45 @@
+{
+  "title": "Coin Bonus",
+  "titleCn": "发 LeetCoin",
+  "titleSlug": "coin-bonus",
+  "difficulty": "HARD",
+  "acRate": 0.24213777021491145,
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "coin-bonus",
+    "questionId": "100094",
+    "title": "Coin Bonus",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "binary-indexed-tree",
+      "segment-tree",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> bonus(int n, vector<vector<int>>& leadership, vector<vector<int>>& operations) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] bonus(int n, int[][] leadership, int[][] operations) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def bonus(self, n: int, leadership: List[List[int]], operations: List[List[int]]) -> List[int]:"
+      }
+    ],
+    "exampleTestcases": "6\n[[1, 2], [1, 6], [2, 3], [2, 5], [1, 4]]\n[[1, 1, 500], [2, 2, 50], [3, 1], [2, 6, 15], [3, 1]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:19.150Z"
+}

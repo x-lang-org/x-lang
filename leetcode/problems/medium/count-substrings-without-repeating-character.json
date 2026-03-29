@@ -1,0 +1,34 @@
+{
+  "title": "Count Substrings Without Repeating Character",
+  "titleCn": "计算没有重复字符的子字符串数量",
+  "titleSlug": "count-substrings-without-repeating-character",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5120753172329103,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "count-substrings-without-repeating-character",
+    "questionId": "2890",
+    "title": "Count Substrings Without Repeating Character",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcd\"\n\"ooo\"\n\"abab\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-complete-substrings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:34:31.187Z"
+}

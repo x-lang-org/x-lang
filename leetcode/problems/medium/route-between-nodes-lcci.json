@@ -1,0 +1,47 @@
+{
+  "title": "Route Between Nodes LCCI ",
+  "titleCn": "节点间通路",
+  "titleSlug": "route-between-nodes-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5276703839658324,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph"
+  ],
+  "detail": {
+    "titleSlug": "route-between-nodes-lcci",
+    "questionId": "100171",
+    "title": "Route Between Nodes LCCI ",
+    "content": "<p>Given a directed graph, design an algorithm to find out whether there is a route between two nodes.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 3, graph = [[0, 1], [0, 2], [1, 2], [1, 2]], start = 0, target = 2\r\n<strong> Output</strong>: true\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 5, graph = [[0, 1], [0, 2], [0, 4], [0, 4], [0, 1], [1, 3], [1, 4], [1, 3], [2, 3], [3, 4]], start = 0, target = 4\r\n<strong> Output</strong> true\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ol>\r\n\t<li><code>0 &lt;= n &lt;= 100000</code></li>\r\n\t<li>All node numbers are within the range [0, n].</li>\r\n\t<li>There might be self cycles and duplicated edges.</li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool findWhetherExistsPath(int n, vector<vector<int>>& graph, int start, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean findWhetherExistsPath(int n, int[][] graph, int start, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findWhetherExistsPath(self, n: int, graph: List[List[int]], start: int, target: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "3\n[[0, 1], [0, 2], [1, 2], [1, 2]]\n0\n2\n5\n[[0, 1], [0, 2], [0, 4], [0, 4], [0, 1], [1, 3], [1, 4], [1, 3], [2, 3], [3, 4]]\n0\n4",
+    "hints": [
+      "有两个众所周知的算法可以做到这一点。其利弊是什么？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:52.558Z"
+}

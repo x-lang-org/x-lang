@@ -1,0 +1,42 @@
+{
+  "title": "Bomb Enemy",
+  "titleCn": "轰炸敌人",
+  "titleSlug": "bomb-enemy",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6009109730848862,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "bomb-enemy",
+    "questionId": "361",
+    "title": "Bomb Enemy",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"0\",\"E\",\"0\",\"0\"],[\"E\",\"0\",\"W\",\"E\"],[\"0\",\"E\",\"0\",\"0\"]]\n[[\"W\",\"W\",\"W\"],[\"0\",\"0\",\"0\"],[\"E\",\"E\",\"E\"]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-cost-homecoming-of-a-robot-in-a-grid",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "stamping-the-grid",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "count-unguarded-cells-in-the-grid",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:26:32.672Z"
+}

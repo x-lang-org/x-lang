@@ -1,0 +1,51 @@
+{
+  "title": "火星词典",
+  "titleCn": "火星词典",
+  "titleSlug": "Jf1JuT",
+  "difficulty": "HARD",
+  "acRate": 0.49190692532260016,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "Jf1JuT",
+    "questionId": "1000312",
+    "title": "火星词典",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string alienOrder(vector<string>& words) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String alienOrder(String[] words) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def alienOrder(self, words: List[str]) -> str:"
+      }
+    ],
+    "exampleTestcases": "[\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]\n[\"z\",\"x\"]\n[\"z\",\"x\",\"z\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:53.972Z"
+}

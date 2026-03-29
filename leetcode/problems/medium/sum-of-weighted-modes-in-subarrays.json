@@ -1,0 +1,37 @@
+{
+  "title": "Sum of Weighted Modes in Subarrays",
+  "titleCn": "子数组中加权众数的总和",
+  "titleSlug": "sum-of-weighted-modes-in-subarrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4064272211720227,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "ordered-set",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-weighted-modes-in-subarrays",
+    "questionId": "4036",
+    "title": "Sum of Weighted Modes in Subarrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "counting",
+      "ordered-set",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,2,3]\n3\n[1,2,1,2]\n2\n[4,3,4,3]\n3",
+    "hints": [
+      "Use a sliding window.",
+      "Maintain the max frequency of the current window of length <code>k</code> using a data structure.",
+      "Maintain another data structure for values that have a given frequency."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:00.334Z"
+}

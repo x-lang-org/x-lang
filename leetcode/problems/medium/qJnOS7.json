@@ -1,0 +1,43 @@
+{
+  "title": "最长公共子序列",
+  "titleCn": "最长公共子序列",
+  "titleSlug": "qJnOS7",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6471702966901046,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "qJnOS7",
+    "questionId": "1000274",
+    "title": "最长公共子序列",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestCommonSubsequence(string text1, string text2) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestCommonSubsequence(String text1, String text2) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestCommonSubsequence(self, text1: str, text2: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"abcde\"\n\"ace\"\n\"abc\"\n\"abc\"\n\"abc\"\n\"def\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:39.722Z"
+}

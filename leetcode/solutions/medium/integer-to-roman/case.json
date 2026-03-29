@@ -1,0 +1,23 @@
+{
+  "problemId": "12",
+  "titleSlug": "integer-to-roman",
+  "title": "Integer to Roman",
+  "titleCn": "整数转罗马数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6929129609206102,
+  "testcases": [
+    {
+      "input": "3749",
+      "expectedOutput": "58"
+    },
+    {
+      "input": "1994",
+      "expectedOutput": ""
+    }
+  ]
+}

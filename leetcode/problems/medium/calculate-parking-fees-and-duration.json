@@ -1,0 +1,25 @@
+{
+  "title": "Calculate Parking Fees and Duration",
+  "titleCn": "计算停车费与时长",
+  "titleSlug": "calculate-parking-fees-and-duration",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5064406779661017,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "calculate-parking-fees-and-duration",
+    "questionId": "3473",
+    "title": "Calculate Parking Fees and Duration",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"ParkingTransactions\":[\"lot_id\",\"car_id\",\"entry_time\",\"exit_time\",\"fee_paid\"]},\"rows\":{\"ParkingTransactions\":[[1,1001,\"2023-06-01 08:00:00\",\"2023-06-01 10:30:00\",5.00],[1,1001,\"2023-06-02 11:00:00\",\"2023-06-02 12:45:00\",3.00],[2,1001,\"2023-06-01 10:45:00\",\"2023-06-01 12:00:00\",6.00],[2,1002,\"2023-06-01 09:00:00\",\"2023-06-01 11:30:00\",4.00],[3,1001,\"2023-06-03 07:00:00\",\"2023-06-03 09:00:00\",4.00],[3,1002,\"2023-06-02 12:00:00\",\"2023-06-02 14:00:00\",2.00]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:27:35.001Z"
+}

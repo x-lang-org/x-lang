@@ -1,0 +1,52 @@
+{
+  "title": "Set Mismatch",
+  "titleCn": "错误的集合",
+  "titleSlug": "set-mismatch",
+  "difficulty": "EASY",
+  "acRate": 0.381658163643278,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "set-mismatch",
+    "questionId": "645",
+    "title": "Set Mismatch",
+    "content": "<p>You have a set of integers <code>s</code>, which originally contains all the numbers from <code>1</code> to <code>n</code>. Unfortunately, due to some error, one of the numbers in <code>s</code> got duplicated to another number in the set, which results in <strong>repetition of one</strong> number and <strong>loss of another</strong> number.</p>\n\n<p>You are given an integer array <code>nums</code> representing the data status of this set after the error.</p>\n\n<p>Find the number that occurs twice and the number that is missing and return <em>them in the form of an array</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2,2,4]\n<strong>Output:</strong> [2,3]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,1]\n<strong>Output:</strong> [1,2]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> findErrorNums(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] findErrorNums(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findErrorNums(self, nums: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,2,4]\n[1,1]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-the-duplicate-number",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:32.646Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "The Category of Each Member in the Store",
+  "titleCn": "商店中每个成员的级别",
+  "titleSlug": "the-category-of-each-member-in-the-store",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6240530303030303,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-category-of-each-member-in-the-store",
+    "questionId": "2194",
+    "title": "The Category of Each Member in the Store",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Members\":[\"member_id\",\"name\"],\"Visits\":[\"visit_id\",\"member_id\",\"visit_date\"],\"Purchases\":[\"visit_id\",\"charged_amount\"]},\"rows\":{\"Members\":[[9,\"Alice\"],[11,\"Bob\"],[3,\"Winston\"],[8,\"Hercy\"],[1,\"Narihan\"]],\"Visits\":[[22,11,\"2021-10-28\"],[16,11,\"2021-01-12\"],[18,9,\"2021-12-10\"],[19,3,\"2021-10-19\"],[12,11,\"2021-03-01\"],[17,8,\"2021-05-07\"],[21,9,\"2021-05-12\"]],\"Purchases\":[[12,2000],[18,9000],[17,7000]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:22.357Z"
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Split Array with Equal Sum",
+  "titleCn": "将数组分割成和相等的子数组",
+  "titleSlug": "split-array-with-equal-sum",
+  "difficulty": "HARD",
+  "acRate": 0.3933607887183327,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "split-array-with-equal-sum",
+    "questionId": "548",
+    "title": "Split Array with Equal Sum",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,1,2,1,2,1]\n[1,2,1,2,1,2,1,2]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "fair-distribution-of-cookies",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-ways-to-split-a-string",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:27.836Z"
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Merge Two Binary Trees",
+  "titleCn": "合并二叉树",
+  "titleSlug": "merge-two-binary-trees",
+  "difficulty": "EASY",
+  "acRate": 0.7970187080889779,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "merge-two-binary-trees",
+    "questionId": "617",
+    "title": "Merge Two Binary Trees",
+    "content": "<p>You are given two binary trees <code>root1</code> and <code>root2</code>.</p>\n\n<p>Imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.</p>\n\n<p>Return <em>the merged tree</em>.</p>\n\n<p><strong>Note:</strong> The merging process must start from the root nodes of both trees.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/02/05/merge.jpg\" style=\"width: 600px; height: 163px;\" />\n<pre>\n<strong>Input:</strong> root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]\n<strong>Output:</strong> [3,4,5,5,4,null,7]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> root1 = [1], root2 = [1,2]\n<strong>Output:</strong> [2,2]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in both trees is in the range <code>[0, 2000]</code>.</li>\n\t<li><code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,3,2,5]\n[2,1,3,null,4,null,7]\n[1]\n[1,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:52:37.173Z"
+}

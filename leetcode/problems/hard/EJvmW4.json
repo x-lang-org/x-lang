@@ -1,0 +1,47 @@
+{
+  "title": "守护太空城",
+  "titleCn": "守护太空城",
+  "titleSlug": "EJvmW4",
+  "difficulty": "HARD",
+  "acRate": 0.4821743734557007,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "EJvmW4",
+    "questionId": "1000436",
+    "title": "守护太空城",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "dynamic-programming",
+      "bitmask"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int defendSpaceCity(vector<int>& time, vector<int>& position) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int defendSpaceCity(int[] time, int[] position) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def defendSpaceCity(self, time: List[int], position: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,1]\n[6,3,3]\n[1,1,1,2,2,3,5]\n[1,2,3,1,2,1,3]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:44.790Z"
+}

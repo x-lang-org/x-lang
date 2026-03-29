@@ -1,0 +1,37 @@
+{
+  "title": "最强祝福力场",
+  "titleCn": "最强祝福力场",
+  "titleSlug": "xepqZ5",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3690554821664465,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "xepqZ5",
+    "questionId": "1000562",
+    "title": "最强祝福力场",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int fieldOfGreatestBlessing(vector<vector<int>>& forceField) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int fieldOfGreatestBlessing(int[][] forceField) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def fieldOfGreatestBlessing(self, forceField: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[0,0,1],[1,0,1]]\n[[4,4,6],[7,5,3],[1,6,2],[5,6,3]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:08.042Z"
+}

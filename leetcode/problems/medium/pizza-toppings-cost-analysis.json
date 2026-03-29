@@ -1,0 +1,25 @@
+{
+  "title": "Pizza Toppings Cost Analysis",
+  "titleCn": "披萨配料成本分析",
+  "titleSlug": "pizza-toppings-cost-analysis",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6473165388828039,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "pizza-toppings-cost-analysis",
+    "questionId": "3255",
+    "title": "Pizza Toppings Cost Analysis",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Toppings\":[\"topping_name\",\"cost\"]},\"rows\":{\"Toppings\":[[\"Pepperoni\",0.50],[\"Sausage\",0.70],[\"Chicken\",0.55],[\"Extra Cheese\",0.40]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:44.515Z"
+}

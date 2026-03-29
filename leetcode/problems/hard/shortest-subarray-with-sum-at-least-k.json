@@ -1,0 +1,62 @@
+{
+  "title": "Shortest Subarray with Sum at Least K",
+  "titleCn": "和至少为 K 的最短子数组",
+  "titleSlug": "shortest-subarray-with-sum-at-least-k",
+  "difficulty": "HARD",
+  "acRate": 0.28886835079071677,
+  "topicTags": [
+    "queue",
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "shortest-subarray-with-sum-at-least-k",
+    "questionId": "892",
+    "title": "Shortest Subarray with Sum at Least K",
+    "content": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <em>the length of the shortest non-empty <strong>subarray</strong> of </em><code>nums</code><em> with a sum of at least </em><code>k</code>. If there is no such <strong>subarray</strong>, return <code>-1</code>.</p>\n\n<p>A <strong>subarray</strong> is a <strong>contiguous</strong> part of an array.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [1], k = 1\n<strong>Output:</strong> 1\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,2], k = 4\n<strong>Output:</strong> -1\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [2,-1,2], k = 3\n<strong>Output:</strong> 3\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>5</sup> &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "queue",
+      "array",
+      "binary-search",
+      "prefix-sum",
+      "sliding-window",
+      "monotonic-queue",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int shortestSubarray(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int shortestSubarray(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def shortestSubarray(self, nums: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1]\n1\n[1,2]\n4\n[2,-1,2]\n3",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "shortest-subarray-with-or-at-least-k-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shortest-subarray-with-or-at-least-k-i",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:57.318Z"
+}

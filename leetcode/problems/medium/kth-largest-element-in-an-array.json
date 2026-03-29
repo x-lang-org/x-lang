@@ -1,0 +1,62 @@
+{
+  "title": "Kth Largest Element in an Array",
+  "titleCn": "数组中的第K个最大元素",
+  "titleSlug": "kth-largest-element-in-an-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6024181119577279,
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "quickselect",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "kth-largest-element-in-an-array",
+    "questionId": "215",
+    "title": "Kth Largest Element in an Array",
+    "content": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return <em>the</em> <code>k<sup>th</sup></code> <em>largest element in the array</em>.</p>\n\n<p>Note that it is the <code>k<sup>th</sup></code> largest element in the sorted order, not the <code>k<sup>th</sup></code> distinct element.</p>\n\n<p>Can you solve it without sorting?</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,1,5,6,4], k = 2\n<strong>Output:</strong> 5\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,3,1,2,4,5,5,6], k = 4\n<strong>Output:</strong> 4\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= k &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "divide-and-conquer",
+      "quickselect",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findKthLargest(self, nums: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,2,1,5,6,4]\n2\n[3,2,3,1,2,4,5,5,6]\n4",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "wiggle-sort-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "top-k-frequent-elements",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "third-maximum-number",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:45:27.137Z"
+}

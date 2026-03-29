@@ -1,0 +1,23 @@
+{
+  "problemId": "32",
+  "titleSlug": "longest-valid-parentheses",
+  "title": "Longest Valid Parentheses",
+  "titleCn": "最长有效括号",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.41725839126396835,
+  "testcases": [
+    {
+      "input": "\"(()\"",
+      "expectedOutput": "\")()())\""
+    },
+    {
+      "input": "\"\"",
+      "expectedOutput": ""
+    }
+  ]
+}

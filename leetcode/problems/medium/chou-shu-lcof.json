@@ -1,0 +1,47 @@
+{
+  "title": "丑数",
+  "titleCn": "丑数",
+  "titleSlug": "chou-shu-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6400106619403346,
+  "topicTags": [
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "chou-shu-lcof",
+    "questionId": "100334",
+    "title": "丑数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "math",
+      "dynamic-programming",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int nthUglyNumber(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int nthUglyNumber(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def nthUglyNumber(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "10",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:30:28.132Z"
+}

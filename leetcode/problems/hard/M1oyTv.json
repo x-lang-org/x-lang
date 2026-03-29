@@ -1,0 +1,45 @@
+{
+  "title": "最小覆盖子串",
+  "titleCn": "最小覆盖子串",
+  "titleSlug": "M1oyTv",
+  "difficulty": "HARD",
+  "acRate": 0.5103490851947469,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "M1oyTv",
+    "questionId": "1000253",
+    "title": "最小覆盖子串",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string minWindow(string s, string t) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String minWindow(String s, String t) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:"
+      }
+    ],
+    "exampleTestcases": "\"ADOBECODEBANC\"\n\"ABC\"\n\"a\"\n\"a\"\n\"a\"\n\"aa\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:45.560Z"
+}

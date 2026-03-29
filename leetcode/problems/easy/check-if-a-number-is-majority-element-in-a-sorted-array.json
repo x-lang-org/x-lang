@@ -1,0 +1,41 @@
+{
+  "title": "Check If a Number Is Majority Element in a Sorted Array",
+  "titleCn": "检查一个数是否在数组中占绝大多数",
+  "titleSlug": "check-if-a-number-is-majority-element-in-a-sorted-array",
+  "difficulty": "EASY",
+  "acRate": 0.6066303809995052,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "check-if-a-number-is-majority-element-in-a-sorted-array",
+    "questionId": "1102",
+    "title": "Check If a Number Is Majority Element in a Sorted Array",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,4,5,5,5,5,5,6,6]\n5\n[10,100,101,101]\n101",
+    "hints": [
+      "How to check if a given number target is a majority element?.",
+      "Find the frequency of target and compare it to the length of the array.",
+      "You can find the frequency of an element using Binary Search since the array is sorted.",
+      "Using Binary Search, find the first and last occurrences of A. Then just calculate the difference between the indexes of these occurrences."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "majority-element",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "majority-element-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:28:50.377Z"
+}

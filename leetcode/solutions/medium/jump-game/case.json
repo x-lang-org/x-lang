@@ -1,0 +1,19 @@
+{
+  "problemId": "55",
+  "titleSlug": "jump-game",
+  "title": "Jump Game",
+  "titleCn": "跳跃游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4477838195270638,
+  "testcases": [
+    {
+      "input": "[2,3,1,1,4]",
+      "expectedOutput": "[3,2,1,0,4]"
+    }
+  ]
+}

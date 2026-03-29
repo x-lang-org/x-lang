@@ -1,0 +1,45 @@
+{
+  "title": "Range Addition",
+  "titleCn": "区间加法",
+  "titleSlug": "range-addition",
+  "difficulty": "MEDIUM",
+  "acRate": 0.785701072881983,
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "range-addition",
+    "questionId": "370",
+    "title": "Range Addition",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[[1,3,2],[2,4,3],[0,2,-2]]\n10\n[[2,4,6],[5,6,8],[1,9,-4]]",
+    "hints": [
+      "Thinking of using advanced data structures? You are thinking it too complicated.",
+      "For each update operation, do you really need to update all elements between i and j?",
+      "Update only the first and end element is sufficient.",
+      "The optimal time complexity is O(<b><i>k</i></b> + <b><i>n</i></b>) and uses O(1) extra space."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "range-addition-ii",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "count-positions-on-street-with-required-brightness",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shifting-letters-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:53.812Z"
+}

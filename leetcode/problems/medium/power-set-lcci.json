@@ -1,0 +1,51 @@
+{
+  "title": "Power Set LCCI",
+  "titleCn": "幂集",
+  "titleSlug": "power-set-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.821580139411131,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "power-set-lcci",
+    "questionId": "100198",
+    "title": "Power Set LCCI",
+    "content": "<p>Write a method to return all subsets of a set. The elements in a set are&nbsp;pairwise distinct.</p>\r\n\r\n<p>Note: The result set should not contain duplicated subsets.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>:  nums = [1,2,3]\r\n<strong> Output</strong>: \r\n[\r\n  [3],\r\n&nbsp; [1],\r\n&nbsp; [2],\r\n&nbsp; [1,2,3],\r\n&nbsp; [1,3],\r\n&nbsp; [2,3],\r\n&nbsp; [1,2],\r\n&nbsp; []\r\n]\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3]",
+    "hints": [
+      "如何从子集{a, b}中构建{a, b, c}的所有子集？",
+      "任何属于{a, b}的子集都是{a, b, c}的子集。哪个集合是{a, b, c}的子集却不是{a, b}的子集。",
+      "包含c的子集是{a, b, c}，而非{a, b}。你能使用子集{a, b}构建这些子集吗？",
+      "通过把c加到所有{a, b}的子集里，你可以构建剩余的子集。",
+      "你也可以将每个子集映射成二进制数。第i位可以表示元素是否在集合中的“布尔”标志。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:57.838Z"
+}

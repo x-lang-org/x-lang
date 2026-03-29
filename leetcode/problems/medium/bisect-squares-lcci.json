@@ -1,0 +1,48 @@
+{
+  "title": "Bisect Squares LCCI",
+  "titleCn": "平分正方形",
+  "titleSlug": "bisect-squares-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4505173786150172,
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "bisect-squares-lcci",
+    "questionId": "100353",
+    "title": "Bisect Squares LCCI",
+    "content": "<p>Given two squares on a two-dimensional plane, find a line that would cut these two squares in half. Assume that the top and the bottom sides of the square run parallel to the x-axis.</p>\r\n\r\n<p>Each square consists of three values,&nbsp;the coordinate of bottom left corner&nbsp;<code>[X,Y] = [square[0],square[1]]</code>, and the side length&nbsp;of the square <code>square[2]</code>. The line will intersect to the two squares in four points. Return the coordinates of two intersection points <code>[X<sub>1</sub>,Y<sub>1</sub>]</code>&nbsp;and&nbsp;<code>[X<sub>2</sub>,Y<sub>2</sub>]</code>&nbsp;that the forming segment covers the other two intersection points in format of <code>{X<sub>1</sub>,Y<sub>1</sub>,X<sub>2</sub>,Y<sub>2</sub>}</code>. If <code>X<sub>1</sub> != X<sub>2</sub></code>, there should be&nbsp;<code>X<sub>1</sub> &lt; X<sub>2</sub></code>, otherwise there should be&nbsp;<code>Y<sub>1</sub> &lt;= Y<sub>2</sub></code>.</p>\r\n\r\n<p>If there are more than one line that can cut these two squares in half, return the one that has biggest slope (slope of a line parallel to the y-axis is considered as infinity).</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>\r\nsquare1 = {-1, -1, 2}\r\nsquare2 = {0, -1, 2}\r\n<strong>Output:</strong> {-1,0,2,0}\r\n<strong>Explanation:</strong> y = 0 is the line that can cut these two squares in half.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>square.length == 3</code></li>\r\n\t<li><code>square[2] &gt; 0</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "geometry",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<double> cutSquares(vector<int>& square1, vector<int>& square2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public double[] cutSquares(int[] square1, int[] square2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def cutSquares(self, square1: List[int], square2: List[int]) -> List[float]:\n        "
+      }
+    ],
+    "exampleTestcases": "[-1,1,3]\n[0,0,5]",
+    "hints": [
+      "画一个正方形和一些把它切成两半的线。这些线位于哪里？",
+      "任何把正方形切成两半的直线都穿过正方形的中心。那你怎么才能找到一条把两个正方形切成两半的线呢？",
+      "要将两个正方形切成两半，这条线必须穿过这两个正方形的中心。",
+      "给定一条直线（斜率和y轴截距），你能找到它与另一条直线的交点吗?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:15.247Z"
+}

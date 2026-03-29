@@ -1,0 +1,49 @@
+{
+  "title": "Number of Equal Count Substrings",
+  "titleCn": "等计数子串的数量",
+  "titleSlug": "number-of-equal-count-substrings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5387096774193548,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "number-of-equal-count-substrings",
+    "questionId": "2209",
+    "title": "Number of Equal Count Substrings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aaabcbbcc\"\n3\n\"abcd\"\n2\n\"a\"\n5",
+    "hints": [
+      "The brute force solution is to check every substring, which would TLE. How can we improve this solution?",
+      "In an equal count substring, the first character appears count times, the second character appears count times, and so on.",
+      "The length of an equal count substring is the number of unique characters multiplied by count.",
+      "The length of all equal count substrings are multiples of count."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-substring-without-repeating-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longest-substring-with-at-least-k-repeating-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "unique-substrings-with-equal-digit-frequency",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:10.366Z"
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Substrings of Size Three with Distinct Characters",
+  "titleCn": "长度为三且各字符不同的子字符串",
+  "titleSlug": "substrings-of-size-three-with-distinct-characters",
+  "difficulty": "EASY",
+  "acRate": 0.7024963780229577,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "substrings-of-size-three-with-distinct-characters",
+    "questionId": "1987",
+    "title": "Substrings of Size Three with Distinct Characters",
+    "content": "<p>A string is <strong>good</strong> if there are no repeated characters.</p>\n\n<p>Given a string <code>s</code>​​​​​, return <em>the number of <strong>good substrings</strong> of length <strong>three </strong>in </em><code>s</code>​​​​​​.</p>\n\n<p>Note that if there are multiple occurrences of the same substring, every occurrence should be counted.</p>\n\n<p>A <strong>substring</strong> is a contiguous sequence of characters in a string.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;xyzzaz&quot;\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> There are 4 substrings of size 3: &quot;xyz&quot;, &quot;yzz&quot;, &quot;zza&quot;, and &quot;zaz&quot;. \nThe only good substring of length 3 is &quot;xyz&quot;.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;aababcabc&quot;\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> There are 7 substrings of size 3: &quot;aab&quot;, &quot;aba&quot;, &quot;bab&quot;, &quot;abc&quot;, &quot;bca&quot;, &quot;cab&quot;, and &quot;abc&quot;.\nThe good substrings are &quot;abc&quot;, &quot;bca&quot;, &quot;cab&quot;, and &quot;abc&quot;.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 100</code></li>\n\t<li><code>s</code>​​​​​​ consists of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int countGoodSubstrings(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int countGoodSubstrings(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countGoodSubstrings(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"xyzzaz\"\n\"aababcabc\"",
+    "hints": [
+      "Try using a set to find out the number of distinct characters in a substring."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:19.511Z"
+}

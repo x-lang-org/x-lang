@@ -1,0 +1,26 @@
+{
+  "problemId": "50",
+  "titleSlug": "powx-n",
+  "title": "Pow(x, n)",
+  "titleCn": "Pow(x, n)",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.391372480738258,
+  "testcases": [
+    {
+      "input": "2.00000",
+      "expectedOutput": "10"
+    },
+    {
+      "input": "2.10000",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "2.00000",
+      "expectedOutput": "-2"
+    }
+  ]
+}

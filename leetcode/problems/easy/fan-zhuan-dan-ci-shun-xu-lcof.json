@@ -1,0 +1,43 @@
+{
+  "title": "字符串中的单词反转",
+  "titleCn": "字符串中的单词反转",
+  "titleSlug": "fan-zhuan-dan-ci-shun-xu-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.4511999235403294,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "fan-zhuan-dan-ci-shun-xu-lcof",
+    "questionId": "100328",
+    "title": "字符串中的单词反转",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string reverseMessage(string message) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String reverseMessage(String message) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def reverseMessage(self, message: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"the sky is blue\"\n\"  hello world!  \"\n\"a good   example\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:33.172Z"
+}

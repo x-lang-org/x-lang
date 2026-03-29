@@ -1,0 +1,25 @@
+{
+  "title": "Find Longest Calls",
+  "titleCn": "查找最长的电话",
+  "titleSlug": "find-longest-calls",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5906773488710853,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-longest-calls",
+    "questionId": "3432",
+    "title": "Find Longest Calls",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Contacts\":[\"id\",\"first_name\",\"last_name\"],\"Calls\":[\"contact_id\",\"type\",\"duration\"]},\"rows\":{\"Contacts\":[[1,\"John\",\"Doe\"],[2,\"Jane\",\"Smith\"],[3,\"Alice\",\"Johnson\"],[4,\"Michael\",\"Brown\"],[5,\"Emily\",\"Davis\"]],\"Calls\":[[1,\"incoming\",120],[1,\"outgoing\",180],[2,\"incoming\",300],[2,\"outgoing\",240],[3,\"incoming\",150],[3,\"outgoing\",360],[4,\"incoming\",420],[4,\"outgoing\",200],[5,\"incoming\",180],[5,\"outgoing\",280]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:44.548Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Lowest Common Ancestor of a Binary Tree II",
+  "titleCn": "二叉树的最近公共祖先 II",
+  "titleSlug": "lowest-common-ancestor-of-a-binary-tree-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6141078838174274,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "lowest-common-ancestor-of-a-binary-tree-ii",
+    "questionId": "1780",
+    "title": "Lowest Common Ancestor of a Binary Tree II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,5,1,6,2,0,8,null,null,7,4]\n5\n1\n[3,5,1,6,2,0,8,null,null,7,4]\n5\n4\n[3,5,1,6,2,0,8,null,null,7,4]\n5\n10",
+    "hints": [
+      "Traverse the graph visiting root, left, root, right, root to make an Euler Path",
+      "Return the node (LCA) that is at the lowest depth between p and q in the Euler Path"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-search-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree-iii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:39.046Z"
+}

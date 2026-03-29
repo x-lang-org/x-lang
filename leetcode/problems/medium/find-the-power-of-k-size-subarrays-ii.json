@@ -1,0 +1,53 @@
+{
+  "title": "Find the Power of K-Size Subarrays II",
+  "titleCn": "长度为 K 的子数组的能量值 II",
+  "titleSlug": "find-the-power-of-k-size-subarrays-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.556767254257544,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "find-the-power-of-k-size-subarrays-ii",
+    "questionId": "3523",
+    "title": "Find the Power of K-Size Subarrays II",
+    "content": "<p>You are given an array of integers <code>nums</code> of length <code>n</code> and a <em>positive</em> integer <code>k</code>.</p>\n\n<p>The <strong>power</strong> of an array is defined as:</p>\n\n<ul>\n\t<li>Its <strong>maximum</strong> element if <em>all</em> of its elements are <strong>consecutive</strong> and <strong>sorted</strong> in <strong>ascending</strong> order.</li>\n\t<li>-1 otherwise.</li>\n</ul>\n\n<p>You need to find the <strong>power</strong> of all <span data-keyword=\"subarray-nonempty\">subarrays</span> of <code>nums</code> of size <code>k</code>.</p>\n\n<p>Return an integer array <code>results</code> of size <code>n - k + 1</code>, where <code>results[i]</code> is the <em>power</em> of <code>nums[i..(i + k - 1)]</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,2,3,4,3,2,5], k = 3</span></p>\n\n<p><strong>Output:</strong> [3,4,-1,-1,-1]</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are 5 subarrays of <code>nums</code> of size 3:</p>\n\n<ul>\n\t<li><code>[1, 2, 3]</code> with the maximum element 3.</li>\n\t<li><code>[2, 3, 4]</code> with the maximum element 4.</li>\n\t<li><code>[3, 4, 3]</code> whose elements are <strong>not</strong> consecutive.</li>\n\t<li><code>[4, 3, 2]</code> whose elements are <strong>not</strong> sorted.</li>\n\t<li><code>[3, 2, 5]</code> whose elements are <strong>not</strong> consecutive.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [2,2,2,2,2], k = 4</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[-1,-1]</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [3,2,3,2,3,2], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[-1,3,-1,3,-1]</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n == nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>6</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= n</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> resultsArray(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] resultsArray(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def resultsArray(self, nums: List[int], k: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,3,2,5]\n3\n[2,2,2,2,2]\n4\n[3,2,3,2,3,2]\n2",
+    "hints": [
+      "Let <code>dp[i]</code> denote the length of the longest subarray ending at index <code>i</code> that has consecutive and sorted elements.",
+      "Use a TreeMap with a sliding window to check if there are <code>k</code> elements in the subarray ending at index <code>i</code>.",
+      "If TreeMap has less than <code>k</code> elements and <code>dp[i] < k</code>, the subarray has power equal to -1.",
+      "Is it possible to achieve <code>O(nums.length)</code> using a Stack?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-sum-of-distinct-subarrays-with-length-k",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:35.102Z"
+}

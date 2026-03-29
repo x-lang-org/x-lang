@@ -1,0 +1,57 @@
+{
+  "title": "Greatest English Letter in Upper and Lower Case",
+  "titleCn": "兼具大小写的最好英文字母",
+  "titleSlug": "greatest-english-letter-in-upper-and-lower-case",
+  "difficulty": "EASY",
+  "acRate": 0.7207702006710406,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "greatest-english-letter-in-upper-and-lower-case",
+    "questionId": "1363",
+    "title": "Greatest English Letter in Upper and Lower Case",
+    "content": "<p>Given a string of English letters <code>s</code>, return <em>the <strong>greatest </strong>English letter which occurs as <strong>both</strong> a lowercase and uppercase letter in</em> <code>s</code>. The returned letter should be in <strong>uppercase</strong>. If no such letter exists, return <em>an empty string</em>.</p>\n\n<p>An English letter <code>b</code> is <strong>greater</strong> than another letter <code>a</code> if <code>b</code> appears <strong>after</strong> <code>a</code> in the English alphabet.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;l<strong><u>Ee</u></strong>TcOd<u><strong>E</strong></u>&quot;\n<strong>Output:</strong> &quot;E&quot;\n<strong>Explanation:</strong>\nThe letter &#39;E&#39; is the only letter to appear in both lower and upper case.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;a<strong><u>rR</u></strong>AzFif&quot;\n<strong>Output:</strong> &quot;R&quot;\n<strong>Explanation:</strong>\nThe letter &#39;R&#39; is the greatest letter to appear in both lower and upper case.\nNote that &#39;A&#39; and &#39;F&#39; also appear in both lower and upper case, but &#39;R&#39; is greater than &#39;F&#39; or &#39;A&#39;.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;AbCdEfGhIjK&quot;\n<strong>Output:</strong> &quot;&quot;\n<strong>Explanation:</strong>\nThere is no letter that appears in both lower and upper case.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> consists of lowercase and uppercase English letters.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "enumeration"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string greatestLetter(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String greatestLetter(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def greatestLetter(self, s: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"lEeTcOdE\"\n\"arRAzFif\"\n\"AbCdEfGhIjK\"",
+    "hints": [
+      "Consider iterating through the string and storing each unique character that occurs in a set.",
+      "From Z to A, check whether both the uppercase and lowercase version occur in the set."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-the-number-of-special-characters-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-the-number-of-special-characters-i",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:22.773Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Find Top Scoring Students",
+  "titleCn": "查找得分最高的学生",
+  "titleSlug": "find-top-scoring-students",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4840047393364929,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-top-scoring-students",
+    "questionId": "3488",
+    "title": "Find Top Scoring Students",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"students\":[\"student_id\",\"name\",\"major\"],\"courses\":[\"course_id\",\"name\",\"credits\",\"major\"],\"enrollments\":[\"student_id\",\"course_id\",\"semester\",\"grade\"]},\"rows\":{\"students\":[[1,\"Alice\",\"Computer Science\"],[2,\"Bob\",\"Computer Science\"],[3,\"Charlie\",\"Mathematics\"],[4,\"David\",\"Mathematics\"]],\"courses\":[[101,\"Algorithms\",3,\"Computer Science\"],[102,\"Data Structures\",3,\"Computer Science\"],[103,\"Calculus\",4,\"Mathematics\"],[104,\"Linear Algebra\",4,\"Mathematics\"]],\"enrollments\":[[1,101,\"Fall 2023\",\"A\"],[1,102,\"Fall 2023\",\"A\"],[2,101,\"Fall 2023\",\"B\"],[2,102,\"Fall 2023\",\"A\"],[3,103,\"Fall 2023\",\"A\"],[3,104,\"Fall 2023\",\"A\"],[4,103,\"Fall 2023\",\"A\"],[4,104,\"Fall 2023\",\"B\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:41:53.698Z"
+}

@@ -1,0 +1,43 @@
+{
+  "title": "Concatenate Non-Zero Digits and Multiply by Sum I",
+  "titleCn": "连接非零数字并乘以其数字和 I",
+  "titleSlug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+  "difficulty": "EASY",
+  "acRate": 0.5901812423016013,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+    "questionId": "4135",
+    "title": "Concatenate Non-Zero Digits and Multiply by Sum I",
+    "content": "<p>You are given an integer <code>n</code>.</p>\n\n<p>Form a new integer <code>x</code> by concatenating all the <strong>non-zero digits</strong> of <code>n</code> in their original order. If there are no <strong>non-zero</strong> digits, <code>x = 0</code>.</p>\n\n<p>Let <code>sum</code> be the <strong>sum of digits</strong> in <code>x</code>.</p>\n\n<p>Return an integer representing the value of <code>x * sum</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 10203004</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">12340</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The non-zero digits are 1, 2, 3, and 4. Thus, <code>x = 1234</code>.</li>\n\t<li>The sum of digits is <code>sum = 1 + 2 + 3 + 4 = 10</code>.</li>\n\t<li>Therefore, the answer is <code>x * sum = 1234 * 10 = 12340</code>.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 1000</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">1</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The non-zero digit is 1, so <code>x = 1</code> and <code>sum = 1</code>.</li>\n\t<li>Therefore, the answer is <code>x * sum = 1 * 1 = 1</code>.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long sumAndMultiply(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long sumAndMultiply(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sumAndMultiply(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "10203004\n1000",
+    "hints": [
+      "Simulate as described"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:55.170Z"
+}

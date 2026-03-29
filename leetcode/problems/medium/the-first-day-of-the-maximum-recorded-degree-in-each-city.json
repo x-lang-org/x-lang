@@ -1,0 +1,25 @@
+{
+  "title": "The First Day of the Maximum Recorded Degree in Each City",
+  "titleCn": "每个城市最高气温的第一天",
+  "titleSlug": "the-first-day-of-the-maximum-recorded-degree-in-each-city",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7333523050654525,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "the-first-day-of-the-maximum-recorded-degree-in-each-city",
+    "questionId": "2446",
+    "title": "The First Day of the Maximum Recorded Degree in Each City",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Weather\": [\"city_id\", \"day\", \"degree\"]}, \"rows\": {\"Weather\": [[1, \"2022-01-07\", -12], [1, \"2022-03-07\", 5], [1, \"2022-07-07\", 24], [2, \"2022-08-07\", 37], [2, \"2022-08-17\", 37], [3, \"2022-02-07\", -7], [3, \"2022-12-07\", -6]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:26.398Z"
+}

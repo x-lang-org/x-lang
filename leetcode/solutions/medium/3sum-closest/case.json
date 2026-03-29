@@ -1,0 +1,23 @@
+{
+  "problemId": "16",
+  "titleSlug": "3sum-closest",
+  "title": "3Sum Closest",
+  "titleCn": "最接近的三数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.44849448406337966,
+  "testcases": [
+    {
+      "input": "[-1,2,1,-4]",
+      "expectedOutput": "1"
+    },
+    {
+      "input": "[0,0,0]",
+      "expectedOutput": "1"
+    }
+  ]
+}

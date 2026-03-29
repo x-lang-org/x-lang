@@ -1,0 +1,25 @@
+{
+  "title": "Fix Product Name Format",
+  "titleCn": "产品名称格式修复",
+  "titleSlug": "fix-product-name-format",
+  "difficulty": "EASY",
+  "acRate": 0.5570893604523093,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "fix-product-name-format",
+    "questionId": "1686",
+    "title": "Fix Product Name Format",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Sales\": [\"sale_id\", \"product_name\", \"sale_date\"]}, \"rows\": {\"Sales\": [[1, \"LCPHONE\", \"2000-01-16\"], [2, \"LCPhone\", \"2000-01-17\"], [3, \"LcPhOnE\", \"2000-02-18\"], [4, \"LCKeyCHAiN\", \"2000-02-19\"], [5, \"LCKeyChain\", \"2000-02-28\"], [6, \"Matryoshka\", \"2000-03-31\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:24.307Z"
+}

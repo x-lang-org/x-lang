@@ -1,0 +1,50 @@
+{
+  "title": "Remove All Ones With Row and Column Flips",
+  "titleCn": "通过翻转行或列来去除所有的 1",
+  "titleSlug": "remove-all-ones-with-row-and-column-flips",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6419180201082754,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "remove-all-ones-with-row-and-column-flips",
+    "questionId": "2268",
+    "title": "Remove All Ones With Row and Column Flips",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "math",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1,0],[1,0,1],[0,1,0]]\n[[1,1,0],[0,0,0],[0,0,0]]\n[[0]]",
+    "hints": [
+      "Does the order, in which you do the operations, matter?",
+      "No, it does not. An element will keep its original value if the number of operations done on it is even and vice versa. This also means that doing more than 1 operation on the same row or column is unproductive.",
+      "Try working backward, start with a matrix of all zeros and try to construct grid using operations.",
+      "Start with operations on columns, after doing them what do you notice about each row?",
+      "Each row is the exact same. If we then flip some rows, that leaves only two possible arrangements for each row: the same as the original or the opposite."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "score-after-flipping-matrix",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-operations-to-remove-adjacent-ones-in-matrix",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:02:36.260Z"
+}

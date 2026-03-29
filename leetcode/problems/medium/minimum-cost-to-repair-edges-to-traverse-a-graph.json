@@ -1,0 +1,33 @@
+{
+  "title": "Minimum Cost to Repair Edges to Traverse a Graph",
+  "titleCn": "修复边以遍历图的最小成本",
+  "titleSlug": "minimum-cost-to-repair-edges-to-traverse-a-graph",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8142857142857143,
+  "topicTags": [
+    "breadth-first-search",
+    "graph",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "minimum-cost-to-repair-edges-to-traverse-a-graph",
+    "questionId": "4197",
+    "title": "Minimum Cost to Repair Edges to Traverse a Graph",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "graph",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n[[0,1,10],[1,2,10],[0,2,100]]\n1\n6\n[[0,2,5],[2,3,6],[3,4,7],[4,5,5],[0,1,10],[1,5,12],[0,3,9],[1,2,8],[2,4,11]]\n2\n3\n[[0,1,1]]\n1",
+    "hints": [
+      "Use binary search.",
+      "For a fixed value of <code>money</code>, check whether there exists a path from node <code>0</code> to node <code>n - 1</code> that uses at most <code>k</code> edges.",
+      "Use binary search to find the smallest value of <code>money</code> that makes this possible."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:53:42.932Z"
+}

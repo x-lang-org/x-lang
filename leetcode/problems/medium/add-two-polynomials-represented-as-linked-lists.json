@@ -1,0 +1,46 @@
+{
+  "title": "Add Two Polynomials Represented as Linked Lists",
+  "titleCn": "求两个多项式链表的和",
+  "titleSlug": "add-two-polynomials-represented-as-linked-lists",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5993816254416962,
+  "topicTags": [
+    "linked-list",
+    "math",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "add-two-polynomials-represented-as-linked-lists",
+    "questionId": "1774",
+    "title": "Add Two Polynomials Represented as Linked Lists",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "linked-list",
+      "math",
+      "two-pointers"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1]]\n[[1,0]]\n[[2,2],[4,1],[3,0]]\n[[3,2],[-4,1],[-1,0]]\n[[1,2]]\n[[-1,2]]",
+    "hints": [
+      "Process both linked lists at the same time",
+      "If the current power of the two heads is equal, add this power with the sum of the coefficients to the answer list.",
+      "If one head has a larger power, add this power to the answer list and move only this head."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "add-two-numbers",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "merge-two-sorted-lists",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "add-two-numbers-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:22:05.087Z"
+}

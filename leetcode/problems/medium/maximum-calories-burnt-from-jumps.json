@@ -1,0 +1,35 @@
+{
+  "title": "Maximum Calories Burnt from Jumps",
+  "titleCn": "跳跃燃烧的最大卡路里",
+  "titleSlug": "maximum-calories-burnt-from-jumps",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7421052631578947,
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-calories-burnt-from-jumps",
+    "questionId": "4109",
+    "title": "Maximum Calories Burnt from Jumps",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,7,9]\n[5,2,4]\n[3,3]",
+    "hints": [
+      "Sort <code>heights</code> and greedily distribute the values.",
+      "Place larger values from the back of the sorted <code>heights</code> in non-increasing order at the even indices.",
+      "Place smaller values from the front of the sorted <code>heights</code> in non-decreasing order at the odd indices."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:18.872Z"
+}

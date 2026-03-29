@@ -1,0 +1,42 @@
+{
+  "title": "Line Reflection",
+  "titleCn": "直线镜像",
+  "titleSlug": "line-reflection",
+  "difficulty": "MEDIUM",
+  "acRate": 0.33793243380338844,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "line-reflection",
+    "questionId": "356",
+    "title": "Line Reflection",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1],[-1,1]]\n[[1,1],[-1,-1]]",
+    "hints": [
+      "Find the smallest and largest x-value for all points.",
+      "If there is a line then it should be at y = (minX + maxX) / 2.",
+      "For each point, make sure that it has a reflected point in the opposite side."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "max-points-on-a-line",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "number-of-boomerangs",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:32.124Z"
+}

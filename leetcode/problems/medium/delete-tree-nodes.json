@@ -1,0 +1,35 @@
+{
+  "title": "Delete Tree Nodes",
+  "titleCn": "删除树节点",
+  "titleSlug": "delete-tree-nodes",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5826712069617859,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "delete-tree-nodes",
+    "questionId": "1201",
+    "title": "Delete Tree Nodes",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "7\n[-1,0,0,1,2,2,2]\n[1,-2,4,0,-2,-1,-1]\n7\n[-1,0,0,1,2,2,2]\n[1,-2,4,0,-2,-1,-2]",
+    "hints": [
+      "Traverse the tree using depth first search.",
+      "Find for every node the sum of values of its sub-tree.",
+      "Traverse the tree again from the root and return once you reach a node with zero sum of values in its sub-tree."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:04.870Z"
+}

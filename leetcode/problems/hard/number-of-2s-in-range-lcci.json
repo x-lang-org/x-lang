@@ -1,0 +1,49 @@
+{
+  "title": "Number Of 2s In Range LCCI",
+  "titleCn": "2出现的次数",
+  "titleSlug": "number-of-2s-in-range-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.5065451305599342,
+  "topicTags": [
+    "recursion",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "number-of-2s-in-range-lcci",
+    "questionId": "1000034",
+    "title": "Number Of 2s In Range LCCI",
+    "content": "<p>Write a method to count the number of 2s that appear in all the numbers between 0&nbsp;and n (inclusive).</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>25\r\n<strong>Output: </strong>9\r\n<strong>Explanation: </strong>(2, 12, 20, 21, 22, 23, 24, 25)(Note that 22 counts for two 2s.)</pre>\r\n\r\n<p>Note:</p>\r\n\r\n<ul>\r\n\t<li><code>n &lt;= 10^9</code></li>\r\n</ul>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "recursion",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numberOf2sInRange(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numberOf2sInRange(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numberOf2sInRange(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "2",
+    "hints": [
+      "从蛮力解法开始。",
+      "不要计算每一个数中有多少个2，要一位数一位数地想，也就是说，首先计算(对于每个数字)第 1 位中有多少个 2，然后计算(对于每个数字)第 2 位中有多少个 2，再计算(对于每个数字)第 3 位中有多少个 2，以此类推。",
+      "是否有一种更快的方法来计算某一特定位在一个数值范围内有多少个 2?注意，任何位的大约 1/10 应该是 2，但这只是大概比例。如何将其表述得更准确些?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:44.598Z"
+}

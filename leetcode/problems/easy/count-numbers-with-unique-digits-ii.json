@@ -1,0 +1,36 @@
+{
+  "title": "Count Numbers With Unique Digits II",
+  "titleCn": "统计各位数字都不同的数字个数 II",
+  "titleSlug": "count-numbers-with-unique-digits-ii",
+  "difficulty": "EASY",
+  "acRate": 0.439469320066335,
+  "topicTags": [
+    "hash-table",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "count-numbers-with-unique-digits-ii",
+    "questionId": "3343",
+    "title": "Count Numbers With Unique Digits II",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n20\n9\n19\n80\n120",
+    "hints": [
+      "You can traverse over all numbers and check if the current number has unique digits or not."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-numbers-with-unique-digits",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:33:46.717Z"
+}

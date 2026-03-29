@@ -1,0 +1,50 @@
+{
+  "title": "Monotone Increasing Digits",
+  "titleCn": "单调递增的数字",
+  "titleSlug": "monotone-increasing-digits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5171752616078702,
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "monotone-increasing-digits",
+    "questionId": "738",
+    "title": "Monotone Increasing Digits",
+    "content": "<p>An integer has <strong>monotone increasing digits</strong> if and only if each pair of adjacent digits <code>x</code> and <code>y</code> satisfy <code>x &lt;= y</code>.</p>\n\n<p>Given an integer <code>n</code>, return <em>the largest number that is less than or equal to </em><code>n</code><em> with <strong>monotone increasing digits</strong></em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 10\n<strong>Output:</strong> 9\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 1234\n<strong>Output:</strong> 1234\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 332\n<strong>Output:</strong> 299\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int monotoneIncreasingDigits(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int monotoneIncreasingDigits(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def monotoneIncreasingDigits(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "10\n1234\n332",
+    "hints": [
+      "Build the answer digit by digit, adding the largest possible one that would make the number still less than or equal to N."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "remove-k-digits",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:53.487Z"
+}

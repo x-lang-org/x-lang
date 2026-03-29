@@ -1,0 +1,51 @@
+{
+  "title": "Count Good Subarrays",
+  "titleCn": "统计好子数组",
+  "titleSlug": "count-good-subarrays",
+  "difficulty": "HARD",
+  "acRate": 0.38083307234575636,
+  "topicTags": [
+    "stack",
+    "bit-manipulation",
+    "array",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "count-good-subarrays",
+    "questionId": "4222",
+    "title": "Count Good Subarrays",
+    "content": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>A <strong><span data-keyword=\"subarray-nonempty\">subarray</span></strong> is called <strong>good</strong> if the <strong>bitwise OR</strong> of all its elements is equal to <strong>at least one</strong> element present in that subarray.</p>\n\n<p>Return the number of good subarrays in <code>nums</code>.</p>\n\n<p>Here, the bitwise OR of two integers <code>a</code> and <code>b</code> is denoted by <code>a | b</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [4,2,3]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subarrays of <code>nums</code> are:</p>\n\n<table style=\"border: 1px solid black;\">\n\t<tbody>\n\t\t<tr>\n\t\t\t<th style=\"border: 1px solid black;\">Subarray</th>\n\t\t\t<th style=\"border: 1px solid black;\">Bitwise OR</th>\n\t\t\t<th style=\"border: 1px solid black;\">Present in Subarray</th>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[4]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>4 = 4</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">Yes</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[2]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>2 = 2</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">Yes</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[3]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>3 = 3</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">Yes</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[4, 2]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>4 | 2 = 6</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">No</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[2, 3]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>2 | 3 = 3</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">Yes</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td style=\"border: 1px solid black;\"><code>[4, 2, 3]</code></td>\n\t\t\t<td style=\"border: 1px solid black;\"><code>4 | 2 | 3 = 7</code></td>\n\t\t\t<td style=\"border: 1px solid black;\">No</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<p>Thus, the good subarrays of <code>nums</code> are <code>[4]</code>, <code>[2]</code>, <code>[3]</code> and <code>[2, 3]</code>. Thus, the answer is 4.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,3,1]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>Any subarray of <code>nums</code> containing 3 has bitwise OR equal to 3, and subarrays containing only 1 have bitwise OR equal to 1.</p>\n\n<p>In both cases, the result is present in the subarray, so all subarrays are good, and the answer is 6.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "bit-manipulation",
+      "array",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long countGoodSubarrays(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long countGoodSubarrays(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countGoodSubarrays(self, nums: list[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,2,3]\n[1,3,1]",
+    "hints": [
+      "Observe that a subarray is good if its bitwise OR equals its maximum element. This happens when every element in the subarray has all its set bits contained inside the bits of the maximum element.",
+      "Use a monotonic decreasing stack to compute for each index <code>i</code> the range <code>[L[i], R[i]]</code> where <code>nums[i]</code> is the maximum of the subarray (break ties so only one index owns equal values).",
+      "Precompute for each bit the previous and next positions where that bit is set. For index <code>i</code>, shrink <code>[L[i], R[i]]</code> by excluding positions that contain a bit not set in <code>nums[i]</code>. The contribution of <code>i</code> is <code>(i - effective_left + 1) * (effective_right - i + 1)</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:33:19.036Z"
+}

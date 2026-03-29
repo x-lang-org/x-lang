@@ -1,0 +1,37 @@
+{
+  "title": "Total Distance to Type a String Using One Finger",
+  "titleCn": "使用单指输入字符串的总距离",
+  "titleSlug": "total-distance-to-type-a-string-using-one-finger",
+  "difficulty": "MEDIUM",
+  "acRate": 0.9420289855072463,
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "total-distance-to-type-a-string-using-one-finger",
+    "questionId": "4170",
+    "title": "Total Distance to Type a String Using One Finger",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"hello\"\n\"a\"",
+    "hints": [
+      "Map each character to its <code>(row, col)</code> position on the keyboard grid.",
+      "Start from the position of <code>'a'</code> and process the string from left to right.",
+      "For each move, add the Manhattan distance <code>abs(r1 - r2) + abs(c1 - c2)</code> between consecutive keys.",
+      "Accumulate the total distance and return the sum."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "single-row-keyboard",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:05.962Z"
+}

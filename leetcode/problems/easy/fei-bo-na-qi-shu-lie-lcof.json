@@ -1,0 +1,45 @@
+{
+  "title": "斐波那契数",
+  "titleCn": "斐波那契数",
+  "titleSlug": "fei-bo-na-qi-shu-lie-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.35532896555087706,
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "fei-bo-na-qi-shu-lie-lcof",
+    "questionId": "100274",
+    "title": "斐波那契数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "memoization",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int fib(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int fib(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def fib(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "2\n3\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:37.126Z"
+}

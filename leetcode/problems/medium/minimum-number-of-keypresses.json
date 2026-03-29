@@ -1,0 +1,36 @@
+{
+  "title": "Minimum Number of Keypresses",
+  "titleCn": "最少按键次数",
+  "titleSlug": "minimum-number-of-keypresses",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6149532710280374,
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "minimum-number-of-keypresses",
+    "questionId": "2405",
+    "title": "Minimum Number of Keypresses",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "hash-table",
+      "string",
+      "counting",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"apple\"\n\"abcdefghijkl\"",
+    "hints": [
+      "Map the most frequent letters so that you can type them with only 1 keypress.",
+      "Use an array to keep track of the frequency of every character, then sort it in non-increasing order."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:54:48.994Z"
+}

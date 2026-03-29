@@ -1,0 +1,51 @@
+{
+  "title": "List of Depth LCCI",
+  "titleCn": "特定深度节点链表",
+  "titleSlug": "list-of-depth-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8107294963466573,
+  "topicTags": [
+    "tree",
+    "breadth-first-search",
+    "linked-list",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "list-of-depth-lcci",
+    "questionId": "100175",
+    "title": "List of Depth LCCI",
+    "content": "<p>Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D, you&#39;ll have D linked lists). Return a array containing all the linked lists.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[1,2,3,4,5,null,7,8]\r\n\r\n        1\r\n       /  \\ \r\n      2    3\r\n     / \\    \\ \r\n    4   5    7\r\n   /\r\n  8\r\n\r\n<strong>Output: </strong>[[1],[2,3],[4,5,7],[8]]\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "breadth-first-search",
+      "linked-list",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\n/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    vector<ListNode*> listOfDepth(TreeNode* tree) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\n/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode[] listOfDepth(TreeNode tree) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def listOfDepth(self, tree: Optional[TreeNode]) -> List[Optional[ListNode]]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5,null,7,8]",
+    "hints": [
+      "尝试修改图形搜索算法，从根开始追踪深度。",
+      "从层号映射到该层节点的散列表或数组也许有些用处。",
+      "你应该能够提出一个既包括深度优先搜索又包含广度优先搜索的算法。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:36.145Z"
+}

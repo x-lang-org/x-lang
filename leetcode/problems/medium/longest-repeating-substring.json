@@ -1,0 +1,38 @@
+{
+  "title": "Longest Repeating Substring",
+  "titleCn": "最长重复子串的长度",
+  "titleSlug": "longest-repeating-substring",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5825318800313457,
+  "topicTags": [
+    "string",
+    "binary-search",
+    "dynamic-programming",
+    "suffix-array",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "longest-repeating-substring",
+    "questionId": "1060",
+    "title": "Longest Repeating Substring",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "binary-search",
+      "dynamic-programming",
+      "suffix-array",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcd\"\n\"abbaba\"\n\"aabcaabdaab\"",
+    "hints": [
+      "Generate all substrings in O(N^2) time with hashing.",
+      "Choose those hashing of strings with the largest length."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:14.478Z"
+}

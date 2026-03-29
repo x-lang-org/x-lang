@@ -1,0 +1,49 @@
+{
+  "title": "点名",
+  "titleCn": "点名",
+  "titleSlug": "que-shi-de-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.4475858408017143,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "que-shi-de-shu-zi-lcof",
+    "questionId": "100331",
+    "title": "点名",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "hash-table",
+      "math",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int takeAttendance(vector<int>& records) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int takeAttendance(int[] records) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def takeAttendance(self, records: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[0,1,2,3,5]\n[0,1,2,3,4,5,6,8]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:43.562Z"
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "15",
+  "titleSlug": "3sum",
+  "title": "3Sum",
+  "titleCn": "三数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.4033202110082286,
+  "testcases": [
+    {
+      "input": "[-1,0,1,2,-1,-4]",
+      "expectedOutput": "[0,1,1]"
+    },
+    {
+      "input": "[0,0,0]",
+      "expectedOutput": ""
+    }
+  ]
+}

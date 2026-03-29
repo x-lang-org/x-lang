@@ -1,0 +1,30 @@
+{
+  "title": "Leetcodify Similar Friends",
+  "titleCn": "兴趣相同的朋友",
+  "titleSlug": "leetcodify-similar-friends",
+  "difficulty": "HARD",
+  "acRate": 0.4244319632371713,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "leetcodify-similar-friends",
+    "questionId": "2064",
+    "title": "Leetcodify Similar Friends",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Listens\":[\"user_id\",\"song_id\",\"day\"],\"Friendship\":[\"user1_id\",\"user2_id\"]},\"rows\":{\"Listens\":[[1,10,\"2021-03-15\"],[1,11,\"2021-03-15\"],[1,12,\"2021-03-15\"],[2,10,\"2021-03-15\"],[2,11,\"2021-03-15\"],[2,12,\"2021-03-15\"],[3,10,\"2021-03-15\"],[3,11,\"2021-03-15\"],[3,12,\"2021-03-15\"],[4,10,\"2021-03-15\"],[4,11,\"2021-03-15\"],[4,13,\"2021-03-15\"],[5,10,\"2021-03-16\"],[5,11,\"2021-03-16\"],[5,12,\"2021-03-16\"]],\"Friendship\":[[1,2],[2,4],[2,5]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "leetcodify-friends-recommendations",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:04.755Z"
+}

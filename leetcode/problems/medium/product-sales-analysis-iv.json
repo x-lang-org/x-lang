@@ -1,0 +1,38 @@
+{
+  "title": "Product Sales Analysis IV",
+  "titleCn": "产品销售分析 IV",
+  "titleSlug": "product-sales-analysis-iv",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7069012178619757,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "product-sales-analysis-iv",
+    "questionId": "2451",
+    "title": "Product Sales Analysis IV",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Sales\": [\"sale_id\", \"product_id\", \"user_id\", \"quantity\"], \"Product\": [\"product_id\", \"price\"]}, \"rows\": {\"Sales\": [[1, 1, 101, 10], [2, 3, 101, 7], [3, 1, 102, 9], [4, 2, 102, 6], [5, 3, 102, 10], [6, 1, 102, 6]], \"Product\": [[1, 10], [2, 25], [3, 15]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "product-sales-analysis-i",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "product-sales-analysis-ii",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "product-sales-analysis-iii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:18.967Z"
+}

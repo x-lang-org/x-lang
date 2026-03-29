@@ -1,0 +1,33 @@
+{
+  "title": "Equalize Strings by Adding or Removing Characters at Ends",
+  "titleCn": "通过添加或删除结尾字符来同化字符串",
+  "titleSlug": "equalize-strings-by-adding-or-removing-characters-at-ends",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2049364248317128,
+  "topicTags": [
+    "string",
+    "binary-search",
+    "dynamic-programming",
+    "sliding-window",
+    "hash-function"
+  ],
+  "detail": {
+    "titleSlug": "equalize-strings-by-adding-or-removing-characters-at-ends",
+    "questionId": "3441",
+    "title": "Equalize Strings by Adding or Removing Characters at Ends",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "binary-search",
+      "dynamic-programming",
+      "sliding-window",
+      "hash-function"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcde\"\n\"cdef\"\n\"axxy\"\n\"yabx\"\n\"xyz\"\n\"xyz\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:03.413Z"
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Optimal Account Balancing",
+  "titleCn": "最优账单平衡",
+  "titleSlug": "optimal-account-balancing",
+  "difficulty": "HARD",
+  "acRate": 0.5620684796392842,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "optimal-account-balancing",
+    "questionId": "465",
+    "title": "Optimal Account Balancing",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "dynamic-programming",
+      "backtracking",
+      "bitmask"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1,10],[2,0,5]]\n[[0,1,10],[1,0,1],[1,2,5],[2,0,5]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:39.838Z"
+}

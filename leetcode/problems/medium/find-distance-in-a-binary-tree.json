@@ -1,0 +1,41 @@
+{
+  "title": "Find Distance in a Binary Tree",
+  "titleCn": "找到二叉树中的距离",
+  "titleSlug": "find-distance-in-a-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6962676962676962,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "find-distance-in-a-binary-tree",
+    "questionId": "1883",
+    "title": "Find Distance in a Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,5,1,6,2,0,8,null,null,7,4]\n5\n0\n[3,5,1,6,2,0,8,null,null,7,4]\n5\n7\n[3,5,1,6,2,0,8,null,null,7,4]\n5\n5",
+    "hints": [
+      "Get the LCA of p and q.",
+      "The answer is the sum of distances between p-LCA and q-LCA"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "step-by-step-directions-from-a-binary-tree-node-to-another",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:39:23.208Z"
+}

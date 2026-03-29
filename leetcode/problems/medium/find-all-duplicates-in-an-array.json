@@ -1,0 +1,58 @@
+{
+  "title": "Find All Duplicates in an Array",
+  "titleCn": "数组中重复的数据",
+  "titleSlug": "find-all-duplicates-in-an-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7560889340566822,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "find-all-duplicates-in-an-array",
+    "questionId": "442",
+    "title": "Find All Duplicates in an Array",
+    "content": "<p>Given an integer array <code>nums</code> of length <code>n</code> where all the integers of <code>nums</code> are in the range <code>[1, n]</code> and each integer appears <strong>at most</strong> <strong>twice</strong>, return <em>an array of all the integers that appears <strong>twice</strong></em>.</p>\n\n<p>You must write an algorithm that runs in <code>O(n)</code> time and uses only <em>constant</em> auxiliary space, excluding the space needed to store the output</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [4,3,2,7,8,2,3,1]\n<strong>Output:</strong> [2,3]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [1,1,2]\n<strong>Output:</strong> [1]\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> nums = [1]\n<strong>Output:</strong> []\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= n</code></li>\n\t<li>Each element in <code>nums</code> appears <strong>once</strong> or <strong>twice</strong>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> findDuplicates(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<Integer> findDuplicates(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findDuplicates(self, nums: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,3,2,7,8,2,3,1]\n[1,1,2]\n[1]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-all-numbers-disappeared-in-an-array",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "sum-of-distances",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "the-two-sneaky-numbers-of-digitville",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:38:50.739Z"
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "56",
+  "titleSlug": "merge-intervals",
+  "title": "Merge Intervals",
+  "titleCn": "合并区间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.5331034044300226,
+  "testcases": [
+    {
+      "input": "[[1,3],[2,6],[8,10],[15,18]]",
+      "expectedOutput": "[[1,4],[4,5]]"
+    },
+    {
+      "input": "[[4,7],[1,4]]",
+      "expectedOutput": ""
+    }
+  ]
+}

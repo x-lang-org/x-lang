@@ -1,0 +1,43 @@
+{
+  "title": "训练计划 III",
+  "titleCn": "训练计划 III",
+  "titleSlug": "fan-zhuan-lian-biao-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7420281672021127,
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "detail": {
+    "titleSlug": "fan-zhuan-lian-biao-lcof",
+    "questionId": "100298",
+    "title": "训练计划 III",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "recursion",
+      "linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* trainningPlan(ListNode* head) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode trainningPlan(ListNode head) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def trainningPlan(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5]\n[1,2]\n[]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:34.267Z"
+}

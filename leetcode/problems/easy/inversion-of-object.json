@@ -1,0 +1,21 @@
+{
+  "title": "Inversion of Object",
+  "titleCn": "对象反转",
+  "titleSlug": "inversion-of-object",
+  "difficulty": "EASY",
+  "acRate": 0.6485411140583555,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "inversion-of-object",
+    "questionId": "2925",
+    "title": "Inversion of Object",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"a\": \"1\",\"b\": \"2\",\"c\": \"3\",\"d\": \"4\" }\n{\"a\": \"1\",\"b\": \"2\",\"c\": \"2\",\"d\": \"4\" }\n[\"1\",\"2\",\"3\",\"4\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:42.975Z"
+}

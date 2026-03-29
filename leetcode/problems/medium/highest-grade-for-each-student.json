@@ -1,0 +1,30 @@
+{
+  "title": "Highest Grade For Each Student",
+  "titleCn": "每位学生的最高成绩",
+  "titleSlug": "highest-grade-for-each-student",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6489700905694333,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "highest-grade-for-each-student",
+    "questionId": "1214",
+    "title": "Highest Grade For Each Student",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Enrollments\":[\"student_id\",\"course_id\",\"grade\"]},\"rows\":{\"Enrollments\":[[2,2,95],[2,3,95],[1,1,90],[1,2,99],[3,1,80],[3,2,75],[3,3,82]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "department-highest-salary",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:55.041Z"
+}

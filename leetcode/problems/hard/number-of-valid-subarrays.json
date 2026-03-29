@@ -1,0 +1,37 @@
+{
+  "title": "Number of Valid Subarrays",
+  "titleCn": "有效子数组的数目",
+  "titleSlug": "number-of-valid-subarrays",
+  "difficulty": "HARD",
+  "acRate": 0.7408591408591408,
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "number-of-valid-subarrays",
+    "questionId": "1061",
+    "title": "Number of Valid Subarrays",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "array",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,4,2,5,3]\n[3,2,1]\n[2,2,2]",
+    "hints": [
+      "Given a data structure that answers queries of the type to find the minimum in a range of an array (Range minimum query (RMQ) sparse table) in O(1) time. How can you solve this problem?",
+      "For each starting index do a binary search with an RMQ to find the ending possible position."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-smooth-descent-periods-of-a-stock",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:02.634Z"
+}

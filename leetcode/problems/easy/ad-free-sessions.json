@@ -1,0 +1,25 @@
+{
+  "title": "Ad-Free Sessions",
+  "titleCn": "没有广告的剧集",
+  "titleSlug": "ad-free-sessions",
+  "difficulty": "EASY",
+  "acRate": 0.6006502554575012,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "ad-free-sessions",
+    "questionId": "1958",
+    "title": "Ad-Free Sessions",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Playback\":[\"session_id\",\"customer_id\",\"start_time\",\"end_time\"],\"Ads\":[\"ad_id\",\"customer_id\",\"timestamp\"]},\"rows\":{\"Playback\":[[1,1,1,5],[2,1,15,23],[3,2,10,12],[4,2,17,28],[5,2,2,8]],\"Ads\":[[1,1,5],[2,2,17],[3,2,20]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:45.885Z"
+}

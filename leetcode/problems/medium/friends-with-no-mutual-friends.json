@@ -1,0 +1,25 @@
+{
+  "title": "Friends With No Mutual Friends",
+  "titleCn": "没有共同朋友的朋友",
+  "titleSlug": "friends-with-no-mutual-friends",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4842666666666667,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "friends-with-no-mutual-friends",
+    "questionId": "3358",
+    "title": "Friends With No Mutual Friends",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Friends\":[\"user_id1\",\"user_id2\"]},\"rows\":{\"Friends\":[[1,2],[2,3],[2,4],[1,5],[6,7],[3,4],[2,5],[8,9]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:48.875Z"
+}

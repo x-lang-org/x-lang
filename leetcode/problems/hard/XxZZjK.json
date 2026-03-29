@@ -1,0 +1,43 @@
+{
+  "title": "沙地治理",
+  "titleCn": "沙地治理",
+  "titleSlug": "XxZZjK",
+  "difficulty": "HARD",
+  "acRate": 0.3256961579132887,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "XxZZjK",
+    "questionId": "1000485",
+    "title": "沙地治理",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> sandyLandManagement(int size) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[][] sandyLandManagement(int size) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sandyLandManagement(self, size: int) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "3\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:15.669Z"
+}

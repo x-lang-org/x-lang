@@ -1,0 +1,41 @@
+{
+  "title": "乐团站位",
+  "titleCn": "乐团站位",
+  "titleSlug": "SNJvJP",
+  "difficulty": "MEDIUM",
+  "acRate": 0.21597640008362176,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "SNJvJP",
+    "questionId": "1000216",
+    "title": "乐团站位",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int orchestraLayout(int num, int xPos, int yPos) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int orchestraLayout(int num, int xPos, int yPos) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def orchestraLayout(self, num: int, xPos: int, yPos: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "3\n0\n2\n4\n1\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:51.343Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "十字路口的交通",
+  "titleCn": "十字路口的交通",
+  "titleSlug": "Y1VbOX",
+  "difficulty": "HARD",
+  "acRate": 0.5173542894564506,
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "Y1VbOX",
+    "questionId": "1000367",
+    "title": "十字路口的交通",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int trafficCommand(vector<string>& directions) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int trafficCommand(String[] directions) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trafficCommand(self, directions: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"W\",\"N\",\"ES\",\"W\"]\n[\"NS\",\"WE\",\"SE\",\"EW\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:16.112Z"
+}

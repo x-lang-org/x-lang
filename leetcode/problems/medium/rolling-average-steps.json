@@ -1,0 +1,25 @@
+{
+  "title": "Rolling Average Steps",
+  "titleCn": "滚动平均步数",
+  "titleSlug": "rolling-average-steps",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6642664266426642,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "rolling-average-steps",
+    "questionId": "3156",
+    "title": "Rolling Average Steps",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Steps\": [\"user_id\", \"steps_count\", \"steps_date\"]}, \"rows\": {\"Steps\": [[1,687,\"2021-09-02\"],[1,395,\"2021-09-04\"],[1,499,\"2021-09-05\"],[1,712,\"2021-09-06\"],[1,576,\"2021-09-07\"],[2,153,\"2021-09-06\"],[2,171,\"2021-09-07\"],[2,530,\"2021-09-08\"],[3,945,\"2021-09-04\"],[3,120,\"2021-09-07\"],[3,557,\"2021-09-08\"],[3,840,\"2021-09-09\"],[3,627,\"2021-09-10\"],[5,382,\"2021-09-05\"],[6,480,\"2021-09-01\"],[6,191,\"2021-09-02\"],[6,303,\"2021-09-05\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:46.347Z"
+}

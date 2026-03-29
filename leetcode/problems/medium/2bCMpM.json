@@ -1,0 +1,47 @@
+{
+  "title": "01 矩阵",
+  "titleCn": "01 矩阵",
+  "titleSlug": "2bCMpM",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49982792527040315,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "2bCMpM",
+    "questionId": "1000296",
+    "title": "01 矩阵",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[][] updateMatrix(int[][] mat) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:45.794Z"
+}

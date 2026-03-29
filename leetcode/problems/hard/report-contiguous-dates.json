@@ -1,0 +1,38 @@
+{
+  "title": "Report Contiguous Dates",
+  "titleCn": "报告系统状态的连续日期",
+  "titleSlug": "report-contiguous-dates",
+  "difficulty": "HARD",
+  "acRate": 0.5184371275327772,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "report-contiguous-dates",
+    "questionId": "1357",
+    "title": "Report Contiguous Dates",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Failed\":[\"fail_date\"],\"Succeeded\":[\"success_date\"]},\"rows\":{\"Failed\":[[\"2018-12-28\"],[\"2018-12-29\"],[\"2019-01-04\"],[\"2019-01-05\"]],\"Succeeded\":[[\"2018-12-30\"],[\"2018-12-31\"],[\"2019-01-01\"],[\"2019-01-02\"],[\"2019-01-03\"],[\"2019-01-06\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-the-start-and-end-number-of-continuous-ranges",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-the-missing-ids",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "customers-with-strictly-increasing-purchases",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:03:13.172Z"
+}

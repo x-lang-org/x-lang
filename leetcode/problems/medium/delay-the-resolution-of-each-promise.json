@@ -1,0 +1,21 @@
+{
+  "title": "Delay the Resolution of Each Promise",
+  "titleCn": "延迟每个 Promise 对象的解析",
+  "titleSlug": "delay-the-resolution-of-each-promise",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7130872483221476,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "delay-the-resolution-of-each-promise",
+    "questionId": "2909",
+    "title": "Delay the Resolution of Each Promise",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[() => new Promise((resolve) => setTimeout(resolve, 30))]\n50\n[() => new Promise((resolve) => setTimeout(resolve, 50)),() => new Promise((resolve) => setTimeout(resolve, 80))]\n70\n[() => new Promise((resolve, reject) => setTimeout(reject, 20)), () => new Promise((resolve, reject) => setTimeout(reject, 100))]\n30",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:53.517Z"
+}

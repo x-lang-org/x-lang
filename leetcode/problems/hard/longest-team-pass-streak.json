@@ -1,0 +1,25 @@
+{
+  "title": "Longest Team Pass Streak",
+  "titleCn": "最长团队传球连击",
+  "titleSlug": "longest-team-pass-streak",
+  "difficulty": "HARD",
+  "acRate": 0.41883116883116883,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "longest-team-pass-streak",
+    "questionId": "3726",
+    "title": "Longest Team Pass Streak",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Teams\":[\"player_id\",\"team_name\"],\"Passes\":[\"pass_from\",\"time_stamp\",\"pass_to\"]},\"rows\":{\"Teams\":[[1,\"Arsenal\"],[2,\"Arsenal\"],[3,\"Arsenal\"],[4,\"Arsenal\"],[5,\"Chelsea\"],[6,\"Chelsea\"],[7,\"Chelsea\"],[8,\"Chelsea\"]],\"Passes\":[[1,\"00:05\",2],[2,\"00:07\",3],[3,\"00:08\",4],[4,\"00:10\",5],[6,\"00:15\",7],[7,\"00:17\",8],[8,\"00:20\",6],[6,\"00:22\",5],[1,\"00:25\",2],[2,\"00:27\",3]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:28.432Z"
+}

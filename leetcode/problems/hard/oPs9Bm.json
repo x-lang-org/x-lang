@@ -1,0 +1,43 @@
+{
+  "title": "入场安检",
+  "titleCn": "入场安检",
+  "titleSlug": "oPs9Bm",
+  "difficulty": "HARD",
+  "acRate": 0.5022295623451692,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "oPs9Bm",
+    "questionId": "1000361",
+    "title": "入场安检",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int securityCheck(vector<int>& capacities, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int securityCheck(int[] capacities, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def securityCheck(self, capacities: List[int], k: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,2,3]\n2\n[3,3]\n3\n[4,3,2,2]\n6",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:39.437Z"
+}

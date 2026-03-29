@@ -1,0 +1,43 @@
+{
+  "title": "搭桥过河",
+  "titleCn": "搭桥过河",
+  "titleSlug": "NfY1m5",
+  "difficulty": "HARD",
+  "acRate": 0.285528596187175,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "NfY1m5",
+    "questionId": "1000441",
+    "title": "搭桥过河",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long buildBridge(int num, vector<vector<int>>& wood) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long buildBridge(int num, int[][] wood) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def buildBridge(self, num: int, wood: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "10\n[[1,2],[4,7],[8,9]]\n10\n[[1,5],[1,1],[10,10],[6,7],[7,8]]\n5\n[[1,2],[2,4]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:34.416Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Maximum Distinct Path Sum in a Binary Tree",
+  "titleCn": "二叉树中的最大不同路径和",
+  "titleSlug": "maximum-distinct-path-sum-in-a-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7733333333333333,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "maximum-distinct-path-sum-in-a-binary-tree",
+    "questionId": "4218",
+    "title": "Maximum Distinct Path Sum in a Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,2,1]\n[1,-2,5,null,null,3,5]\n[4,6,6,null,null,null,9]",
+    "hints": [
+      "Try all possible starting nodes",
+      "For a given node, the possible outgoing edges are the left child, right child, and parent",
+      "During depth first search (DFS), only visit a node if its value has not already been seen",
+      "Take the maximum over all possible starting nodes"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:38.977Z"
+}

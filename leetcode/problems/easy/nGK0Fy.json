@@ -1,0 +1,45 @@
+{
+  "title": "速算机器人",
+  "titleCn": "速算机器人",
+  "titleSlug": "nGK0Fy",
+  "difficulty": "EASY",
+  "acRate": 0.7967154819714756,
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "nGK0Fy",
+    "questionId": "1000139",
+    "title": "速算机器人",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int calculate(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int calculate(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def calculate(self, s: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"AB\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:35.248Z"
+}

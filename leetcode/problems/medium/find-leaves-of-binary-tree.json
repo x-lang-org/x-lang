@@ -1,0 +1,29 @@
+{
+  "title": "Find Leaves of Binary Tree",
+  "titleCn": "寻找二叉树的叶子节点",
+  "titleSlug": "find-leaves-of-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8108553599811621,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "find-leaves-of-binary-tree",
+    "questionId": "366",
+    "title": "Find Leaves of Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n[1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:43.519Z"
+}

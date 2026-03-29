@@ -1,0 +1,23 @@
+{
+  "problemId": "18",
+  "titleSlug": "4sum",
+  "title": "4Sum",
+  "titleCn": "四数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.36919911198064187,
+  "testcases": [
+    {
+      "input": "[1,0,-1,0,-2,2]",
+      "expectedOutput": "0"
+    },
+    {
+      "input": "[2,2,2,2,2]",
+      "expectedOutput": "8"
+    }
+  ]
+}

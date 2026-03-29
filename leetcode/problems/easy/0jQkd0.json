@@ -1,0 +1,47 @@
+{
+  "title": "无人机方阵",
+  "titleCn": "无人机方阵",
+  "titleSlug": "0jQkd0",
+  "difficulty": "EASY",
+  "acRate": 0.5676424820073915,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "0jQkd0",
+    "questionId": "1000369",
+    "title": "无人机方阵",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "counting",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minimumSwitchingTimes(vector<vector<int>>& source, vector<vector<int>>& target) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minimumSwitchingTimes(int[][] source, int[][] target) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minimumSwitchingTimes(self, source: List[List[int]], target: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[1,3],[5,4]]\n[[3,1],[6,5]]\n[[1,2,3],[3,4,5]]\n[[1,3,5],[2,3,4]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:25.956Z"
+}

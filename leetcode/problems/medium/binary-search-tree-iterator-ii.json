@@ -1,0 +1,44 @@
+{
+  "title": "Binary Search Tree Iterator II",
+  "titleCn": "二叉搜索树迭代器 II",
+  "titleSlug": "binary-search-tree-iterator-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4886642156862745,
+  "topicTags": [
+    "stack",
+    "tree",
+    "design",
+    "binary-search-tree",
+    "binary-tree",
+    "iterator"
+  ],
+  "detail": {
+    "titleSlug": "binary-search-tree-iterator-ii",
+    "questionId": "1729",
+    "title": "Binary Search Tree Iterator II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "tree",
+      "design",
+      "binary-search-tree",
+      "binary-tree",
+      "iterator"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"BSTIterator\",\"next\",\"next\",\"prev\",\"next\",\"hasNext\",\"next\",\"next\",\"next\",\"hasNext\",\"hasPrev\",\"prev\",\"prev\"]\n[[[7,3,15,null,null,9,20]],[null],[null],[null],[null],[null],[null],[null],[null],[null],[null],[null],[null]]",
+    "hints": [
+      "The inorder traversal of a BST gives us the elements in a sorted order.",
+      "We can use a stack to simulate the inorder traversal of the BST.",
+      "We can use another stack as a buffer to store numbers returned from calls to next and use this buffer whenever prev is called."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-search-tree-iterator",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:25:37.493Z"
+}

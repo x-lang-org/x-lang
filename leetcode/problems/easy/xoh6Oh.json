@@ -1,0 +1,41 @@
+{
+  "title": "两数相除",
+  "titleCn": "两数相除",
+  "titleSlug": "xoh6Oh",
+  "difficulty": "EASY",
+  "acRate": 0.21292705976688908,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "xoh6Oh",
+    "questionId": "1000228",
+    "title": "两数相除",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int divide(int a, int b) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int divide(int a, int b) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def divide(self, a: int, b: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "15\n2\n7\n-3\n-7\n3\n0\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:10.706Z"
+}

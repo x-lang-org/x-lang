@@ -1,0 +1,17 @@
+{
+  "problemId": "52",
+  "titleSlug": "n-queens-ii",
+  "title": "N-Queens II",
+  "titleCn": "N 皇后 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "backtracking"
+  ],
+  "acRate": 0.8300140328151986,
+  "testcases": [
+    {
+      "input": "4",
+      "expectedOutput": "1"
+    }
+  ]
+}

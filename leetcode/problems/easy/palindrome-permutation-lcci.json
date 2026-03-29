@@ -1,0 +1,50 @@
+{
+  "title": "Palindrome Permutation LCCI",
+  "titleCn": "回文排列",
+  "titleSlug": "palindrome-permutation-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5314400339173959,
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "palindrome-permutation-lcci",
+    "questionId": "100184",
+    "title": "Palindrome Permutation LCCI",
+    "content": "<p>Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: &quot;</strong>tactcoa&quot;\r\n<strong>Output: </strong>true（permutations: &quot;tacocat&quot;、&quot;atcocta&quot;, etc.）\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool canPermutePalindrome(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean canPermutePalindrome(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def canPermutePalindrome(self, s: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"code\"",
+    "hints": [
+      "你不必且也不应该生成所有的排列。这将极为低效。",
+      "作为回文排列的字符串有什么特征？",
+      "你试过散列表吗？你应该能把它降到O(N)的时间。",
+      "使用位向量可以减少空间使用吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:59.943Z"
+}

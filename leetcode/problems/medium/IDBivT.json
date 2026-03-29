@@ -1,0 +1,45 @@
+{
+  "title": "括号生成",
+  "titleCn": "括号生成",
+  "titleSlug": "IDBivT",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8401898410490355,
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "IDBivT",
+    "questionId": "1000238",
+    "title": "括号生成",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> generateParenthesis(int n) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def generateParenthesis(self, n: int) -> List[str]:"
+      }
+    ],
+    "exampleTestcases": "3\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:08.224Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "数字 1 的个数",
+  "titleCn": "数字 1 的个数",
+  "titleSlug": "1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof",
+  "difficulty": "HARD",
+  "acRate": 0.5041542481525334,
+  "topicTags": [
+    "recursion",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof",
+    "questionId": "100309",
+    "title": "数字 1 的个数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "recursion",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int digitOneInNumber(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int digitOneInNumber(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def digitOneInNumber(self, num: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "0\n13",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:37.258Z"
+}

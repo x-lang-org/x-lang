@@ -1,0 +1,37 @@
+{
+  "title": "Maximum Alternating Subarray Sum",
+  "titleCn": "最大交替子数组和",
+  "titleSlug": "maximum-alternating-subarray-sum",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3988666085440279,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-alternating-subarray-sum",
+    "questionId": "512",
+    "title": "Maximum Alternating Subarray Sum",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,-1,1,2]\n[2,2,2,2,2]\n[1]",
+    "hints": [
+      "How can Kadane's Algorithm help us?",
+      "If you convert all the numbers at odd indices to the negative version of that number, the problem simplifies to finding the maximum subarray sum.",
+      "However, this strategy needs you to start each subarray at an even index.",
+      "Do the same except converting all the numbers at even indices to the negative version of that number."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-alternating-subsequence-sum",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:49:02.895Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "城墙防线",
+  "titleCn": "城墙防线",
+  "titleSlug": "Nsibyl",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49371241115363584,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "Nsibyl",
+    "questionId": "1000566",
+    "title": "城墙防线",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int rampartDefensiveLine(vector<vector<int>>& rampart) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int rampartDefensiveLine(int[][] rampart) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def rampartDefensiveLine(self, rampart: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[0,3],[4,5],[7,9]]\n[[1,2],[5,8],[11,15],[18,25]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:40.697Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "子集",
+  "titleCn": "子集",
+  "titleSlug": "TVdhkn",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8406657273687919,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "TVdhkn",
+    "questionId": "1000343",
+    "title": "子集",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> subsets(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def subsets(self, nums: List[int]) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n[0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:25.876Z"
+}

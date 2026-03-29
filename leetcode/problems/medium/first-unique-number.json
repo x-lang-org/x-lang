@@ -1,0 +1,37 @@
+{
+  "title": "First Unique Number",
+  "titleCn": "第一个唯一数字",
+  "titleSlug": "first-unique-number",
+  "difficulty": "MEDIUM",
+  "acRate": 0.552683461117196,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "hash-table",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "first-unique-number",
+    "questionId": "1366",
+    "title": "First Unique Number",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "hash-table",
+      "data-stream"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"FirstUnique\",\"showFirstUnique\",\"add\",\"showFirstUnique\",\"add\",\"showFirstUnique\",\"add\",\"showFirstUnique\"]\n[[[2,3,5]],[],[5],[],[2],[],[3],[]]\n[\"FirstUnique\",\"showFirstUnique\",\"add\",\"add\",\"add\",\"add\",\"add\",\"showFirstUnique\"]\n[[[7,7,7,7,7,7]],[],[7],[3],[3],[7],[17],[]]\n[\"FirstUnique\",\"showFirstUnique\",\"add\",\"showFirstUnique\"]\n[[[809]],[],[809],[]]",
+    "hints": [
+      "Use doubly Linked list with hashmap of pointers to linked list nodes. add unique number to the linked list. When add is called check if the added number is unique then it have to be added to the linked list and if it is repeated remove it from the linked list if exists. When showFirstUnique is called retrieve the head of the linked list.",
+      "Use queue and check that first element of the queue is always unique.",
+      "Use set or heap to make running time of each function O(logn)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:23.143Z"
+}

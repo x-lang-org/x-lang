@@ -1,0 +1,26 @@
+{
+  "problemId": "1",
+  "titleSlug": "two-sum",
+  "title": "Two Sum",
+  "titleCn": "两数之和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.5507602920876408,
+  "testcases": [
+    {
+      "input": "[2,7,11,15]",
+      "expectedOutput": "9"
+    },
+    {
+      "input": "[3,2,4]",
+      "expectedOutput": "6"
+    },
+    {
+      "input": "[3,3]",
+      "expectedOutput": "6"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Find the Number of K-Even Arrays",
+  "titleCn": "查找 K 偶数数组的数量",
+  "titleSlug": "find-the-number-of-k-even-arrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.35185185185185186,
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "find-the-number-of-k-even-arrays",
+    "questionId": "3614",
+    "title": "Find the Number of K-Even Arrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n4\n2\n5\n1\n0\n7\n7\n5",
+    "hints": [
+      "Use dynamic programming.",
+      "Store whether the last element was even or odd."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "sort-array-by-parity-ii",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:25.016Z"
+}

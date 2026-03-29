@@ -1,0 +1,25 @@
+{
+  "title": "Drop Type 1 Orders for Customers With Type 0 Orders",
+  "titleCn": "为订单类型为 0 的客户删除类型为 1 的订单",
+  "titleSlug": "drop-type-1-orders-for-customers-with-type-0-orders",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8041739808855081,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "drop-type-1-orders-for-customers-with-type-0-orders",
+    "questionId": "2224",
+    "title": "Drop Type 1 Orders for Customers With Type 0 Orders",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Orders\":[\"order_id\",\"customer_id\",\"order_type\"]},\"rows\":{\"Orders\":[[1,1,0],[2,1,0],[11,2,0],[12,2,1],[21,3,1],[22,3,0],[31,4,1],[32,4,1]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:32.819Z"
+}

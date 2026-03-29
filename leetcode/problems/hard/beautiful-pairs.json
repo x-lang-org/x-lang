@@ -1,0 +1,37 @@
+{
+  "title": "Beautiful Pairs",
+  "titleCn": "美数对",
+  "titleSlug": "beautiful-pairs",
+  "difficulty": "HARD",
+  "acRate": 0.314192849404117,
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "divide-and-conquer",
+    "ordered-set",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "beautiful-pairs",
+    "questionId": "2719",
+    "title": "Beautiful Pairs",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "geometry",
+      "array",
+      "math",
+      "divide-and-conquer",
+      "ordered-set",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,2,4]\n[2,3,1,2,3]\n[1,2,4,3,2,5]\n[1,4,2,3,5,1]",
+    "hints": [
+      "Use Range Queries Data Structures to optimize the algorithm"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:53.202Z"
+}

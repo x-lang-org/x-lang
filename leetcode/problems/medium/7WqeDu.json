@@ -1,0 +1,49 @@
+{
+  "title": "存在重复元素 III",
+  "titleCn": "存在重复元素 III",
+  "titleSlug": "7WqeDu",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3399052903598179,
+  "topicTags": [
+    "array",
+    "bucket-sort",
+    "ordered-set",
+    "sorting",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "7WqeDu",
+    "questionId": "1000321",
+    "title": "存在重复元素 III",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "bucket-sort",
+      "ordered-set",
+      "sorting",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3,1]\n3\n0\n[1,0,1,1]\n1\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:23.808Z"
+}

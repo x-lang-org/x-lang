@@ -1,0 +1,46 @@
+{
+  "title": "Binary Number with Alternating Bits",
+  "titleCn": "交替位二进制数",
+  "titleSlug": "binary-number-with-alternating-bits",
+  "difficulty": "EASY",
+  "acRate": 0.6628773591040932,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "binary-number-with-alternating-bits",
+    "questionId": "693",
+    "title": "Binary Number with Alternating Bits",
+    "content": "<p>Given a positive integer, check whether it has alternating bits: namely, if two adjacent bits will always have different values.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 5\n<strong>Output:</strong> true\n<strong>Explanation:</strong> The binary representation of 5 is: 101\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 7\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The binary representation of 7 is: 111.</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 11\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The binary representation of 11 is: 1011.</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool hasAlternatingBits(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean hasAlternatingBits(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def hasAlternatingBits(self, n: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "5\n7\n11",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-1-bits",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:25:30.710Z"
+}

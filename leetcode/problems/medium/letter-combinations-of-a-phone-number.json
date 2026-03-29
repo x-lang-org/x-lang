@@ -1,0 +1,58 @@
+{
+  "title": "Letter Combinations of a Phone Number",
+  "titleCn": "电话号码的字母组合",
+  "titleSlug": "letter-combinations-of-a-phone-number",
+  "difficulty": "MEDIUM",
+  "acRate": 0.634344057886295,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "letter-combinations-of-a-phone-number",
+    "questionId": "17",
+    "title": "Letter Combinations of a Phone Number",
+    "content": "<p>Given a string containing digits from <code>2-9</code> inclusive, return all possible letter combinations that the number could represent. Return the answer in <strong>any order</strong>.</p>\n\n<p>A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.</p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2022/03/15/1200px-telephone-keypad2svg.png\" style=\"width: 300px; height: 243px;\" />\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> digits = &quot;23&quot;\n<strong>Output:</strong> [&quot;ad&quot;,&quot;ae&quot;,&quot;af&quot;,&quot;bd&quot;,&quot;be&quot;,&quot;bf&quot;,&quot;cd&quot;,&quot;ce&quot;,&quot;cf&quot;]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> digits = &quot;2&quot;\n<strong>Output:</strong> [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= digits.length &lt;= 4</code></li>\n\t<li><code>digits[i]</code> is a digit in the range <code>[&#39;2&#39;, &#39;9&#39;]</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> letterCombinations(string digits) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> letterCombinations(String digits) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"23\"\n\"2\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "generate-parentheses",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "combination-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "binary-watch",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:46:13.517Z"
+}

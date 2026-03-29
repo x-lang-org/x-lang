@@ -1,0 +1,25 @@
+{
+  "title": "Count Occurrences in Text",
+  "titleCn": "统计文本中单词的出现次数",
+  "titleSlug": "count-occurrences-in-text",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5526976160602258,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "count-occurrences-in-text",
+    "questionId": "2885",
+    "title": "Count Occurrences in Text",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Files\":[\"file_name\",\"content\"]},\"rows\":{\"Files\":[[\"draft1.txt\",\"The stock exchange predicts a bull market which would make many investors happy.\"],[\"draft2.txt\",\"The stock exchange predicts a bull market which would make many investors happy, but analysts warn of possibility of too much optimism and that in fact we are awaiting a bear market.\"],[\"final.txt\",\"The stock exchange predicts a bull market which would make many investors happy, but analysts warn of possibility of too much optimism and that in fact we are awaiting a bear market. As always predicting the future market is an uncertain game and all investors should follow their instincts and best practices.\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:33:47.575Z"
+}

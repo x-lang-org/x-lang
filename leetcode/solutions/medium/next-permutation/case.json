@@ -1,0 +1,22 @@
+{
+  "problemId": "31",
+  "titleSlug": "next-permutation",
+  "title": "Next Permutation",
+  "titleCn": "下一个排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.42518861477958914,
+  "testcases": [
+    {
+      "input": "[1,2,3]",
+      "expectedOutput": "[3,2,1]"
+    },
+    {
+      "input": "[1,1,5]",
+      "expectedOutput": ""
+    }
+  ]
+}

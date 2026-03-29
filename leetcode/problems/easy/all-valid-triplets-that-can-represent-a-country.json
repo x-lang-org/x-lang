@@ -1,0 +1,25 @@
+{
+  "title": "All Valid Triplets That Can Represent a Country",
+  "titleCn": "三人国家代表队",
+  "titleSlug": "all-valid-triplets-that-can-represent-a-country",
+  "difficulty": "EASY",
+  "acRate": 0.7800269905533064,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "all-valid-triplets-that-can-represent-a-country",
+    "questionId": "1763",
+    "title": "All Valid Triplets That Can Represent a Country",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"SchoolA\":[\"student_id\",\"student_name\"],\"SchoolB\":[\"student_id\",\"student_name\"],\"SchoolC\":[\"student_id\",\"student_name\"]},\"rows\":{\"SchoolA\":[[1,\"Alice\"],[2,\"Bob\"]],\"SchoolB\":[[3,\"Tom\"]],\"SchoolC\":[[3,\"Tom\"],[2,\"Jerry\"],[10,\"Alice\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:22:39.216Z"
+}

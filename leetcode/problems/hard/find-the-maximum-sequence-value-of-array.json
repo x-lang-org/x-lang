@@ -1,0 +1,52 @@
+{
+  "title": "Find the Maximum Sequence Value of Array",
+  "titleCn": "求出数组中最大序列值",
+  "titleSlug": "find-the-maximum-sequence-value-of-array",
+  "difficulty": "HARD",
+  "acRate": 0.6684516177690625,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "find-the-maximum-sequence-value-of-array",
+    "questionId": "3575",
+    "title": "Find the Maximum Sequence Value of Array",
+    "content": "<p>You are given an integer array <code>nums</code> and a <strong>positive</strong> integer <code>k</code>.</p>\n\n<p>The <strong>value</strong> of a sequence <code>seq</code> of size <code>2 * x</code> is defined as:</p>\n\n<ul>\n\t<li><code>(seq[0] OR seq[1] OR ... OR seq[x - 1]) XOR (seq[x] OR seq[x + 1] OR ... OR seq[2 * x - 1])</code>.</li>\n</ul>\n\n<p>Return the <strong>maximum</strong> <strong>value</strong> of any <span data-keyword=\"subsequence-array\">subsequence</span> of <code>nums</code> having size <code>2 * k</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [2,6,7], k = 1</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subsequence <code>[2, 7]</code> has the maximum value of <code>2 XOR 7 = 5</code>.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [4,2,5,6,7], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The subsequence <code>[4, 5, 6, 7]</code> has the maximum value of <code>(4 OR 5) XOR (6 OR 7) = 2</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 400</code></li>\n\t<li><code>1 &lt;= nums[i] &lt; 2<sup>7</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= nums.length / 2</code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maxValue(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maxValue(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxValue(self, nums: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,6,7]\n1\n[4,2,5,6,7]\n2",
+    "hints": [
+      "Find all the possible <code>OR</code> till each <code>i</code> with <code>k</code> elements backward and forward."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "bitwise-ors-of-subarrays",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:10.287Z"
+}

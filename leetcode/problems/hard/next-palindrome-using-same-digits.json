@@ -1,0 +1,39 @@
+{
+  "title": "Next Palindrome Using Same Digits",
+  "titleCn": "下个由相同数字构成的回文串",
+  "titleSlug": "next-palindrome-using-same-digits",
+  "difficulty": "HARD",
+  "acRate": 0.5122362869198313,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "next-palindrome-using-same-digits",
+    "questionId": "1997",
+    "title": "Next Palindrome Using Same Digits",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"1221\"\n\"32123\"\n\"45544554\"",
+    "hints": [
+      "Is it possible to swap one character in the first half of the palindrome to make the next one?",
+      "Are there different cases for when the length is odd and even?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "next-greater-element-iii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-the-closest-palindrome",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:32.743Z"
+}

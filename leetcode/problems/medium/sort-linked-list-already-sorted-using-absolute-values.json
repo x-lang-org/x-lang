@@ -1,0 +1,38 @@
+{
+  "title": "Sort Linked List Already Sorted Using Absolute Values",
+  "titleCn": "给按照绝对值排序的链表排序",
+  "titleSlug": "sort-linked-list-already-sorted-using-absolute-values",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6367786110205412,
+  "topicTags": [
+    "linked-list",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sort-linked-list-already-sorted-using-absolute-values",
+    "questionId": "1992",
+    "title": "Sort Linked List Already Sorted Using Absolute Values",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "linked-list",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,2,-5,5,10,-10]\n[0,1,2]\n[1]",
+    "hints": [
+      "The nodes with positive values are already in the correct order.",
+      "Nodes with negative values need to be moved to the front.",
+      "Nodes with negative values are in reversed order."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "sort-list",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:06:01.034Z"
+}

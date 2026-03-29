@@ -1,0 +1,36 @@
+{
+  "title": "Unit Conversion II",
+  "titleCn": "单位转换 II",
+  "titleSlug": "unit-conversion-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8538011695906432,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "unit-conversion-ii",
+    "questionId": "3752",
+    "title": "Unit Conversion II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1,2],[0,2,6]]\n[[1,2],[1,0]]\n[[0,1,2],[0,2,6],[0,3,8],[2,4,2],[2,5,4],[3,6,3]]\n[[1,2],[0,4],[6,5],[4,6],[6,1]]",
+    "hints": [
+      "Using a dfs, compute an array <code>fromRoot</code> such that <code>fromRoot[a]</code> is the number of units of type <code>a</code> equivalent to a single unit of type 0.",
+      "<code>answer[i] = fromRoot[unitA<sub>i</sub>]<sup>-1</sup> * fromRoot[unitB<sub>i</sub>]</code>"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:54.621Z"
+}

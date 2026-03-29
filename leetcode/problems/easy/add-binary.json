@@ -1,0 +1,60 @@
+{
+  "title": "Add Binary",
+  "titleCn": "二进制求和",
+  "titleSlug": "add-binary",
+  "difficulty": "EASY",
+  "acRate": 0.5435717523946579,
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "add-binary",
+    "questionId": "67",
+    "title": "Add Binary",
+    "content": "<p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> a = \"11\", b = \"1\"\n<strong>Output:</strong> \"100\"\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> a = \"1010\", b = \"1011\"\n<strong>Output:</strong> \"10101\"\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= a.length, b.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>a</code> and <code>b</code> consist&nbsp;only of <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code> characters.</li>\n\t<li>Each string does not contain leading zeros except for the zero itself.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "math",
+      "string",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String addBinary(String a, String b) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def addBinary(self, a: str, b: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"11\"\n\"1\"\n\"1010\"\n\"1011\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "add-two-numbers",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "multiply-strings",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "plus-one",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:21:47.133Z"
+}

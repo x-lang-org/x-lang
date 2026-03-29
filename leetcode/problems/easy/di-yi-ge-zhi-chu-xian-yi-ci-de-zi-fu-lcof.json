@@ -1,0 +1,47 @@
+{
+  "title": "招式拆解 II",
+  "titleCn": "招式拆解 II",
+  "titleSlug": "di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6186865291390963,
+  "topicTags": [
+    "queue",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof",
+    "questionId": "100316",
+    "title": "招式拆解 II",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "queue",
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    char dismantlingAction(string arr) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public char dismantlingAction(String arr) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def dismantlingAction(self, arr: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"abbccdeff\"\n\"ccdd\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:52.646Z"
+}

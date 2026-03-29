@@ -1,0 +1,49 @@
+{
+  "title": "Find The Least Frequent Digit",
+  "titleCn": "出现频率最低的数字",
+  "titleSlug": "find-the-least-frequent-digit",
+  "difficulty": "EASY",
+  "acRate": 0.7172877556738583,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "find-the-least-frequent-digit",
+    "questionId": "3994",
+    "title": "Find The Least Frequent Digit",
+    "content": "<p>Given an integer <code>n</code>, find the digit that occurs <strong>least</strong> frequently in its decimal representation. If multiple digits have the same frequency, choose the <strong>smallest</strong> digit.</p>\n\n<p>Return the chosen digit as an integer.</p>\nThe <strong>frequency</strong> of a digit <code>x</code> is the number of times it appears in the decimal representation of <code>n</code>.\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 1553322</span></p>\n\n<p><strong>Output:</strong> 1</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The least frequent digit in <code>n</code> is 1, which appears only once. All other digits appear twice.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 723344511</span></p>\n\n<p><strong>Output:</strong> 2</p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The least frequent digits in <code>n</code> are 7, 2, and 5; each appears only once.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 2<sup>31</sup>​​​​​​​ - 1</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "math",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getLeastFrequentDigit(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getLeastFrequentDigit(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getLeastFrequentDigit(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "1553322\n723344511",
+    "hints": [
+      "Simulate as described"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:59.594Z"
+}

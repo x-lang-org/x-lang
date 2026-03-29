@@ -1,0 +1,58 @@
+{
+  "title": "Generate Parentheses",
+  "titleCn": "括号生成",
+  "titleSlug": "generate-parentheses",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7906580718731687,
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "generate-parentheses",
+    "questionId": "22",
+    "title": "Generate Parentheses",
+    "content": "<p>Given <code>n</code> pairs of parentheses, write a function to <em>generate all combinations of well-formed parentheses</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> n = 3\n<strong>Output:</strong> [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> n = 1\n<strong>Output:</strong> [\"()\"]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 8</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> generateParenthesis(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def generateParenthesis(self, n: int) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "3\n1",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "letter-combinations-of-a-phone-number",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "valid-parentheses",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "check-if-a-parentheses-string-can-be-valid",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:05.536Z"
+}

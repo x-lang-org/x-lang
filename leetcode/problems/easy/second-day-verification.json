@@ -1,0 +1,25 @@
+{
+  "title": "Second Day Verification",
+  "titleCn": "第二天验证",
+  "titleSlug": "second-day-verification",
+  "difficulty": "EASY",
+  "acRate": 0.6154919748778785,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "second-day-verification",
+    "questionId": "3481",
+    "title": "Second Day Verification",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"emails\":[\"email_id\",\"user_id\",\"signup_date\"],\"texts\":[\"text_id\",\"email_id\",\"signup_action\",\"action_date\"]},\"rows\":{\"emails\":[[125,7771,\"2022-06-14 09:30:00\"],[433,1052,\"2022-07-09 08:15:00\"],[234,7005,\"2022-08-20 10:00:00\"]],\"texts\":[[1,125,\"Verified\",\"2022-06-15 08:30:00\"],[2,433,\"Not Verified\",\"2022-07-10 10:45:00\"],[4,234,\"Verified\",\"2022-08-21 09:30:00\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:04:10.164Z"
+}

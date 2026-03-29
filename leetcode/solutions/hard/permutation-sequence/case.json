@@ -1,0 +1,26 @@
+{
+  "problemId": "60",
+  "titleSlug": "permutation-sequence",
+  "title": "Permutation Sequence",
+  "titleCn": "排列序列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.5465022179091548,
+  "testcases": [
+    {
+      "input": "3",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "4",
+      "expectedOutput": "9"
+    },
+    {
+      "input": "3",
+      "expectedOutput": "1"
+    }
+  ]
+}

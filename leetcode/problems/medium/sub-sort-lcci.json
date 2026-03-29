@@ -1,0 +1,58 @@
+{
+  "title": "Sub Sort LCCI",
+  "titleCn": "部分排序",
+  "titleSlug": "sub-sort-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46168155290175084,
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "sub-sort-lcci",
+    "questionId": "100356",
+    "title": "Sub Sort LCCI",
+    "content": "<p>Given an array of integers, write a method to find indices m and n such that if you sorted&nbsp;elements m through n, the entire array would be sorted. Minimize <code>n - m</code> (that is, find the smallest such sequence).</p>\r\n\r\n<p>Return <code>[m,n]</code>. If there are no such m and n (e.g. the array is already sorted), return [-1, -1].</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> [1,2,4,7,10,11,7,12,6,7,16,18,19]\r\n<strong>Output: </strong> [3,9]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= len(array) &lt;= 1000000</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "greedy",
+      "array",
+      "two-pointers",
+      "sorting",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> subSort(vector<int>& array) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] subSort(int[] array) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def subSort(self, array: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[]",
+    "hints": [
+      "在开始和结束时知道最长的排序序列会有帮助吗？",
+      "我们可以把这个数组分成3个子数组：LEFT、MIDDLE和RIGHT。LEFT和RIGHT都是有序的。MIDDLE的元素顺序是任意的。我们需要展开MIDDLE，直到可以对这些元素排序并使整个数组有序。",
+      "考虑3个子数组：LEFT、MIDDLE和RIGHT。只关注这个问题：是否可以排序MIDDLE以使整个数组有序？如何进行验证？",
+      "为了能够对MIDDLE进行排序并对整个数组进行排序，需要MAX(LEFT) <= MIN(MIDDLE, RIGHT)和MAX(LEFT, MIDDLE) <= MIN(RIGHT)。",
+      "你能把中间部分展开直到满足前面的条件吗？",
+      "你应该能在O(N)时间内解出来。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:06.613Z"
+}

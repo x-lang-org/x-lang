@@ -1,0 +1,48 @@
+{
+  "title": "Reverse Bits LCCI",
+  "titleCn": "翻转数位",
+  "titleSlug": "reverse-bits-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.3816261082814563,
+  "topicTags": [
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "reverse-bits-lcci",
+    "questionId": "100230",
+    "title": "Reverse Bits LCCI",
+    "content": "<p>You have an integer and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of 1s you could create.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>num</code> = 1775(11011101111<sub>2</sub>)\r\n<strong>Output:</strong> 8\r\n</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> <code>num</code> = 7(0111<sub>2</sub>)\r\n<strong>Output:</strong> 4\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int reverseBits(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int reverseBits(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def reverseBits(self, num: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "0\n2147483647",
+    "hints": [
+      "先试试蛮力解法。你能尝试一切可能性吗？",
+      "把0翻转到1可以合并两个1 的序列，但只有在这两个序列仅被一个0分隔时才可以。",
+      "每个序列都可以通过与邻近的序列合并或者直接翻转紧挨着的0来增加其长度。你只需要找到最好的选择。",
+      "尝试用线性时间、单次扫描和O(1) 空间完成它。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:24.598Z"
+}

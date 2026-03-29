@@ -1,0 +1,38 @@
+{
+  "title": "Find the Missing IDs",
+  "titleCn": "找到遗失的ID",
+  "titleSlug": "find-the-missing-ids",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7282629838552811,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-the-missing-ids",
+    "questionId": "1759",
+    "title": "Find the Missing IDs",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Customers\": [\"customer_id\", \"customer_name\"]}, \"rows\": {\"Customers\": [[1, \"Alice\"], [4, \"Bob\"], [5, \"Charlie\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "report-contiguous-dates",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-the-start-and-end-number-of-continuous-ranges",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-transactions-per-visit",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:19.242Z"
+}

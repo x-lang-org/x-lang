@@ -1,0 +1,30 @@
+{
+  "title": "Minimum Time to Visit All Houses",
+  "titleCn": "访问所有房屋的最短时间",
+  "titleSlug": "minimum-time-to-visit-all-houses",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7840531561461794,
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "minimum-time-to-visit-all-houses",
+    "questionId": "3880",
+    "title": "Minimum Time to Visit All Houses",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,4,4]\n[4,1,2]\n[1,2,0,2]\n[1,1,1,1]\n[2,2,2,2]\n[1,2,3,0]",
+    "hints": [
+      "Use prefix sums to compute distances for both forward and backward movements.",
+      "For each move between adjacent houses, take the minimum distance from the two prefix-sum arrays."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:36.667Z"
+}

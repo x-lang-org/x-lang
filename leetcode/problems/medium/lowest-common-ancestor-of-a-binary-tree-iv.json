@@ -1,0 +1,48 @@
+{
+  "title": "Lowest Common Ancestor of a Binary Tree IV",
+  "titleCn": "二叉树的最近公共祖先 IV",
+  "titleSlug": "lowest-common-ancestor-of-a-binary-tree-iv",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8108965119631018,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "lowest-common-ancestor-of-a-binary-tree-iv",
+    "questionId": "1816",
+    "title": "Lowest Common Ancestor of a Binary Tree IV",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,5,1,6,2,0,8,null,null,7,4]\n[4,7]\n[3,5,1,6,2,0,8,null,null,7,4]\n[1]\n[3,5,1,6,2,0,8,null,null,7,4]\n[7,6,2,4]",
+    "hints": [
+      "Starting from the root, traverse the left and the right subtrees, checking if one of the nodes exist there.",
+      "If one of the subtrees doesn't contain any given node, the LCA can be the node returned from the other subtree",
+      "If both subtrees contain nodes, the LCA node is the current node."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-search-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-deepest-leaves",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:40.808Z"
+}

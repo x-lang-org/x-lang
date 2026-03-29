@@ -1,0 +1,31 @@
+{
+  "title": "Next Closest Time",
+  "titleCn": "最近时刻",
+  "titleSlug": "next-closest-time",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49911920140927774,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "next-closest-time",
+    "questionId": "681",
+    "title": "Next Closest Time",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "backtracking",
+      "enumeration"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"19:34\"\n\"23:59\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:28.759Z"
+}

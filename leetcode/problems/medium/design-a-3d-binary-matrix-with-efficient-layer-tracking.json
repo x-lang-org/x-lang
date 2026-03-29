@@ -1,0 +1,38 @@
+{
+  "title": "Design a 3D Binary Matrix with Efficient Layer Tracking",
+  "titleCn": "设计一个高效的层跟踪三维二进制矩阵",
+  "titleSlug": "design-a-3d-binary-matrix-with-efficient-layer-tracking",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7752161383285303,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "matrix",
+    "ordered-set",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "design-a-3d-binary-matrix-with-efficient-layer-tracking",
+    "questionId": "3735",
+    "title": "Design a 3D Binary Matrix with Efficient Layer Tracking",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "matrix",
+      "ordered-set",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Matrix3D\",\"setCell\",\"largestMatrix\",\"setCell\",\"largestMatrix\",\"setCell\",\"largestMatrix\"]\n[[3],[0,0,0],[],[1,1,2],[],[0,0,1],[]]\n[\"Matrix3D\",\"setCell\",\"largestMatrix\",\"unsetCell\",\"largestMatrix\"]\n[[4],[2,1,1],[],[2,1,1],[]]",
+    "hints": [
+      "Keep track of the number of 1’s on each matrix.",
+      "Use a data structure that allows to efficiently insert, delete or get the biggest pair on a list of pairs."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:08.065Z"
+}

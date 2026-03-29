@@ -1,0 +1,33 @@
+{
+  "title": "Number of Good Binary Strings",
+  "titleCn": "好二进制字符串的数量",
+  "titleSlug": "number-of-good-binary-strings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6360320933625091,
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "number-of-good-binary-strings",
+    "questionId": "2672",
+    "title": "Number of Good Binary Strings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n3\n1\n2\n4\n4\n4\n3",
+    "hints": [
+      "If we maintain DP(i, x) where i denotes the length and x denotes the last written integer (0 or 1), then it is not hard to solve in O(maxLength * max(zeroGroup, oneGroup)).",
+      "Notice that from DP(i, 0) we only have a transition to DP(j, 1) where (j - i) mod oneGroup == 0 and j > i. Similarly with DP(i,1). So we can use prefix sum to optimize our DP and solve it in O(maxLength)."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "special-binary-string",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:13.170Z"
+}

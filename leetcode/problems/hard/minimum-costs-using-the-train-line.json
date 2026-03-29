@@ -1,0 +1,41 @@
+{
+  "title": "Minimum Costs Using the Train Line",
+  "titleCn": "乘坐火车路线的最少费用",
+  "titleSlug": "minimum-costs-using-the-train-line",
+  "difficulty": "HARD",
+  "acRate": 0.66190833959429,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "minimum-costs-using-the-train-line",
+    "questionId": "2500",
+    "title": "Minimum Costs Using the Train Line",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,6,9,5]\n[5,2,3,10]\n8\n[11,5,13]\n[7,10,6]\n3",
+    "hints": [
+      "Notice and evaluate the different ways there are to move from one stop to the next.",
+      "From the express route at a previous stop, we can use either the express route or the regular route to the next stop without paying expressCost.",
+      "From the regular route at a previous stop, we can either use the express route after paying expressCost or use the regular route without paying expressCost.",
+      "Iterate through the stops and compare the above cases to obtain the minimum costs for each stop."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "bus-routes",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "distance-between-bus-stops",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:53:46.975Z"
+}

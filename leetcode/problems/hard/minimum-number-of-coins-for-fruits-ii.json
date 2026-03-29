@@ -1,0 +1,41 @@
+{
+  "title": "Minimum Number of Coins for Fruits II",
+  "titleCn": "购买水果需要的最少金币数 II",
+  "titleSlug": "minimum-number-of-coins-for-fruits-ii",
+  "difficulty": "HARD",
+  "acRate": 0.2031767041694242,
+  "topicTags": [
+    "queue",
+    "array",
+    "dynamic-programming",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "minimum-number-of-coins-for-fruits-ii",
+    "questionId": "3268",
+    "title": "Minimum Number of Coins for Fruits II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "queue",
+      "array",
+      "dynamic-programming",
+      "monotonic-queue",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,1,2]\n[1,10,1,1]",
+    "hints": [
+      "Use DP + Fenwick tree.",
+      "There is another creative solution using multiset instead of Fenwick.",
+      "Imagine we want to calculate <code>dp[i]</code> which is the answer to the problem for the first <code>i</code> fruits.",
+      "If we buy <code>l<sup>th</sup></code> fruit from the set of indices: <code>[(i + 1) / 2, (i + 1) / 2 + 1, (i + 1) / 2 + 2, ..., i - 1]</code>, then we can get fruits <code>l + 1, l + 2, ..., i</code> for free.",
+      "We just need to get all the first <code>l - 1</code> fruits as well and the minimum price for that, is <code>dp[l - 1]</code>.",
+      "So at the index <code>i</code>, we are looking for such an index <code>l</code> that <code>dp[l - 1] + prices[l]</code> is as minimum as possible.",
+      "We can store these values in a multiset and update the values in it."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:54:38.663Z"
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Maximum Length of Subarray With Positive Product",
+  "titleCn": "乘积为正数的最长子数组长度",
+  "titleSlug": "maximum-length-of-subarray-with-positive-product",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4499781341849136,
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-length-of-subarray-with-positive-product",
+    "questionId": "1690",
+    "title": "Maximum Length of Subarray With Positive Product",
+    "content": "<p>Given an array of integers <code>nums</code>, find the maximum length of a subarray where the product of all its elements is positive.</p>\n\n<p>A subarray of an array is a consecutive sequence of zero or more values taken out of that array.</p>\n\n<p>Return <em>the maximum length of a subarray with positive product</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,-2,-3,4]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> The array nums already has a positive product of 24.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [0,1,-2,-3,-4]\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> The longest subarray with positive product is [1,-2,-3] which has a product of 6.\nNotice that we cannot include 0 in the subarray since that&#39;ll make the product 0 which is not positive.</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [-1,-2,-3,0,1]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> The longest subarray with positive product is [-1,-2] or [-2,-3].\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getMaxLen(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getMaxLen(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getMaxLen(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,-2,-3,4]\n[0,1,-2,-3,-4]\n[-1,-2,-3,0,1]",
+    "hints": [
+      "Split the whole array into subarrays by zeroes since a subarray with positive product cannot contain any zero.",
+      "If the subarray has even number of negative numbers, the whole subarray has positive product.",
+      "Otherwise, we have two choices, either - remove the prefix till the first negative element in this subarray, or remove the suffix starting from the last negative element in this subarray."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:02.516Z"
+}

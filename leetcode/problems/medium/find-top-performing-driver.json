@@ -1,0 +1,25 @@
+{
+  "title": "Find Top Performing Driver",
+  "titleCn": "寻找表现最佳的司机",
+  "titleSlug": "find-top-performing-driver",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4829821717990275,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-top-performing-driver",
+    "questionId": "3624",
+    "title": "Find Top Performing Driver",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Drivers\":[\"driver_id\",\"name\",\"age\",\"experience\",\"accidents\"],\"Vehicles\":[\"vehicle_id\",\"driver_id\",\"model\",\"fuel_type\",\"mileage\"],\"Trips\":[\"trip_id\",\"vehicle_id\",\"distance\",\"duration\",\"rating\"]},\"rows\":{\"Drivers\":[[1,\"Alice\",34,10,1],[2,\"Bob\",45,20,3],[3,\"Charlie\",28,5,0]],\"Vehicles\":[[100,1,\"Sedan\",\"Gasoline\",20000],[101,2,\"SUV\",\"Electric\",30000],[102,3,\"Coupe\",\"Gasoline\",15000]],\"Trips\":[[201,100,50,30,5],[202,100,30,20,4],[203,101,100,60,4],[204,101,80,50,5],[205,102,40,30,5],[206,102,60,40,5]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:41:53.294Z"
+}

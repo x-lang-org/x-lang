@@ -1,0 +1,30 @@
+{
+  "title": "Users With Two Purchases Within Seven Days",
+  "titleCn": "7 天内两次购买的用户",
+  "titleSlug": "users-with-two-purchases-within-seven-days",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4907792980368828,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "users-with-two-purchases-within-seven-days",
+    "questionId": "2370",
+    "title": "Users With Two Purchases Within Seven Days",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Purchases\":[\"purchase_id\",\"user_id\",\"purchase_date\"]},\"rows\":{\"Purchases\":[[4,2,\"2022-03-13\"],[1,5,\"2022-02-11\"],[3,7,\"2022-06-19\"],[6,2,\"2022-03-20\"],[5,7,\"2022-06-19\"],[2,2,\"2022-06-08\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "biggest-window-between-visits",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:02.580Z"
+}

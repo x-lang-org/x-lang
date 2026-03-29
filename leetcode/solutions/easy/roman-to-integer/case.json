@@ -1,0 +1,23 @@
+{
+  "problemId": "13",
+  "titleSlug": "roman-to-integer",
+  "title": "Roman to Integer",
+  "titleCn": "罗马数字转整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6423656668484942,
+  "testcases": [
+    {
+      "input": "\"III\"",
+      "expectedOutput": "\"LVIII\""
+    },
+    {
+      "input": "\"MCMXCIV\"",
+      "expectedOutput": ""
+    }
+  ]
+}

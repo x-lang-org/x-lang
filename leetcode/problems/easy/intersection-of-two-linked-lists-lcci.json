@@ -1,0 +1,55 @@
+{
+  "title": "Intersection of Two Linked Lists LCCI",
+  "titleCn": "链表相交",
+  "titleSlug": "intersection-of-two-linked-lists-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.6728223320341775,
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "intersection-of-two-linked-lists-lcci",
+    "questionId": "100167",
+    "title": "Intersection of Two Linked Lists LCCI",
+    "content": "<p>Given two (singly) linked lists, determine if the two lists intersect. Return the inter&shy; secting node. Note that the intersection is defined based on reference, not value. That is, if the kth node of the first linked list is the exact same node (by reference) as the jth node of the second linked list, then they are intersecting.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3\r\n<strong>Output: </strong>Reference of the node with value = 8\r\n<strong>Input Explanation:</strong> The intersected node&#39;s value is 8 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [4,1,8,4,5]. From the head of B, it reads as [5,0,1,8,4,5]. There are 2 nodes before the intersected node in A; There are 3 nodes before the intersected node in B.</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1\r\n<strong>Output: </strong>Reference of the node with value = 2\r\n<strong>Input Explanation:</strong>&nbsp;The intersected node&#39;s value is 2 (note that this must not be 0 if the two lists intersect). From the head of A, it reads as [0,9,1,2,4]. From the head of B, it reads as [3,2,4]. There are 3 nodes before the intersected node in A; There are 1 node before the intersected node in B.</pre>\r\n\r\n<p><strong>Example 3: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2\r\n<strong>Output: </strong>null\r\n<strong>Input Explanation:</strong> From the head of A, it reads as [2,6,4]. From the head of B, it reads as [1,5]. Since the two lists do not intersect, intersectVal must be 0, while skipA and skipB can be arbitrary values.\r\n<strong>Explanation:</strong> The two lists do not intersect, so return null.</pre>\r\n\r\n<p><b>Notes:</b></p>\r\n\r\n<ul>\r\n\t<li>If the two linked lists have no intersection at all, return&nbsp;<code>null</code>.</li>\r\n\t<li>The linked lists must retain their original structure after the function returns.</li>\r\n\t<li>You may assume there are no cycles anywhere in the entire linked structure.</li>\r\n\t<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:\n        "
+      }
+    ],
+    "exampleTestcases": "8\n[4,1,8,4,5]\n[5,0,1,8,4,5]\n2\n3\n2\n[0,9,1,2,4]\n[3,2,4]\n3\n1\n0\n[2,6,4]\n[1,5]\n3\n2",
+    "hints": [
+      "你可以在O(A + B)的时间和额外的O(1)空间中做到这一点，也就是说，你不需要一个散列表（尽管你可以用一个散列表来完成）。",
+      "举例子能帮到你。画一个相交的链表和两个不相交的等价链表（值）的图片。",
+      "首先要确定是否有交叉点。",
+      "注意，两个相交链表的最后节点始终相同。一旦它们相交，之后的所有节点将相等。",
+      "你可以通过遍历到每个链表的末尾并比较它们的尾节点来确定两个链表是否相交。",
+      "现在，你需要查找链表在何处相交。假设链表长度相同。你可以怎么做？",
+      "如果两个链表长度相同，则可以在每个链表中向前遍历，直到找到一个公共的元素。现在，面对长度不同的链表，你该怎样调整？",
+      "尝试使用两个链表长度之间的差异。",
+      "如果你通过长度差异向较长的链表中移动指针，则可以在链表相同时应用类似的方法。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:38.934Z"
+}

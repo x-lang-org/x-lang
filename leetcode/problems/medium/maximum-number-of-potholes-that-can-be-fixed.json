@@ -1,0 +1,33 @@
+{
+  "title": "Maximum Number of Potholes That Can Be Fixed",
+  "titleCn": "最大数量的可修复坑洼",
+  "titleSlug": "maximum-number-of-potholes-that-can-be-fixed",
+  "difficulty": "MEDIUM",
+  "acRate": 0.24873096446700507,
+  "topicTags": [
+    "greedy",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-potholes-that-can-be-fixed",
+    "questionId": "3425",
+    "title": "Maximum Number of Potholes That Can Be Fixed",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"..\"\n5\n\"..xxxxx\"\n4\n\"x.x.xxx...x\"\n14",
+    "hints": [
+      "Find all consecutive blocks of <code>’x’</code>.",
+      "Sort them by their length.",
+      "Try to fix the block from the largest one until you have enough budget."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:37.181Z"
+}

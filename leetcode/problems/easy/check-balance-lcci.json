@@ -1,0 +1,51 @@
+{
+  "title": "Check Balance LCCI",
+  "titleCn": "检查平衡性",
+  "titleSlug": "check-balance-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.603705951740171,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "check-balance-lcci",
+    "questionId": "100176",
+    "title": "Check Balance LCCI",
+    "content": "<p>Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.</p>\r\n\r\n<p><br />\r\n<strong>Example 1:</strong></p>\r\n\r\n<pre>\r\nGiven tree [3,9,20,null,null,15,7]\r\n    3\r\n   / \\\r\n  9  20\r\n    /  \\\r\n   15   7\r\nreturn true.</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\nGiven [1,2,2,3,3,null,null,4,4]\r\n      1\r\n     / \\\r\n    2   2\r\n   / \\\r\n  3   3\r\n / \\\r\n4   4\r\nreturn&nbsp;false.</pre>\r\n\r\n<p>&nbsp;</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isBalanced(TreeNode* root) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isBalanced(TreeNode root) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isBalanced(self, root: Optional[TreeNode]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,9,20,null,null,15,7]\n[1,2,2,3,3,null,null,4,4]",
+    "hints": [
+      "考虑平衡树的定义。你可以检查单个节点的条件吗？你可以检查每个节点吗？",
+      "如果你开发了一个蛮力解法，请注意它的运行时间。如果你是用于计算每个节点的子树的高度，那么该算法会很低效。",
+      "如果你可以修改二叉树节点类，允许节点存储子树的高度，会如何？",
+      "你不需要修改二叉树类来存储子树的高度。递归函数是否可以计算每个子树的高度，同时检查节点是否平衡？尝试让函数返回多个值。",
+      "其实，你只需要一个checkHeight函数即可，它既可以计算高度，也可以平衡检查。可以使用整数返回值表示两者。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:28:39.139Z"
+}

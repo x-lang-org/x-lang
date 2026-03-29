@@ -1,0 +1,47 @@
+{
+  "title": "Factorial Zeros LCCI",
+  "titleCn": "阶乘尾数",
+  "titleSlug": "factorial-zeros-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.4194764054762598,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "factorial-zeros-lcci",
+    "questionId": "1000017",
+    "title": "Factorial Zeros LCCI",
+    "content": "<p>Write an algorithm which computes the number of trailing zeros in n factorial.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 3\r\n<strong>Output:</strong> 0\r\n<strong>Explanation:</strong>&nbsp;3! = 6, no trailing zero.</pre>\r\n\r\n<p><strong>Example&nbsp;2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 5\r\n<strong>Output:</strong> 1\r\n<strong>Explanation:</strong>&nbsp;5! = 120, one trailing zero.</pre>\r\n\r\n<p><b>Note:&nbsp;</b>Your solution should be in logarithmic time complexity.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int trailingZeroes(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int trailingZeroes(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trailingZeroes(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "3",
+    "hints": [
+      "0如何变成n!？这是什么意思？",
+      "n!中的每个0表示n能被10整除一次。这是什么意思？",
+      "n!中每一个因子10都意味着n!能被5和2整除。",
+      "你能计算出5和2的因数的个数吗？需要两者都计算吗？",
+      "你是否考虑过25实际上记录了两次因数5？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:30.993Z"
+}

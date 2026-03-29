@@ -1,0 +1,43 @@
+{
+  "title": "Minimize Maximum Value in a Grid",
+  "titleCn": "最小化网格中的最大值",
+  "titleSlug": "minimize-maximum-value-in-a-grid",
+  "difficulty": "HARD",
+  "acRate": 0.6130177514792899,
+  "topicTags": [
+    "union-find",
+    "graph",
+    "topological-sort",
+    "array",
+    "matrix",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "minimize-maximum-value-in-a-grid",
+    "questionId": "2506",
+    "title": "Minimize Maximum Value in a Grid",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "union-find",
+      "graph",
+      "topological-sort",
+      "array",
+      "matrix",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[3,1],[2,5]]\n[[10]]",
+    "hints": [
+      "Can you think of which element in the grid you should replace first?",
+      "Replace the elements in the matrix from the smallest number to the largest. Replace each element with the smallest possible number so far."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "candy",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:52:50.947Z"
+}

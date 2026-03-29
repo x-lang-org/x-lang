@@ -1,0 +1,26 @@
+{
+  "problemId": "33",
+  "titleSlug": "search-in-rotated-sorted-array",
+  "title": "Search in Rotated Sorted Array",
+  "titleCn": "搜索旋转排序数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.4599888155419623,
+  "testcases": [
+    {
+      "input": "[4,5,6,7,0,1,2]",
+      "expectedOutput": "0"
+    },
+    {
+      "input": "[4,5,6,7,0,1,2]",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "[1]",
+      "expectedOutput": "0"
+    }
+  ]
+}

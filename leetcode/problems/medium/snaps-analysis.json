@@ -1,0 +1,25 @@
+{
+  "title": "Snaps Analysis",
+  "titleCn": "快照分析",
+  "titleSlug": "snaps-analysis",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5652428320655354,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "snaps-analysis",
+    "questionId": "3340",
+    "title": "Snaps Analysis",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Activities\":[\"activity_id\",\"user_id\",\"activity_type\",\"time_spent\"],\"Age\":[\"user_id\",\"age_bucket\"]},\"rows\":{\"Activities\":[[7274,123,\"open\",4.50],[2425,123,\"send\",3.50],[1413,456,\"send\",5.67],[2536,456,\"open\",3.00],[8564,456,\"send\",8.24],[5235,789,\"send\",6.24],[4251,123,\"open\",1.25],[1435,789,\"open\",5.25]],\"Age\":[[123,\"31-35\"],[789,\"21-25\"],[456,\"26-30\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:50.825Z"
+}

@@ -1,0 +1,48 @@
+{
+  "title": "Master Mind LCCI",
+  "titleCn": "珠玑妙算",
+  "titleSlug": "master-mind-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.45326414248190144,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "master-mind-lcci",
+    "questionId": "100355",
+    "title": "Master Mind LCCI",
+    "content": "<p>The Game of Master Mind is played as follows:</p>\r\n\r\n<p>The computer has four slots, and each slot will contain a ball that is red (R). yellow (Y). green (G) or blue (B). For example, the computer might have RGGB (Slot #1 is red, Slots #2 and #3 are green, Slot #4 is blue).</p>\r\n\r\n<p>You, the user, are trying to guess the solution. You might, for example, guess YRGB.</p>\r\n\r\n<p>When you guess the correct color for the correct slot, you get a &quot;hit:&#39; If you guess a color that exists but is in the wrong slot, you get a &quot;pseudo-hit:&#39; Note that a slot that is a hit can never count as a pseudo-hit.</p>\r\n\r\n<p>For example, if the actual solution is RGBY and you guess GGRR, you have one hit and one pseudo-hit. Write a method that, given a guess and a solution, returns the number of hits and pseudo-hits.</p>\r\n\r\n<p>Given a sequence of colors <code>solution</code>, and a <code>guess</code>, write a method that return the number of hits and pseudo-hit <code>answer</code>, where <code>answer[0]</code> is the number of hits and <code>answer[1]</code> is the number of pseudo-hit.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> solution=&quot;RGBY&quot;,guess=&quot;GGRR&quot;\r\n<strong>Output: </strong> [1,1]\r\n<strong>Explanation: </strong> hit once, pseudo-hit once.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>len(solution) = len(guess) = 4</code></li>\r\n\t<li>There are only <code>&quot;R&quot;</code>,<code>&quot;G&quot;</code>,<code>&quot;B&quot;</code>,<code>&quot;Y&quot;</code> in <code>solution</code>&nbsp;and&nbsp;<code>guess</code>.</li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> masterMind(string solution, string guess) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] masterMind(String solution, String guess) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def masterMind(self, solution: str, guess: str) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"RGRB\"\n\"BBBY\"",
+    "hints": [
+      "首先尝试创建一个具有每个元素发生频率的数组。",
+      "为了在实现中简单明了，你可能需要使用其他方法和类。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:11.779Z"
+}

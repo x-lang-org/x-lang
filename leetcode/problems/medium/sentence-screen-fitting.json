@@ -1,0 +1,38 @@
+{
+  "title": "Sentence Screen Fitting",
+  "titleCn": "屏幕可显示句子的数量",
+  "titleSlug": "sentence-screen-fitting",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4012942264055803,
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "sentence-screen-fitting",
+    "questionId": "418",
+    "title": "Sentence Screen Fitting",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"hello\",\"world\"]\n2\n8\n[\"a\", \"bcd\", \"e\"]\n3\n6\n[\"i\",\"had\",\"apple\",\"pie\"]\n4\n5",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-cost-to-separate-sentence-into-rows",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "split-message-based-on-limit",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:20.538Z"
+}

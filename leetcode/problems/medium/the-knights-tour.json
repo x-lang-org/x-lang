@@ -1,0 +1,29 @@
+{
+  "title": "The Knight’s Tour",
+  "titleCn": "巡逻的骑士",
+  "titleSlug": "the-knights-tour",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6247379454926625,
+  "topicTags": [
+    "array",
+    "backtracking",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "the-knights-tour",
+    "questionId": "2823",
+    "title": "The Knight’s Tour",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n1\n0\n0\n3\n4\n0\n0",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:28.507Z"
+}

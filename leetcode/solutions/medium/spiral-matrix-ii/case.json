@@ -1,0 +1,19 @@
+{
+  "problemId": "59",
+  "titleSlug": "spiral-matrix-ii",
+  "title": "Spiral Matrix II",
+  "titleCn": "螺旋矩阵 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.6946865275468929,
+  "testcases": [
+    {
+      "input": "3",
+      "expectedOutput": "1"
+    }
+  ]
+}

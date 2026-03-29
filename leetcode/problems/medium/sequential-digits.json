@@ -1,0 +1,44 @@
+{
+  "title": "Sequential Digits",
+  "titleCn": "顺次数",
+  "titleSlug": "sequential-digits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.55939776981603,
+  "topicTags": [
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "sequential-digits",
+    "questionId": "1212",
+    "title": "Sequential Digits",
+    "content": "<p>An&nbsp;integer has <em>sequential digits</em> if and only if each digit in the number is one more than the previous digit.</p>\n\n<p>Return a <strong>sorted</strong> list of all the integers&nbsp;in the range <code>[low, high]</code>&nbsp;inclusive that have sequential digits.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> low = 100, high = 300\n<strong>Output:</strong> [123,234]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> low = 1000, high = 13000\n<strong>Output:</strong> [1234,2345,3456,4567,5678,6789,12345]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>10 &lt;= low &lt;= high &lt;= 10^9</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "enumeration"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> sequentialDigits(int low, int high) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<Integer> sequentialDigits(int low, int high) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sequentialDigits(self, low: int, high: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "100\n300\n1000\n13000",
+    "hints": [
+      "Generate all numbers with sequential digits and check if they are in the given range.",
+      "Fix the starting digit then do a recursion that tries to append all valid digits."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:04:25.857Z"
+}

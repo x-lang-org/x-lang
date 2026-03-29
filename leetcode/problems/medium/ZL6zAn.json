@@ -1,0 +1,49 @@
+{
+  "title": "岛屿的最大面积",
+  "titleCn": "岛屿的最大面积",
+  "titleSlug": "ZL6zAn",
+  "difficulty": "MEDIUM",
+  "acRate": 0.683045341631862,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "ZL6zAn",
+    "questionId": "1000291",
+    "title": "岛屿的最大面积",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maxAreaOfIsland(int[][] grid) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]\n[[0,0,0,0,0,0,0,0]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:30.337Z"
+}

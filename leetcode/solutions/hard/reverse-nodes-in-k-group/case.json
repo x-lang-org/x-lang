@@ -1,0 +1,22 @@
+{
+  "problemId": "25",
+  "titleSlug": "reverse-nodes-in-k-group",
+  "title": "Reverse Nodes in k-Group",
+  "titleCn": "K 个一组翻转链表",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "acRate": 0.6993085915864079,
+  "testcases": [
+    {
+      "input": "[1,2,3,4,5]",
+      "expectedOutput": "2"
+    },
+    {
+      "input": "[1,2,3,4,5]",
+      "expectedOutput": "3"
+    }
+  ]
+}

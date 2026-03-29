@@ -1,0 +1,39 @@
+{
+  "title": "Synonymous Sentences",
+  "titleCn": "近义词句子",
+  "titleSlug": "synonymous-sentences",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6021505376344086,
+  "topicTags": [
+    "sort",
+    "union-find",
+    "array",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "synonymous-sentences",
+    "questionId": "1191",
+    "title": "Synonymous Sentences",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "sort",
+      "union-find",
+      "array",
+      "hash-table",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"happy\",\"joy\"],[\"sad\",\"sorrow\"],[\"joy\",\"cheerful\"]]\n\"I am happy today but was sad yesterday\"\n[[\"happy\",\"joy\"],[\"cheerful\",\"glad\"]]\n\"I am happy today but was sad yesterday\"",
+    "hints": [
+      "Find all synonymous groups of words.",
+      "Use union-find data structure.",
+      "By backtracking, generate all possible statements."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:10.313Z"
+}

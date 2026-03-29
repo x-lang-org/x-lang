@@ -1,0 +1,54 @@
+{
+  "title": "Pairs With Sum LCCI",
+  "titleCn": "数对和",
+  "titleSlug": "pairs-with-sum-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5030086917762425,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "counting",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "pairs-with-sum-lcci",
+    "questionId": "1000042",
+    "title": "Pairs With Sum LCCI",
+    "content": "<p>Design an algorithm to find all pairs of integers within an array which sum to a specified value.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> nums = [5,6,5], target = 11\r\n<strong>Output: </strong>[[5,6]]</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> nums = [5,6,5,6], target = 11\r\n<strong>Output: </strong>[[5,6],[5,6]]</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>nums.length &lt;= 100000</code></li>\r\n\t<li><code>-10^5 &lt;= nums[i], target &lt;= 10^5</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "two-pointers",
+      "counting",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> pairSums(vector<int>& nums, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> pairSums(int[] nums, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def pairSums(self, nums: List[int], target: int) -> List[List[int]]:\n        "
+      }
+    ],
+    "exampleTestcases": "[5]\n1\n[]\n0",
+    "hints": [
+      "从蛮力解法开始。运行复杂度是什么？解决这个问题的最佳时间是什么？",
+      "我们可以用散列表使它更快吗?",
+      "如果数组有序呢？",
+      "如果我们对数组进行排序，那么就可以对数字进行重复的二进制搜索。如果数组是有序的呢？我们能否在O(N)时间和O(1)空间中求解这个问题？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:52.598Z"
+}

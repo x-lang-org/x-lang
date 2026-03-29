@@ -1,0 +1,48 @@
+{
+  "title": "Bitwise XOR of All Pairings",
+  "titleCn": "所有数对的异或和",
+  "titleSlug": "bitwise-xor-of-all-pairings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6645842973931821,
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "bitwise-xor-of-all-pairings",
+    "questionId": "2533",
+    "title": "Bitwise XOR of All Pairings",
+    "content": "<p>You are given two <strong>0-indexed</strong> arrays, <code>nums1</code> and <code>nums2</code>, consisting of non-negative integers. Let there be another array, <code>nums3</code>, which contains the bitwise XOR of <strong>all pairings</strong> of integers between <code>nums1</code> and <code>nums2</code> (every integer in <code>nums1</code> is paired with every integer in <code>nums2</code> <strong>exactly once</strong>).</p>\n\n<p>Return<em> the <strong>bitwise XOR</strong> of all integers in </em><code>nums3</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [2,1,3], nums2 = [10,2,5,0]\n<strong>Output:</strong> 13\n<strong>Explanation:</strong>\nA possible nums3 array is [8,0,7,2,11,3,4,1,9,1,6,3].\nThe bitwise XOR of all these numbers is 13, so we return 13.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,2], nums2 = [3,4]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong>\nAll possible pairs of bitwise XORs are nums1[0] ^ nums2[0], nums1[0] ^ nums2[1], nums1[1] ^ nums2[0],\nand nums1[1] ^ nums2[1].\nThus, one possible nums3 array is [2,5,1,6].\n2 ^ 5 ^ 1 ^ 6 = 0, so we return 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums1.length, nums2.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= nums1[i], nums2[j] &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "brainteaser",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int xorAllNums(int[] nums1, int[] nums2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def xorAllNums(self, nums1: List[int], nums2: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,1,3]\n[10,2,5,0]\n[1,2]\n[3,4]",
+    "hints": [
+      "Think how the count of each individual integer affects the final answer.",
+      "If the length of nums1 is m and the length of nums2 is n, then each number in nums1 is repeated n times and each number in nums2 is repeated m times."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:26.018Z"
+}

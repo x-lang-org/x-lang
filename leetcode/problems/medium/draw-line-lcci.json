@@ -1,0 +1,50 @@
+{
+  "title": "Draw Line LCCI",
+  "titleCn": "绘制直线",
+  "titleSlug": "draw-line-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5360470819028936,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "draw-line-lcci",
+    "questionId": "100196",
+    "title": "Draw Line LCCI",
+    "content": "<p>A monochrome screen is stored as a single array of int, allowing 32 consecutive pixels to be stored in one int. The screen has width <code>w</code>, where <code>w</code> is divisible by 32&nbsp;(that is, no byte will be split across rows). The height of the screen, of course, can be derived from the length of the array and the width. Implement a function that draws a horizontal line from <code>(x1, y)</code> to <code>(x2, y)</code>.</p>\r\n\r\n<p>Given the length of the array, the width of the array (in bit), start position <code>x1</code>&nbsp;(in bit) of the line, end position <code>x2</code> (in bit) of the line and the row number&nbsp;<code>y</code> of the line, return the array after drawing.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: length = 1, w = 32, x1 = 30, x2 = 31, y = 0\r\n<strong> Output</strong>: [3]\r\n<strong> Explanation</strong>: After drawing a line from (30, 0) to (31, 0), the screen becomes [0b000000000000000000000000000000011].\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: length = 3, w = 96, x1 = 0, x2 = 95, y = 0\r\n<strong> Output</strong>: [-1, -1, -1]\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> drawLine(int length, int w, int x1, int x2, int y) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] drawLine(int length, int w, int x1, int x2, int y) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def drawLine(self, length: int, w: int, x1: int, x2: int, y: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "1\n32\n30\n31\n0\n3\n96\n0\n95\n0",
+    "hints": [
+      "先试试简单解法。你能设置一个特定的“像素”吗？",
+      "当你画一条长线时，你会得到即将变成1的序列的全部字节。你可以一次性设置它吗？",
+      "那这条线的起点和终点呢？你需要单独设置这些像素，还是可以同时设置所有像素？",
+      "当x1和x2在同一个字节中时，你的代码能否处理这种情况。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:31.627Z"
+}

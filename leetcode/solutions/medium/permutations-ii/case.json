@@ -1,0 +1,19 @@
+{
+  "problemId": "47",
+  "titleSlug": "permutations-ii",
+  "title": "Permutations II",
+  "titleCn": "全排列 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "backtracking",
+    "sorting"
+  ],
+  "acRate": 0.6680202848786038,
+  "testcases": [
+    {
+      "input": "[1,1,2]",
+      "expectedOutput": "[1,2,3]"
+    }
+  ]
+}

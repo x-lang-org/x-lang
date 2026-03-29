@@ -1,0 +1,37 @@
+{
+  "title": "Promise Pool",
+  "titleCn": "Promise 对象池",
+  "titleSlug": "promise-pool",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6596681341009143,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "promise-pool",
+    "questionId": "2750",
+    "title": "Promise Pool",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[() => new Promise(res => setTimeout(res, 300)), () => new Promise(res => setTimeout(res, 400)), () => new Promise(res => setTimeout(res, 200))]\n2\n[() => new Promise(res => setTimeout(res, 300)), () => new Promise(res => setTimeout(res, 400)), () => new Promise(res => setTimeout(res, 200))]\n5\n[() => new Promise(res => setTimeout(res, 300)), () => new Promise(res => setTimeout(res, 400)), () => new Promise(res => setTimeout(res, 200))]\n1",
+    "hints": [
+      "Initially execute all the functions until the queue fills up.",
+      "Every time a function resolves, add a new promise to the queue if possible."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "sleep",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "promise-time-limit",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "cache-with-time-limit",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:25.560Z"
+}

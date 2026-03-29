@@ -1,0 +1,45 @@
+{
+  "title": "集水器",
+  "titleCn": "集水器",
+  "titleSlug": "kskhHQ",
+  "difficulty": "HARD",
+  "acRate": 0.560880829015544,
+  "topicTags": [
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "kskhHQ",
+    "questionId": "1000486",
+    "title": "集水器",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "union-find",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int reservoir(vector<string>& shape) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int reservoir(String[] shape) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def reservoir(self, shape: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"....rl\",\"l.lr.r\",\".l..r.\",\"..lr..\"]\n[\".rlrlrlrl\",\"ll..rl..r\",\".llrrllrr\",\"..lr..lr.\"]\n[\"rlrr\",\"llrl\",\"llr.\"]\n[\"...rl...\",\"..r..l..\",\".r.rl.l.\",\"r.r..l.l\",\"l.l..rl.\",\".l.lr.r.\",\"..l..r..\",\"...lr...\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:25.007Z"
+}

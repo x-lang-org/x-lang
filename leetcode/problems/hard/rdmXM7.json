@@ -1,0 +1,37 @@
+{
+  "title": "传送卷轴",
+  "titleCn": "传送卷轴",
+  "titleSlug": "rdmXM7",
+  "difficulty": "HARD",
+  "acRate": 0.42048267326732675,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "rdmXM7",
+    "questionId": "1000563",
+    "title": "传送卷轴",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int challengeOfTheKeeper(vector<string>& maze) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int challengeOfTheKeeper(String[] maze) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def challengeOfTheKeeper(self, maze: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\".....\",\"##S..\",\"...#.\",\"T.#..\",\"###..\"]\n[\".#..\",\"..##\",\".#S.\",\".#.T\"]\n[\"S###.\",\"..###\",\"#..##\",\"##..#\",\"###.T\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:02:04.147Z"
+}

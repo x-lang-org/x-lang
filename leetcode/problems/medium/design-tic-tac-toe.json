@@ -1,0 +1,41 @@
+{
+  "title": "Design Tic-Tac-Toe",
+  "titleCn": "设计井字棋",
+  "titleSlug": "design-tic-tac-toe",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5837609554516143,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "matrix",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "design-tic-tac-toe",
+    "questionId": "348",
+    "title": "Design Tic-Tac-Toe",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "matrix",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"TicTacToe\",\"move\",\"move\",\"move\",\"move\",\"move\",\"move\",\"move\"]\n[[3],[0,0,1],[0,2,2],[2,2,1],[1,1,2],[2,0,1],[1,0,2],[2,1,1]]",
+    "hints": [
+      "Could you trade extra space such that <code>move()</code> operation can be done in O(1)?",
+      "You need two arrays: int rows[n], int cols[n], plus two variables: diagonal, anti_diagonal."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "valid-tic-tac-toe-state",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:38.165Z"
+}

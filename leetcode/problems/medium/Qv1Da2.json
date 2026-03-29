@@ -1,0 +1,45 @@
+{
+  "title": "扁平化多级双向链表",
+  "titleCn": "扁平化多级双向链表",
+  "titleSlug": "Qv1Da2",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6066009608993714,
+  "topicTags": [
+    "depth-first-search",
+    "linked-list",
+    "doubly-linked-list"
+  ],
+  "detail": {
+    "titleSlug": "Qv1Da2",
+    "questionId": "1000264",
+    "title": "扁平化多级双向链表",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "linked-list",
+      "doubly-linked-list"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/*\n// Definition for a Node.\nclass Node {\npublic:\n    int val;\n    Node* prev;\n    Node* next;\n    Node* child;\n};\n*/\n\nclass Solution {\npublic:\n    Node* flatten(Node* head) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/*\n// Definition for a Node.\nclass Node {\n    public int val;\n    public Node prev;\n    public Node next;\n    public Node child;\n};\n*/\n\nclass Solution {\n    public Node flatten(Node head) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val, prev, next, child):\n        self.val = val\n        self.prev = prev\n        self.next = next\n        self.child = child\n\"\"\"\n\nclass Solution:\n    def flatten(self, head: 'Node') -> 'Node':\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]\n[1,2,null,3]\n[]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:48.525Z"
+}

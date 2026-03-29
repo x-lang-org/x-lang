@@ -1,0 +1,47 @@
+{
+  "title": "Minimum Swaps to Group All 1's Together",
+  "titleCn": "最少交换次数来组合所有的 1",
+  "titleSlug": "minimum-swaps-to-group-all-1s-together",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5612570277754468,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "minimum-swaps-to-group-all-1s-together",
+    "questionId": "1107",
+    "title": "Minimum Swaps to Group All 1's Together",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,0,1,0,1]\n[0,0,0,1,0]\n[1,0,1,0,1,0,0,1,1,0,1]",
+    "hints": [
+      "How many 1's should be grouped together ? Is not a fixed number?",
+      "Yeah it's just the number of 1's the whole array has. Let's name this number as ones",
+      "Every subarray of size of ones, needs some number of swaps to reach, Can you find the number of swaps needed to group all 1's in this subarray?",
+      "It's the number of zeros in that subarray.",
+      "Do you need to count the number of zeros all over again for every position ?",
+      "Use Sliding Window technique."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-adjacent-swaps-for-k-consecutive-ones",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-swaps-to-group-all-1s-together-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "time-needed-to-rearrange-a-binary-string",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:16.322Z"
+}

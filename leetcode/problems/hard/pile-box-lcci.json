@@ -1,0 +1,53 @@
+{
+  "title": "Pile Box LCCI",
+  "titleCn": "堆箱子",
+  "titleSlug": "pile-box-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.5119747094137183,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "pile-box-lcci",
+    "questionId": "100202",
+    "title": "Pile Box LCCI",
+    "content": "<p>You have a stack of n boxes, with widths wi, depths di, and heights hi. The boxes cannot be rotated and can only be stacked on top of one another if each box in the stack is strictly larger than the box above it in width, height, and depth. Implement a method to compute the height of the tallest possible stack. The height of a stack is the sum of the heights of each box.</p>\r\n\r\n<p>The input use <code>[wi, di, hi]</code>&nbsp;to represents each box.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: box = [[1, 1, 1], [2, 2, 2], [3, 3, 3]]\r\n<strong> Output</strong>: 6\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: box = [[1, 1, 1], [2, 3, 4], [2, 6, 7], [3, 4, 5]]\r\n<strong> Output</strong>: 10\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>box.length &lt;= 3000</code></li>\r\n</ol>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int pileBox(vector<vector<int>>& box) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int pileBox(int[][] box) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def pileBox(self, box: List[List[int]]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1, 1, 1], [2, 2, 2], [3, 3, 3]]\n[[1, 1, 1], [2, 3, 4], [2, 6, 7], [3, 4, 5]]",
+    "hints": [
+      "排列箱子会有什么帮助吗？",
+      "我们可以按任一维度对箱子从大到小进行排序。这样我们会有箱子某一维度的局部顺序，在数组中后面的箱子必须出现在数组中前面的箱子之前。",
+      "试着把它分解成子问题。",
+      "想想你必须做出的第一个决定。第一个决定是哪个箱子在底部。",
+      "一旦我们选择了底部的箱子，就需要选择第二个箱子，然后是第三个。",
+      "实现一个基本的递归算法之后，你要考虑是否可以优化它。其中有重复的子问题吗？",
+      "或者，我们可以考虑重复的选择：第一个箱子要放上去吗？第二个箱子要放上去吗？如此反复。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:43.342Z"
+}

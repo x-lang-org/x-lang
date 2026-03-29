@@ -1,0 +1,45 @@
+{
+  "title": "最大单词长度乘积",
+  "titleCn": "最大单词长度乘积",
+  "titleSlug": "aseY1I",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7140193410156929,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "aseY1I",
+    "questionId": "1000236",
+    "title": "最大单词长度乘积",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maxProduct(vector<string>& words) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maxProduct(String[] words) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxProduct(self, words: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"abcw\",\"baz\",\"foo\",\"bar\",\"xtfn\",\"abcdef\"]\n[\"a\",\"ab\",\"abc\",\"d\",\"cd\",\"bcd\",\"abcd\"]\n[\"a\",\"aa\",\"aaa\",\"aaaa\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:01.188Z"
+}

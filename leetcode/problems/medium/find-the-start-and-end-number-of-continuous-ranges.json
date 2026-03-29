@@ -1,0 +1,38 @@
+{
+  "title": "Find the Start and End Number of Continuous Ranges",
+  "titleCn": "找到连续区间的开始和结束数字",
+  "titleSlug": "find-the-start-and-end-number-of-continuous-ranges",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7845793610971734,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-the-start-and-end-number-of-continuous-ranges",
+    "questionId": "1420",
+    "title": "Find the Start and End Number of Continuous Ranges",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Logs\":[\"log_id\"]},\"rows\":{\"Logs\":[[1],[2],[3],[7],[8],[10]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "report-contiguous-dates",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-the-missing-ids",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "customers-with-strictly-increasing-purchases",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:40.713Z"
+}

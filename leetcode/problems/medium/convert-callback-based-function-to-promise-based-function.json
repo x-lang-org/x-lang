@@ -1,0 +1,21 @@
+{
+  "title": "Convert Callback Based Function to Promise Based Function",
+  "titleCn": "转换回调函数为 Promise 函数",
+  "titleSlug": "convert-callback-based-function-to-promise-based-function",
+  "difficulty": "MEDIUM",
+  "acRate": 0.9206008583690987,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "convert-callback-based-function-to-promise-based-function",
+    "questionId": "2782",
+    "title": "Convert Callback Based Function to Promise Based Function",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "(callback, a, b, c) => { callback(a * b * c) }\n[1, 2, 3]\n(callback, a, b, c) => { callback(a * b * c, \"Promise Rejected\") }\n[4, 5, 6]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:38.702Z"
+}

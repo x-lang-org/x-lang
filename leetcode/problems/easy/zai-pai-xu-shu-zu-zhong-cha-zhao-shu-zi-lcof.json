@@ -1,0 +1,43 @@
+{
+  "title": "统计目标成绩的出现次数",
+  "titleCn": "统计目标成绩的出现次数",
+  "titleSlug": "zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.5266845924985373,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof",
+    "questionId": "100329",
+    "title": "统计目标成绩的出现次数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int countTarget(vector<int>& scores, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int countTarget(int[] scores, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countTarget(self, scores: List[int], target: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,2,3,4,4,4,5,6,6,8]\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:22.108Z"
+}

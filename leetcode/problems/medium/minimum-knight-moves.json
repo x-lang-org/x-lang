@@ -1,0 +1,34 @@
+{
+  "title": "Minimum Knight Moves",
+  "titleCn": "进击的骑士",
+  "titleSlug": "minimum-knight-moves",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4196754019107547,
+  "topicTags": [
+    "breadth-first-search"
+  ],
+  "detail": {
+    "titleSlug": "minimum-knight-moves",
+    "questionId": "1142",
+    "title": "Minimum Knight Moves",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n1\n5\n5",
+    "hints": [
+      "You can simulate the movements since the limits are low.",
+      "Is there a search algorithm applicable to this problem?",
+      "Since we want the minimum number of moves, we can use Breadth First Search."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "check-knight-tour-configuration",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:54:23.273Z"
+}

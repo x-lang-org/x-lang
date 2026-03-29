@@ -1,0 +1,44 @@
+{
+  "title": "String to URL LCCI",
+  "titleCn": "URL化",
+  "titleSlug": "string-to-url-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5801188977653701,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "string-to-url-lcci",
+    "questionId": "100160",
+    "title": "String to URL LCCI",
+    "content": "<p>Write a method to replace all spaces in a string with &#39;%20&#39;. You may assume that the string has sufficient space at the end to hold the additional characters,and that you are given the &quot;true&quot; length of the string. (Note: If implementing in Java,please use a character array so that you can perform this operation in place.)</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>&quot;Mr John Smith &quot;, 13\r\n<strong>Output: </strong>&quot;Mr%20John%20Smith&quot;\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>&quot;               &quot;, 5\r\n<strong>Output: </strong>&quot;%20%20%20%20%20&quot;\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>0 &lt;= S.length &lt;= 500000</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string replaceSpaces(string S, int length) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String replaceSpaces(String S, int length) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def replaceSpaces(self, S: str, length: int) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"Mr John Smith    \"\n13\n\"               \"\n5",
+    "hints": [
+      "从尾到头开始修改字符串通常最容易。",
+      "你可能需要知道空格的数量。你能数一下吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:55.781Z"
+}

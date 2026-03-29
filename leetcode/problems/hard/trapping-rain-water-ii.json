@@ -1,0 +1,56 @@
+{
+  "title": "Trapping Rain Water II",
+  "titleCn": "接雨水 II",
+  "titleSlug": "trapping-rain-water-ii",
+  "difficulty": "HARD",
+  "acRate": 0.5932089552238806,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "trapping-rain-water-ii",
+    "questionId": "407",
+    "title": "Trapping Rain Water II",
+    "content": "<p>Given an <code>m x n</code> integer matrix <code>heightMap</code> representing the height of each unit cell in a 2D elevation map, return <em>the volume of water it can trap after raining</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/04/08/trap1-3d.jpg\" style=\"width: 361px; height: 321px;\" />\n<pre>\n<strong>Input:</strong> heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> After the rain, water is trapped between the blocks.\nWe have two small ponds 1 and 3 units trapped.\nThe total volume of water trapped is 4.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2021/04/08/trap2-3d.jpg\" style=\"width: 401px; height: 321px;\" />\n<pre>\n<strong>Input:</strong> heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]\n<strong>Output:</strong> 10\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>m == heightMap.length</code></li>\n\t<li><code>n == heightMap[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 200</code></li>\n\t<li><code>0 &lt;= heightMap[i][j] &lt;= 2 * 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int trapRainWater(vector<vector<int>>& heightMap) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int trapRainWater(int[][] heightMap) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trapRainWater(self, heightMap: List[List[int]]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]\n[[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "trapping-rain-water",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "maximum-number-of-points-from-grid-queries",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:17.848Z"
+}

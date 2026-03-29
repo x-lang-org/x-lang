@@ -1,0 +1,40 @@
+{
+  "title": "Check for Contradictions in Equations",
+  "titleCn": "检查方程中的矛盾之处",
+  "titleSlug": "check-for-contradictions-in-equations",
+  "difficulty": "HARD",
+  "acRate": 0.4449760765550239,
+  "topicTags": [
+    "depth-first-search",
+    "union-find",
+    "graph",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "check-for-contradictions-in-equations",
+    "questionId": "2065",
+    "title": "Check for Contradictions in Equations",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "union-find",
+      "graph",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"a\",\"b\"],[\"b\",\"c\"],[\"a\",\"c\"]]\n[3,0.5,1.5]\n[[\"le\",\"et\"],[\"le\",\"code\"],[\"code\",\"et\"]]\n[2,5,0.5]",
+    "hints": [
+      "Try treating this as a graph problem.",
+      "Each variable is a node, and each equation is an edge.",
+      "Try performing DFS multiple times to find contradictions."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "evaluate-division",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:28:49.017Z"
+}

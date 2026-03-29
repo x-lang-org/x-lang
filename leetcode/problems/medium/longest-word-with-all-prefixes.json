@@ -1,0 +1,39 @@
+{
+  "title": "Longest Word With All Prefixes",
+  "titleCn": "包含所有前缀的最长单词",
+  "titleSlug": "longest-word-with-all-prefixes",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6640592836558254,
+  "topicTags": [
+    "depth-first-search",
+    "trie",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "longest-word-with-all-prefixes",
+    "questionId": "2009",
+    "title": "Longest Word With All Prefixes",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "trie",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"k\",\"ki\",\"kir\",\"kira\",\"kiran\"]\n[\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"]\n[\"abc\",\"bc\",\"ab\",\"qwe\"]",
+    "hints": [
+      "Add all the words to a trie.",
+      "Check the longest path where all the nodes are words."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-word-in-dictionary",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:36.245Z"
+}

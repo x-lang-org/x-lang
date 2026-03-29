@@ -1,0 +1,47 @@
+{
+  "title": "二叉树灯饰",
+  "titleCn": "二叉树灯饰",
+  "titleSlug": "U7WvvU",
+  "difficulty": "MEDIUM",
+  "acRate": 0.38776232020749823,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "dynamic-programming",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "U7WvvU",
+    "questionId": "1000479",
+    "title": "二叉树灯饰",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "dynamic-programming",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    int closeLampInTree(TreeNode* root) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public int closeLampInTree(TreeNode root) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\nclass Solution:\n    def closeLampInTree(self, root: TreeNode) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,1,0,null,null,null,1]\n[1,1,1,1,null,null,1]\n[0,null,0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:36.559Z"
+}

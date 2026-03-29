@@ -1,0 +1,31 @@
+{
+  "title": "Missing Number In Arithmetic Progression",
+  "titleCn": "等差数列中缺失的数字",
+  "titleSlug": "missing-number-in-arithmetic-progression",
+  "difficulty": "EASY",
+  "acRate": 0.5536549605529568,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "missing-number-in-arithmetic-progression",
+    "questionId": "1164",
+    "title": "Missing Number In Arithmetic Progression",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,7,11,13]\n[15,13,12]",
+    "hints": [
+      "Assume the sequence is increasing, what if we find the largest consecutive difference?",
+      "Is the missing element in the middle of the segment with the largest consecutive difference?",
+      "For decreasing sequences, just reverse the array and do a similar process."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:48.386Z"
+}

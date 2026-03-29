@@ -1,0 +1,52 @@
+{
+  "title": "T9 LCCI",
+  "titleCn": "T9键盘",
+  "titleSlug": "t9-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7080782380535899,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "t9-lcci",
+    "questionId": "1000047",
+    "title": "T9 LCCI",
+    "content": "<p>On old cell phones, users typed on a numeric keypad and the phone would provide a list of words that matched these numbers. Each digit mapped to a set of 0&nbsp;- 4 letters. Implement an algo&shy;rithm to return a list of matching words, given a sequence of digits. You are provided a list of valid words. The mapping is shown in the diagram below:</p>\r\n\r\n<p><img src=\"https://assets.leetcode.cn/aliyun-lc-upload/original_images/17_telephone_keypad.png\" style=\"width: 200px;\" /></p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> num = &quot;8733&quot;, words = [&quot;tree&quot;, &quot;used&quot;]\r\n<strong>Output:</strong> [&quot;tree&quot;, &quot;used&quot;]\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> num = &quot;2&quot;, words = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]\r\n<strong>Output:</strong> [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</pre>\r\n\r\n<p>Note:</p>\r\n\r\n<ul>\r\n\t<li><code>num.length &lt;= 1000</code></li>\r\n\t<li><code>words.length &lt;= 500</code></li>\r\n\t<li><code>words[i].length == num.length</code></li>\r\n\t<li><code>There are no number 0 and 1 in num</code>.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> getValidT9Words(string num, vector<string>& words) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<String> getValidT9Words(String num, String[] words) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getValidT9Words(self, num: str, words: List[str]) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "\"8733\"\n[\"tree\", \"used\"]\n\"2\"\n[\"a\", \"b\", \"c\", \"d\"]",
+    "hints": [
+      "想想递归。",
+      "你能递归地尝试所有的可能性吗？",
+      "在现实世界中，我们应该知道一些前缀/子字符串是行不通的。例如，考虑数字33835676368。虽然3383确实对应于fftf，但是没有以fftf开头的单词。有没有什么办法对于这样的情况做特殊处理？",
+      "trie可以帮助我们。如果将整个单词列表存储在trie中会怎样？",
+      "我们可能会多次运行这个算法。如果做更多的预处理，这里有办法优化吗？",
+      "通过预处理，实际上可以将查找时间降低到O(1)。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:11.788Z"
+}

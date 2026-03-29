@@ -1,0 +1,51 @@
+{
+  "title": "Find Longest Subarray LCCI",
+  "titleCn": " 字母与数字",
+  "titleSlug": "find-longest-subarray-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4829358448529039,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "find-longest-subarray-lcci",
+    "questionId": "1000033",
+    "title": "Find Longest Subarray LCCI",
+    "content": "<p>Given an array filled with letters and numbers, find the longest subarray with an equal number of letters and numbers.</p>\r\n\r\n<p>Return the subarray. If there are more than one answer, return the one which has the smallest&nbsp;index of its left endpoint. If there is no answer, return an empty arrary.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[&quot;A&quot;,&quot;1&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;E&quot;,&quot;5&quot;,&quot;F&quot;,&quot;G&quot;,&quot;6&quot;,&quot;7&quot;,&quot;H&quot;,&quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;,&quot;M&quot;]\r\n\r\n<strong>Output: </strong>[&quot;A&quot;,&quot;1&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;E&quot;,&quot;5&quot;,&quot;F&quot;,&quot;G&quot;,&quot;6&quot;,&quot;7&quot;]\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>[&quot;A&quot;,&quot;A&quot;]\r\n\r\n<strong>Output: </strong>[]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>array.length &lt;= 100000</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<string> findLongestSubarray(vector<string>& array) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String[] findLongestSubarray(String[] array) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findLongestSubarray(self, array: List[str]) -> List[str]:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"A\",\"1\",\"B\",\"C\",\"D\",\"2\",\"3\",\"4\",\"E\",\"5\",\"F\",\"G\",\"6\",\"7\",\"H\",\"I\",\"J\",\"K\",\"L\",\"M\"]\n[\"A\",\"A\"]",
+    "hints": [
+      "是哪个字母或数字并不重要。你可以把该问题简化为只包含 A 和 B 的数组。然后寻找具有相同数量的 A 和 B 的最长子数组。",
+      "从蛮力解法开始。",
+      "如果你从一开始就计算 A 的个数和 B 的个数会怎样(试着构建数组构成的表并保存到目前为止 A 和 B 的数量)?",
+      "当表中 A 和 B 的个数相等时，整个子数组(从索引 0 开始)的 A 和 B 的个数相等。如何使用该表来查找不以索引 0 开始的、符合条件的子数组?",
+      "假设在这个表中，索引 i 满足 count(A, 0->i) = 3 和 count(B, 0->i) = 7。这意味着 B 比 A 多 4 个。如果你发现后面的某点 j 具有相同的差值(count(B, 0->j) - count(a, 0->j))，那么这表示子数组中有相同数量的 A 和 B。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:46.397Z"
+}

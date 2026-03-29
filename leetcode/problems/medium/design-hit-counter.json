@@ -1,0 +1,38 @@
+{
+  "title": "Design Hit Counter",
+  "titleCn": "敲击计数器",
+  "titleSlug": "design-hit-counter",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6666205082046667,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "binary-search",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "design-hit-counter",
+    "questionId": "362",
+    "title": "Design Hit Counter",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "binary-search",
+      "data-stream"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"HitCounter\",\"hit\",\"hit\",\"hit\",\"getHits\",\"hit\",\"getHits\",\"getHits\"]\n[[],[1],[2],[3],[4],[300],[300],[301]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "logger-rate-limiter",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:26.289Z"
+}

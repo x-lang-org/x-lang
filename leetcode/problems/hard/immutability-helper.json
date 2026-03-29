@@ -1,0 +1,35 @@
+{
+  "title": "Immutability Helper",
+  "titleCn": "不可变辅助工具",
+  "titleSlug": "immutability-helper",
+  "difficulty": "HARD",
+  "acRate": 0.29900332225913623,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "immutability-helper",
+    "questionId": "2773",
+    "title": "Immutability Helper",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"val\":10}\n[proxy => { proxy.val += 1; }, proxy => { proxy.val -= 1; }]\n{\"arr\":[1,2,3]}\n[proxy => { proxy.arr[0] = 5; proxy.newVal = proxy.arr[0] + proxy.arr[1]; }]\n{\"obj\":{\"val\":{\"x\":10,\"y\":20}}}\n[proxy => { let data = proxy.obj.val; let temp = data.x; data.x = data.y; data.y = temp; }]",
+    "hints": [
+      "Javascript has the concept of Proxy. That concept is critical to this problem.",
+      "You you need to keep track of which values in the JSON were overwritten with new values.",
+      "Somehow, keep a tree structure that exists parallel to the original object. This will keep track of all the edits.",
+      "When the mutator function is done. Return a clone with those mutations applied. It will be inefficient to clone the entire object so only clone the minimum number of nodes."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "infinite-method-object",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "make-object-immutable",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:44:15.768Z"
+}

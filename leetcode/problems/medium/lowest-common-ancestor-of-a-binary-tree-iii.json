@@ -1,0 +1,47 @@
+{
+  "title": "Lowest Common Ancestor of a Binary Tree III",
+  "titleCn": "二叉树的最近公共祖先 III",
+  "titleSlug": "lowest-common-ancestor-of-a-binary-tree-iii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8351567527810977,
+  "topicTags": [
+    "tree",
+    "hash-table",
+    "two-pointers",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "lowest-common-ancestor-of-a-binary-tree-iii",
+    "questionId": "1790",
+    "title": "Lowest Common Ancestor of a Binary Tree III",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "hash-table",
+      "two-pointers",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,5,1,6,2,0,8,null,null,7,4]\n5\n1\n[3,5,1,6,2,0,8,null,null,7,4]\n5\n4\n[1,2]\n1\n2",
+    "hints": [
+      "Store the path from p to the root.",
+      "Traverse the path from q to the root, the first common point of the two paths is the LCA."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-search-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lowest-common-ancestor-of-a-binary-tree-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:40.184Z"
+}

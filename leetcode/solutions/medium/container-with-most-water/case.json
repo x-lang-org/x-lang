@@ -1,0 +1,19 @@
+{
+  "problemId": "11",
+  "titleSlug": "container-with-most-water",
+  "title": "Container With Most Water",
+  "titleCn": "盛最多水的容器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.6174503673113602,
+  "testcases": [
+    {
+      "input": "[1,8,6,2,5,4,8,3,7]",
+      "expectedOutput": "[1,1]"
+    }
+  ]
+}

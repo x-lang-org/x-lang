@@ -1,0 +1,19 @@
+{
+  "problemId": "89",
+  "titleSlug": "gray-code",
+  "title": "Gray Code",
+  "titleCn": "格雷编码",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "backtracking"
+  ],
+  "acRate": 0.7521474021795749,
+  "testcases": [
+    {
+      "input": "2",
+      "expectedOutput": "1"
+    }
+  ]
+}

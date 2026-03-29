@@ -1,0 +1,55 @@
+{
+  "title": "Check SubTree LCCI",
+  "titleCn": "检查子树",
+  "titleSlug": "check-subtree-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6414859137372226,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree",
+    "string-matching",
+    "hash-function"
+  ],
+  "detail": {
+    "titleSlug": "check-subtree-lcci",
+    "questionId": "100229",
+    "title": "Check SubTree LCCI",
+    "content": "<p>T1&nbsp;and T2 are two very large binary trees. Create an algorithm to determine if T2 is a subtree of T1.</p>\r\n\r\n<p>A tree T2 is a subtree of T1&nbsp;if there exists a node n in T1&nbsp;such that the subtree of n is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical.</p>\r\n\r\n<p><strong>Note:</strong> This problem is slightly different from the original problem.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: t1 = [1, 2, 3], t2 = [2]\r\n<strong> Output</strong>: true\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: t1 = [1, null, 2, 4], t2 = [3, 2]\r\n<strong> Output</strong>: false\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ol>\r\n\t<li>The node numbers of both tree are in [0, 20000].</li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree",
+      "string-matching",
+      "hash-function"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool checkSubTree(TreeNode* t1, TreeNode* t2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean checkSubTree(TreeNode t1, TreeNode t2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def checkSubTree(self, t1: Optional[TreeNode], t2: Optional[TreeNode]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[1, 2, 3]\n[2]\n[1, null, 2, 4]\n[3, 2]",
+    "hints": [
+      "如果T2是T1的子树，它的中序遍历将如何与T1的比较？它的前序和后序遍历如何？",
+      "中序遍历无法告诉我们更多。毕竟，每个具有相同值的二叉搜索树（不管结构如何）将具有相同的中序遍历。这也就是中序遍历的含义：内容是有序的（如果它在二叉搜索树这种特定情况下不起作用，那么对于一般二叉树来说它肯定不起作用）。然而，前序遍历更具指示性。",
+      "你可能得出结论，如果T2.preorderTraversal()是T1.preorderTraversal()的子字符串，则T2是T1的子树。这几乎是事实，除非树可能有重复的值。假设T1和T2具有所有重复值，但结构不同。即使T2不是T1的子树，前序遍历看起来也是一样的。你如何处理这样的情况？",
+      "尽管问题似乎源于重复的值，但不止如此。问题是，前序遍历是相同的，只是因为我们跳过了空节点（因为它们是空的）。考虑在访问到空节点时往前序遍历的字符串中插入一个占位符。把空节点记录为一个“真正的”节点，你就可以区分出不同的结构了。",
+      "或者用递归法处理这个问题。给定一个特殊节点T1，可以检查它的子树是否匹配T2吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:30:14.848Z"
+}

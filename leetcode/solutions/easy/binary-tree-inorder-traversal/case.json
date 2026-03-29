@@ -1,0 +1,24 @@
+{
+  "problemId": "94",
+  "titleSlug": "binary-tree-inorder-traversal",
+  "title": "Binary Tree Inorder Traversal",
+  "titleCn": "二叉树的中序遍历",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.783243858290361,
+  "testcases": [
+    {
+      "input": "[1,null,2,3]",
+      "expectedOutput": "[1,2,3,4,5,null,8,null,null,6,7,9]"
+    },
+    {
+      "input": "[]",
+      "expectedOutput": "[1]"
+    }
+  ]
+}

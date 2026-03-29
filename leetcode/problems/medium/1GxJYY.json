@@ -1,0 +1,43 @@
+{
+  "title": "美观的花束",
+  "titleCn": "美观的花束",
+  "titleSlug": "1GxJYY",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7058237053545247,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "1GxJYY",
+    "questionId": "1000483",
+    "title": "美观的花束",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int beautifulBouquet(vector<int>& flowers, int cnt) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int beautifulBouquet(int[] flowers, int cnt) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def beautifulBouquet(self, flowers: List[int], cnt: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3,2]\n1\n[5,3,3,3]\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:35.908Z"
+}

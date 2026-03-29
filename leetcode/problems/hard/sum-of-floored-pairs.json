@@ -1,0 +1,54 @@
+{
+  "title": "Sum of Floored Pairs",
+  "titleCn": "向下取整数对和",
+  "titleSlug": "sum-of-floored-pairs",
+  "difficulty": "HARD",
+  "acRate": 0.3705133153222694,
+  "topicTags": [
+    "array",
+    "math",
+    "binary-search",
+    "counting",
+    "enumeration",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-floored-pairs",
+    "questionId": "1326",
+    "title": "Sum of Floored Pairs",
+    "content": "<p>Given an integer array <code>nums</code>, return the sum of <code>floor(nums[i] / nums[j])</code> for all pairs of indices <code>0 &lt;= i, j &lt; nums.length</code> in the array. Since the answer may be too large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>\n\n<p>The <code>floor()</code> function returns the integer part of the division.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [2,5,9]\n<strong>Output:</strong> 10\n<strong>Explanation:</strong>\nfloor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0\nfloor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1\nfloor(5 / 2) = 2\nfloor(9 / 2) = 4\nfloor(9 / 5) = 1\nWe calculate the floor of the division for every pair of indices in the array then sum them up.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [7,7,7,7,7,7,7]\n<strong>Output:</strong> 49\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "math",
+      "binary-search",
+      "counting",
+      "enumeration",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int sumOfFlooredPairs(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int sumOfFlooredPairs(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sumOfFlooredPairs(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,5,9]\n[7,7,7,7,7,7,7]",
+    "hints": [
+      "Find the frequency (number of occurrences) of all elements in the array.",
+      "For each element, iterate through its multiples and multiply frequencies to find the answer."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:39.574Z"
+}

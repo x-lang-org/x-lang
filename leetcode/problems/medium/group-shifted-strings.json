@@ -1,0 +1,38 @@
+{
+  "title": "Group Shifted Strings",
+  "titleCn": "移位字符串分组",
+  "titleSlug": "group-shifted-strings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6459371614301191,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "group-shifted-strings",
+    "questionId": "249",
+    "title": "Group Shifted Strings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"abc\",\"bcd\",\"acef\",\"xyz\",\"az\",\"ba\",\"a\",\"z\"]\n[\"a\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "group-anagrams",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-maximum-number-of-string-pairs",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:27.439Z"
+}

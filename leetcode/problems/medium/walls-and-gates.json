@@ -1,0 +1,42 @@
+{
+  "title": "Walls and Gates",
+  "titleCn": "墙与门",
+  "titleSlug": "walls-and-gates",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5692974124950775,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "walls-and-gates",
+    "questionId": "286",
+    "title": "Walls and Gates",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]\n[[-1]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "surrounded-regions",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-islands",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shortest-distance-from-all-buildings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:35.521Z"
+}

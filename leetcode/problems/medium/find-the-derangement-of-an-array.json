@@ -1,0 +1,29 @@
+{
+  "title": "Find the Derangement of An Array",
+  "titleCn": "寻找数组的错位排列",
+  "titleSlug": "find-the-derangement-of-an-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46097031136857347,
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "detail": {
+    "titleSlug": "find-the-derangement-of-an-array",
+    "questionId": "634",
+    "title": "Find the Derangement of An Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "dynamic-programming",
+      "combinatorics"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:42.729Z"
+}

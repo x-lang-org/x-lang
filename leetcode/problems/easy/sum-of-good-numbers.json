@@ -1,0 +1,43 @@
+{
+  "title": "Sum of Good Numbers",
+  "titleCn": "好数字之和",
+  "titleSlug": "sum-of-good-numbers",
+  "difficulty": "EASY",
+  "acRate": 0.7977948824630747,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-good-numbers",
+    "questionId": "3723",
+    "title": "Sum of Good Numbers",
+    "content": "<p>Given an array of integers <code>nums</code> and an integer <code>k</code>, an element <code>nums[i]</code> is considered <strong>good</strong> if it is <strong>strictly</strong> greater than the elements at indices <code>i - k</code> and <code>i + k</code> (if those indices exist). If neither of these indices <em>exists</em>, <code>nums[i]</code> is still considered <strong>good</strong>.</p>\n\n<p>Return the <strong>sum</strong> of all the <strong>good</strong> elements in the array.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,3,2,1,5,4], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">12</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The good numbers are <code>nums[1] = 3</code>, <code>nums[4] = 5</code>, and <code>nums[5] = 4</code> because they are strictly greater than the numbers at indices <code>i - k</code> and <code>i + k</code>.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [2,1], k = 1</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The only good number is <code>nums[0] = 2</code> because it is strictly greater than <code>nums[1]</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>\n\t<li><code>1 &lt;= k &lt;= floor(nums.length / 2)</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int sumOfGoodNumbers(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int sumOfGoodNumbers(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sumOfGoodNumbers(self, nums: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,3,2,1,5,4]\n2\n[2,1]\n1",
+    "hints": [
+      "For each index, check if <code>nums[i]</code> is strictly greater than <code>nums[i - k]</code> and <code>nums[i + k]</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:39.741Z"
+}

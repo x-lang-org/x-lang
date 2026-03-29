@@ -1,0 +1,26 @@
+{
+  "problemId": "39",
+  "titleSlug": "combination-sum",
+  "title": "Combination Sum",
+  "titleCn": "组合总和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.7407057237285627,
+  "testcases": [
+    {
+      "input": "[2,3,6,7]",
+      "expectedOutput": "7"
+    },
+    {
+      "input": "[2,3,5]",
+      "expectedOutput": "8"
+    },
+    {
+      "input": "[2]",
+      "expectedOutput": "1"
+    }
+  ]
+}

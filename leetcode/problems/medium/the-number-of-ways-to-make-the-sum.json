@@ -1,0 +1,45 @@
+{
+  "title": "The Number of Ways to Make the Sum",
+  "titleCn": "达到总和的方法数量",
+  "titleSlug": "the-number-of-ways-to-make-the-sum",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3663466397170288,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "the-number-of-ways-to-make-the-sum",
+    "questionId": "3489",
+    "title": "The Number of Ways to Make the Sum",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "4\n12\n5",
+    "hints": [
+      "Consider using dynamic programming.",
+      "Define <code>dp[i][x]</code> as the number of ways to make the sum <code>x</code> using only the first <code>i</code> coins; and define <code>coin[i]</code> as the value of coin <code>i</code>.",
+      "We can calculate <code>dp[i][x]</code> as the sum of <code>dp[i - 1][x]</code> and <code>dp[i][x - coin[i]]</code>.",
+      "Remember that 4 can at most be multiplied twice, so we calculate the <code>dp</code> for our infinite coins and then manually handle the existence of 4."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "combination-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "climbing-stairs",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "coin-change-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:08:41.054Z"
+}

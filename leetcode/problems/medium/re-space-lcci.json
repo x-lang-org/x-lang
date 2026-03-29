@@ -1,0 +1,60 @@
+{
+  "title": "Re-Space LCCI",
+  "titleCn": "恢复空格",
+  "titleSlug": "re-space-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5564844063596224,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "detail": {
+    "titleSlug": "re-space-lcci",
+    "questionId": "1000020",
+    "title": "Re-Space LCCI",
+    "content": "<p>Oh, no! You have accidentally removed all spaces, punctuation, and capitalization in a lengthy document. A sentence like &quot;I reset the computer. It still didn&#39;t boot!&quot; became &quot;iresetthecomputeritstilldidntboot&#39;&#39;. You&#39;ll deal with the punctuation and capi&shy;talization later; right now you need to re-insert the spaces. Most of the words are in a dictionary but a few are not. Given a dictionary (a list of strings) and the document (a string), design an algorithm to unconcatenate the document in a way that minimizes the number of unrecognized characters. Return the number of unrecognized characters.</p>\r\n\r\n<p><strong>Note: </strong>This&nbsp;problem is slightly different from the original one in the book.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>\r\ndictionary = [&quot;looked&quot;,&quot;just&quot;,&quot;like&quot;,&quot;her&quot;,&quot;brother&quot;]\r\nsentence = &quot;jesslookedjustliketimherbrother&quot;\r\n<strong>Output: </strong> 7\r\n<strong>Explanation: </strong> After unconcatenating, we got &quot;<strong>jess</strong> looked just like <strong>tim</strong> her brother&quot;, which containing 7 unrecognized characters.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= len(sentence) &lt;= 1000</code></li>\r\n\t<li><code><font face=\"sans-serif, Arial, Verdana, Trebuchet MS\">The total number of characters in&nbsp;</font>dictionary</code>&nbsp;is less than or equal to 150000.</li>\r\n\t<li>There are only lowercase letters in&nbsp;<code>dictionary</code>&nbsp;and&nbsp;<code>sentence</code>.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string",
+      "dynamic-programming",
+      "hash-function",
+      "rolling-hash"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int respace(vector<string>& dictionary, string sentence) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int respace(String[] dictionary, String sentence) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def respace(self, dictionary: List[str], sentence: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"looked\",\"just\",\"like\",\"her\",\"brother\"]\n\"jesslookedjustliketimherbrother\"",
+    "hints": [
+      "试试递归方法。",
+      "你能把所有的可能性都试一试吗？那会是什么样子？",
+      "你可以用两种方法中的一种来考虑递归算法：(1)对于每个字符，我应该在这里放一个空格吗？(2)下一个空格应该放在哪里？两种方案都可以递归地解决。",
+      "递归算法是否会反复遇到相同的子问题？你能用一个散列表进行优化吗？",
+      "在现实生活中，我们知道有些路径不会构成一个词。例如，没有以hellothisism开头的单词。能在明知行不通的情况下提前终止吗？",
+      "如果想提前终止，可以试一试trie。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:02:04.662Z"
+}

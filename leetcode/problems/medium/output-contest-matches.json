@@ -1,0 +1,29 @@
+{
+  "title": "Output Contest Matches",
+  "titleCn": "输出比赛匹配对",
+  "titleSlug": "output-contest-matches",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7280734632683659,
+  "topicTags": [
+    "recursion",
+    "string",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "output-contest-matches",
+    "questionId": "544",
+    "title": "Output Contest Matches",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "recursion",
+      "string",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "4\n8",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:43.966Z"
+}

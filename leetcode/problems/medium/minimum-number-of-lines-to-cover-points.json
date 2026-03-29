@@ -1,0 +1,57 @@
+{
+  "title": "Minimum Number of Lines to Cover Points",
+  "titleCn": "穿过所有点的所需最少直线数量",
+  "titleSlug": "minimum-number-of-lines-to-cover-points",
+  "difficulty": "MEDIUM",
+  "acRate": 0.45715962441314556,
+  "topicTags": [
+    "bit-manipulation",
+    "geometry",
+    "array",
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "minimum-number-of-lines-to-cover-points",
+    "questionId": "2287",
+    "title": "Minimum Number of Lines to Cover Points",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "geometry",
+      "array",
+      "hash-table",
+      "math",
+      "dynamic-programming",
+      "backtracking",
+      "bitmask"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1],[2,3],[4,5],[4,3]]\n[[0,2],[-2,-2],[1,4]]",
+    "hints": [
+      "What is the highest possible answer for a set of n points?",
+      "The highest possible answer is n / 2 (rounded up). This is because you can cover at least two points with a line, and if n is odd, you need to add one extra line to cover the last point.",
+      "Suppose you have a line covering two points, how can you quickly check if a third point is also covered by that line?",
+      "Calculate the slope from the first point to the second point. If the slope from the first point to the third point is the same, then it is also covered by that line."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "max-points-on-a-line",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "min-cost-to-connect-all-points",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-lines-to-represent-a-line-chart",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:54:50.218Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Second Highest Salary II",
+  "titleCn": "第二高的薪水 II",
+  "titleSlug": "second-highest-salary-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8784676354029062,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "second-highest-salary-ii",
+    "questionId": "3660",
+    "title": "Second Highest Salary II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"employees\":[\"emp_id\",\"salary\",\"dept\"]},\"rows\":{\"employees\":[[1,70000,\"Sales\"],[2,80000,\"Sales\"],[3,80000,\"Sales\"],[4,90000,\"Sales\"],[5,55000,\"IT\"],[6,65000,\"IT\"],[7,65000,\"IT\"],[8,50000,\"Marketing\"],[9,55000,\"Marketing\"],[10,55000,\"HR\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:04:11.761Z"
+}

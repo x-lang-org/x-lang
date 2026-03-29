@@ -1,0 +1,54 @@
+{
+  "title": "Detect Capital",
+  "titleCn": "检测大写字母",
+  "titleSlug": "detect-capital",
+  "difficulty": "EASY",
+  "acRate": 0.5734749825604386,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "detect-capital",
+    "questionId": "520",
+    "title": "Detect Capital",
+    "content": "<p>We define the usage of capitals in a word to be right when one of the following cases holds:</p>\n\n<ul>\n\t<li>All letters in this word are capitals, like <code>&quot;USA&quot;</code>.</li>\n\t<li>All letters in this word are not capitals, like <code>&quot;leetcode&quot;</code>.</li>\n\t<li>Only the first letter in this word is capital, like <code>&quot;Google&quot;</code>.</li>\n</ul>\n\n<p>Given a string <code>word</code>, return <code>true</code> if the usage of capitals in it is right.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> word = \"USA\"\n<strong>Output:</strong> true\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> word = \"FlaG\"\n<strong>Output:</strong> false\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= word.length &lt;= 100</code></li>\n\t<li><code>word</code> consists of lowercase and uppercase English letters.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool detectCapitalUse(string word) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean detectCapitalUse(String word) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def detectCapitalUse(self, word: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"USA\"\n\"FlaG\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "capitalize-the-title",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "count-the-number-of-special-characters-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-the-number-of-special-characters-i",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:41.820Z"
+}

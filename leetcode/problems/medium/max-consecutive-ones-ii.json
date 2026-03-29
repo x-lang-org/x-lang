@@ -1,0 +1,42 @@
+{
+  "title": "Max Consecutive Ones II",
+  "titleCn": "最大连续1的个数 II",
+  "titleSlug": "max-consecutive-ones-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5588833746898263,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "max-consecutive-ones-ii",
+    "questionId": "487",
+    "title": "Max Consecutive Ones II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,0,1,1,0]\n[1,0,1,1,0,1]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "max-consecutive-ones",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "max-consecutive-ones-iii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "all-divisions-with-the-highest-score-of-a-binary-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:48:21.747Z"
+}

@@ -1,0 +1,19 @@
+{
+  "problemId": "64",
+  "titleSlug": "minimum-path-sum",
+  "title": "Minimum Path Sum",
+  "titleCn": "最小路径和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.7248872542011618,
+  "testcases": [
+    {
+      "input": "[[1,3,1],[1,5,1],[4,2,1]]",
+      "expectedOutput": "[[1,2,3],[4,5,6]]"
+    }
+  ]
+}

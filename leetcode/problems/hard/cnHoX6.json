@@ -1,0 +1,37 @@
+{
+  "title": "万灵之树",
+  "titleCn": "万灵之树",
+  "titleSlug": "cnHoX6",
+  "difficulty": "HARD",
+  "acRate": 0.14431729807799135,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "cnHoX6",
+    "questionId": "1000570",
+    "title": "万灵之树",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int treeOfInfiniteSouls(vector<int>& gem, int p, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int treeOfInfiniteSouls(int[] gem, int p, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def treeOfInfiniteSouls(self, gem: List[int], p: int, target: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,3]\n100000007\n11391299\n[3,21,3]\n7\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:17.528Z"
+}

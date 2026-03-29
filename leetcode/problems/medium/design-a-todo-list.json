@@ -1,0 +1,33 @@
+{
+  "title": "Design a Todo List",
+  "titleCn": "设计一个待办事项清单",
+  "titleSlug": "design-a-todo-list",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5253731343283582,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "design-a-todo-list",
+    "questionId": "2688",
+    "title": "Design a Todo List",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"TodoList\",\"addTask\",\"addTask\",\"getAllTasks\",\"getAllTasks\",\"addTask\",\"getTasksForTag\",\"completeTask\",\"completeTask\",\"getTasksForTag\",\"getAllTasks\"]\n[[],[1,\"Task1\",50,[]],[1,\"Task2\",100,[\"P1\"]],[1],[5],[1,\"Task3\",30,[\"P1\"]],[1,\"P1\"],[5,1],[1,2],[1,\"P1\"],[1]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:13.620Z"
+}

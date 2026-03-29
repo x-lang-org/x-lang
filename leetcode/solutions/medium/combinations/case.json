@@ -1,0 +1,21 @@
+{
+  "problemId": "77",
+  "titleSlug": "combinations",
+  "title": "Combinations",
+  "titleCn": "组合",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "backtracking"
+  ],
+  "acRate": 0.7750573094027611,
+  "testcases": [
+    {
+      "input": "4",
+      "expectedOutput": "2"
+    },
+    {
+      "input": "1",
+      "expectedOutput": "1"
+    }
+  ]
+}

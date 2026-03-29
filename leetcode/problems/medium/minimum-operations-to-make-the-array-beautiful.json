@@ -1,0 +1,31 @@
+{
+  "title": "Minimum Operations to Make the Array Beautiful",
+  "titleCn": "使数组变美的最小操作次数",
+  "titleSlug": "minimum-operations-to-make-the-array-beautiful",
+  "difficulty": "MEDIUM",
+  "acRate": 0.59375,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "minimum-operations-to-make-the-array-beautiful",
+    "questionId": "4108",
+    "title": "Minimum Operations to Make the Array Beautiful",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,7,9]\n[1,1,1]\n[4]",
+    "hints": [
+      "Use dynamic programming.",
+      "For each index <code>i</code>, compute <code>dp[i][val]</code> where <code>dp[i][val]</code> is the minimum number of increments needed to make position <code>i</code> equal to <code>val</code>.",
+      "Carefully combine DP states for index <code>i</code> with those for index <code>i - 1</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:55:36.185Z"
+}

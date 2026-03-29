@@ -1,0 +1,25 @@
+{
+  "title": "User Activities within Time Bounds",
+  "titleCn": "时间范围内的用户活动",
+  "titleSlug": "user-activities-within-time-bounds",
+  "difficulty": "HARD",
+  "acRate": 0.3925181462869905,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "user-activities-within-time-bounds",
+    "questionId": "3366",
+    "title": "User Activities within Time Bounds",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Sessions\":[\"user_id\",\"session_start\",\"session_end\",\"session_id\",\"session_type\"]},\"rows\":{\"Sessions\":[[101,\"2023-11-01 08:00:00\",\"2023-11-01 09:00:00\",1,\"Viewer\"],[101,\"2023-11-01 10:00:00\",\"2023-11-01 11:00:00\",2,\"Streamer\"],[102,\"2023-11-01 13:00:00\",\"2023-11-01 14:00:00\",3,\"Viewer\"],[102,\"2023-11-01 15:00:00\",\"2023-11-01 16:00:00\",4,\"Viewer\"],[101,\"2023-11-02 09:00:00\",\"2023-11-02 10:00:00\",5,\"Viewer\"],[102,\"2023-11-02 12:00:00\",\"2023-11-02 13:00:00\",6,\"Streamer\"],[101,\"2023-11-02 13:00:00\",\"2023-11-02 14:00:00\",7,\"Streamer\"],[102,\"2023-11-02 16:00:00\",\"2023-11-02 17:00:00\",8,\"Viewer\"],[103,\"2023-11-01 08:00:00\",\"2023-11-01 09:00:00\",9,\"Viewer\"],[103,\"2023-11-02 20:00:00\",\"2023-11-02 23:00:00\",10,\"Viewer\"],[103,\"2023-11-03 09:00:00\",\"2023-11-03 10:00:00\",11,\"Viewer\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:59.291Z"
+}

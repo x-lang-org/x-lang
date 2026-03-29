@@ -1,0 +1,48 @@
+{
+  "title": "Tic-Tac-Toe LCCI",
+  "titleCn": "井字游戏",
+  "titleSlug": "tic-tac-toe-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48320211755124204,
+  "topicTags": [
+    "array",
+    "counting",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "tic-tac-toe-lcci",
+    "questionId": "100261",
+    "title": "Tic-Tac-Toe LCCI",
+    "content": "<p>Design an algorithm to figure out if someone has won a game of tic-tac-toe.&nbsp;Input is a string array&nbsp;of size N x N, including characters &quot; &quot;, &quot;X&quot; and &quot;O&quot;, where &quot; &quot; represents a empty grid.</p>\r\n\r\n<p>The rules of tic-tac-toe are as follows:</p>\r\n\r\n<ul>\r\n\t<li>Players place characters into an empty grid(&quot; &quot;) in turn.</li>\r\n\t<li>The first player always place character &quot;O&quot;, and the second one place &quot;X&quot;.</li>\r\n\t<li>Players are only allowed to place characters in empty grid. Replacing a character is not allowed.</li>\r\n\t<li>If there is any row, column or diagonal filled with N&nbsp;same characters, the game ends. The player who place the last charater wins.</li>\r\n\t<li>When there is no empty grid, the game ends.</li>\r\n\t<li>If the game ends, players cannot place any character further.</li>\r\n</ul>\r\n\r\n<p>If there is any winner, return the character that the winner used. If there&#39;s a draw, return &quot;Draw&quot;. If the game doesn&#39;t end and there is no winner, return &quot;Pending&quot;.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> board = [&quot;O X&quot;,&quot; XO&quot;,&quot;X O&quot;]\r\n<strong>Output: </strong> &quot;X&quot;\r\n</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> board = [&quot;OOX&quot;,&quot;XXO&quot;,&quot;OXO&quot;]\r\n<strong>Output: </strong> &quot;Draw&quot;\r\n<strong>Explanation: </strong> no player wins and no empty grid left\r\n</pre>\r\n\r\n<p><strong>Example 3: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> board = [&quot;OOX&quot;,&quot;XXO&quot;,&quot;OX &quot;]\r\n<strong>Output: </strong> &quot;Pending&quot;\r\n<strong>Explanation: </strong> no player wins but there is still a empty grid\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>1 &lt;= board.length == board[i].length &lt;= 100</code></li>\r\n\t<li>Input follows the rules.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "counting",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string tictactoe(vector<string>& board) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String tictactoe(String[] board) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def tictactoe(self, board: List[str]) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"OX \",\"OX \",\"O  \"]\n[\"O\"]\n[\"OOXXOXXX\",\"XXXOXOXO\",\"OXOXXXOO\",\"XOXOXXXX\",\"OXOOXOOO\",\"XOOOOOOO\",\"OXXXOOOX\",\"XOXOOXXX\"]",
+    "hints": [
+      "如果多次调用hasWon，你的解决方案可能会发生什么变化？",
+      "如果你正在为N×N的大小进行计算，你的解决方案可能会发生什么变化？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:52.963Z"
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Number of Islands II",
+  "titleCn": "岛屿数量 II",
+  "titleSlug": "number-of-islands-ii",
+  "difficulty": "HARD",
+  "acRate": 0.4230866460216141,
+  "topicTags": [
+    "union-find",
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "number-of-islands-ii",
+    "questionId": "305",
+    "title": "Number of Islands II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "union-find",
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n3\n[[0,0],[0,1],[1,2],[2,1]]\n1\n1\n[[0,0]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-islands",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "process-restricted-friend-requests",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:19.256Z"
+}

@@ -1,0 +1,50 @@
+{
+  "title": "Closed Number LCCI",
+  "titleCn": "下一个数",
+  "titleSlug": "closed-number-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.35512607114234634,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "closed-number-lcci",
+    "questionId": "100183",
+    "title": "Closed Number LCCI",
+    "content": "<p>Given a positive integer, print the next smallest and the next largest number that have the same number of 1 bits in their binary representation.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: num = 2 (0b10)\r\n<strong> Output</strong>: [4, 1] ([0b100, 0b1])\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: num = 1\r\n<strong> Output</strong>: [2, -1]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>1 &lt;= num &lt;=&nbsp;2147483647</code></li>\r\n\t<li>If there is no next smallest or next largest number, output -1.</li>\r\n</ol>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> findClosedNumbers(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] findClosedNumbers(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findClosedNumbers(self, num: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "2\n1",
+    "hints": [
+      "下一步：从每个蛮力解法开始。",
+      "下一个：想象一个二进制数，在整个数中分布一串1和0。假设你把一个1翻转成0，把一个0翻转成1。在什么情况下数会更大？在什么情况下数会更小？",
+      "下一步：如果你将1翻转成0，0翻转成1，假设 0 -> 1位更大，那么它就会变大。你如何使用这个来创建下一个最大的数字（具有相同数量的1）？",
+      "下一步：你能翻转0到1，创建下一个最大的数字吗？",
+      "下一步：把0翻转为1将创建一个更大的数字。索引越靠右，数字越大。如果有一个1001这样的数字，那么我们就想翻转最右边的0（创建1011）。但是如果有一个1010这样的数字，我们就不应该翻转最右边的1。",
+      "下一步：我们应该翻转最右边但非拖尾的0。数字1010会变成1110。完成后，我们需要把1翻转成0让数字尽可能小，但要大于原始数字（1010）。该怎么办？如何缩小数字？",
+      "下一步：我们可以通过将所有的1移动到翻转位的右侧，并尽可能地向右移动来缩小数字（在这个过程中去掉一个1）。",
+      "获取前一个：一旦你解决了“获取后一个”，请尝试翻转“获取前一个”的逻辑。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:30:58.103Z"
+}

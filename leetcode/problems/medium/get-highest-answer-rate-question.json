@@ -1,0 +1,29 @@
+{
+  "title": "Get Highest Answer Rate Question",
+  "titleCn": "查询回答率最高的问题",
+  "titleSlug": "get-highest-answer-rate-question",
+  "difficulty": "MEDIUM",
+  "acRate": 0.41715194960712587,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "get-highest-answer-rate-question",
+    "questionId": "578",
+    "title": "Get Highest Answer Rate Question",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"SurveyLog\": [\"id\", \"action\", \"question_id\", \"answer_id\", \"q_num\", \"timestamp\"]},\"rows\": {\"SurveyLog\": [[5, \"show\", 285, null, 1, 123], [5, \"answer\", 285, 124124, 1, 124], [5, \"show\", 369, null, 2, 125], [5, \"skip\", 369, null, 2, 126]]}}",
+    "hints": [
+      "Try to find all question ids by group",
+      "Try to find each group answer number and show number.",
+      "Rank all the rates (answer/(answer+show)) and return the max one"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:11.031Z"
+}

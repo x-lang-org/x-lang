@@ -1,0 +1,33 @@
+{
+  "title": "Find K-Length Substrings With No Repeated Characters",
+  "titleCn": "长度为 K 的无重复字符子串",
+  "titleSlug": "find-k-length-substrings-with-no-repeated-characters",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7231567303657932,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "find-k-length-substrings-with-no-repeated-characters",
+    "questionId": "1084",
+    "title": "Find K-Length Substrings With No Repeated Characters",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"havefunonleetcode\"\n5\n\"home\"\n5",
+    "hints": [
+      "How to check efficiently each K-length substring?",
+      "First store the first leftmost K-length substring in a hashTable or array of frequencies.",
+      "Then iterate through the rest of characters and erase the first element and add the next element from the right. If in the hashTable we have K different character we add 1 to the counter. After that return as answer the counter."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:38.117Z"
+}

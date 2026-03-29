@@ -1,0 +1,47 @@
+{
+  "title": "Even Odd Tree",
+  "titleCn": "奇偶树",
+  "titleSlug": "even-odd-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5957344224169715,
+  "topicTags": [
+    "tree",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "even-odd-tree",
+    "questionId": "1731",
+    "title": "Even Odd Tree",
+    "content": "<p>A binary tree is named <strong>Even-Odd</strong> if it meets the following conditions:</p>\n\n<ul>\n\t<li>The root of the binary tree is at level index <code>0</code>, its children are at level index <code>1</code>, their children are at level index <code>2</code>, etc.</li>\n\t<li>For every <strong>even-indexed</strong> level, all nodes at the level have <strong>odd</strong> integer values in <strong>strictly increasing</strong> order (from left to right).</li>\n\t<li>For every <b>odd-indexed</b> level, all nodes at the level have <b>even</b> integer values in <strong>strictly decreasing</strong> order (from left to right).</li>\n</ul>\n\n<p>Given the <code>root</code> of a binary tree, <em>return </em><code>true</code><em> if the binary tree is <strong>Even-Odd</strong>, otherwise return </em><code>false</code><em>.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/15/sample_1_1966.png\" style=\"width: 362px; height: 229px;\" />\n<pre>\n<strong>Input:</strong> root = [1,10,4,3,null,7,9,12,8,6,null,null,2]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> The node values on each level are:\nLevel 0: [1]\nLevel 1: [10,4]\nLevel 2: [3,7,9]\nLevel 3: [12,8,6,2]\nSince levels 0 and 2 are all odd and increasing and levels 1 and 3 are all even and decreasing, the tree is Even-Odd.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/15/sample_2_1966.png\" style=\"width: 363px; height: 167px;\" />\n<pre>\n<strong>Input:</strong> root = [5,4,2,3,3,7]\n<strong>Output:</strong> false\n<strong>Explanation:</strong> The node values on each level are:\nLevel 0: [5]\nLevel 1: [4,2]\nLevel 2: [3,3,7]\nNode values in level 2 must be in strictly increasing order, so the tree is not Even-Odd.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/22/sample_1_333_1966.png\" style=\"width: 363px; height: 167px;\" />\n<pre>\n<strong>Input:</strong> root = [5,9,1,3,5,7]\n<strong>Output:</strong> false\n<strong>Explanation:</strong> Node values in the level 1 should be even integers.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[1, 10<sup>5</sup>]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>6</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isEvenOddTree(TreeNode* root) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isEvenOddTree(TreeNode root) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isEvenOddTree(self, root: Optional[TreeNode]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,10,4,3,null,7,9,12,8,6,null,null,2]\n[5,4,2,3,3,7]\n[5,9,1,3,5,7]",
+    "hints": [
+      "Use the breadth-first search to go through all nodes layer by layer."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:19.125Z"
+}

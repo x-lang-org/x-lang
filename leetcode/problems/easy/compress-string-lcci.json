@@ -1,0 +1,46 @@
+{
+  "title": "Compress String LCCI",
+  "titleCn": "字符串压缩",
+  "titleSlug": "compress-string-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.46072584171403586,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "compress-string-lcci",
+    "questionId": "100161",
+    "title": "Compress String LCCI",
+    "content": "<p>Implement a method to perform basic string compression using the counts of repeated characters. For example, the string aabcccccaaa would become a2blc5a3. If the &quot;compressed&quot; string would not become smaller than the original string, your method should return the original string. You can assume the string has only uppercase and lowercase letters (a - z).</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>&quot;aabcccccaaa&quot;\r\n<strong>Output: </strong>&quot;a2b1c5a3&quot;\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>&quot;abbccd&quot;\r\n<strong>Output: </strong>&quot;abbccd&quot;\r\n<strong>Explanation: </strong>\r\nThe compressed string is &quot;a1b2c2d1&quot;, which is longer than the original string.\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>0 &lt;= S.length &lt;= 50000</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string compressString(string S) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String compressString(String S) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def compressString(self, S: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"aabcccccaa\"\n\"abbccd\"",
+    "hints": [
+      "先做容易的事。压缩字符串，然后再比较长度。",
+      "注意不要把字符串重复连接在一起。这会非常低效。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:49.506Z"
+}

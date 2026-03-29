@@ -1,0 +1,23 @@
+{
+  "problemId": "62",
+  "titleSlug": "unique-paths",
+  "title": "Unique Paths",
+  "titleCn": "不同路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.7020257569742449,
+  "testcases": [
+    {
+      "input": "3",
+      "expectedOutput": "7"
+    },
+    {
+      "input": "3",
+      "expectedOutput": "2"
+    }
+  ]
+}

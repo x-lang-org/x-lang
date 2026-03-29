@@ -1,0 +1,45 @@
+{
+  "title": "心算挑战",
+  "titleCn": "心算挑战",
+  "titleSlug": "uOAnQW",
+  "difficulty": "EASY",
+  "acRate": 0.40180411417007045,
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "uOAnQW",
+    "questionId": "1000368",
+    "title": "心算挑战",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "greedy",
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maximumScore(vector<int>& cards, int cnt) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maximumScore(int[] cards, int cnt) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maximumScore(self, cards: List[int], cnt: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,8,9]\n3\n[3,3,1]\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:56.499Z"
+}

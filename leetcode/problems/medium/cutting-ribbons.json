@@ -1,0 +1,39 @@
+{
+  "title": "Cutting Ribbons",
+  "titleCn": "割绳子",
+  "titleSlug": "cutting-ribbons",
+  "difficulty": "MEDIUM",
+  "acRate": 0.44427505416031454,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "cutting-ribbons",
+    "questionId": "2045",
+    "title": "Cutting Ribbons",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[9,7,5]\n3\n[7,5,9]\n4\n[5,7,9]\n22",
+    "hints": [
+      "Use binary search on the answer.",
+      "You can get l/m branches of length m from a branch with length l."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "capacity-to-ship-packages-within-d-days",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "add-minimum-number-of-rungs",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:30.794Z"
+}

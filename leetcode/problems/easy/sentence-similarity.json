@@ -1,0 +1,44 @@
+{
+  "title": "Sentence Similarity",
+  "titleCn": "句子相似性",
+  "titleSlug": "sentence-similarity",
+  "difficulty": "EASY",
+  "acRate": 0.49071762023667354,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "sentence-similarity",
+    "questionId": "734",
+    "title": "Sentence Similarity",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"great\",\"acting\",\"skills\"]\n[\"fine\",\"drama\",\"talent\"]\n[[\"great\",\"fine\"],[\"drama\",\"acting\"],[\"skills\",\"talent\"]]\n[\"great\"]\n[\"great\"]\n[]\n[\"great\"]\n[\"doubleplus\",\"good\"]\n[[\"great\",\"doubleplus\"]]",
+    "hints": [
+      "Two words w1 and w2 are similar if and only if w1 == w2, (w1, w2) was a pair, or (w2, w1) was a pair."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-provinces",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "accounts-merge",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "sentence-similarity-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:21.201Z"
+}

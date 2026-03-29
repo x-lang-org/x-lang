@@ -1,0 +1,43 @@
+{
+  "title": "拿硬币",
+  "titleCn": "拿硬币",
+  "titleSlug": "na-ying-bi",
+  "difficulty": "EASY",
+  "acRate": 0.8435745628186101,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "na-ying-bi",
+    "questionId": "1000056",
+    "title": "拿硬币",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minCount(vector<int>& coins) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minCount(int[] coins) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minCount(self, coins: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,2,1]\n[2,3,10]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:21.757Z"
+}

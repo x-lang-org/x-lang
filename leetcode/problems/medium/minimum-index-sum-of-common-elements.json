@@ -1,0 +1,32 @@
+{
+  "title": "Minimum Index Sum of Common Elements",
+  "titleCn": "公共元素的最小索引和",
+  "titleSlug": "minimum-index-sum-of-common-elements",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7724137931034483,
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "minimum-index-sum-of-common-elements",
+    "questionId": "4050",
+    "title": "Minimum Index Sum of Common Elements",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,2,1]\n[1,3,1]\n[5,1,2]\n[2,1,3]\n[6,4]\n[7,8]",
+    "hints": [
+      "Build a hash map <code>pos1</code> that stores, for each value in <code>nums1</code>, the smallest index where it appears.",
+      "Iterate through <code>nums2</code>. For each index <code>j</code>, if <code>nums2[j]</code> exists in <code>pos1</code>, compute <code>pos1[nums2[j]] + j</code>.",
+      "Track the minimum index sum across all such matches.",
+      "If no common element is found, return <code>-1</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:54:17.091Z"
+}

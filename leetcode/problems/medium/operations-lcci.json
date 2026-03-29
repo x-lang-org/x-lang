@@ -1,0 +1,48 @@
+{
+  "title": "Operations LCCI",
+  "titleCn": "运算",
+  "titleSlug": "operations-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5774214103653356,
+  "topicTags": [
+    "design",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "operations-lcci",
+    "questionId": "100350",
+    "title": "Operations LCCI",
+    "content": "<p>Write methods to implement the multiply, subtract, and divide operations for integers. The results of all of these are integers. Use only the add operator.</p>\r\n\r\n<p>You should implement following methods:</p>\r\n\r\n<ul>\r\n\t<li><code>Operations()</code>&nbsp; constructor</li>\r\n\t<li><code>minus(a, b)</code>&nbsp; Subtraction, returns&nbsp;<code>a - b</code></li>\r\n\t<li><code>multiply(a, b)</code>&nbsp; Multiplication, returns&nbsp;<code>a * b</code></li>\r\n\t<li><code>divide(a, b)</code>&nbsp; Division, returns&nbsp;<code>a / b</code></li>\r\n</ul>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\nOperations operations = new Operations();\r\noperations.minus(1, 2); //returns -1\r\noperations.multiply(3, 4); //returns 12\r\noperations.divide(5, -2); //returns -2\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li>You can assume inputs are always valid, that is, e.g., denominator will not be 0 in division.</li>\r\n\t<li>The number of calls will not exceed 1000.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Operations {\npublic:\n    Operations() {\n        \n    }\n    \n    int minus(int a, int b) {\n        \n    }\n    \n    int multiply(int a, int b) {\n        \n    }\n    \n    int divide(int a, int b) {\n        \n    }\n};\n\n/**\n * Your Operations object will be instantiated and called as such:\n * Operations* obj = new Operations();\n * int param_1 = obj->minus(a,b);\n * int param_2 = obj->multiply(a,b);\n * int param_3 = obj->divide(a,b);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Operations {\n\n    public Operations() {\n        \n    }\n    \n    public int minus(int a, int b) {\n        \n    }\n    \n    public int multiply(int a, int b) {\n        \n    }\n    \n    public int divide(int a, int b) {\n        \n    }\n}\n\n/**\n * Your Operations object will be instantiated and called as such:\n * Operations obj = new Operations();\n * int param_1 = obj.minus(a,b);\n * int param_2 = obj.multiply(a,b);\n * int param_3 = obj.divide(a,b);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Operations:\n\n    def __init__(self):\n        \n\n    def minus(self, a: int, b: int) -> int:\n        \n\n    def multiply(self, a: int, b: int) -> int:\n        \n\n    def divide(self, a: int, b: int) -> int:\n        \n\n\n# Your Operations object will be instantiated and called as such:\n# obj = Operations()\n# param_1 = obj.minus(a,b)\n# param_2 = obj.multiply(a,b)\n# param_3 = obj.divide(a,b)"
+      }
+    ],
+    "exampleTestcases": "[\"Operations\",\"minus\",\"minus\",\"multiply\",\"multiply\",\"divide\",\"divide\"]\n[[],[0,-2147483647],[-1,2147483647],[-1,-2147483647],[-100,21474836],[2147483647,-1],[-2147483648,1]]",
+    "hints": [
+      "从减法开始，逐步解决。一旦完成了一个函数，你可以用它来实现其他函数。",
+      "减法：取负函数（将正整数转换为负数）有用吗？你可以使用加法操作符来实现吗?",
+      "当a > b时，a – b > 0。你能得到a – b的符号位吗？",
+      "你考虑过如何处理a – b中的整数溢出吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:37.874Z"
+}

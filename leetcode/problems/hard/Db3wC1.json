@@ -1,0 +1,49 @@
+{
+  "title": "变换的迷宫",
+  "titleCn": "变换的迷宫",
+  "titleSlug": "Db3wC1",
+  "difficulty": "HARD",
+  "acRate": 0.31083283300454584,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "Db3wC1",
+    "questionId": "1000218",
+    "title": "变换的迷宫",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool escapeMaze(vector<vector<string>>& maze) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean escapeMaze(List<List<String>> maze) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def escapeMaze(self, maze: List[List[str]]) -> bool:"
+      }
+    ],
+    "exampleTestcases": "[[\".#.\",\"#..\"],[\"...\",\".#.\"],[\".##\",\".#.\"],[\"..#\",\".#.\"]]\n[[\".#.\",\"...\"],[\"...\",\"...\"]]\n[[\"....\",\"....\"],[\".#..\",\"#...\"],[\"..#.\",\".#..\"],[\"...#\",\"..#.\"],[\"....\",\".##.\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:39.057Z"
+}

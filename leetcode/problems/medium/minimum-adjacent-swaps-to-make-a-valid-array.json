@@ -1,0 +1,35 @@
+{
+  "title": "Minimum Adjacent Swaps to Make a Valid Array",
+  "titleCn": "生成有效数组的最少交换次数",
+  "titleSlug": "minimum-adjacent-swaps-to-make-a-valid-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6684740511231604,
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "minimum-adjacent-swaps-to-make-a-valid-array",
+    "questionId": "2474",
+    "title": "Minimum Adjacent Swaps to Make a Valid Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,4,5,5,3,1]\n[9]",
+    "hints": [
+      "Notice that in order to obtain the minimum swaps, we should focus on the smallest element that is the leftmost and the largest element that is the rightmost.",
+      "We can take those elements and greedily only do swaps that bring them closer to their respective end positions."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-adjacent-swaps-for-k-consecutive-ones",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:53:05.884Z"
+}

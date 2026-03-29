@@ -1,0 +1,25 @@
+{
+  "title": "Friendly Movies Streamed Last Month",
+  "titleCn": "上月播放的儿童适宜电影",
+  "titleSlug": "friendly-movies-streamed-last-month",
+  "difficulty": "EASY",
+  "acRate": 0.5214375322854402,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "friendly-movies-streamed-last-month",
+    "questionId": "1639",
+    "title": "Friendly Movies Streamed Last Month",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"TVProgram\": [\"program_date\", \"content_id\", \"channel\"], \"Content\": [\"content_id\", \"title\", \"Kids_content\", \"content_type\"]}, \"rows\": {\"TVProgram\": [[\"2020-06-10 08:00\", 1, \"LC-Channel\"], [\"2020-05-11 12:00\", 2, \"LC-Channel\"], [\"2020-05-12 12:00\", 3, \"LC-Channel\"], [\"2020-05-13 14:00\", 4, \"Disney Ch\"], [\"2020-06-18 14:00\", 4, \"Disney Ch\"], [\"2020-07-15 16:00\", 5, \"Disney Ch\"]], \"Content\": [[1, \"Leetcode Movie\", \"N\", \"Movies\"], [2, \"Alg. for Kids\", \"Y\", \"Series\"], [3, \"Database Sols\", \"N\", \"Series\"], [4, \"Aladdin\", \"Y\", \"Movies\"], [5, \"Cinderella\", \"Y\", \"Movies\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:47.917Z"
+}

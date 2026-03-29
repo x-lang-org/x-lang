@@ -1,0 +1,47 @@
+{
+  "title": "数据流中的移动平均值",
+  "titleCn": "数据流中的移动平均值",
+  "titleSlug": "qIsx9U",
+  "difficulty": "EASY",
+  "acRate": 0.7711985100788782,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "qIsx9U",
+    "questionId": "1000292",
+    "title": "数据流中的移动平均值",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "data-stream"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MovingAverage {\npublic:\n    /** Initialize your data structure here. */\n    MovingAverage(int size) {\n\n    }\n    \n    double next(int val) {\n\n    }\n};\n\n/**\n * Your MovingAverage object will be instantiated and called as such:\n * MovingAverage* obj = new MovingAverage(size);\n * double param_1 = obj->next(val);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MovingAverage {\n\n    /** Initialize your data structure here. */\n    public MovingAverage(int size) {\n\n    }\n    \n    public double next(int val) {\n\n    }\n}\n\n/**\n * Your MovingAverage object will be instantiated and called as such:\n * MovingAverage obj = new MovingAverage(size);\n * double param_1 = obj.next(val);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MovingAverage:\n\n    def __init__(self, size: int):\n        \"\"\"\n        Initialize your data structure here.\n        \"\"\"\n\n\n    def next(self, val: int) -> float:\n\n\n\n# Your MovingAverage object will be instantiated and called as such:\n# obj = MovingAverage(size)\n# param_1 = obj.next(val)"
+      }
+    ],
+    "exampleTestcases": "[\"MovingAverage\",\"next\",\"next\",\"next\",\"next\"]\n[[3],[1],[10],[3],[5]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:38.523Z"
+}

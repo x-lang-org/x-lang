@@ -1,0 +1,47 @@
+{
+  "title": "追逐游戏",
+  "titleCn": "追逐游戏",
+  "titleSlug": "Za25hA",
+  "difficulty": "HARD",
+  "acRate": 0.4,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "detail": {
+    "titleSlug": "Za25hA",
+    "questionId": "1000134",
+    "title": "追逐游戏",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int chaseGame(vector<vector<int>>& edges, int startA, int startB) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int chaseGame(int[][] edges, int startA, int startB) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def chaseGame(self, edges: List[List[int]], startA: int, startB: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[[1,2],[2,3],[3,4],[4,1],[2,5],[5,6]]\n3\n5\n[[1,2],[2,3],[3,4],[4,1]]\n1\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:21.588Z"
+}

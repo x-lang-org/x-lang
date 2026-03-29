@@ -1,0 +1,37 @@
+{
+  "title": "Single-Row Keyboard",
+  "titleCn": "单行键盘",
+  "titleSlug": "single-row-keyboard",
+  "difficulty": "EASY",
+  "acRate": 0.8605452277721685,
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "single-row-keyboard",
+    "questionId": "1123",
+    "title": "Single-Row Keyboard",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcdefghijklmnopqrstuvwxyz\"\n\"cba\"\n\"pqrstuvwxyzabcdefghijklmno\"\n\"leetcode\"",
+    "hints": [
+      "Can be the problem divided in parts, so solving each part and sum their solutions it should return the answer? Yes, you only need to divide the problem in finger jumps.",
+      "In each finger jump you need to move your finger from one character to another, you need to know its index.",
+      "Map each character to it's index.",
+      "Use a hash table to do that."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "total-distance-to-type-a-string-using-one-finger",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:14.432Z"
+}

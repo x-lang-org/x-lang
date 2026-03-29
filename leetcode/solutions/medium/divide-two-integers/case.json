@@ -1,0 +1,22 @@
+{
+  "problemId": "29",
+  "titleSlug": "divide-two-integers",
+  "title": "Divide Two Integers",
+  "titleCn": "两数相除",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.225405610185963,
+  "testcases": [
+    {
+      "input": "10",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "7",
+      "expectedOutput": "-3"
+    }
+  ]
+}

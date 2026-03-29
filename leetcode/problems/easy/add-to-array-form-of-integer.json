@@ -1,0 +1,56 @@
+{
+  "title": "Add to Array-Form of Integer",
+  "titleCn": "数组形式的整数加法",
+  "titleSlug": "add-to-array-form-of-integer",
+  "difficulty": "EASY",
+  "acRate": 0.450048668735312,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "add-to-array-form-of-integer",
+    "questionId": "1031",
+    "title": "Add to Array-Form of Integer",
+    "content": "<p>The <strong>array-form</strong> of an integer <code>num</code> is an array representing its digits in left to right order.</p>\n\n<ul>\n\t<li>For example, for <code>num = 1321</code>, the array form is <code>[1,3,2,1]</code>.</li>\n</ul>\n\n<p>Given <code>num</code>, the <strong>array-form</strong> of an integer, and an integer <code>k</code>, return <em>the <strong>array-form</strong> of the integer</em> <code>num + k</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> num = [1,2,0,0], k = 34\n<strong>Output:</strong> [1,2,3,4]\n<strong>Explanation:</strong> 1200 + 34 = 1234\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> num = [2,7,4], k = 181\n<strong>Output:</strong> [4,5,5]\n<strong>Explanation:</strong> 274 + 181 = 455\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> num = [2,1,5], k = 806\n<strong>Output:</strong> [1,0,2,1]\n<strong>Explanation:</strong> 215 + 806 = 1021\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= num.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= num[i] &lt;= 9</code></li>\n\t<li><code>num</code> does not contain any leading zeros except for the zero itself.</li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> addToArrayForm(vector<int>& num, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<Integer> addToArrayForm(int[] num, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def addToArrayForm(self, num: List[int], k: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,0,0]\n34\n[2,7,4]\n181\n[2,1,5]\n806",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "add-two-numbers",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "plus-one",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "add-binary",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:21:57.925Z"
+}

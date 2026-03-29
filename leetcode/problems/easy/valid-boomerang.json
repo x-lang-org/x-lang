@@ -1,0 +1,47 @@
+{
+  "title": "Valid Boomerang",
+  "titleCn": "有效的回旋镖",
+  "titleSlug": "valid-boomerang",
+  "difficulty": "EASY",
+  "acRate": 0.483447465038571,
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "valid-boomerang",
+    "questionId": "1115",
+    "title": "Valid Boomerang",
+    "content": "<p>Given an array <code>points</code> where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents a point on the <strong>X-Y</strong> plane, return <code>true</code> <em>if these points are a <strong>boomerang</strong></em>.</p>\n\n<p>A <strong>boomerang</strong> is a set of three points that are <strong>all distinct</strong> and <strong>not in a straight line</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> points = [[1,1],[2,3],[3,2]]\n<strong>Output:</strong> true\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> points = [[1,1],[2,2],[3,3]]\n<strong>Output:</strong> false\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>points.length == 3</code></li>\n\t<li><code>points[i].length == 2</code></li>\n\t<li><code>0 &lt;= x<sub>i</sub>, y<sub>i</sub> &lt;= 100</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "geometry",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isBoomerang(vector<vector<int>>& points) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isBoomerang(int[][] points) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isBoomerang(self, points: List[List[int]]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,1],[2,3],[3,2]]\n[[1,1],[2,2],[3,3]]",
+    "hints": [
+      "3 points form a boomerang if and only if the triangle formed from them has non-zero area."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:07.274Z"
+}

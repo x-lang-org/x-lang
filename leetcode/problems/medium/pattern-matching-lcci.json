@@ -1,0 +1,55 @@
+{
+  "title": "Pattern Matching LCCI",
+  "titleCn": "模式匹配",
+  "titleSlug": "pattern-matching-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.34042197478851105,
+  "topicTags": [
+    "math",
+    "string",
+    "backtracking",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "pattern-matching-lcci",
+    "questionId": "1000004",
+    "title": "Pattern Matching LCCI",
+    "content": "<p>You are given two strings, pattern and value. The pattern string consists of just the letters a and b, describing a pattern within a string. For example, the string catcatgocatgo matches the pattern aabab (where cat is a and go is b). It also matches patterns like a, ab, and b. Write a method to determine if value matches pattern. a and b cannot be the same string.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> pattern = &quot;abba&quot;, value = &quot;dogcatcatdog&quot;\r\n<strong>Output: </strong> true\r\n</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> pattern = &quot;abba&quot;, value = &quot;dogcatcatfish&quot;\r\n<strong>Output: </strong> false\r\n</pre>\r\n\r\n<p><strong>Example 3: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> pattern = &quot;aaaa&quot;, value = &quot;dogcatcatdog&quot;\r\n<strong>Output: </strong> false\r\n</pre>\r\n\r\n<p><strong>Example 4: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> pattern = &quot;abba&quot;, value = &quot;dogdogdogdog&quot;\r\n<strong>Output: </strong> true\r\n<strong>Explanation: </strong> &quot;a&quot;=&quot;dogdog&quot;,b=&quot;&quot;，vice versa.\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= len(pattern) &lt;= 1000</code></li>\r\n\t<li><code>0 &lt;= len(value) &lt;= 1000</code></li>\r\n\t<li><code>pattern</code>&nbsp;only contains&nbsp;<code>&quot;a&quot;</code>&nbsp;and&nbsp;<code>&quot;b&quot;</code>,&nbsp;<code>value</code> only contains lowercase letters.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "string",
+      "backtracking",
+      "enumeration"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool patternMatching(string pattern, string value) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean patternMatching(String pattern, String value) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def patternMatching(self, pattern: str, value: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"abba\"\n\"dogcatcatdog\"\n\"abba\"\n\"dogcatcatfish\"\n\"aaaa\"\n\"dogcatcatdog\"\n\"abba\"\n\"dogdogdogdog\"",
+    "hints": [
+      "从蛮力解法开始。你能试一下a和b的所有可能性吗?",
+      "观察其中一个子字符串，a或b都可以，必须从字符串的开头开始。这减少了可能性的种类。",
+      "不要忘记处理pattern中的第一个字符是b的可能性。",
+      "谨慎地选择分析时间复杂度的方式。如果遍历O(n2)个子字符串，每个子字符串都进行O(n)次的字符串比较，那么总体运行时间为O(n3)。",
+      "假设你确定了一个模式中“a”部分的值。b有多少种可能性?",
+      "由于a的值决定b的值（反之亦然），并且a或b必须出现于值的起始处，所以你应该只有O(n)种可能来分解模式串。",
+      "你应该能够有一个O(n2)的算法。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:30.609Z"
+}

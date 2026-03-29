@@ -1,0 +1,25 @@
+{
+  "title": "Find Trending Hashtags II ",
+  "titleCn": "查找热门话题标签 II",
+  "titleSlug": "find-trending-hashtags-ii",
+  "difficulty": "HARD",
+  "acRate": 0.654054054054054,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-trending-hashtags-ii",
+    "questionId": "3409",
+    "title": "Find Trending Hashtags II ",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Tweets\":[\"user_id\",\"tweet_id\",\"tweet\",\"tweet_date\"]},\"rows\":{\"Tweets\":[[135,13,\"Enjoying a great start to the day. #HappyDay #MorningVibes\",\"2024-02-01\"],[136,14,\"Another #HappyDay with good vibes! #FeelGood\",\"2024-02-03\"],[137,15,\"Productivity peaks! #WorkLife #ProductiveDay\",\"2024-02-04\"],[138,16,\"Exploring new tech frontiers. #TechLife #Innovation\",\"2024-02-04\"],[139,17,\"Gratitude for today's moments. #HappyDay #Thankful\",\"2024-02-05\"],[140,18,\"Innovation drives us. #TechLife #FutureTech\",\"2024-02-07\"],[141,19,\"Connecting with nature's serenity. #Nature #Peaceful\",\"2024-02-09\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:41:55.888Z"
+}

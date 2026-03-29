@@ -1,0 +1,47 @@
+{
+  "title": "字符串的排列",
+  "titleCn": "字符串的排列",
+  "titleSlug": "MPnaiL",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5166138879509387,
+  "topicTags": [
+    "hash-table",
+    "two-pointers",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "MPnaiL",
+    "questionId": "1000250",
+    "title": "字符串的排列",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "two-pointers",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool checkInclusion(string s1, string s2) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean checkInclusion(String s1, String s2) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def checkInclusion(self, s1: str, s2: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"ab\"\n\"eidbaooo\"\n\"ab\"\n\"eidboaoo\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:57:10.318Z"
+}

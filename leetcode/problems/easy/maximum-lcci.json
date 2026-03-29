@@ -1,0 +1,50 @@
+{
+  "title": "Maximum LCCI",
+  "titleCn": "最大数值",
+  "titleSlug": "maximum-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.7485390887932623,
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "maximum-lcci",
+    "questionId": "100349",
+    "title": "Maximum LCCI",
+    "content": "<p>Write a method that finds the maximum of two numbers. You should not use if-else or any other comparison operator.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> a = 1, b = 2\r\n<strong>Output: </strong> 2\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "brainteaser",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maximum(int a, int b) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maximum(int a, int b) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maximum(self, a: int, b: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "2147483647\n-2147483648",
+    "hints": [
+      "如果a > b，则k为1，否则为0。如果给定k，你能返回最大值吗（没有比较或if-else逻辑）？",
+      "如果当a > b时，k等于1，那么当k等于0时则相反，然后你可以返回a*k + b* (非k)。但你如何创建k？",
+      "当a > b时，a – b > 0。你能得到a – b的符号位吗？",
+      "你考虑过如何处理a – b中的整数溢出吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:59.076Z"
+}

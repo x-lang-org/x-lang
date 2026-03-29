@@ -1,0 +1,50 @@
+{
+  "title": "Implement Stack using Queues",
+  "titleCn": "用队列实现栈",
+  "titleSlug": "implement-stack-using-queues",
+  "difficulty": "EASY",
+  "acRate": 0.6561462726348366,
+  "topicTags": [
+    "stack",
+    "design",
+    "queue"
+  ],
+  "detail": {
+    "titleSlug": "implement-stack-using-queues",
+    "questionId": "225",
+    "title": "Implement Stack using Queues",
+    "content": "<p>Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (<code>push</code>, <code>top</code>, <code>pop</code>, and <code>empty</code>).</p>\n\n<p>Implement the <code>MyStack</code> class:</p>\n\n<ul>\n\t<li><code>void push(int x)</code> Pushes element x to the top of the stack.</li>\n\t<li><code>int pop()</code> Removes the element on the top of the stack and returns it.</li>\n\t<li><code>int top()</code> Returns the element on the top of the stack.</li>\n\t<li><code>boolean empty()</code> Returns <code>true</code> if the stack is empty, <code>false</code> otherwise.</li>\n</ul>\n\n<p><b>Notes:</b></p>\n\n<ul>\n\t<li>You must use <strong>only</strong> standard operations of a queue, which means that only <code>push to back</code>, <code>peek/pop from front</code>, <code>size</code> and <code>is empty</code> operations are valid.</li>\n\t<li>Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue&#39;s standard operations.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;MyStack&quot;, &quot;push&quot;, &quot;push&quot;, &quot;top&quot;, &quot;pop&quot;, &quot;empty&quot;]\n[[], [1], [2], [], [], []]\n<strong>Output</strong>\n[null, null, null, 2, 2, false]\n\n<strong>Explanation</strong>\nMyStack myStack = new MyStack();\nmyStack.push(1);\nmyStack.push(2);\nmyStack.top(); // return 2\nmyStack.pop(); // return 2\nmyStack.empty(); // return False\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= x &lt;= 9</code></li>\n\t<li>At most <code>100</code> calls will be made to <code>push</code>, <code>pop</code>, <code>top</code>, and <code>empty</code>.</li>\n\t<li>All the calls to <code>pop</code> and <code>top</code> are valid.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong>Follow-up:</strong> Can you implement the stack using only one queue?</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "design",
+      "queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MyStack {\npublic:\n    MyStack() {\n        \n    }\n    \n    void push(int x) {\n        \n    }\n    \n    int pop() {\n        \n    }\n    \n    int top() {\n        \n    }\n    \n    bool empty() {\n        \n    }\n};\n\n/**\n * Your MyStack object will be instantiated and called as such:\n * MyStack* obj = new MyStack();\n * obj->push(x);\n * int param_2 = obj->pop();\n * int param_3 = obj->top();\n * bool param_4 = obj->empty();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MyStack {\n\n    public MyStack() {\n        \n    }\n    \n    public void push(int x) {\n        \n    }\n    \n    public int pop() {\n        \n    }\n    \n    public int top() {\n        \n    }\n    \n    public boolean empty() {\n        \n    }\n}\n\n/**\n * Your MyStack object will be instantiated and called as such:\n * MyStack obj = new MyStack();\n * obj.push(x);\n * int param_2 = obj.pop();\n * int param_3 = obj.top();\n * boolean param_4 = obj.empty();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MyStack:\n\n    def __init__(self):\n        \n\n    def push(self, x: int) -> None:\n        \n\n    def pop(self) -> int:\n        \n\n    def top(self) -> int:\n        \n\n    def empty(self) -> bool:\n        \n\n\n# Your MyStack object will be instantiated and called as such:\n# obj = MyStack()\n# obj.push(x)\n# param_2 = obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.empty()"
+      }
+    ],
+    "exampleTestcases": "[\"MyStack\",\"push\",\"push\",\"top\",\"pop\",\"empty\"]\n[[],[1],[2],[],[],[]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "implement-queue-using-stacks",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:44:18.749Z"
+}

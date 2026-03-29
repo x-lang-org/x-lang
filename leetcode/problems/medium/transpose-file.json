@@ -1,0 +1,25 @@
+{
+  "title": "Transpose File",
+  "titleCn": "转置文件",
+  "titleSlug": "transpose-file",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3409744035287041,
+  "topicTags": [
+    "shell"
+  ],
+  "detail": {
+    "titleSlug": "transpose-file",
+    "questionId": "194",
+    "title": "Transpose File",
+    "content": "<p>Given a text file <code>file.txt</code>, transpose its content.</p>\n\n<p>You may assume that each row has the same number of columns, and each field is separated by the <code>&#39; &#39;</code> character.</p>\n\n<p><strong class=\"example\">Example:</strong></p>\n\n<p>If <code>file.txt</code> has the following content:</p>\n\n<pre>\nname age\nalice 21\nryan 30\n</pre>\n\n<p>Output the following:</p>\n\n<pre>\nname alice ryan\nage 21 30\n</pre>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "shell"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "a",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:15.664Z"
+}

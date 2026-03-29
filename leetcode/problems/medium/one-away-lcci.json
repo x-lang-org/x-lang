@@ -1,0 +1,47 @@
+{
+  "title": "One Away LCCI",
+  "titleCn": "一次编辑",
+  "titleSlug": "one-away-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.34614240736752505,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "one-away-lcci",
+    "questionId": "1000006",
+    "title": "One Away LCCI",
+    "content": "<p>There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example&nbsp;1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> \r\nfirst = &quot;pale&quot;\r\nsecond = &quot;ple&quot;\r\n<strong>Output:</strong> True\r\n</pre>\r\n\r\n<p><strong>Example&nbsp;2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> \r\nfirst = &quot;pales&quot;\r\nsecond = &quot;pal&quot;\r\n<strong>Output:</strong> False\r\n</pre>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool oneEditAway(string first, string second) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean oneEditAway(String first, String second) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def oneEditAway(self, first: str, second: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"horse\"\n\"ros\"\n\"intention\"\n\"execution\"",
+    "hints": [
+      "从容易的事情开始。你能分别检查一下每一个条件吗？",
+      "“插入字符”选项和“删除字符”选项之间是何关系？这些需要分开检查吗？",
+      "你能一次完成三次检查吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:33.451Z"
+}

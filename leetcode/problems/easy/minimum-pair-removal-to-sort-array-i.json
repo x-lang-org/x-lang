@@ -1,0 +1,55 @@
+{
+  "title": "Minimum Pair Removal to Sort Array I",
+  "titleCn": "移除最小数对使数组有序 I",
+  "titleSlug": "minimum-pair-removal-to-sort-array-i",
+  "difficulty": "EASY",
+  "acRate": 0.6016866688290626,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "linked-list",
+    "doubly-linked-list",
+    "ordered-set",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "minimum-pair-removal-to-sort-array-i",
+    "questionId": "3773",
+    "title": "Minimum Pair Removal to Sort Array I",
+    "content": "<p>Given an array <code>nums</code>, you can perform the following operation any number of times:</p>\n\n<ul>\n\t<li>Select the <strong>adjacent</strong> pair with the <strong>minimum</strong> sum in <code>nums</code>. If multiple such pairs exist, choose the leftmost one.</li>\n\t<li>Replace the pair with their sum.</li>\n</ul>\n\n<p>Return the <strong>minimum number of operations</strong> needed to make the array <strong>non-decreasing</strong>.</p>\n\n<p>An array is said to be <strong>non-decreasing</strong> if each element is greater than or equal to its previous element (if it exists).</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [5,2,3,1]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>The pair <code>(3,1)</code> has the minimum sum of 4. After replacement, <code>nums = [5,2,4]</code>.</li>\n\t<li>The pair <code>(2,4)</code> has the minimum sum of 6. After replacement, <code>nums = [5,6]</code>.</li>\n</ul>\n\n<p>The array <code>nums</code> became non-decreasing in two operations.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,2,2]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The array <code>nums</code> is already sorted.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 50</code></li>\n\t<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "linked-list",
+      "doubly-linked-list",
+      "ordered-set",
+      "simulation",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minimumPairRemoval(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minimumPairRemoval(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minimumPairRemoval(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[5,2,3,1]\n[1,2,2]",
+    "hints": [
+      "Simulate the operations"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:55:45.366Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Find Products with Three Consecutive Digits ",
+  "titleCn": "查找具有三个连续数字的产品",
+  "titleSlug": "find-products-with-three-consecutive-digits",
+  "difficulty": "EASY",
+  "acRate": 0.8213058419243986,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-products-with-three-consecutive-digits",
+    "questionId": "3757",
+    "title": "Find Products with Three Consecutive Digits ",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Products\":[\"product_id\",\"name\"]},\"rows\":{\"Products\":[[1,\"ABC123XYZ\"],[2,\"A12B34C\"],[3,\"Product56789\"],[4,\"NoDigitsHere\"],[5,\"789Product\"],[6,\"Item003Description\"],[7,\"Product12X34\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:20.974Z"
+}

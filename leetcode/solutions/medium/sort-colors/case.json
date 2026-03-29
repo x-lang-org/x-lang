@@ -1,0 +1,19 @@
+{
+  "problemId": "75",
+  "titleSlug": "sort-colors",
+  "title": "Sort Colors",
+  "titleCn": "颜色分类",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.6361355318265857,
+  "testcases": [
+    {
+      "input": "[2,0,2,1,1,0]",
+      "expectedOutput": "[2,0,1]"
+    }
+  ]
+}

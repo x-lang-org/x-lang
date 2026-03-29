@@ -1,0 +1,47 @@
+{
+  "title": "黑盒光线反射",
+  "titleCn": "黑盒光线反射",
+  "titleSlug": "IQvJ9i",
+  "difficulty": "HARD",
+  "acRate": 0.36116087423862414,
+  "topicTags": [
+    "design",
+    "segment-tree",
+    "math",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "IQvJ9i",
+    "questionId": "1000147",
+    "title": "黑盒光线反射",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "design",
+      "segment-tree",
+      "math",
+      "ordered-set"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class BlackBox {\npublic:\n    BlackBox(int n, int m) {\n\n    }\n    \n    int open(int index, int direction) {\n\n    }\n    \n    void close(int index) {\n\n    }\n};\n\n/**\n * Your BlackBox object will be instantiated and called as such:\n * BlackBox* obj = new BlackBox(n, m);\n * int param_1 = obj->open(index,direction);\n * obj->close(index);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class BlackBox {\n\n    public BlackBox(int n, int m) {\n\n    }\n    \n    public int open(int index, int direction) {\n\n    }\n    \n    public void close(int index) {\n\n    }\n}\n\n/**\n * Your BlackBox object will be instantiated and called as such:\n * BlackBox obj = new BlackBox(n, m);\n * int param_1 = obj.open(index,direction);\n * obj.close(index);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class BlackBox:\n\n    def __init__(self, n: int, m: int):\n\n\n    def open(self, index: int, direction: int) -> int:\n\n\n    def close(self, index: int) -> None:\n\n\n\n# Your BlackBox object will be instantiated and called as such:\n# obj = BlackBox(n, m)\n# param_1 = obj.open(index,direction)\n# obj.close(index)"
+      }
+    ],
+    "exampleTestcases": "[\"BlackBox\",\"open\",\"open\",\"open\",\"close\",\"open\"]\n[[2,3],[6,-1],[4,-1],[0,-1],[6],[0,-1]]\n[\"BlackBox\",\"open\",\"open\",\"open\",\"open\",\"close\",\"open\",\"close\",\"open\"]\n[[3,3],[1,-1],[5,1],[11,-1],[11,1],[1],[11,1],[5],[11,-1]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:45.998Z"
+}

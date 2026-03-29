@@ -1,0 +1,61 @@
+{
+  "title": "Jump Game III",
+  "titleCn": "跳跃游戏 III",
+  "titleSlug": "jump-game-iii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6032278921714911,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "jump-game-iii",
+    "questionId": "1428",
+    "title": "Jump Game III",
+    "content": "<p>Given an array of non-negative integers <code>arr</code>, you are initially positioned at <code>start</code>&nbsp;index of the array. When you are at index <code>i</code>, you can jump&nbsp;to <code>i + arr[i]</code> or <code>i - arr[i]</code>, check if you can reach&nbsp;<strong>any</strong> index with value 0.</p>\n\n<p>Notice that you can not jump outside of the array at any time.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [4,2,3,0,3,1,2], start = 5\n<strong>Output:</strong> true\n<strong>Explanation:</strong> \nAll possible ways to reach at index 3 with value 0 are: \nindex 5 -&gt; index 4 -&gt; index 1 -&gt; index 3 \nindex 5 -&gt; index 6 -&gt; index 4 -&gt; index 1 -&gt; index 3 \n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [4,2,3,0,3,1,2], start = 0\n<strong>Output:</strong> true \n<strong>Explanation: \n</strong>One possible way to reach at index 3 with value 0 is: \nindex 0 -&gt; index 4 -&gt; index 1 -&gt; index 3\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [3,0,2,1,2], start = 2\n<strong>Output:</strong> false\n<strong>Explanation: </strong>There is no way to reach at index 1 with value 0.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= arr[i] &lt;&nbsp;arr.length</code></li>\n\t<li><code>0 &lt;= start &lt; arr.length</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool canReach(vector<int>& arr, int start) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean canReach(int[] arr, int start) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def canReach(self, arr: List[int], start: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,2,3,0,3,1,2]\n5\n[4,2,3,0,3,1,2]\n0\n[3,0,2,1,2]\n2",
+    "hints": [
+      "Think of BFS to solve the problem.",
+      "When you reach a position with a value = 0 then return true."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "jump-game-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "jump-game",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "jump-game-vii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:45:02.814Z"
+}

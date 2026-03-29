@@ -1,0 +1,21 @@
+{
+  "title": "Date Range Generator",
+  "titleCn": "日期范围生成器",
+  "titleSlug": "date-range-generator",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7934508816120907,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "date-range-generator",
+    "questionId": "2799",
+    "title": "Date Range Generator",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "\"2023-04-01\"\n\"2023-04-04\"\n1\n\"2023-04-10\"\n\"2023-04-20\"\n3\n\"2023-04-10\"\n\"2023-04-10\"\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:37.602Z"
+}

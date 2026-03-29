@@ -1,0 +1,43 @@
+{
+  "title": "报数",
+  "titleCn": "报数",
+  "titleSlug": "da-yin-cong-1dao-zui-da-de-nwei-shu-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7757086921619275,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "da-yin-cong-1dao-zui-da-de-nwei-shu-lcof",
+    "questionId": "100296",
+    "title": "报数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> countNumbers(int cnt) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] countNumbers(int cnt) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countNumbers(self, cnt: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:34.662Z"
+}

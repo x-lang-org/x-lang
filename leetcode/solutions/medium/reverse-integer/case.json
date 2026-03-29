@@ -1,0 +1,21 @@
+{
+  "problemId": "7",
+  "titleSlug": "reverse-integer",
+  "title": "Reverse Integer",
+  "titleCn": "整数反转",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.356385496322024,
+  "testcases": [
+    {
+      "input": "123",
+      "expectedOutput": "-123"
+    },
+    {
+      "input": "120",
+      "expectedOutput": ""
+    }
+  ]
+}

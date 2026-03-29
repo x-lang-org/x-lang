@@ -1,0 +1,49 @@
+{
+  "title": "数组中的第 K 个最大元素",
+  "titleCn": "数组中的第 K 个最大元素",
+  "titleSlug": "xx4gT2",
+  "difficulty": "MEDIUM",
+  "acRate": 0.656043250715908,
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "quickselect",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "xx4gT2",
+    "questionId": "1000340",
+    "title": "数组中的第 K 个最大元素",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "divide-and-conquer",
+      "quickselect",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findKthLargest(self, nums: List[int], k: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[3,2,1,5,6,4]\n2\n[3,2,3,1,2,4,5,5,6]\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:15.086Z"
+}

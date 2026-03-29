@@ -1,0 +1,30 @@
+{
+  "title": "Flip Game",
+  "titleCn": "翻转游戏",
+  "titleSlug": "flip-game",
+  "difficulty": "EASY",
+  "acRate": 0.7288785327720986,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "flip-game",
+    "questionId": "293",
+    "title": "Flip Game",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"++++\"\n\"+\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "flip-game-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:32.062Z"
+}

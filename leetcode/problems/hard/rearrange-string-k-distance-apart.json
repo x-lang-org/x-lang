@@ -1,0 +1,48 @@
+{
+  "title": "Rearrange String k Distance Apart",
+  "titleCn": "K 距离间隔重排字符串",
+  "titleSlug": "rearrange-string-k-distance-apart",
+  "difficulty": "HARD",
+  "acRate": 0.389526791927627,
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "rearrange-string-k-distance-apart",
+    "questionId": "358",
+    "title": "Rearrange String k Distance Apart",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "hash-table",
+      "string",
+      "counting",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aabbcc\"\n3\n\"aaabc\"\n3\n\"aaadbbcc\"\n2",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "task-scheduler",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "reorganize-string",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "construct-string-with-repeat-limit",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:02:13.611Z"
+}

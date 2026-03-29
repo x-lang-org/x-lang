@@ -1,0 +1,40 @@
+{
+  "title": "Maximum Total Area Occupied by Pistons",
+  "titleCn": "活塞占据的最大总区域",
+  "titleSlug": "maximum-total-area-occupied-by-pistons",
+  "difficulty": "HARD",
+  "acRate": 0.23100616016427106,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting",
+    "prefix-sum",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "maximum-total-area-occupied-by-pistons",
+    "questionId": "3590",
+    "title": "Maximum Total Area Occupied by Pistons",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "counting",
+      "prefix-sum",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[2,5]\n\"UD\"\n6\n[0,0,6,3]\n\"UUDU\"",
+    "hints": [
+      "Simulate the process.",
+      "We only need to keep track of the times when a piston reaches one end and let’s call these critical points.",
+      "For each piston, find the first time it reaches one end and sort these times (these times are critical points).",
+      "Find a way to calculate the area difference between two consecutive critical points in constant time."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:55.507Z"
+}

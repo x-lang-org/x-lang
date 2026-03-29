@@ -1,0 +1,39 @@
+{
+  "problemId": "88",
+  "titleSlug": "merge-sorted-array",
+  "title": "Merge Sorted Array",
+  "titleCn": "合并两个有序数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.5500282713531959,
+  "testcases": [
+    {
+      "input": "[1,2,3,0,0,0]",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "[2,5,6]",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "[1]",
+      "expectedOutput": "1"
+    },
+    {
+      "input": "[]",
+      "expectedOutput": "0"
+    },
+    {
+      "input": "[0]",
+      "expectedOutput": "0"
+    },
+    {
+      "input": "[1]",
+      "expectedOutput": "1"
+    }
+  ]
+}

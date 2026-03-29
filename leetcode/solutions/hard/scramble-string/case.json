@@ -1,0 +1,26 @@
+{
+  "problemId": "87",
+  "titleSlug": "scramble-string",
+  "title": "Scramble String",
+  "titleCn": "扰乱字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.47363187250996014,
+  "testcases": [
+    {
+      "input": "\"great\"",
+      "expectedOutput": "\"rgeat\""
+    },
+    {
+      "input": "\"abcde\"",
+      "expectedOutput": "\"caebd\""
+    },
+    {
+      "input": "\"a\"",
+      "expectedOutput": "\"a\""
+    }
+  ]
+}

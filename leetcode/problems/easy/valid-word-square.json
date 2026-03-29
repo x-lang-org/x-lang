@@ -1,0 +1,36 @@
+{
+  "title": "Valid Word Square",
+  "titleCn": "有效的单词方块",
+  "titleSlug": "valid-word-square",
+  "difficulty": "EASY",
+  "acRate": 0.4616552093563075,
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "valid-word-square",
+    "questionId": "422",
+    "title": "Valid Word Square",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"abcd\",\"bnrt\",\"crmy\",\"dtye\"]\n[\"abcd\",\"bnrt\",\"crm\",\"dt\"]\n[\"ball\",\"area\",\"read\",\"lady\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "word-squares",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "toeplitz-matrix",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:17.876Z"
+}

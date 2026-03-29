@@ -1,0 +1,48 @@
+{
+  "title": "Path With Maximum Minimum Value",
+  "titleCn": "得分最高的路径",
+  "titleSlug": "path-with-maximum-minimum-value",
+  "difficulty": "MEDIUM",
+  "acRate": 0.41895252002999567,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "binary-search",
+    "matrix",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "path-with-maximum-minimum-value",
+    "questionId": "1099",
+    "title": "Path With Maximum Minimum Value",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "binary-search",
+      "matrix",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[5,4,5],[1,2,6],[7,4,6]]\n[[2,2,1,2,2,2],[1,2,2,2,1,2]]\n[[3,4,6,3,4],[0,2,1,1,7],[8,8,3,2,7],[3,2,4,9,8],[4,1,2,0,0],[4,6,5,4,3]]",
+    "hints": [
+      "What if we sort each cell of the matrix by the value?",
+      "Don't include small values in your path if you can only include large values.",
+      "Let's keep adding a possible cell to use in the path incrementally with decreasing values.",
+      "If the start and end cells are connected then we don't need to add more cells.",
+      "Use union-find data structure to check connectivity and return as answer the value of the given cell that makes start and end cells connected."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "path-with-minimum-effort",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:26.924Z"
+}

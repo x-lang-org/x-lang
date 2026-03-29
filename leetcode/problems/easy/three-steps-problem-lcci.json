@@ -1,0 +1,52 @@
+{
+  "title": "Three Steps Problem LCCI",
+  "titleCn": "三步问题",
+  "titleSlug": "three-steps-problem-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.36443457196078605,
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "three-steps-problem-lcci",
+    "questionId": "100197",
+    "title": "Three Steps Problem LCCI",
+    "content": "<p>A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs.&nbsp;The result may be large, so return it modulo 1000000007.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 3 \r\n<strong> Output</strong>: 4\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 5\r\n<strong> Output</strong>: 13\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>1 &lt;= n &lt;= 1000000</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "memoization",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int waysToStep(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int waysToStep(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def waysToStep(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "3\n5",
+    "hints": [
+      "自上而下地处理这个问题。小孩的最后一跳是什么？",
+      "如果知道跳到第100级台阶之前的每一级台阶的跳法数量，可以计算第100级台阶的跳法数量吗？",
+      "可以通过步数99、98、97的数量，来计算100步的数量。这对应孩子最后迈1步、2步或3步。我们把它们加起来还是相乘？也就是说，它是f(100) = f(99) + f(98)+ f(97) 或者f(100) = f(99)×f(98)×f(97)吗？",
+      "当“我们这样做然后那样做”时，将这些值相乘。当“我们这样做或者那样做”时，将这些值相加。",
+      "这个方法的运行时间是多少？仔细想想。你能优化它吗？",
+      "尝试用制表法的方式优化效率低下的递归过程。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:50.426Z"
+}

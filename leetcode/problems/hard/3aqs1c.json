@@ -1,0 +1,43 @@
+{
+  "title": "舒适的湿度",
+  "titleCn": "舒适的湿度",
+  "titleSlug": "3aqs1c",
+  "difficulty": "HARD",
+  "acRate": 0.5042678923177938,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "3aqs1c",
+    "questionId": "1000478",
+    "title": "舒适的湿度",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int unSuitability(vector<int>& operate) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int unSuitability(int[] operate) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def unSuitability(self, operate: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[5,3,7]\n[10,20]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:50.120Z"
+}

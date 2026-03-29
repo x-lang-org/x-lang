@@ -1,0 +1,47 @@
+{
+  "title": "切分数组",
+  "titleCn": "切分数组",
+  "titleSlug": "qie-fen-shu-zu",
+  "difficulty": "HARD",
+  "acRate": 0.2638485376718962,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "qie-fen-shu-zu",
+    "questionId": "1000059",
+    "title": "切分数组",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming",
+      "number-theory"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int splitArray(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int splitArray(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def splitArray(self, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,3,3,2,3,3]\n[2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:36.838Z"
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Make Object Immutable",
+  "titleCn": "使对象不可变",
+  "titleSlug": "make-object-immutable",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5839753466872111,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "make-object-immutable",
+    "questionId": "2776",
+    "title": "Make Object Immutable",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"x\":5}\n(obj) => { obj.x = 5; return obj.x; }\n[1,2,3]\n(arr) => { arr[1] = {}; return arr[2]; }\n{\"arr\":[1,2,3]}\n(obj) => { obj.arr.push(4); return 42; }\n{\"x\":2,\"y\":2}\n(obj) => { return Object.keys(obj); }",
+    "hints": [
+      "Javascript has the concept of Proxy. That concept is critical to this problem.",
+      "Recursively use proxy so that the user of the object is only able to access a proxy object.",
+      "Override how set works. It should throw the correct error instead of actually setting a value."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "infinite-method-object",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "immutability-helper",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:58.244Z"
+}

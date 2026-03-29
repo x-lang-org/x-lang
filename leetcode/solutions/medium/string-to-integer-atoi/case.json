@@ -1,0 +1,25 @@
+{
+  "problemId": "8",
+  "titleSlug": "string-to-integer-atoi",
+  "title": "String to Integer (atoi)",
+  "titleCn": "字符串转换整数 (atoi)",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.21933299266283818,
+  "testcases": [
+    {
+      "input": "\"42\"",
+      "expectedOutput": "\"   -042\""
+    },
+    {
+      "input": "\"1337c0d3\"",
+      "expectedOutput": "\"0-1\""
+    },
+    {
+      "input": "\"words and 987\"",
+      "expectedOutput": ""
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "title": "Is Unique LCCI",
+  "titleCn": "判定字符是否唯一",
+  "titleSlug": "is-unique-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.7142572852170452,
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "is-unique-lcci",
+    "questionId": "100158",
+    "title": "Is Unique LCCI",
+    "content": "<p>Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong><code>s</code> = &quot;leetcode&quot;\r\n<strong>Output: </strong>false\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong><code>s</code> = &quot;abc&quot;\r\n<strong>Output: </strong>true\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= len(s) &lt;= 100 </code></li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isUnique(string astr) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isUnique(String astr) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isUnique(self, astr: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"leetcode\"\n\"abc\"",
+    "hints": [
+      "试试散列表",
+      "位向量有用吗？",
+      "你能用O(NlogN)的时间复杂度解决它吗？这样的解法会是什么样呢？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:48.837Z"
+}

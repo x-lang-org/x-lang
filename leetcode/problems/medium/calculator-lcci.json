@@ -1,0 +1,50 @@
+{
+  "title": "Calculator LCCI",
+  "titleCn": "计算器",
+  "titleSlug": "calculator-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4077792339457481,
+  "topicTags": [
+    "stack",
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "calculator-lcci",
+    "questionId": "1000027",
+    "title": "Calculator LCCI",
+    "content": "<p>Given an arithmetic equation consisting of positive integers, +, -, * and / (no paren&shy;theses), compute the result.</p>\r\n\r\n<p>The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.</p>\r\n\r\n<p><strong>Example&nbsp;1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>&quot;3+2*2&quot;\r\n<strong>Output:</strong> 7\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> &quot; 3/2 &quot;\r\n<strong>Output:</strong> 1</pre>\r\n\r\n<p><strong>Example 3:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> &quot; 3+5 / 2 &quot;\r\n<strong>Output:</strong> 5\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ul>\r\n\t<li>You may assume that the given expression is always valid.</li>\r\n\t<li>Do not use the eval built-in library function.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "math",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int calculate(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int calculate(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def calculate(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"3+2*2\"\n\" 3/2 \"\n\" 3+5 / 2 \"",
+    "hints": [
+      "我们可以从左到右处理表达式吗？为什么会失败？",
+      "乘法和除法是优先级较高的运算。在3*4 + 5*9/2 + 3这样的表达式中，乘法和除法部分需要组合在一起。",
+      "把它想成当你遇到乘法或除法时，跳至一个单独的“进程”来计算该结果。",
+      "你还可以维护两个栈，一个用于操作符，另一个用于数字。每次看到一个数字，就把它压入栈。那么操作符呢？什么时候从栈中取出操作符并将它们与数字进行计算？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:27:45.673Z"
+}

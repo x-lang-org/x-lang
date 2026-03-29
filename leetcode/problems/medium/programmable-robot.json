@@ -1,0 +1,45 @@
+{
+  "title": "Programmable Robot",
+  "titleCn": "机器人大冒险",
+  "titleSlug": "programmable-robot",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2424757510758563,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "programmable-robot",
+    "questionId": "100096",
+    "title": "Programmable Robot",
+    "content": "<p>English description is not available. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool robot(string command, vector<vector<int>>& obstacles, int x, int y) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean robot(String command, int[][] obstacles, int x, int y) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def robot(self, command: str, obstacles: List[List[int]], x: int, y: int) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"URR\"\n[]\n3\n2\n\"URR\"\n[[2, 2]]\n3\n2\n\"URR\"\n[[4, 2]]\n3\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:22.611Z"
+}

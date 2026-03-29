@@ -1,0 +1,49 @@
+{
+  "title": "Hello LeetCode!",
+  "titleCn": "Hello LeetCode!",
+  "titleSlug": "rMeRt2",
+  "difficulty": "HARD",
+  "acRate": 0.4018077239112572,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "rMeRt2",
+    "questionId": "1000484",
+    "title": "Hello LeetCode!",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "string",
+      "dynamic-programming",
+      "bitmask"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int Leetcode(vector<string>& words) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int Leetcode(String[] words) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def Leetcode(self, words: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"hold\",\"engineer\",\"cost\",\"level\"]\n[\"hello\",\"leetcode\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:42.096Z"
+}

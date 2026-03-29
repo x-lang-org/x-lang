@@ -1,0 +1,45 @@
+{
+  "title": "查找总价格为目标值的两个商品",
+  "titleCn": "查找总价格为目标值的两个商品",
+  "titleSlug": "he-wei-sde-liang-ge-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.678589244627478,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "he-wei-sde-liang-ge-shu-zi-lcof",
+    "questionId": "100322",
+    "title": "查找总价格为目标值的两个商品",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& price, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] twoSum(int[] price, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def twoSum(self, price: List[int], target: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[3, 9, 12, 15]\n18\n[8, 21, 27, 34, 52, 66]\n61",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:50.056Z"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Maximum Number of Accepted Invitations",
+  "titleCn": "最多邀请的个数",
+  "titleSlug": "maximum-number-of-accepted-invitations",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48685857321652065,
+  "topicTags": [
+    "depth-first-search",
+    "graph",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-accepted-invitations",
+    "questionId": "1969",
+    "title": "Maximum Number of Accepted Invitations",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "graph",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1,1],[1,0,1],[0,0,1]]\n[[1,0,1,0],[1,0,0,0],[0,0,1,0],[1,1,1,0]]",
+    "hints": [
+      "We can see that the problem can be represented as a directed graph with an edge from each boy to the girl he invited.",
+      "We need to choose a set of edges such that no to source points in the graph (i.e., boys) have an edge with the same endpoint (i.e., the same girl).",
+      "The problem is maximum bipartite matching in the graph."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:09.632Z"
+}

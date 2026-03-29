@@ -1,0 +1,50 @@
+{
+  "title": "Linked List Cycle LCCI",
+  "titleCn": "环路检测",
+  "titleSlug": "linked-list-cycle-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5699361514751211,
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "linked-list-cycle-lcci",
+    "questionId": "100168",
+    "title": "Linked List Cycle LCCI",
+    "content": "<p>Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop.</p>\r\n\r\n<p>Circular linked list: A (corrupt) linked list in which a node&#39;s next pointer points to an earlier node, so as to make a loop in the linked list.</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>head = [3,2,0,-4], pos = 1\r\n<strong>Output: </strong>tail connects to node index 1</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>head = [1,2], pos = 0\r\n<strong>Output: </strong>tail connects to node index 0</pre>\r\n\r\n<p><strong>Example 3: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>head = [1], pos = -1\r\n<strong>Output: </strong>no cycle</pre>\r\n\r\n<p><strong>Follow Up: </strong><br />\r\nCan you solve it without using additional space?</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *detectCycle(ListNode *head) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\npublic class Solution {\n    public ListNode detectCycle(ListNode head) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def detectCycle(self, head: ListNode) -> ListNode:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,2,0,-4]\n1\n[1,2]\n0\n[1]\n-1",
+    "hints": [
+      "这个问题实际上可以分为两个部分。首先，检测链表是否有循环。第二，找出循环开始的位置。",
+      "要确定是否有一个循环，请尝试“快行指针”方法。让一个指针比另一个指针快。",
+      "你可以使用两个指针，一个指针移动速度是另一个指针的两倍。如果有环，两个指针会碰撞。它们将同时降落在同一地点。它们在哪里相遇？为什么呢？",
+      "如果你还没有确定两个指针的起始位置，请尝试使用链表1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> ?，其中 ? 链接到另一个节点。试着让 ? 成为第一个节点（即9指向1，使得整个链表是一个循环）。然后让 ? 成为节点2，然后成为节点3，然后成为节点4。这一模式是什么？你能解释一下为什么会这样吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:34.071Z"
+}

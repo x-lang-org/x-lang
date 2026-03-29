@@ -1,0 +1,43 @@
+{
+  "title": "全排列",
+  "titleCn": "全排列",
+  "titleSlug": "VvJkup",
+  "difficulty": "MEDIUM",
+  "acRate": 0.828922452318553,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "VvJkup",
+    "questionId": "1000234",
+    "title": "全排列",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> permute(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def permute(self, nums: List[int]) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n[0,1]\n[1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:29.884Z"
+}

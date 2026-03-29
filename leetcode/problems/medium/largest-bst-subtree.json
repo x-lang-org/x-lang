@@ -1,0 +1,35 @@
+{
+  "title": "Largest BST Subtree",
+  "titleCn": "最大二叉搜索子树",
+  "titleSlug": "largest-bst-subtree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5042779170969169,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "dynamic-programming",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "largest-bst-subtree",
+    "questionId": "333",
+    "title": "Largest BST Subtree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-search-tree",
+      "dynamic-programming",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[10,5,15,1,8,null,7]\n[4,2,7,2,3,5,null,2,null,null,null,null,null,1]",
+    "hints": [
+      "You can recursively use algorithm similar to <a href=\"https://leetcode.com/problems/validate-binary-search-tree/\">98. Validate Binary Search Tree</a> at each node of the tree, which will result in O(nlogn) time complexity."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:36.935Z"
+}

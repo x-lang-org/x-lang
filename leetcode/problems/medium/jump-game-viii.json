@@ -1,0 +1,52 @@
+{
+  "title": "Jump Game VIII",
+  "titleCn": "跳跃游戏 VIII",
+  "titleSlug": "jump-game-viii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5061011040092969,
+  "topicTags": [
+    "stack",
+    "graph",
+    "array",
+    "dynamic-programming",
+    "shortest-path",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "jump-game-viii",
+    "questionId": "2056",
+    "title": "Jump Game VIII",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "graph",
+      "array",
+      "dynamic-programming",
+      "shortest-path",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,2,4,4,1]\n[3,7,6,4,2]\n[0,1,2]\n[1,1,1]",
+    "hints": [
+      "For each index, find the indexes that you can jump to.",
+      "We can do this by using a monotonic stack and iterating through the array backwards.",
+      "Create another integer array of length n called dp where dp[i] is the minimum cost of getting to index i."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "jump-game-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "jump-game",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "jump-game-iii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:45:07.092Z"
+}

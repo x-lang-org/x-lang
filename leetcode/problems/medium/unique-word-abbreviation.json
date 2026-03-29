@@ -1,0 +1,40 @@
+{
+  "title": "Unique Word Abbreviation",
+  "titleCn": "单词的唯一缩写",
+  "titleSlug": "unique-word-abbreviation",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4973828593050388,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "unique-word-abbreviation",
+    "questionId": "288",
+    "title": "Unique Word Abbreviation",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"ValidWordAbbr\",\"isUnique\",\"isUnique\",\"isUnique\",\"isUnique\",\"isUnique\"]\n[[[\"deer\",\"door\",\"cake\",\"card\"]],[\"dear\"],[\"cart\"],[\"cane\"],[\"make\"],[\"cake\"]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "two-sum-iii-data-structure-design",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "generalized-abbreviation",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:53.430Z"
+}

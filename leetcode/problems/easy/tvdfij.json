@@ -1,0 +1,43 @@
+{
+  "title": "寻找数组的中心下标",
+  "titleCn": "寻找数组的中心下标",
+  "titleSlug": "tvdfij",
+  "difficulty": "EASY",
+  "acRate": 0.6820376880078373,
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "tvdfij",
+    "questionId": "1000248",
+    "title": "寻找数组的中心下标",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int pivotIndex(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int pivotIndex(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def pivotIndex(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,7,3,6,5,6]\n[1,2,3]\n[2,1,-1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:25.435Z"
+}

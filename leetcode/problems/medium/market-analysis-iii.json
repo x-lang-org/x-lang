@@ -1,0 +1,25 @@
+{
+  "title": "Market Analysis III",
+  "titleCn": "市场分析 III",
+  "titleSlug": "market-analysis-iii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.35983528666455494,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "market-analysis-iii",
+    "questionId": "3205",
+    "title": "Market Analysis III",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Users\": [\"seller_id\", \"join_date\", \"favorite_brand\"],\"Orders\":[\"order_id\",\"order_date\",\"item_id\",\"seller_id\"],\"Items\":[\"item_id\",\"item_brand\"]},\"rows\":{\"Users\":[[1,\"2019-01-01\",\"Lenovo\"],[2,\"2019-02-09\",\"Samsung\"],[3,\"2019-01-19\",\"LG\"]],\"Orders\":[[1,\"2019-08-01\",4,2],[2,\"2019-08-02\",2,3],[3,\"2019-08-03\",3,3],[4,\"2019-08-04\",1,2],[5,\"2019-08-04\",4,2]],\"Items\":[[1,\"Samsung\"],[2,\"Lenovo\"],[3,\"LG\"],[4,\"HP\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:09.877Z"
+}

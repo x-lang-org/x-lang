@@ -1,0 +1,40 @@
+{
+  "title": "Number of Divisible Substrings",
+  "titleCn": "可整除子串的数量",
+  "titleSlug": "number-of-divisible-substrings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.343481138318994,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "number-of-divisible-substrings",
+    "questionId": "3237",
+    "title": "Number of Divisible Substrings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "prefix-sum"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"asdf\"\n\"bdh\"\n\"abcd\"",
+    "hints": [
+      "Iterate over all substrings in <code>O(n * n)</code>.",
+      "For each substring, try to calculate the sum of the mapped values in <code>O(1)</code>.",
+      "To do the above, use a partial sum array."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-substrings-divisible-by-last-digit",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:07.992Z"
+}

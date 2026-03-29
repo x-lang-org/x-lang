@@ -1,0 +1,40 @@
+{
+  "title": "Find Longest Self-Contained Substring",
+  "titleCn": "查找最长的自包含子串",
+  "titleSlug": "find-longest-self-contained-substring",
+  "difficulty": "HARD",
+  "acRate": 0.3648881239242685,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "find-longest-self-contained-substring",
+    "questionId": "3410",
+    "title": "Find Longest Self-Contained Substring",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abba\"\n\"abab\"\n\"abacd\"",
+    "hints": [
+      "Fix the start index of the substring.",
+      "For some fixed index <code>start</code>, let's try to find some index <code>end</code> such that this substring satisfies the property and also <code>end</code> is as maximum as possible.",
+      "Write some recursive function <code>shrink(start, end)</code> that gives a substring. If the substring is valid, then return <code>end</code>. Otherwise, it reduces <<code>end</code> to reach some valid <code>end</code>.",
+      "For some <code>shrink(start, end)</code>, if the substring is not valid, it means there is some character that is both inside and outside of the substring. Now try to reduce <code>end</code> such that it does not contain that character anymore.",
+      "If you implement the <code>shrink(start, end)</code> function optimally, you'll achieve <code>O(n * 26 * 26)</code> by using partial sum."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "select-k-disjoint-special-substrings",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:39:45.706Z"
+}

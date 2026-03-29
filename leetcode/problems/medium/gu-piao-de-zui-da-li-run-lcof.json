@@ -1,0 +1,43 @@
+{
+  "title": "买卖芯片的最佳时机",
+  "titleCn": "买卖芯片的最佳时机",
+  "titleSlug": "gu-piao-de-zui-da-li-run-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6251501447711688,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "gu-piao-de-zui-da-li-run-lcof",
+    "questionId": "100344",
+    "title": "买卖芯片的最佳时机",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int bestTiming(vector<int>& prices) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int bestTiming(int[] prices) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def bestTiming(self, prices: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,6,2,9,8,5]\n[8,12,15,7,3,10]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:30.589Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Biggest Window Between Visits",
+  "titleCn": "访问日期之间最大的空档期",
+  "titleSlug": "biggest-window-between-visits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6552192776122524,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "biggest-window-between-visits",
+    "questionId": "1852",
+    "title": "Biggest Window Between Visits",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"UserVisits\":[\"user_id\",\"visit_date\"]},\"rows\":{\"UserVisits\":[[\"1\",\"2020-11-28\"],[\"1\",\"2020-10-20\"],[\"1\",\"2020-12-3\"],[\"2\",\"2020-10-5\"],[\"2\",\"2020-12-9\"],[\"3\",\"2020-11-11\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "users-with-two-purchases-within-seven-days",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:25:25.495Z"
+}

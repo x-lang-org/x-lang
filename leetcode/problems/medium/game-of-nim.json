@@ -1,0 +1,42 @@
+{
+  "title": "Game of Nim",
+  "titleCn": "Nim 游戏 II",
+  "titleSlug": "game-of-nim",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4144329896907217,
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "array",
+    "math",
+    "dynamic-programming",
+    "game-theory"
+  ],
+  "detail": {
+    "titleSlug": "game-of-nim",
+    "questionId": "2062",
+    "title": "Game of Nim",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "brainteaser",
+      "array",
+      "math",
+      "dynamic-programming",
+      "game-theory"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1]\n[1,1]\n[1,2,3]",
+    "hints": [
+      "Simulate the game and try all possible moves for each player."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "subtree-removal-game-with-fibonacci-tree",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:56.971Z"
+}

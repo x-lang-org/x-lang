@@ -1,0 +1,34 @@
+{
+  "title": "Permutations III",
+  "titleCn": "全排列 III",
+  "titleSlug": "permutations-iii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8110599078341014,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "permutations-iii",
+    "questionId": "3780",
+    "title": "Permutations III",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "4\n2\n3",
+    "hints": [
+      "Use backtracking to generate permutations of the first <code>n</code> positive integers while ensuring that each added number alternates between odd and even."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "permutations-iv",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:41.638Z"
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Squirrel Simulation",
+  "titleCn": "松鼠模拟",
+  "titleSlug": "squirrel-simulation",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6532994923857868,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "squirrel-simulation",
+    "questionId": "573",
+    "title": "Squirrel Simulation",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n7\n[2,2]\n[4,4]\n[[3,0], [2,5]]\n1\n3\n[0,1]\n[0,0]\n[[0,2]]",
+    "hints": [
+      "Will Brute force solution works here? What will be its complexity?",
+      "Brute force definitely won't work here. Think of some simple solution. Take some example and make some observations.",
+      "Will order of nuts traversed by squirrel is important or only first nut traversed by squirrel is important?",
+      "Are there some paths which squirrel have to cover in any case? If yes, what are they?",
+      "Did you notice only first nut traversed by squirrel matters? Obviously squirrel will choose first nut which will result in minimum distance."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:35.953Z"
+}

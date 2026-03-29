@@ -1,0 +1,43 @@
+{
+  "title": "秋叶收藏集",
+  "titleCn": "秋叶收藏集",
+  "titleSlug": "UlBDOe",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5178935496464668,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "UlBDOe",
+    "questionId": "1000130",
+    "title": "秋叶收藏集",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minimumOperations(string leaves) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minimumOperations(String leaves) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minimumOperations(self, leaves: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"rrryyyrryyyrr\"\n\"ryr\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:42.061Z"
+}

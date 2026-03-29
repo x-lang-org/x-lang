@@ -1,0 +1,22 @@
+{
+  "problemId": "61",
+  "titleSlug": "rotate-list",
+  "title": "Rotate List",
+  "titleCn": "旋转链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.4146343069400239,
+  "testcases": [
+    {
+      "input": "[1,2,3,4,5]",
+      "expectedOutput": "2"
+    },
+    {
+      "input": "[0,1,2]",
+      "expectedOutput": "4"
+    }
+  ]
+}

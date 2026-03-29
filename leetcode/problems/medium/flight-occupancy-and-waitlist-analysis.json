@@ -1,0 +1,25 @@
+{
+  "title": "Flight Occupancy and Waitlist Analysis",
+  "titleCn": "航班入座率和等待名单分析",
+  "titleSlug": "flight-occupancy-and-waitlist-analysis",
+  "difficulty": "MEDIUM",
+  "acRate": 0.38663861125723303,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "flight-occupancy-and-waitlist-analysis",
+    "questionId": "3002",
+    "title": "Flight Occupancy and Waitlist Analysis",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Flights\":[\"flight_id\",\"capacity\"],\"Passengers\":[\"passenger_id\",\"flight_id\"]},\"rows\":{\"Flights\":[[1,2],[2,2],[3,1]],\"Passengers\":[[101,1],[102,1],[103,1],[104,2],[105,2],[106,3],[107,3]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:29.939Z"
+}

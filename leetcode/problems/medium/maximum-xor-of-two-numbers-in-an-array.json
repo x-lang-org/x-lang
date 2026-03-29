@@ -1,0 +1,60 @@
+{
+  "title": "Maximum XOR of Two Numbers in an Array",
+  "titleCn": "数组中两个数的最大异或值",
+  "titleSlug": "maximum-xor-of-two-numbers-in-an-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5910193589846574,
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "maximum-xor-of-two-numbers-in-an-array",
+    "questionId": "421",
+    "title": "Maximum XOR of Two Numbers in an Array",
+    "content": "<p>Given an integer array <code>nums</code>, return <em>the maximum result of </em><code>nums[i] XOR nums[j]</code>, where <code>0 &lt;= i &lt;= j &lt; n</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [3,10,5,25,2,8]\n<strong>Output:</strong> 28\n<strong>Explanation:</strong> The maximum result is 5 XOR 25 = 28.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [14,70,53,83,49,91,36,80,92,51,66,70]\n<strong>Output:</strong> 127\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "trie",
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findMaximumXOR(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findMaximumXOR(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findMaximumXOR(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,10,5,25,2,8]\n[14,70,53,83,49,91,36,80,92,51,66,70]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-xor-with-an-element-from-array",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "maximum-xor-after-operations",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "sum-of-prefix-scores-of-strings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:52:20.492Z"
+}

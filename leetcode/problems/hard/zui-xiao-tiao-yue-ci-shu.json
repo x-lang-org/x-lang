@@ -1,0 +1,47 @@
+{
+  "title": "最小跳跃次数",
+  "titleCn": "最小跳跃次数",
+  "titleSlug": "zui-xiao-tiao-yue-ci-shu",
+  "difficulty": "HARD",
+  "acRate": 0.3272514561656793,
+  "topicTags": [
+    "breadth-first-search",
+    "segment-tree",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "zui-xiao-tiao-yue-ci-shu",
+    "questionId": "1000090",
+    "title": "最小跳跃次数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "breadth-first-search",
+      "segment-tree",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minJump(vector<int>& jump) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minJump(int[] jump) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minJump(self, jump: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,5,1,1,1,1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:33.396Z"
+}

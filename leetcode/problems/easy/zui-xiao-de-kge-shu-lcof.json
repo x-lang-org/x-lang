@@ -1,0 +1,49 @@
+{
+  "title": "库存管理 III",
+  "titleCn": "库存管理 III",
+  "titleSlug": "zui-xiao-de-kge-shu-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.5772833486693386,
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "quickselect",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "zui-xiao-de-kge-shu-lcof",
+    "questionId": "100301",
+    "title": "库存管理 III",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "divide-and-conquer",
+      "quickselect",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> inventoryManagement(vector<int>& stock, int cnt) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] inventoryManagement(int[] stock, int cnt) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def inventoryManagement(self, stock: List[int], cnt: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,5,7,4]\n1\n[0,2,3,6]\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:32.504Z"
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Generate Random Point in a Circle",
+  "titleCn": "在圆内随机生成点",
+  "titleSlug": "generate-random-point-in-a-circle",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48706705071435735,
+  "topicTags": [
+    "geometry",
+    "math",
+    "rejection-sampling",
+    "randomized"
+  ],
+  "detail": {
+    "titleSlug": "generate-random-point-in-a-circle",
+    "questionId": "915",
+    "title": "Generate Random Point in a Circle",
+    "content": "<p>Given the radius and the position of the center of a circle, implement the function <code>randPoint</code> which generates a uniform random point inside the circle.</p>\n\n<p>Implement the <code>Solution</code> class:</p>\n\n<ul>\n\t<li><code>Solution(double radius, double x_center, double y_center)</code> initializes the object with the radius of the circle <code>radius</code> and the position of the center <code>(x_center, y_center)</code>.</li>\n\t<li><code>randPoint()</code> returns a random point inside the circle. A point on the circumference of the circle is considered to be in the circle. The answer is returned as an array <code>[x, y]</code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;Solution&quot;, &quot;randPoint&quot;, &quot;randPoint&quot;, &quot;randPoint&quot;]\n[[1.0, 0.0, 0.0], [], [], []]\n<strong>Output</strong>\n[null, [-0.02493, -0.38077], [0.82314, 0.38945], [0.36572, 0.17248]]\n\n<strong>Explanation</strong>\nSolution solution = new Solution(1.0, 0.0, 0.0);\nsolution.randPoint(); // return [-0.02493, -0.38077]\nsolution.randPoint(); // return [0.82314, 0.38945]\nsolution.randPoint(); // return [0.36572, 0.17248]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;&nbsp;radius &lt;= 10<sup>8</sup></code></li>\n\t<li><code>-10<sup>7</sup> &lt;= x_center, y_center &lt;= 10<sup>7</sup></code></li>\n\t<li>At most <code>3 * 10<sup>4</sup></code> calls will be made to <code>randPoint</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "geometry",
+      "math",
+      "rejection-sampling",
+      "randomized"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    Solution(double radius, double x_center, double y_center) {\n        \n    }\n    \n    vector<double> randPoint() {\n        \n    }\n};\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution* obj = new Solution(radius, x_center, y_center);\n * vector<double> param_1 = obj->randPoint();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n\n    public Solution(double radius, double x_center, double y_center) {\n        \n    }\n    \n    public double[] randPoint() {\n        \n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution obj = new Solution(radius, x_center, y_center);\n * double[] param_1 = obj.randPoint();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n\n    def __init__(self, radius: float, x_center: float, y_center: float):\n        \n\n    def randPoint(self) -> List[float]:\n        \n\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution(radius, x_center, y_center)\n# param_1 = obj.randPoint()"
+      }
+    ],
+    "exampleTestcases": "[\"Solution\",\"randPoint\",\"randPoint\",\"randPoint\"]\n[[1.0,0.0,0.0],[],[],[]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "random-point-in-non-overlapping-rectangles",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:05.863Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Find Cutoff Score for Each School",
+  "titleCn": "找出每所学校的最低分数要求",
+  "titleSlug": "find-cutoff-score-for-each-school",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6405498942511055,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-cutoff-score-for-each-school",
+    "questionId": "2136",
+    "title": "Find Cutoff Score for Each School",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Schools\":[\"school_id\",\"capacity\"],\"Exam\":[\"score\",\"student_count\"]},\"rows\":{\"Schools\":[[11,151],[5,48],[9,9],[10,99]],\"Exam\":[[975,10],[966,60],[844,76],[749,76],[744,100]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:21.897Z"
+}

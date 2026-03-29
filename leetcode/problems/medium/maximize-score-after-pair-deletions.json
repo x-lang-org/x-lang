@@ -1,0 +1,32 @@
+{
+  "title": "Maximize Score After Pair Deletions",
+  "titleCn": "最大化配对删除后的得分",
+  "titleSlug": "maximize-score-after-pair-deletions",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7142857142857143,
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "maximize-score-after-pair-deletions",
+    "questionId": "3839",
+    "title": "Maximize Score After Pair Deletions",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,4,1]\n[5,-1,4,2]",
+    "hints": [
+      "The number of operations is <code>floor((n - 1) / 2)</code>, so the number of remaining elements is <code>n - 2 * floor((n - 1) / 2)</code>.",
+      "There will be either 1 or 2 elements remaining.",
+      "If there is 1 element remaining, let it be the minimum element.",
+      "If there are 2 elements remaining, let them be the adjacent elements with the minimum sum."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:45.332Z"
+}

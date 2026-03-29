@@ -1,0 +1,45 @@
+{
+  "title": "训练计划 V",
+  "titleCn": "训练计划 V",
+  "titleSlug": "liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6541043446795256,
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof",
+    "questionId": "100326",
+    "title": "训练计划 V",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode(int x) : val(x), next(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode(int x) {\n *         val = x;\n *         next = null;\n *     }\n * }\n */\nclass Solution {\n    ListNode getIntersectionNode(ListNode headA, ListNode headB) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:\n        "
+      }
+    ],
+    "exampleTestcases": "8\n[3,7,2,8,9,5,1]\n[4,6,8,9,5,1]\n3\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:46:30.474Z"
+}

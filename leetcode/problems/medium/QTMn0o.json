@@ -1,0 +1,45 @@
+{
+  "title": "和为 K 的子数组",
+  "titleCn": "和为 K 的子数组",
+  "titleSlug": "QTMn0o",
+  "difficulty": "MEDIUM",
+  "acRate": 0.44030683992298825,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "QTMn0o",
+    "questionId": "1000246",
+    "title": "和为 K 的子数组",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int subarraySum(int[] nums, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def subarraySum(self, nums: List[int], k: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,1,1]\n2\n[1,2,3]\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:42.371Z"
+}

@@ -1,0 +1,54 @@
+{
+  "title": "Pond Sizes LCCI",
+  "titleCn": "水域大小",
+  "titleSlug": "pond-sizes-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6773674551899244,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "pond-sizes-lcci",
+    "questionId": "1000005",
+    "title": "Pond Sizes LCCI",
+    "content": "<p>You have an integer matrix representing a plot of land, where the value at that loca&shy;tion represents the height above sea level. A value of zero indicates water. A pond is a region of water connected vertically, horizontally, or diagonally. The size of the pond is the total number of connected water cells. Write a method to compute the sizes of all ponds in the matrix, the return values need to be sorted in ascending order.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>\r\n[\r\n  [0,2,1,0],\r\n  [0,1,0,1],\r\n  [1,1,0,1],\r\n  [0,1,0,1]\r\n]\r\n<strong>Output: </strong> [1,2,4]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt; len(land) &lt;= 1000</code></li>\r\n\t<li><code>0 &lt; len(land[i]) &lt;= 1000</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> pondSizes(vector<vector<int>>& land) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] pondSizes(int[][] land) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def pondSizes(self, land: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[0,2,1,0],[0,1,0,1],[1,1,0,1],[0,1,0,1]]",
+    "hints": [
+      "如果给你一个指代水的单元格的行和列，你如何找到所有相邻的水域？",
+      "尝试递归计算含水单元格的数目。",
+      "你如何确保不会再次访问相同的单元格？考虑一下图上的广度优先搜索或深度优先搜索是如何工作的。",
+      "你应该有一个算法，其在N×N矩阵上的时间复杂度是O(N2)。如果你的算法并非如此，请考虑是否错误地计算了时间复杂度，或者是否你的算法不是最优的。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:50.238Z"
+}

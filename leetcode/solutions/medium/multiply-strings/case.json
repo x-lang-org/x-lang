@@ -1,0 +1,23 @@
+{
+  "problemId": "43",
+  "titleSlug": "multiply-strings",
+  "title": "Multiply Strings",
+  "titleCn": "字符串相乘",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.4499690038477982,
+  "testcases": [
+    {
+      "input": "\"2\"",
+      "expectedOutput": "\"3\""
+    },
+    {
+      "input": "\"123\"",
+      "expectedOutput": "\"456\""
+    }
+  ]
+}

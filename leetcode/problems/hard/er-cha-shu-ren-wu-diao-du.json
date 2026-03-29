@@ -1,0 +1,47 @@
+{
+  "title": "二叉树任务调度",
+  "titleCn": "二叉树任务调度",
+  "titleSlug": "er-cha-shu-ren-wu-diao-du",
+  "difficulty": "HARD",
+  "acRate": 0.6297655128409635,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "dynamic-programming",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "er-cha-shu-ren-wu-diao-du",
+    "questionId": "1000062",
+    "title": "二叉树任务调度",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "dynamic-programming",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    double minimalExecTime(TreeNode* root) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public double minimalExecTime(TreeNode root) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Solution:\n    def minimalExecTime(self, root: TreeNode) -> float:"
+      }
+    ],
+    "exampleTestcases": "[47, 74, 31]\n[75,null,18,null,20,27,36]\n[1,3,2,null,null,4,4]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:07.017Z"
+}

@@ -1,0 +1,51 @@
+{
+  "title": "Rank from Stream LCCI",
+  "titleCn": "数字流的秩",
+  "titleSlug": "rank-from-stream-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6279603131076432,
+  "topicTags": [
+    "design",
+    "binary-indexed-tree",
+    "binary-search",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "rank-from-stream-lcci",
+    "questionId": "1000041",
+    "title": "Rank from Stream LCCI",
+    "content": "<p>Imagine you are reading in a stream of integers. Periodically, you wish to be able to look up the rank of a number <code>x</code> (the number of values less than or equal to <code>x</code>). lmplement the data structures and algorithms to support these operations. That is, implement the method <code>track (int x)</code>, which is called when each number is generated, and the method <code>getRankOfNumber(int x)</code>, which returns the number of values less than or equal to <code>x</code>.</p>\r\n\r\n<p><b>Note:&nbsp;</b>This problem is slightly different from the original one in the book.</p>\r\n\r\n<p><strong>Example:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong>\r\n[&quot;StreamRank&quot;, &quot;getRankOfNumber&quot;, &quot;track&quot;, &quot;getRankOfNumber&quot;]\r\n[[], [1], [0], [0]]\r\n<strong>Output:\r\n</strong>[null,0,null,1]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>x &lt;= 50000</code></li>\r\n\t<li>The number of calls of both&nbsp;<code>track</code>&nbsp;and&nbsp;<code>getRankOfNumber</code>&nbsp;methods are less than or equal to 2000.</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "binary-indexed-tree",
+      "binary-search",
+      "data-stream"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class StreamRank {\npublic:\n    StreamRank() {\n        \n    }\n    \n    void track(int x) {\n        \n    }\n    \n    int getRankOfNumber(int x) {\n        \n    }\n};\n\n/**\n * Your StreamRank object will be instantiated and called as such:\n * StreamRank* obj = new StreamRank();\n * obj->track(x);\n * int param_2 = obj->getRankOfNumber(x);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class StreamRank {\n\n    public StreamRank() {\n        \n    }\n    \n    public void track(int x) {\n        \n    }\n    \n    public int getRankOfNumber(int x) {\n        \n    }\n}\n\n/**\n * Your StreamRank object will be instantiated and called as such:\n * StreamRank obj = new StreamRank();\n * obj.track(x);\n * int param_2 = obj.getRankOfNumber(x);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class StreamRank:\n\n    def __init__(self):\n        \n\n    def track(self, x: int) -> None:\n        \n\n    def getRankOfNumber(self, x: int) -> int:\n        \n\n\n# Your StreamRank object will be instantiated and called as such:\n# obj = StreamRank()\n# obj.track(x)\n# param_2 = obj.getRankOfNumber(x)"
+      }
+    ],
+    "exampleTestcases": "[\"StreamRank\", \"getRankOfNumber\", \"track\", \"getRankOfNumber\"]\n[[], [1], [0], [0]]",
+    "hints": [
+      "使用数组存在的问题是插入一个数字会比较慢。我们还能使用其他的数据结构吗？",
+      "二叉搜索树效果好吗？",
+      "考虑一个二叉搜索树，其中每个节点存储一些额外的数据。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:02:00.828Z"
+}

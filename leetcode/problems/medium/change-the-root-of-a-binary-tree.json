@@ -1,0 +1,32 @@
+{
+  "title": "Change the Root of a Binary Tree",
+  "titleCn": "改变二叉树的根节点",
+  "titleSlug": "change-the-root-of-a-binary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6460843373493976,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "change-the-root-of-a-binary-tree",
+    "questionId": "1810",
+    "title": "Change the Root of a Binary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,5,1,6,2,0,8,null,null,7,4]\n7\n[3,5,1,6,2,0,8,null,null,7,4]\n0",
+    "hints": [
+      "Start traversing from the leaf. Always go up till you reach the root.",
+      "Change pointers as asked, make the current node's parent its left child, and make the left child the right one if needed."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:28:34.088Z"
+}

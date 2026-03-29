@@ -1,0 +1,27 @@
+{
+  "problemId": "2",
+  "titleSlug": "add-two-numbers",
+  "title": "Add Two Numbers",
+  "titleCn": "两数相加",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "linked-list",
+    "math"
+  ],
+  "acRate": 0.4667389751221983,
+  "testcases": [
+    {
+      "input": "[2,4,3]",
+      "expectedOutput": "[5,6,4]"
+    },
+    {
+      "input": "[0]",
+      "expectedOutput": "[0]"
+    },
+    {
+      "input": "[9,9,9,9,9,9,9]",
+      "expectedOutput": "[9,9,9,9]"
+    }
+  ]
+}

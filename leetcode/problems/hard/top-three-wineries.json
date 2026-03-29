@@ -1,0 +1,25 @@
+{
+  "title": "Top Three Wineries ",
+  "titleCn": "最好的三家酒庄",
+  "titleSlug": "top-three-wineries",
+  "difficulty": "HARD",
+  "acRate": 0.497907949790795,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "top-three-wineries",
+    "questionId": "3288",
+    "title": "Top Three Wineries ",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Wineries\":[\"id\",\"country\",\"points\",\"winery\"]},\"rows\":{\"Wineries\":[[103,\"Australia\",84,\"WhisperingPines\"],[737,\"Australia\",85,\"GrapesGalore\"],[848,\"Australia\",100,\"HarmonyHill\"],[222,\"Hungary\",60,\"MoonlitCellars\"],[116,\"USA\",47,\"RoyalVines\"],[124,\"USA\",45,\"Eagle'sNest\"],[648,\"India\",69,\"SunsetVines\"],[894,\"USA\",39,\"RoyalVines\"],[677,\"USA\",9,\"PacificCrest\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:01.992Z"
+}

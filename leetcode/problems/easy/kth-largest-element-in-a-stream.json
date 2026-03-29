@@ -1,0 +1,64 @@
+{
+  "title": "Kth Largest Element in a Stream",
+  "titleCn": "数据流中的第 K 大元素",
+  "titleSlug": "kth-largest-element-in-a-stream",
+  "difficulty": "EASY",
+  "acRate": 0.5348438379035624,
+  "topicTags": [
+    "tree",
+    "design",
+    "binary-search-tree",
+    "binary-tree",
+    "data-stream",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "kth-largest-element-in-a-stream",
+    "questionId": "789",
+    "title": "Kth Largest Element in a Stream",
+    "content": "<p>You are part of a university admissions office and need to keep track of the <code>kth</code> highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.</p>\n\n<p>You are tasked to implement a class which, for a given integer&nbsp;<code>k</code>, maintains a stream of test scores and continuously returns the&nbsp;<code>k</code>th highest test score&nbsp;<strong>after</strong>&nbsp;a new score has been submitted. More specifically, we are looking for the <code>k</code>th highest score in the sorted list of all scores.</p>\n\n<p>Implement the&nbsp;<code>KthLargest</code> class:</p>\n\n<ul>\n\t<li><code>KthLargest(int k, int[] nums)</code> Initializes the object with the integer <code>k</code> and the stream of test scores&nbsp;<code>nums</code>.</li>\n\t<li><code>int add(int val)</code> Adds a new test score&nbsp;<code>val</code> to the stream and returns the element representing the <code>k<sup>th</sup></code> largest element in the pool of test scores so far.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong><br />\n<span class=\"example-io\">[&quot;KthLargest&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;]<br />\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[null, 4, 5, 5, 8, 8]</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);<br />\nkthLargest.add(3); // return 4<br />\nkthLargest.add(5); // return 5<br />\nkthLargest.add(10); // return 5<br />\nkthLargest.add(9); // return 8<br />\nkthLargest.add(4); // return 8</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong><br />\n<span class=\"example-io\">[&quot;KthLargest&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;, &quot;add&quot;]<br />\n[[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">[null, 7, 7, 7, 8]</span></p>\n\n<p><strong>Explanation:</strong></p>\nKthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);<br />\nkthLargest.add(2); // return 7<br />\nkthLargest.add(10); // return 7<br />\nkthLargest.add(9); // return 7<br />\nkthLargest.add(9); // return 8</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>0 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= nums.length + 1</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= val &lt;= 10<sup>4</sup></code></li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made to <code>add</code>.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "design",
+      "binary-search-tree",
+      "binary-tree",
+      "data-stream",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class KthLargest {\npublic:\n    KthLargest(int k, vector<int>& nums) {\n        \n    }\n    \n    int add(int val) {\n        \n    }\n};\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest* obj = new KthLargest(k, nums);\n * int param_1 = obj->add(val);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class KthLargest {\n\n    public KthLargest(int k, int[] nums) {\n        \n    }\n    \n    public int add(int val) {\n        \n    }\n}\n\n/**\n * Your KthLargest object will be instantiated and called as such:\n * KthLargest obj = new KthLargest(k, nums);\n * int param_1 = obj.add(val);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class KthLargest:\n\n    def __init__(self, k: int, nums: List[int]):\n        \n\n    def add(self, val: int) -> int:\n        \n\n\n# Your KthLargest object will be instantiated and called as such:\n# obj = KthLargest(k, nums)\n# param_1 = obj.add(val)"
+      }
+    ],
+    "exampleTestcases": "[\"KthLargest\",\"add\",\"add\",\"add\",\"add\",\"add\"]\n[[3,[4,5,8,2]],[3],[5],[10],[9],[4]]\n[\"KthLargest\",\"add\",\"add\",\"add\",\"add\"]\n[[4,[7,7,7,7,8,3]],[2],[10],[9],[9]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "kth-largest-element-in-an-array",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "finding-mk-average",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "sequentially-ordinal-rank-tracker",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:45:26.693Z"
+}

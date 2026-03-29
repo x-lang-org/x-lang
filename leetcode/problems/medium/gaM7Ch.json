@@ -1,0 +1,45 @@
+{
+  "title": "零钱兑换",
+  "titleCn": "零钱兑换",
+  "titleSlug": "gaM7Ch",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5353250763526535,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "gaM7Ch",
+    "questionId": "1000289",
+    "title": "零钱兑换",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,5]\n11\n[2]\n3\n[1]\n0\n[1]\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:55.802Z"
+}

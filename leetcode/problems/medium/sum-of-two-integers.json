@@ -1,0 +1,48 @@
+{
+  "title": "Sum of Two Integers",
+  "titleCn": "两整数之和",
+  "titleSlug": "sum-of-two-integers",
+  "difficulty": "MEDIUM",
+  "acRate": 0.633894900241976,
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-two-integers",
+    "questionId": "371",
+    "title": "Sum of Two Integers",
+    "content": "<p>Given two integers <code>a</code> and <code>b</code>, return <em>the sum of the two integers without using the operators</em> <code>+</code> <em>and</em> <code>-</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> a = 1, b = 2\n<strong>Output:</strong> 3\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> a = 2, b = 3\n<strong>Output:</strong> 5\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>-1000 &lt;= a, b &lt;= 1000</code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getSum(int a, int b) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getSum(int a, int b) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getSum(self, a: int, b: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "1\n2\n2\n3",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "add-two-numbers",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:07:58.110Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "魔法棋盘",
+  "titleCn": "魔法棋盘",
+  "titleSlug": "1ybDKD",
+  "difficulty": "HARD",
+  "acRate": 0.39486994219653176,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "1ybDKD",
+    "questionId": "1000564",
+    "title": "魔法棋盘",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    long long getSchemeCount(int n, int m, vector<string>& chessboard) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public long getSchemeCount(int n, int m, String[] chessboard) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getSchemeCount(self, n: int, m: int, chessboard: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "3\n3\n[\"..R\",\"..B\",\"?R?\"]\n3\n3\n[\"?R?\",\"B?B\",\"?R?\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:38.680Z"
+}

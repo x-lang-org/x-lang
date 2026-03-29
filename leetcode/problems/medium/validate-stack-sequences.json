@@ -1,0 +1,45 @@
+{
+  "title": "Validate Stack Sequences",
+  "titleCn": "验证栈序列",
+  "titleSlug": "validate-stack-sequences",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6693497738469073,
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "validate-stack-sequences",
+    "questionId": "983",
+    "title": "Validate Stack Sequences",
+    "content": "<p>Given two integer arrays <code>pushed</code> and <code>popped</code> each with distinct values, return <code>true</code><em> if this could have been the result of a sequence of push and pop operations on an initially empty stack, or </em><code>false</code><em> otherwise.</em></p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> pushed = [1,2,3,4,5], popped = [4,5,3,2,1]\n<strong>Output:</strong> true\n<strong>Explanation:</strong> We might do the following sequence:\npush(1), push(2), push(3), push(4),\npop() -&gt; 4,\npush(5),\npop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> pushed = [1,2,3,4,5], popped = [4,3,5,1,2]\n<strong>Output:</strong> false\n<strong>Explanation:</strong> 1 cannot be popped before 2.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= pushed.length &lt;= 1000</code></li>\n\t<li><code>0 &lt;= pushed[i] &lt;= 1000</code></li>\n\t<li>All the elements of <code>pushed</code> are <strong>unique</strong>.</li>\n\t<li><code>popped.length == pushed.length</code></li>\n\t<li><code>popped</code> is a permutation of <code>pushed</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean validateStackSequences(int[] pushed, int[] popped) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5]\n[4,5,3,2,1]\n[1,2,3,4,5]\n[4,3,5,1,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:20.173Z"
+}

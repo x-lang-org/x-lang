@@ -1,0 +1,25 @@
+{
+  "title": "Longest Winning Streak",
+  "titleCn": "最多连胜的次数",
+  "titleSlug": "longest-winning-streak",
+  "difficulty": "HARD",
+  "acRate": 0.5304865938430983,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "longest-winning-streak",
+    "questionId": "2313",
+    "title": "Longest Winning Streak",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Matches\":[\"player_id\",\"match_day\",\"result\"]},\"rows\":{\"Matches\":[[1,\"2022-01-17\",\"Win\"],[1,\"2022-01-18\",\"Win\"],[1,\"2022-01-25\",\"Win\"],[1,\"2022-01-31\",\"Draw\"],[1,\"2022-02-08\",\"Win\"],[2,\"2022-02-06\",\"Lose\"],[2,\"2022-02-08\",\"Lose\"],[3,\"2022-03-30\",\"Win\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:33.874Z"
+}

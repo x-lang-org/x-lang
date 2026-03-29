@@ -1,0 +1,45 @@
+{
+  "title": "训练计划 I",
+  "titleCn": "训练计划 I",
+  "titleSlug": "diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6510082026403985,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof",
+    "questionId": "100291",
+    "title": "训练计划 I",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> trainingPlan(vector<int>& actions) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] trainingPlan(int[] actions) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trainingPlan(self, actions: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:57.211Z"
+}

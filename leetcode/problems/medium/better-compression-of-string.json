@@ -1,0 +1,41 @@
+{
+  "title": "Better Compression of String",
+  "titleCn": "字符串的更好压缩",
+  "titleSlug": "better-compression-of-string",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2743295019157088,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "better-compression-of-string",
+    "questionId": "3474",
+    "title": "Better Compression of String",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"a3c9b2c1\"\n\"c2b3a1\"\n\"a2b4c1\"",
+    "hints": [
+      "This is an implementation problem.",
+      "Try to extract each character with its corresponding frequency.",
+      "Sum the frequencies for a single character.",
+      "Sort characters and append them to a string in alphabetical order."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "string-compression",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:25:19.926Z"
+}

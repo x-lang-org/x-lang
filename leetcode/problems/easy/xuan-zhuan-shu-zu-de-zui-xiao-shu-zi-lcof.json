@@ -1,0 +1,43 @@
+{
+  "title": "库存管理 I",
+  "titleCn": "库存管理 I",
+  "titleSlug": "xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.49574055744864115,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof",
+    "questionId": "100278",
+    "title": "库存管理 I",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int inventoryManagement(vector<int>& stock) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int inventoryManagement(int[] stock) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def inventoryManagement(self, stock: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,5,8,3,4]\n[5,7,9,1,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:14.031Z"
+}

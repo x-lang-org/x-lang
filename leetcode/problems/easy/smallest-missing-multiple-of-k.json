@@ -1,0 +1,46 @@
+{
+  "title": "Smallest Missing Multiple of K",
+  "titleCn": "缺失的最小倍数",
+  "titleSlug": "smallest-missing-multiple-of-k",
+  "difficulty": "EASY",
+  "acRate": 0.626032709492497,
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "smallest-missing-multiple-of-k",
+    "questionId": "4080",
+    "title": "Smallest Missing Multiple of K",
+    "content": "<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return the <strong>smallest positive multiple</strong> of <code>k</code> that is <strong>missing</strong> from <code>nums</code>.</p>\n\n<p>A <strong>multiple</strong> of <code>k</code> is any positive integer divisible by <code>k</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [8,2,3,4,6], k = 2</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">10</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The multiples of <code>k = 2</code> are 2, 4, 6, 8, 10, 12... and the smallest multiple missing from <code>nums</code> is 10.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,4,7,10,15], k = 5</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The multiples of <code>k = 5</code> are 5, 10, 15, 20... and the smallest multiple missing from <code>nums</code> is 5.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n\t<li><code>1 &lt;= k &lt;= 100</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int missingMultiple(vector<int>& nums, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int missingMultiple(int[] nums, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def missingMultiple(self, nums: List[int], k: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[8,2,3,4,6]\n2\n[1,4,7,10,15]\n5",
+    "hints": [
+      "Add the values in <code>nums</code> to a hash set",
+      "Iterate through the positive multiples of <code>k</code> and return the first one not in the hash set"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:34.956Z"
+}

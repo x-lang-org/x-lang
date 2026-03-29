@@ -1,0 +1,25 @@
+{
+  "title": "Design Bounded Blocking Queue",
+  "titleCn": "设计有限阻塞队列",
+  "titleSlug": "design-bounded-blocking-queue",
+  "difficulty": "MEDIUM",
+  "acRate": 0.716962228233644,
+  "topicTags": [
+    "concurrency"
+  ],
+  "detail": {
+    "titleSlug": "design-bounded-blocking-queue",
+    "questionId": "1209",
+    "title": "Design Bounded Blocking Queue",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "concurrency"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n1\n[\"BoundedBlockingQueue\",\"enqueue\",\"dequeue\",\"dequeue\",\"enqueue\",\"enqueue\",\"enqueue\",\"enqueue\",\"dequeue\"]\n[[2],[1],[],[],[0],[2],[3],[4],[]]\n3\n4\n[\"BoundedBlockingQueue\",\"enqueue\",\"enqueue\",\"enqueue\",\"dequeue\",\"dequeue\",\"dequeue\",\"enqueue\"]\n[[3],[1],[0],[2],[],[],[],[3]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:18.849Z"
+}

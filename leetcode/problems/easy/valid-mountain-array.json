@@ -1,0 +1,52 @@
+{
+  "title": "Valid Mountain Array",
+  "titleCn": "有效的山脉数组",
+  "titleSlug": "valid-mountain-array",
+  "difficulty": "EASY",
+  "acRate": 0.4026938013075751,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "valid-mountain-array",
+    "questionId": "978",
+    "title": "Valid Mountain Array",
+    "content": "<p>Given an array of integers <code>arr</code>, return <em><code>true</code> if and only if it is a valid mountain array</em>.</p>\n\n<p>Recall that arr is a mountain array if and only if:</p>\n\n<ul>\n\t<li><code>arr.length &gt;= 3</code></li>\n\t<li>There exists some <code>i</code> with <code>0 &lt; i &lt; arr.length - 1</code> such that:\n\t<ul>\n\t\t<li><code>arr[0] &lt; arr[1] &lt; ... &lt; arr[i - 1] &lt; arr[i] </code></li>\n\t\t<li><code>arr[i] &gt; arr[i + 1] &gt; ... &gt; arr[arr.length - 1]</code></li>\n\t</ul>\n\t</li>\n</ul>\n<img src=\"https://assets.leetcode.com/uploads/2019/10/20/hint_valid_mountain_array.png\" width=\"500\" />\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> arr = [2,1]\n<strong>Output:</strong> false\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> arr = [3,5,5]\n<strong>Output:</strong> false\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> arr = [0,3,2,1]\n<strong>Output:</strong> true\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= arr[i] &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool validMountainArray(vector<int>& arr) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean validMountainArray(int[] arr) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def validMountainArray(self, arr: List[int]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,1]\n[3,5,5]\n[0,3,2,1]",
+    "hints": [
+      "It's very easy to keep track of a monotonically increasing or decreasing ordering of elements. You just need to be able to determine the start of the valley in the mountain and from that point onwards, it should be a valley i.e. no mini-hills after that. Use this information in regards to the values in the array and you will be able to come up with a straightforward solution."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-number-of-removals-to-make-mountain-array",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "beautiful-towers-i",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:07.666Z"
+}

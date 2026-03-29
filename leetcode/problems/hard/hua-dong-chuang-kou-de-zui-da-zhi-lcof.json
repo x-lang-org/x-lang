@@ -1,0 +1,49 @@
+{
+  "title": "望远镜中最高的海拔",
+  "titleCn": "望远镜中最高的海拔",
+  "titleSlug": "hua-dong-chuang-kou-de-zui-da-zhi-lcof",
+  "difficulty": "HARD",
+  "acRate": 0.44583190652828303,
+  "topicTags": [
+    "queue",
+    "array",
+    "sliding-window",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "hua-dong-chuang-kou-de-zui-da-zhi-lcof",
+    "questionId": "100336",
+    "title": "望远镜中最高的海拔",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>",
+    "difficulty": "Hard",
+    "topicTags": [
+      "queue",
+      "array",
+      "sliding-window",
+      "monotonic-queue",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> maxAltitude(vector<int>& heights, int limit) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] maxAltitude(int[] heights, int limit) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxAltitude(self, heights: List[int], limit: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[14,2,27,-5,28,13,39]\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:07.471Z"
+}

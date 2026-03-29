@@ -1,0 +1,25 @@
+{
+  "title": "Compute the Rank as a Percentage",
+  "titleCn": "以百分比计算排名",
+  "titleSlug": "compute-the-rank-as-a-percentage",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3713754070398511,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "compute-the-rank-as-a-percentage",
+    "questionId": "2484",
+    "title": "Compute the Rank as a Percentage",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Students\": [\"student_id\", \"department_id\", \"mark\"]}, \"rows\": {\"Students\": [[2, 2, 650], [8, 2, 650], [7, 1, 920], [1, 1, 610], [3, 1, 530]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:53.785Z"
+}

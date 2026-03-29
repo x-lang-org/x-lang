@@ -1,0 +1,56 @@
+{
+  "title": "Cousins in Binary Tree",
+  "titleCn": "二叉树的堂兄弟节点",
+  "titleSlug": "cousins-in-binary-tree",
+  "difficulty": "EASY",
+  "acRate": 0.5982818029119059,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "cousins-in-binary-tree",
+    "questionId": "1035",
+    "title": "Cousins in Binary Tree",
+    "content": "<p>Given the <code>root</code> of a binary tree with unique values and the values of two different nodes of the tree <code>x</code> and <code>y</code>, return <code>true</code> <em>if the nodes corresponding to the values </em><code>x</code><em> and </em><code>y</code><em> in the tree are <strong>cousins</strong>, or </em><code>false</code><em> otherwise.</em></p>\n\n<p>Two nodes of a binary tree are <strong>cousins</strong> if they have the same depth with different parents.</p>\n\n<p>Note that in a binary tree, the root node is at the depth <code>0</code>, and children of each depth <code>k</code> node are at the depth <code>k + 1</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2019/02/12/q1248-01.png\" style=\"width: 304px; height: 270px;\" />\n<pre>\n<strong>Input:</strong> root = [1,2,3,4], x = 4, y = 3\n<strong>Output:</strong> false\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2019/02/12/q1248-02.png\" style=\"width: 334px; height: 266px;\" />\n<pre>\n<strong>Input:</strong> root = [1,2,3,null,4,null,5], x = 5, y = 4\n<strong>Output:</strong> true\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2019/02/13/q1248-03.png\" style=\"width: 267px; height: 258px;\" />\n<pre>\n<strong>Input:</strong> root = [1,2,3,null,4], x = 2, y = 3\n<strong>Output:</strong> false\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The number of nodes in the tree is in the range <code>[2, 100]</code>.</li>\n\t<li><code>1 &lt;= Node.val &lt;= 100</code></li>\n\t<li>Each node has a <strong>unique</strong> value.</li>\n\t<li><code>x != y</code></li>\n\t<li><code>x</code> and <code>y</code> are exist in the tree.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    bool isCousins(TreeNode* root, int x, int y) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public boolean isCousins(TreeNode root, int x, int y) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4]\n4\n3\n[1,2,3,null,4,null,5]\n5\n4\n[1,2,3,null,4]\n2\n3",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-tree-level-order-traversal",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "cousins-in-binary-tree-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:10.721Z"
+}

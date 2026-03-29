@@ -1,0 +1,42 @@
+{
+  "title": "Ternary Expression Parser",
+  "titleCn": "三元表达式解析器",
+  "titleSlug": "ternary-expression-parser",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6316525522492424,
+  "topicTags": [
+    "stack",
+    "recursion",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "ternary-expression-parser",
+    "questionId": "439",
+    "title": "Ternary Expression Parser",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "recursion",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"T?2:3\"\n\"F?1:T?4:5\"\n\"T?T?F:5:3\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "mini-parser",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "remove-comments",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "parse-lisp-expression",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:08:20.002Z"
+}

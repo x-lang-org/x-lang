@@ -1,0 +1,54 @@
+{
+  "title": "Total Hamming Distance",
+  "titleCn": "汉明距离总和",
+  "titleSlug": "total-hamming-distance",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6147489796373531,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "total-hamming-distance",
+    "questionId": "477",
+    "title": "Total Hamming Distance",
+    "content": "<p>The <a href=\"https://en.wikipedia.org/wiki/Hamming_distance\" target=\"_blank\">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.</p>\n\n<p>Given an integer array <code>nums</code>, return <em>the sum of <strong>Hamming distances</strong> between all the pairs of the integers in</em> <code>nums</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [4,14,2]\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> In binary representation, the 4 is 0100, 14 is 1110, and 2 is 0010 (just\nshowing the four bits relevant in this case).\nThe answer will be:\nHammingDistance(4, 14) + HammingDistance(4, 2) + HammingDistance(14, 2) = 2 + 2 + 2 = 6.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [4,14,4]\n<strong>Output:</strong> 4\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li>The answer for the given input will fit in a <strong>32-bit</strong> integer.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int totalHammingDistance(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int totalHammingDistance(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def totalHammingDistance(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,14,2]\n[4,14,4]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "hamming-distance",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "sum-of-digit-differences-of-all-pairs",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:09:07.357Z"
+}

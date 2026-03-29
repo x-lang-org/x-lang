@@ -1,0 +1,48 @@
+{
+  "title": "Make Array Non-decreasing or Non-increasing",
+  "titleCn": "数组变为有序的最小操作次数",
+  "titleSlug": "make-array-non-decreasing-or-non-increasing",
+  "difficulty": "HARD",
+  "acRate": 0.5922330097087378,
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "make-array-non-decreasing-or-non-increasing",
+    "questionId": "1419",
+    "title": "Make Array Non-decreasing or Non-increasing",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "dynamic-programming",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,2,4,5,0]\n[2,2,3,4]\n[0]",
+    "hints": [
+      "To find the minimum cost to make nums non-decreasing, use a max heap that contains all of the elements that you have seen so far.",
+      "If the largest number in the heap is greater than the current number, calculate the cost to make the two numbers equal. Then, in the heap, replace the largest number with the current number.",
+      "Now that we have found the minimum cost to make nums non-decreasing, we can set every nums[i] to -nums[i] and do the same process to find the minimum cost to make nums non-increasing."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "non-decreasing-array",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "make-array-strictly-increasing",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-operations-to-make-the-array-increasing",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:54.358Z"
+}

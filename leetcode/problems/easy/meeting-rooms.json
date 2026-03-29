@@ -1,0 +1,40 @@
+{
+  "title": "Meeting Rooms",
+  "titleCn": "会议室",
+  "titleSlug": "meeting-rooms",
+  "difficulty": "EASY",
+  "acRate": 0.5939917506063127,
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "meeting-rooms",
+    "questionId": "252",
+    "title": "Meeting Rooms",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,30],[5,10],[15,20]]\n[[7,10],[2,4]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "merge-intervals",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "meeting-rooms-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "meeting-rooms-iii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:52:25.433Z"
+}

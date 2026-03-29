@@ -1,0 +1,43 @@
+{
+  "title": "组合总和 Ⅳ",
+  "titleCn": "组合总和 Ⅳ",
+  "titleSlug": "D0F0SV",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5600680307168995,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "D0F0SV",
+    "questionId": "1000290",
+    "title": "组合总和 Ⅳ",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int combinationSum4(vector<int>& nums, int target) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int combinationSum4(int[] nums, int target) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n4\n[9]\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:33.980Z"
+}

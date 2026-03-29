@@ -1,0 +1,52 @@
+{
+  "title": "Flatten 2D Vector",
+  "titleCn": "展开二维向量",
+  "titleSlug": "flatten-2d-vector",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5359972243104146,
+  "topicTags": [
+    "design",
+    "array",
+    "two-pointers",
+    "iterator"
+  ],
+  "detail": {
+    "titleSlug": "flatten-2d-vector",
+    "questionId": "251",
+    "title": "Flatten 2D Vector",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "two-pointers",
+      "iterator"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Vector2D\",\"next\",\"next\",\"next\",\"hasNext\",\"hasNext\",\"next\",\"hasNext\"]\n[[[[1,2],[3],[4]]],[],[],[],[],[],[],[]]",
+    "hints": [
+      "How many variables do you need to keep track?",
+      "Two variables is all you need. Try with <code>x</code> and <code>y</code>.",
+      "Beware of empty rows. It could be the first few rows.",
+      "To write correct code, think about the <a href=\"https://en.wikipedia.org/wiki/Invariant_(computer_science)\" target=\"_blank\">invariant</a> to maintain. What is it?",
+      "The invariant is <code>x</code> and <code>y</code> must always point to a valid point in the 2d vector. Should you maintain your invariant <i>ahead of time</i> or <i>right when you need it</i>?",
+      "Not sure? Think about how you would implement <code>hasNext()</code>. Which is more complex?",
+      "Common logic in two different places should be refactored into a common method."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "binary-search-tree-iterator",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "zigzag-iterator",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "peeking-iterator",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:27.066Z"
+}

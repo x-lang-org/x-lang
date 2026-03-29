@@ -1,0 +1,22 @@
+{
+  "problemId": "41",
+  "titleSlug": "first-missing-positive",
+  "title": "First Missing Positive",
+  "titleCn": "缺失的第一个正数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.49098687997817675,
+  "testcases": [
+    {
+      "input": "[1,2,0]",
+      "expectedOutput": "[3,4,-1,1]"
+    },
+    {
+      "input": "[7,8,9,11,12]",
+      "expectedOutput": ""
+    }
+  ]
+}

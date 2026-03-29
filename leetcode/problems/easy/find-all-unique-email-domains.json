@@ -1,0 +1,25 @@
+{
+  "title": "Find All Unique Email Domains",
+  "titleCn": "找到所有不同的邮件域名",
+  "titleSlug": "find-all-unique-email-domains",
+  "difficulty": "EASY",
+  "acRate": 0.7008426966292135,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-all-unique-email-domains",
+    "questionId": "3365",
+    "title": "Find All Unique Email Domains",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Emails\":[\"id\",\"email\"]},\"rows\":{\"Emails\":[[336,\"hwkiy@test.edu\"],[489,\"adcmaf@outlook.com\"],[449,\"vrzmwyum@yahoo.com\"],[95,\"tof@test.edu\"],[320,\"jxhbagkpm@example.org\"],[411,\"zxcf@outlook.com\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:58.370Z"
+}

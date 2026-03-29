@@ -1,0 +1,35 @@
+{
+  "title": "Confusing Number II",
+  "titleCn": "易混淆数 II",
+  "titleSlug": "confusing-number-ii",
+  "difficulty": "HARD",
+  "acRate": 0.5124223602484472,
+  "topicTags": [
+    "math",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "confusing-number-ii",
+    "questionId": "1077",
+    "title": "Confusing Number II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "math",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "20\n100",
+    "hints": [
+      "Which set of digits have the valid numbers?",
+      "Only 0, 1, 6, 8, 9 are the valid set of digits, do a backtracking to generate all the numbers containing this digits and check they are valid."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "confusing-number",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:32:02.160Z"
+}

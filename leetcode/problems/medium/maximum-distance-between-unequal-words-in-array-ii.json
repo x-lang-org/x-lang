@@ -1,0 +1,31 @@
+{
+  "title": "Maximum Distance Between Unequal Words in Array II",
+  "titleCn": "不同单词间的最大距离 II",
+  "titleSlug": "maximum-distance-between-unequal-words-in-array-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7352941176470589,
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "maximum-distance-between-unequal-words-in-array-ii",
+    "questionId": "4070",
+    "title": "Maximum Distance Between Unequal Words in Array II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"leetcode\",\"leetcode\",\"codeforces\"]\n[\"a\",\"b\",\"c\",\"a\",\"a\"]\n[\"z\",\"z\",\"z\"]",
+    "hints": [
+      "Use two pointers",
+      "Fix the first word as <code>words[i]</code> and find the rightmost unequal <code>words[j]</code>",
+      "Fix the last word as <code>words[i]</code> and find the leftmost unequal <code>words[j]</code>"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:37.081Z"
+}

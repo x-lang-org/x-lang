@@ -1,0 +1,37 @@
+{
+  "title": "生物进化录",
+  "titleCn": "生物进化录",
+  "titleSlug": "qoQAMX",
+  "difficulty": "HARD",
+  "acRate": 0.4899403874813711,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "qoQAMX",
+    "questionId": "1000568",
+    "title": "生物进化录",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string evolutionaryRecord(vector<int>& parents) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String evolutionaryRecord(int[] parents) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def evolutionaryRecord(self, parents: List[int]) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "[-1,0,0,2]\n[-1,0,0,1,2,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:41.265Z"
+}

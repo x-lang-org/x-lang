@@ -1,0 +1,45 @@
+{
+  "title": "守卫城堡",
+  "titleCn": "守卫城堡",
+  "titleSlug": "7rLGCR",
+  "difficulty": "HARD",
+  "acRate": 0.5750366032210834,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "7rLGCR",
+    "questionId": "1000223",
+    "title": "守卫城堡",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int guardCastle(vector<string>& grid) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int guardCastle(String[] grid) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def guardCastle(self, grid: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"S.C.P#P.\", \".....#.S\"]\n[\"SP#P..P#PC#.S\", \"..#P..P####.#\"]\n[\"SP#.C.#PS\", \"P.#...#.P\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:21.171Z"
+}

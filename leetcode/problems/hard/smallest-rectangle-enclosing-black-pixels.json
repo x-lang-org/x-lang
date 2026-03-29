@@ -1,0 +1,42 @@
+{
+  "title": "Smallest Rectangle Enclosing Black Pixels",
+  "titleCn": "包含全部黑色像素的最小矩形",
+  "titleSlug": "smallest-rectangle-enclosing-black-pixels",
+  "difficulty": "HARD",
+  "acRate": 0.6678957071372136,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "binary-search",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "smallest-rectangle-enclosing-black-pixels",
+    "questionId": "302",
+    "title": "Smallest Rectangle Enclosing Black Pixels",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "array",
+      "binary-search",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"0\",\"0\",\"1\",\"0\"],[\"0\",\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\",\"0\"]]\n0\n2\n[[\"1\"]]\n0\n0",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-the-minimum-area-to-cover-all-ones-ii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "find-the-minimum-area-to-cover-all-ones-i",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:40.800Z"
+}

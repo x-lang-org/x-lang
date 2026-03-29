@@ -1,0 +1,21 @@
+{
+  "title": "Deep Object Filter",
+  "titleCn": "深度对象筛选",
+  "titleSlug": "deep-object-filter",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4774011299435028,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "deep-object-filter",
+    "questionId": "2912",
+    "title": "Deep Object Filter",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[-5,-4,-3,-2,-1,0,1]\n(x) => x > 0\n{\"a\":1,\"b\":\"2\",\"c\":3,\"d\":\"4\",\"e\":5,\"f\":6,\"g\":{\"a\":1}}\n(x) => typeof x === \"string\"\n[-1,[-1,-1,5,-1,10],-1,[-1],[-5]]\n(x) => x > 0\n[[[[5]]]]\n(x) => Array.isArray(x)",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:51.463Z"
+}

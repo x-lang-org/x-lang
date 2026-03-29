@@ -1,0 +1,25 @@
+{
+  "title": "Invalid Tweets II",
+  "titleCn": "无效的推文 II",
+  "titleSlug": "invalid-tweets-ii",
+  "difficulty": "EASY",
+  "acRate": 0.8486842105263158,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "invalid-tweets-ii",
+    "questionId": "3457",
+    "title": "Invalid Tweets II",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Tweets\": [\"tweet_id\", \"content\"]}, \"rows\": {\"Tweets\": [[1, \"What an amazing meal @MaxPower @AlexJones @JohnDoe #Learning #Fitness #Love\"], [2, \"Learning something new every day @AnnaWilson #Learning #Foodie\"], [3, \"Never been happier about today's achievements @SaraJohnson @JohnDoe @AnnaWilson #Fashion\"], [4, \"Traveling, exploring, and living my best life @JaneSmith @JohnDoe @ChrisAnderson @AlexJones #WorkLife #Travel\"], [5, \"Work hard, play hard, and cherish every moment @AlexJones #Fashion #Foodie\"], [6, \"Never been happier about today's achievements @ChrisAnderson #Fashion #WorkLife\"], [7, \"So grateful for today's experiences @AnnaWilson @LisaTaylor @ChrisAnderson @MikeBrown #Fashion #HappyDay #WorkLife #Nature\"], [8, \"What an amazing meal @EmilyClark @AlexJones @MikeBrown #Fitness\"], [9, \"Learning something new every day @EmilyClark @AnnaWilson @MaxPower #Travel\"], [10, \"So grateful for today's experiences @ChrisAnderson #Nature\"], [11, \"So grateful for today's experiences @AlexJones #Art #WorkLife\"], [12, \"Learning something new every day @JaneSmith @MikeBrown #Travel\"], [13, \"What an amazing meal @EmilyClark @JohnDoe @LisaTaylor @MaxPower #Foodie #Fitness\"], [14, \"Work hard, play hard, and cherish every moment @LisaTaylor @SaraJohnson @MaxPower @ChrisAnderson #TechLife #Nature #Music\"], [15, \"What a beautiful day it is @EmilyClark @MaxPower @SaraJohnson #Fashion\"], [16, \"What a beautiful day it is @AnnaWilson @JaneSmith #Fashion #Love #TechLife\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:41.963Z"
+}

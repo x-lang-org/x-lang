@@ -1,0 +1,36 @@
+{
+  "title": "Reverse Words in a String II",
+  "titleCn": "反转字符串中的单词 II",
+  "titleSlug": "reverse-words-in-a-string-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7750383788762665,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "reverse-words-in-a-string-ii",
+    "questionId": "186",
+    "title": "Reverse Words in a String II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"t\",\"h\",\"e\",\" \",\"s\",\"k\",\"y\",\" \",\"i\",\"s\",\" \",\"b\",\"l\",\"u\",\"e\"]\n[\"a\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "reverse-words-in-a-string",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "rotate-array",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:03:35.912Z"
+}

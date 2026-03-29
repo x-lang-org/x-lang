@@ -1,0 +1,33 @@
+{
+  "title": "Index Pairs of a String",
+  "titleCn": "字符串的索引对",
+  "titleSlug": "index-pairs-of-a-string",
+  "difficulty": "EASY",
+  "acRate": 0.5769230769230769,
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "index-pairs-of-a-string",
+    "questionId": "1075",
+    "title": "Index Pairs of a String",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "trie",
+      "array",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"thestoryofleetcodeandme\"\n[\"story\",\"fleet\",\"leetcode\"]\n\"ababa\"\n[\"aba\",\"ab\"]",
+    "hints": [
+      "For each string of the set, look for matches and store those matches indices."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:25.090Z"
+}

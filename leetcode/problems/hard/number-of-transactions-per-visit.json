@@ -1,0 +1,30 @@
+{
+  "title": "Number of Transactions per Visit",
+  "titleCn": "每次访问的交易次数",
+  "titleSlug": "number-of-transactions-per-visit",
+  "difficulty": "HARD",
+  "acRate": 0.4580146393617896,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "number-of-transactions-per-visit",
+    "questionId": "1467",
+    "title": "Number of Transactions per Visit",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Visits\":[\"user_id\",\"visit_date\"],\"Transactions\":[\"user_id\",\"transaction_date\",\"amount\"]},\"rows\":{\"Visits\":[[1,\"2020-01-01\"],[2,\"2020-01-02\"],[12,\"2020-01-01\"],[19,\"2020-01-03\"],[1,\"2020-01-02\"],[2,\"2020-01-03\"],[1,\"2020-01-04\"],[7,\"2020-01-11\"],[9,\"2020-01-25\"],[8,\"2020-01-28\"]],\"Transactions\":[[1,\"2020-01-02\",120],[2,\"2020-01-03\",22],[7,\"2020-01-11\",232],[1,\"2020-01-04\",7],[9,\"2020-01-25\",33],[9,\"2020-01-25\",66],[8,\"2020-01-28\",1],[9,\"2020-01-25\",99]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-the-missing-ids",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:55.143Z"
+}

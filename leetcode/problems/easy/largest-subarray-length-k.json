@@ -1,0 +1,30 @@
+{
+  "title": "Largest Subarray Length K",
+  "titleCn": "长度为 K 的最大子数组",
+  "titleSlug": "largest-subarray-length-k",
+  "difficulty": "EASY",
+  "acRate": 0.6377084454007531,
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "largest-subarray-length-k",
+    "questionId": "1847",
+    "title": "Largest Subarray Length K",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "greedy",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,4,5,2,3]\n3\n[1,4,5,2,3]\n4\n[1,4,5,2,3]\n1",
+    "hints": [
+      "Search for the largest integer in the range [0, n - k]",
+      "This integer is the first element in the subarray. You should take it with the k - 1 elements after it."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:51.485Z"
+}

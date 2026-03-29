@@ -1,0 +1,30 @@
+{
+  "title": "Number of Student Replacements",
+  "titleCn": "学生替换人数",
+  "titleSlug": "number-of-student-replacements",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8719211822660099,
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "number-of-student-replacements",
+    "questionId": "3960",
+    "title": "Number of Student Replacements",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[4,1,2]\n[2,2,3]",
+    "hints": [
+      "Iterate through the array from left to right, keeping track of the current best (minimum) rank.",
+      "Whenever you see an element strictly lower than your current best, update the best to that element and increment the replacement count."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:42.003Z"
+}

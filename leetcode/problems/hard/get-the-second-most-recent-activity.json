@@ -1,0 +1,25 @@
+{
+  "title": "Get the Second Most Recent Activity",
+  "titleCn": "获取最近第二次的活动",
+  "titleSlug": "get-the-second-most-recent-activity",
+  "difficulty": "HARD",
+  "acRate": 0.6217787667791257,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "get-the-second-most-recent-activity",
+    "questionId": "1504",
+    "title": "Get the Second Most Recent Activity",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"UserActivity\":[\"username\",\"activity\",\"startDate\",\"endDate\"]},\"rows\":{\"UserActivity\":[[\"Alice\",\"Travel\",\"2020-02-12\",\"2020-02-20\"],[\"Alice\",\"Dancing\",\"2020-02-21\",\"2020-02-23\"],[\"Alice\",\"Travel\",\"2020-02-24\",\"2020-02-28\"],[\"Bob\",\"Travel\",\"2020-02-11\",\"2020-02-18\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:13.249Z"
+}

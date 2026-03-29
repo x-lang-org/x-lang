@@ -1,0 +1,25 @@
+{
+  "title": "Arrange Table by Gender",
+  "titleCn": "按性别排列表格",
+  "titleSlug": "arrange-table-by-gender",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7665594855305466,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "arrange-table-by-gender",
+    "questionId": "2441",
+    "title": "Arrange Table by Gender",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Genders\": [\"user_id\", \"gender\"]}, \"rows\": {\"Genders\": [[4, \"male\"], [7, \"female\"], [2, \"other\"], [5, \"male\"], [3, \"female\"], [8, \"male\"], [6, \"other\"], [1, \"other\"], [9, \"female\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:38.357Z"
+}

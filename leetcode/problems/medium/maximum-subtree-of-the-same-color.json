@@ -1,0 +1,35 @@
+{
+  "title": "Maximum Subtree of the Same Color",
+  "titleCn": "相同颜色的最大子树",
+  "titleSlug": "maximum-subtree-of-the-same-color",
+  "difficulty": "MEDIUM",
+  "acRate": 0.22284122562674094,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-subtree-of-the-same-color",
+    "questionId": "3304",
+    "title": "Maximum Subtree of the Same Color",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,1],[0,2],[0,3]]\n[1,1,2,3]\n[[0,1],[0,2],[0,3]]\n[1,1,1,1]\n[[0,1],[0,2],[2,3],[2,4]]\n[1,2,3,3,3]",
+    "hints": [
+      "For each node, define a <code>flag[v]</code> indicating that the subtree of this node contains only one color or not.",
+      "In the DFS process, when you call <code>dfs(u)</code> from node <code>v</code>, after that DFS of <code>u</code> has finished, check if <code>flag[u] == false</code>, then <code>flag[v]</code> is also <code>false</code>.",
+      "Also if <code>color[v] != color[u]</code>, <code>flag[v]</code> becomes <code>false</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:42.881Z"
+}

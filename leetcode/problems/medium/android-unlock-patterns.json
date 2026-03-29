@@ -1,0 +1,31 @@
+{
+  "title": "Android Unlock Patterns",
+  "titleCn": "安卓系统手势解锁",
+  "titleSlug": "android-unlock-patterns",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6194696694515075,
+  "topicTags": [
+    "bit-manipulation",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "android-unlock-patterns",
+    "questionId": "351",
+    "title": "Android Unlock Patterns",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "dynamic-programming",
+      "backtracking",
+      "bitmask"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n1\n1\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:02.406Z"
+}

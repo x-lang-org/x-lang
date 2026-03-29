@@ -1,0 +1,56 @@
+{
+  "title": "Non-overlapping Intervals",
+  "titleCn": "无重叠区间",
+  "titleSlug": "non-overlapping-intervals",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5337893292778293,
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "non-overlapping-intervals",
+    "questionId": "435",
+    "title": "Non-overlapping Intervals",
+    "content": "<p>Given an array of intervals <code>intervals</code> where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code>, return <em>the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping</em>.</p>\n\n<p><strong>Note</strong> that intervals which only touch at a point are <strong>non-overlapping</strong>. For example, <code>[1, 2]</code> and <code>[2, 3]</code> are non-overlapping.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> intervals = [[1,2],[2,3],[3,4],[1,3]]\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> [1,3] can be removed and the rest of the intervals are non-overlapping.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> intervals = [[1,2],[1,2],[1,2]]\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> You need to remove two [1,2] to make the rest of the intervals non-overlapping.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> intervals = [[1,2],[2,3]]\n<strong>Output:</strong> 0\n<strong>Explanation:</strong> You don&#39;t need to remove any of the intervals since they&#39;re already non-overlapping.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= intervals.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>intervals[i].length == 2</code></li>\n\t<li><code>-5 * 10<sup>4</sup> &lt;= start<sub>i</sub> &lt; end<sub>i</sub> &lt;= 5 * 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "dynamic-programming",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int eraseOverlapIntervals(vector<vector<int>>& intervals) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int eraseOverlapIntervals(int[][] intervals) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,2],[2,3],[3,4],[1,3]]\n[[1,2],[1,2],[1,2]]\n[[1,2],[2,3]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-number-of-arrows-to-burst-balloons",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "determine-if-two-events-have-conflict",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:37.786Z"
+}

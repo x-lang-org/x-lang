@@ -1,0 +1,25 @@
+{
+  "title": "Find Peak Calling Hours for Each City",
+  "titleCn": "找到每座城市的高峰通话小时",
+  "titleSlug": "find-peak-calling-hours-for-each-city",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6116121758737317,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-peak-calling-hours-for-each-city",
+    "questionId": "3281",
+    "title": "Find Peak Calling Hours for Each City",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Calls\":[\"caller_id\",\"recipient_id\",\"call_time\",\"city\"]},\"rows\":{\"Calls\":[[8,4,\"2021-08-24 22:46:07\",\"Houston\"],[4,8,\"2021-08-24 22:57:13\",\"Houston\"],[5,1,\"2021-08-11 21:28:44\",\"Houston\"],[8,3,\"2021-08-17 22:04:15\",\"Houston\"],[11,3,\"2021-08-17 13:07:00\",\"New York\"],[8,11,\"2021-08-17 14:22:22\",\"New York\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:14.609Z"
+}

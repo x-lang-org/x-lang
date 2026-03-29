@@ -1,0 +1,32 @@
+{
+  "title": "Maximum Number of Equal Length Runs",
+  "titleCn": "最大等长连续字符组",
+  "titleSlug": "maximum-number-of-equal-length-runs",
+  "difficulty": "MEDIUM",
+  "acRate": 0.9090909090909091,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-equal-length-runs",
+    "questionId": "4155",
+    "title": "Maximum Number of Equal Length Runs",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"hello\"\n\"aaabaaa\"",
+    "hints": [
+      "Split the string when adjacent characters are not equal, and use those to make the runs",
+      "Use a hashmap to group runs of the same length"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:16.424Z"
+}

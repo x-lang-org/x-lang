@@ -1,0 +1,47 @@
+{
+  "title": "期望个数统计",
+  "titleCn": "期望个数统计",
+  "titleSlug": "qi-wang-ge-shu-tong-ji",
+  "difficulty": "EASY",
+  "acRate": 0.730032588188211,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "probability-and-statistics"
+  ],
+  "detail": {
+    "titleSlug": "qi-wang-ge-shu-tong-ji",
+    "questionId": "1000086",
+    "title": "期望个数统计",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "math",
+      "probability-and-statistics"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int expectNumber(vector<int>& scores) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int expectNumber(int[] scores) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def expectNumber(self, scores: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,2,3]\n[1,1]\n[1,1,2]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:36.723Z"
+}

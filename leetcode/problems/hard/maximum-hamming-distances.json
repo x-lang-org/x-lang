@@ -1,0 +1,35 @@
+{
+  "title": "Maximum Hamming Distances",
+  "titleCn": "最大汉明距离",
+  "titleSlug": "maximum-hamming-distances",
+  "difficulty": "HARD",
+  "acRate": 0.27503628447024675,
+  "topicTags": [
+    "bit-manipulation",
+    "breadth-first-search",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "maximum-hamming-distances",
+    "questionId": "3449",
+    "title": "Maximum Hamming Distances",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "breadth-first-search",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[9,12,9,11]\n4\n[3,4,6,10]\n4",
+    "hints": [
+      "For each <code>nums[i]</code>, complement it (for each bit, if it is 1, it becomes 0 and vice-versa).",
+      "Instead of finding the maximum Hamming distance from <code>x = nums[i]</code>, let's think of finding the minimum Hamming distance from the complement of <code>x</code> to any element of the array.",
+      "Create a graph with <code>V = {0, 1, ..., 2<sup>m</sup> - 1}</code>. Put an edge between two vertices if they differ in exactly one bit.",
+      "Run a multi-source BFS from elements of <code>nums</code>.",
+      "Now for each <code>x</code>, to find its minimum Hamming distance from elements of the array, simply calculate its shortest path from array elements."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:53.213Z"
+}

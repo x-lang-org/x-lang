@@ -1,0 +1,44 @@
+{
+  "title": "Minimum Unique Word Abbreviation",
+  "titleCn": "最短独占单词缩写",
+  "titleSlug": "minimum-unique-word-abbreviation",
+  "difficulty": "HARD",
+  "acRate": 0.5211844005777564,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "minimum-unique-word-abbreviation",
+    "questionId": "411",
+    "title": "Minimum Unique Word Abbreviation",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"apple\"\n[\"blade\"]\n\"apple\"\n[\"blade\",\"plain\",\"amber\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "generalized-abbreviation",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "valid-word-abbreviation",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "word-abbreviation",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:40.591Z"
+}

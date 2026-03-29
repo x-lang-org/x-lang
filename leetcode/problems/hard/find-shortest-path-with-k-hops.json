@@ -1,0 +1,36 @@
+{
+  "title": "Find Shortest Path with K Hops",
+  "titleCn": "找到 K 次跨越的最短路径",
+  "titleSlug": "find-shortest-path-with-k-hops",
+  "difficulty": "HARD",
+  "acRate": 0.5153508771929824,
+  "topicTags": [
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "find-shortest-path-with-k-hops",
+    "questionId": "2865",
+    "title": "Find Shortest Path with K Hops",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "graph",
+      "shortest-path",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "4\n[[0,1,4],[0,2,2],[2,3,6]]\n1\n3\n2\n7\n[[3,1,9],[3,2,4],[4,0,9],[0,5,6],[3,6,2],[6,0,4],[1,2,4]]\n4\n1\n2\n5\n[[0,4,2],[0,1,3],[0,2,1],[2,1,4],[1,3,4],[3,4,7]]\n2\n3\n1",
+    "hints": [
+      "Let's construct a new graph and run Dijkstra on it to get the answer to the problem.",
+      "We define the new graph as follows: Each node of this graph is a pair (v, c) where v is a node from the given graph and c is any number between 0 and k (inclusive).",
+      "Try to make edges of the defined graph in such a way that if we run Dijkstra on the node (s, 0), then the shortest path to node (d, k) would be the final answer.",
+      "Edge type one: If the edge (v, u, w) belongs to the initial graph, we put an edge with the weight of w between nodes (v, c) and (u, c) for any c between 0 and k (inclusive) in the new graph.",
+      "Edge type two: If the edge (v, u, w) belongs to the initial graph, we put an edge with the weight of 0 between nodes (v, c) and (u, c + 1), also between (u, c) and (v, c + 1) for any c between 0 and k - 1 (inclusive) in the new graph.",
+      "For the matter of time complexity, note that you **don’t need** to literally construct the described graph."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:25.451Z"
+}

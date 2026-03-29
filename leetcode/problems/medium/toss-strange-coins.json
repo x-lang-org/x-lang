@@ -1,0 +1,36 @@
+{
+  "title": "Toss Strange Coins",
+  "titleCn": "抛掷硬币",
+  "titleSlug": "toss-strange-coins",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5582627118644068,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "probability-and-statistics"
+  ],
+  "detail": {
+    "titleSlug": "toss-strange-coins",
+    "questionId": "1166",
+    "title": "Toss Strange Coins",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming",
+      "probability-and-statistics"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0.4]\n1\n[0.5,0.5,0.5,0.5,0.5]\n0",
+    "hints": [
+      "What about solving the problem with DP?",
+      "Use DP with two states dp[pos][cnt], where pos represents the pos-th coin and cnt is the number of heads seen so far.",
+      "You can do the transitions with a little bit math.",
+      "For the base case, when pos == n return (cnt == target) to filter out the invalid scenarios."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:03.193Z"
+}

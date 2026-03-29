@@ -1,0 +1,36 @@
+{
+  "title": "Analyze User Website Visit Pattern",
+  "titleCn": "用户网站访问行为分析",
+  "titleSlug": "analyze-user-website-visit-pattern",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4425157531803591,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "analyze-user-website-visit-pattern",
+    "questionId": "1108",
+    "title": "Analyze User Website Visit Pattern",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"joe\",\"joe\",\"joe\",\"james\",\"james\",\"james\",\"james\",\"mary\",\"mary\",\"mary\"]\n[1,2,3,4,5,6,7,8,9,10]\n[\"home\",\"about\",\"career\",\"home\",\"cart\",\"maps\",\"home\",\"home\",\"about\",\"career\"]\n[\"ua\",\"ua\",\"ua\",\"ub\",\"ub\",\"ub\"]\n[1,2,3,4,5,6]\n[\"a\",\"b\",\"a\",\"a\",\"b\",\"c\"]",
+    "hints": [
+      "Let's find for every user separately the websites he visited.",
+      "Consider all possible 3-sequences, find the number of distinct users who visited each of them.",
+      "How to check if some user visited some 3-sequence ?",
+      "Store for every user all the 3-sequence he visited."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:23:01.169Z"
+}

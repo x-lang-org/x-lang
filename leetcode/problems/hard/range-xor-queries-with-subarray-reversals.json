@@ -1,0 +1,32 @@
+{
+  "title": "Range XOR Queries with Subarray Reversals",
+  "titleCn": "范围异或查询与子数组反转",
+  "titleSlug": "range-xor-queries-with-subarray-reversals",
+  "difficulty": "HARD",
+  "acRate": 0.5925925925925926,
+  "topicTags": [
+    "tree",
+    "array",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "range-xor-queries-with-subarray-reversals",
+    "questionId": "3862",
+    "title": "Range XOR Queries with Subarray Reversals",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "tree",
+      "array",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n[[2,1,3],[1,2,10],[3,0,4],[2,0,4]]\n[7,8,9]\n[[1,0,3],[2,0,2],[3,1,2]]",
+    "hints": [
+      "Augment each AVL tree node with fields for subtree XOR, size, and a lazy reversal flag to efficiently update and query segments.",
+      "Use split and merge operations on the AVL tree to isolate subarrays for point updates, range XOR queries, and reversals in <code>O(log n)</code> time."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:02:00.208Z"
+}

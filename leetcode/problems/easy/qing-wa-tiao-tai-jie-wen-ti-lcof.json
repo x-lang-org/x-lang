@@ -1,0 +1,45 @@
+{
+  "title": "跳跃训练",
+  "titleCn": "跳跃训练",
+  "titleSlug": "qing-wa-tiao-tai-jie-wen-ti-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.4502037140376316,
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "qing-wa-tiao-tai-jie-wen-ti-lcof",
+    "questionId": "100277",
+    "title": "跳跃训练",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "memoization",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int trainWays(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int trainWays(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def trainWays(self, num: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "2\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:37.296Z"
+}

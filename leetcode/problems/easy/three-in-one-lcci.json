@@ -1,0 +1,50 @@
+{
+  "title": "Three in One LCCI",
+  "titleCn": "三合一",
+  "titleSlug": "three-in-one-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5418610214089223,
+  "topicTags": [
+    "stack",
+    "design",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "three-in-one-lcci",
+    "questionId": "100172",
+    "title": "Three in One LCCI",
+    "content": "<p>Describe how you could use a single array to implement three stacks.</p>\r\n\r\n<p>You&nbsp;should implement&nbsp;<code>push(stackNum, value)</code>、<code>pop(stackNum)</code>、<code>isEmpty(stackNum)</code>、<code>peek(stackNum)</code>&nbsp;methods.&nbsp;<code>stackNum<font face=\"sans-serif, Arial, Verdana, Trebuchet MS\">&nbsp;</font></code><font face=\"sans-serif, Arial, Verdana, Trebuchet MS\">is the index of the stack.&nbsp;</font><code>value</code>&nbsp;is the value that pushed to the stack.</p>\r\n\r\n<p>The constructor requires a&nbsp;<code>stackSize</code>&nbsp;parameter, which represents the size of each stack.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: \r\n[&quot;TripleInOne&quot;, &quot;push&quot;, &quot;push&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;isEmpty&quot;]\r\n[[1], [0, 1], [0, 2], [0], [0], [0], [0]]\r\n<strong> Output</strong>: \r\n[null, null, null, 1, -1, -1, true]\r\n<b>Explanation</b>: When the stack is empty, `pop, peek` return -1. When the stack is full, `push` does nothing.\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: \r\n[&quot;TripleInOne&quot;, &quot;push&quot;, &quot;push&quot;, &quot;push&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;pop&quot;, &quot;peek&quot;]\r\n[[2], [0, 1], [0, 2], [0, 3], [0], [0], [0], [0]]\r\n<strong> Output</strong>: \r\n[null, null, null, null, 2, 1, -1, -1]\r\n</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "design",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class TripleInOne {\npublic:\n    TripleInOne(int stackSize) {\n        \n    }\n    \n    void push(int stackNum, int value) {\n        \n    }\n    \n    int pop(int stackNum) {\n        \n    }\n    \n    int peek(int stackNum) {\n        \n    }\n    \n    bool isEmpty(int stackNum) {\n        \n    }\n};\n\n/**\n * Your TripleInOne object will be instantiated and called as such:\n * TripleInOne* obj = new TripleInOne(stackSize);\n * obj->push(stackNum,value);\n * int param_2 = obj->pop(stackNum);\n * int param_3 = obj->peek(stackNum);\n * bool param_4 = obj->isEmpty(stackNum);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class TripleInOne {\n\n    public TripleInOne(int stackSize) {\n        \n    }\n    \n    public void push(int stackNum, int value) {\n        \n    }\n    \n    public int pop(int stackNum) {\n        \n    }\n    \n    public int peek(int stackNum) {\n        \n    }\n    \n    public boolean isEmpty(int stackNum) {\n        \n    }\n}\n\n/**\n * Your TripleInOne object will be instantiated and called as such:\n * TripleInOne obj = new TripleInOne(stackSize);\n * obj.push(stackNum,value);\n * int param_2 = obj.pop(stackNum);\n * int param_3 = obj.peek(stackNum);\n * boolean param_4 = obj.isEmpty(stackNum);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class TripleInOne:\n\n    def __init__(self, stackSize: int):\n        \n\n    def push(self, stackNum: int, value: int) -> None:\n        \n\n    def pop(self, stackNum: int) -> int:\n        \n\n    def peek(self, stackNum: int) -> int:\n        \n\n    def isEmpty(self, stackNum: int) -> bool:\n        \n\n\n# Your TripleInOne object will be instantiated and called as such:\n# obj = TripleInOne(stackSize)\n# obj.push(stackNum,value)\n# param_2 = obj.pop(stackNum)\n# param_3 = obj.peek(stackNum)\n# param_4 = obj.isEmpty(stackNum)"
+      }
+    ],
+    "exampleTestcases": "[\"TripleInOne\", \"push\", \"push\", \"pop\", \"pop\", \"pop\", \"isEmpty\"]\n[[1], [0, 1], [0, 2], [0], [0], [0], [0]]\n[\"TripleInOne\", \"push\", \"push\", \"push\", \"pop\", \"pop\", \"pop\", \"peek\"]\n[[2], [0, 1], [0, 2], [0, 3], [0], [0], [0], [0]]",
+    "hints": [
+      "栈只是一个数据结构，其中最近添加的元素首先被删除。你能用一个数组来模拟单个栈吗？请记住，有很多可能的解法且每个解法都有其利弊。",
+      "我们可以通过将数组的前三分之一分配到第一个栈、第二个三分之一分配到第二个栈、最后的第三个三分之一分配到第三个栈，来模拟数组中的三个栈。然而，实际上某个栈可能比其他的大得多。能更灵活地分配吗？",
+      "如果你想考虑灵活划分，可以移动栈。你能保证使用所有可用的容量吗？",
+      "试着把数组看作是循环的，这样数组的结尾就“环绕”到了数组的开始部分。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:49.762Z"
+}

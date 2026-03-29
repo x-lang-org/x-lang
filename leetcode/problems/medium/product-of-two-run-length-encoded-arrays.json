@@ -1,0 +1,30 @@
+{
+  "title": "Product of Two Run-Length Encoded Arrays",
+  "titleCn": "两个行程编码数组的积",
+  "titleSlug": "product-of-two-run-length-encoded-arrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48670465337132,
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "product-of-two-run-length-encoded-arrays",
+    "questionId": "2019",
+    "title": "Product of Two Run-Length Encoded Arrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "two-pointers"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,3],[2,3]]\n[[6,3],[3,3]]\n[[1,3],[2,1],[3,2]]\n[[2,3],[3,3]]",
+    "hints": [
+      "Keep track of the indices on both RLE arrays and join the parts together.",
+      "What is the maximum number of segments if we took the minimum number of elements left on both the current segments every time?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:16.188Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Design Log Storage System",
+  "titleCn": "设计日志存储系统",
+  "titleSlug": "design-log-storage-system",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5303892215568863,
+  "topicTags": [
+    "design",
+    "hash-table",
+    "string",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "design-log-storage-system",
+    "questionId": "635",
+    "title": "Design Log Storage System",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "hash-table",
+      "string",
+      "ordered-set"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"LogSystem\",\"put\",\"put\",\"put\",\"retrieve\",\"retrieve\"]\n[[],[1,\"2017:01:01:23:59:59\"],[2,\"2017:01:01:22:59:59\"],[3,\"2016:01:01:00:00:00\"],[\"2016:01:01:01:01:01\",\"2017:01:01:23:00:00\",\"Year\"],[\"2016:01:01:01:01:01\",\"2017:01:01:23:00:00\",\"Hour\"]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "design-in-memory-file-system",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:29.155Z"
+}

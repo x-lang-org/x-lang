@@ -1,0 +1,45 @@
+{
+  "title": "魔塔游戏",
+  "titleCn": "魔塔游戏",
+  "titleSlug": "p0NxJO",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4651170507524099,
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "p0NxJO",
+    "questionId": "1000224",
+    "title": "魔塔游戏",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int magicTower(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int magicTower(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def magicTower(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[100,100,100,-250,-60,-140,-50,-50,100,150]\n[-200,-300,400,0]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:44.373Z"
+}

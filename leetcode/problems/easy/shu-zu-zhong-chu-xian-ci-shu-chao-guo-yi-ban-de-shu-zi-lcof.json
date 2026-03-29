@@ -1,0 +1,49 @@
+{
+  "title": "库存管理 II",
+  "titleCn": "库存管理 II",
+  "titleSlug": "shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6972983237158862,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "counting",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof",
+    "questionId": "100310",
+    "title": "库存管理 II",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "divide-and-conquer",
+      "counting",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int inventoryManagement(vector<int>& stock) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int inventoryManagement(int[] stock) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def inventoryManagement(self, stock: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:03.590Z"
+}

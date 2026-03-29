@@ -1,0 +1,50 @@
+{
+  "title": "Diving Board LCCI",
+  "titleCn": "跳水板",
+  "titleSlug": "diving-board-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.43735278220774976,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "diving-board-lcci",
+    "questionId": "100352",
+    "title": "Diving Board LCCI",
+    "content": "<p>You are building a diving board by placing a bunch of planks of wood end-to-end. There are two types of planks, one of length <code>shorter</code> and one of length <code>longer</code>. You must use exactly <code>K</code> planks of wood. Write a method to generate all possible lengths for the diving board.</p>\r\n\r\n<p>return all lengths in non-decreasing order.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>\r\nshorter = 1\r\nlonger = 2\r\nk = 3\r\n<strong>Output: </strong> {3,4,5,6}\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li>0 &lt; shorter &lt;= longer</li>\r\n\t<li>0 &lt;= k &lt;= 100000</li>\r\n</ul>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> divingBoard(int shorter, int longer, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] divingBoard(int shorter, int longer, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def divingBoard(self, shorter: int, longer: int, k: int) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "1\n1\n0",
+    "hints": [
+      "考虑制作一个跳水板。你的选择是什么？",
+      "考虑递归解法。",
+      "一旦有了递归算法，就考虑一下时间复杂度。能快点吗？如何进行？",
+      " 考虑使用缓存来优化时间复杂度。仔细想想你到底需要缓存什么。时间复杂度是什么？时间复杂度与表的最大尺寸密切相关。",
+      "有一个替代的、聪明的（而且非常快速的）解决方案。实际上你可以在线性时间内不用递归求解。如何进行？",
+      "这样想：你选择K块木板，其有两种不同的类型。对于第一种木板选择10个、第二种木板选择4个的所有方案，它们的和都是相同的。你能遍历所有可能的选择吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:25.425Z"
+}

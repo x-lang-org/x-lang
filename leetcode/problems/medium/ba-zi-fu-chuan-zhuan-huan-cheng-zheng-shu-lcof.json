@@ -1,0 +1,41 @@
+{
+  "title": "把字符串转换成整数 (atoi)",
+  "titleCn": "把字符串转换成整数 (atoi)",
+  "titleSlug": "ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2717039183177117,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof",
+    "questionId": "100340",
+    "title": "把字符串转换成整数 (atoi)",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int myAtoi(string str) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int myAtoi(String str) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def myAtoi(self, str: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"42\"\n\"   -42\"\n\"4193 with words\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:24.700Z"
+}

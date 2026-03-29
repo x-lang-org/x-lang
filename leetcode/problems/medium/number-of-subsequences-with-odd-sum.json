@@ -1,0 +1,38 @@
+{
+  "title": "Number of Subsequences with Odd Sum",
+  "titleCn": "奇数和子序列的数量",
+  "titleSlug": "number-of-subsequences-with-odd-sum",
+  "difficulty": "MEDIUM",
+  "acRate": 0.24963289280469897,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "detail": {
+    "titleSlug": "number-of-subsequences-with-odd-sum",
+    "questionId": "3537",
+    "title": "Number of Subsequences with Odd Sum",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming",
+      "combinatorics"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,1,1]\n[1,2,2]",
+    "hints": [
+      "Define <code>dp[i][0]</code> as the answer for the subarray <code>[0, i]</code>.",
+      "Similarly define <code>dp[i][1]</code> as the answer for the subarray <code>[0, i]</code> if we wanted to count even-sum subsequences.",
+      "If <code>nums[i]</code> is odd, <code>dp[i][x] = 2<sup>i</sup></code>.",
+      "Otherwise, <code>dp[i][x] = dp[i - 1][x] * 2</code>.",
+      "<code>dp[0][1] = 1</code> if <code>nums[0]</code> is odd, and 0 otherwise.",
+      "<code>dp[0][0] = 2</code> if <code>nums[0]</code> is even, and 1 otherwise (since an empty subsequence has an even sum)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:51.531Z"
+}

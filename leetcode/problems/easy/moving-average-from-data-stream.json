@@ -1,0 +1,36 @@
+{
+  "title": "Moving Average from Data Stream",
+  "titleCn": "数据流中的移动平均值",
+  "titleSlug": "moving-average-from-data-stream",
+  "difficulty": "EASY",
+  "acRate": 0.7339749554675246,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "moving-average-from-data-stream",
+    "questionId": "346",
+    "title": "Moving Average from Data Stream",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "data-stream"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"MovingAverage\",\"next\",\"next\",\"next\",\"next\"]\n[[3],[1],[10],[3],[5]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "k-radius-subarray-averages",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:08.790Z"
+}

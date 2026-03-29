@@ -1,0 +1,25 @@
+{
+  "title": "Change Null Values in a Table to the Previous Value",
+  "titleCn": "将表中的空值更改为前一个值",
+  "titleSlug": "change-null-values-in-a-table-to-the-previous-value",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6261682242990654,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "change-null-values-in-a-table-to-the-previous-value",
+    "questionId": "2523",
+    "title": "Change Null Values in a Table to the Previous Value",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"CoffeeShop\": [\"id\", \"drink\"]}, \"rows\": {\"CoffeeShop\": [[9, \"Rum and Coke\"], [6, null], [7, null], [3, \"St Germain Spritz\"], [1, \"Orange Margarita\"], [2, null]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:28:32.738Z"
+}

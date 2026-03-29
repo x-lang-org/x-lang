@@ -1,0 +1,37 @@
+{
+  "title": "Erect the Fence II",
+  "titleCn": "安装栅栏 II",
+  "titleSlug": "erect-the-fence-ii",
+  "difficulty": "HARD",
+  "acRate": 0.43147751605995716,
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "erect-the-fence-ii",
+    "questionId": "2074",
+    "title": "Erect the Fence II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "geometry",
+      "array",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]\n[[1,2],[2,2],[4,2]]",
+    "hints": [
+      "First, we need to note that this is a classic problem given n points you need to find the minimum enclosing circle to bind them",
+      "Second, we need to apply a well known algorithm called welzls algorithm to help us find the minimum enclosing circle"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "erect-the-fence",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:38:13.390Z"
+}

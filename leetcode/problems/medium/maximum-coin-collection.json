@@ -1,0 +1,30 @@
+{
+  "title": "Maximum Coin Collection ",
+  "titleCn": "最大硬币收集量",
+  "titleSlug": "maximum-coin-collection",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2877030162412993,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-coin-collection",
+    "questionId": "3806",
+    "title": "Maximum Coin Collection ",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,-2,-10,3]\n[-5,10,0,1]\n[1,-1,-1,-1]\n[0,3,4,-5]\n[-5,-4,-3]\n[-1,2,3]\n[-3,-3,-3]\n[9,-2,4]\n[-10]\n[-2]",
+    "hints": [
+      "Can we use dynamic programming?",
+      "Use dynamic programming with states: <code>dp[i][lane][rem]</code> = the maximum number of coins you can obtain when you are at mile <code>i</code> in the given <code>lane</code> with <code>rem</code> switches remaining."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:21.712Z"
+}

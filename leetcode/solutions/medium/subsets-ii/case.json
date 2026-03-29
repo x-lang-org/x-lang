@@ -1,0 +1,19 @@
+{
+  "problemId": "90",
+  "titleSlug": "subsets-ii",
+  "title": "Subsets II",
+  "titleCn": "子集 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.639925445080018,
+  "testcases": [
+    {
+      "input": "[1,2,2]",
+      "expectedOutput": "[0]"
+    }
+  ]
+}

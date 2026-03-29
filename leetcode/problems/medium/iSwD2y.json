@@ -1,0 +1,47 @@
+{
+  "title": "单词的压缩编码",
+  "titleCn": "单词的压缩编码",
+  "titleSlug": "iSwD2y",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6305614651743594,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "iSwD2y",
+    "questionId": "1000329",
+    "title": "单词的压缩编码",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minimumLengthEncoding(vector<string>& words) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minimumLengthEncoding(String[] words) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minimumLengthEncoding(self, words: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"time\",\"me\",\"bell\"]\n[\"t\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:50.348Z"
+}

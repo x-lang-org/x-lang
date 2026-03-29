@@ -1,0 +1,44 @@
+{
+  "title": "Number of Connected Components in an Undirected Graph",
+  "titleCn": "无向图中连通分量的数目",
+  "titleSlug": "number-of-connected-components-in-an-undirected-graph",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6593959067337002,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "detail": {
+    "titleSlug": "number-of-connected-components-in-an-undirected-graph",
+    "questionId": "323",
+    "title": "Number of Connected Components in an Undirected Graph",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "graph"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[[0,1],[1,2],[3,4]]\n5\n[[0,1],[1,2],[2,3],[3,4]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-islands",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "graph-valid-tree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-provinces",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:59.179Z"
+}

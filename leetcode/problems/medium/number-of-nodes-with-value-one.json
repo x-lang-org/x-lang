@@ -1,0 +1,37 @@
+{
+  "title": "Number of Nodes With Value One",
+  "titleCn": "值为 1 的节点数",
+  "titleSlug": "number-of-nodes-with-value-one",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6292517006802721,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "number-of-nodes-with-value-one",
+    "questionId": "2584",
+    "title": "Number of Nodes With Value One",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "array",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[1,2,5]\n3\n[2,3,3]",
+    "hints": [
+      "The relative order of processing queries does not matter.",
+      "If we know that for some node v, its parent was updated some number of times, then we know that node v was also updated that number of times.",
+      "Iterate on nodes from highest to lowest and count the number of times the query was performed on that node and the number of times this node was updated from its parent (direct or indirect). The parity of that number is the answer."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:23.937Z"
+}

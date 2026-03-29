@@ -1,0 +1,45 @@
+{
+  "title": "验证回文串 II",
+  "titleCn": "验证回文串 II",
+  "titleSlug": "RQku0D",
+  "difficulty": "EASY",
+  "acRate": 0.4565424493835382,
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "RQku0D",
+    "questionId": "1000255",
+    "title": "验证回文串 II",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "greedy",
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool validPalindrome(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean validPalindrome(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def validPalindrome(self, s: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"aba\"\n\"abca\"\n\"abc\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:53.793Z"
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Min Stack LCCI",
+  "titleCn": "栈的最小值",
+  "titleSlug": "min-stack-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.6300024583694541,
+  "topicTags": [
+    "stack",
+    "design"
+  ],
+  "detail": {
+    "titleSlug": "min-stack-lcci",
+    "questionId": "100169",
+    "title": "Min Stack LCCI",
+    "content": "<p>How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min should all operate in 0(1) time.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\nMinStack minStack = new MinStack();\r\nminStack.push(-2);\r\nminStack.push(0);\r\nminStack.push(-3);\r\nminStack.getMin();   --&gt; return -3.\r\nminStack.pop();\r\nminStack.top();      --&gt; return 0.\r\nminStack.getMin();   --&gt; return -2.</pre>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "design"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MinStack {\npublic:\n    /** initialize your data structure here. */\n    MinStack() {\n        \n    }\n    \n    void push(int x) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int top() {\n        \n    }\n    \n    int getMin() {\n        \n    }\n};\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack* obj = new MinStack();\n * obj->push(x);\n * obj->pop();\n * int param_3 = obj->top();\n * int param_4 = obj->getMin();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MinStack {\n\n    /** initialize your data structure here. */\n    public MinStack() {\n        \n    }\n    \n    public void push(int x) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int top() {\n        \n    }\n    \n    public int getMin() {\n        \n    }\n}\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack obj = new MinStack();\n * obj.push(x);\n * obj.pop();\n * int param_3 = obj.top();\n * int param_4 = obj.getMin();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MinStack:\n\n    def __init__(self):\n        \"\"\"\n        initialize your data structure here.\n        \"\"\"\n        \n\n    def push(self, x: int) -> None:\n        \n\n    def pop(self) -> None:\n        \n\n    def top(self) -> int:\n        \n\n    def getMin(self) -> int:\n        \n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(x)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()"
+      }
+    ],
+    "exampleTestcases": "[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]\n[[],[-2],[0],[-3],[],[],[],[]]",
+    "hints": [
+      "注意最小的元素不会经常变化。它只在添加更小的元素或最小的元素被弹出时才发生变化。",
+      "如果保持追踪每个栈节点的额外数据会怎么样？什么样的数据可能更容易解决这个问题呢？",
+      "考虑让每个节点知道它“子栈”的最小值（包括它下面的所有元素，以及它本身）。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:52:43.012Z"
+}

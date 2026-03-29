@@ -1,0 +1,39 @@
+{
+  "title": "Number of Self-Divisible Permutations",
+  "titleCn": "自整除排列的数量",
+  "titleSlug": "number-of-self-divisible-permutations",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7340425531914894,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "number-of-self-divisible-permutations",
+    "questionId": "3294",
+    "title": "Number of Self-Divisible Permutations",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "math",
+      "dynamic-programming",
+      "backtracking",
+      "bitmask",
+      "number-theory"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1\n2\n3",
+    "hints": [
+      "Think of Backtracking."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:33.826Z"
+}

@@ -1,0 +1,44 @@
+{
+  "title": "Convert Integer LCCI",
+  "titleCn": "整数转换",
+  "titleSlug": "convert-integer-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5146185069709983,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "convert-integer-lcci",
+    "questionId": "100181",
+    "title": "Convert Integer LCCI",
+    "content": "<p>Write a function to determine the number of bits you would need to flip to convert integer A to integer B.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: A = 29 (0b11101), B = 15 (0b01111)\r\n<strong> Output</strong>: 2\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: A = 1，B = 2\r\n<strong> Output</strong>: 2\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>-2147483648 &lt;= A, B &lt;= 2147483647</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int convertInteger(int A, int B) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int convertInteger(int A, int B) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def convertInteger(self, A: int, B: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "29\n15\n1\n2",
+    "hints": [
+      "你要怎样计算两个数字之间有多少位不同？",
+      "想想异或表示什么。如果你把a异或b，那么结果中哪里是1？哪里是0？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:41.886Z"
+}

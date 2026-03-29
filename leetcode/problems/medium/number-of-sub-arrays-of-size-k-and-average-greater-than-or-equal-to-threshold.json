@@ -1,0 +1,59 @@
+{
+  "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+  "titleCn": "大小为 K 且平均值大于等于阈值的子数组数目",
+  "titleSlug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7311144075653625,
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+    "questionId": "1445",
+    "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+    "content": "<p>Given an array of integers <code>arr</code> and two integers <code>k</code> and <code>threshold</code>, return <em>the number of sub-arrays of size </em><code>k</code><em> and average greater than or equal to </em><code>threshold</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [2,2,2,2,5,5,5,8], k = 3, threshold = 4\n<strong>Output:</strong> 3\n<strong>Explanation:</strong> Sub-arrays [2,5,5],[5,5,5] and [5,5,8] have averages 4, 5 and 6 respectively. All other sub-arrays of size 3 have averages less than 4 (the threshold).\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5\n<strong>Output:</strong> 6\n<strong>Explanation:</strong> The first 6 sub-arrays of size 3 have averages greater than 5. Note that averages are not integers.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= arr[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= arr.length</code></li>\n\t<li><code>0 &lt;= threshold &lt;= 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numOfSubarrays(vector<int>& arr, int k, int threshold) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numOfSubarrays(int[] arr, int k, int threshold) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numOfSubarrays(self, arr: List[int], k: int, threshold: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,2,2,2,5,5,5,8]\n3\n4\n[11,13,17,23,29,31,7,5,2,3]\n3\n5",
+    "hints": [
+      "Start with a window of size K and test its average against the threshold.",
+      "Keep moving the window by one element maintaining its size k until you cover the whole array. Count the number of windows that have an average greater than or equal to the threshold."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "k-radius-subarray-averages",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-subarrays-with-median-k",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "apply-operations-to-make-all-array-elements-equal-to-zero",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:44.601Z"
+}

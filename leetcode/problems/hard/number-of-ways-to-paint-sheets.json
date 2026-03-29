@@ -1,0 +1,26 @@
+{
+  "title": "Number of Ways to Paint Sheets",
+  "titleCn": "给纸张涂色的方式数量",
+  "titleSlug": "number-of-ways-to-paint-sheets",
+  "difficulty": "HARD",
+  "acRate": 0.6521739130434783,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "number-of-ways-to-paint-sheets",
+    "questionId": "4132",
+    "title": "Number of Ways to Paint Sheets",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "4\n[3,1,2]\n3\n[1,2]\n3\n[2,2]",
+    "hints": [
+      "Sort <code>limit</code> and use binary search (<code>lower_bound</code>) to compute <code>num_ge(t)</code>, the number of colors with <code>limit >= t</code>.",
+      "For a split <code>x</code>, count ordered pairs <code>(i, j)</code> with <code>i != j</code> as <code>num_ge(x) * num_ge(n - x) - num_ge(max(x, n - x))</code>.",
+      "Note that <code>num_ge(x)</code> and <code>num_ge(n - x)</code> change only when <code>x</code> crosses <code>1</code>, <code>n - 1</code>, <code>L + 1</code>, or <code>n - L</code> for some <code>L</code> in <code>limit</code>.",
+      "Collect all such critical <code>x</code> values, sort and deduplicate them, and treat the answer as constant between consecutive values."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:12.348Z"
+}

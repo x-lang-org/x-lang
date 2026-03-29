@@ -1,0 +1,51 @@
+{
+  "title": "Numbers With Repeated Digits",
+  "titleCn": "至少有 1 位重复的数字",
+  "titleSlug": "numbers-with-repeated-digits",
+  "difficulty": "HARD",
+  "acRate": 0.5524985225556504,
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "numbers-with-repeated-digits",
+    "questionId": "1057",
+    "title": "Numbers With Repeated Digits",
+    "content": "<p>Given an integer <code>n</code>, return <em>the number of positive integers in the range </em><code>[1, n]</code><em> that have <strong>at least one</strong> repeated digit</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 20\n<strong>Output:</strong> 1\n<strong>Explanation:</strong> The only positive number (&lt;= 20) with at least 1 repeated digit is 11.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 100\n<strong>Output:</strong> 10\n<strong>Explanation:</strong> The positive numbers (&lt;= 100) with atleast 1 repeated digit are 11, 22, 33, 44, 55, 66, 77, 88, 99, and 100.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> n = 1000\n<strong>Output:</strong> 262\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numDupDigitsAtMostN(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numDupDigitsAtMostN(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numDupDigitsAtMostN(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "20\n100\n1000",
+    "hints": [
+      "How many numbers with no duplicate digits?  How many numbers with K digits and no duplicates?",
+      "How many numbers with same length as N?  How many numbers with same prefix as N?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-the-number-of-powerful-integers",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:22.864Z"
+}

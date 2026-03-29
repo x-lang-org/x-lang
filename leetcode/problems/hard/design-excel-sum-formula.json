@@ -1,0 +1,37 @@
+{
+  "title": "Design Excel Sum Formula",
+  "titleCn": "设计 Excel 求和公式",
+  "titleSlug": "design-excel-sum-formula",
+  "difficulty": "HARD",
+  "acRate": 0.3429139275340162,
+  "topicTags": [
+    "graph",
+    "design",
+    "topological-sort",
+    "array",
+    "hash-table",
+    "string",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "design-excel-sum-formula",
+    "questionId": "631",
+    "title": "Design Excel Sum Formula",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "graph",
+      "design",
+      "topological-sort",
+      "array",
+      "hash-table",
+      "string",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Excel\",\"set\",\"sum\",\"set\",\"get\"]\n[[3,\"C\"],[1,\"A\",2],[3,\"C\",[\"A1\",\"A1:B2\"]],[2,\"B\",2],[3,\"C\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:22.816Z"
+}

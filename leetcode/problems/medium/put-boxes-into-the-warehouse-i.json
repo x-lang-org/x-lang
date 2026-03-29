@@ -1,0 +1,36 @@
+{
+  "title": "Put Boxes Into the Warehouse I",
+  "titleCn": "把箱子放进仓库里 I",
+  "titleSlug": "put-boxes-into-the-warehouse-i",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5984871406959152,
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "put-boxes-into-the-warehouse-i",
+    "questionId": "1703",
+    "title": "Put Boxes Into the Warehouse I",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[4,3,4,1]\n[5,3,3,4,1]\n[1,2,2,3,4]\n[3,4,1,2]\n[1,2,3]\n[1,2,3,4]",
+    "hints": [
+      "Sort the boxes in ascending order, try to process the box with the smallest height first."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "put-boxes-into-the-warehouse-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:29.367Z"
+}

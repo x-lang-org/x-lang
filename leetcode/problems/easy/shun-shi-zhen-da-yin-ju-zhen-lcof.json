@@ -1,0 +1,45 @@
+{
+  "title": "螺旋遍历二维数组",
+  "titleCn": "螺旋遍历二维数组",
+  "titleSlug": "shun-shi-zhen-da-yin-ju-zhen-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.4165963766928827,
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "shun-shi-zhen-da-yin-ju-zhen-lcof",
+    "questionId": "100293",
+    "title": "螺旋遍历二维数组",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "matrix",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> spiralArray(vector<vector<int>>& array) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] spiralArray(int[][] array) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def spiralArray(self, array: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,2,3],[4,5,6],[7,8,9]]\n[[1,2,3,4],[12,13,14,5],[11,16,15,6],[10,9,8,7]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:08.608Z"
+}

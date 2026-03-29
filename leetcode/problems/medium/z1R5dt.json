@@ -1,0 +1,47 @@
+{
+  "title": " 键值映射",
+  "titleCn": " 键值映射",
+  "titleSlug": "z1R5dt",
+  "difficulty": "MEDIUM",
+  "acRate": 0.64753835291097,
+  "topicTags": [
+    "design",
+    "trie",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "z1R5dt",
+    "questionId": "1000330",
+    "title": " 键值映射",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "trie",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MapSum {\npublic:\n    /** Initialize your data structure here. */\n    MapSum() {\n\n    }\n    \n    void insert(string key, int val) {\n\n    }\n    \n    int sum(string prefix) {\n\n    }\n};\n\n/**\n * Your MapSum object will be instantiated and called as such:\n * MapSum* obj = new MapSum();\n * obj->insert(key,val);\n * int param_2 = obj->sum(prefix);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MapSum {\n\n    /** Initialize your data structure here. */\n    public MapSum() {\n\n    }\n    \n    public void insert(String key, int val) {\n\n    }\n    \n    public int sum(String prefix) {\n\n    }\n}\n\n/**\n * Your MapSum object will be instantiated and called as such:\n * MapSum obj = new MapSum();\n * obj.insert(key,val);\n * int param_2 = obj.sum(prefix);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MapSum:\n\n    def __init__(self):\n        \"\"\"\n        Initialize your data structure here.\n        \"\"\"\n\n\n    def insert(self, key: str, val: int) -> None:\n\n\n    def sum(self, prefix: str) -> int:\n\n\n\n# Your MapSum object will be instantiated and called as such:\n# obj = MapSum()\n# obj.insert(key,val)\n# param_2 = obj.sum(prefix)"
+      }
+    ],
+    "exampleTestcases": "[\"MapSum\", \"insert\", \"sum\", \"insert\", \"sum\"]\n[[], [\"apple\",3], [\"ap\"], [\"app\",2], [\"ap\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:21.159Z"
+}

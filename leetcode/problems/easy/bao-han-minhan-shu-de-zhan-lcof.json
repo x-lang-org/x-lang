@@ -1,0 +1,43 @@
+{
+  "title": "最小栈",
+  "titleCn": "最小栈",
+  "titleSlug": "bao-han-minhan-shu-de-zhan-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.5542160388577652,
+  "topicTags": [
+    "stack",
+    "design"
+  ],
+  "detail": {
+    "titleSlug": "bao-han-minhan-shu-de-zhan-lcof",
+    "questionId": "100302",
+    "title": "最小栈",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "design"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class MinStack {\npublic:\n    /** initialize your data structure here. */\n    MinStack() {\n        \n    }\n    \n    void push(int x) {\n        \n    }\n    \n    void pop() {\n        \n    }\n    \n    int top() {\n        \n    }\n    \n    int getMin() {\n        \n    }\n};\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack* obj = new MinStack();\n * obj->push(x);\n * obj->pop();\n * int param_3 = obj->top();\n * int param_4 = obj->getMin();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class MinStack {\n\n    /** initialize your data structure here. */\n    public MinStack() {\n        \n    }\n    \n    public void push(int x) {\n        \n    }\n    \n    public void pop() {\n        \n    }\n    \n    public int top() {\n        \n    }\n    \n    public int getMin() {\n        \n    }\n}\n\n/**\n * Your MinStack object will be instantiated and called as such:\n * MinStack obj = new MinStack();\n * obj.push(x);\n * obj.pop();\n * int param_3 = obj.top();\n * int param_4 = obj.getMin();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class MinStack:\n\n    def __init__(self):\n        \"\"\"\n        initialize your data structure here.\n        \"\"\"\n        \n\n    def push(self, x: int) -> None:\n        \n\n    def pop(self) -> None:\n        \n\n    def top(self) -> int:\n        \n\n    def getMin(self) -> int:\n        \n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(x)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()"
+      }
+    ],
+    "exampleTestcases": "[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]\n[[],[-2],[0],[-3],[],[],[],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:38.916Z"
+}

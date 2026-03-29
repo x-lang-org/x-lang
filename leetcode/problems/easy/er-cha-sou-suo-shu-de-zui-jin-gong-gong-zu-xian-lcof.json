@@ -1,0 +1,47 @@
+{
+  "title": "求二叉搜索树的最近公共祖先",
+  "titleCn": "二叉搜索树的最近公共祖先",
+  "titleSlug": "er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6916740946155624,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof",
+    "questionId": "100346",
+    "title": "求二叉搜索树的最近公共祖先",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-search-tree",
+      "binary-tree"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode(int x) { val = x; }\n * }\n */\nclass Solution {\n    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':"
+      }
+    ],
+    "exampleTestcases": "[6,2,8,0,4,7,9,null,null,3,5]\n2\n8\n[6,2,8,0,4,7,9,null,null,3,5]\n2\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:10.535Z"
+}

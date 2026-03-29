@@ -1,0 +1,41 @@
+{
+  "title": "Paths in Maze That Lead to Same Room",
+  "titleCn": "殊途同归",
+  "titleSlug": "paths-in-maze-that-lead-to-same-room",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5728587319243604,
+  "topicTags": [
+    "graph"
+  ],
+  "detail": {
+    "titleSlug": "paths-in-maze-that-lead-to-same-room",
+    "questionId": "2218",
+    "title": "Paths in Maze That Lead to Same Room",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "graph"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n[[1,2],[5,2],[4,1],[2,4],[3,1],[3,4]]\n4\n[[1,2],[3,4]]",
+    "hints": [
+      "If the path starts at room i, what properties must the other two rooms in the cycle have?",
+      "The other two rooms must be connected to room i, and must be connected to each other."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-connected-components-in-an-undirected-graph",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "reachable-nodes-in-subdivided-graph",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "distance-to-a-cycle-in-undirected-graph",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:29.271Z"
+}

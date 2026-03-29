@@ -1,0 +1,33 @@
+{
+  "title": "Extract Kth Character From The Rope Tree",
+  "titleCn": "从 Rope 树中提取第 K 个字符",
+  "titleSlug": "extract-kth-character-from-the-rope-tree",
+  "difficulty": "EASY",
+  "acRate": 0.4277638190954774,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "extract-kth-character-from-the-rope-tree",
+    "questionId": "2843",
+    "title": "Extract Kth Character From The Rope Tree",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[10,4,\"abcpoe\",\"g\",\"rta\"]\n6\n[12,6,6,\"abc\",\"efg\",\"hij\",\"klm\"]\n3\n[\"ropetree\"]\n8",
+    "hints": [
+      "Think of recursive methods.",
+      "Write a recursive function that gives a node of the tree and returns S[node].",
+      "Call the function above on the root of the tree and get k-th character of it."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:27.200Z"
+}

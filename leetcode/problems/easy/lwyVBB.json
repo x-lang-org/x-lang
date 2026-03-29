@@ -1,0 +1,45 @@
+{
+  "title": "验证外星语词典",
+  "titleCn": "验证外星语词典",
+  "titleSlug": "lwyVBB",
+  "difficulty": "EASY",
+  "acRate": 0.5679714528954661,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "lwyVBB",
+    "questionId": "1000276",
+    "title": "验证外星语词典",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isAlienSorted(vector<string>& words, string order) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isAlienSorted(String[] words, String order) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isAlienSorted(self, words: List[str], order: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "[\"hello\",\"leetcode\"]\n\"hlabcdefgijkmnopqrstuvwxyz\"\n[\"word\",\"world\",\"row\"]\n\"worldabcefghijkmnpqstuvxyz\"\n[\"apple\",\"app\"]\n\"abcdefghijklmnopqrstuvwxyz\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:44.831Z"
+}

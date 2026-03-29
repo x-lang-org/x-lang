@@ -1,0 +1,43 @@
+{
+  "title": "山脉数组的峰顶索引",
+  "titleCn": "山脉数组的峰顶索引",
+  "titleSlug": "B1IidL",
+  "difficulty": "EASY",
+  "acRate": 0.7141969390291538,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "B1IidL",
+    "questionId": "1000333",
+    "title": "山脉数组的峰顶索引",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int peakIndexInMountainArray(vector<int>& arr) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int peakIndexInMountainArray(int[] arr) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[0,1,0]\n[0,2,1,0]\n[0,10,5,2]\n[3,4,5,1]\n[24,69,100,99,79,78,67,36,26,19]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:20.529Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Finding the Topic of Each Post",
+  "titleCn": "找到每篇文章的主题",
+  "titleSlug": "finding-the-topic-of-each-post",
+  "difficulty": "HARD",
+  "acRate": 0.5940054495912807,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "finding-the-topic-of-each-post",
+    "questionId": "2335",
+    "title": "Finding the Topic of Each Post",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Keywords\": [\"topic_id\", \"word\"], \"Posts\": [\"post_id\", \"content\"]}, \"rows\": {\"Keywords\": [[1, \"handball\"], [1, \"football\"], [3, \"WAR\"], [2, \"Vaccine\"]], \"Posts\": [[1, \"We call it soccer They call it football hahaha\"], [2, \"Americans prefer basketball while Europeans love handball and football\"], [3, \"stop the war and play handball\"], [4, \"warning I planted some flowers this morning and then got vaccinated\"]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "group-sold-products-by-the-date",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:13.339Z"
+}

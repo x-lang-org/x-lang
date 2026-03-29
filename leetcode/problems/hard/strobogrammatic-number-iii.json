@@ -1,0 +1,38 @@
+{
+  "title": "Strobogrammatic Number III",
+  "titleCn": "中心对称数 III",
+  "titleSlug": "strobogrammatic-number-iii",
+  "difficulty": "HARD",
+  "acRate": 0.5002731245447924,
+  "topicTags": [
+    "recursion",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "strobogrammatic-number-iii",
+    "questionId": "248",
+    "title": "Strobogrammatic Number III",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "recursion",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"50\"\n\"100\"\n\"0\"\n\"0\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "strobogrammatic-number",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "strobogrammatic-number-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:07:01.460Z"
+}

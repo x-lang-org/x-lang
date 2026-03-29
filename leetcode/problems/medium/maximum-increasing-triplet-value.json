@@ -1,0 +1,33 @@
+{
+  "title": "Maximum Increasing Triplet Value",
+  "titleCn": "最大递增三元组",
+  "titleSlug": "maximum-increasing-triplet-value",
+  "difficulty": "MEDIUM",
+  "acRate": 0.22060409924487595,
+  "topicTags": [
+    "array",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "maximum-increasing-triplet-value",
+    "questionId": "3378",
+    "title": "Maximum Increasing Triplet Value",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "ordered-set"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,6,9]",
+    "hints": [
+      "For each element, define <code>right[i]</code> as the value of the greatest element with an index greater than <code>i</code>.",
+      "Start iterating from the beginning, define a set containing the elements seen so far.",
+      "When you are at index <code>i</code>, use binary search on the set to find the greatest element on the left of index <code>i</code> that is smaller than <code>nums[i]</code> and name it <code>greatest_left</code>.",
+      "Also check that <code>nums[i] < right[i]</code>.",
+      "If the above conditions hold, then <code>ans = max(ans, greatest_left - nums[i] + right[i])</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:49:57.565Z"
+}

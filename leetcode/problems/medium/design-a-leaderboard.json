@@ -1,0 +1,33 @@
+{
+  "title": "Design A Leaderboard",
+  "titleCn": "力扣排行榜",
+  "titleSlug": "design-a-leaderboard",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6474978973927671,
+  "topicTags": [
+    "design",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "design-a-leaderboard",
+    "questionId": "1176",
+    "title": "Design A Leaderboard",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Leaderboard\",\"addScore\",\"addScore\",\"addScore\",\"addScore\",\"addScore\",\"top\",\"reset\",\"reset\",\"addScore\",\"top\"]\n[[],[1,73],[2,56],[3,39],[4,51],[5,4],[1],[1],[2],[2,51],[3]]",
+    "hints": [
+      "What data structure can we use to keep the players' data?",
+      "Keep a map (dictionary) of player scores.",
+      "For each top(K) function call, find the maximum K scores and add them."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:10.722Z"
+}

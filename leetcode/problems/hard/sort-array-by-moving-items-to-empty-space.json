@@ -1,0 +1,46 @@
+{
+  "title": "Sort Array by Moving Items to Empty Space",
+  "titleCn": "通过移动项目到空白区域来排序数组",
+  "titleSlug": "sort-array-by-moving-items-to-empty-space",
+  "difficulty": "HARD",
+  "acRate": 0.4708333333333333,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sort-array-by-moving-items-to-empty-space",
+    "questionId": "2489",
+    "title": "Sort Array by Moving Items to Empty Space",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[4,2,0,3,1]\n[1,2,3,4,0]\n[1,0,2,4,3]",
+    "hints": [
+      "There are two possibilities for nums to be sorted. Find the minimum number of operations needed for the first possibility, then find the minimum number of operations needed for the second possibility. The answer is the minimum out of the two.",
+      "If the empty space is not at its ending position, then you can move the item that should be where the empty space is to the empty space.",
+      "If the empty space is at its ending position, then you need to move an out-of-place item to the empty space."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "course-schedule-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "strange-printer-ii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "create-sorted-array-through-instructions",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:55.637Z"
+}

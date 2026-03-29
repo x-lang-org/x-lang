@@ -1,0 +1,56 @@
+{
+  "title": "Longest Palindromic Subsequence",
+  "titleCn": "最长回文子序列",
+  "titleSlug": "longest-palindromic-subsequence",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6760121202412327,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "longest-palindromic-subsequence",
+    "questionId": "516",
+    "title": "Longest Palindromic Subsequence",
+    "content": "<p>Given a string <code>s</code>, find <em>the longest palindromic <strong>subsequence</strong>&#39;s length in</em> <code>s</code>.</p>\n\n<p>A <strong>subsequence</strong> is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;bbbab&quot;\n<strong>Output:</strong> 4\n<strong>Explanation:</strong> One possible longest palindromic subsequence is &quot;bbbb&quot;.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> s = &quot;cbbd&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> One possible longest palindromic subsequence is &quot;bb&quot;.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> consists only of lowercase English letters.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int longestPalindromeSubseq(string s) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int longestPalindromeSubseq(String s) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def longestPalindromeSubseq(self, s: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"bbbab\"\n\"cbbd\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-palindromic-substring",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "palindromic-substrings",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-different-palindromic-subsequences",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:10.972Z"
+}

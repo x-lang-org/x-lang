@@ -1,0 +1,45 @@
+{
+  "title": "积木拼接",
+  "titleCn": "积木拼接",
+  "titleSlug": "De4qBB",
+  "difficulty": "HARD",
+  "acRate": 0.3783783783783784,
+  "topicTags": [
+    "array",
+    "backtracking",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "De4qBB",
+    "questionId": "1000448",
+    "title": "积木拼接",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "backtracking",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool composeCube(vector<vector<string>>& shapes) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean composeCube(String[][] shapes) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def composeCube(self, shapes: List[List[str]]) -> bool:"
+      }
+    ],
+    "exampleTestcases": "[[\"000\",\"110\",\"000\"],[\"110\",\"011\",\"000\"],[\"110\",\"011\",\"110\"],[\"000\",\"010\",\"111\"],[\"011\",\"111\",\"011\"],[\"011\",\"010\",\"000\"]]\n[[\"101\",\"111\",\"000\"],[\"000\",\"010\",\"111\"],[\"010\",\"011\",\"000\"],[\"010\",\"111\",\"010\"],[\"101\",\"111\",\"010\"],[\"000\",\"010\",\"011\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:40.187Z"
+}

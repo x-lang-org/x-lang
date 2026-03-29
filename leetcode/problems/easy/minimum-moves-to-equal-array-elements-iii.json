@@ -1,0 +1,45 @@
+{
+  "title": "Minimum Moves to Equal Array Elements III",
+  "titleCn": "最小操作次数使数组元素相等 III",
+  "titleSlug": "minimum-moves-to-equal-array-elements-iii",
+  "difficulty": "EASY",
+  "acRate": 0.8810354857475277,
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "minimum-moves-to-equal-array-elements-iii",
+    "questionId": "4116",
+    "title": "Minimum Moves to Equal Array Elements III",
+    "content": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>In one move, you may <strong>increase</strong> the value of any single element <code>nums[i]</code> by 1.</p>\n\n<p>Return the <strong>minimum total</strong> number of <strong>moves</strong> required so that all elements in <code>nums</code> become <strong>equal</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [2,1,3]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>To make all elements equal:</p>\n\n<ul>\n\t<li>Increase <code>nums[0] = 2</code> by 1 to make it 3.</li>\n\t<li>Increase <code>nums[1] = 1</code> by 1 to make it 2.</li>\n\t<li>Increase <code>nums[1] = 2</code> by 1 to make it 3.</li>\n</ul>\n\n<p>Now, all elements of <code>nums</code> are equal to 3. The minimum total moves is <code>3</code>.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [4,4,5]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">2</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>To make all elements equal:</p>\n\n<ul>\n\t<li>Increase <code>nums[0] = 4</code> by 1 to make it 5.</li>\n\t<li>Increase <code>nums[1] = 4</code> by 1 to make it 5.</li>\n</ul>\n\n<p>Now, all elements of <code>nums</code> are equal to 5. The minimum total moves is <code>2</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minMoves(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minMoves(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minMoves(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,1,3]\n[4,4,5]",
+    "hints": [
+      "To make all numbers equal, they must all reach at least the maximum value in the array."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:54:31.099Z"
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Maximum Product Difference Between Two Pairs",
+  "titleCn": "两个数对之间的最大乘积差",
+  "titleSlug": "maximum-product-difference-between-two-pairs",
+  "difficulty": "EASY",
+  "acRate": 0.8022350059178113,
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "maximum-product-difference-between-two-pairs",
+    "questionId": "2042",
+    "title": "Maximum Product Difference Between Two Pairs",
+    "content": "<p>The <strong>product difference</strong> between two pairs <code>(a, b)</code> and <code>(c, d)</code> is defined as <code>(a * b) - (c * d)</code>.</p>\r\n\r\n<ul>\r\n\t<li>For example, the product difference between <code>(5, 6)</code> and <code>(2, 7)</code> is <code>(5 * 6) - (2 * 7) = 16</code>.</li>\r\n</ul>\r\n\r\n<p>Given an integer array <code>nums</code>, choose four <strong>distinct</strong> indices <code>w</code>, <code>x</code>, <code>y</code>, and <code>z</code> such that the <strong>product difference</strong> between pairs <code>(nums[w], nums[x])</code> and <code>(nums[y], nums[z])</code> is <strong>maximized</strong>.</p>\r\n\r\n<p>Return <em>the <strong>maximum</strong> such product difference</em>.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong class=\"example\">Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> nums = [5,6,2,7,4]\r\n<strong>Output:</strong> 34\r\n<strong>Explanation:</strong> We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).\r\nThe product difference is (6 * 7) - (2 * 4) = 34.\r\n</pre>\r\n\r\n<p><strong class=\"example\">Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> nums = [4,2,5,9,7,4,8]\r\n<strong>Output:</strong> 64\r\n<strong>Explanation:</strong> We can choose indices 3 and 6 for the first pair (9, 8) and indices 1 and 5 for the second pair (2, 4).\r\nThe product difference is (9 * 8) - (2 * 4) = 64.\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong>Constraints:</strong></p>\r\n\r\n<ul>\r\n\t<li><code>4 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\r\n\t<li><code>1 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\r\n</ul>",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maxProductDifference(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maxProductDifference(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxProductDifference(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[5,6,2,7,4]\n[4,2,5,9,7,4,8]",
+    "hints": [
+      "If you only had to find the maximum product of 2 numbers in an array, which 2 numbers should you choose?",
+      "We only need to worry about 4 numbers in the array."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:01.129Z"
+}

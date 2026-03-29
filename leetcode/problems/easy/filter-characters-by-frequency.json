@@ -1,0 +1,31 @@
+{
+  "title": "Filter Characters by Frequency",
+  "titleCn": "按频率筛选字符",
+  "titleSlug": "filter-characters-by-frequency",
+  "difficulty": "EASY",
+  "acRate": 0.8368200836820083,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "filter-characters-by-frequency",
+    "questionId": "4017",
+    "title": "Filter Characters by Frequency",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "counting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aadbbcccca\"\n3\n\"xyz\"\n2",
+    "hints": [
+      "Count the frequency of each character using a 26-entry array or a frequency map, then iterate through the string and append each character whose frequency is less than <code>k</code> to the result."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:41.382Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Number of Distinct Binary Strings After Applying Operations",
+  "titleCn": "应用操作后不同二进制字符串的数量",
+  "titleSlug": "number-of-distinct-binary-strings-after-applying-operations",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5985401459854015,
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "number-of-distinct-binary-strings-after-applying-operations",
+    "questionId": "2593",
+    "title": "Number of Distinct Binary Strings After Applying Operations",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"1001\"\n3\n\"10110\"\n5",
+    "hints": [
+      "Notice that any string of the same length as s will always have the same answer, so only the length of the string matters.",
+      "For each substring of size k, you can decide whether to flip or not. Every string s resulting from this process will be unique.",
+      "How do you find the number of possible combinations?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-number-of-k-consecutive-bit-flips",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:05.442Z"
+}

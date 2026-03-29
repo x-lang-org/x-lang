@@ -1,0 +1,42 @@
+{
+  "title": "Smallest Number With Given Digit Product",
+  "titleCn": "给定数字乘积的最小数字",
+  "titleSlug": "smallest-number-with-given-digit-product",
+  "difficulty": "MEDIUM",
+  "acRate": 0.24270177447052088,
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "smallest-number-with-given-digit-product",
+    "questionId": "3111",
+    "title": "Smallest Number With Given Digit Product",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "105\n7\n44",
+    "hints": [
+      "Find the prime factors of <code>n</code>.",
+      "If there is a prime factor <code>p</code> such that <code>p >= 11</code>, the answer is <code>-1</code>. Since there are no digits whose products equal <code>p</code>.",
+      "Factors <code>5</code> and <code>7</code> should be included in the answer since their product with any number bigger than <code>1</code> is a 2-digit number.",
+      "For factors <code>2</code> and <code>3</code>, we group every three <code>2</code> into an <code>8</code> and every two <code>3</code> into a <code>9</code>.",
+      "For any leftover <code>2</code> or <code>3</code>, check all the possible combinations."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "smallest-divisible-digit-product-i",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "smallest-divisible-digit-product-ii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:37.142Z"
+}

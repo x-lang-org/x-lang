@@ -1,0 +1,25 @@
+{
+  "title": "Evaluate Boolean Expression",
+  "titleCn": "计算布尔表达式的值",
+  "titleSlug": "evaluate-boolean-expression",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6717468216632324,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "evaluate-boolean-expression",
+    "questionId": "1565",
+    "title": "Evaluate Boolean Expression",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Variables\":[\"name\",\"value\"],\"Expressions\":[\"left_operand\",\"operator\",\"right_operand\"]},\"rows\":{\"Variables\":[[\"x\",66],[\"y\",77]],\"Expressions\":[[\"x\",\">\",\"y\"],[\"x\",\"<\",\"y\"],[\"x\",\"=\",\"y\"],[\"y\",\">\",\"x\"],[\"y\",\"<\",\"x\"],[\"x\",\"=\",\"x\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:16.375Z"
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Find Root of N-Ary Tree",
+  "titleCn": "找到 N 叉树的根节点",
+  "titleSlug": "find-root-of-n-ary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8093492208982584,
+  "topicTags": [
+    "bit-manipulation",
+    "tree",
+    "depth-first-search",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "find-root-of-n-ary-tree",
+    "questionId": "1650",
+    "title": "Find Root of N-Ary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "tree",
+      "depth-first-search",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,null,3,2,4,null,5,6]\n[1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]",
+    "hints": [
+      "Node with indegree 0 is the root"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "move-sub-tree-of-n-ary-tree",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:40:23.290Z"
+}

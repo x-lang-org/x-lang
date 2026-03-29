@@ -1,0 +1,38 @@
+{
+  "title": "Max Stack",
+  "titleCn": "最大栈",
+  "titleSlug": "max-stack",
+  "difficulty": "HARD",
+  "acRate": 0.4236420597449587,
+  "topicTags": [
+    "stack",
+    "design",
+    "linked-list",
+    "doubly-linked-list",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "max-stack",
+    "questionId": "716",
+    "title": "Max Stack",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "design",
+      "linked-list",
+      "doubly-linked-list",
+      "ordered-set"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"MaxStack\",\"push\",\"push\",\"push\",\"top\",\"popMax\",\"top\",\"peekMax\",\"pop\",\"top\"]\n[[],[5],[1],[5],[],[],[],[],[],[]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "min-stack",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:48:27.911Z"
+}

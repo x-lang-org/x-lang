@@ -1,0 +1,46 @@
+{
+  "title": "Shortest Path in a Hidden Grid",
+  "titleCn": "未知网格中的最短路径",
+  "titleSlug": "shortest-path-in-a-hidden-grid",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4743784880771182,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "interactive",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "shortest-path-in-a-hidden-grid",
+    "questionId": "1931",
+    "title": "Shortest Path in a Hidden Grid",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "array",
+      "interactive",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,2],[-1,0]]\n[[0,0,-1],[1,1,1],[2,0,0]]\n[[-1,0],[0,2]]",
+    "hints": [
+      "The grid is at a maximum 500 x 500, so it is clever to assume that the robot's initial cell is grid[501][501]",
+      "Run a DFS from the robot's position to make sure that you can reach the target, otherwise you should return -1.",
+      "Now that you are sure you can reach the target, run BFS to find the shortest path."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "robot-room-cleaner",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "minimum-path-cost-in-a-hidden-grid",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:46.852Z"
+}

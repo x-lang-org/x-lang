@@ -1,0 +1,45 @@
+{
+  "title": "目标和",
+  "titleCn": "目标和",
+  "titleSlug": "YaVDxD",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5628999319264806,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "YaVDxD",
+    "questionId": "1000288",
+    "title": "目标和",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findTargetSumWays(vector<int>& nums, int target) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findTargetSumWays(int[] nums, int target) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findTargetSumWays(self, nums: List[int], target: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[1,1,1,1,1]\n3\n[1]\n1",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:16.486Z"
+}

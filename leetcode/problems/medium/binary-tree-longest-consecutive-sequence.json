@@ -1,0 +1,42 @@
+{
+  "title": "Binary Tree Longest Consecutive Sequence",
+  "titleCn": "二叉树最长连续序列",
+  "titleSlug": "binary-tree-longest-consecutive-sequence",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6070903747244673,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "binary-tree-longest-consecutive-sequence",
+    "questionId": "298",
+    "title": "Binary Tree Longest Consecutive Sequence",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,null,3,2,4,null,null,null,5]\n[2,null,3,2,null,1]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-consecutive-sequence",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "binary-tree-longest-consecutive-sequence-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "check-if-an-array-is-consecutive",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:25:50.872Z"
+}

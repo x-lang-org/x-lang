@@ -1,0 +1,46 @@
+{
+  "title": "Minimum Moves to Get a Peaceful Board",
+  "titleCn": "得到一个和平棋盘的最少步骤",
+  "titleSlug": "minimum-moves-to-get-a-peaceful-board",
+  "difficulty": "MEDIUM",
+  "acRate": 0.18503538928210314,
+  "topicTags": [
+    "greedy",
+    "array",
+    "counting-sort",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "minimum-moves-to-get-a-peaceful-board",
+    "questionId": "3504",
+    "title": "Minimum Moves to Get a Peaceful Board",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "counting-sort",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[0,0],[1,0],[1,1]]\n[[0,0],[0,1],[0,2],[0,3]]",
+    "hints": [
+      "Think of a greedy method.",
+      "First, distribute the rooks in individual rows.",
+      "You can do this by sorting all rooks by their rows. Then assign the first one to the first row, the second one to the second row, and so on.",
+      "After you've distributed rooks across all rows, now do the same for columns.",
+      "Sort rooks by their columns and then assign the first one to the first column and so on."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "transform-to-chessboard",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "most-stones-removed-with-same-row-or-column",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:54:31.960Z"
+}

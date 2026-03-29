@@ -1,0 +1,41 @@
+{
+  "title": "Find the Index of Permutation",
+  "titleCn": "查找排列的下标",
+  "titleSlug": "find-the-index-of-permutation",
+  "difficulty": "MEDIUM",
+  "acRate": 0.19684499314128945,
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "ordered-set",
+    "merge-sort"
+  ],
+  "detail": {
+    "titleSlug": "find-the-index-of-permutation",
+    "questionId": "3417",
+    "title": "Find the Index of Permutation",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "binary-indexed-tree",
+      "segment-tree",
+      "array",
+      "binary-search",
+      "divide-and-conquer",
+      "ordered-set",
+      "merge-sort"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2]\n[3,1,2]",
+    "hints": [
+      "If <code>perm[0]</code> is <code>x</code>, there are at least <code>(x - 1) * (n - 1)!</code> permutations before <code>perm<c/ode>. (All the ones starting with numbers less than <code>x</code>)",
+      "Can you find out what happens for <code>perm[1]</code> onwards?",
+      "Think about the count of the numbers that can be in place of <code>perm[i]</code> and come before it."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:40:49.168Z"
+}

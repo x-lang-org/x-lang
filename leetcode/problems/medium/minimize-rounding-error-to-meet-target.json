@@ -1,0 +1,37 @@
+{
+  "title": "Minimize Rounding Error to Meet Target",
+  "titleCn": "最小化舍入误差以满足目标",
+  "titleSlug": "minimize-rounding-error-to-meet-target",
+  "difficulty": "MEDIUM",
+  "acRate": 0.38767100708752267,
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "minimize-rounding-error-to-meet-target",
+    "questionId": "1053",
+    "title": "Minimize Rounding Error to Meet Target",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "math",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"0.700\",\"2.800\",\"4.900\"]\n8\n[\"1.500\",\"2.500\",\"3.500\"]\n10\n[\"1.500\",\"2.500\",\"3.500\"]\n9",
+    "hints": [
+      "If we have integer values in the array then we just need to subtract the target those integer values, so we reduced the problem.",
+      "Similarly if we have non integer values we have two options to put them flor(value) or ceil(value) = floor(value) + 1, so the idea is to just subtract floor(value).",
+      "Now the problem is different for each position we can sum just add 0 or 1 in order to sum the target, minimizing the deltas. This can be solved with DP."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:52:53.073Z"
+}

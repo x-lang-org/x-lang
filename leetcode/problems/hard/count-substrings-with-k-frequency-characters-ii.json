@@ -1,0 +1,32 @@
+{
+  "title": "Count Substrings With K-Frequency Characters II",
+  "titleCn": "字符至少出现 K 次的子字符串 II",
+  "titleSlug": "count-substrings-with-k-frequency-characters-ii",
+  "difficulty": "HARD",
+  "acRate": 0.2949640287769784,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "count-substrings-with-k-frequency-characters-ii",
+    "questionId": "3499",
+    "title": "Count Substrings With K-Frequency Characters II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abacb\"\n2\n\"abcde\"\n1",
+    "hints": [
+      "If substring <code>[i, j]</code> is valid, then for all <code>k >= j, [i, k]</code> is valid too.",
+      "For each <code>i</code>, find <code>j</code> with a sliding window or binary search."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:34:30.006Z"
+}

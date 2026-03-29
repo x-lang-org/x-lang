@@ -1,0 +1,19 @@
+{
+  "problemId": "63",
+  "titleSlug": "unique-paths-ii",
+  "title": "Unique Paths II",
+  "titleCn": "不同路径 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.42531867217608865,
+  "testcases": [
+    {
+      "input": "[[0,0,0],[0,1,0],[0,0,0]]",
+      "expectedOutput": "[[0,1],[0,0]]"
+    }
+  ]
+}

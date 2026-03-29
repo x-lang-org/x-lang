@@ -1,0 +1,43 @@
+{
+  "title": "使用最小花费爬楼梯",
+  "titleCn": "使用最小花费爬楼梯",
+  "titleSlug": "GzCJIP",
+  "difficulty": "EASY",
+  "acRate": 0.7046382324082711,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "GzCJIP",
+    "questionId": "1000243",
+    "title": "使用最小花费爬楼梯",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minCostClimbingStairs(vector<int>& cost) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minCostClimbingStairs(int[] cost) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minCostClimbingStairs(self, cost: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[10,15,20]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:37.237Z"
+}

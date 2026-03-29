@@ -1,0 +1,58 @@
+{
+  "title": "Single Number",
+  "titleCn": "只出现一次的数字",
+  "titleSlug": "single-number",
+  "difficulty": "EASY",
+  "acRate": 0.7652715211133583,
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "single-number",
+    "questionId": "136",
+    "title": "Single Number",
+    "content": "<p>Given a <strong>non-empty</strong>&nbsp;array of integers <code>nums</code>, every element appears <em>twice</em> except for one. Find that single one.</p>\n\n<p>You must&nbsp;implement a solution with a linear runtime complexity and use&nbsp;only constant&nbsp;extra space.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [2,2,1]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">1</span></p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [4,1,2,1,2]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">4</span></p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">1</span></p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>-3 * 10<sup>4</sup> &lt;= nums[i] &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li>Each element in the array appears twice except for one element which appears only once.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int singleNumber(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,2,1]\n[4,1,2,1,2]\n[1]",
+    "hints": [
+      "Think about the XOR (^) operator's property."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "single-number-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "single-number-iii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "missing-number",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:13.061Z"
+}

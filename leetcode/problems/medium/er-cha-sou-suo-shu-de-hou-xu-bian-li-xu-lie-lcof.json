@@ -1,0 +1,53 @@
+{
+  "title": "验证二叉搜索树的后序遍历序列",
+  "titleCn": "验证二叉搜索树的后序遍历序列",
+  "titleSlug": "er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5704815515457623,
+  "topicTags": [
+    "stack",
+    "tree",
+    "binary-search-tree",
+    "recursion",
+    "array",
+    "binary-tree",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof",
+    "questionId": "100315",
+    "title": "验证二叉搜索树的后序遍历序列",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "tree",
+      "binary-search-tree",
+      "recursion",
+      "array",
+      "binary-tree",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool verifyTreeOrder(vector<int>& postorder) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean verifyTreeOrder(int[] postorder) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def verifyTreeOrder(self, postorder: List[int]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[4,9,6,5,8]\n[4,6,5,9,8]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:08.551Z"
+}

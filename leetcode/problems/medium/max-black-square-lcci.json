@@ -1,0 +1,52 @@
+{
+  "title": "Max Black Square LCCI",
+  "titleCn": "最大黑方阵",
+  "titleSlug": "max-black-square-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3873247171676491,
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "max-black-square-lcci",
+    "questionId": "1000045",
+    "title": "Max Black Square LCCI",
+    "content": "<p>Imagine you have a square matrix, where each cell (pixel) is either black or white Design an algorithm to find the maximum subsquare such that all four borders are filled with black pixels.</p>\r\n\r\n<p>Return an array&nbsp;<code>[r, c, size]</code>, where&nbsp;<code>r</code>,&nbsp;<code>c</code>&nbsp;are the row number and the column number of the subsquare&#39;s upper left corner respectively, and <code>size</code>&nbsp;is the side length of the subsquare. If there are more than one answers, return the one that has smallest <code>r</code>. If there are more than one answers that have the same <code>r</code>, return the one that has smallest <code>c</code>. If there&#39;s no answer, return an empty array.</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:\r\n</strong>[\r\n&nbsp;  [1,0,1],\r\n&nbsp;  [<strong>0,0</strong>,1],\r\n&nbsp;  [<strong>0,0</strong>,1]\r\n]\r\n<strong>Output: </strong>[1,0,2]\r\n<strong>Explanation:</strong> 0 represents black, and 1 represents white, bold elements in the input is the answer.\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:\r\n</strong>[\r\n&nbsp;  [<strong>0</strong>,1,1],\r\n&nbsp;  [1,0,1],\r\n&nbsp;  [1,1,0]\r\n]\r\n<strong>Output: </strong>[0,0,1]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>matrix.length == matrix[0].length &lt;= 200</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming",
+      "matrix"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> findSquare(vector<vector<int>>& matrix) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] findSquare(int[][] matrix) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findSquare(self, matrix: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[1,0,1],[0,0,1],[0,0,1]]\n[[0,1,1],[1,0,1],[1,1,0]]",
+    "hints": [
+      "从蛮力解法开始。你能先试试最大的正方形吗?",
+      "最大的正方形是N×N。所以你先试一下该正方形，如果可行，那么你便知道已经找到了最佳正方形。否则，可以尝试下一个最小的正方形。",
+      "描述蛮力解法的时间复杂度。",
+      "你能通过预处理来优化这个解决方案吗？",
+      "你应该能在O(N\b^3)时间内完成，其中N是正方形一边的长度。",
+      "当你检查一个特定的正方形是否有效时（所有边框为黑色），需要检查在一个坐标的上面（或下面）和这个坐标的左边（或右边）有多少个黑色像素。你能预先计算出给定单元格上面和左边的黑色像素的数量吗？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:18.656Z"
+}

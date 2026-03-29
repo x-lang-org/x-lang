@@ -1,0 +1,43 @@
+{
+  "title": "组合总和 II",
+  "titleCn": "组合总和 II",
+  "titleSlug": "4sjJUc",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6541977041275325,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "4sjJUc",
+    "questionId": "1000232",
+    "title": "组合总和 II",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[10,1,2,7,6,1,5]\n8\n[2,5,2,1,2]\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:00.594Z"
+}

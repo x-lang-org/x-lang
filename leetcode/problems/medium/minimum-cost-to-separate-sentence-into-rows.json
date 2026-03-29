@@ -1,0 +1,36 @@
+{
+  "title": "Minimum Cost to Separate Sentence Into Rows",
+  "titleCn": "将句子分隔成行的最低成本",
+  "titleSlug": "minimum-cost-to-separate-sentence-into-rows",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4504814305364512,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "minimum-cost-to-separate-sentence-into-rows",
+    "questionId": "2082",
+    "title": "Minimum Cost to Separate Sentence Into Rows",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"i love leetcode\"\n12\n\"apples and bananas taste great\"\n7\n\"a\"\n5",
+    "hints": [
+      "Create an array storing all of the words in sentence separated.",
+      "Try dynamic programming.",
+      "Build a dp array where dp[i] represents the minimum total cost for the first i + 1 words."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "sentence-screen-fitting",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:53:43.370Z"
+}

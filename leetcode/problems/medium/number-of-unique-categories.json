@@ -1,0 +1,33 @@
+{
+  "title": "Number of Unique Categories",
+  "titleCn": "唯一类别的数量",
+  "titleSlug": "number-of-unique-categories",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49369747899159666,
+  "topicTags": [
+    "union-find",
+    "counting",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "number-of-unique-categories",
+    "questionId": "2995",
+    "title": "Number of Unique Categories",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "union-find",
+      "counting",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "6\n[1,1,2,2,3,3]\n5\n[1,2,3,4,5]\n3\n[1,1,1]",
+    "hints": [
+      "It can be proven that all pairs should be asked from the helper function.",
+      "Iterate from the first element. For each element `i`, ask the helper function `i` with all `j < i`.",
+      "If there is some `j < i` that `i` and `j` belong to the same group, go to next `i`. Otherwise, add one to the current number of groups."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:57.335Z"
+}

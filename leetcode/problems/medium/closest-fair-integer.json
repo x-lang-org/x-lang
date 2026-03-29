@@ -1,0 +1,30 @@
+{
+  "title": "Closest Fair Integer",
+  "titleCn": "最近的公平整数",
+  "titleSlug": "closest-fair-integer",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4197662061636557,
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "closest-fair-integer",
+    "questionId": "2560",
+    "title": "Closest Fair Integer",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "enumeration"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n403",
+    "hints": [
+      "Suppose that the number that we are looking for has the same number of digits as n, the answer, in this case, will not be very far from n, so you can do a simple brute force. Can you prove why this is true?",
+      "How do you handle the case when the resulting number has more digits than n?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:06.667Z"
+}

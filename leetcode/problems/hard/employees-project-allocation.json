@@ -1,0 +1,25 @@
+{
+  "title": "Employees Project Allocation",
+  "titleCn": "员工项目分配",
+  "titleSlug": "employees-project-allocation",
+  "difficulty": "HARD",
+  "acRate": 0.6890424481737414,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "employees-project-allocation",
+    "questionId": "3357",
+    "title": "Employees Project Allocation",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Project\":[\"project_id\",\"employee_id\",\"workload\"],\"Employees\":[\"employee_id\",\"name\",\"team\"]},\"rows\":{\"Project\":[[1,1,45],[1,2,90],[2,3,12],[2,4,68]],\"Employees\":[[1,\"Khaled\",\"A\"],[2,\"Ali\",\"B\"],[3,\"John\",\"B\"],[4,\"Doe\",\"A\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:51.832Z"
+}

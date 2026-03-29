@@ -1,0 +1,51 @@
+{
+  "title": "Coin LCCI",
+  "titleCn": "硬币",
+  "titleSlug": "coin-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49754923981511984,
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "coin-lcci",
+    "questionId": "100231",
+    "title": "Coin LCCI",
+    "content": "<p>Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and pennies (1 cent), write code to calculate the number of ways of representing n cents.&nbsp;(The result may be large, so you should return it modulo 1000000007)</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 5\r\n<strong> Output</strong>: 2\r\n<strong> Explanation</strong>: There are two ways:\r\n5=5\r\n5=1+1+1+1+1\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: n = 10\r\n<strong> Output</strong>: 4\r\n<strong> Explanation</strong>: There are four ways:\r\n10=10\r\n10=5+5\r\n10=5+1+1+1+1+1\r\n10=1+1+1+1+1+1+1+1+1+1\r\n</pre>\r\n\r\n<p><strong>Notes: </strong></p>\r\n\r\n<p>You can assume:</p>\r\n\r\n<ul>\r\n\t<li>0 &lt;= n&nbsp;&lt;= 1000000</li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int waysToChange(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int waysToChange(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def waysToChange(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "5\n10",
+    "hints": [
+      "试着把它分解成子问题。如果你在做改变，第一选择是什么？",
+      "如果你正在进行换零操作，不妨从决定需要多少个币值为25分的硬币开始。",
+      "一旦你决定用两个25分兑换98分，就需要弄清楚用5分、10分和1分兑换 48分有多少种方式。",
+      "分析你的算法。有重复性的工作吗？你能优化它吗？",
+      "试试制表法。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:31:22.741Z"
+}

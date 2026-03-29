@@ -1,0 +1,35 @@
+{
+  "title": "Diameter of N-Ary Tree",
+  "titleCn": "N 叉树的直径",
+  "titleSlug": "diameter-of-n-ary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7357916997092255,
+  "topicTags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "detail": {
+    "titleSlug": "diameter-of-n-ary-tree",
+    "questionId": "1665",
+    "title": "Diameter of N-Ary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,null,3,2,4,null,5,6]\n[1,null,2,null,3,4,null,5,null,6]\n[1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]",
+    "hints": [
+      "For the node i, calculate the height of each of its children and keep the first and second maximum heights (max1_i , max2_i).",
+      "Check all nodes and return max( 2 + max1_i  +  max2_i )."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "diameter-of-binary-tree",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:56.764Z"
+}

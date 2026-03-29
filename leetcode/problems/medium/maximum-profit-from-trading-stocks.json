@@ -1,0 +1,43 @@
+{
+  "title": "Maximum Profit From Trading Stocks",
+  "titleCn": "最大股票收益",
+  "titleSlug": "maximum-profit-from-trading-stocks",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5684057971014492,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-profit-from-trading-stocks",
+    "questionId": "2426",
+    "title": "Maximum Profit From Trading Stocks",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[5,4,6,2,3]\n[8,5,4,3,5]\n10\n[2,2,5]\n[3,4,10]\n6\n[3,3,12]\n[0,3,15]\n10",
+    "hints": [
+      "Think of the 0-1 Knapsack Problem.",
+      "For the ith stock, the weight is present[i], and the value is future[i] - present[i]."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "best-time-to-buy-and-sell-stock",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "best-time-to-buy-and-sell-stock-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "best-time-to-buy-and-sell-stock-iii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:51:09.004Z"
+}

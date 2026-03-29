@@ -1,0 +1,43 @@
+{
+  "title": "Base 7",
+  "titleCn": "七进制数",
+  "titleSlug": "base-7",
+  "difficulty": "EASY",
+  "acRate": 0.5207352292612141,
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "base-7",
+    "questionId": "504",
+    "title": "Base 7",
+    "content": "<p>Given an integer <code>num</code>, return <em>a string of its <strong>base 7</strong> representation</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> num = 100\n<strong>Output:</strong> \"202\"\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> num = -7\n<strong>Output:</strong> \"-10\"\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>-10<sup>7</sup> &lt;= num &lt;= 10<sup>7</sup></code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string convertToBase7(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String convertToBase7(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def convertToBase7(self, num: int) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "100\n-7",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:40.284Z"
+}

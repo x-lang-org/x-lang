@@ -1,0 +1,38 @@
+{
+  "title": "Encode N-ary Tree to Binary Tree",
+  "titleCn": "将 N 叉树编码为二叉树",
+  "titleSlug": "encode-n-ary-tree-to-binary-tree",
+  "difficulty": "HARD",
+  "acRate": 0.7801620319684694,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "design",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "encode-n-ary-tree-to-binary-tree",
+    "questionId": "771",
+    "title": "Encode N-ary Tree to Binary Tree",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "design",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,null,3,2,4,null,5,6]\n[1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]\n[]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "serialize-and-deserialize-n-ary-tree",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:56.606Z"
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Find Consecutive Integers from a Data Stream",
+  "titleCn": "找到数据流中的连续整数",
+  "titleSlug": "find-consecutive-integers-from-a-data-stream",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5576430401366353,
+  "topicTags": [
+    "design",
+    "queue",
+    "hash-table",
+    "counting",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "find-consecutive-integers-from-a-data-stream",
+    "questionId": "2620",
+    "title": "Find Consecutive Integers from a Data Stream",
+    "content": "<p>For a stream of integers, implement a data structure that checks if the last <code>k</code> integers parsed in the stream are <strong>equal</strong> to <code>value</code>.</p>\n\n<p>Implement the <strong>DataStream</strong> class:</p>\n\n<ul>\n\t<li><code>DataStream(int value, int k)</code> Initializes the object with an empty integer stream and the two integers <code>value</code> and <code>k</code>.</li>\n\t<li><code>boolean consec(int num)</code> Adds <code>num</code> to the stream of integers. Returns <code>true</code> if the last <code>k</code> integers are equal to <code>value</code>, and <code>false</code> otherwise. If there are less than <code>k</code> integers, the condition does not hold true, so returns <code>false</code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;DataStream&quot;, &quot;consec&quot;, &quot;consec&quot;, &quot;consec&quot;, &quot;consec&quot;]\n[[4, 3], [4], [4], [4], [3]]\n<strong>Output</strong>\n[null, false, false, true, false]\n\n<strong>Explanation</strong>\nDataStream dataStream = new DataStream(4, 3); //value = 4, k = 3 \ndataStream.consec(4); // Only 1 integer is parsed, so returns False. \ndataStream.consec(4); // Only 2 integers are parsed.\n                      // Since 2 is less than k, returns False. \ndataStream.consec(4); // The 3 integers parsed are all equal to value, so returns True. \ndataStream.consec(3); // The last k integers parsed in the stream are [4,4,3].\n                      // Since 3 is not equal to value, it returns False.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= value, num &lt;= 10<sup>9</sup></code></li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>5</sup></code></li>\n\t<li>At most <code>10<sup>5</sup></code> calls will be made to <code>consec</code>.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "hash-table",
+      "counting",
+      "data-stream"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class DataStream {\npublic:\n    DataStream(int value, int k) {\n        \n    }\n    \n    bool consec(int num) {\n        \n    }\n};\n\n/**\n * Your DataStream object will be instantiated and called as such:\n * DataStream* obj = new DataStream(value, k);\n * bool param_1 = obj->consec(num);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class DataStream {\n\n    public DataStream(int value, int k) {\n        \n    }\n    \n    public boolean consec(int num) {\n        \n    }\n}\n\n/**\n * Your DataStream object will be instantiated and called as such:\n * DataStream obj = new DataStream(value, k);\n * boolean param_1 = obj.consec(num);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class DataStream:\n\n    def __init__(self, value: int, k: int):\n        \n\n    def consec(self, num: int) -> bool:\n        \n\n\n# Your DataStream object will be instantiated and called as such:\n# obj = DataStream(value, k)\n# param_1 = obj.consec(num)"
+      }
+    ],
+    "exampleTestcases": "[\"DataStream\",\"consec\",\"consec\",\"consec\",\"consec\"]\n[[4,3],[4],[4],[4],[3]]",
+    "hints": [
+      "Keep track of the last integer which is not equal to <code>value</code>.",
+      "Use a queue-type data structure to store the last <code>k</code> integers."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-zero-filled-subarrays",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:39:16.776Z"
+}

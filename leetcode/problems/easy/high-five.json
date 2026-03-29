@@ -1,0 +1,40 @@
+{
+  "title": "High Five",
+  "titleCn": "前五科的均分",
+  "titleSlug": "high-five",
+  "difficulty": "EASY",
+  "acRate": 0.6959533607681756,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "high-five",
+    "questionId": "1074",
+    "title": "High Five",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "sorting",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,91],[1,92],[2,93],[2,97],[1,60],[2,77],[1,65],[1,87],[1,100],[2,100],[2,76]]\n[[1,100],[7,100],[1,100],[7,100],[1,100],[7,100],[1,100],[7,100],[1,100],[7,100]]",
+    "hints": [
+      "How can we solve the problem if we have just one student?",
+      "Given an student sort their grades and get the top 5 average.",
+      "Generalize the idea to do it for many students."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "determine-the-winner-of-a-bowling-game",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:54.631Z"
+}

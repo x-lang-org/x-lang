@@ -1,0 +1,47 @@
+{
+  "title": "GCD of Odd and Even Sums",
+  "titleCn": "奇数和与偶数和的最大公约数",
+  "titleSlug": "gcd-of-odd-and-even-sums",
+  "difficulty": "EASY",
+  "acRate": 0.841752670650009,
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "gcd-of-odd-and-even-sums",
+    "questionId": "3995",
+    "title": "GCD of Odd and Even Sums",
+    "content": "<p>You are given an integer <code>n</code>. Your task is to compute the <strong>GCD</strong> (greatest common divisor) of two values:</p>\n\n<ul>\n\t<li>\n\t<p><code>sumOdd</code>: the sum of the smallest&nbsp;<code>n</code>&nbsp;positive odd numbers.</p>\n\t</li>\n\t<li>\n\t<p><code>sumEven</code>: the sum of the smallest&nbsp;<code>n</code>&nbsp;positive even numbers.</p>\n\t</li>\n</ul>\n\n<p>Return the GCD of <code>sumOdd</code> and <code>sumEven</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 4</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Sum of the first 4 odd numbers <code>sumOdd = 1 + 3 + 5 + 7 = 16</code></li>\n\t<li>Sum of the first 4 even numbers <code>sumEven = 2 + 4 + 6 + 8 = 20</code></li>\n</ul>\n\n<p>Hence, <code>GCD(sumOdd, sumEven) = GCD(16, 20) = 4</code>.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 5</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">5</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<ul>\n\t<li>Sum of the first 5 odd numbers <code>sumOdd = 1 + 3 + 5 + 7 + 9 = 25</code></li>\n\t<li>Sum of the first 5 even numbers <code>sumEven = 2 + 4 + 6 + 8 + 10 = 30</code></li>\n</ul>\n\n<p>Hence, <code>GCD(sumOdd, sumEven) = GCD(25, 30) = 5</code>.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10​​​​​​​00</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "number-theory"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int gcdOfOddEvenSums(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int gcdOfOddEvenSums(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def gcdOfOddEvenSums(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "4\n5",
+    "hints": [
+      "The first <code>n</code> odd numbers sum to <code>n * n</code>",
+      "First <code>n</code> even numbers sum to <code>n * (n + 1)</code>",
+      "<code>gcd(n, n + 1) = 1</code>, so the answer is <code>n</code>"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:01.184Z"
+}

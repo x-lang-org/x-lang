@@ -1,0 +1,30 @@
+{
+  "title": "Average Salary: Departments VS Company",
+  "titleCn": "平均工资：部门与公司比较",
+  "titleSlug": "average-salary-departments-vs-company",
+  "difficulty": "HARD",
+  "acRate": 0.44547775921313953,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "average-salary-departments-vs-company",
+    "questionId": "615",
+    "title": "Average Salary: Departments VS Company",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Salary\":[\"id\",\"employee_id\",\"amount\",\"pay_date\"],\"Employee\":[\"employee_id\",\"department_id\"]},\"rows\":{\"Salary\":[[1,1,9000,\"2017/03/31\"],[2,2,6000,\"2017/03/31\"],[3,3,10000,\"2017/03/31\"],[4,1,7000,\"2017/02/28\"],[5,2,6000,\"2017/02/28\"],[6,3,8000,\"2017/02/28\"]],\"Employee\":[[1,1],[2,2],[3,2]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "countries-you-can-safely-invest-in",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:24:10.607Z"
+}

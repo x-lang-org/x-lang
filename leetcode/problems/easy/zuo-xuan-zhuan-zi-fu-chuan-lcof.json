@@ -1,0 +1,45 @@
+{
+  "title": "动态口令",
+  "titleCn": "动态口令",
+  "titleSlug": "zuo-xuan-zhuan-zi-fu-chuan-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.8532967903863939,
+  "topicTags": [
+    "math",
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "zuo-xuan-zhuan-zi-fu-chuan-lcof",
+    "questionId": "100330",
+    "title": "动态口令",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string dynamicPassword(string password, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String dynamicPassword(String password, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def dynamicPassword(self, password: str, target: int) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"s3cur1tyC0d3\"\n4\n\"vbzkgsaoiu\"\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:34.521Z"
+}

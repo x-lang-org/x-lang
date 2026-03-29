@@ -1,0 +1,46 @@
+{
+  "title": "Flip Game II",
+  "titleCn": "翻转游戏 II",
+  "titleSlug": "flip-game-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46817464492372435,
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming",
+    "backtracking",
+    "game-theory"
+  ],
+  "detail": {
+    "titleSlug": "flip-game-ii",
+    "questionId": "294",
+    "title": "Flip Game II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "memoization",
+      "math",
+      "dynamic-programming",
+      "backtracking",
+      "game-theory"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"++++\"\n\"+\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "nim-game",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "flip-game",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "guess-number-higher-or-lower-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:42:32.483Z"
+}

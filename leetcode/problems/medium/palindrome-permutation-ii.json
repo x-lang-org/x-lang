@@ -1,0 +1,45 @@
+{
+  "title": "Palindrome Permutation II",
+  "titleCn": "回文排列 II",
+  "titleSlug": "palindrome-permutation-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4700997670111715,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "palindrome-permutation-ii",
+    "questionId": "267",
+    "title": "Palindrome Permutation II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "backtracking"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aabb\"\n\"abc\"",
+    "hints": [
+      "If a palindromic permutation exists, we just need to generate the first half of the string.",
+      "To generate all distinct permutations of a (half of) string, use a similar approach from: <a href=\"/problems/permutations-ii\">Permutations II</a> or <a href=\"/problems/next-permutation\">Next Permutation</a>."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "next-permutation",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "permutations-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "palindrome-permutation",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:59:59.299Z"
+}

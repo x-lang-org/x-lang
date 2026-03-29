@@ -1,0 +1,40 @@
+{
+  "title": "Valid Word Abbreviation",
+  "titleCn": "有效单词缩写",
+  "titleSlug": "valid-word-abbreviation",
+  "difficulty": "EASY",
+  "acRate": 0.3704283423684813,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "valid-word-abbreviation",
+    "questionId": "408",
+    "title": "Valid Word Abbreviation",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"internationalization\"\n\"i12iz4n\"\n\"apple\"\n\"a2e\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-unique-word-abbreviation",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "word-abbreviation",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "check-if-an-original-string-exists-given-two-encoded-strings",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:10:16.508Z"
+}

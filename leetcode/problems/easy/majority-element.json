@@ -1,0 +1,62 @@
+{
+  "title": "Majority Element",
+  "titleCn": "多数元素",
+  "titleSlug": "majority-element",
+  "difficulty": "EASY",
+  "acRate": 0.6717728061275474,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "counting",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "majority-element",
+    "questionId": "169",
+    "title": "Majority Element",
+    "content": "<p>Given an array <code>nums</code> of size <code>n</code>, return <em>the majority element</em>.</p>\n\n<p>The majority element is the element that appears more than <code>&lfloor;n / 2&rfloor;</code> times. You may assume that the majority element always exists in the array.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [3,2,3]\n<strong>Output:</strong> 3\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [2,2,1,1,1,2,2]\n<strong>Output:</strong> 2\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 5 * 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li>The input is generated such that a majority element will exist in the array.</li>\n</ul>\n\n<p>&nbsp;</p>\n<strong>Follow-up:</strong> Could you solve the problem in linear time and in <code>O(1)</code> space?",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "divide-and-conquer",
+      "counting",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int majorityElement(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def majorityElement(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,2,3]\n[2,2,1,1,1,2,2]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "majority-element-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "check-if-a-number-is-majority-element-in-a-sorted-array",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "most-frequent-even-element",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:49.518Z"
+}

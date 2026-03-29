@@ -1,0 +1,18 @@
+{
+  "problemId": "26",
+  "titleSlug": "remove-duplicates-from-sorted-array",
+  "title": "Remove Duplicates from Sorted Array",
+  "titleCn": "删除有序数组中的重复项",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.5851550992236111,
+  "testcases": [
+    {
+      "input": "[1,1,2]",
+      "expectedOutput": "[0,0,1,1,1,2,2,3,3,4]"
+    }
+  ]
+}

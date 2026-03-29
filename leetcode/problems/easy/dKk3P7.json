@@ -1,0 +1,45 @@
+{
+  "title": "有效的字母异位词",
+  "titleCn": "有效的字母异位词",
+  "titleSlug": "dKk3P7",
+  "difficulty": "EASY",
+  "acRate": 0.5835863308478858,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "dKk3P7",
+    "questionId": "1000273",
+    "title": "有效的字母异位词",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isAnagram(String s, String t) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"anagram\"\n\"nagaram\"\n\"rat\"\n\"car\"\n\"a\"\n\"a\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:26.346Z"
+}

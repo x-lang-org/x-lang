@@ -1,0 +1,39 @@
+{
+  "title": "Design an Array Statistics Tracker ",
+  "titleCn": "设计数组统计跟踪器",
+  "titleSlug": "design-an-array-statistics-tracker",
+  "difficulty": "HARD",
+  "acRate": 0.37386363636363634,
+  "topicTags": [
+    "design",
+    "queue",
+    "hash-table",
+    "binary-search",
+    "data-stream",
+    "ordered-set",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "design-an-array-statistics-tracker",
+    "questionId": "3710",
+    "title": "Design an Array Statistics Tracker ",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "design",
+      "queue",
+      "hash-table",
+      "binary-search",
+      "data-stream",
+      "ordered-set",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"StatisticsTracker\",\"addNumber\",\"addNumber\",\"addNumber\",\"addNumber\",\"getMean\",\"getMedian\",\"getMode\",\"removeFirstAddedNumber\",\"getMode\"]\n[[],[4],[4],[2],[3],[],[],[],[],[]]\n[\"StatisticsTracker\",\"addNumber\",\"addNumber\",\"getMean\",\"removeFirstAddedNumber\",\"addNumber\",\"addNumber\",\"removeFirstAddedNumber\",\"getMedian\",\"addNumber\",\"getMode\"]\n[[],[9],[5],[],[],[5],[6],[],[],[8],[]]",
+    "hints": [
+      "Maintain separate data structures for each statistic."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:15.179Z"
+}

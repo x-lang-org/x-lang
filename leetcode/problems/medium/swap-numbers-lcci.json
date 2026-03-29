@@ -1,0 +1,47 @@
+{
+  "title": "Swap Numbers LCCI",
+  "titleCn": "交换数字",
+  "titleSlug": "swap-numbers-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8025876931505084,
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "swap-numbers-lcci",
+    "questionId": "100258",
+    "title": "Swap Numbers LCCI",
+    "content": "<p>Write a function to swap a number in place (that is, without temporary variables).</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> numbers = [1,2]\r\n<strong>Output:</strong> [2,1]\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>numbers.length == 2</code></li>\r\n\t<li><code>-2147483647 &lt;= numbers[i] &lt;=&nbsp;2147483647</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> swapNumbers(vector<int>& numbers) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] swapNumbers(int[] numbers) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def swapNumbers(self, numbers: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[0,2147483647]",
+    "hints": [
+      "尝试在数轴上画出a和b两个数字。",
+      "定义diff为a和b之间的差。你能以某种方式使用diff吗？那么你能去掉这个临时变量吗？",
+      "你也可以尝试使用XOR。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:07.526Z"
+}

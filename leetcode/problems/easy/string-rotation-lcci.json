@@ -1,0 +1,47 @@
+{
+  "title": "String Rotation LCCI",
+  "titleCn": "字符串轮转",
+  "titleSlug": "string-rotation-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.5354905657302119,
+  "topicTags": [
+    "string",
+    "string-matching"
+  ],
+  "detail": {
+    "titleSlug": "string-rotation-lcci",
+    "questionId": "100162",
+    "title": "String Rotation LCCI",
+    "content": "<p>Given two strings, <code>s1</code>&nbsp;and <code>s2</code>, write code to check if <code>s2</code> is a rotation of <code>s1</code> (e.g.,&quot;waterbottle&quot; is a rotation of&quot;erbottlewat&quot;).&nbsp;Can you use&nbsp;only one call to the method that&nbsp;checks if one word is a substring of another?</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>s1 = <span id=\"example-input-1-1\">&quot;waterbottle&quot;</span>, s2 = <span id=\"example-input-1-2\">&quot;</span>erbottlewat<span>&quot;</span>\r\n<strong>Output: </strong><span id=\"example-output-1\">True</span>\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>s1 = &quot;aa&quot;, s2 = &quot;aba&quot;\r\n<strong>Output: </strong>False\r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code><font face=\"monospace\">0 &lt;= s1.length, s2.length &lt;=&nbsp;</font>100000</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "string",
+      "string-matching"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isFlipedString(string s1, string s2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isFlipedString(String s1, String s2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isFlipedString(self, s1: str, s2: str) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "\"waterbottle\"\n\"erbottlewat\"\n\"aa\"\n\"aba\"",
+    "hints": [
+      "如果一个字符串是另一个字符串的旋转，那么它就是在某个特定点上的旋转。例如，字符串waterbottle在3处的旋转意味着在第三个字符处切割waterbottle，并在左半部分（wat）之前放置右半部分（erbottle）。",
+      "本质上，我们是在寻找是否有一种方式可以把第一个字符串分成两部分，即x和y，如此一来，第一个字符串就是xy，第二个字符串就是yx。例如，x = wat，y = erbottle。那么，第一个字符串xy = waterbottle，第二个字符串yx = erbottlewat。",
+      "想想前面的提示。再想想当你将erbottlewat与它本身连接会发生什么。你得到了erbottlewaterbottlewat。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:54.938Z"
+}

@@ -1,0 +1,37 @@
+{
+  "title": "Find the Index of the Large Integer",
+  "titleCn": "找到最大整数的索引",
+  "titleSlug": "find-the-index-of-the-large-integer",
+  "difficulty": "MEDIUM",
+  "acRate": 0.574392622805462,
+  "topicTags": [
+    "array",
+    "binary-search",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "find-the-index-of-the-large-integer",
+    "questionId": "1672",
+    "title": "Find the Index of the Large Integer",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[7,7,7,7,10,7,7,7]\n[6,6,12]",
+    "hints": [
+      "Do a binary search over the array, exclude the half of the array that doesn't contain the largest number.",
+      "Keep shrinking the search space till it reaches the size of 2 where you can easily determine which one has the largest integer."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "search-in-a-sorted-array-of-unknown-size",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:40:50.405Z"
+}

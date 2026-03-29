@@ -1,0 +1,45 @@
+{
+  "title": "Pour Water Between Buckets to Make Water Levels Equal",
+  "titleCn": "通过倒水操作让所有的水桶所含水量相等",
+  "titleSlug": "pour-water-between-buckets-to-make-water-levels-equal",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6017004578155657,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "pour-water-between-buckets-to-make-water-levels-equal",
+    "questionId": "2273",
+    "title": "Pour Water Between Buckets to Make Water Levels Equal",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,7]\n80\n[2,4,6]\n50\n[3,3,3,3]\n40",
+    "hints": [
+      "What is the range that the answer must fall into?",
+      "The answer has to be in the range [0, max(buckets)] (inclusive).",
+      "For a number x, is there an efficient way to check if it is possible to make the amount of water in each bucket x.",
+      "Let in be the total amount of water that needs to be poured into buckets and out be the total amount of water that needs to be poured out of buckets to make the amount of water in each bucket x. If out - (out * loss) >= in, then it is possible."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "search-in-rotated-sorted-array",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-peak-element",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "minimum-moves-to-equal-array-elements",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:54.857Z"
+}

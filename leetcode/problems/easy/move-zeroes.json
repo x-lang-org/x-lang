@@ -1,0 +1,55 @@
+{
+  "title": "Move Zeroes",
+  "titleCn": "移动零",
+  "titleSlug": "move-zeroes",
+  "difficulty": "EASY",
+  "acRate": 0.6379583367690886,
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "move-zeroes",
+    "questionId": "283",
+    "title": "Move Zeroes",
+    "content": "<p>Given an integer array <code>nums</code>, move all <code>0</code>&#39;s to the end of it while maintaining the relative order of the non-zero elements.</p>\n\n<p><strong>Note</strong> that you must do this in-place without making a copy of the array.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> nums = [0,1,0,3,12]\n<strong>Output:</strong> [1,3,12,0,0]\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> nums = [0]\n<strong>Output:</strong> [0]\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>\n\n<p>&nbsp;</p>\n<strong>Follow up:</strong> Could you minimize the total number of operations done?",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public void moveZeroes(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def moveZeroes(self, nums: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\"\n        "
+      }
+    ],
+    "exampleTestcases": "[0,1,0,3,12]\n[0]",
+    "hints": [
+      "<b>In-place</b> means we should not be allocating any space for extra array. But we are allowed to modify the existing array. However, as a first step, try coming up with a solution that makes use of additional space. For this problem as well, first apply the idea discussed using an additional array and the in-place solution will pop up eventually.",
+      "A <b>two-pointer</b> approach could be helpful here. The idea would be to have one pointer for iterating the array and another pointer that just works on the non-zero elements of the array."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "remove-element",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "apply-operations-to-an-array",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:07.442Z"
+}

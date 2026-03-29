@@ -1,0 +1,53 @@
+{
+  "title": "Palindrome Linked List LCCI",
+  "titleCn": "回文链表",
+  "titleSlug": "palindrome-linked-list-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.4948442235186471,
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "palindrome-linked-list-lcci",
+    "questionId": "100164",
+    "title": "Palindrome Linked List LCCI",
+    "content": "<p>Implement a function to check if a linked list is a palindrome.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Example 1: </strong></p>\r\n\r\n<pre>\r\n<strong>Input:  </strong>1-&gt;2\r\n<strong>Output: </strong> false \r\n</pre>\r\n\r\n<p><strong>Example 2: </strong></p>\r\n\r\n<pre>\r\n<strong>Input:  </strong>1-&gt;2-&gt;2-&gt;1\r\n<strong>Output: </strong> true \r\n</pre>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><b>Follow up:</b><br />\r\nCould you do it in O(n) time and O(1) space?</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "stack",
+      "recursion",
+      "linked-list",
+      "two-pointers"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public boolean isPalindrome(ListNode head) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def isPalindrome(self, head: Optional[ListNode]) -> bool:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2]\n[]",
+    "hints": [
+      "回文数在向前写和向后写时是相同的。如果你颠倒链表会怎样？",
+      "用栈试试。",
+      "假设你有链表的长度。你可以实现这个递归吗？",
+      "在递归方法中（我们有链表的长度），中点是基线条件，即isPalindrome(middle)是true。节点x是紧挨着middle的左侧的一个节点：该如何检查x -> middle -> y是否形成回文？现在假设检查通过。前一个节点a又该如何检查？如果x -> middle -> y是回文，怎么检查a -> x -> middle -> y -> b是回文？",
+      "回到前面的提示。记住：返回多个值的方法有很多。你可以用一个新类来实现。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:54.169Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Count Nodes Equal to Sum of Descendants",
+  "titleCn": "值等于子节点值之和的节点数量",
+  "titleSlug": "count-nodes-equal-to-sum-of-descendants",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4363438520130577,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "count-nodes-equal-to-sum-of-descendants",
+    "questionId": "2126",
+    "title": "Count Nodes Equal to Sum of Descendants",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[10,3,4,2,1]\n[2,3,null,2,null]\n[0]",
+    "hints": [
+      "Can we reuse previously calculated information?",
+      "How can we calculate the sum of the current subtree using the sum of the child's subtree?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "most-frequent-subtree-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "maximum-average-subtree",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-nodes-equal-to-average-of-subtree",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:33:31.315Z"
+}

@@ -1,0 +1,34 @@
+{
+  "title": "Make String Anti-palindrome",
+  "titleCn": "使字符串反回文",
+  "titleSlug": "make-string-anti-palindrome",
+  "difficulty": "HARD",
+  "acRate": 0.23640960809102401,
+  "topicTags": [
+    "greedy",
+    "string",
+    "counting-sort",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "make-string-anti-palindrome",
+    "questionId": "3393",
+    "title": "Make String Anti-palindrome",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "string",
+      "counting-sort",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abca\"\n\"abba\"\n\"cccd\"",
+    "hints": [
+      "Sort the string.",
+      "Check if there are equivalent characters in the middle, if there are, shift the ones from the right side more to the right until they don't overlap."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:48:00.182Z"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "Elements in Array After Removing and Replacing Elements",
+  "titleCn": "查询删除和添加元素后的数组",
+  "titleSlug": "elements-in-array-after-removing-and-replacing-elements",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5289855072463768,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "elements-in-array-after-removing-and-replacing-elements",
+    "questionId": "2258",
+    "title": "Elements in Array After Removing and Replacing Elements",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,1,2]\n[[0,2],[2,0],[3,2],[5,0]]\n[2]\n[[0,0],[1,0],[2,0],[3,0]]",
+    "hints": [
+      "Try to find a pattern in how nums changes.",
+      "Let m be the original length of nums. If time_i / m (integer division) is even, then nums is at its original size or decreasing in size. If it is odd, then it is empty, or increasing in size.",
+      "time_i % m can be used to find how many elements are in nums at minute time_i."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:46.895Z"
+}

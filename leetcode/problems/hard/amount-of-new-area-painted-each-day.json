@@ -1,0 +1,47 @@
+{
+  "title": "Amount of New Area Painted Each Day",
+  "titleCn": "每天绘制新区域的数量",
+  "titleSlug": "amount-of-new-area-painted-each-day",
+  "difficulty": "HARD",
+  "acRate": 0.5356200527704486,
+  "topicTags": [
+    "segment-tree",
+    "array",
+    "ordered-set"
+  ],
+  "detail": {
+    "titleSlug": "amount-of-new-area-painted-each-day",
+    "questionId": "2297",
+    "title": "Amount of New Area Painted Each Day",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "segment-tree",
+      "array",
+      "ordered-set"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,4],[4,7],[5,8]]\n[[1,4],[5,8],[4,7]]\n[[1,5],[2,4]]",
+    "hints": [
+      "What’s a good way to keep track of intervals that you have already painted?",
+      "Create an array of all 1’s, and when you have painted an interval, set the values in that interval to 0.",
+      "Using this array, how can you quickly calculate the amount of new area that you paint on a given day?",
+      "Calculate the sum of the new array in the interval that you paint."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "merge-intervals",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "describe-the-painting",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "average-height-of-buildings-in-each-segment",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:22:56.048Z"
+}

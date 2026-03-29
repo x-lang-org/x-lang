@@ -1,0 +1,25 @@
+{
+  "title": "First Letter Capitalization",
+  "titleCn": "首字母大写",
+  "titleSlug": "first-letter-capitalization",
+  "difficulty": "HARD",
+  "acRate": 0.674468085106383,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "first-letter-capitalization",
+    "questionId": "3703",
+    "title": "First Letter Capitalization",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"user_content\":[\"content_id\",\"content_text\"]},\"rows\":{\"user_content\":[[1,\"hello world of SQL\"],[2,\"the QUICK brown fox\"],[3,\"data science AND machine learning\"],[4,\"TOP rated programming BOOKS\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:18.184Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Find Top Scoring Students II",
+  "titleCn": "查找得分最高的学生 II",
+  "titleSlug": "find-top-scoring-students-ii",
+  "difficulty": "HARD",
+  "acRate": 0.43898809523809523,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-top-scoring-students-ii",
+    "questionId": "3503",
+    "title": "Find Top Scoring Students II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"students\":[\"student_id\",\"name\",\"major\"],\"courses\":[\"course_id\",\"name\",\"credits\",\"major\",\"mandatory\"],\"enrollments\":[\"student_id\",\"course_id\",\"semester\",\"grade\",\"GPA\"]},\"rows\":{\"students\":[[1,\"Alice\",\"Computer Science\"],[2,\"Bob\",\"Computer Science\"],[3,\"Charlie\",\"Mathematics\"],[4,\"David\",\"Mathematics\"]],\"courses\":[[101,\"Algorithms\",3,\"Computer Science\",\"Yes\"],[102,\"Data Structures\",3,\"Computer Science\",\"Yes\"],[103,\"Calculus\",4,\"Mathematics\",\"Yes\"],[104,\"Linear Algebra\",4,\"Mathematics\",\"Yes\"],[105,\"Machine Learning\",3,\"Computer Science\",\"No\"],[106,\"Probability\",3,\"Mathematics\",\"No\"],[107,\"Operating Systems\",3,\"Computer Science\",\"No\"],[108,\"Statistics\",3,\"Mathematics\",\"No\"]],\"enrollments\":[[1,101,\"Fall 2023\",\"A\",4.0],[1,102,\"Spring 2023\",\"A\",4.0],[1,105,\"Spring 2023\",\"A\",4.0],[1,107,\"Fall 2023\",\"B\",3.5],[2,101,\"Fall 2023\",\"A\",4.0],[2,102,\"Spring 2023\",\"B\",3.0],[3,103,\"Fall 2023\",\"A\",4.0],[3,104,\"Spring 2023\",\"A\",4.0],[3,106,\"Spring 2023\",\"A\",4.0],[3,108,\"Fall 2023\",\"B\",3.5],[4,103,\"Fall 2023\",\"B\",3.0],[4,104,\"Spring 2023\",\"B\",3.0]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:41:54.302Z"
+}

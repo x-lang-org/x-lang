@@ -1,0 +1,43 @@
+{
+  "title": "交错字符串",
+  "titleCn": "交错字符串",
+  "titleSlug": "IY6buf",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48025256377659126,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "IY6buf",
+    "questionId": "1000277",
+    "title": "交错字符串",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public boolean isInterleave(String s1, String s2, String s3) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:"
+      }
+    ],
+    "exampleTestcases": "\"aabcc\"\n\"dbbca\"\n\"aadbbcbcac\"\n\"aabcc\"\n\"dbbca\"\n\"aadbbbaccc\"\n\"\"\n\"\"\n\"\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:51.591Z"
+}

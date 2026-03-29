@@ -1,0 +1,26 @@
+{
+  "problemId": "21",
+  "titleSlug": "merge-two-sorted-lists",
+  "title": "Merge Two Sorted Lists",
+  "titleCn": "合并两个有序链表",
+  "difficulty": "EASY",
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "acRate": 0.6814955949869359,
+  "testcases": [
+    {
+      "input": "[1,2,4]",
+      "expectedOutput": "[1,3,4]"
+    },
+    {
+      "input": "[]",
+      "expectedOutput": "[]"
+    },
+    {
+      "input": "[]",
+      "expectedOutput": "[0]"
+    }
+  ]
+}

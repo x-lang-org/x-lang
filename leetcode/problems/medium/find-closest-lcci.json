@@ -1,0 +1,49 @@
+{
+  "title": "Find Closest LCCI",
+  "titleCn": "单词距离",
+  "titleSlug": "find-closest-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7304465349051933,
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "find-closest-lcci",
+    "questionId": "1000039",
+    "title": "Find Closest LCCI",
+    "content": "<p>You have a large text file containing words. Given any two different words, find the shortest distance (in terms of number of words) between them in the file. If the operation will be repeated many times for the same file (but different pairs of words), can you optimize your solution?</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong>words = [&quot;I&quot;,&quot;am&quot;,&quot;a&quot;,&quot;student&quot;,&quot;from&quot;,&quot;a&quot;,&quot;university&quot;,&quot;in&quot;,&quot;a&quot;,&quot;city&quot;], word1 = &quot;a&quot;, word2 = &quot;student&quot;\r\n<strong>Output: </strong>1</pre>\r\n\r\n<p>Note:</p>\r\n\r\n<ul>\r\n\t<li><code>words.length &lt;= 100000</code></li>\r\n</ul>",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findClosest(vector<string>& words, string word1, string word2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findClosest(String[] words, String word1, String word2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findClosest(self, words: List[str], word1: str, word2: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[\"I\",\"am\",\"a\",\"student\",\"from\",\"a\",\"university\",\"in\",\"a\",\"city\"]\n\"a\"\n\"student\"",
+    "hints": [
+      "如果只运行一次算法，请首先考虑寻找最近距离的算法。你应该能够在 O(N) 时间内完成这项工作，其中 N 是文档中的字数。",
+      "调整你的算法，使它成为可以重复调用的算法的一次执行。它哪里慢?你能优化它吗?",
+      "你可以构建一个查找表，把每个单词映射到它出现位置的列表。然后怎样找到最近的两个位置呢?",
+      "如果你有一个每个单词出现次数的列表，那么你实际上需要在两个数组中寻找一对值(每个数组中选一个值)，使它们之间的差异最小。这应该是一个与初始算法很相似的算法。",
+      "能用两个指针遍历两个数组吗?你应该能在 O(A+B)时间内完成，其中 A 和 B 是两个数组的大小。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:13.767Z"
+}

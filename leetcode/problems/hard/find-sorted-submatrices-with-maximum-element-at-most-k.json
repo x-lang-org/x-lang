@@ -1,0 +1,39 @@
+{
+  "title": "Find Sorted Submatrices With Maximum Element at Most K",
+  "titleCn": "查找最大元素不超过 K 的有序子矩阵",
+  "titleSlug": "find-sorted-submatrices-with-maximum-element-at-most-k",
+  "difficulty": "HARD",
+  "acRate": 0.19906976744186047,
+  "topicTags": [
+    "stack",
+    "array",
+    "matrix",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "find-sorted-submatrices-with-maximum-element-at-most-k",
+    "questionId": "3652",
+    "title": "Find Sorted Submatrices With Maximum Element at Most K",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "array",
+      "matrix",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[4,3,2,1],[8,7,6,1]]\n3\n[[1,1,1],[1,1,1],[1,1,1]]\n1\n[[1]]\n1",
+    "hints": [
+      "Use monotonic stack.",
+      "Store for each element <code>grid[i][j]</code>, the longest increasing subarray of <code>grid[i]</code> ending at index <code>j</code>."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximal-rectangle",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:40:28.615Z"
+}

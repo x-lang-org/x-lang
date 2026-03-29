@@ -1,0 +1,29 @@
+{
+  "title": "Find the Lexicographically Largest String From the Box II",
+  "titleCn": "从盒子中找出字典序最大的字符串 II",
+  "titleSlug": "find-the-lexicographically-largest-string-from-the-box-ii",
+  "difficulty": "HARD",
+  "acRate": 0.16518650088809947,
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "find-the-lexicographically-largest-string-from-the-box-ii",
+    "questionId": "3749",
+    "title": "Find the Lexicographically Largest String From the Box II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "two-pointers",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"dbca\"\n2\n\"gggg\"\n4",
+    "hints": [
+      "Use suffix array."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:41:01.519Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Find Active Users",
+  "titleCn": "查找活跃用户",
+  "titleSlug": "find-active-users",
+  "difficulty": "MEDIUM",
+  "acRate": 0.448,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-active-users",
+    "questionId": "2842",
+    "title": "Find Active Users",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Users\":[\"user_id\",\"item\",\"created_at\",\"amount\"]},\"rows\":{\"Users\":[[5,\"Smart Crock Pot\",\"2021-09-18\",698882],[6,\"Smart Lock\",\"2021-09-14\",11487],[6,\"Smart Thermostat\",\"2021-09-10\",674762],[8,\"Smart Light Strip\",\"2021-09-29\",630773],[4,\"Smart Cat Feeder\",\"2021-09-02\",693545],[4,\"Smart Bed\",\"2021-09-13\",170249]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:49.857Z"
+}

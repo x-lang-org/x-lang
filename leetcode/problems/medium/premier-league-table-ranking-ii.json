@@ -1,0 +1,25 @@
+{
+  "title": "Premier League Table Ranking II",
+  "titleCn": "英超积分榜排名 II",
+  "titleSlug": "premier-league-table-ranking-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5565371024734982,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "premier-league-table-ranking-ii",
+    "questionId": "3564",
+    "title": "Premier League Table Ranking II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"TeamStats\": [\"team_id\", \"team_name\", \"matches_played\", \"wins\", \"draws\", \"losses\"]}, \"rows\": {\"TeamStats\": [[1, \"Chelsea\", 22, 13, 2, 7], [2, \"Nottingham Forest\", 27, 6, 6, 15], [3, \"Liverpool\", 17, 1, 8, 8], [4, \"Aston Villa\", 20, 1, 6, 13], [5, \"Fulham\", 31, 18, 1, 12], [6, \"Burnley\", 26, 6, 9, 11], [7, \"Newcastle United\", 33, 11, 10, 12], [8, \"Sheffield United\", 20, 18, 2, 0], [9, \"Luton Town\", 5, 4, 0, 1], [10, \"Everton\", 14, 2, 6, 6]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:01.521Z"
+}

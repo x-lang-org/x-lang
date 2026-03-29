@@ -1,0 +1,21 @@
+{
+  "problemId": "9",
+  "titleSlug": "palindrome-number",
+  "title": "Palindrome Number",
+  "titleCn": "回文数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5619521461358036,
+  "testcases": [
+    {
+      "input": "121",
+      "expectedOutput": "-121"
+    },
+    {
+      "input": "10",
+      "expectedOutput": ""
+    }
+  ]
+}

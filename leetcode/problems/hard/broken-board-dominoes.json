@@ -1,0 +1,49 @@
+{
+  "title": "Broken Board Dominoes",
+  "titleCn": "覆盖",
+  "titleSlug": "broken-board-dominoes",
+  "difficulty": "HARD",
+  "acRate": 0.43312101910828027,
+  "topicTags": [
+    "bit-manipulation",
+    "graph",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "detail": {
+    "titleSlug": "broken-board-dominoes",
+    "questionId": "100093",
+    "title": "Broken Board Dominoes",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "bit-manipulation",
+      "graph",
+      "array",
+      "dynamic-programming",
+      "bitmask"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int domino(int n, int m, vector<vector<int>>& broken) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int domino(int n, int m, int[][] broken) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def domino(self, n: int, m: int, broken: List[List[int]]) -> int:"
+      }
+    ],
+    "exampleTestcases": "2\n3\n[[1, 0], [1, 1]]\n3\n3\n[]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:51.050Z"
+}

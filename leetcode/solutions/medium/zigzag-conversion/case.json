@@ -1,0 +1,25 @@
+{
+  "problemId": "6",
+  "titleSlug": "zigzag-conversion",
+  "title": "Zigzag Conversion",
+  "titleCn": "Z 字形变换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5421041083834044,
+  "testcases": [
+    {
+      "input": "\"PAYPALISHIRING\"",
+      "expectedOutput": "3"
+    },
+    {
+      "input": "\"PAYPALISHIRING\"",
+      "expectedOutput": "4"
+    },
+    {
+      "input": "\"A\"",
+      "expectedOutput": "1"
+    }
+  ]
+}

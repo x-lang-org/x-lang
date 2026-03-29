@@ -1,0 +1,43 @@
+{
+  "title": "不同的子序列",
+  "titleCn": "不同的子序列",
+  "titleSlug": "21dk04",
+  "difficulty": "HARD",
+  "acRate": 0.5461075069508804,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "21dk04",
+    "questionId": "1000280",
+    "title": "不同的子序列",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numDistinct(string s, string t) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numDistinct(String s, String t) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numDistinct(self, s: str, t: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"rabbbit\"\n\"rabbit\"\n\"babgbag\"\n\"bag\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:42.017Z"
+}

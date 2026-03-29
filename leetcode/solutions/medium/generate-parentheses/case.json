@@ -1,0 +1,19 @@
+{
+  "problemId": "22",
+  "titleSlug": "generate-parentheses",
+  "title": "Generate Parentheses",
+  "titleCn": "括号生成",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.7906580718731687,
+  "testcases": [
+    {
+      "input": "3",
+      "expectedOutput": "1"
+    }
+  ]
+}

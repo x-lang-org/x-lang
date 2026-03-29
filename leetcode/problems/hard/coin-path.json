@@ -1,0 +1,36 @@
+{
+  "title": "Coin Path",
+  "titleCn": "成本最小路径",
+  "titleSlug": "coin-path",
+  "difficulty": "HARD",
+  "acRate": 0.35921342600440753,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "coin-path",
+    "questionId": "656",
+    "title": "Coin Path",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,4,-1,2]\n2\n[1,2,4,-1,2]\n1",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "house-robber",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "house-robber-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:31:24.052Z"
+}

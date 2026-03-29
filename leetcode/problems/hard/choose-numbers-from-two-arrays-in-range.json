@@ -1,0 +1,44 @@
+{
+  "title": "Choose Numbers From Two Arrays in Range",
+  "titleCn": "在两个数组的区间中选取数字",
+  "titleSlug": "choose-numbers-from-two-arrays-in-range",
+  "difficulty": "HARD",
+  "acRate": 0.5271889400921659,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "choose-numbers-from-two-arrays-in-range",
+    "questionId": "2282",
+    "title": "Choose Numbers From Two Arrays in Range",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,5]\n[2,6,3]\n[0,1]\n[1,0]",
+    "hints": [
+      "If you know the possible sums you can get for a range [l, r], how can you use this information to calculate the possible sums you can get for a range [l, r + 1]?",
+      "For the range [l, r], if it is possible to choose elements such that the sum of elements you picked from nums1 is x and the sum of elements you picked from nums2 is y, then (x + nums1[r + 1], y) and (x, y + nums2[r + 1]) are possible sums you can get in the range [l, r + 1].",
+      "How can we save the possible sums obtainable at a given index so that we can reuse this information later?"
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "intersection-of-two-arrays",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "intersection-of-two-arrays-ii",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "minimum-xor-sum-of-two-arrays",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:30:26.835Z"
+}

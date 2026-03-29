@@ -1,0 +1,25 @@
+{
+  "title": "Popularity Percentage",
+  "titleCn": "受欢迎度百分比",
+  "titleSlug": "popularity-percentage",
+  "difficulty": "HARD",
+  "acRate": 0.5445205479452054,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "popularity-percentage",
+    "questionId": "2874",
+    "title": "Popularity Percentage",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Friends\":[\"user1\",\"user2\"]},\"rows\":{\"Friends\":[[2,1],[1,3],[4,1],[1,5],[1,6],[2,6],[7,2],[8,3],[3,9]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:00:51.043Z"
+}

@@ -1,0 +1,35 @@
+{
+  "title": "Bold Words in String",
+  "titleCn": "字符串中的加粗单词",
+  "titleSlug": "bold-words-in-string",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4890971879625062,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "string-matching"
+  ],
+  "detail": {
+    "titleSlug": "bold-words-in-string",
+    "questionId": "760",
+    "title": "Bold Words in String",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string",
+      "string-matching"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"ab\",\"bc\"]\n\"aabcd\"\n[\"ab\",\"cb\"]\n\"aabcd\"",
+    "hints": [
+      "First, determine which letters are bold and store that information in mask[i] = if i-th character is bold.\r\nThen, insert the tags at the beginning and end of groups.  The start of a group is if and only if (mask[i] and (i == 0 or not mask[i-1])), and the end of a group is similar."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:31.138Z"
+}

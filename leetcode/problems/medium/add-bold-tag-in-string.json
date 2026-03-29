@@ -1,0 +1,42 @@
+{
+  "title": "Add Bold Tag in String",
+  "titleCn": "给字符串添加加粗标签",
+  "titleSlug": "add-bold-tag-in-string",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5229933819786187,
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "string-matching"
+  ],
+  "detail": {
+    "titleSlug": "add-bold-tag-in-string",
+    "questionId": "616",
+    "title": "Add Bold Tag in String",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "trie",
+      "array",
+      "hash-table",
+      "string",
+      "string-matching"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcxyz123\"\n[\"abc\",\"123\"]\n\"aaabbb\"\n[\"aa\",\"b\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "merge-intervals",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "tag-validator",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:21:49.308Z"
+}

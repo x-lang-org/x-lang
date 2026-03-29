@@ -1,0 +1,47 @@
+{
+  "title": "Encode and Decode TinyURL",
+  "titleCn": "TinyURL 的加密与解密",
+  "titleSlug": "encode-and-decode-tinyurl",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8727242246437552,
+  "topicTags": [
+    "design",
+    "hash-table",
+    "string",
+    "hash-function"
+  ],
+  "detail": {
+    "titleSlug": "encode-and-decode-tinyurl",
+    "questionId": "535",
+    "title": "Encode and Decode TinyURL",
+    "content": "<blockquote>Note: This is a companion problem to the <a href=\"https://leetcode.com/discuss/interview-question/system-design/\" target=\"_blank\">System Design</a> problem: <a href=\"https://leetcode.com/discuss/interview-question/124658/Design-a-URL-Shortener-(-TinyURL-)-System/\" target=\"_blank\">Design TinyURL</a>.</blockquote>\n\n<p>TinyURL is a URL shortening service where you enter a URL such as <code>https://leetcode.com/problems/design-tinyurl</code> and it returns a short URL such as <code>http://tinyurl.com/4e9iAk</code>. Design a class to encode a URL and decode a tiny URL.</p>\n\n<p>There is no restriction on how your encode/decode algorithm should work. You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original URL.</p>\n\n<p>Implement the <code>Solution</code> class:</p>\n\n<ul>\n\t<li><code>Solution()</code> Initializes the object of the system.</li>\n\t<li><code>String encode(String longUrl)</code> Returns a tiny URL for the given <code>longUrl</code>.</li>\n\t<li><code>String decode(String shortUrl)</code> Returns the original long URL for the given <code>shortUrl</code>. It is guaranteed that the given <code>shortUrl</code> was encoded by the same object.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> url = &quot;https://leetcode.com/problems/design-tinyurl&quot;\n<strong>Output:</strong> &quot;https://leetcode.com/problems/design-tinyurl&quot;\n\n<strong>Explanation:</strong>\nSolution obj = new Solution();\nstring tiny = obj.encode(url); // returns the encoded tiny url.\nstring ans = obj.decode(tiny); // returns the original url after decoding it.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= url.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>url</code> is guranteed to be a valid URL.</li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "hash-table",
+      "string",
+      "hash-function"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n\n    // Encodes a URL to a shortened URL.\n    string encode(string longUrl) {\n        \n    }\n\n    // Decodes a shortened URL to its original URL.\n    string decode(string shortUrl) {\n        \n    }\n};\n\n// Your Solution object will be instantiated and called as such:\n// Solution solution;\n// solution.decode(solution.encode(url));"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "public class Codec {\n\n    // Encodes a URL to a shortened URL.\n    public String encode(String longUrl) {\n        \n    }\n\n    // Decodes a shortened URL to its original URL.\n    public String decode(String shortUrl) {\n        \n    }\n}\n\n// Your Codec object will be instantiated and called as such:\n// Codec codec = new Codec();\n// codec.decode(codec.encode(url));"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Codec:\n\n    def encode(self, longUrl: str) -> str:\n        \"\"\"Encodes a URL to a shortened URL.\n        \"\"\"\n        \n\n    def decode(self, shortUrl: str) -> str:\n        \"\"\"Decodes a shortened URL to its original URL.\n        \"\"\"\n        \n\n# Your Codec object will be instantiated and called as such:\n# codec = Codec()\n# codec.decode(codec.encode(url))"
+      }
+    ],
+    "exampleTestcases": "\"https://leetcode.com/problems/design-tinyurl\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:55.724Z"
+}

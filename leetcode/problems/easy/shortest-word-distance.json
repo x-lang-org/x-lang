@@ -1,0 +1,40 @@
+{
+  "title": "Shortest Word Distance",
+  "titleCn": "最短单词距离",
+  "titleSlug": "shortest-word-distance",
+  "difficulty": "EASY",
+  "acRate": 0.6811963200597481,
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "shortest-word-distance",
+    "questionId": "243",
+    "title": "Shortest Word Distance",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"practice\", \"makes\", \"perfect\", \"coding\", \"makes\"]\n\"coding\"\n\"practice\"\n[\"practice\", \"makes\", \"perfect\", \"coding\", \"makes\"]\n\"makes\"\n\"coding\"",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "shortest-word-distance-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "shortest-word-distance-iii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "find-all-k-distant-indices-in-an-array",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:59.860Z"
+}

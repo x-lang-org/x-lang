@@ -1,0 +1,25 @@
+{
+  "title": "Find Circular Gift Exchange Chains",
+  "titleCn": "寻找环形礼物交换链",
+  "titleSlug": "find-circular-gift-exchange-chains",
+  "difficulty": "HARD",
+  "acRate": 0.5469879518072289,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-circular-gift-exchange-chains",
+    "questionId": "3746",
+    "title": "Find Circular Gift Exchange Chains",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"SecretSanta\":[\"giver_id\",\"receiver_id\",\"gift_value\"]},\"rows\":{\"SecretSanta\":[[1,2,20],[2,3,30],[3,1,40],[4,5,25],[5,4,35]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:39:12.328Z"
+}

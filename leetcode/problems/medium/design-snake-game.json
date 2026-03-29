@@ -1,0 +1,33 @@
+{
+  "title": "Design Snake Game",
+  "titleCn": "贪吃蛇",
+  "titleSlug": "design-snake-game",
+  "difficulty": "MEDIUM",
+  "acRate": 0.42418191187838183,
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "design-snake-game",
+    "questionId": "353",
+    "title": "Design Snake Game",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "queue",
+      "array",
+      "hash-table",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"SnakeGame\",\"move\",\"move\",\"move\",\"move\",\"move\",\"move\"]\n[[3,2,[[1,2],[0,1]]],[\"R\"],[\"D\"],[\"R\"],[\"U\"],[\"L\"],[\"U\"]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:36:34.943Z"
+}

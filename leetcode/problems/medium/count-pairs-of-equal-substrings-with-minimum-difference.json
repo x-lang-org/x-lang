@@ -1,0 +1,32 @@
+{
+  "title": "Count Pairs of Equal Substrings With Minimum Difference",
+  "titleCn": "统计距离最小的子串对个数",
+  "titleSlug": "count-pairs-of-equal-substrings-with-minimum-difference",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4866220735785953,
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "count-pairs-of-equal-substrings-with-minimum-difference",
+    "questionId": "1943",
+    "title": "Count Pairs of Equal Substrings With Minimum Difference",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abcd\"\n\"bccda\"\n\"ab\"\n\"cd\"",
+    "hints": [
+      "If the chosen substrings are of size larger than 1, then you can remove all but the first character from both substrings, and you'll get equal substrings of size 1, with the same a but less j. Hence, it's always optimal to choose substrings of size 1.",
+      "If you choose a specific letter, then it's optimal to choose its first occurrence in firstString, and its last occurrence in secondString, to minimize j-a."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:33:55.960Z"
+}

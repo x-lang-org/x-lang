@@ -1,0 +1,58 @@
+{
+  "title": "4Sum",
+  "titleCn": "四数之和",
+  "titleSlug": "4sum",
+  "difficulty": "MEDIUM",
+  "acRate": 0.36919911198064187,
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "4sum",
+    "questionId": "18",
+    "title": "4Sum",
+    "content": "<p>Given an array <code>nums</code> of <code>n</code> integers, return <em>an array of all the <strong>unique</strong> quadruplets</em> <code>[nums[a], nums[b], nums[c], nums[d]]</code> such that:</p>\n\n<ul>\n\t<li><code>0 &lt;= a, b, c, d&nbsp;&lt; n</code></li>\n\t<li><code>a</code>, <code>b</code>, <code>c</code>, and <code>d</code> are <strong>distinct</strong>.</li>\n\t<li><code>nums[a] + nums[b] + nums[c] + nums[d] == target</code></li>\n</ul>\n\n<p>You may return the answer in <strong>any order</strong>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [1,0,-1,0,-2,2], target = 0\n<strong>Output:</strong> [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums = [2,2,2,2,2], target = 8\n<strong>Output:</strong> [[2,2,2,2]]\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 200</code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= target &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "two-pointers",
+      "sorting"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> fourSum(vector<int>& nums, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> fourSum(int[] nums, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,0,-1,0,-2,2]\n0\n[2,2,2,2,2]\n8",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "two-sum",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "3sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "4sum-ii",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:21:02.061Z"
+}

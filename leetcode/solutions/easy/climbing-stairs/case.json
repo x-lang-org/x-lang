@@ -1,0 +1,19 @@
+{
+  "problemId": "70",
+  "titleSlug": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "titleCn": "爬楼梯",
+  "difficulty": "EASY",
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5564801494986317,
+  "testcases": [
+    {
+      "input": "2",
+      "expectedOutput": "3"
+    }
+  ]
+}

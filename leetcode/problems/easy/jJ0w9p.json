@@ -1,0 +1,43 @@
+{
+  "title": "x 的平方根",
+  "titleCn": "x 的平方根",
+  "titleSlug": "jJ0w9p",
+  "difficulty": "EASY",
+  "acRate": 0.42947681972304086,
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "jJ0w9p",
+    "questionId": "1000336",
+    "title": "x 的平方根",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int mySqrt(int x) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int mySqrt(int x) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def mySqrt(self, x: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "4\n8",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:58.234Z"
+}

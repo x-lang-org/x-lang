@@ -1,0 +1,41 @@
+{
+  "title": "Make the Prefix Sum Non-negative",
+  "titleCn": "使前缀和数组非负",
+  "titleSlug": "make-the-prefix-sum-non-negative",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46185737976782754,
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "make-the-prefix-sum-non-negative",
+    "questionId": "2674",
+    "title": "Make the Prefix Sum Non-negative",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,3,-5,4]\n[3,-5,-2,6]",
+    "hints": [
+      "There will always be a way to make the prefix sum non-negative. How can we use that?",
+      "Loop over the array keeping the prefix sum. Whenever it goes negative, move the smallest number you have seen to the end."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "furthest-building-you-can-reach",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "maximum-transactions-without-negative-balance",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:48:01.182Z"
+}

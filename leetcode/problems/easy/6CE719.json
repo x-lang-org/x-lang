@@ -1,0 +1,41 @@
+{
+  "title": "气温变化趋势",
+  "titleCn": "气温变化趋势",
+  "titleSlug": "6CE719",
+  "difficulty": "EASY",
+  "acRate": 0.7028768868849246,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "6CE719",
+    "questionId": "1000476",
+    "title": "气温变化趋势",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int temperatureTrend(vector<int>& temperatureA, vector<int>& temperatureB) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int temperatureTrend(int[] temperatureA, int[] temperatureB) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def temperatureTrend(self, temperatureA: List[int], temperatureB: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[21,18,18,18,31]\n[34,32,16,16,17]\n[5,10,16,-6,15,11,3]\n[16,22,23,23,25,3,-16]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:13.182Z"
+}

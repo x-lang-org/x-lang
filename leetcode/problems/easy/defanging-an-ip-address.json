@@ -1,0 +1,41 @@
+{
+  "title": "Defanging an IP Address",
+  "titleCn": "IP 地址无效化",
+  "titleSlug": "defanging-an-ip-address",
+  "difficulty": "EASY",
+  "acRate": 0.8511533797236039,
+  "topicTags": [
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "defanging-an-ip-address",
+    "questionId": "1205",
+    "title": "Defanging an IP Address",
+    "content": "<p>Given a valid (IPv4) IP <code>address</code>, return a defanged version of that IP address.</p>\r\n\r\n<p>A <em>defanged&nbsp;IP address</em>&nbsp;replaces every period <code>&quot;.&quot;</code> with <code>&quot;[.]&quot;</code>.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong class=\"example\">Example 1:</strong></p>\r\n<pre><strong>Input:</strong> address = \"1.1.1.1\"\r\n<strong>Output:</strong> \"1[.]1[.]1[.]1\"\r\n</pre><p><strong class=\"example\">Example 2:</strong></p>\r\n<pre><strong>Input:</strong> address = \"255.100.50.0\"\r\n<strong>Output:</strong> \"255[.]100[.]50[.]0\"\r\n</pre>\r\n<p>&nbsp;</p>\r\n<p><strong>Constraints:</strong></p>\r\n\r\n<ul>\r\n\t<li>The given <code>address</code> is a valid IPv4 address.</li>\r\n</ul>",
+    "difficulty": "Easy",
+    "topicTags": [
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string defangIPaddr(string address) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String defangIPaddr(String address) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def defangIPaddr(self, address: str) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"1.1.1.1\"\n\"255.100.50.0\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:52.201Z"
+}

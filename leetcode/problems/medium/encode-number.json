@@ -1,0 +1,37 @@
+{
+  "title": "Encode Number",
+  "titleCn": "加密数字",
+  "titleSlug": "encode-number",
+  "difficulty": "MEDIUM",
+  "acRate": 0.661521797996209,
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "encode-number",
+    "questionId": "1189",
+    "title": "Encode Number",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "math",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "23\n107",
+    "hints": [
+      "Try to find the number of binary digits returned by the function.",
+      "The pattern is to start counting from zero after determining the number of binary digits."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "convert-to-base-2",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:57.071Z"
+}

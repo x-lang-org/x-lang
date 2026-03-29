@@ -1,0 +1,42 @@
+{
+  "title": "Encode and Decode Strings",
+  "titleCn": "字符串的编码与解码",
+  "titleSlug": "encode-and-decode-strings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5907716671465592,
+  "topicTags": [
+    "design",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "encode-and-decode-strings",
+    "questionId": "271",
+    "title": "Encode and Decode Strings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"Hello\",\"World\"]\n[\"\"]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-and-say",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "serialize-and-deserialize-binary-tree",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "string-compression",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:54.515Z"
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Count the Number of Good Subsequences",
+  "titleCn": "好子序列的个数",
+  "titleSlug": "count-the-number-of-good-subsequences",
+  "difficulty": "MEDIUM",
+  "acRate": 0.496,
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "combinatorics",
+    "counting"
+  ],
+  "detail": {
+    "titleSlug": "count-the-number-of-good-subsequences",
+    "questionId": "2683",
+    "title": "Count the Number of Good Subsequences",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "math",
+      "string",
+      "combinatorics",
+      "counting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"aabb\"\n\"leet\"\n\"abcd\"",
+    "hints": [
+      "Use the frequency array of characters of the string.",
+      "For 1 ≤ m ≤ s.length, count the number of subsequences of s where each character occurs exactly m times.",
+      "For any n and k, you can calculate (n choose k) mod p in O(log p) using binary exponentiation."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-music-playlists",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "count-ways-to-build-rooms-in-an-ant-colony",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:34:39.741Z"
+}

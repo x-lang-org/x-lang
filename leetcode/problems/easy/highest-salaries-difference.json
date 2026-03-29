@@ -1,0 +1,25 @@
+{
+  "title": "Highest Salaries Difference",
+  "titleCn": "最高薪水差异",
+  "titleSlug": "highest-salaries-difference",
+  "difficulty": "EASY",
+  "acRate": 0.648068669527897,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "highest-salaries-difference",
+    "questionId": "3155",
+    "title": "Highest Salaries Difference",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Salaries\": [\"emp_name\", \"department\", \"salary\"]},\"rows\":  {\"Salaries\": [[\"Kathy\",\"Engineering\",50000],[\"Roy\",\"Marketing\",30000],[\"Charles\",\"Engineering\",45000],[\"Jack\",\"Engineering\",85000],[\"Benjamin\",\"Marketing\",34000],[\"Anthony\",\"Marketing\",42000],[\"Edward\",\"Engineering\",102000],[\"Terry\",\"Engineering\",44000],[\"Evelyn\",\"Marketing\",53000],[\"Arthur\",\"Engineering\",32000]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:55.634Z"
+}

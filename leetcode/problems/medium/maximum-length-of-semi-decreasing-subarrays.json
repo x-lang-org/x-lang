@@ -1,0 +1,38 @@
+{
+  "title": "Maximum Length of Semi-Decreasing Subarrays",
+  "titleCn": "最长半递减子数组的长度",
+  "titleSlug": "maximum-length-of-semi-decreasing-subarrays",
+  "difficulty": "MEDIUM",
+  "acRate": 0.611346316680779,
+  "topicTags": [
+    "stack",
+    "array",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "maximum-length-of-semi-decreasing-subarrays",
+    "questionId": "3158",
+    "title": "Maximum Length of Semi-Decreasing Subarrays",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "sorting",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[7,6,5,4,3,2,1,6,10,11]\n[57,55,50,60,61,58,63,59,64,60,63]\n[1,2,3,4]",
+    "hints": [
+      "First, solve the problem assuming <code>nums</code> contains distinct values.",
+      "Make a new array with each element being the pair <code>(nums[i], i)</code> for every <code>i</code> and call it <code>num_ind</code>.",
+      "Sort <code>num_ind</code> in decreasing order.",
+      "Iterate over <code>num_ind</code> and store a variable that represents the minimum index (i.e. min of <code>num_ind[i].second</code>) that has been iterated until now. Call it <code>min_index</code>",
+      "Now if you are currently on pair <code>(nums[x], x)</code>, then <code>ans = max(ans, min_index - x)</code>.",
+      "Now try to remove the first assumption."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:01.596Z"
+}

@@ -1,0 +1,56 @@
+{
+  "title": "Sum of Subarray Minimums",
+  "titleCn": "子数组的最小值之和",
+  "titleSlug": "sum-of-subarray-minimums",
+  "difficulty": "MEDIUM",
+  "acRate": 0.40750283844945484,
+  "topicTags": [
+    "stack",
+    "array",
+    "dynamic-programming",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-subarray-minimums",
+    "questionId": "943",
+    "title": "Sum of Subarray Minimums",
+    "content": "<p>Given an array of integers arr, find the sum of <code>min(b)</code>, where <code>b</code> ranges over every (contiguous) subarray of <code>arr</code>. Since the answer may be large, return the answer <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [3,1,2,4]\n<strong>Output:</strong> 17\n<strong>Explanation:</strong> \nSubarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. \nMinimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.\nSum is 17.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> arr = [11,81,94,43,3]\n<strong>Output:</strong> 444\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= arr.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= arr[i] &lt;= 3 * 10<sup>4</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "array",
+      "dynamic-programming",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int sumSubarrayMins(vector<int>& arr) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int sumSubarrayMins(int[] arr) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def sumSubarrayMins(self, arr: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[3,1,2,4]\n[11,81,94,43,3]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "sum-of-subarray-ranges",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "sum-of-total-strength-of-wizards",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:07:56.547Z"
+}

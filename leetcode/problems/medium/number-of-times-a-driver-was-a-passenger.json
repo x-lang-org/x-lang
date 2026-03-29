@@ -1,0 +1,38 @@
+{
+  "title": "Number of Times a Driver Was a Passenger",
+  "titleCn": "司机成为乘客的次数",
+  "titleSlug": "number-of-times-a-driver-was-a-passenger",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6842612677753676,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "number-of-times-a-driver-was-a-passenger",
+    "questionId": "2376",
+    "title": "Number of Times a Driver Was a Passenger",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Rides\":[\"ride_id\",\"driver_id\",\"passenger_id\"]},\"rows\":{\"Rides\":[[1,7,1],[2,7,2],[3,11,1],[4,11,7],[5,11,7],[6,11,3]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "hopper-company-queries-i",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "hopper-company-queries-ii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "hopper-company-queries-iii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:53.806Z"
+}

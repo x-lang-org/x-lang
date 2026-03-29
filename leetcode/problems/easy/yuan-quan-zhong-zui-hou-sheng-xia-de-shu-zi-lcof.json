@@ -1,0 +1,43 @@
+{
+  "title": "破冰游戏",
+  "titleCn": "破冰游戏",
+  "titleSlug": "yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.6508521515550189,
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof",
+    "questionId": "100343",
+    "title": "破冰游戏",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "recursion",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int iceBreakingGame(int num, int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int iceBreakingGame(int num, int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def iceBreakingGame(self, num: int, target: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "7\n4\n12\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:20.756Z"
+}

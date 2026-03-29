@@ -1,0 +1,49 @@
+{
+  "title": "Hanota LCCI",
+  "titleCn": "汉诺塔问题",
+  "titleSlug": "hanota-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.6448241054329676,
+  "topicTags": [
+    "recursion",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "hanota-lcci",
+    "questionId": "1000015",
+    "title": "Hanota LCCI",
+    "content": "<p>In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes which can slide onto any tower. The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of an even larger one). You have the following constraints:</p>\r\n\r\n<p>(1) Only one disk can be moved at a time.<br />\r\n(2) A disk is slid off the top of one tower onto another tower.<br />\r\n(3) A disk cannot be placed on top of a smaller disk.</p>\r\n\r\n<p>Write a program to move the disks from the first tower to the last using stacks.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: A = [2, 1, 0], B = [], C = []\r\n<strong> Output</strong>: C = [2, 1, 0]\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: A = [1, 0], B = [], C = []\r\n<strong> Output</strong>: C = [1, 0]\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>A.length &lt;= 14</code></li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "recursion",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    void hanota(vector<int>& A, vector<int>& B, vector<int>& C) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def hanota(self, A: List[int], B: List[int], C: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify C in-place instead.\n        \"\"\"\n        "
+      }
+    ],
+    "exampleTestcases": "[0]\n[]\n[]\n[1, 0]\n[]\n[]",
+    "hints": [
+      "尝试简单构建法。",
+      "你可以很容易地把最小的圆盘从一根柱子移到另一根柱子。把最小的两个圆盘从一根柱子移到另一根柱子也是小菜一碟。你能移动最小的三个圆盘吗？",
+      "考虑将最小的圆盘从柱X = 0 移动到柱Y = 2，使用柱Z = 1作为临时保留点，作为f(1, X = 0, Y = 2, Z = 1)的解题方案。移动最小的两个圆盘来表示f(2, X = 0, Y = 2, Z = 1)。给定你f(1, X = 0, Y = 2, Z = 1)和f(2, X = 0, Y = 2, Z = 1)的题目解法，你能解出f(3, X = 0, Y = 2, Z = 1)吗？",
+      "请注意，哪根柱子是源、目的地或暂存点并不重要。你可以通过f(2, X = 0, Y = 2, Z = 1)来计算f(2, X = 0, Y = 1, Z = 2)（将两个盘子从柱0移动到柱1，以柱2作为暂存点），然后将盘子3从柱0移动到柱2，计算f(2, X = 1, Y = 2, Z = 0)（将两个盘子从柱1移动到柱2，以柱0作为暂存点）。这个过程是怎样重复的？",
+      "如果你在递归方面遇到困难，请尝试更多地相信递归过程。一旦弄清如何将前2个盘子从柱0移至柱2，就可以相信你完成了这项工作。当需要移动3个盘子时，请相信你可以将2个盘子从一根柱子移动到另一根柱子。现在，你已经移动了2个盘子。那么要如何处理第三个盘子呢？"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:43.753Z"
+}

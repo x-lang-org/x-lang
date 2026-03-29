@@ -1,0 +1,42 @@
+{
+  "title": "Longest Substring with At Most K Distinct Characters",
+  "titleCn": "至多包含 K 个不同字符的最长子串",
+  "titleSlug": "longest-substring-with-at-most-k-distinct-characters",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5190231586278948,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "longest-substring-with-at-most-k-distinct-characters",
+    "questionId": "340",
+    "title": "Longest Substring with At Most K Distinct Characters",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"eceba\"\n2\n\"aa\"\n1",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "longest-substring-without-repeating-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longest-substring-with-at-most-two-distinct-characters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "longest-repeating-character-replacement",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:47:25.248Z"
+}

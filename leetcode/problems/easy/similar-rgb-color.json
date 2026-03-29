@@ -1,0 +1,29 @@
+{
+  "title": "Similar RGB Color",
+  "titleCn": "相似 RGB 颜色",
+  "titleSlug": "similar-rgb-color",
+  "difficulty": "EASY",
+  "acRate": 0.6713004484304933,
+  "topicTags": [
+    "math",
+    "string",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "similar-rgb-color",
+    "questionId": "818",
+    "title": "Similar RGB Color",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string",
+      "enumeration"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"#09f166\"\n\"#4e3fe1\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:09.599Z"
+}

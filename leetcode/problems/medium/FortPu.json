@@ -1,0 +1,49 @@
+{
+  "title": "O(1) 时间插入、删除和获取随机元素",
+  "titleCn": "O(1) 时间插入、删除和获取随机元素",
+  "titleSlug": "FortPu",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5414128164857355,
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "math",
+    "randomized"
+  ],
+  "detail": {
+    "titleSlug": "FortPu",
+    "questionId": "1000267",
+    "title": "O(1) 时间插入、删除和获取随机元素",
+    "content": "<p>&nbsp;</p>\n\n<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "design",
+      "array",
+      "hash-table",
+      "math",
+      "randomized"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class RandomizedSet {\npublic:\n    /** Initialize your data structure here. */\n    RandomizedSet() {\n\n    }\n    \n    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */\n    bool insert(int val) {\n\n    }\n    \n    /** Removes a value from the set. Returns true if the set contained the specified element. */\n    bool remove(int val) {\n\n    }\n    \n    /** Get a random element from the set. */\n    int getRandom() {\n\n    }\n};\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet* obj = new RandomizedSet();\n * bool param_1 = obj->insert(val);\n * bool param_2 = obj->remove(val);\n * int param_3 = obj->getRandom();\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class RandomizedSet {\n\n    /** Initialize your data structure here. */\n    public RandomizedSet() {\n\n    }\n    \n    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */\n    public boolean insert(int val) {\n\n    }\n    \n    /** Removes a value from the set. Returns true if the set contained the specified element. */\n    public boolean remove(int val) {\n\n    }\n    \n    /** Get a random element from the set. */\n    public int getRandom() {\n\n    }\n}\n\n/**\n * Your RandomizedSet object will be instantiated and called as such:\n * RandomizedSet obj = new RandomizedSet();\n * boolean param_1 = obj.insert(val);\n * boolean param_2 = obj.remove(val);\n * int param_3 = obj.getRandom();\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class RandomizedSet:\n\n    def __init__(self):\n        \"\"\"\n        Initialize your data structure here.\n        \"\"\"\n\n\n    def insert(self, val: int) -> bool:\n        \"\"\"\n        Inserts a value to the set. Returns true if the set did not already contain the specified element.\n        \"\"\"\n\n\n    def remove(self, val: int) -> bool:\n        \"\"\"\n        Removes a value from the set. Returns true if the set contained the specified element.\n        \"\"\"\n\n\n    def getRandom(self) -> int:\n        \"\"\"\n        Get a random element from the set.\n        \"\"\"\n\n\n\n# Your RandomizedSet object will be instantiated and called as such:\n# obj = RandomizedSet()\n# param_1 = obj.insert(val)\n# param_2 = obj.remove(val)\n# param_3 = obj.getRandom()"
+      }
+    ],
+    "exampleTestcases": "[\"RandomizedSet\",\"insert\",\"remove\",\"insert\",\"getRandom\",\"remove\",\"insert\",\"getRandom\"]\n[[],[1],[2],[2],[],[1],[2],[]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:39.231Z"
+}

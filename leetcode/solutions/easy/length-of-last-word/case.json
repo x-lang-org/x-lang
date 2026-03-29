@@ -1,0 +1,21 @@
+{
+  "problemId": "58",
+  "titleSlug": "length-of-last-word",
+  "title": "Length of Last Word",
+  "titleCn": "最后一个单词的长度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.4868345423646698,
+  "testcases": [
+    {
+      "input": "\"Hello World\"",
+      "expectedOutput": "\"   fly me   to   the moon  \""
+    },
+    {
+      "input": "\"luffy is still joyboy\"",
+      "expectedOutput": ""
+    }
+  ]
+}

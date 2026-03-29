@@ -1,0 +1,50 @@
+{
+  "title": "Minimum Possible Integer After at Most K Adjacent Swaps On Digits",
+  "titleCn": "最多 K 次交换相邻数位后得到的最小整数",
+  "titleSlug": "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+  "difficulty": "HARD",
+  "acRate": 0.4277456647398844,
+  "topicTags": [
+    "greedy",
+    "binary-indexed-tree",
+    "segment-tree",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+    "questionId": "1629",
+    "title": "Minimum Possible Integer After at Most K Adjacent Swaps On Digits",
+    "content": "<p>You are given a string <code>num</code> representing <strong>the digits</strong> of a very large integer and an integer <code>k</code>. You are allowed to swap any two adjacent digits of the integer <strong>at most</strong> <code>k</code> times.</p>\n\n<p>Return <em>the minimum integer you can obtain also as a string</em>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/06/17/q4_1.jpg\" style=\"width: 500px; height: 40px;\" />\n<pre>\n<strong>Input:</strong> num = &quot;4321&quot;, k = 4\n<strong>Output:</strong> &quot;1342&quot;\n<strong>Explanation:</strong> The steps to obtain the minimum integer from 4321 with 4 adjacent swaps are shown.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> num = &quot;100&quot;, k = 1\n<strong>Output:</strong> &quot;010&quot;\n<strong>Explanation:</strong> It&#39;s ok for the output to have leading zeros, but the input is guaranteed not to have any leading zeros.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> num = &quot;36789&quot;, k = 1000\n<strong>Output:</strong> &quot;36789&quot;\n<strong>Explanation:</strong> We can keep the number without any swaps.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= num.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>num</code> consists of only <strong>digits</strong> and does not contain <strong>leading zeros</strong>.</li>\n\t<li><code>1 &lt;= k &lt;= 10<sup>9</sup></code></li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "binary-indexed-tree",
+      "segment-tree",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string minInteger(string num, int k) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String minInteger(String num, int k) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minInteger(self, num: str, k: int) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "\"4321\"\n4\n\"100\"\n1\n\"36789\"\n1000",
+    "hints": [
+      "We want to make the smaller digits the most significant digits in the number.",
+      "For each index i, check the smallest digit in a window of size k and append it to the answer. Update the indices of all digits in this range accordingly."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:55:49.902Z"
+}

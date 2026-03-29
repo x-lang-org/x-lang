@@ -1,0 +1,25 @@
+{
+  "title": "Top Percentile Fraud",
+  "titleCn": "最高欺诈百分位数",
+  "titleSlug": "top-percentile-fraud",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6047120418848168,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "top-percentile-fraud",
+    "questionId": "3339",
+    "title": "Top Percentile Fraud",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Fraud\":[\"policy_id\",\"state\",\"fraud_score\"]},\"rows\":{\"Fraud\":[[1,\"California\",0.92],[2,\"California\",0.68],[3,\"California\",0.17],[4,\"New York\",0.94],[5,\"New York\",0.81],[6,\"New York\",0.77],[7,\"Texas\",0.98],[8,\"Texas\",0.97],[9,\"Texas\",0.96],[10,\"Florida\",0.97],[11,\"Florida\",0.98],[12,\"Florida\",0.78],[13,\"Florida\",0.88],[14,\"Florida\",0.66]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:01.562Z"
+}

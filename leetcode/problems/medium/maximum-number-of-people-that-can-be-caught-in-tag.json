@@ -1,0 +1,40 @@
+{
+  "title": "Maximum Number of People That Can Be Caught in Tag",
+  "titleCn": "捉迷藏中可捕获的最大人数",
+  "titleSlug": "maximum-number-of-people-that-can-be-caught-in-tag",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5112419700214133,
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-people-that-can-be-caught-in-tag",
+    "questionId": "1979",
+    "title": "Maximum Number of People That Can Be Caught in Tag",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "two-pointers"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,1,0,1,0]\n3\n[1]\n1\n[0]\n1",
+    "hints": [
+      "Try to use as much of the range of a person who is \"it\" as possible.",
+      "Find the leftmost person who is \"it\" that has not caught anyone yet, and the leftmost person who is not \"it\" that has not been caught yet.",
+      "If the person who is not \"it\" can be caught, pair them together and repeat the process.",
+      "If the person who is not \"it\" cannot be caught, and the person who is not \"it\" is on the left of the person who is \"it\", find the next leftmost person who is not \"it\".",
+      "If the person who is not \"it\" cannot be caught, and the person who is \"it\" is on the left of the person who is not \"it\", find the next leftmost person who is \"it\"."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-number-of-food-buckets-to-feed-the-hamsters",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:50:35.032Z"
+}

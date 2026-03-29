@@ -1,0 +1,45 @@
+{
+  "title": "快速公交",
+  "titleCn": "快速公交",
+  "titleSlug": "meChtZ",
+  "difficulty": "HARD",
+  "acRate": 0.3704572098475967,
+  "topicTags": [
+    "memoization",
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "meChtZ",
+    "questionId": "1000133",
+    "title": "快速公交",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Hard",
+    "topicTags": [
+      "memoization",
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int busRapidTransit(int target, int inc, int dec, vector<int>& jump, vector<int>& cost) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int busRapidTransit(int target, int inc, int dec, int[] jump, int[] cost) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def busRapidTransit(self, target: int, inc: int, dec: int, jump: List[int], cost: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "31\n5\n3\n[6]\n[10]\n612\n4\n5\n[3,6,8,11,5,10,4]\n[4,7,6,3,7,6,4]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:52:23.148Z"
+}

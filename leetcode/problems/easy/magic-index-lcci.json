@@ -1,0 +1,43 @@
+{
+  "title": "Magic Index LCCI",
+  "titleCn": "魔术索引",
+  "titleSlug": "magic-index-lcci",
+  "difficulty": "EASY",
+  "acRate": 0.6725077843370298,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "magic-index-lcci",
+    "questionId": "100240",
+    "title": "Magic Index LCCI",
+    "content": "<p>A magic index in an array <code>A[0...n-1]</code> is defined to be an index such that <code>A[i] = i</code>. Given a sorted array of&nbsp;integers, write a method to find a magic index, if one exists, in array A. If not, return -1. If there are more than one magic index, return the smallest one.</p>\r\n\r\n<p><strong>Example1:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: nums = [0, 2, 3, 4, 5]\r\n<strong> Output</strong>: 0\r\n</pre>\r\n\r\n<p><strong>Example2:</strong></p>\r\n\r\n<pre>\r\n<strong> Input</strong>: nums = [1, 1, 1]\r\n<strong> Output</strong>: 1\r\n</pre>\r\n\r\n<p><strong>Note:</strong></p>\r\n\r\n<ol>\r\n\t<li><code>1 &lt;= nums.length &lt;= 1000000</code></li>\r\n\t<li>This problem is the&nbsp;follow-up of the original problem in the book, i.e.&nbsp;the values are&nbsp;not distinct.</li>\r\n</ol>\r\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int findMagicIndex(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int findMagicIndex(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def findMagicIndex(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[0, 2, 3, 4, 5]\n[1, 1, 1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:47:47.717Z"
+}

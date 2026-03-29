@@ -1,0 +1,45 @@
+{
+  "title": "无重复字符的最长子串",
+  "titleCn": "无重复字符的最长子串",
+  "titleSlug": "wtcaE1",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48152477129988935,
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "detail": {
+    "titleSlug": "wtcaE1",
+    "questionId": "1000252",
+    "title": "无重复字符的最长子串",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"abcabcbb\"\n\"bbbbb\"\n\"pwwkew\"\n\"\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:11:05.728Z"
+}

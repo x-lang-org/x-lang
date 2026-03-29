@@ -1,0 +1,51 @@
+{
+  "title": "相似字符串组",
+  "titleCn": "相似字符串组",
+  "titleSlug": "H6lPxb",
+  "difficulty": "HARD",
+  "acRate": 0.6168019404795223,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "H6lPxb",
+    "questionId": "1000317",
+    "title": "相似字符串组",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int numSimilarGroups(vector<string>& strs) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int numSimilarGroups(String[] strs) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numSimilarGroups(self, strs: List[str]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[\"tars\",\"rats\",\"arts\",\"star\"]\n[\"omv\",\"ovm\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:39.897Z"
+}

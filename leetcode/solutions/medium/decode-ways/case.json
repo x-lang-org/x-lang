@@ -1,0 +1,22 @@
+{
+  "problemId": "91",
+  "titleSlug": "decode-ways",
+  "title": "Decode Ways",
+  "titleCn": "解码方法",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.34974818785975775,
+  "testcases": [
+    {
+      "input": "\"12\"",
+      "expectedOutput": "\"226\""
+    },
+    {
+      "input": "\"06\"",
+      "expectedOutput": ""
+    }
+  ]
+}

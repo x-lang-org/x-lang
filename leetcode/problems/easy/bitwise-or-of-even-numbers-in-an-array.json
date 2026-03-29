@@ -1,0 +1,47 @@
+{
+  "title": "Bitwise OR of Even Numbers in an Array",
+  "titleCn": "偶数的按位或运算",
+  "titleSlug": "bitwise-or-of-even-numbers-in-an-array",
+  "difficulty": "EASY",
+  "acRate": 0.8525410164065627,
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "bitwise-or-of-even-numbers-in-an-array",
+    "questionId": "4009",
+    "title": "Bitwise OR of Even Numbers in an Array",
+    "content": "<p>You are given an integer array <code>nums</code>.</p>\n\n<p>Return the bitwise <strong>OR</strong> of all <strong>even</strong> numbers in the array.</p>\n\n<p>If there are no even numbers in <code>nums</code>, return 0.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,2,3,4,5,6]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">6</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The even numbers are 2, 4, and 6. Their bitwise OR equals 6.</p>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [7,9,11]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">0</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There are no even numbers, so the result is 0.</p>\n</div>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">nums = [1,8,16]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">24</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>The even numbers are 8 and 16. Their bitwise OR equals 24.</p>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 100</code></li>\n\t<li><code>1 &lt;= nums[i] &lt;= 100</code></li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array",
+      "simulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int evenNumberBitwiseORs(vector<int>& nums) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int evenNumberBitwiseORs(int[] nums) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def evenNumberBitwiseORs(self, nums: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[1,2,3,4,5,6]\n[7,9,11]\n[1,8,16]",
+    "hints": [
+      "Simulate as described"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:26:20.452Z"
+}

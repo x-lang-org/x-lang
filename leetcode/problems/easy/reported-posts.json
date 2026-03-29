@@ -1,0 +1,25 @@
+{
+  "title": "Reported Posts",
+  "titleCn": "报告的记录",
+  "titleSlug": "reported-posts",
+  "difficulty": "EASY",
+  "acRate": 0.5447292069632496,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "reported-posts",
+    "questionId": "1215",
+    "title": "Reported Posts",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Actions\":[\"user_id\",\"post_id\",\"action_date\",\"action\",\"extra\"]},\"rows\":{\"Actions\":[[1,1,\"2019-07-01\",\"view\",null],[1,1,\"2019-07-01\",\"like\",null],[1,1,\"2019-07-01\",\"share\",null],[2,4,\"2019-07-04\",\"view\",null],[2,4,\"2019-07-04\",\"report\",\"spam\"],[3,4,\"2019-07-04\",\"view\",null],[3,4,\"2019-07-04\",\"report\",\"spam\"],[4,3,\"2019-07-02\",\"view\",null],[4,3,\"2019-07-02\",\"report\",\"spam\"],[5,2,\"2019-07-04\",\"view\",null],[5,2,\"2019-07-04\",\"report\",\"racism\"],[5,5,\"2019-07-04\",\"view\",null],[5,5,\"2019-07-04\",\"report\",\"racism\"]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:03:15.060Z"
+}

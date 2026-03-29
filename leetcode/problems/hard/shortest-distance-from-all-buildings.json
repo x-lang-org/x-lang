@@ -1,0 +1,42 @@
+{
+  "title": "Shortest Distance from All Buildings",
+  "titleCn": "离建筑物最近的距离",
+  "titleSlug": "shortest-distance-from-all-buildings",
+  "difficulty": "HARD",
+  "acRate": 0.4921254222772042,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "shortest-distance-from-all-buildings",
+    "questionId": "317",
+    "title": "Shortest Distance from All Buildings",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]\n[[1,0]]\n[[1]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "walls-and-gates",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "best-meeting-point",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "as-far-from-land-as-possible",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:41.188Z"
+}

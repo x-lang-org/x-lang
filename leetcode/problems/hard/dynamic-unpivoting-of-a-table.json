@@ -1,0 +1,30 @@
+{
+  "title": "Dynamic Unpivoting of a Table",
+  "titleCn": "动态取消表的旋转",
+  "titleSlug": "dynamic-unpivoting-of-a-table",
+  "difficulty": "HARD",
+  "acRate": 0.7080610021786492,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "dynamic-unpivoting-of-a-table",
+    "questionId": "2382",
+    "title": "Dynamic Unpivoting of a Table",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Products\": [\"product_id\", \"LC_Store\", \"Nozama\", \"Shop\", \"Souq\"]}, \"rows\": {\"Products\": [[1, 100, null, 110, null], [2, null, 200, null, 190], [3, null, null, 1000, 1900]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "rearrange-products-table",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:37:37.856Z"
+}

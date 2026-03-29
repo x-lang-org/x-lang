@@ -1,0 +1,29 @@
+{
+  "title": "Fixed Point",
+  "titleCn": "不动点",
+  "titleSlug": "fixed-point",
+  "difficulty": "EASY",
+  "acRate": 0.6493159556383065,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "fixed-point",
+    "questionId": "1066",
+    "title": "Fixed Point",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[-10,-5,0,3,7]\n[0,2,5,8,17]\n[-10,-5,3,4,7,9]",
+    "hints": [
+      "Loop over the array and check the first index i such A[i] == i"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:24.746Z"
+}

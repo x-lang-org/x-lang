@@ -1,0 +1,46 @@
+{
+  "title": "Design In-Memory File System",
+  "titleCn": "设计内存文件系统",
+  "titleSlug": "design-in-memory-file-system",
+  "difficulty": "HARD",
+  "acRate": 0.4499316335558594,
+  "topicTags": [
+    "design",
+    "trie",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "design-in-memory-file-system",
+    "questionId": "588",
+    "title": "Design In-Memory File System",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "design",
+      "trie",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"FileSystem\",\"ls\",\"mkdir\",\"addContentToFile\",\"ls\",\"readContentFromFile\"]\n[[],[\"/\"],[\"/a/b/c\"],[\"/a/b/c/d\",\"hello\"],[\"/\"],[\"/a/b/c/d\"]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "lru-cache",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "lfu-cache",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "design-log-storage-system",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:36:27.162Z"
+}

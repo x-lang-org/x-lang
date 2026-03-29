@@ -1,0 +1,22 @@
+{
+  "problemId": "24",
+  "titleSlug": "swap-nodes-in-pairs",
+  "title": "Swap Nodes in Pairs",
+  "titleCn": "两两交换链表中的节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "acRate": 0.7497311285785179,
+  "testcases": [
+    {
+      "input": "[1,2,3,4]",
+      "expectedOutput": "[]"
+    },
+    {
+      "input": "[1]",
+      "expectedOutput": "[1,2,3]"
+    }
+  ]
+}

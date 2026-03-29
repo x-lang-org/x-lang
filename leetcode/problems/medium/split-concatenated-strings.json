@@ -1,0 +1,29 @@
+{
+  "title": "Split Concatenated Strings",
+  "titleCn": "分割连接字符串",
+  "titleSlug": "split-concatenated-strings",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3872278193045174,
+  "topicTags": [
+    "greedy",
+    "array",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "split-concatenated-strings",
+    "questionId": "555",
+    "title": "Split Concatenated Strings",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "greedy",
+      "array",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"abc\",\"xyz\"]\n[\"abc\"]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:06:30.349Z"
+}

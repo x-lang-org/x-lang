@@ -1,0 +1,33 @@
+{
+  "title": "Minimum Time Takes to Reach Destination Without Drowning",
+  "titleCn": "避免淹死并到达目的地的最短时间",
+  "titleSlug": "minimum-time-takes-to-reach-destination-without-drowning",
+  "difficulty": "HARD",
+  "acRate": 0.24278544542032623,
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "detail": {
+    "titleSlug": "minimum-time-takes-to-reach-destination-without-drowning",
+    "questionId": "3043",
+    "title": "Minimum Time Takes to Reach Destination Without Drowning",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "breadth-first-search",
+      "array",
+      "matrix"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[\"D\",\".\",\"*\"],[\".\",\".\",\".\"],[\".\",\"S\",\".\"]]\n[[\"D\",\"X\",\"*\"],[\".\",\".\",\".\"],[\".\",\".\",\"S\"]]\n[[\"D\",\".\",\".\",\".\",\"*\",\".\"],[\".\",\"X\",\".\",\"X\",\".\",\".\"],[\".\",\".\",\".\",\".\",\"S\",\".\"]]",
+    "hints": [
+      "Think of using breadth-first search.",
+      "Use a BFS to find for each cell the time at which it will become flooded.",
+      "Another BFS then simulates your movement, taking into account information gathered by the first BFS."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:21.761Z"
+}

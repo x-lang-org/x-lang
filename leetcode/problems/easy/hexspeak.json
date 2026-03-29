@@ -1,0 +1,31 @@
+{
+  "title": "Hexspeak",
+  "titleCn": "十六进制魔术数字",
+  "titleSlug": "hexspeak",
+  "difficulty": "EASY",
+  "acRate": 0.47571964956195245,
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "hexspeak",
+    "questionId": "1199",
+    "title": "Hexspeak",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"257\"\n\"3\"",
+    "hints": [
+      "Convert the given number to hexadecimal.",
+      "Replace all 0 and 1 with 'O' and 'I'.",
+      "Check if the final string has any numerical digits."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:53.688Z"
+}

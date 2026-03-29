@@ -1,0 +1,51 @@
+{
+  "title": "信物传送",
+  "titleCn": "信物传送",
+  "titleSlug": "6UEx57",
+  "difficulty": "MEDIUM",
+  "acRate": 0.48841231407817365,
+  "topicTags": [
+    "breadth-first-search",
+    "graph",
+    "array",
+    "matrix",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "6UEx57",
+    "questionId": "1000439",
+    "title": "信物传送",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "breadth-first-search",
+      "graph",
+      "array",
+      "matrix",
+      "shortest-path",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int conveyorBelt(vector<string>& matrix, vector<int>& start, vector<int>& end) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int conveyorBelt(String[] matrix, int[] start, int[] end) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def conveyorBelt(self, matrix: List[str], start: List[int], end: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:16.213Z"
+}

@@ -1,0 +1,45 @@
+{
+  "title": "衣橱整理",
+  "titleCn": "衣橱整理",
+  "titleSlug": "ji-qi-ren-de-yun-dong-fan-wei-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5357494104499596,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "ji-qi-ren-de-yun-dong-fan-wei-lcof",
+    "questionId": "100281",
+    "title": "衣橱整理",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int wardrobeFinishing(int m, int n, int cnt) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int wardrobeFinishing(int m, int n, int cnt) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def wardrobeFinishing(self, m: int, n: int, cnt: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "4\n7\n5",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:55.726Z"
+}

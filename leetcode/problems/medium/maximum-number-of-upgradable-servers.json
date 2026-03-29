@@ -1,0 +1,31 @@
+{
+  "title": "Maximum Number of Upgradable Servers",
+  "titleCn": "可升级服务器的最大数量",
+  "titleSlug": "maximum-number-of-upgradable-servers",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2028985507246377,
+  "topicTags": [
+    "array",
+    "math",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "maximum-number-of-upgradable-servers",
+    "questionId": "3458",
+    "title": "Maximum Number of Upgradable Servers",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "math",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[4,3]\n[3,5]\n[4,2]\n[8,9]\n[1]\n[2]\n[1]\n[1]",
+    "hints": [
+      "Use binary search to find the maximum number of servers that can be upgraded for each data center separately."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:50:40.670Z"
+}

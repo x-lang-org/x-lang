@@ -1,0 +1,28 @@
+{
+  "problemId": "100",
+  "titleSlug": "same-tree",
+  "title": "Same Tree",
+  "titleCn": "相同的树",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.639200554775156,
+  "testcases": [
+    {
+      "input": "[1,2,3]",
+      "expectedOutput": "[1,2,3]"
+    },
+    {
+      "input": "[1,2]",
+      "expectedOutput": "[1,null,2]"
+    },
+    {
+      "input": "[1,2,1]",
+      "expectedOutput": "[1,1,2]"
+    }
+  ]
+}

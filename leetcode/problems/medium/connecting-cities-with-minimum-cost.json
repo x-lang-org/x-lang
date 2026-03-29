@@ -1,0 +1,43 @@
+{
+  "title": "Connecting Cities With Minimum Cost",
+  "titleCn": "最低成本连通所有城市",
+  "titleSlug": "connecting-cities-with-minimum-cost",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5968306922435362,
+  "topicTags": [
+    "union-find",
+    "graph",
+    "minimum-spanning-tree",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "connecting-cities-with-minimum-cost",
+    "questionId": "1100",
+    "title": "Connecting Cities With Minimum Cost",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "union-find",
+      "graph",
+      "minimum-spanning-tree",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "3\n[[1,2,5],[1,3,6],[2,3,1]]\n4\n[[1,2,3],[3,4,4]]",
+    "hints": [
+      "What if we model the cities as a graph?",
+      "Build a graph of cities and find the minimum spanning tree.",
+      "You can use a variation of the Kruskal's algorithm for that.",
+      "Sort the edges by their cost and use a union-find data structure.",
+      "How to check all cities are connected?",
+      "At the beginning we have n connected components, each time we connect two components the number of connected components is reduced by one. At the end we should end with only a single component otherwise return -1."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-cost-to-reach-city-with-discounts",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:32:05.861Z"
+}

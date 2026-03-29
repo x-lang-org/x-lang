@@ -1,0 +1,24 @@
+{
+  "problemId": "49",
+  "titleSlug": "group-anagrams",
+  "title": "Group Anagrams",
+  "titleCn": "字母异位词分组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6964634077607946,
+  "testcases": [
+    {
+      "input": "[\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]",
+      "expectedOutput": "[\"\"]"
+    },
+    {
+      "input": "[\"a\"]",
+      "expectedOutput": ""
+    }
+  ]
+}

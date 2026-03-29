@@ -1,0 +1,25 @@
+{
+  "title": "Group Employees of the Same Salary",
+  "titleCn": "将工资相同的雇员分组",
+  "titleSlug": "group-employees-of-the-same-salary",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6065715520968439,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "group-employees-of-the-same-salary",
+    "questionId": "2030",
+    "title": "Group Employees of the Same Salary",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Employees\":[\"employee_id\",\"name\",\"salary\"]},\"rows\":{\"Employees\":[[2,\"Meir\",3000],[3,\"Michael\",3000],[7,\"Addilyn\",7400],[8,\"Juan\",6100],[9,\"Kannon\",7400]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:25.915Z"
+}

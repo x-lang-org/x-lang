@@ -1,0 +1,21 @@
+{
+  "title": "Create Object from Two Arrays",
+  "titleCn": "从两个数组中创建对象",
+  "titleSlug": "create-object-from-two-arrays",
+  "difficulty": "EASY",
+  "acRate": 0.6375838926174496,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "create-object-from-two-arrays",
+    "questionId": "2861",
+    "title": "Create Object from Two Arrays",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"a\",\"b\",\"c\"]\n[1,2,3]\n[1,\"1\",false]\n[4,5,6]\n[]\n[]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:18.852Z"
+}

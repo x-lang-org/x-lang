@@ -1,0 +1,21 @@
+{
+  "problemId": "42",
+  "titleSlug": "trapping-rain-water",
+  "title": "Trapping Rain Water",
+  "titleCn": "接雨水",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6594806242920037,
+  "testcases": [
+    {
+      "input": "[0,1,0,2,1,0,1,3,2,1,2,1]",
+      "expectedOutput": "[4,2,0,3,2,5]"
+    }
+  ]
+}

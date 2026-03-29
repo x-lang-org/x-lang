@@ -1,0 +1,21 @@
+{
+  "title": "Convert JSON String to Object",
+  "titleCn": "将 JSON 字符串转换为对象",
+  "titleSlug": "convert-json-string-to-object",
+  "difficulty": "HARD",
+  "acRate": 0.5571095571095571,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "convert-json-string-to-object",
+    "questionId": "2851",
+    "title": "Convert JSON String to Object",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "'{\"a\":2,\"b\":[1,2,3]}'\n'true'\n'[1,5,\"false\",{\"a\":2}]'",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:32:42.905Z"
+}

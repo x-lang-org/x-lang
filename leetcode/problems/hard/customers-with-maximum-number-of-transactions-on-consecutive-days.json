@@ -1,0 +1,25 @@
+{
+  "title": "Customers with Maximum Number of Transactions on Consecutive Days",
+  "titleCn": "在连续天数上进行了最多交易次数的顾客",
+  "titleSlug": "customers-with-maximum-number-of-transactions-on-consecutive-days",
+  "difficulty": "HARD",
+  "acRate": 0.45971223021582736,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "customers-with-maximum-number-of-transactions-on-consecutive-days",
+    "questionId": "2852",
+    "title": "Customers with Maximum Number of Transactions on Consecutive Days",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Transactions\":[\"transaction_id\",\"customer_id\",\"transaction_date\",\"amount\"]},\"rows\":{\"Transactions\":[[1,101,\"2023-05-01\",100],[2,101,\"2023-05-02\",150],[3,101,\"2023-05-03\",200],[4,102,\"2023-05-01\",50],[5,102,\"2023-05-03\",100],[6,102,\"2023-05-04\",200],[7,105,\"2023-05-01\",100],[8,105,\"2023-05-02\",150],[9,105,\"2023-05-03\",200]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:35:28.968Z"
+}

@@ -1,0 +1,36 @@
+{
+  "title": "Convert Doubly Linked List to Array II",
+  "titleCn": "将双链表转换为数组 II",
+  "titleSlug": "convert-doubly-linked-list-to-array-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.3797202797202797,
+  "topicTags": [
+    "array",
+    "linked-list",
+    "doubly-linked-list"
+  ],
+  "detail": {
+    "titleSlug": "convert-doubly-linked-list-to-array-ii",
+    "questionId": "3615",
+    "title": "Convert Doubly Linked List to Array II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "linked-list",
+      "doubly-linked-list"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,2,3,4,5]\n5\n[4,5,6,7,8]\n8",
+    "hints": [
+      "Use the pointer to the previous node to reach the <code>head</code> node."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "remove-linked-list-elements",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:32:41.314Z"
+}

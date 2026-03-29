@@ -1,0 +1,53 @@
+{
+  "title": "Number of Days Between Two Dates",
+  "titleCn": "日期之间隔几天",
+  "titleSlug": "number-of-days-between-two-dates",
+  "difficulty": "EASY",
+  "acRate": 0.5300511992736261,
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "number-of-days-between-two-dates",
+    "questionId": "1274",
+    "title": "Number of Days Between Two Dates",
+    "content": "<p>Write a program to count the number of days between two dates.</p>\n\n<p>The two dates are given as strings, their format is <code>YYYY-MM-DD</code>&nbsp;as shown in the examples.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> date1 = \"2019-06-29\", date2 = \"2019-06-30\"\n<strong>Output:</strong> 1\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> date1 = \"2020-01-15\", date2 = \"2019-12-31\"\n<strong>Output:</strong> 15\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li>The given dates are valid&nbsp;dates between the years <code>1971</code> and <code>2100</code>.</li>\n</ul>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int daysBetweenDates(string date1, string date2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int daysBetweenDates(String date1, String date2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def daysBetweenDates(self, date1: str, date2: str) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "\"2019-06-29\"\n\"2019-06-30\"\n\"2020-01-15\"\n\"2019-12-31\"",
+    "hints": [
+      "Create a function f(date) that counts the number of days from 1900-01-01 to date. How can we calculate the answer ?",
+      "The answer is just |f(date1) - f(date2)|.",
+      "How to construct f(date) ?",
+      "For each year from 1900 to year - 1 sum up 365 or 366 in case of leap years. Then sum up for each month the number of days, consider the case when the current year is leap, finally sum up the days."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-days-spent-together",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:00.211Z"
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "67",
+  "titleSlug": "add-binary",
+  "title": "Add Binary",
+  "titleCn": "二进制求和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.5435717523946579,
+  "testcases": [
+    {
+      "input": "\"11\"",
+      "expectedOutput": "\"1\""
+    },
+    {
+      "input": "\"1010\"",
+      "expectedOutput": "\"1011\""
+    }
+  ]
+}

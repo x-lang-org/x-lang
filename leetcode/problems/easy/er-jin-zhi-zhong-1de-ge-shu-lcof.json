@@ -1,0 +1,41 @@
+{
+  "title": "位 1 的个数",
+  "titleCn": "位 1 的个数",
+  "titleSlug": "er-jin-zhi-zhong-1de-ge-shu-lcof",
+  "difficulty": "EASY",
+  "acRate": 0.7626088385082964,
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "detail": {
+    "titleSlug": "er-jin-zhi-zhong-1de-ge-shu-lcof",
+    "questionId": "100292",
+    "title": "位 1 的个数",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int hammingWeight(uint32_t n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "public class Solution {\n    // you need to treat n as an unsigned value\n    public int hammingWeight(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def hammingWeight(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "00000000000000000000000000001011\n00000000000000000000000010000000\n11111111111111111111111111111101",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:11.066Z"
+}

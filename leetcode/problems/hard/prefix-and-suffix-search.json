@@ -1,0 +1,58 @@
+{
+  "title": "Prefix and Suffix Search",
+  "titleCn": "前缀和后缀搜索",
+  "titleSlug": "prefix-and-suffix-search",
+  "difficulty": "HARD",
+  "acRate": 0.43816438054142587,
+  "topicTags": [
+    "design",
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "prefix-and-suffix-search",
+    "questionId": "746",
+    "title": "Prefix and Suffix Search",
+    "content": "<p>Design a special dictionary that searches the words in it by a prefix and a suffix.</p>\n\n<p>Implement the <code>WordFilter</code> class:</p>\n\n<ul>\n\t<li><code>WordFilter(string[] words)</code> Initializes the object with the <code>words</code> in the dictionary.</li>\n\t<li><code>f(string pref, string suff)</code> Returns <em>the index of the word in the dictionary,</em> which has the prefix <code>pref</code> and the suffix <code>suff</code>. If there is more than one valid index, return <strong>the largest</strong> of them. If there is no such word in the dictionary, return <code>-1</code>.</li>\n</ul>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input</strong>\n[&quot;WordFilter&quot;, &quot;f&quot;]\n[[[&quot;apple&quot;]], [&quot;a&quot;, &quot;e&quot;]]\n<strong>Output</strong>\n[null, 0]\n<strong>Explanation</strong>\nWordFilter wordFilter = new WordFilter([&quot;apple&quot;]);\nwordFilter.f(&quot;a&quot;, &quot;e&quot;); // return 0, because the word at index 0 has prefix = &quot;a&quot; and suffix = &quot;e&quot;.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= words.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= words[i].length &lt;= 7</code></li>\n\t<li><code>1 &lt;= pref.length, suff.length &lt;= 7</code></li>\n\t<li><code>words[i]</code>, <code>pref</code> and <code>suff</code> consist of lowercase English letters only.</li>\n\t<li>At most <code>10<sup>4</sup></code> calls will be made to the function <code>f</code>.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "design",
+      "trie",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class WordFilter {\npublic:\n    WordFilter(vector<string>& words) {\n        \n    }\n    \n    int f(string pref, string suff) {\n        \n    }\n};\n\n/**\n * Your WordFilter object will be instantiated and called as such:\n * WordFilter* obj = new WordFilter(words);\n * int param_1 = obj->f(pref,suff);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class WordFilter {\n\n    public WordFilter(String[] words) {\n        \n    }\n    \n    public int f(String pref, String suff) {\n        \n    }\n}\n\n/**\n * Your WordFilter object will be instantiated and called as such:\n * WordFilter obj = new WordFilter(words);\n * int param_1 = obj.f(pref,suff);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class WordFilter:\n\n    def __init__(self, words: List[str]):\n        \n\n    def f(self, pref: str, suff: str) -> int:\n        \n\n\n# Your WordFilter object will be instantiated and called as such:\n# obj = WordFilter(words)\n# param_1 = obj.f(pref,suff)"
+      }
+    ],
+    "exampleTestcases": "[\"WordFilter\",\"f\"]\n[[[\"apple\"]],[\"a\",\"e\"]]",
+    "hints": [
+      "Take \"apple\" as an example, we will insert add \"apple{apple\", \"pple{apple\", \"ple{apple\", \"le{apple\", \"e{apple\", \"{apple\" into the Trie Tree.",
+      "If the query is: prefix = \"app\", suffix = \"le\", we can find it by querying our trie for\r\n\"le { app\".",
+      "We use '{' because in ASCii Table, '{' is next to 'z', so we just need to create new TrieNode[27] instead of 26. Also, compared with traditional Trie, we add the attribute weight in class TrieNode.\r\nYou can still choose any different character."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "design-add-and-search-words-data-structure",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:00.055Z"
+}

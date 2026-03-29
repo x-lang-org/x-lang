@@ -1,0 +1,43 @@
+{
+  "title": "Minimum Time to Build Blocks",
+  "titleCn": "建造街区的最短时间",
+  "titleSlug": "minimum-time-to-build-blocks",
+  "difficulty": "HARD",
+  "acRate": 0.4804392587508579,
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "minimum-time-to-build-blocks",
+    "questionId": "1167",
+    "title": "Minimum Time to Build Blocks",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "math",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1]\n1\n[1,2]\n5\n[1,2,3]\n1",
+    "hints": [
+      "A greedy approach will not work as the examples show.",
+      "Try all possible moves using DP.",
+      "For the DP state, dp[i][j] is the minimum time cost to build the first i blocks using j workers.",
+      "In one step you can either assign a worker to a block or choose a number of workers to split.",
+      "If you choose to assign a worker to a block it is always better to assign him to the block with the maximum time so we sort the array before using DP.",
+      "To optimize the solution from O(n^3) to O(n^2) notice that if you choose to split, it is always better to split all the workers you have."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "find-time-required-to-eliminate-bacterial-strains",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:56:24.352Z"
+}

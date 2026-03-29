@@ -1,0 +1,30 @@
+{
+  "title": "Find Median Given Frequency of Numbers",
+  "titleCn": "给定数字的频率查询中位数",
+  "titleSlug": "find-median-given-frequency-of-numbers",
+  "difficulty": "HARD",
+  "acRate": 0.46194626186350823,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "find-median-given-frequency-of-numbers",
+    "questionId": "571",
+    "title": "Find Median Given Frequency of Numbers",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Numbers\": [\"num\", \"frequency\"]}, \"rows\": {\"Numbers\": [[0, 7], [1, 1], [2, 3], [3, 1]]}}",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "median-employee-salary",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:39:54.999Z"
+}

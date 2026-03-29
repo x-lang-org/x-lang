@@ -1,0 +1,34 @@
+{
+  "title": "Bitwise OR of Adjacent Elements",
+  "titleCn": "相邻元素的按位或",
+  "titleSlug": "bitwise-or-of-adjacent-elements",
+  "difficulty": "EASY",
+  "acRate": 0.3754243041412084,
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "bitwise-or-of-adjacent-elements",
+    "questionId": "3472",
+    "title": "Bitwise OR of Adjacent Elements",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "bit-manipulation",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,3,7,15]\n[8,4,2]\n[5,4,9,11]",
+    "hints": [
+      "Iterate over array and calculate each element of the resulting array using <code>|</code> operation."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "neighboring-bitwise-xor",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:26:17.829Z"
+}

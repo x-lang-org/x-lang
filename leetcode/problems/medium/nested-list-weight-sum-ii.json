@@ -1,0 +1,38 @@
+{
+  "title": "Nested List Weight Sum II",
+  "titleCn": "嵌套列表加权和 II",
+  "titleSlug": "nested-list-weight-sum-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6558881034742067,
+  "topicTags": [
+    "stack",
+    "depth-first-search",
+    "breadth-first-search"
+  ],
+  "detail": {
+    "titleSlug": "nested-list-weight-sum-ii",
+    "questionId": "364",
+    "title": "Nested List Weight Sum II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "stack",
+      "depth-first-search",
+      "breadth-first-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1],2,[1,1]]\n[1,[4,[6]]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "nested-list-weight-sum",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "array-nesting",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:57:25.684Z"
+}

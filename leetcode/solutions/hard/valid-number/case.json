@@ -1,0 +1,21 @@
+{
+  "problemId": "65",
+  "titleSlug": "valid-number",
+  "title": "Valid Number",
+  "titleCn": "有效数字",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.28200218547484557,
+  "testcases": [
+    {
+      "input": "\"0\"",
+      "expectedOutput": "\"e\""
+    },
+    {
+      "input": "\".\"",
+      "expectedOutput": ""
+    }
+  ]
+}

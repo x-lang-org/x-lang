@@ -1,0 +1,26 @@
+{
+  "problemId": "71",
+  "titleSlug": "simplify-path",
+  "title": "Simplify Path",
+  "titleCn": "简化路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.4834608773998801,
+  "testcases": [
+    {
+      "input": "\"/home/\"",
+      "expectedOutput": "\"/home//foo/\""
+    },
+    {
+      "input": "\"/home/user/Documents/../Pictures\"",
+      "expectedOutput": "\"/../\""
+    },
+    {
+      "input": "\"/.../a/../b/c/../d/./\"",
+      "expectedOutput": ""
+    }
+  ]
+}

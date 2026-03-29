@@ -1,0 +1,21 @@
+{
+  "title": "Factorial Generator",
+  "titleCn": "阶乘生成器",
+  "titleSlug": "factorial-generator",
+  "difficulty": "EASY",
+  "acRate": 0.8420038535645472,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "factorial-generator",
+    "questionId": "2901",
+    "title": "Factorial Generator",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "5\n2\n0",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:38:30.156Z"
+}

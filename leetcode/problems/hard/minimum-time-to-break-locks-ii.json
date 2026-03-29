@@ -1,0 +1,31 @@
+{
+  "title": "Minimum Time to Break Locks II",
+  "titleCn": "破解锁的最少时间 II",
+  "titleSlug": "minimum-time-to-break-locks-ii",
+  "difficulty": "HARD",
+  "acRate": 0.2450261780104712,
+  "topicTags": [
+    "breadth-first-search",
+    "graph",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "minimum-time-to-break-locks-ii",
+    "questionId": "3693",
+    "title": "Minimum Time to Break Locks II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "breadth-first-search",
+      "graph",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[3,4,1]\n[2,5,4]",
+    "hints": [
+      "Use the Hungarian algorithm for minimum cost matching."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:23.838Z"
+}

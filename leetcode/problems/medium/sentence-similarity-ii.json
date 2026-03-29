@@ -1,0 +1,50 @@
+{
+  "title": "Sentence Similarity II",
+  "titleCn": "句子相似性 II",
+  "titleSlug": "sentence-similarity-ii",
+  "difficulty": "MEDIUM",
+  "acRate": 0.49928808732795443,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "sentence-similarity-ii",
+    "questionId": "737",
+    "title": "Sentence Similarity II",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "hash-table",
+      "string"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"great\",\"acting\",\"skills\"]\n[\"fine\",\"drama\",\"talent\"]\n[[\"great\",\"good\"],[\"fine\",\"good\"],[\"drama\",\"acting\"],[\"skills\",\"talent\"]]\n[\"I\",\"love\",\"leetcode\"]\n[\"I\",\"love\",\"onepiece\"]\n[[\"manga\",\"onepiece\"],[\"platform\",\"anime\"],[\"leetcode\",\"platform\"],[\"anime\",\"manga\"]]\n[\"I\",\"love\",\"leetcode\"]\n[\"I\",\"love\",\"onepiece\"]\n[[\"manga\",\"hunterXhunter\"],[\"platform\",\"anime\"],[\"leetcode\",\"platform\"],[\"anime\",\"manga\"]]",
+    "hints": [
+      "Consider the graphs where each pair in \"pairs\" is an edge.  Two words are similar if they are the same, or are in the same connected component of this graph."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-provinces",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "accounts-merge",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "sentence-similarity",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:04:21.739Z"
+}

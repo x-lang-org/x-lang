@@ -1,0 +1,22 @@
+{
+  "problemId": "66",
+  "titleSlug": "plus-one",
+  "title": "Plus One",
+  "titleCn": "加一",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.47415898849990995,
+  "testcases": [
+    {
+      "input": "[1,2,3]",
+      "expectedOutput": "[4,3,2,1]"
+    },
+    {
+      "input": "[9]",
+      "expectedOutput": ""
+    }
+  ]
+}

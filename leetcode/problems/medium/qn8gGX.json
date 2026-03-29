@@ -1,0 +1,43 @@
+{
+  "title": "查找和最小的 K 对数字",
+  "titleCn": "查找和最小的 K 对数字",
+  "titleSlug": "qn8gGX",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5360183563794457,
+  "topicTags": [
+    "array",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "qn8gGX",
+    "questionId": "1000326",
+    "title": "查找和最小的 K 对数字",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[1,7,11]\n[2,4,6]\n3\n[1,1,2]\n[1,2,3]\n2\n[1,2]\n[3]\n3",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:40.265Z"
+}

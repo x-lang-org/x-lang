@@ -1,0 +1,49 @@
+{
+  "title": "English Int LCCI",
+  "titleCn": "整数的英语表示",
+  "titleSlug": "english-int-lcci",
+  "difficulty": "HARD",
+  "acRate": 0.40320386882272935,
+  "topicTags": [
+    "recursion",
+    "math",
+    "string"
+  ],
+  "detail": {
+    "titleSlug": "english-int-lcci",
+    "questionId": "1000018",
+    "title": "English Int LCCI",
+    "content": "<p>Given any integer, print an English phrase that describes the integer (e.g., &quot;One Thousand Two Hundred Thirty Four&quot;).</p>\r\n\r\n<p><strong>Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 123\r\n<strong>Output:</strong> &quot;One Hundred Twenty Three&quot;\r\n</pre>\r\n\r\n<p><strong>Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 12345\r\n<strong>Output:</strong> &quot;Twelve Thousand Three Hundred Forty Five&quot;</pre>\r\n\r\n<p><strong>Example 3:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 1234567\r\n<strong>Output:</strong> &quot;One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven&quot;</pre>\r\n\r\n<p><strong>Example 4:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> 1234567891\r\n<strong>Output:</strong> &quot;One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One&quot;</pre>\r\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "recursion",
+      "math",
+      "string"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    string numberToWords(int num) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public String numberToWords(int num) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def numberToWords(self, num: int) -> str:\n        "
+      }
+    ],
+    "exampleTestcases": "123\n12345\n1234567\n1234567891",
+    "hints": [
+      "试着从三位作为一段的角度思考。",
+      "你考虑过负数吗？你的解决方案是否适用于100 030 000这样的值？",
+      "考虑把一个数字分成由3位数组成的序列。"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:37:58.738Z"
+}

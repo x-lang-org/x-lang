@@ -1,0 +1,41 @@
+{
+  "title": "采集果实",
+  "titleCn": "采集果实",
+  "titleSlug": "PTXy4P",
+  "difficulty": "EASY",
+  "acRate": 0.7409692417739628,
+  "topicTags": [
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "PTXy4P",
+    "questionId": "1000438",
+    "title": "采集果实",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int getMinimumTime(vector<int>& time, vector<vector<int>>& fruits, int limit) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int getMinimumTime(int[] time, int[][] fruits, int limit) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def getMinimumTime(self, time: List[int], fruits: List[List[int]], limit: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,3,2]\n[[0,2],[1,4],[2,1]]\n3\n[1]\n[[0,3],[0,5]]\n2",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:28.433Z"
+}

@@ -1,0 +1,33 @@
+{
+  "title": "How Many Apples Can You Put into the Basket",
+  "titleCn": "最多可以买到的苹果数量",
+  "titleSlug": "how-many-apples-can-you-put-into-the-basket",
+  "difficulty": "EASY",
+  "acRate": 0.6884851138353766,
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "how-many-apples-can-you-put-into-the-basket",
+    "questionId": "1141",
+    "title": "How Many Apples Can You Put into the Basket",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "greedy",
+      "array",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[100,200,150,1000]\n[900,950,800,1000,700,800]",
+    "hints": [
+      "What if you think in a greedy approach?",
+      "The best apple to take in one step is the one with the smallest weight.",
+      "Sort the array and take apples with smaller weight first."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:44:02.184Z"
+}

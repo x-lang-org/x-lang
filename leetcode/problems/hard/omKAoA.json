@@ -1,0 +1,43 @@
+{
+  "title": "分割回文串 II",
+  "titleCn": "分割回文串 II",
+  "titleSlug": "omKAoA",
+  "difficulty": "HARD",
+  "acRate": 0.5648844013539097,
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "omKAoA",
+    "questionId": "1000272",
+    "title": "分割回文串 II",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int minCut(string s) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int minCut(String s) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def minCut(self, s: str) -> int:"
+      }
+    ],
+    "exampleTestcases": "\"aab\"\n\"a\"\n\"ab\"",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:59:32.348Z"
+}

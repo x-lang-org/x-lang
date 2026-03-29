@@ -1,0 +1,43 @@
+{
+  "title": "打家劫舍 II",
+  "titleCn": "打家劫舍 II",
+  "titleSlug": "PzWKhm",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4726004381779325,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "PzWKhm",
+    "questionId": "1000266",
+    "title": "打家劫舍 II",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int rob(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int rob(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def rob(self, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,3,2]\n[1,2,3,1]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:34.514Z"
+}

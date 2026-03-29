@@ -1,0 +1,25 @@
+{
+  "title": "Shortest Distance in a Plane",
+  "titleCn": "平面上的最近距离",
+  "titleSlug": "shortest-distance-in-a-plane",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6338679278830767,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "shortest-distance-in-a-plane",
+    "questionId": "612",
+    "title": "Shortest Distance in a Plane",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Point2D\":[\"x\",\"y\"]},\"rows\":{\"Point2D\":[[-1,-1],[0,0],[-1,-2]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:04:42.109Z"
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "92",
+  "titleSlug": "reverse-linked-list-ii",
+  "title": "Reverse Linked List II",
+  "titleCn": "反转链表 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list"
+  ],
+  "acRate": 0.5815595564564207,
+  "testcases": [
+    {
+      "input": "[1,2,3,4,5]",
+      "expectedOutput": "2"
+    },
+    {
+      "input": "4",
+      "expectedOutput": "[5]"
+    },
+    {
+      "input": "1",
+      "expectedOutput": "1"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Best Line LCCI",
+  "titleCn": "最佳直线",
+  "titleSlug": "best-line-lcci",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5534280420012353,
+  "topicTags": [
+    "geometry",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "best-line-lcci",
+    "questionId": "100354",
+    "title": "Best Line LCCI",
+    "content": "<p>Given a two-dimensional graph with points on it, find a line which passes the most number of points.</p>\r\n\r\n<p>Assume all the points that passed by the line are stored in list <code>S</code>&nbsp;sorted by their number. You need to return <code>[S[0], S[1]]</code>, that is , two points that have smallest number. If there are more than one line that passes the most number of points, choose the one that has the smallest <code>S[0].</code>&nbsp;If there are more that one line that has the same <code>S[0]</code>, choose the one that has smallest <code>S[1]</code>.</p>\r\n\r\n<p><strong>Example: </strong></p>\r\n\r\n<pre>\r\n<strong>Input: </strong> [[0,0],[1,1],[1,0],[2,0]]\r\n<strong>Output: </strong> [0,2]\r\n<strong>Explanation: </strong> The numbers of points passed by the line are [0,2,3].\r\n</pre>\r\n\r\n<p><strong>Note: </strong></p>\r\n\r\n<ul>\r\n\t<li><code>2 &lt;= len(Points) &lt;= 300</code></li>\r\n\t<li><code>len(Points[i]) = 2</code></li>\r\n</ul>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "geometry",
+      "array",
+      "hash-table",
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> bestLine(vector<vector<int>>& points) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] bestLine(int[][] points) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def bestLine(self, points: List[List[int]]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[[-38935,27124],[-39837,19604],[-7086,42194],[-11571,-23257],[115,-23257],[20229,5976],[24653,-18488],[11017,21043],[-9353,16550],[-47076,15237],[-36686,42194],[-17704,1104],[31067,7368],[-20882,42194],[-19107,-10597],[-14898,24506],[-20801,42194],[-52268,40727],[-14042,42194],[-23254,42194],[-30837,-53882],[1402,801],[-33961,-984],[-6411,42194],[-12210,22901],[-8213,-19441],[-26939,20810],[30656,-23257],[-27195,21649],[-33780,2717],[23617,27018],[12266,3608]]",
+    "hints": [
+      "有时，蛮力解法是相当好的办法。你能试试所有可能的直线吗？",
+      "你不能真的试遍世界上所有可能的无限长的线。但你知道一条“最好”的线必须至少相交两点。你能连接每对点吗？你可以检查每一条线是否是最优的吗？",
+      "你应该能得到O(N²)的解法。",
+      "你试过使用散列表吗?"
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:24:59.014Z"
+}

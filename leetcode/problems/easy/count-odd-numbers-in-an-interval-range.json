@@ -1,0 +1,49 @@
+{
+  "title": "Count Odd Numbers in an Interval Range",
+  "titleCn": "在区间范围内统计奇数数目",
+  "titleSlug": "count-odd-numbers-in-an-interval-range",
+  "difficulty": "EASY",
+  "acRate": 0.5269172154009835,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "count-odd-numbers-in-an-interval-range",
+    "questionId": "1630",
+    "title": "Count Odd Numbers in an Interval Range",
+    "content": "<p>Given two non-negative integers <code>low</code> and <code><font face=\"monospace\">high</font></code>. Return the <em>count of odd numbers between </em><code>low</code><em> and </em><code><font face=\"monospace\">high</font></code><em>&nbsp;(inclusive)</em>.</p>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong class=\"example\">Example 1:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> low = 3, high = 7\r\n<strong>Output:</strong> 3\r\n<b>Explanation: </b>The odd numbers between 3 and 7 are [3,5,7].</pre>\r\n\r\n<p><strong class=\"example\">Example 2:</strong></p>\r\n\r\n<pre>\r\n<strong>Input:</strong> low = 8, high = 10\r\n<strong>Output:</strong> 1\r\n<b>Explanation: </b>The odd numbers between 8 and 10 are [9].</pre>\r\n\r\n<p>&nbsp;</p>\r\n<p><strong>Constraints:</strong></p>\r\n\r\n<ul>\r\n\t<li><code>0 &lt;= low &lt;= high&nbsp;&lt;= 10^9</code></li>\r\n</ul>",
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int countOdds(int low, int high) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int countOdds(int low, int high) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def countOdds(self, low: int, high: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "3\n7\n8\n10",
+    "hints": [
+      "If the range (high - low + 1) is even, the number of even and odd numbers in this range will be the same.",
+      "If the range (high - low + 1) is odd, the solution will depend on the parity of high and low."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "check-if-bitwise-or-has-trailing-zeros",
+        "difficulty": "Easy"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:33:49.081Z"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Form a Chemical Bond",
+  "titleCn": "形成化学键",
+  "titleSlug": "form-a-chemical-bond",
+  "difficulty": "EASY",
+  "acRate": 0.828696925329429,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "form-a-chemical-bond",
+    "questionId": "2622",
+    "title": "Form a Chemical Bond",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Elements\": [\"symbol\", \"type\", \"electrons\"]}, \"rows\": {\"Elements\": [[\"He\", \"Noble\", 0], [\"Na\", \"Metal\", 1], [\"Ca\", \"Metal\", 2], [\"La\", \"Metal\", 3], [\"Cl\", \"Nonmetal\", 1], [\"O\", \"Nonmetal\", 2], [\"N\", \"Nonmetal\", 3]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:42:36.789Z"
+}

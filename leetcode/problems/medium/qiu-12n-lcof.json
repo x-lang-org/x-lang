@@ -1,0 +1,45 @@
+{
+  "title": "设计机械累加器",
+  "titleCn": "设计机械累加器",
+  "titleSlug": "qiu-12n-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8551325007614986,
+  "topicTags": [
+    "bit-manipulation",
+    "recursion",
+    "brainteaser"
+  ],
+  "detail": {
+    "titleSlug": "qiu-12n-lcof",
+    "questionId": "100345",
+    "title": "设计机械累加器",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\r\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "recursion",
+      "brainteaser"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int mechanicalAccumulator(int target) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int mechanicalAccumulator(int target) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def mechanicalAccumulator(self, target: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "5\n7",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:01:38.987Z"
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Number of Distinct Islands",
+  "titleCn": "不同岛屿的数量",
+  "titleSlug": "number-of-distinct-islands",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5857979502196193,
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "matrix",
+    "sorting",
+    "hash-function"
+  ],
+  "detail": {
+    "titleSlug": "number-of-distinct-islands",
+    "questionId": "694",
+    "title": "Number of Distinct Islands",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "array",
+      "hash-table",
+      "matrix",
+      "sorting",
+      "hash-function"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]\n[[1,1,0,1,1],[1,0,0,0,0],[0,0,0,0,1],[1,1,0,1,1]]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "number-of-islands",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "number-of-distinct-islands-ii",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "count-sub-islands",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:58:05.897Z"
+}

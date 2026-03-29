@@ -1,0 +1,54 @@
+{
+  "title": "Get the Maximum Score",
+  "titleCn": "最大得分",
+  "titleSlug": "get-the-maximum-score",
+  "difficulty": "HARD",
+  "acRate": 0.43639455782312925,
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "get-the-maximum-score",
+    "questionId": "1659",
+    "title": "Get the Maximum Score",
+    "content": "<p>You are given two <strong>sorted</strong> arrays of distinct integers <code>nums1</code> and <code>nums2</code>.</p>\n\n<p>A <strong>valid<strong><em> </em></strong>path</strong> is defined as follows:</p>\n\n<ul>\n\t<li>Choose array <code>nums1</code> or <code>nums2</code> to traverse (from index-0).</li>\n\t<li>Traverse the current array from left to right.</li>\n\t<li>If you are reading any value that is present in <code>nums1</code> and <code>nums2</code> you are allowed to change your path to the other array. (Only one repeated value is considered in the valid path).</li>\n</ul>\n\n<p>The <strong>score</strong> is defined as the sum of unique values in a valid path.</p>\n\n<p>Return <em>the maximum score you can obtain of all possible <strong>valid paths</strong></em>. Since the answer may be too large, return it modulo <code>10<sup>9</sup> + 7</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/07/16/sample_1_1893.png\" style=\"width: 500px; height: 151px;\" />\n<pre>\n<strong>Input:</strong> nums1 = [2,4,5,8,10], nums2 = [4,6,8,9]\n<strong>Output:</strong> 30\n<strong>Explanation:</strong> Valid paths:\n[2,4,5,8,10], [2,4,5,8,9], [2,4,6,8,9], [2,4,6,8,10],  (starting from nums1)\n[4,6,8,9], [4,5,8,10], [4,5,8,9], [4,6,8,10]    (starting from nums2)\nThe maximum is obtained with the path in green <strong>[2,4,6,8,10]</strong>.\n</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,3,5,7,9], nums2 = [3,5,100]\n<strong>Output:</strong> 109\n<strong>Explanation:</strong> Maximum sum is obtained with the path <strong>[1,3,5,100]</strong>.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> nums1 = [1,2,3,4,5], nums2 = [6,7,8,9,10]\n<strong>Output:</strong> 40\n<strong>Explanation:</strong> There are no common elements between nums1 and nums2.\nMaximum sum is obtained with the path [6,7,8,9,10].\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= nums1.length, nums2.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= nums1[i], nums2[i] &lt;= 10<sup>7</sup></code></li>\n\t<li><code>nums1</code> and <code>nums2</code> are strictly increasing.</li>\n</ul>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "two-pointers",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int maxSum(vector<int>& nums1, vector<int>& nums2) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int maxSum(int[] nums1, int[] nums2) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def maxSum(self, nums1: List[int], nums2: List[int]) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,4,5,8,10]\n[4,6,8,9]\n[1,3,5,7,9]\n[3,5,100]\n[1,2,3,4,5]\n[6,7,8,9,10]",
+    "hints": [
+      "Partition the array by common integers, and choose the path with larger sum with a DP technique."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-score-of-a-node-sequence",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:43:12.827Z"
+}

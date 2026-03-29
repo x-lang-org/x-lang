@@ -1,0 +1,25 @@
+{
+  "title": "Team Scores in Football Tournament",
+  "titleCn": "查询球队积分",
+  "titleSlug": "team-scores-in-football-tournament",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5020844254724282,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "team-scores-in-football-tournament",
+    "questionId": "1339",
+    "title": "Team Scores in Football Tournament",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Teams\": [\"team_id\", \"team_name\"], \"Matches\": [\"match_id\", \"host_team\", \"guest_team\", \"host_goals\", \"guest_goals\"]}, \"rows\": {\"Teams\": [[10, \"Leetcode FC\"], [20, \"NewYork FC\"], [30, \"Atlanta FC\"], [40, \"Chicago FC\"], [50, \"Toronto FC\"]], \"Matches\": [[1, 10, 20, 3, 0], [2, 30, 10, 2, 2], [3, 10, 50, 5, 1], [4, 20, 30, 1, 0], [5, 50, 30, 1, 0]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:08:18.575Z"
+}

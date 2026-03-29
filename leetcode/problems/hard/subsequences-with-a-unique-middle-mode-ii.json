@@ -1,0 +1,38 @@
+{
+  "title": "Subsequences with a Unique Middle Mode II",
+  "titleCn": "唯一中间众数子序列 II",
+  "titleSlug": "subsequences-with-a-unique-middle-mode-ii",
+  "difficulty": "HARD",
+  "acRate": 0.7319587628865979,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "combinatorics"
+  ],
+  "detail": {
+    "titleSlug": "subsequences-with-a-unique-middle-mode-ii",
+    "questionId": "3756",
+    "title": "Subsequences with a Unique Middle Mode II",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "math",
+      "combinatorics"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,1,1,1,1,1]\n[1,2,2,3,3,4]\n[0,1,2,3,4,5,6,7,8]",
+    "hints": [
+      "Use the Inclusion-Exclusion Principle to account for the different cases of having a unique middle mode."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "subsequences-with-a-unique-middle-mode-i",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:07:14.621Z"
+}

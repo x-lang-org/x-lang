@@ -1,0 +1,45 @@
+{
+  "title": "柱状图中最大的矩形",
+  "titleCn": "柱状图中最大的矩形",
+  "titleSlug": "0ynMMM",
+  "difficulty": "HARD",
+  "acRate": 0.49876373240425953,
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "detail": {
+    "titleSlug": "0ynMMM",
+    "questionId": "1000283",
+    "title": "柱状图中最大的矩形",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Hard",
+    "topicTags": [
+      "stack",
+      "array",
+      "monotonic-stack"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int largestRectangleArea(int[] heights) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,1,5,6,2,3]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:20:28.662Z"
+}

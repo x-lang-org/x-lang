@@ -1,0 +1,43 @@
+{
+  "title": "Sort Features by Popularity",
+  "titleCn": "按受欢迎程度排列功能",
+  "titleSlug": "sort-features-by-popularity",
+  "difficulty": "MEDIUM",
+  "acRate": 0.46528998242530756,
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "sort-features-by-popularity",
+    "questionId": "1919",
+    "title": "Sort Features by Popularity",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[\"cooler\",\"lock\",\"touch\"]\n[\"i like cooler cooler\",\"lock touch cool\",\"locker like touch\"]\n[\"a\",\"aa\",\"b\",\"c\"]\n[\"a\",\"a aa\",\"a a a a a\",\"b a\"]",
+    "hints": [
+      "Use a hash map to count the frequency of each word of each string.",
+      "Use the map for sorting the features."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "top-k-frequent-elements",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "top-k-frequent-words",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:05:58.448Z"
+}

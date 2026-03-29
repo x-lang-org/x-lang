@@ -1,0 +1,25 @@
+{
+  "title": "Classifying Triangles by Lengths",
+  "titleCn": "根据长度分类三角形",
+  "titleSlug": "classifying-triangles-by-lengths",
+  "difficulty": "EASY",
+  "acRate": 0.5758980301274623,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "classifying-triangles-by-lengths",
+    "questionId": "3258",
+    "title": "Classifying Triangles by Lengths",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Triangles\":[\"A\",\"B\",\"C\"]},\"rows\":{\"Triangles\":[[20,20,23],[20,20,20],[20,21,22],[13,14,30]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:30:47.156Z"
+}

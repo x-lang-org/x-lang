@@ -1,0 +1,39 @@
+{
+  "title": "Find Time Required to Eliminate Bacterial Strains",
+  "titleCn": "查找消除细菌菌株所需时间",
+  "titleSlug": "find-time-required-to-eliminate-bacterial-strains",
+  "difficulty": "HARD",
+  "acRate": 0.7573770491803279,
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "heap-priority-queue"
+  ],
+  "detail": {
+    "titleSlug": "find-time-required-to-eliminate-bacterial-strains",
+    "questionId": "3814",
+    "title": "Find Time Required to Eliminate Bacterial Strains",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "greedy",
+      "array",
+      "math",
+      "heap-priority-queue"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[10,4,5]\n2\n[10,4]\n5",
+    "hints": [
+      "Use binary search.",
+      "First perform all the divisions, then assign the bacteria greedily."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-time-to-build-blocks",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:41:52.337Z"
+}

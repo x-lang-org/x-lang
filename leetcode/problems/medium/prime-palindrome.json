@@ -1,0 +1,48 @@
+{
+  "title": "Prime Palindrome",
+  "titleCn": "回文质数",
+  "titleSlug": "prime-palindrome",
+  "difficulty": "MEDIUM",
+  "acRate": 0.2611485558195542,
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "detail": {
+    "titleSlug": "prime-palindrome",
+    "questionId": "897",
+    "title": "Prime Palindrome",
+    "content": "<p>Given an integer n, return <em>the smallest <strong>prime palindrome</strong> greater than or equal to </em><code>n</code>.</p>\n\n<p>An integer is <strong>prime</strong> if it has exactly two divisors: <code>1</code> and itself. Note that <code>1</code> is not a prime number.</p>\n\n<ul>\n\t<li>For example, <code>2</code>, <code>3</code>, <code>5</code>, <code>7</code>, <code>11</code>, and <code>13</code> are all primes.</li>\n</ul>\n\n<p>An integer is a <strong>palindrome</strong> if it reads the same from left to right as it does from right to left.</p>\n\n<ul>\n\t<li>For example, <code>101</code> and <code>12321</code> are palindromes.</li>\n</ul>\n\n<p>The test cases are generated so that the answer always exists and is in the range <code>[2, 2 * 10<sup>8</sup>]</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n<pre><strong>Input:</strong> n = 6\n<strong>Output:</strong> 7\n</pre><p><strong class=\"example\">Example 2:</strong></p>\n<pre><strong>Input:</strong> n = 8\n<strong>Output:</strong> 11\n</pre><p><strong class=\"example\">Example 3:</strong></p>\n<pre><strong>Input:</strong> n = 13\n<strong>Output:</strong> 101\n</pre>\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>8</sup></code></li>\n</ul>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "number-theory"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int primePalindrome(int n) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int primePalindrome(int n) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def primePalindrome(self, n: int) -> int:\n        "
+      }
+    ],
+    "exampleTestcases": "6\n8\n13",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "sum-of-k-mirror-numbers",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:01:06.026Z"
+}

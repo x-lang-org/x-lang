@@ -1,0 +1,43 @@
+{
+  "title": "只出现一次的数字 II",
+  "titleCn": "只出现一次的数字 II",
+  "titleSlug": "WGki4K",
+  "difficulty": "MEDIUM",
+  "acRate": 0.7094334133391519,
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "WGki4K",
+    "questionId": "1000233",
+    "title": "只出现一次的数字 II",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "array"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int singleNumber(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:"
+      }
+    ],
+    "exampleTestcases": "[2,2,3,2]\n[0,1,0,1,0,1,99]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:10:45.533Z"
+}

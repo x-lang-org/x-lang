@@ -1,0 +1,43 @@
+{
+  "title": "按规则计算统计结果",
+  "titleCn": "按规则计算统计结果",
+  "titleSlug": "gou-jian-cheng-ji-shu-zu-lcof",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5661914117694554,
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "detail": {
+    "titleSlug": "gou-jian-cheng-ji-shu-zu-lcof",
+    "questionId": "100338",
+    "title": "按规则计算统计结果",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "prefix-sum"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<int> statisticalResult(vector<int>& arrayA) {\n        \n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int[] statisticalResult(int[] arrayA) {\n        \n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def statisticalResult(self, arrayA: List[int]) -> List[int]:\n        "
+      }
+    ],
+    "exampleTestcases": "[2,4,6,8,10]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:17.936Z"
+}

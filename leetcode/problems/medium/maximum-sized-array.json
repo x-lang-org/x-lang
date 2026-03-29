@@ -1,0 +1,27 @@
+{
+  "title": "Maximum Sized Array",
+  "titleCn": "最大尺寸数组",
+  "titleSlug": "maximum-sized-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.19858712715855573,
+  "topicTags": [
+    "bit-manipulation",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "maximum-sized-array",
+    "questionId": "3679",
+    "title": "Maximum Sized Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "10\n0",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:51:29.668Z"
+}

@@ -1,0 +1,44 @@
+{
+  "title": "Brightest Position on Street",
+  "titleCn": "街上最亮的位置",
+  "titleSlug": "brightest-position-on-street",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5814078452444922,
+  "topicTags": [
+    "array",
+    "ordered-set",
+    "prefix-sum",
+    "sorting"
+  ],
+  "detail": {
+    "titleSlug": "brightest-position-on-street",
+    "questionId": "2075",
+    "title": "Brightest Position on Street",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "ordered-set",
+      "prefix-sum",
+      "sorting"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[[-3,2],[1,2],[3,3]]\n[[1,0],[0,1]]\n[[1,2]]",
+    "hints": [
+      "Convert lights into an array of ranges representing the range where each street light can light up and sort the start and end points of the ranges.",
+      "Do we need to traverse all possible positions on the street?",
+      "No, we don't, we only need to go to the start and end points of the ranges for each streetlight."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "minimum-number-of-food-buckets-to-feed-the-hamsters",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "count-positions-on-street-with-required-brightness",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:26:49.635Z"
+}

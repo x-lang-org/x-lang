@@ -1,0 +1,25 @@
+{
+  "title": "Calculate Orders Within Each Interval",
+  "titleCn": "计算每个区间内的订单",
+  "titleSlug": "calculate-orders-within-each-interval",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6863613983259478,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "calculate-orders-within-each-interval",
+    "questionId": "3160",
+    "title": "Calculate Orders Within Each Interval",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\": {\"Orders\": [\"minute\", \"order_count\"]}, \"rows\": {\"Orders\":[[1,0],[2,2],[3,4],[4,6],[5,1],[6,4],[7,1],[8,2],[9,4],[10,1],[11,4],[12,6]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:27:33.643Z"
+}

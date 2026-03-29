@@ -1,0 +1,34 @@
+{
+  "title": "Read N Characters Given Read4",
+  "titleCn": "用 Read4 读取 N 个字符",
+  "titleSlug": "read-n-characters-given-read4",
+  "difficulty": "EASY",
+  "acRate": 0.5593495934959349,
+  "topicTags": [
+    "array",
+    "interactive",
+    "simulation"
+  ],
+  "detail": {
+    "titleSlug": "read-n-characters-given-read4",
+    "questionId": "157",
+    "title": "Read N Characters Given Read4",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "array",
+      "interactive",
+      "simulation"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "\"abc\"\n4\n\"abcde\"\n5\n\"abcdABCD1234\"\n12",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "read-n-characters-given-read4-ii-call-multiple-times",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:02:08.560Z"
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Number of Days in a Month",
+  "titleCn": "一月有多少天",
+  "titleSlug": "number-of-days-in-a-month",
+  "difficulty": "EASY",
+  "acRate": 0.6651672757942086,
+  "topicTags": [
+    "math"
+  ],
+  "detail": {
+    "titleSlug": "number-of-days-in-a-month",
+    "questionId": "1088",
+    "title": "Number of Days in a Month",
+    "content": null,
+    "difficulty": "Easy",
+    "topicTags": [
+      "math"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "1992\n7\n2000\n2\n1900\n2",
+    "hints": [
+      "Does February have 28 days or 29 days?",
+      "Think of Leap years."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:58:01.198Z"
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Smallest Greater Multiple Made of Two Digits",
+  "titleCn": "最小的仅由两个数组成的倍数",
+  "titleSlug": "smallest-greater-multiple-made-of-two-digits",
+  "difficulty": "MEDIUM",
+  "acRate": 0.4290053151100987,
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "detail": {
+    "titleSlug": "smallest-greater-multiple-made-of-two-digits",
+    "questionId": "2141",
+    "title": "Smallest Greater Multiple Made of Two Digits",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "math",
+      "enumeration"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "2\n0\n2\n3\n4\n2\n2\n0\n0",
+    "hints": [
+      "Could you generate all the different numbers comprised of only digit1 and digit2 with the constraints?",
+      "Going from least to greatest, check if the number you generated is greater than k and a multiple of k."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:05:28.524Z"
+}

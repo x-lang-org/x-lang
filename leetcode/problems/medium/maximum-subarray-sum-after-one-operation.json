@@ -1,0 +1,36 @@
+{
+  "title": "Maximum Subarray Sum After One Operation",
+  "titleCn": "经过一次操作后的最大子数组和",
+  "titleSlug": "maximum-subarray-sum-after-one-operation",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5997392438070405,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "maximum-subarray-sum-after-one-operation",
+    "questionId": "1893",
+    "title": "Maximum Subarray Sum After One Operation",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[2,-1,-4,-3]\n[1,-1,1,1,-1,-1,1]",
+    "hints": [
+      "Think about dynamic programming",
+      "Define an array dp[nums.length][2], where dp[i][0] is the max subarray sum including nums[i] and without squaring any element.",
+      "dp[i][1] is the max subarray sum including nums[i] and having only one element squared."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "maximum-subarray",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:51:38.286Z"
+}

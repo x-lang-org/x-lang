@@ -1,0 +1,33 @@
+{
+  "title": "Curry",
+  "titleCn": "柯里化",
+  "titleSlug": "curry",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8285629099582588,
+  "topicTags": [],
+  "detail": {
+    "titleSlug": "curry",
+    "questionId": "2740",
+    "title": "Curry",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [],
+    "codeSnippets": [],
+    "exampleTestcases": "function sum(a, b, c) { return a + b + c; }\n[[1],[2],[3]]\nfunction sum(a, b, c) { return a + b + c; }\n[[1,2],[3]]\nfunction sum(a, b, c) { return a + b + c; }\n[[],[],[1,2,3]]\nfunction life() { return 42; }\n[[]]",
+    "hints": [
+      "You can access the count of parameters expected to passed into a function with \"fn.length\".",
+      "You can use recursion. If the length of params passed is equal to fn.length, you are done. Just pass those params to fn. Otherwise return a function that is includes the previous passed params plus the new params. The new function should contain a recursive call to curry()."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "memoize",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "memoize-ii",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:35:22.103Z"
+}

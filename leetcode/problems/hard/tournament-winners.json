@@ -1,0 +1,25 @@
+{
+  "title": "Tournament Winners",
+  "titleCn": "锦标赛优胜者",
+  "titleSlug": "tournament-winners",
+  "difficulty": "HARD",
+  "acRate": 0.5163810905843612,
+  "topicTags": [
+    "database"
+  ],
+  "detail": {
+    "titleSlug": "tournament-winners",
+    "questionId": "1318",
+    "title": "Tournament Winners",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "database"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "{\"headers\":{\"Players\":[\"player_id\",\"group_id\"],\"Matches\":[\"match_id\",\"first_player\",\"second_player\",\"first_score\",\"second_score\"]},\"rows\":{\"Players\":[[10,2],[15,1],[20,3],[25,1],[30,1],[35,2],[40,3],[45,1],[50,2]],\"Matches\":[[1,15,45,3,0],[2,30,25,1,2],[3,30,15,2,0],[4,40,20,5,2],[5,35,50,1,1]]}}",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:09:11.971Z"
+}

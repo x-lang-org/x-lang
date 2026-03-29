@@ -1,0 +1,47 @@
+{
+  "title": "Clone N-ary Tree",
+  "titleCn": "克隆 N 叉树",
+  "titleSlug": "clone-n-ary-tree",
+  "difficulty": "MEDIUM",
+  "acRate": 0.8185817349991202,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table"
+  ],
+  "detail": {
+    "titleSlug": "clone-n-ary-tree",
+    "questionId": "1634",
+    "title": "Clone N-ary Tree",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "hash-table"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[1,null,3,2,4,null,5,6]\n[1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]",
+    "hints": [
+      "Traverse the tree, keep a hashtable with you and create a clone node for each node in the tree.",
+      "Start traversing the original tree again and connect each child pointer in the cloned tree the same way as the original tree with the help of the hashtable."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "clone-graph",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "copy-list-with-random-pointer",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "clone-binary-tree-with-random-pointer",
+        "difficulty": "Medium"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:30:56.328Z"
+}

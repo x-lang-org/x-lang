@@ -1,0 +1,43 @@
+{
+  "title": "全排列 II ",
+  "titleCn": "全排列 II ",
+  "titleSlug": "7p8L0Z",
+  "difficulty": "MEDIUM",
+  "acRate": 0.6844999308341403,
+  "topicTags": [
+    "array",
+    "backtracking"
+  ],
+  "detail": {
+    "titleSlug": "7p8L0Z",
+    "questionId": "1000235",
+    "title": "全排列 II ",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "backtracking"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    vector<vector<int>> permuteUnique(vector<int>& nums) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public List<List<Integer>> permuteUnique(int[] nums) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def permuteUnique(self, nums: List[int]) -> List[List[int]]:"
+      }
+    ],
+    "exampleTestcases": "[1,1,2]\n[1,2,3]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:21:18.937Z"
+}

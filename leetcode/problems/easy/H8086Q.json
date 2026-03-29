@@ -1,0 +1,45 @@
+{
+  "title": "最近的请求次数",
+  "titleCn": "最近的请求次数",
+  "titleSlug": "H8086Q",
+  "difficulty": "EASY",
+  "acRate": 0.8187060731663363,
+  "topicTags": [
+    "design",
+    "queue",
+    "data-stream"
+  ],
+  "detail": {
+    "titleSlug": "H8086Q",
+    "questionId": "1000293",
+    "title": "最近的请求次数",
+    "content": "<p>English description is not available for the problem. Please switch to Chinese.</p>\n",
+    "difficulty": "Easy",
+    "topicTags": [
+      "design",
+      "queue",
+      "data-stream"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class RecentCounter {\npublic:\n    RecentCounter() {\n\n    }\n    \n    int ping(int t) {\n\n    }\n};\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter* obj = new RecentCounter();\n * int param_1 = obj->ping(t);\n */"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class RecentCounter {\n\n    public RecentCounter() {\n\n    }\n    \n    public int ping(int t) {\n\n    }\n}\n\n/**\n * Your RecentCounter object will be instantiated and called as such:\n * RecentCounter obj = new RecentCounter();\n * int param_1 = obj.ping(t);\n */"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class RecentCounter:\n\n    def __init__(self):\n\n\n    def ping(self, t: int) -> int:\n\n\n\n# Your RecentCounter object will be instantiated and called as such:\n# obj = RecentCounter()\n# param_1 = obj.ping(t)"
+      }
+    ],
+    "exampleTestcases": "[\"RecentCounter\",\"ping\",\"ping\",\"ping\",\"ping\"]\n[[],[1],[100],[3001],[3002]]",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:40.720Z"
+}

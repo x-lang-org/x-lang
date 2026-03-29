@@ -1,0 +1,30 @@
+{
+  "title": "Missing Element in Sorted Array",
+  "titleCn": "有序数组中的缺失元素",
+  "titleSlug": "missing-element-in-sorted-array",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5710928757926147,
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "detail": {
+    "titleSlug": "missing-element-in-sorted-array",
+    "questionId": "1059",
+    "title": "Missing Element in Sorted Array",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "array",
+      "binary-search"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[4,7,9,10]\n1\n[4,7,9,10]\n3\n[1,2,4]\n3",
+    "hints": [
+      "First define a function f(x) that counts the number of missing elements until x.",
+      "Then use binary search with the given function f(x) to find the kth missing element."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:56:46.869Z"
+}

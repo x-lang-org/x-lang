@@ -1,0 +1,44 @@
+{
+  "title": "Closest Node to Path in Tree",
+  "titleCn": "树中最接近路径的节点",
+  "titleSlug": "closest-node-to-path-in-tree",
+  "difficulty": "HARD",
+  "acRate": 0.5680628272251309,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "array"
+  ],
+  "detail": {
+    "titleSlug": "closest-node-to-path-in-tree",
+    "questionId": "2420",
+    "title": "Closest Node to Path in Tree",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "breadth-first-search",
+      "array"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "7\n[[0,1],[0,2],[0,3],[1,4],[2,5],[2,6]]\n[[5,3,4],[5,3,6]]\n3\n[[0,1],[1,2]]\n[[0,1,2]]\n3\n[[0,1],[1,2]]\n[[0,0,0]]",
+    "hints": [
+      "For the ith query, find the distance from node_i to every other node in the tree.",
+      "We can use a BFS to find the distances.",
+      "Use DFS to find all the nodes on the path from start_i to end_i."
+    ],
+    "similarQuestions": [
+      {
+        "titleSlug": "count-number-of-possible-root-nodes",
+        "difficulty": "Hard"
+      },
+      {
+        "titleSlug": "design-graph-with-shortest-path-calculator",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T14:31:09.841Z"
+}

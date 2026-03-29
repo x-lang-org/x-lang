@@ -1,0 +1,45 @@
+{
+  "title": "下载插件",
+  "titleCn": "下载插件",
+  "titleSlug": "Ju9Xwi",
+  "difficulty": "EASY",
+  "acRate": 0.5365000534016875,
+  "topicTags": [
+    "greedy",
+    "math",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "Ju9Xwi",
+    "questionId": "1000225",
+    "title": "下载插件",
+    "content": "English description is not available for the problem. Please switch to Chinese.",
+    "difficulty": "Easy",
+    "topicTags": [
+      "greedy",
+      "math",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [
+      {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    int leastMinutes(int n) {\n\n    }\n};"
+      },
+      {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public int leastMinutes(int n) {\n\n    }\n}"
+      },
+      {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def leastMinutes(self, n: int) -> int:"
+      }
+    ],
+    "exampleTestcases": "2\n4",
+    "hints": [],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:45:01.456Z"
+}

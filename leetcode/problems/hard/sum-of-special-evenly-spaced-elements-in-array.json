@@ -1,0 +1,31 @@
+{
+  "title": "Sum Of Special Evenly-Spaced Elements In Array",
+  "titleCn": "数组中特殊等间距元素的和",
+  "titleSlug": "sum-of-special-evenly-spaced-elements-in-array",
+  "difficulty": "HARD",
+  "acRate": 0.5383008356545961,
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "detail": {
+    "titleSlug": "sum-of-special-evenly-spaced-elements-in-array",
+    "questionId": "1809",
+    "title": "Sum Of Special Evenly-Spaced Elements In Array",
+    "content": null,
+    "difficulty": "Hard",
+    "topicTags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[0,1,2,3,4,5,6,7]\n[[0,3],[5,1],[4,2]]\n[100,200,101,201,102,202,103,203]\n[[0,7]]",
+    "hints": [
+      "Think if y cannot be small. You can solve a query in O(n/y), so if y is large enough, it won't be a problem.",
+      "If y is small, like less than B, you can preprocess the answers for all such ys in O(n * B), then answer each such query in O(1).",
+      "As you might have already guessed, the optimal value for B is ~sqrt(n)."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T15:07:53.800Z"
+}

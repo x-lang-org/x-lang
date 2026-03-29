@@ -1,0 +1,46 @@
+{
+  "title": "Path Sum IV",
+  "titleCn": "路径总和 IV",
+  "titleSlug": "path-sum-iv",
+  "difficulty": "MEDIUM",
+  "acRate": 0.5843243855476271,
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "array",
+    "hash-table",
+    "binary-tree"
+  ],
+  "detail": {
+    "titleSlug": "path-sum-iv",
+    "questionId": "666",
+    "title": "Path Sum IV",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "tree",
+      "depth-first-search",
+      "array",
+      "hash-table",
+      "binary-tree"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "[113,215,221]\n[113,221]",
+    "hints": [],
+    "similarQuestions": [
+      {
+        "titleSlug": "path-sum",
+        "difficulty": "Easy"
+      },
+      {
+        "titleSlug": "path-sum-ii",
+        "difficulty": "Medium"
+      },
+      {
+        "titleSlug": "binary-tree-maximum-path-sum",
+        "difficulty": "Hard"
+      }
+    ]
+  },
+  "fetchedAt": "2026-03-29T15:00:25.857Z"
+}

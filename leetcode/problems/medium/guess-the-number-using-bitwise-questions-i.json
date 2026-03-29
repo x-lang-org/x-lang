@@ -1,0 +1,30 @@
+{
+  "title": "Guess the Number Using Bitwise Questions I",
+  "titleCn": "使用按位查询猜测数字 I",
+  "titleSlug": "guess-the-number-using-bitwise-questions-i",
+  "difficulty": "MEDIUM",
+  "acRate": 0.26401299756295693,
+  "topicTags": [
+    "bit-manipulation",
+    "interactive"
+  ],
+  "detail": {
+    "titleSlug": "guess-the-number-using-bitwise-questions-i",
+    "questionId": "3370",
+    "title": "Guess the Number Using Bitwise Questions I",
+    "content": null,
+    "difficulty": "Medium",
+    "topicTags": [
+      "bit-manipulation",
+      "interactive"
+    ],
+    "codeSnippets": [],
+    "exampleTestcases": "31",
+    "hints": [
+      "Ask <code>2<sup>i</sup></code> for <code>0 <= i < 30</code>.",
+      "If the result is greater than zero for some <code>i</code>, this bit is a set bit in <code>n</code>."
+    ],
+    "similarQuestions": []
+  },
+  "fetchedAt": "2026-03-29T14:43:34.573Z"
+}
