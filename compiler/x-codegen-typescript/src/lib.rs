@@ -416,6 +416,25 @@ impl TypeScriptBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Defer(expr) => {
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("defer {};", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                if let Some(e) = opt_expr {
+                    let expr = self.emit_expr(e)?;
+                    self.line(&format!("yield {};", expr))?;
+                } else {
+                    self.line("yield;")?;
+                }
+            }
+            StatementKind::Loop(body) => {
+                self.line("while (true) {")?;
+                self.indent += 1;
+                self.emit_block(body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -649,6 +668,19 @@ impl TypeScriptBackend {
                 Ok(format!("({})", inner))
             }
             ExpressionKind::Wait(wait_type, exprs) => self.emit_wait(wait_type, exprs),
+            ExpressionKind::Await(expr) => {
+                let expr_str = self.emit_expr(expr)?;
+                Ok(format!("await {}", expr_str))
+            }
+            ExpressionKind::OptionalChain(base, member) => {
+                let base_str = self.emit_expr(base)?;
+                Ok(format!("{}?.{}", base_str, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let left_str = self.emit_expr(left)?;
+                let right_str = self.emit_expr(right)?;
+                Ok(format!("({} ?? {})", left_str, right_str))
+            }
             _ => Err(TypeScriptBackendError::UnsupportedFeature(format!(
                 "Expression type {:?} is not yet supported in TypeScript backend",
                 expr
@@ -759,6 +791,22 @@ impl TypeScriptBackend {
                         "await Promise.race([{}, new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), {}))])",
                         expr, timeout
                     ))
+                }
+            }
+            ast::WaitType::Atomic => {
+                // Atomic: just await the expression with a comment
+                if expr_strs.len() == 1 {
+                    Ok(format!("// atomic\nawait {}", expr_strs[0]))
+                } else {
+                    Ok(format!("// atomic\nawait Promise.all([{}])", expr_strs.join(", ")))
+                }
+            }
+            ast::WaitType::Retry => {
+                // Retry: just await the expression with a comment
+                if expr_strs.len() == 1 {
+                    Ok(format!("// retry\nawait {}", expr_strs[0]))
+                } else {
+                    Ok(format!("// retry\nawait Promise.all([{}])", expr_strs.join(", ")))
                 }
             }
         }
@@ -1304,7 +1352,8 @@ impl TypeScriptBackend {
                     x_lir::BinaryOp::BitOr => "|",
                     x_lir::BinaryOp::BitXor => "^",
                     x_lir::BinaryOp::LeftShift => "<<",
-                    x_lir::BinaryOp::RightShift => ">>",
+                    x_lir::BinaryOp::RightShift => ">>>",
+                    x_lir::BinaryOp::RightShiftArithmetic => ">>",
                 };
                 Ok(format!("({} {} {})", l, op_str, r))
             }

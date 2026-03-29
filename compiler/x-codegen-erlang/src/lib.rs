@@ -334,6 +334,25 @@ impl ErlangBackend {
                 self.line("% unsafe block")?;
                 self.emit_block(block)?;
             }
+            StatementKind::Defer(expr) => {
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("% defer {}.", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                if let Some(e) = opt_expr {
+                    let expr = self.emit_expr(e)?;
+                    self.line(&format!("yield {}.", expr))?;
+                } else {
+                    self.line("yield.")?;
+                }
+            }
+            StatementKind::Loop(body) => {
+                self.line("loop ->");
+                self.indent += 1;
+                self.emit_block(body);
+                self.indent -= 1;
+                self.line("end.")?;
+            }
         }
         Ok(())
     }
@@ -743,6 +762,12 @@ impl ErlangBackend {
             ast::WaitType::Timeout(timeout_expr) => {
                 let timeout = self.emit_expr(timeout_expr)?;
                 Ok(format!("receive Msg -> Msg after {} -> timeout end", timeout))
+            }
+            ast::WaitType::Atomic => {
+                Ok("% atomic wait".to_string())
+            }
+            ast::WaitType::Retry => {
+                Ok("% retry wait".to_string())
             }
         }
     }

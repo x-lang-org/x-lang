@@ -469,6 +469,26 @@ impl SwiftBackend {
                 self.line("// unsafe block")?;
                 self.emit_block(block)?;
             }
+            StatementKind::Defer(expr) => {
+                // Swift has defer like keyword (Swift 6+ has `defer`
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("defer {{ {};}}", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                if let Some(expr) = opt_expr {
+                    let e = self.emit_expr(expr)?;
+                    self.line(&format!("yield {}", e))?;
+                } else {
+                        self.line("yield")?;
+                }
+            }
+            StatementKind::Loop(block) => {
+                self.line("while true {")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -761,6 +781,24 @@ impl SwiftBackend {
                 let e = self.emit_expr(inner)?;
                 Ok(format!("try {}", e))
             }
+            ExpressionKind::Cast(expr, ty) => {
+                let e = self.emit_expr(expr)?;
+                let type_str = self.map_type(ty)?;
+                Ok(format!("{} as! {}", e, type_str))
+            }
+            ExpressionKind::Await(expr) => {
+                let e = self.emit_expr(expr)?;
+                Ok(format!("await {}", e))
+            }
+            ExpressionKind::OptionalChain(base_expr, member) => {
+                let base = self.emit_expr(base_expr)?;
+                Ok(format!("{}?.{}", base, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let l = self.emit_expr(left)?;
+                let r = self.emit_expr(right)?;
+                Ok(format!("{} ?? {}", l, r))
+            }
             _ => Err(SwiftError::UnsupportedFeature(format!(
                 "Expression type not yet supported: {:?}",
                 expr.node
@@ -926,6 +964,12 @@ impl SwiftBackend {
                         timeout, expr
                     ))
                 }
+            }
+            WaitType::Atomic => {
+                Ok(format!("/* atomic wait: {} */ await {}", expr_strs.join(", "), expr_strs[0]))
+            }
+            WaitType::Retry => {
+                Ok(format!("/* retry wait: {} */ await {}", expr_strs.join(", "), expr_strs[0]))
             }
         }
     }

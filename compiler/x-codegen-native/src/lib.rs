@@ -41,10 +41,10 @@
 //! ```
 
 use std::collections::HashMap;
-use std::fmt::{self, Display, Write};
+use std::fmt::Write;
 use std::path::PathBuf;
 use x_codegen::{CodeGenerator, CodegenOutput, FileType, OutputFile};
-use x_lir::{self as lir, BinaryOp, Declaration, Expression, Literal, Statement, Type, UnaryOp};
+use x_lir::{self as lir, BinaryOp, Declaration, Expression, Literal, MatchStatement, Pattern, SwitchStatement, Statement, Type, UnaryOp};
 use x_parser::ast::Program as AstProgram;
 
 // ============================================================================
@@ -209,6 +209,14 @@ pub struct NativeBackend {
     local_offsets: HashMap<String, i32>,
     /// 当前函数名（用于生成唯一标签）
     current_function: String,
+    /// 循环 break 标签栈 - 支持嵌套循环 break
+    loop_break_stack: Vec<String>,
+    /// 循环 continue 标签栈 - 支持嵌套循环 continue
+    loop_continue_stack: Vec<String>,
+    /// 结构体字段偏移表: (结构体名称) -> (字段名称 -> 字节偏移)
+    struct_field_offsets: HashMap<String, HashMap<String, usize>>,
+    /// 导入的外部函数集合：(dll_name, function_name)
+    imported_functions: Vec<(String, String)>,
 }
 
 /// 全局变量信息
@@ -248,6 +256,10 @@ impl NativeBackend {
             stack_size: 0,
             local_offsets: HashMap::new(),
             current_function: String::new(),
+            loop_break_stack: Vec::new(),
+            loop_continue_stack: Vec::new(),
+            struct_field_offsets: HashMap::new(),
+            imported_functions: Vec::new(),
         }
     }
 
@@ -389,6 +401,9 @@ impl NativeBackend {
 
     /// 收集字符串字面量和全局变量
     fn collect_literals_and_globals(&mut self, lir: &lir::Program) -> NativeResult<()> {
+        self.struct_field_offsets.clear();
+        self.imported_functions.clear();
+
         for decl in &lir.declarations {
             match decl {
                 Declaration::Global(global) => {
@@ -405,6 +420,82 @@ impl NativeBackend {
                 Declaration::Function(func) => {
                     // 收集函数中的字符串字面量
                     self.collect_string_literals(&func.body)?;
+                }
+                Declaration::Struct(struct_decl) => {
+                    // 收集结构体字段并计算偏移量
+                    let mut offsets = HashMap::new();
+                    let mut current_offset = 0;
+                    let mut max_align = 1;
+
+                    for field in &struct_decl.fields {
+                        let align = self.type_align(&field.type_);
+                        let size = self.type_size(&field.type_);
+
+                        // 对齐偏移
+                        if current_offset % align != 0 {
+                            current_offset += align - (current_offset % align);
+                        }
+
+                        offsets.insert(field.name.clone(), current_offset);
+                        current_offset += size;
+
+                        if align > max_align {
+                            max_align = align;
+                        }
+                    }
+
+                    // 结构体整体对齐
+                    if current_offset % max_align != 0 {
+                        current_offset += max_align - (current_offset % max_align);
+                    }
+
+                    self.struct_field_offsets.insert(struct_decl.name.clone(), offsets);
+                }
+                Declaration::Class(class_decl) => {
+                    // 收集类字段并计算偏移量（包含父类）
+                    let mut offsets = HashMap::new();
+                    let mut current_offset = 0;
+                    let mut max_align = 1;
+
+                    // 如果有虚表，第一个字段是vptr
+                    if class_decl.has_vtable {
+                        // 虚表指针占 8 字节（x86_64）
+                        current_offset = 8;
+                        max_align = 8;
+                    }
+
+                    for field in &class_decl.fields {
+                        let align = self.type_align(&field.type_);
+                        let size = self.type_size(&field.type_);
+
+                        // 对齐偏移
+                        if current_offset % align != 0 {
+                            current_offset += align - (current_offset % align);
+                        }
+
+                        offsets.insert(field.name.clone(), current_offset);
+                        current_offset += size;
+
+                        if align > max_align {
+                            max_align = align;
+                        }
+                    }
+
+                    // 类整体对齐
+                    if current_offset % max_align != 0 {
+                        current_offset += max_align - (current_offset % max_align);
+                    }
+
+                    self.struct_field_offsets.insert(class_decl.name.clone(), offsets);
+                }
+                Declaration::ExternFunction(ext_func) => {
+                    // 收集导入的外部函数
+                    // 默认放在 kernel32.dll (Windows) 或 libc (Linux)
+                    #[cfg(target_os = "windows")]
+                    let dll_name = "kernel32.dll".to_string();
+                    #[cfg(not(target_os = "windows"))]
+                    let dll_name = "libc.so.6".to_string();
+                    self.imported_functions.push((dll_name, ext_func.name.clone()));
                 }
                 _ => {}
             }
@@ -574,6 +665,9 @@ impl NativeBackend {
     fn emit_x86_64_function(&mut self, func: &lir::Function) -> NativeResult<()> {
         // 设置当前函数名
         self.current_function = func.name.clone();
+        // 清除循环标签追踪 - 新函数开始
+        self.loop_break_stack.clear();
+        self.loop_continue_stack.clear();
 
         // 函数标签 - NASM 语法
         // 只有 main 函数才声明为全局（入口点）
@@ -643,6 +737,10 @@ impl NativeBackend {
         self.emit_line("pop rbp")?;
         self.emit_line("ret")?;
         self.emit_raw("")?;
+
+        // 清除循环标签追踪 - 函数结束
+        self.loop_break_stack.clear();
+        self.loop_continue_stack.clear();
 
         Ok(())
     }
@@ -803,6 +901,10 @@ impl NativeBackend {
                 let start_label = self.new_label("while_start");
                 let end_label = self.new_label("while_end");
 
+                // 将标签推入栈，支持嵌套循环
+                self.loop_break_stack.push(end_label.clone());
+                self.loop_continue_stack.push(start_label.clone());
+
                 self.emit_raw(&format!("{}:", start_label))?;
                 self.emit_expr(&while_stmt.condition)?;
                 self.emit_line("test rax, rax")?;
@@ -812,10 +914,18 @@ impl NativeBackend {
                 self.emit_line(&format!("jmp {}", start_label))?;
 
                 self.emit_raw(&format!("{}:", end_label))?;
+
+                // 弹出标签
+                self.loop_break_stack.pop();
+                self.loop_continue_stack.pop();
             }
             Statement::For(for_stmt) => {
                 let start_label = self.new_label("for_start");
                 let end_label = self.new_label("for_end");
+
+                // 将标签推入栈，支持嵌套循环
+                self.loop_break_stack.push(end_label.clone());
+                self.loop_continue_stack.push(start_label.clone());
 
                 // 初始化
                 if let Some(init) = &for_stmt.initializer {
@@ -841,14 +951,26 @@ impl NativeBackend {
 
                 self.emit_line(&format!("jmp {}", start_label))?;
                 self.emit_raw(&format!("{}:", end_label))?;
+
+                // 弹出标签
+                self.loop_break_stack.pop();
+                self.loop_continue_stack.pop();
             }
             Statement::Break => {
-                // TODO: 需要跟踪循环结束标签
-                self.emit_line("; break - placeholder")?;
+                // Break 跳转到当前最内层循环的结束标签
+                if let Some(end_label) = self.loop_break_stack.last() {
+                    self.emit_line(&format!("jmp {}", end_label))?;
+                } else {
+                    self.emit_line("; break - error: not inside a loop")?;
+                }
             }
             Statement::Continue => {
-                // TODO: 需要跟踪循环开始标签
-                self.emit_line("; continue - placeholder")?;
+                // Continue 跳转到当前最内层循环的开始标签
+                if let Some(start_label) = self.loop_continue_stack.last() {
+                    self.emit_line(&format!("jmp {}", start_label))?;
+                } else {
+                    self.emit_line("; continue - error: not inside a loop")?;
+                }
             }
             Statement::Compound(block) => {
                 self.emit_block(block)?;
@@ -864,9 +986,15 @@ impl NativeBackend {
                 let unique_label = format!("{}_{}", self.current_function, label);
                 self.emit_line(&format!("jmp {}", unique_label))?;
             }
-            Statement::Switch(_) | Statement::Match(_) | Statement::Try(_) => {
-                // 复杂控制流，需要更详细的实现
-                self.emit_line("; TODO: switch/match/try not fully implemented")?;
+            Statement::Switch(switch) => {
+                self.emit_switch(switch)?;
+            }
+            Statement::Match(match_stmt) => {
+                self.emit_match(match_stmt)?;
+            }
+            Statement::Try(_try) => {
+                // 异常处理需要平台特定支持，暂不实现
+                self.emit_line("; TODO: try/catch/finally not implemented for native backend")?;
             }
             Statement::DoWhile(do_while) => {
                 let start_label = self.new_label("do_while_start");
@@ -881,6 +1009,126 @@ impl NativeBackend {
             }
             Statement::Declaration(_) => {}
         }
+        Ok(())
+    }
+
+    /// 生成 switch 语句
+    fn emit_switch(&mut self, switch: &SwitchStatement) -> NativeResult<()> {
+        // 计算 switch 表达式的值，结果放在 rax
+        self.emit_expr(&switch.expression)?;
+
+        // 为每个 case 和 end 创建标签
+        let mut case_labels = Vec::new();
+        let end_label = self.new_label("switch_end");
+
+        // 生成每个 case 的比较和条件跳转
+        for case in &switch.cases {
+            let case_label = self.new_label("case");
+            case_labels.push(case_label.clone());
+
+            // 将 case 值加载到 rcx
+            self.emit_line("push rax")?; // 保存 original value
+            self.emit_expr(&case.value)?;
+            self.emit_line("mov rcx, rax")?;
+            self.emit_line("pop rax")?; // restore original value
+
+            // 比较，如果相等则跳转到这个 case
+            self.emit_line("cmp rax, rcx")?;
+            self.emit_line(&format!("je {}", case_label))?;
+        }
+
+        // 默认分支
+        if let Some(_default) = &switch.default {
+            self.emit_line(&format!("jmp {}_default", end_label))?;
+        } else {
+            self.emit_line(&format!("jmp {}", end_label))?;
+        }
+
+        // 生成每个 case 的代码
+        for (i, case) in switch.cases.iter().enumerate() {
+            let case_label = &case_labels[i];
+            self.emit_raw(&format!("{}:", case_label))?;
+            self.emit_statement(&case.body)?;
+            // case 执行完跳转到 end
+            self.emit_line(&format!("jmp {}", end_label))?;
+        }
+
+        // 生成默认分支
+        if let Some(default) = &switch.default {
+            self.emit_raw(&format!("{}_default:", end_label))?;
+            self.emit_statement(default)?;
+        }
+
+        // switch 结束标签
+        self.emit_raw(&format!("{}:", end_label))?;
+
+        Ok(())
+    }
+
+    /// 生成 match 语句（模式匹配）
+    fn emit_match(&mut self, match_stmt: &MatchStatement) -> NativeResult<()> {
+        // 计算 scrutinee 表达式的值
+        self.emit_expr(&match_stmt.scrutinee)?;
+
+        let end_label = self.new_label("match_end");
+        let mut case_labels = Vec::new();
+
+        // 对于每个 case，生成比较和跳转
+        // 这里只处理字面量匹配的简单情况
+        // 复杂的构造器模式匹配需要更复杂的实现（比较标签、解构等）
+        for (i, case) in match_stmt.cases.iter().enumerate() {
+            let case_label = self.new_label(&format!("match_case_{}", i));
+            case_labels.push(case_label.clone());
+
+            match &case.pattern {
+                Pattern::Literal(lit) => {
+                    // 保存 scrutinee，比较字面量
+                    self.emit_line("push rax")?;
+                    self.emit_literal(lit)?;
+                    self.emit_line("mov rcx, rax")?;
+                    self.emit_line("pop rax")?;
+                    self.emit_line("cmp rax, rcx")?;
+                    if let Some(guard) = &case.guard {
+                        // 如果有守卫，需要满足守卫条件才跳转
+                        self.emit_line("je {case_label}_guard_check")?;
+                        self.emit_raw(&format!("{case_label}_guard_check:"))?;
+                        self.emit_expr(guard)?;
+                        self.emit_line("test rax, rax")?;
+                        self.emit_line(&format!("jnz {case_label}"))?;
+                    } else {
+                        self.emit_line(&format!("je {}", case_label))?;
+                    }
+                }
+                Pattern::Wildcard => {
+                    // 通配符总是匹配，直接跳转
+                    self.emit_line(&format!("jmp {}", case_label))?;
+                }
+                Pattern::Variable(name) => {
+                    // 变量模式总是匹配，将值绑定到变量
+                    // 简单的实现：直接跳转，不需要比较
+                    self.emit_line(&format!("jmp {}", case_label))?;
+                }
+                _ => {
+                    // 复杂模式暂不支持
+                    self.emit_line(&format!("; TODO: unsupported pattern match case {:?}", case.pattern))?;
+                }
+            }
+        }
+
+        // 如果没有匹配，直接跳到结束
+        self.emit_line(&format!("jmp {}", end_label))?;
+
+        // 生成每个 case 的代码
+        for (i, case) in match_stmt.cases.iter().enumerate() {
+            let case_label = &case_labels[i];
+            self.emit_raw(&format!("{}:", case_label))?;
+            self.emit_block(&case.body)?;
+            self.emit_line(&format!("jmp {}", end_label))?;
+        }
+
+        // match 结束
+        self.emit_raw(&format!("{}:", end_label))?;
+
         Ok(())
     }
 
@@ -915,9 +1163,32 @@ impl NativeBackend {
                     }
                     Expression::Dereference(ptr) => {
                         self.emit_expr(ptr)?;
-                        self.emit_line("mov [rax], rdx")?;
-                        // 重新加载结果到 rax
-                        self.emit_expr(value)?;
+                        self.emit_line("mov [rax], rax")?;
+                    }
+                    Expression::Member(obj, field) => {
+                        // obj.field = value
+                        self.emit_expr(obj)?;
+                        let offset = self.find_field_offset(field);
+                        self.emit_line(&format!("add rax, {}", offset))?;
+                        self.emit_line("mov [rax], rax")?;
+                    }
+                    Expression::PointerMember(obj, field) => {
+                        // obj->field = value
+                        self.emit_expr(obj)?;
+                        self.emit_line("mov rax, [rax]")?;
+                        let offset = self.find_field_offset(field);
+                        self.emit_line(&format!("add rax, {}", offset))?;
+                        self.emit_line("mov [rax], rax")?;
+                    }
+                    Expression::Index(arr, idx) => {
+                        // arr[i] = value
+                        self.emit_expr(arr)?;
+                        self.emit_line("mov rcx, rax")?;
+                        self.emit_expr(idx)?;
+                        // 假设每个元素是 8 字节指针
+                        self.emit_line("shl rax, 3")?;
+                        self.emit_line("add rcx, rax")?;
+                        self.emit_line("mov [rcx], rax")?;
                     }
                     _ => {
                         return Err(NativeError::InvalidOperand(
@@ -954,21 +1225,22 @@ impl NativeBackend {
             }
             Expression::Member(obj, name) => {
                 self.emit_expr(obj)?;
-                // 字段偏移计算
-                let offset = 0; // TODO: 从结构体信息获取
+                // 查找结构体字段偏移
+                // 注意：这里我们需要知道 obj 的实际类型
+                // 对于简单情况，我们假设可以通过名称查找找到偏移
+                // 高级实现需要类型信息在LIR中传播
+                let offset = self.find_field_offset(name);
                 self.emit_line(&format!("add rax, {}", offset))?;
                 self.emit_line("mov rax, [rax]")?;
-                let _ = name; // 抑制未使用警告
             }
             Expression::PointerMember(obj, name) => {
                 self.emit_expr(obj)?;
                 self.emit_line("mov rax, [rax]")?;
-                let offset = 0; // TODO: 从结构体信息获取
+                let offset = self.find_field_offset(name);
                 if offset > 0 {
                     self.emit_line(&format!("add rax, {}", offset))?;
                 }
                 self.emit_line("mov rax, [rax]")?;
-                let _ = name;
             }
             Expression::Ternary(cond, then_e, else_e) => {
                 let else_label = self.new_label("ternary_else");
@@ -1226,6 +1498,11 @@ impl NativeBackend {
                 self.emit_line("shl rax, cl")?;
             }
             BinaryOp::RightShift => {
+                self.emit_line("mov rcx, rcx")?;
+                self.emit_line("shr rax, cl")?;
+            }
+            BinaryOp::RightShiftArithmetic => {
+                self.emit_line("mov rcx, rcx")?;
                 self.emit_line("sar rax, cl")?;
             }
             BinaryOp::LessThan => {
@@ -1287,7 +1564,7 @@ impl NativeBackend {
         }
 
         // 计算参数值并保存
-        for (i, arg) in args.iter().enumerate() {
+        for (_i, arg) in args.iter().enumerate() {
             self.emit_expr(arg)?;
             self.emit_line("push rax")?;
         }
@@ -1413,6 +1690,9 @@ impl NativeBackend {
                     BinaryOp::Subtract => self.emit_raw("i64.sub")?,
                     BinaryOp::Multiply => self.emit_raw("i64.mul")?,
                     BinaryOp::Divide => self.emit_raw("i64.div_s")?,
+                    BinaryOp::LeftShift => self.emit_raw("i64.shl")?,
+                    BinaryOp::RightShift => self.emit_raw("i64.shr_u")?,
+                    BinaryOp::RightShiftArithmetic => self.emit_raw("i64.shr_s")?,
                     BinaryOp::LessThan => self.emit_raw("i64.lt_s")?,
                     BinaryOp::Equal => self.emit_raw("i64.eq")?,
                     _ => self.emit_raw(&format!(";; TODO: binary op {:?}", op))?,
@@ -1473,6 +1753,19 @@ impl NativeBackend {
             Type::Qualified(_, inner) => self.type_align(inner),
             Type::FunctionPointer(_, _) => 8,
         }
+    }
+
+    /// 查找字段偏移量
+    /// 由于LIR中Member不携带类型信息，我们搜索所有结构体找到第一个匹配的字段名
+    /// 在完整实现中，类型信息应该在Lowering时保留，但这对于当前阶段足够了
+    fn find_field_offset(&self, field_name: &str) -> usize {
+        for (_, fields) in &self.struct_field_offsets {
+            if let Some(offset) = fields.get(field_name) {
+                return *offset;
+            }
+        }
+        // 如果没找到，默认返回0
+        0
     }
 }
 
@@ -1583,9 +1876,50 @@ impl NativeBackend {
                     dependencies: vec![],
                 })
             }
-            OutputFormat::Executable | OutputFormat::RawBinary => {
-                // 可执行文件需要链接器，暂时返回汇编
-                // TODO: 实现链接器集成
+            OutputFormat::Executable => {
+                // 使用汇编器生成目标文件，然后链接生成可执行文件
+                use crate::assembler::{create_assembler, AssemblerConfig, MicrosoftLinker, LinkerConfig};
+                use std::env;
+                use std::path::PathBuf;
+
+                let asm_config = AssemblerConfig::for_os(self.config.os);
+                let assembler = create_assembler(self.config.arch, self.config.os, asm_config);
+
+                // 创建临时目标文件
+                let temp_obj = env::temp_dir().join("x_native_output.obj");
+                assembler.assemble(&asm_output, &temp_obj)?;
+
+                // 链接生成可执行文件
+                let output_path = PathBuf::from("output.exe");
+
+                #[cfg(windows)]
+                {
+                    if MicrosoftLinker::is_available() {
+                        let linker_config = LinkerConfig::default();
+                        let linker = MicrosoftLinker::new(linker_config);
+                        linker.link(&[&temp_obj], &output_path)?;
+                    }
+                }
+
+                // 清理临时目标文件
+                let _ = std::fs::remove_file(&temp_obj);
+
+                // 读取生成的可执行文件
+                let exe_data = std::fs::read(&output_path).unwrap_or_default();
+
+                let output_file = OutputFile {
+                    path: output_path,
+                    content: exe_data,
+                    file_type: FileType::Executable,
+                };
+
+                Ok(CodegenOutput {
+                    files: vec![output_file],
+                    dependencies: vec![],
+                })
+            }
+            OutputFormat::RawBinary => {
+                // 原始二进制直接返回汇编
                 let extension = generator.extension();
                 let output_file = OutputFile {
                     path: PathBuf::from(format!("output.{}", extension)),

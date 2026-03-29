@@ -639,6 +639,21 @@ impl ZigBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            x_hir::HirStatement::Defer(expr) => {
+                let e = self.emit_hir_expression(expr)?;
+                self.line(&format!("defer {};", e))?;
+            }
+            x_hir::HirStatement::Yield(_) => {
+                // Generators not supported in Zig output, stub
+                self.line("// yield (generator not supported)")?;
+            }
+            x_hir::HirStatement::Loop(body) => {
+                self.line("while (true) {")?;
+                self.indent += 1;
+                self.emit_hir_block(body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -1411,6 +1426,21 @@ impl ZigBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Defer(expr) => {
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("defer {};", e))?;
+            }
+            StatementKind::Yield(_) => {
+                // Generators not supported in X-to-Zig, stub
+                self.line("// yield (generator not supported)")?;
+            }
+            StatementKind::Loop(body) => {
+                self.line("while (true) {")?;
+                self.indent += 1;
+                self.emit_block(body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -1588,6 +1618,11 @@ impl ZigBackend {
                 let e = self.emit_expr(expr)?;
                 Ok(self.emit_unaryop(op, &e))
             }
+            ExpressionKind::Cast(expr, ty) => {
+                let e = self.emit_expr(expr)?;
+                let zig_ty = self.emit_type(ty);
+                Ok(format!("@as({}, {})", zig_ty, e))
+            }
             ExpressionKind::Call(callee, args) => self.emit_call(callee, args),
             ExpressionKind::Assign(target, value) => self.emit_assign(target, value),
             ExpressionKind::Array(elements) => self.emit_array_literal(elements),
@@ -1669,6 +1704,19 @@ impl ZigBackend {
 
                 write!(output, "}}")?;
                 Ok(output)
+            }
+            ExpressionKind::Await(expr) => {
+                let e = self.emit_expr(expr)?;
+                Ok(format!("await {}", e))
+            }
+            ExpressionKind::OptionalChain(base, member) => {
+                let b = self.emit_expr(base)?;
+                Ok(format!("{}?.{}", b, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let l = self.emit_expr(left)?;
+                let r = self.emit_expr(right)?;
+                Ok(format!("{} ?? {}", l, r))
             }
         }
     }
@@ -2062,6 +2110,26 @@ impl ZigBackend {
                         "blk: {{ const __result = async {}; const __timeout = async std.time.sleep({}); break :blk (await __result) orelse (await __timeout); }}",
                         expr, timeout
                     ))
+                }
+            }
+            ast::WaitType::Atomic => {
+                // Atomic: atomic wait/notify operation
+                // In Zig, we just await with a comment noting it's atomic
+                if expr_strs.len() == 1 {
+                    Ok(format!("// atomic\nawait {}", expr_strs[0]))
+                } else {
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("// atomic\n{{ {} }}", awaited.join(" ")))
+                }
+            }
+            ast::WaitType::Retry => {
+                // Retry: retry an operation automatically
+                // Just emit the operation with a comment
+                if expr_strs.len() == 1 {
+                    Ok(format!("// retry\nawait {}", expr_strs[0]))
+                } else {
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("// retry\n{{ {} }}", awaited.join(" ")))
                 }
             }
         }
@@ -3161,6 +3229,18 @@ mod tests {
 impl ZigBackend {
     /// 发出外部函数声明（来自 LIR）
     fn emit_lir_extern_function(&mut self, extern_func: &x_lir::ExternFunction) -> ZigResult<()> {
+        // Output generic type parameters if any: (T: type, U: type)
+        let type_params_str = if extern_func.type_params.is_empty() {
+            "".to_string()
+        } else {
+            let type_params = extern_func.type_params
+                .iter()
+                .map(|tp| format!("{}: type", tp))
+                .collect::<Vec<_>>()
+                .join(", ");
+            format!("({})", type_params)
+        };
+
         let params = if extern_func.parameters.is_empty() {
             "".to_string()
         } else {
@@ -3173,11 +3253,35 @@ impl ZigBackend {
                 .join(", ")
         };
 
+        // Combine type params and regular params for Zig generic function syntax
+        let full_params = match (type_params_str.is_empty(), params.is_empty()) {
+            (true, true) => "".to_string(),
+            (true, false) => params,
+            (false, true) => type_params_str,
+            (false, false) => format!("{}({})", type_params_str, params),
+        };
+
         let return_type = self.emit_lir_type(&extern_func.return_type);
-        self.line(&format!(
-            "extern fn {}({}) {};",
-            extern_func.name, params, return_type
-        ))?;
+        match &extern_func.abi {
+            Some(abi) if abi == "C" => {
+                self.line(&format!(
+                    "pub extern \"c\" fn {}{} {};",
+                    extern_func.name, full_params, return_type
+                ))?;
+            }
+            Some(abi) => {
+                self.line(&format!(
+                    "pub extern \"{}\" fn {}{} {};",
+                    abi, extern_func.name, full_params, return_type
+                ))?;
+            }
+            None => {
+                self.line(&format!(
+                    "extern fn {}{} {};",
+                    extern_func.name, full_params, return_type
+                ))?;
+            }
+        }
         Ok(())
     }
 
@@ -3269,6 +3373,18 @@ impl x_codegen::CodeGenerator for ZigBackend {
 impl ZigBackend {
     /// 发出函数定义（来自 LIR）
     fn emit_lir_function(&mut self, func: &x_lir::Function) -> ZigResult<()> {
+        // Output generic type parameters if any: (T: type, U: type)
+        let type_params_str = if func.type_params.is_empty() {
+            "".to_string()
+        } else {
+            let type_params = func.type_params
+                .iter()
+                .map(|tp| format!("{}: type", tp))
+                .collect::<Vec<_>>()
+                .join(", ");
+            format!("({})", type_params)
+        };
+
         let params = if func.parameters.is_empty() {
             "".to_string()
         } else {
@@ -3282,9 +3398,17 @@ impl ZigBackend {
         let return_type = self.emit_lir_type(&func.return_type);
         let pub_str = if func.name == "main" { "pub " } else { "" };
 
+        // Combine type params and regular params for Zig generic function syntax
+        let full_params = match (type_params_str.is_empty(), params.is_empty()) {
+            (true, true) => "".to_string(),
+            (true, false) => params,
+            (false, true) => type_params_str,
+            (false, false) => format!("{}({})", type_params_str, params),
+        };
+
         self.line(&format!(
-            "{}fn {}({}) {} {{",
-            pub_str, func.name, params, return_type
+            "{}fn {}{} {} {{",
+            pub_str, func.name, full_params, return_type
         ))?;
         self.indent += 1;
 
@@ -3316,12 +3440,56 @@ impl ZigBackend {
             x_lir::Declaration::Struct(struct_def) => {
                 self.emit_lir_struct(struct_def)?;
             }
-            x_lir::Declaration::Class(_) => {
+            x_lir::Declaration::Class(class_def) => {
                 // Classes are compiled to structs in Zig
-                // TODO: handle class methods
+                self.line(&format!("pub const {} = struct {{", class_def.name))?;
+                self.indent += 1;
+
+                for field in &class_def.fields {
+                    let type_str = self.emit_lir_type(&field.type_);
+                    self.line(&format!("{}: {},", field.name, type_str))?;
+                }
+
+                self.indent -= 1;
+                self.line("};")?;
+                self.line("")?;
             }
             x_lir::Declaration::Enum(enum_def) => {
                 self.emit_lir_enum(enum_def)?;
+            }
+            x_lir::Declaration::Import(import) => {
+                // 处理导入声明，类似 AST 版本逻辑
+                if import.module_path.starts_with("zig::") {
+                    let zig_module = import.module_path.trim_start_matches("zig::");
+                    let zig_import_path = zig_module.replace("::", ".");
+
+                    let module_name = zig_module.split("::").last().unwrap_or(zig_module);
+
+                    if import.import_all || import.symbols.is_empty() {
+                        // 导入整个模块
+                        let import_stmt =
+                            format!("const {} = @import(\"{}\");", module_name, zig_import_path);
+
+                        if !self.imported_modules.contains(&module_name.to_string()) {
+                            self.line(&import_stmt)?;
+                            self.imported_modules.push(module_name.to_string());
+                        }
+                    } else {
+                        // 导入指定符号
+                        for (name, alias) in &import.symbols {
+                            let import_name = alias.as_ref().unwrap_or(name);
+                            let import_stmt = format!(
+                                "const {} = @import(\"{}\").{};",
+                                import_name, zig_import_path, name
+                            );
+
+                            if !self.imported_modules.contains(&import_name.to_string()) {
+                                self.line(&import_stmt)?;
+                                self.imported_modules.push(import_name.to_string());
+                            }
+                        }
+                    }
+                }
             }
             _ => {
                 // Handle other declaration types if needed
@@ -3398,9 +3566,30 @@ impl ZigBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
-            x_lir::Statement::Switch(_switch_stmt) => {
-                // TODO: Implement switch statement generation
-                self.line("// TODO: switch statement")?;
+            x_lir::Statement::Switch(switch_stmt) => {
+                let expr_str = self.emit_lir_expression(&switch_stmt.expression)?;
+                self.line(&format!("switch ({}) {{", expr_str))?;
+                self.indent += 1;
+
+                for case in &switch_stmt.cases {
+                    let value_str = self.emit_lir_expression(&case.value)?;
+                    self.line(&format!("{} => {{", value_str))?;
+                    self.indent += 1;
+                    self.emit_lir_statement(&case.body)?;
+                    self.indent -= 1;
+                    self.line("},")?;
+                }
+
+                if let Some(default) = &switch_stmt.default {
+                    self.line("_ => {")?;
+                    self.indent += 1;
+                    self.emit_lir_statement(default)?;
+                    self.indent -= 1;
+                    self.line("},")?;
+                }
+
+                self.indent -= 1;
+                self.line("}")?;
             }
             x_lir::Statement::Match(match_stmt) => {
                 let scrutinee_str = self.emit_lir_expression(&match_stmt.scrutinee)?;
@@ -3456,8 +3645,7 @@ impl ZigBackend {
                 self.line("}")?;
             }
             x_lir::Statement::Declaration(_) => {
-                // This is the enum variant for non-function declarations at program level
-                self.line("// TODO: declaration")?;
+                // Already handled at top level - shouldn't happen in LIR block
             }
         }
         Ok(())
@@ -3513,7 +3701,8 @@ impl ZigBackend {
                     x_lir::BinaryOp::Divide => "/",
                     x_lir::BinaryOp::Modulo => "%",
                     x_lir::BinaryOp::LeftShift => "<<",
-                    x_lir::BinaryOp::RightShift => ">>",
+                    x_lir::BinaryOp::RightShift => ">>>",
+                    x_lir::BinaryOp::RightShiftArithmetic => ">>",
                     x_lir::BinaryOp::LessThan => "<",
                     x_lir::BinaryOp::LessThanEqual => "<=",
                     x_lir::BinaryOp::GreaterThan => ">",
@@ -3563,9 +3752,100 @@ impl ZigBackend {
                 let rhs_str = self.emit_lir_expression(rhs)?;
                 Ok(format!("({} = {})", lhs_str, rhs_str))
             }
+            x_lir::Expression::AssignOp(op, lhs, rhs) => {
+                let lhs_str = self.emit_lir_expression(lhs)?;
+                let rhs_str = self.emit_lir_expression(rhs)?;
+                let op_str = match op {
+                    x_lir::BinaryOp::Add => "+=",
+                    x_lir::BinaryOp::Subtract => "-=",
+                    x_lir::BinaryOp::Multiply => "*=",
+                    x_lir::BinaryOp::Divide => "/=",
+                    x_lir::BinaryOp::Modulo => "%=",
+                    x_lir::BinaryOp::BitAnd => "&=",
+                    x_lir::BinaryOp::BitOr => "|=",
+                    x_lir::BinaryOp::BitXor => "^=",
+                    x_lir::BinaryOp::LeftShift => "<<=",
+                    x_lir::BinaryOp::RightShift => ">>>=",
+                    x_lir::BinaryOp::RightShiftArithmetic => ">>=",
+                    _ => "=/* unknown op */",
+                };
+                Ok(format!("({} {} {})", lhs_str, op_str, rhs_str))
+            }
+            x_lir::Expression::Ternary(cond, then, else_) => {
+                let cond_str = self.emit_lir_expression(cond)?;
+                let then_str = self.emit_lir_expression(then)?;
+                let else_str = self.emit_lir_expression(else_)?;
+                Ok(format!("if ({}) {} else {}", cond_str, then_str, else_str))
+            }
+            x_lir::Expression::PointerMember(ptr, field) => {
+                let ptr_str = self.emit_lir_expression(ptr)?;
+                Ok(format!("{}.{}", ptr_str, field))
+            }
+            x_lir::Expression::SizeOf(ty) => {
+                let ty_str = self.emit_lir_type(ty);
+                Ok(format!("@sizeOf({})", ty_str))
+            }
+            x_lir::Expression::SizeOfExpr(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                Ok(format!("@sizeOf({})", expr_str))
+            }
+            x_lir::Expression::AlignOf(ty) => {
+                let ty_str = self.emit_lir_type(ty);
+                Ok(format!("@alignOf({})", ty_str))
+            }
+            x_lir::Expression::Comma(exprs) => {
+                let expr_strs: Vec<String> = exprs
+                    .iter()
+                    .map(|e| self.emit_lir_expression(e))
+                    .collect::<Result<_, _>>()?;
+                Ok(expr_strs.join(", "))
+            }
+            x_lir::Expression::Parenthesized(expr) => {
+                let expr_str = self.emit_lir_expression(expr)?;
+                Ok(format!("({})", expr_str))
+            }
+            x_lir::Expression::InitializerList(inits) => {
+                // In Zig, this becomes .{ ... }
+                let mut init_strs = Vec::new();
+                for init in inits {
+                    init_strs.push(self.emit_lir_initializer(init)?);
+                }
+                Ok(format!(".{{ {} }}", init_strs.join(", ")))
+            }
+            x_lir::Expression::CompoundLiteral(ty, inits) => {
+                let ty_str = self.emit_lir_type(ty);
+                let mut init_strs = Vec::new();
+                for init in inits {
+                    init_strs.push(self.emit_lir_initializer(init)?);
+                }
+                Ok(format!("{} {{ {} }}", ty_str, init_strs.join(", ")))
+            }
             _ => {
                 // Handle other expression types as needed
                 Ok("/* unimplemented expression */".to_string())
+            }
+        }
+    }
+
+    /// 发出初始化器（用于复合字面量）
+    fn emit_lir_initializer(&mut self, init: &x_lir::Initializer) -> ZigResult<String> {
+        match init {
+            x_lir::Initializer::Expression(expr) => self.emit_lir_expression(expr),
+            x_lir::Initializer::List(list) => {
+                let mut items = Vec::new();
+                for i in list {
+                    items.push(self.emit_lir_initializer(i)?);
+                }
+                Ok(format!(".{{ {} }}", items.join(", ")))
+            }
+            x_lir::Initializer::Named(name, init) => {
+                let init_str = self.emit_lir_initializer(init)?;
+                Ok(format!(".{} = {}", name, init_str))
+            }
+            x_lir::Initializer::Indexed(idx, init) => {
+                let idx_str = self.emit_lir_expression(idx)?;
+                let init_str = self.emit_lir_initializer(init)?;
+                Ok(format!("[{}] = {}", idx_str, init_str))
             }
         }
     }

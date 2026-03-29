@@ -512,6 +512,28 @@ impl CSharpBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Defer(expr) => {
+                // C# doesn't have built-in defer, emit as a comment
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("// defer: {};", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                // C# has yield return
+                if let Some(expr) = opt_expr {
+                    let e = self.emit_expr(expr)?;
+                    self.line(&format!("yield return {};", e))?;
+                } else {
+                    self.line("yield break;")?;
+                }
+            }
+            StatementKind::Loop(block) => {
+                self.line("while (true)")?;
+                self.line("{")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -814,6 +836,24 @@ impl CSharpBackend {
             ExpressionKind::Lambda(params, body) => self.emit_lambda(params, body),
             ExpressionKind::Range(start, end, inclusive) => self.emit_range(start, end, *inclusive),
             ExpressionKind::Match(expr, cases) => self.emit_match_expr(expr, cases),
+            ExpressionKind::Cast(expr, ty) => {
+                let e = self.emit_expr(expr)?;
+                let type_str = self.map_type_from_ast(Some(ty));
+                Ok(format!("({}){}", type_str, e))
+            }
+            ExpressionKind::Await(expr) => {
+                let e = self.emit_expr(expr)?;
+                Ok(format!("await {}", e))
+            }
+            ExpressionKind::OptionalChain(base_expr, member) => {
+                let base = self.emit_expr(base_expr)?;
+                Ok(format!("{}?.{}", base, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let l = self.emit_expr(left)?;
+                let r = self.emit_expr(right)?;
+                Ok(format!("{} ?? {}", l, r))
+            }
             _ => Err(CSharpError::UnsupportedFeature(format!("{:?}", expr.node))),
         }
     }
@@ -1031,6 +1071,12 @@ impl CSharpBackend {
                     let expr = &expr_strs[0];
                     Ok(format!("await Task.WhenAny({}, Task.Delay({}{}))", expr, "TimeSpan.FromMilliseconds(", timeout))
                 }
+            }
+            ast::WaitType::Atomic => {
+                Ok(format!("/* atomic wait: {} */ (await {})", expr_strs.join(", "), expr_strs[0]))
+            }
+            ast::WaitType::Retry => {
+                Ok(format!("/* retry wait: {} */ (await {})", expr_strs.join(", "), expr_strs[0]))
             }
         }
     }

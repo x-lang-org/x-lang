@@ -17,7 +17,9 @@
 use std::collections::HashMap;
 use std::fmt::Write;
 use std::path::PathBuf;
+use x_codegen::{CodegenOutput, OutputFile};
 use x_parser::ast::{self, BinaryOp, ExpressionKind, StatementKind, UnaryOp, Program as AstProgram};
+use x_lir::{self, Program as LirProgram, Function, Type};
 
 #[derive(Debug, Clone)]
 pub struct RustBackendConfig {
@@ -318,6 +320,7 @@ impl RustBackend {
                 self.expr_needs_dynamic(left) || self.expr_needs_dynamic(right)
             }
             ExpressionKind::Unary(_, e) => self.expr_needs_dynamic(e),
+            ExpressionKind::Cast(e, _) => self.expr_needs_dynamic(e),
             ExpressionKind::If(_, then, else_) => {
                 self.expr_needs_dynamic(then) || self.expr_needs_dynamic(else_)
             }
@@ -341,6 +344,9 @@ impl RustBackend {
             ExpressionKind::Needs(_) | ExpressionKind::Given(_, _) => false,
             ExpressionKind::Literal(_) | ExpressionKind::Variable(_) => false,
             ExpressionKind::Range(_, _, _) => false,
+            ExpressionKind::Await(e) => self.expr_needs_dynamic(e),
+            ExpressionKind::OptionalChain(base, _) => self.expr_needs_dynamic(base),
+            ExpressionKind::NullCoalescing(left, right) => self.expr_needs_dynamic(left) || self.expr_needs_dynamic(right),
         }
     }
 
@@ -377,6 +383,9 @@ impl RustBackend {
             }
             StatementKind::Unsafe(b) => b.statements.iter().any(|s| self.stmt_needs_dynamic(s)),
             StatementKind::Break | StatementKind::Continue => false,
+            StatementKind::Defer(e) => self.expr_needs_dynamic(e),
+            StatementKind::Yield(opt_e) => opt_e.as_ref().map_or(false, |e| self.expr_needs_dynamic(e)),
+            StatementKind::Loop(b) => b.statements.iter().any(|s| self.stmt_needs_dynamic(s)),
         }
     }
 
@@ -1037,6 +1046,25 @@ impl RustBackend {
                 self.indent -= 1;
                 self.line("}")?;
             }
+            StatementKind::Defer(expr) => {
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("defer {};", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                if let Some(e) = opt_expr {
+                    let expr = self.emit_expr(e)?;
+                    self.line(&format!("yield {};", expr))?;
+                } else {
+                    self.line("yield;")?;
+                }
+            }
+            StatementKind::Loop(body) => {
+                self.line("loop {")?;
+                self.indent += 1;
+                self.emit_block(body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -1280,6 +1308,11 @@ impl RustBackend {
                     UnaryOp::BitNot => Ok(format!("!{}", e_str)), // Rust uses ! for bitwise not
                     UnaryOp::Wait => Ok(format!("{}.await", e_str)),
                 }
+            }
+            ExpressionKind::Cast(expr, ty) => {
+                let expr_str = self.emit_expr(expr)?;
+                let ty_str = self.emit_type(ty);
+                Ok(format!("{} as {}", expr_str, ty_str))
             }
             ExpressionKind::Call(callee, args) => {
                 // Handle `Type.null()` -> `std::ptr::null_mut::<Type>()`
@@ -1624,7 +1657,36 @@ impl RustBackend {
                 ast::WaitType::Timeout(_) => {
                     Err(RustBackendError::UnsupportedFeature("Wait with timeout".to_string()))
                 }
+                ast::WaitType::Atomic => {
+                    if exprs.len() == 1 {
+                        let expr_str = self.emit_expr(&exprs[0])?;
+                        Ok(format!("atomic {}; {}", expr_str, expr_str))
+                    } else {
+                        Err(RustBackendError::UnsupportedFeature("Wait atomic with multiple expressions".to_string()))
+                    }
+                }
+                ast::WaitType::Retry => {
+                    if exprs.len() == 1 {
+                        let expr_str = self.emit_expr(&exprs[0])?;
+                        Ok(format!("// retry: {}", expr_str))
+                    } else {
+                        Err(RustBackendError::UnsupportedFeature("Wait retry with multiple expressions".to_string()))
+                    }
+                }
             },
+            ExpressionKind::Await(expr) => {
+                let expr_str = self.emit_expr(expr)?;
+                Ok(format!("{}.await", expr_str))
+            }
+            ExpressionKind::OptionalChain(base, member) => {
+                let base_str = self.emit_expr(base)?;
+                Ok(format!("{}?.{}", base_str, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let left_str = self.emit_expr(left)?;
+                let right_str = self.emit_expr(right)?;
+                Ok(format!("{}.unwrap_or({})", left_str, right_str))
+            }
             ExpressionKind::Needs(name) => Ok(format!("/* needs: {} */", name)),
             ExpressionKind::Given(name, expr) => {
                 let expr_str = self.emit_expr(expr)?;
@@ -1649,10 +1711,46 @@ impl RustBackend {
                 let expr_str = self.emit_expr(expr)?;
                 Ok(format!("{}?", expr_str))
             }
-            ExpressionKind::Match(discriminant, _match_cases) => {
-                // 模式匹配表达式 - 暂时简化处理，返回 discriminant
-                // TODO: 完整的 match 表达式支持
-                self.emit_expr(discriminant)
+            ExpressionKind::Match(discriminant, match_cases) => {
+                let discriminant_code = self.emit_expr(discriminant)?;
+                let mut output = String::new();
+                output.push_str(&format!("match {} {{\n", discriminant_code));
+                self.indent += 1;
+                for case in match_cases {
+                    let pattern = self.emit_pattern(&case.pattern)?;
+                    let guard = if let Some(g) = &case.guard {
+                        format!(" if {}", self.emit_expr(g)?)
+                    } else {
+                        String::new()
+                    };
+                    // Match body - since this is an expression match, the last expression is returned
+                    let mut body_code = String::new();
+                    let stmt_count = case.body.statements.len();
+                    for (i, stmt) in case.body.statements.iter().enumerate() {
+                        let is_last = i == stmt_count - 1;
+                        if let StatementKind::Expression(expr) = &stmt.node {
+                            if is_last {
+                                // Last expression in match body is the result
+                                body_code.push_str(&self.emit_expr(expr)?);
+                            } else {
+                                self.emit_statement(stmt)?;
+                            }
+                        } else {
+                            self.emit_statement(stmt)?;
+                        }
+                    }
+                    let indent = "    ".repeat(self.indent);
+                    output.push_str(&format!("{}{}{} => {{\n", indent, pattern, guard));
+                    self.indent += 1;
+                    if !body_code.is_empty() {
+                        output.push_str(&format!("{}{}\n", "    ".repeat(self.indent), body_code));
+                    }
+                    self.indent -= 1;
+                    output.push_str(&format!("{}}},\n", "    ".repeat(self.indent)));
+                }
+                self.indent -= 1;
+                output.push_str(&format!("{}}}", "    ".repeat(self.indent)));
+                Ok(output)
             }
         }
     }
@@ -1847,6 +1945,746 @@ impl RustBackend {
         }
         writeln!(self.output, "{}", s)?;
         Ok(())
+    }
+}
+
+impl RustBackend {
+    /// Generate Rust code from LIR (Low-level Intermediate Representation)
+    /// This is the new code generation path that aligns with the compiler architecture:
+    /// HIR -> MIR -> LIR -> Codegen
+    pub fn generate_from_lir(&mut self, program: &LirProgram) -> RustResult<CodegenOutput> {
+        // Start with prelude
+        self.line("// Generated by X Language Rust Backend from LIR")?;
+        self.line("// Warning: This file is automatically generated. DO NOT EDIT.")?;
+        self.line("")?;
+
+        // Add necessary imports that are commonly used
+        self.line("use std::collections::HashMap;")?;
+        self.line("use std::ffi::c_void;")?;
+        self.line("")?;
+
+        // Process all declarations
+        for decl in &program.declarations {
+            self.generate_lir_declaration(decl)?;
+        }
+
+        Ok(CodegenOutput {
+            files: vec![OutputFile {
+                path: PathBuf::from("output.rs"),
+                content: self.output.to_string().into_bytes(),
+                file_type: x_codegen::FileType::Rust,
+            }],
+            dependencies: Vec::new(),
+        })
+    }
+
+    /// Generate code for a LIR declaration
+    fn generate_lir_declaration(&mut self, decl: &x_lir::Declaration) -> RustResult<()> {
+        match decl {
+            x_lir::Declaration::Import(import) => self.generate_lir_import(import)?,
+            x_lir::Declaration::Function(func) => self.generate_lir_function(func)?,
+            x_lir::Declaration::Global(global) => self.generate_lir_global(global)?,
+            x_lir::Declaration::Struct(struct_) => self.generate_lir_struct(struct_)?,
+            x_lir::Declaration::Class(class) => self.generate_lir_class(class)?,
+            x_lir::Declaration::VTable(vtable) => self.generate_lir_vtable(vtable)?,
+            x_lir::Declaration::Enum(enum_) => self.generate_lir_enum(enum_)?,
+            x_lir::Declaration::TypeAlias(alias) => self.generate_lir_type_alias(alias)?,
+            x_lir::Declaration::ExternFunction(ext) => self.generate_lir_extern_function(ext)?,
+        }
+        Ok(())
+    }
+
+    /// Generate import declaration
+    fn generate_lir_import(&mut self, import: &x_lir::Import) -> RustResult<()> {
+        if import.import_all {
+            self.line(&format!("use {}::*;", import.module_path))?;
+        } else if !import.symbols.is_empty() {
+            let symbols: Vec<String> = import.symbols.iter()
+                .map(|(name, alias)| {
+                    if let Some(alias) = alias {
+                        format!("{} as {}", name, alias)
+                    } else {
+                        name.clone()
+                    }
+                })
+                .collect();
+            self.line(&format!("use {}::{{{}}};", import.module_path, symbols.join(", ")))?;
+        }
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate function from LIR
+    fn generate_lir_function(&mut self, func: &x_lir::Function) -> RustResult<()> {
+        // Handle type parameters for generics
+        let type_params = if func.type_params.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", func.type_params.join(", "))
+        };
+
+        // Build parameters
+        let params: Vec<String> = func.parameters.iter()
+            .map(|param| {
+                format!("{}: {}", param.name, self.lir_type_to_rust(&param.type_))
+            })
+            .collect();
+
+        let return_type = self.lir_type_to_rust(&func.return_type);
+        let is_async = false; // LIR doesn't carry async info yet
+        let _async_keyword = if is_async { "async " } else { "" };
+
+        self.line(&format!(
+            "{}pub fn {}{}({}) -> {} {{",
+            if func.is_static { "pub " } else { "" },
+            func.name,
+            type_params,
+            params.join(", "),
+            return_type
+        ))?;
+        self.indent += 1;
+
+        self.generate_lir_block(&func.body)?;
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+
+        Ok(())
+    }
+
+    /// Generate global variable
+    fn generate_lir_global(&mut self, global: &x_lir::GlobalVar) -> RustResult<()> {
+        let ty = self.lir_type_to_rust(&global.type_);
+        let static_ = if global.is_static { "static " } else { "" };
+        let mut decl = format!("{}{}pub {}: {}{}",
+            static_,
+            if global.initializer.is_some() { "" } else { "extern " },
+            global.name,
+            ty,
+            if global.initializer.is_some() { " = " } else { ";" }
+        );
+
+        if let Some(init) = &global.initializer {
+            let init_code = self.generate_lir_expression(init)?;
+            decl.push_str(&init_code);
+            decl.push(';');
+        }
+
+        self.line(&decl)?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate struct definition
+    fn generate_lir_struct(&mut self, struct_: &x_lir::Struct) -> RustResult<()> {
+        self.line("#[derive(Debug, Clone, PartialEq)]")?;
+        self.line(&format!("pub struct {} {{", struct_.name))?;
+        self.indent += 1;
+
+        for field in &struct_.fields {
+            let ty = self.lir_type_to_rust(&field.type_);
+            self.line(&format!("pub {}: {},", field.name, ty))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate class definition
+    fn generate_lir_class(&mut self, class: &x_lir::Class) -> RustResult<()> {
+        self.line("#[derive(Debug, Clone)]")?;
+        self.line(&format!("pub struct {} {{", class.name))?;
+        self.indent += 1;
+
+        // If this class has a vtable, add it
+        if class.has_vtable {
+            self.line(&format!("vtable: *mut {}VTable,", class.name))?;
+        }
+
+        for field in &class.fields {
+            let ty = self.lir_type_to_rust(&field.type_);
+            self.line(&format!("pub {}: {},", field.name, ty))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate vtable definition
+    fn generate_lir_vtable(&mut self, vtable: &x_lir::VTable) -> RustResult<()> {
+        self.line(&format!("pub struct {}VTable {{", vtable.name))?;
+        self.indent += 1;
+
+        for entry in &vtable.entries {
+            let params: Vec<String> = entry.function_type.param_types.iter()
+                .map(|ty| self.lir_type_to_rust(ty))
+                .collect();
+            let return_type = self.lir_type_to_rust(&entry.function_type.return_type);
+            let fn_type = format!("fn({}) -> {}", params.join(", "), return_type);
+            self.line(&format!("pub {}: {},", entry.method_name, fn_type))?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate enum definition
+    fn generate_lir_enum(&mut self, enum_: &x_lir::Enum) -> RustResult<()> {
+        self.line("#[derive(Debug, Clone, PartialEq)]")?;
+        self.line(&format!("pub enum {} {{", enum_.name))?;
+        self.indent += 1;
+
+        for variant in &enum_.variants {
+            if let Some(value) = variant.value {
+                self.line(&format!("{} = {},", variant.name, value))?;
+            } else {
+                self.line(&format!("{},", variant.name))?;
+            }
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate type alias
+    fn generate_lir_type_alias(&mut self, alias: &x_lir::TypeAlias) -> RustResult<()> {
+        let ty = self.lir_type_to_rust(&alias.type_);
+        self.line(&format!("pub type {} = {};", alias.name, ty))?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate extern function declaration
+    fn generate_lir_extern_function(&mut self, ext: &x_lir::ExternFunction) -> RustResult<()> {
+        let abi = ext.abi.clone().unwrap_or_else(|| "C".to_string());
+        let type_params = if ext.type_params.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", ext.type_params.join(", "))
+        };
+
+        let params: Vec<String> = ext.parameters.iter()
+            .map(|ty| format!("_{}: {}", ty, self.lir_type_to_rust(ty)))
+            .collect();
+
+        let return_type = self.lir_type_to_rust(&ext.return_type);
+        self.line(&format!("#[link(name = \"{}\")]", abi.to_lowercase()))?;
+        self.line(&format!("extern \"{}\" {{", abi))?;
+        self.indent += 1;
+        self.line(&format!(
+            "fn {}{}({}) -> {};",
+            ext.name, type_params, params.join(", "), return_type
+        ))?;
+        self.indent -= 1;
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate a LIR basic block
+    fn generate_lir_block(&mut self, block: &x_lir::Block) -> RustResult<()> {
+        for stmt in &block.statements {
+            self.generate_lir_statement(stmt)?;
+        }
+        Ok(())
+    }
+
+    /// Generate a LIR statement
+    fn generate_lir_statement(&mut self, stmt: &x_lir::Statement) -> RustResult<()> {
+        match stmt {
+            x_lir::Statement::Expression(expr) => {
+                let code = self.generate_lir_expression(expr)?;
+                self.line(&format!("{};", code))?;
+            }
+            x_lir::Statement::Variable(var) => {
+                let ty = self.lir_type_to_rust(&var.type_);
+                let mut decl = if var.is_static {
+                    format!("static {}: {}", var.name, ty)
+                } else {
+                    format!("let {}: {}", var.name, ty)
+                };
+
+                if var.is_extern {
+                    decl.push_str(";");
+                    let _ = self.line(&decl);
+                } else if let Some(init) = &var.initializer {
+                    let init_code = self.generate_lir_expression(init)?;
+                    decl.push_str(&format!(" = {};", init_code));
+                    let _ = self.line(&decl);
+                } else {
+                    decl.push_str(";");
+                    let _ = self.line(&decl);
+                }
+            }
+            x_lir::Statement::If(if_stmt) => {
+                let cond = self.generate_lir_expression(&if_stmt.condition)?;
+                self.line(&format!("if {} {{", cond))?;
+                self.indent += 1;
+                self.generate_lir_statement(&if_stmt.then_branch)?;
+                self.indent -= 1;
+
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.line("} else {")?;
+                    self.indent += 1;
+                    self.generate_lir_statement(else_branch)?;
+                    self.indent -= 1;
+                }
+                self.line("}")?;
+            }
+            x_lir::Statement::While(while_stmt) => {
+                let cond = self.generate_lir_expression(&while_stmt.condition)?;
+                self.line(&format!("while {} {{", cond))?;
+                self.indent += 1;
+                self.generate_lir_statement(&while_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::DoWhile(do_while) => {
+                self.line("loop {")?;
+                self.indent += 1;
+                self.generate_lir_statement(&do_while.body)?;
+                let cond = self.generate_lir_expression(&do_while.condition)?;
+                self.line(&format!("if !({}) {{ break; }}", cond))?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::For(for_stmt) => {
+                self.line("for (")?;
+                if let Some(init) = &for_stmt.initializer {
+                    self.generate_lir_statement(init)?;
+                }
+                self.line(";")?;
+                if let Some(cond) = &for_stmt.condition {
+                    let cond_code = self.generate_lir_expression(cond)?;
+                    self.line(&format!(" {}", cond_code))?;
+                }
+                self.line(";")?;
+                if let Some(inc) = &for_stmt.increment {
+                    let inc_code = self.generate_lir_expression(inc)?;
+                    self.line(&format!(" {}", inc_code))?;
+                }
+                self.line(") {")?;
+                self.indent += 1;
+                self.generate_lir_statement(&for_stmt.body)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::Return(opt_expr) => {
+                if let Some(expr) = opt_expr {
+                    let code = self.generate_lir_expression(expr)?;
+                    self.line(&format!("return {};", code))?;
+                } else {
+                    self.line("return;")?;
+                }
+            }
+            x_lir::Statement::Break => {
+                self.line("break;")?;
+            }
+            x_lir::Statement::Continue => {
+                self.line("continue;")?;
+            }
+            x_lir::Statement::Label(name) => {
+                self.line(&format!("{}:", name))?;
+            }
+            x_lir::Statement::Goto(target) => {
+                self.line(&format!("goto {};", target))?;
+            }
+            x_lir::Statement::Compound(block) => {
+                self.line("{")?;
+                self.indent += 1;
+                self.generate_lir_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::Empty => {}
+            x_lir::Statement::Match(match_stmt) => {
+                let expr = self.generate_lir_expression(&match_stmt.scrutinee)?;
+                self.line(&format!("match {} {{", expr))?;
+                self.indent += 1;
+
+                for case in &match_stmt.cases {
+                    let pattern = self.generate_lir_pattern(&case.pattern)?;
+                    let guard = if let Some(g) = &case.guard {
+                        format!(" if {}", self.generate_lir_expression(g)?)
+                    } else {
+                        String::new()
+                    };
+                    self.line(&format!("{}{} => {{", pattern, guard))?;
+                    self.indent += 1;
+                    self.generate_lir_block(&case.body)?;
+                    self.indent -= 1;
+                    self.line("},")?;
+                }
+
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                self.line("{")?;
+                self.indent += 1;
+                self.line("let __result = (|| {")?;
+                self.indent += 1;
+                self.generate_lir_block(&try_stmt.body)?;
+                self.line("Ok(())")?;
+                self.indent -= 1;
+                self.line("})();")?;
+                self.line("match __result {")?;
+                self.indent += 1;
+
+                for catch in &try_stmt.catch_clauses {
+                    let var_name = catch.variable_name.as_deref().unwrap_or("_");
+                    let ty = catch.exception_type.as_deref().unwrap_or("_");
+                    self.line(&format!("Err({}: {}) => {{", var_name, ty))?;
+                    self.indent += 1;
+                    self.generate_lir_block(&catch.body)?;
+                    self.indent -= 1;
+                    self.line("},")?;
+                }
+
+                self.line("Ok(_) => {},")?;
+                self.indent -= 1;
+                self.line("}")?;
+
+                if let Some(finally) = &try_stmt.finally_block {
+                    self.generate_lir_block(finally)?;
+                }
+
+                self.indent -= 1;
+                self.line("}")?;
+            }
+            x_lir::Statement::Declaration(_) => {
+                // Already handled at top level
+                // This shouldn't happen in LIR block anyway
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                self.generate_lir_switch(switch_stmt)?;
+            }
+        }
+        Ok(())
+    }
+
+    /// Generate a switch statement
+    fn generate_lir_switch(&mut self, switch_stmt: &x_lir::SwitchStatement) -> RustResult<()> {
+        let expr = self.generate_lir_expression(&switch_stmt.expression)?;
+        self.line(&format!("match {} {{", expr))?;
+        self.indent += 1;
+
+        for case in &switch_stmt.cases {
+            let value = self.generate_lir_expression(&case.value)?;
+            self.line(&format!("{} => {{", value))?;
+            self.indent += 1;
+            self.generate_lir_statement(&case.body)?;
+            self.indent -= 1;
+            self.line("},")?;
+        }
+
+        if let Some(default_body) = &switch_stmt.default {
+            self.line("_ => {")?;
+            self.indent += 1;
+            self.generate_lir_statement(default_body)?;
+            self.indent -= 1;
+            self.line("},")?;
+        }
+
+        self.indent -= 1;
+        self.line("}")?;
+
+        Ok(())
+    }
+
+    /// Generate a LIR pattern
+    fn generate_lir_pattern(&mut self, pattern: &x_lir::Pattern) -> RustResult<String> {
+        let result = match pattern {
+            x_lir::Pattern::Wildcard => "_".to_string(),
+            x_lir::Pattern::Variable(name) => name.clone(),
+            x_lir::Pattern::Literal(lit) => self.generate_lir_literal(lit),
+            x_lir::Pattern::Constructor(name, patterns) => {
+                let pat_strs: Vec<String> = patterns.iter()
+                    .map(|p| self.generate_lir_pattern(p))
+                    .collect::<Result<_, _>>()?;
+                if patterns.is_empty() {
+                    format!("{}", name)
+                } else {
+                    format!("{}({})", name, pat_strs.join(", "))
+                }
+            }
+            x_lir::Pattern::Tuple(patterns) => {
+                let pat_strs: Vec<String> = patterns.iter()
+                    .map(|p| self.generate_lir_pattern(p))
+                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                format!("({},)", pat_strs.join(", "))
+            }
+            x_lir::Pattern::Record(name, fields) => {
+                let field_strs: Vec<String> = fields.iter()
+                    .map(|(n, p)| -> Result<String, RustBackendError> {
+                        let p_str = self.generate_lir_pattern(p)?;
+                        Ok(format!("{}: {}", n, p_str))
+                    })
+                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                format!("{} {{ {} }}", name, field_strs.join(", "))
+            }
+            x_lir::Pattern::Or(left, right) => {
+                let left_str = self.generate_lir_pattern(left)?;
+                let right_str = self.generate_lir_pattern(right)?;
+                format!("{} | {}", left_str, right_str)
+            }
+        };
+        Ok(result)
+    }
+
+    /// Generate a LIR expression
+    fn generate_lir_expression(&mut self, expr: &x_lir::Expression) -> RustResult<String> {
+        let result = match expr {
+            x_lir::Expression::Literal(lit) => self.generate_lir_literal(lit),
+            x_lir::Expression::Variable(name) => name.clone(),
+            x_lir::Expression::Unary(op, inner) => {
+                let inner_code = self.generate_lir_expression(inner)?;
+                let op_str = match op {
+                    x_lir::UnaryOp::Minus => "-",
+                    x_lir::UnaryOp::Plus => "+",
+                    x_lir::UnaryOp::Not => "!",
+                    x_lir::UnaryOp::BitNot => "!",
+                    x_lir::UnaryOp::PreIncrement => "++",
+                    x_lir::UnaryOp::PreDecrement => "--",
+                    x_lir::UnaryOp::PostIncrement => "++",
+                    x_lir::UnaryOp::PostDecrement => "--",
+                };
+                match op {
+                    x_lir::UnaryOp::PostIncrement | x_lir::UnaryOp::PostDecrement => {
+                        format!("{}{}", inner_code, op_str)
+                    }
+                    _ => format!("{}{}", op_str, inner_code),
+                }
+            }
+            x_lir::Expression::Binary(op, left, right) => {
+                let left_code = self.generate_lir_expression(left)?;
+                let right_code = self.generate_lir_expression(right)?;
+                let op_str = match op {
+                    x_lir::BinaryOp::Add => "+",
+                    x_lir::BinaryOp::Subtract => "-",
+                    x_lir::BinaryOp::Multiply => "*",
+                    x_lir::BinaryOp::Divide => "/",
+                    x_lir::BinaryOp::Modulo => "%",
+                    x_lir::BinaryOp::BitAnd => "&",
+                    x_lir::BinaryOp::BitOr => "|",
+                    x_lir::BinaryOp::BitXor => "^",
+                    x_lir::BinaryOp::LeftShift => "<<",
+                    x_lir::BinaryOp::RightShift => ">>",
+                    x_lir::BinaryOp::RightShiftArithmetic => ">>",
+                    x_lir::BinaryOp::LessThan => "<",
+                    x_lir::BinaryOp::LessThanEqual => "<=",
+                    x_lir::BinaryOp::GreaterThan => ">",
+                    x_lir::BinaryOp::GreaterThanEqual => ">=",
+                    x_lir::BinaryOp::Equal => "==",
+                    x_lir::BinaryOp::NotEqual => "!=",
+                    x_lir::BinaryOp::LogicalAnd => "&&",
+                    x_lir::BinaryOp::LogicalOr => "||",
+                };
+                format!("{} {} {}", left_code, op_str, right_code)
+            }
+            x_lir::Expression::Ternary(cond, then, else_) => {
+                let cond_code = self.generate_lir_expression(cond)?;
+                let then_code = self.generate_lir_expression(then)?;
+                let else_code = self.generate_lir_expression(else_)?;
+                format!("{} ? {} : {}", cond_code, then_code, else_code)
+            }
+            x_lir::Expression::Assign(target, value) => {
+                let target_code = self.generate_lir_expression(target)?;
+                let value_code = self.generate_lir_expression(value)?;
+                format!("{} = {}", target_code, value_code)
+            }
+            x_lir::Expression::AssignOp(op, target, value) => {
+                let target_code = self.generate_lir_expression(target)?;
+                let value_code = self.generate_lir_expression(value)?;
+                let op_str = match op {
+                    x_lir::BinaryOp::Add => "+=",
+                    x_lir::BinaryOp::Subtract => "-=",
+                    x_lir::BinaryOp::Multiply => "*=",
+                    x_lir::BinaryOp::Divide => "/=",
+                    x_lir::BinaryOp::Modulo => "%=",
+                    x_lir::BinaryOp::BitAnd => "&=",
+                    x_lir::BinaryOp::BitOr => "|=",
+                    x_lir::BinaryOp::BitXor => "^=",
+                    x_lir::BinaryOp::LeftShift => "<<=",
+                    x_lir::BinaryOp::RightShift => ">>=",
+                    x_lir::BinaryOp::RightShiftArithmetic => ">>=",
+                    _ => "=", // fallback
+                };
+                format!("{} {} {}", target_code, op_str, value_code)
+            }
+            x_lir::Expression::Call(callee, args) => {
+                let callee_code = self.generate_lir_expression(callee)?;
+                let args_code: Vec<String> = args.iter()
+                    .map(|arg| self.generate_lir_expression(arg))
+                    .collect::<Result<_, _>>()?;
+                format!("{}({})", callee_code, args_code.join(", "))
+            }
+            x_lir::Expression::Index(base, index) => {
+                let base_code = self.generate_lir_expression(base)?;
+                let index_code = self.generate_lir_expression(index)?;
+                format!("{}[{}]", base_code, index_code)
+            }
+            x_lir::Expression::Member(base, field) => {
+                let base_code = self.generate_lir_expression(base)?;
+                format!("{}.{}", base_code, field)
+            }
+            x_lir::Expression::PointerMember(base, field) => {
+                let base_code = self.generate_lir_expression(base)?;
+                format!("{}->{}", base_code, field)
+            }
+            x_lir::Expression::AddressOf(inner) => {
+                let inner_code = self.generate_lir_expression(inner)?;
+                format!("&{}", inner_code)
+            }
+            x_lir::Expression::Dereference(inner) => {
+                let inner_code = self.generate_lir_expression(inner)?;
+                format!("*{}", inner_code)
+            }
+            x_lir::Expression::Cast(ty, inner) => {
+                let inner_code = self.generate_lir_expression(inner)?;
+                let ty_str = self.lir_type_to_rust(ty);
+                format!("{} as {}", inner_code, ty_str)
+            }
+            x_lir::Expression::SizeOf(ty) => {
+                let ty_str = self.lir_type_to_rust(ty);
+                format!("std::mem::size_of::<{}>()", ty_str)
+            }
+            x_lir::Expression::SizeOfExpr(expr) => {
+                let expr_code = self.generate_lir_expression(expr)?;
+                format!("std::mem::size_of_val(&{})", expr_code)
+            }
+            x_lir::Expression::AlignOf(ty) => {
+                let ty_str = self.lir_type_to_rust(ty);
+                format!("std::mem::align_of::<{}>()", ty_str)
+            }
+            x_lir::Expression::Comma(exprs) => {
+                let expr_codes: Vec<String> = exprs.iter()
+                    .map(|e| self.generate_lir_expression(e))
+                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                expr_codes.join(", ")
+            }
+            x_lir::Expression::Parenthesized(inner) => {
+                let inner_code = self.generate_lir_expression(inner)?;
+                format!("({})", inner_code)
+            }
+            x_lir::Expression::InitializerList(inits) => {
+                let init_codes: Vec<String> = inits.iter()
+                    .map(|init| self.generate_lir_initializer(init))
+                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                format!("{{{}}}", init_codes.join(", "))
+            }
+            x_lir::Expression::CompoundLiteral(ty, inits) => {
+                let ty_str = self.lir_type_to_rust(ty);
+                let init_codes: Vec<String> = inits.iter()
+                    .map(|init| self.generate_lir_initializer(init))
+                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                format!("{} {{ {} }}", ty_str, init_codes.join(", "))
+            }
+        };
+        Ok(result)
+    }
+
+    /// Generate a LIR literal
+    fn generate_lir_literal(&self, lit: &x_lir::Literal) -> String {
+        match lit {
+            x_lir::Literal::Integer(v) => v.to_string(),
+            x_lir::Literal::UnsignedInteger(v) => format!("{}u", v),
+            x_lir::Literal::Long(v) => format!("{}i64", v),
+            x_lir::Literal::UnsignedLong(v) => format!("{}u64", v),
+            x_lir::Literal::LongLong(v) => format!("{}i64", v),
+            x_lir::Literal::UnsignedLongLong(v) => format!("{}u64", v),
+            x_lir::Literal::Float(v) => format!("{}f32", v),
+            x_lir::Literal::Double(v) => v.to_string(),
+            x_lir::Literal::Bool(v) => v.to_string(),
+            x_lir::Literal::Char(c) => format!("'{}'", c),
+            x_lir::Literal::String(s) => format!("\"{}\"", s),
+            x_lir::Literal::NullPointer => "std::ptr::null_mut()".to_string(),
+        }
+    }
+
+    /// Generate a LIR initializer
+    fn generate_lir_initializer(&mut self, init: &x_lir::Initializer) -> RustResult<String> {
+        let result = match init {
+            x_lir::Initializer::Expression(expr) => {
+                self.generate_lir_expression(expr)
+            }
+            x_lir::Initializer::List(list) => {
+                let items: Vec<String> = list.iter()
+                    .map(|i| self.generate_lir_initializer(i))
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok(format!("{{{}}}", items.join(", ")))
+            }
+            x_lir::Initializer::Named(name, init) => {
+                let init_code = self.generate_lir_initializer(init)?;
+                Ok(format!(".{name} = {init_code}"))
+            }
+            x_lir::Initializer::Indexed(idx, init) => {
+                let idx_code = self.generate_lir_expression(idx)?;
+                let init_code = self.generate_lir_initializer(init)?;
+                Ok(format!("[{idx_code}] = {init_code}"))
+            }
+        };
+        result
+    }
+
+    /// Convert LIR type to Rust type string
+    fn lir_type_to_rust(&self, ty: &x_lir::Type) -> String {
+        match ty {
+            x_lir::Type::Void => "()".to_string(),
+            x_lir::Type::Bool => "bool".to_string(),
+            x_lir::Type::Char => "char".to_string(),
+            x_lir::Type::Schar => "i8".to_string(),
+            x_lir::Type::Uchar => "u8".to_string(),
+            x_lir::Type::Short => "i16".to_string(),
+            x_lir::Type::Ushort => "u16".to_string(),
+            x_lir::Type::Int => "i32".to_string(),
+            x_lir::Type::Uint => "u32".to_string(),
+            x_lir::Type::Long => "i64".to_string(),
+            x_lir::Type::Ulong => "u64".to_string(),
+            x_lir::Type::LongLong => "i64".to_string(),
+            x_lir::Type::UlongLong => "u64".to_string(),
+            x_lir::Type::Float => "f32".to_string(),
+            x_lir::Type::Double => "f64".to_string(),
+            x_lir::Type::LongDouble => "f128".to_string(),
+            x_lir::Type::Size => "usize".to_string(),
+            x_lir::Type::Ptrdiff => "isize".to_string(),
+            x_lir::Type::Intptr => "isize".to_string(),
+            x_lir::Type::Uintptr => "usize".to_string(),
+            x_lir::Type::Pointer(inner) => {
+                let inner_str = self.lir_type_to_rust(inner);
+                format!("*mut {}", inner_str)
+            }
+            x_lir::Type::Array(inner, None) => {
+                let inner_str = self.lir_type_to_rust(inner);
+                format!("Vec<{}>", inner_str)
+            }
+            x_lir::Type::Array(inner, Some(size)) => {
+                let inner_str = self.lir_type_to_rust(inner);
+                format!("[{}; {}]", inner_str, size)
+            }
+            x_lir::Type::FunctionPointer(return_type, param_types) => {
+                let params: Vec<String> = param_types.iter().map(|t| self.lir_type_to_rust(t)).collect();
+                let ret = self.lir_type_to_rust(return_type);
+                format!("fn({}) -> {}", params.join(", "), ret)
+            }
+            x_lir::Type::Named(name) => name.clone(),
+            x_lir::Type::Qualified(quals, inner) => {
+                let mut inner_str = self.lir_type_to_rust(inner);
+                if quals.is_const {
+                    inner_str = format!("const {}", inner_str);
+                }
+                inner_str
+            }
+        }
     }
 }
 

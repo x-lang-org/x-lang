@@ -354,6 +354,26 @@ impl PythonBackend {
                 self.line("# unsafe block")?;
                 self.emit_block(block)?;
             }
+            StatementKind::Defer(expr) => {
+                // Python doesn't have defer, comment it
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("# defer {}", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                // Yield for generators
+                if let Some(e) = opt_expr {
+                    let expr = self.emit_expr(e)?;
+                    self.line(&format!("yield {}", expr))?;
+                } else {
+                    self.line("yield")?;
+                }
+            }
+            StatementKind::Loop(body) => {
+                self.line("while True:")?;
+                self.indent += 1;
+                self.emit_block(body)?;
+                self.indent -= 1;
+            }
         }
         Ok(())
     }
@@ -592,6 +612,19 @@ impl PythonBackend {
             ExpressionKind::Wait(wait_type, exprs) => {
                 self.emit_wait(wait_type, exprs)
             }
+            ExpressionKind::Await(expr) => {
+                let e = self.emit_expr(expr)?;
+                Ok(format!("await {}", e))
+            }
+            ExpressionKind::OptionalChain(base, member) => {
+                let b = self.emit_expr(base)?;
+                Ok(format!("{}.{}", b, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let l = self.emit_expr(left)?;
+                let r = self.emit_expr(right)?;
+                Ok(format!("{} if {} is not None else {}", l, l, r))
+            }
             _ => Err(PythonBackendError::UnsupportedFeature(format!(
                 "{:?}",
                 expr
@@ -697,6 +730,24 @@ impl PythonBackend {
                 } else {
                     let expr = &expr_strs[0];
                     Ok(format!("await asyncio.wait_for({}, timeout={})", expr, timeout))
+                }
+            }
+            ast::WaitType::Atomic => {
+                // Atomic: atomic operation - just comment and await
+                if expr_strs.len() == 1 {
+                    Ok(format!("# atomic\nawait {}", expr_strs[0]))
+                } else {
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("# atomic\n({})", awaited.join(", ")))
+                }
+            }
+            ast::WaitType::Retry => {
+                // Retry: retry operation - just comment and await
+                if expr_strs.len() == 1 {
+                    Ok(format!("# retry\nawait {}", expr_strs[0]))
+                } else {
+                    let awaited: Vec<String> = expr_strs.iter().map(|e| format!("await {}", e)).collect();
+                    Ok(format!("# retry\n({})", awaited.join(", ")))
                 }
             }
         }

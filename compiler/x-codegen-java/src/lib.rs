@@ -403,6 +403,27 @@ impl JavaBackend {
                 self.line("// unsafe block")?;
                 self.emit_block(block)?;
             }
+            StatementKind::Defer(expr) => {
+                // Java doesn't have built-in defer, emit as comment
+                let e = self.emit_expr(expr)?;
+                self.line(&format!("// defer: {};", e))?;
+            }
+            StatementKind::Yield(opt_expr) => {
+                // Java doesn't have yield (for generators), just comment
+                if let Some(expr) = opt_expr {
+                    let e = self.emit_expr(expr)?;
+                    self.line(&format!("// yield: {};", e))?;
+                } else {
+                    self.line("// yield;")?;
+                }
+            }
+            StatementKind::Loop(block) => {
+                self.line("while (true) {")?;
+                self.indent += 1;
+                self.emit_block(block)?;
+                self.indent -= 1;
+                self.line("}")?;
+            }
         }
         Ok(())
     }
@@ -801,6 +822,24 @@ impl JavaBackend {
                 let e = self.emit_expr(expr)?;
                 Ok(format!("{}.orElseThrow()", e))
             }
+            ExpressionKind::Cast(expr, ty) => {
+                let e = self.emit_expr(expr)?;
+                let type_str = self.map_type_from_type(ty);
+                Ok(format!("({}) {}", type_str, e))
+            }
+            ExpressionKind::Await(expr) => {
+                let e = self.emit_expr(expr)?;
+                Ok(format!("{}.get()", e))
+            }
+            ExpressionKind::OptionalChain(base_expr, member) => {
+                let base = self.emit_expr(base_expr)?;
+                Ok(format!("{} != null ? {}.{} : null", base, base, member))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                let l = self.emit_expr(left)?;
+                let r = self.emit_expr(right)?;
+                Ok(format!("{} != null ? {} : {}", l, l, r))
+            }
         }
     }
 
@@ -899,6 +938,12 @@ impl JavaBackend {
                     let expr = &expr_strs[0];
                     Ok(format!("{}.get({}, TimeUnit.MILLISECONDS)", expr, timeout))
                 }
+            }
+            ast::WaitType::Atomic => {
+                Ok(format!("/* atomic wait: {} */ {}.get()", expr_strs.join(", "), expr_strs[0]))
+            }
+            ast::WaitType::Retry => {
+                Ok(format!("/* retry wait: {} */ {}.get()", expr_strs.join(", "), expr_strs[0]))
             }
         }
     }

@@ -75,6 +75,10 @@ pub struct X86_64AssemblyGenerator {
     stack_size: usize,
     /// 当前函数名
     current_function: String,
+    /// 循环标签栈 - (continue_label, break_label) for each nested loop
+    loop_labels: Vec<(String, String)>,
+    /// 字段偏移表 - field name -> calculated offset with alignment
+    field_offsets: HashMap<String, usize>,
 }
 
 /// 全局变量信息
@@ -104,6 +108,8 @@ impl X86_64AssemblyGenerator {
             local_offsets: HashMap::new(),
             stack_size: 0,
             current_function: String::new(),
+            loop_labels: Vec::new(),
+            field_offsets: HashMap::new(),
         }
     }
 
@@ -117,6 +123,8 @@ impl X86_64AssemblyGenerator {
         self.local_offsets.clear();
         self.stack_size = 0;
         self.current_function.clear();
+        self.loop_labels.clear();
+        self.field_offsets.clear();
     }
 
     /// 生成唯一标签名
@@ -247,6 +255,60 @@ impl X86_64AssemblyGenerator {
                 }
                 lir::Declaration::Function(func) => {
                     self.collect_string_literals(&func.body)?;
+                }
+                lir::Declaration::Struct(strct) => {
+                    // Calculate field offsets with proper alignment
+                    let mut current_offset = 0;
+                    let mut max_alignment = 1;
+
+                    for field in &strct.fields {
+                        let align = self.type_align(&field.type_);
+                        max_alignment = max_alignment.max(align);
+
+                        // Align current offset to field alignment requirement
+                        if current_offset % align != 0 {
+                            current_offset += align - (current_offset % align);
+                        }
+
+                        // Store offset - first occurrence wins (matches existing comment)
+                        if !self.field_offsets.contains_key(&field.name) {
+                            let size = self.type_size(&field.type_);
+                            self.field_offsets.insert(field.name.clone(), current_offset);
+                            current_offset += size;
+                        }
+                    }
+
+                    // Align total struct size
+                    if current_offset % max_alignment != 0 {
+                        current_offset += max_alignment - (current_offset % max_alignment);
+                    }
+                }
+                lir::Declaration::Class(cls) => {
+                    // Calculate field offsets with proper alignment - same as struct
+                    let mut current_offset = 0;
+                    let mut max_alignment = 1;
+
+                    for field in &cls.fields {
+                        let align = self.type_align(&field.type_);
+                        max_alignment = max_alignment.max(align);
+
+                        // Align current offset to field alignment requirement
+                        if current_offset % align != 0 {
+                            current_offset += align - (current_offset % align);
+                        }
+
+                        // Store offset - first occurrence wins
+                        if !self.field_offsets.contains_key(&field.name) {
+                            let size = self.type_size(&field.type_);
+                            self.field_offsets.insert(field.name.clone(), current_offset);
+                            current_offset += size;
+                        }
+                    }
+
+                    // Align total class size
+                    if current_offset % max_alignment != 0 {
+                        current_offset += max_alignment - (current_offset % max_alignment);
+                    }
                 }
                 _ => {}
             }
@@ -491,8 +553,11 @@ impl X86_64AssemblyGenerator {
                 self.emit_raw(&format!("{}:", end_label))?;
             }
             Statement::While(while_stmt) => {
-                let start_label = self.new_label("while_start");
-                let end_label = self.new_label("while_end");
+                let start_label = self.new_label("while_start"); // continue jumps here (recheck condition)
+                let end_label = self.new_label("while_end");   // break jumps here
+
+                // Push to label stack for break/continue
+                self.loop_labels.push((start_label.clone(), end_label.clone()));
 
                 self.emit_raw(&format!("{}:", start_label))?;
                 self.emit_expr(&while_stmt.condition)?;
@@ -503,9 +568,94 @@ impl X86_64AssemblyGenerator {
                 self.emit_line(&format!("jmp {}", start_label))?;
 
                 self.emit_raw(&format!("{}:", end_label))?;
+
+                // Pop from stack
+                self.loop_labels.pop();
+            }
+            Statement::DoWhile(do_while) => {
+                let start_label = self.new_label("do_start");
+                let cond_label = self.new_label("do_cond");
+                let end_label = self.new_label("do_end");
+
+                // continue -> go to condition check (then back to start if condition true)
+                // break -> exit to end_label
+                self.loop_labels.push((cond_label.clone(), end_label.clone()));
+
+                self.emit_raw(&format!("{}:", start_label))?;
+
+                self.indent += 1;
+                self.emit_statement(&do_while.body)?;
+                self.emit_line(&format!("jmp {}", cond_label))?;
+                self.indent -= 1;
+
+                self.emit_raw(&format!("{}:", cond_label))?;
+                self.emit_expr(&do_while.condition)?;
+                self.emit_line("test rax, rax")?;
+                self.emit_line(&format!("jnz {}", start_label))?;
+
+                self.emit_raw(&format!("{}:", end_label))?;
+
+                // Pop from stack
+                self.loop_labels.pop();
+            }
+            Statement::For(for_stmt) => {
+                let start_label = self.new_label("for_start");
+                let end_label = self.new_label("for_end");
+                // continue -> go to condition check (then loop if true)
+                // break -> exit to end_label
+
+                // initializer
+                if let Some(init) = &for_stmt.initializer {
+                    self.emit_statement(init)?;
+                }
+
+                // Push to label stack
+                self.loop_labels.push((start_label.clone(), end_label.clone()));
+
+                self.emit_raw(&format!("{}:", start_label))?;
+
+                // condition check
+                self.indent += 1;
+                if let Some(cond) = &for_stmt.condition {
+                    self.emit_expr(cond)?;
+                    self.emit_line("test rax, rax")?;
+                    self.emit_line(&format!("jz {}", end_label))?;
+                }
+
+                // loop body
+                self.emit_statement(&for_stmt.body)?;
+
+                // increment
+                if let Some(inc) = &for_stmt.increment {
+                    self.emit_expr(inc)?;
+                }
+
+                self.emit_line(&format!("jmp {}", start_label))?;
+                self.indent -= 1;
+
+                self.emit_raw(&format!("{}:", end_label))?;
+
+                // Pop from stack
+                self.loop_labels.pop();
             }
             Statement::Compound(block) => {
                 self.emit_block(block)?;
+            }
+            Statement::Break => {
+                // break jumps to the current loop's break target
+                if let Some((_continue_label, break_label)) = self.loop_labels.last() {
+                    self.emit_line(&format!("jmp {}", break_label))?;
+                } else {
+                    self.emit_line("; TODO: break outside loop")?;
+                }
+            }
+            Statement::Continue => {
+                // continue jumps to the current loop's continue target (condition check / loop start)
+                if let Some((continue_label, _break_label)) = self.loop_labels.last() {
+                    self.emit_line(&format!("jmp {}", continue_label))?;
+                } else {
+                    self.emit_line("; TODO: continue outside loop")?;
+                }
             }
             Statement::Empty => {}
             _ => {
@@ -566,6 +716,45 @@ impl X86_64AssemblyGenerator {
                             self.emit_line(&format!("mov [{}], rax", name))?;
                         }
                     }
+                    Expression::Dereference(ptr) => {
+                        self.emit_expr(ptr)?;
+                        self.emit_line("mov [rax], rax")?;
+                    }
+                    Expression::Member(obj, field) => {
+                        self.emit_expr(obj)?;
+                        // 查找结构体字段偏移
+                        if let Some(&offset) = self.field_offsets.get(field) {
+                            if offset > 0 {
+                                self.emit_line(&format!("add rax, {}", offset))?;
+                            }
+                            self.emit_line("mov [rax], rax")?;
+                        } else {
+                            // Field not found - assume offset 0
+                            self.emit_line("mov [rax], rax")?;
+                        }
+                    }
+                    Expression::PointerMember(obj, field) => {
+                        self.emit_expr(obj)?;
+                        self.emit_line("mov rax, [rax]")?;
+                        // 查找结构体字段偏移
+                        if let Some(&offset) = self.field_offsets.get(field) {
+                            if offset > 0 {
+                                self.emit_line(&format!("add rax, {}", offset))?;
+                            }
+                            self.emit_line("mov [rax], rax")?;
+                        } else {
+                            // Field not found - assume offset 0
+                            self.emit_line("mov [rax], rax")?;
+                        }
+                    }
+                    Expression::Index(arr, idx) => {
+                        self.emit_expr(arr)?;
+                        self.emit_line("mov rcx, rax")?;
+                        self.emit_expr(idx)?;
+                        self.emit_line("shl rax, 3")?; // 假设 8 字节元素
+                        self.emit_line("add rcx, rax")?;
+                        self.emit_line("mov [rcx], rax")?;
+                    }
                     _ => {
                         self.emit_line("; TODO: complex assign target")?;
                     }
@@ -580,13 +769,13 @@ impl X86_64AssemblyGenerator {
                 self.emit_line("pop rax")?;
                 match op {
                     BinaryOp::Add => self.emit_line("add rax, rcx")?,
-                    BinaryOp::Sub => self.emit_line("sub rax, rcx")?,
-                    BinaryOp::Mul => self.emit_line("imul rax, rcx")?,
-                    BinaryOp::Div => {
+                    BinaryOp::Subtract => self.emit_line("sub rax, rcx")?,
+                    BinaryOp::Multiply => self.emit_line("imul rax, rcx")?,
+                    BinaryOp::Divide => {
                         self.emit_line("cqo")?;
                         self.emit_line("idiv rcx")?;
                     }
-                    BinaryOp::Rem => {
+                    BinaryOp::Modulo => {
                         self.emit_line("cqo")?;
                         self.emit_line("idiv rcx")?;
                         self.emit_line("mov rax, rdx")?;
@@ -594,9 +783,9 @@ impl X86_64AssemblyGenerator {
                     BinaryOp::BitAnd => self.emit_line("and rax, rcx")?,
                     BinaryOp::BitOr => self.emit_line("or rax, rcx")?,
                     BinaryOp::BitXor => self.emit_line("xor rax, rcx")?,
-                    BinaryOp::Shl => self.emit_line("shl rax, cl")?,
-                    BinaryOp::Shr => self.emit_line("shr rax, cl")?,
-                    BinaryOp::Sar => self.emit_line("sar rax, cl")?,
+                    BinaryOp::LeftShift => self.emit_line("shl rax, cl")?,
+                    BinaryOp::RightShift => self.emit_line("shr rax, cl")?,
+                    BinaryOp::RightShiftArithmetic => self.emit_line("sar rax, cl")?,
                     _ => self.emit_line("; TODO: unsupported assign op")?,
                 }
                 // 存回目标
@@ -610,17 +799,18 @@ impl X86_64AssemblyGenerator {
                 }
             }
             Expression::SizeOf(ty) => {
-                // 返回类型大小（简化：假设 8 字节）
-                let _ = ty; // TODO: 实际类型大小
-                self.emit_line("mov rax, 8")?;
+                let size = self.type_size(ty);
+                self.emit_line(&format!("mov rax, {}", size))?;
             }
             Expression::SizeOfExpr(expr) => {
+                // SizeOfExpr - since LIR Expression doesn't carry type info,
+                // we default to 8 bytes (pointer size on x86_64)
                 let _ = expr;
                 self.emit_line("mov rax, 8")?;
             }
             Expression::AlignOf(ty) => {
-                let _ = ty;
-                self.emit_line("mov rax, 8")?;
+                let align = self.type_align(ty);
+                self.emit_line(&format!("mov rax, {}", align))?;
             }
             Expression::Ternary(cond, then, else_) => {
                 let else_label = self.new_label("ternary_else");
@@ -640,7 +830,9 @@ impl X86_64AssemblyGenerator {
             }
             Expression::Cast(ty, expr) => {
                 self.emit_expr(expr)?;
-                // TODO: 实际类型转换
+                // Basic casting between integer types is handled implicitly
+                // since everything is in rax as 64-bit. For floating point we'd need
+                // proper instructions, but this handles the common case.
                 let _ = ty;
             }
             Expression::AddressOf(expr) => {
@@ -669,15 +861,30 @@ impl X86_64AssemblyGenerator {
             }
             Expression::Member(obj, field) => {
                 self.emit_expr(obj)?;
-                // TODO: 实际字段偏移
-                let _ = field;
-                self.emit_line("; TODO: member access")?;
+                // 查找结构体字段偏移 - 简单实现，假设第一个同名字段
+                if let Some(&offset) = self.field_offsets.get(field) {
+                    if offset > 0 {
+                        self.emit_line(&format!("add rax, {}", offset))?;
+                    }
+                    self.emit_line("mov rax, [rax]")?;
+                } else {
+                    // Field not found - assume offset 0 (TODO: proper error handling)
+                    self.emit_line("mov rax, [rax]")?;
+                }
             }
             Expression::PointerMember(obj, field) => {
                 self.emit_expr(obj)?;
                 self.emit_line("mov rax, [rax]")?;
-                let _ = field;
-                self.emit_line("; TODO: pointer member access")?;
+                // 查找结构体字段偏移
+                if let Some(&offset) = self.field_offsets.get(field) {
+                    if offset > 0 {
+                        self.emit_line(&format!("add rax, {}", offset))?;
+                    }
+                    self.emit_line("mov rax, [rax]")?;
+                } else {
+                    // Field not found - assume offset 0
+                    self.emit_line("mov rax, [rax]")?;
+                }
             }
             Expression::Comma(exprs) => {
                 for expr in exprs.iter() {
@@ -804,7 +1011,8 @@ impl X86_64AssemblyGenerator {
             BinaryOp::BitOr => self.emit_line("or rax, rcx")?,
             BinaryOp::BitXor => self.emit_line("xor rax, rcx")?,
             BinaryOp::LeftShift => self.emit_line("shl rax, cl")?,
-            BinaryOp::RightShift => self.emit_line("sar rax, cl")?,
+            BinaryOp::RightShift => self.emit_line("shr rax, cl")?,
+            BinaryOp::RightShiftArithmetic => self.emit_line("sar rax, cl")?,
             BinaryOp::LogicalAnd => {
                 let end_label = self.new_label("logical_and_end");
                 self.emit_line("test rax, rax")?;
@@ -848,7 +1056,9 @@ impl X86_64AssemblyGenerator {
             // 调整栈对齐
             self.emit_line(&format!("call {}", name))?;
         } else {
-            self.emit_line("; TODO: indirect call")?;
+            // Indirect call - call via register
+            self.emit_expr(func)?; // result goes to rax
+            self.emit_line("call rax")?;
         }
 
         Ok(())

@@ -18,8 +18,8 @@ use std::fmt::Write;
 use std::path::PathBuf;
 use x_codegen::{CodeGenerator, CodegenOutput, FileType, OutputFile};
 use x_lir::{
-    BinaryOp, Block, Declaration, Expression, Function, GlobalVar, Literal, Program,
-    Statement, Type, UnaryOp,
+    BinaryOp, Block, Declaration, Expression, Function, GlobalVar, Literal, MatchStatement,
+    Program, Statement, SwitchStatement, TryStatement, Type, UnaryOp,
 };
 use x_parser::ast::Program as AstProgram;
 
@@ -558,14 +558,145 @@ impl LlvmBackend {
             Statement::Declaration(_) => {
                 // 嵌套声明在函数体内处理
             }
-            Statement::Switch(_) | Statement::Match(_) | Statement::Try(_) => {
-                // 这些复杂语句需要更完整的实现
-                self.emit_indent(
-                    indent,
-                    &format!("; TODO: complex statement: {:?}", stmt),
-                );
+            Statement::Switch(switch_stmt) => {
+                self.emit_switch(indent, switch_stmt)?;
+            }
+            Statement::Match(match_stmt) => {
+                self.emit_match(indent, match_stmt)?;
+            }
+            Statement::Try(try_stmt) => {
+                self.emit_try(indent, try_stmt)?;
             }
         }
+        Ok(())
+    }
+
+    /// 生成 match 语句
+    fn emit_match(&mut self, indent: usize, match_stmt: &MatchStatement) -> Result<(), LlvmError> {
+        // 计算 scrutinee 表达式的值
+        let (scrutinee_reg, scrutinee_ty) = self.emit_expression(&match_stmt.scrutinee)?;
+        let llvm_ty = self.llvm_type(&scrutinee_ty)?;
+
+        let match_end = self.new_label("match_end");
+
+        for case in &match_stmt.cases {
+            let case_label = self.new_label("match_case");
+
+            // 生成模式匹配
+            match &case.pattern {
+                x_lir::Pattern::Wildcard => {
+                    // 通配符总是匹配
+                    self.emit_indent(indent, &format!("br label %{}", case_label));
+                }
+                x_lir::Pattern::Literal(lit) => {
+                    // 字面量匹配
+                    let (lit_reg, _lit_ty) = self.emit_literal(lit)?;
+                    let cmp = self.new_temp();
+                    self.emit_indent(indent, &format!("{} = icmp eq {}, {}, {}", cmp, llvm_ty, scrutinee_reg, lit_reg));
+                    self.emit_indent(indent, &format!("br i1 {}, label %{}, label %{}", cmp, case_label, match_end));
+                }
+                x_lir::Pattern::Variable(_) => {
+                    // 变量模式总是匹配
+                    self.emit_indent(indent, &format!("br label %{}", case_label));
+                }
+                _ => {
+                    // 复杂模式暂不支持
+                    self.emit_indent(indent, &format!("; TODO: unsupported pattern: {:?}", case.pattern));
+                    self.emit_indent(indent, &format!("br label %{}", case_label));
+                }
+            }
+
+            // 生成 case body
+            self.emit_indent(indent, &format!("{}:", case_label));
+            self.emit_block(&case.body, indent + 1)?;
+            self.emit_indent(indent + 1, &format!("br label %{}", match_end));
+        }
+
+        // match 结束
+        self.emit_indent(indent, &format!("{}:", match_end));
+
+        Ok(())
+    }
+
+    /// 生成 try-catch-finally 语句
+    fn emit_try(&mut self, indent: usize, try_stmt: &TryStatement) -> Result<(), LlvmError> {
+        let try_entry = self.new_label("try_entry");
+        let try_end = self.new_label("try_end");
+        let catch_entry = self.new_label("catch_entry");
+
+        // 生成 try entry
+        self.emit_indent(indent, &format!("br label %{}", try_entry));
+        self.emit_indent(indent, &format!("{}:", try_entry));
+
+        // Try body
+        self.emit_block(&try_stmt.body, indent + 1)?;
+
+        // 跳转到结束
+        self.emit_indent(indent + 1, &format!("br label %{}", try_end));
+
+        // Catch clauses
+        self.emit_indent(indent, &format!("{}:", catch_entry));
+        for catch in &try_stmt.catch_clauses {
+            if let Some(var_name) = &catch.variable_name {
+                // 注册 catch 变量 - 使用 alloca
+                let ptr = self.new_temp();
+                self.emit_indent(indent + 1, &format!("{} = alloca i8*", ptr));
+                self.local_vars.insert(var_name.clone(), ptr);
+            }
+            self.emit_block(&catch.body, indent + 1)?;
+        }
+
+        // Finally block (if present)
+        if let Some(finally_block) = &try_stmt.finally_block {
+            self.emit_block(finally_block, indent + 1)?;
+        }
+
+        // End label
+        self.emit_indent(indent, &format!("{}:", try_end));
+
+        Ok(())
+    }
+
+    /// 生成 switch 语句
+    fn emit_switch(&mut self, indent: usize, switch_stmt: &SwitchStatement) -> Result<(), LlvmError> {
+        // 计算 switch 值
+        let (expr_reg, expr_ty) = self.emit_expression(&switch_stmt.expression)?;
+        let llvm_ty = self.llvm_type(&expr_ty)?;
+
+        // 生成唯一标签
+        let switch_end = self.new_label("switch_end");
+        let switch_table = self.new_label("switch_table");
+
+        // 计算 switch 值并跳转到表
+        self.emit_indent(indent, &format!("br label %{}", switch_table));
+
+        // Switch 表
+        self.emit_indent(indent, &format!("{}:", switch_table));
+
+        // 生成 case 标签
+        for case in &switch_stmt.cases {
+            let case_label = self.new_label("case");
+            let (value_reg, _) = self.emit_expression(&case.value)?;
+            let cmp_result = self.new_temp();
+            self.emit_indent(indent + 1, &format!("{} = icmp eq {}, {}, {}", cmp_result, llvm_ty, expr_reg, value_reg));
+            let br_target = self.new_temp();
+            self.emit_indent(indent + 1, &format!("br i1 {}, label %{}, label %{}",
+                br_target, case_label, switch_end));
+            self.emit_indent(indent, &format!("{}:", case_label));
+
+            // 生成 case body
+            self.emit_statement(&case.body, indent + 1)?;
+        }
+
+        // Default case
+        if let Some(default_body) = &switch_stmt.default {
+            self.emit_indent(indent + 1, &format!("br label %{}", switch_end));
+            self.emit_statement(default_body, indent)?;
+        }
+
+        // Switch end
+        self.emit_indent(indent, &format!("{}:", switch_end));
+
         Ok(())
     }
 
@@ -939,6 +1070,9 @@ impl LlvmBackend {
                 format!("{} = shl {} {}, {}", result, llvm_ty, left_val, right_val)
             }
             BinaryOp::RightShift => {
+                format!("{} = lshr {} {}, {}", result, llvm_ty, left_val, right_val)
+            }
+            BinaryOp::RightShiftArithmetic => {
                 format!("{} = ashr {} {}, {}", result, llvm_ty, left_val, right_val)
             }
             BinaryOp::LessThan => {
@@ -1425,6 +1559,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "add".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![
                     Parameter {
@@ -1469,6 +1604,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "main".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![],
                 body: Block {
@@ -1502,6 +1638,7 @@ mod tests {
                 }),
                 Declaration::Function(Function {
                     name: "main".to_string(),
+                    type_params: Vec::new(),
                     return_type: Type::Int,
                     parameters: vec![],
                     body: Block {
@@ -1557,6 +1694,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "main".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![],
                 body: Block {
@@ -1585,6 +1723,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "test_if".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![],
                 body: Block {
@@ -1622,6 +1761,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "count_down".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![Parameter {
                     name: "n".to_string(),
@@ -1678,6 +1818,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "test_ternary".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Int,
                 parameters: vec![],
                 body: Block {
@@ -1703,6 +1844,7 @@ mod tests {
         let lir = Program {
             declarations: vec![Declaration::Function(Function {
                 name: "float_add".to_string(),
+                type_params: Vec::new(),
                 return_type: Type::Double,
                 parameters: vec![
                     Parameter {
@@ -1742,11 +1884,14 @@ mod tests {
             declarations: vec![
                 Declaration::ExternFunction(x_lir::ExternFunction {
                     name: "external_func".to_string(),
+                    type_params: Vec::new(),
                     return_type: Type::Int,
                     parameters: vec![Type::Int, Type::Pointer(Box::new(Type::Char))],
+                    abi: None,
                 }),
                 Declaration::Function(Function {
                     name: "main".to_string(),
+                    type_params: Vec::new(),
                     return_type: Type::Int,
                     parameters: vec![],
                     body: Block {
