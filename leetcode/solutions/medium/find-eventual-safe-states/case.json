@@ -1,0 +1,24 @@
+{
+  "problemId": "820",
+  "titleSlug": "find-eventual-safe-states",
+  "title": "Find Eventual Safe States",
+  "titleCn": "找到最终的安全状态",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "acRate": 0.601938970747776,
+  "testcases": [
+    {
+      "input": "</strong> graph = [[1,2],[2,3],[5],[0],[5],[],[]] <strong>Output:</strong> [2,4,5,6] <strong>Explanation:</strong> The given graph is shown above. Nodes 5 and 6 are terminal nodes as there are no outgoing edges from either of them. Every path starting at nodes 2, 4, 5, and 6 all lead to either node 5 or 6.",
+      "expectedOutput": "</strong> [2,4,5,6] <strong>Explanation:</strong> The given graph is shown above. Nodes 5 and 6 are terminal nodes as there are no outgoing edges from either of them. Every path starting at nodes 2, 4, 5, and 6 all lead to either node 5 or 6."
+    },
+    {
+      "input": "</strong> graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]] <strong>Output:</strong> [4] <strong>Explanation:</strong> Only node 4 is a terminal node, and every path starting at node 4 leads to node 4.",
+      "expectedOutput": "</strong> [4] <strong>Explanation:</strong> Only node 4 is a terminal node, and every path starting at node 4 leads to node 4."
+    }
+  ]
+}

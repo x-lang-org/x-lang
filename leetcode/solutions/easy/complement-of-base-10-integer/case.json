@@ -1,0 +1,25 @@
+{
+  "problemId": "1054",
+  "titleSlug": "complement-of-base-10-integer",
+  "title": "Complement of Base 10 Integer",
+  "titleCn": "十进制整数的反码",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.5951425995845473,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> 5 is \"101\" in binary, with complement \"010\" in binary, which is 2 in base-10.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 5 is \"101\" in binary, with complement \"010\" in binary, which is 2 in base-10."
+    },
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> 0 <strong>Explanation:</strong> 7 is \"111\" in binary, with complement \"000\" in binary, which is 0 in base-10.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> 7 is \"111\" in binary, with complement \"000\" in binary, which is 0 in base-10."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 5 <strong>Explanation:</strong> 10 is \"1010\" in binary, with complement \"0101\" in binary, which is 5 in base-10.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> 10 is \"1010\" in binary, with complement \"0101\" in binary, which is 5 in base-10."
+    }
+  ]
+}

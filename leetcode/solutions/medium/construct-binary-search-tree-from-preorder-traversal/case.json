@@ -1,0 +1,26 @@
+{
+  "problemId": "1050",
+  "titleSlug": "construct-binary-search-tree-from-preorder-traversal",
+  "title": "Construct Binary Search Tree from Preorder Traversal",
+  "titleCn": "前序遍历构造二叉搜索树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "tree",
+    "binary-search-tree",
+    "array",
+    "binary-tree",
+    "monotonic-stack"
+  ],
+  "acRate": 0.722324738311805,
+  "testcases": [
+    {
+      "input": "</strong> preorder = [8,5,1,7,10,12] <strong>Output:</strong> [8,5,10,1,7,null,12]",
+      "expectedOutput": "</strong> [8,5,10,1,7,null,12]"
+    },
+    {
+      "input": "</strong> preorder = [1,3] <strong>Output:</strong> [1,null,3]",
+      "expectedOutput": "</strong> [1,null,3]"
+    }
+  ]
+}

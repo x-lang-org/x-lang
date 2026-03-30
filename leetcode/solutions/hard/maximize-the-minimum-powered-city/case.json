@@ -1,0 +1,26 @@
+{
+  "problemId": "2618",
+  "titleSlug": "maximize-the-minimum-powered-city",
+  "title": "Maximize the Minimum Powered City",
+  "titleCn": "最大化城市的最小电量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "queue",
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.5171086244737884,
+  "testcases": [
+    {
+      "input": "</strong> stations = [1,2,4,5,0], r = 1, k = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> One of the optimal ways is to install both the power stations at city 1. So stations will become [1,4,4,5,0]. - City 0 is provided by 1 + 4 = 5 power stations. - City 1 is provided by 1 + 4 + 4 = 9 power stations. - City 2 is provided by 4 + 4 + 5 = 13 power stations. - City 3 is provided by 5 + 4 = 9 power stations. - City 4 is provided by 5 + 0 = 5 power stations. So the minimum power of a city is 5. Since it is not possible to obtain a larger power, we return 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> One of the optimal ways is to install both the power stations at city 1. So stations will become [1,4,4,5,0]. - City 0 is provided by 1 + 4 = 5 power stations. - City 1 is provided by 1 + 4 + 4 = 9 power stations. - City 2 is provided by 4 + 4 + 5 = 13 power stations. - City 3 is provided by 5 + 4 = 9 power stations. - City 4 is provided by 5 + 0 = 5 power stations. So the minimum power of a city is 5. Since it is not possible to obtain a larger power, we return 5."
+    },
+    {
+      "input": "</strong> stations = [4,4,4,4], r = 0, k = 3 <strong>Output:</strong> 4 <strong>Explanation:</strong> It can be proved that we cannot make the minimum power of a city greater than 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> It can be proved that we cannot make the minimum power of a city greater than 4."
+    }
+  ]
+}

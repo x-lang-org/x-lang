@@ -1,0 +1,21 @@
+{
+  "problemId": "1156",
+  "titleSlug": "occurrences-after-bigram",
+  "title": "Occurrences After Bigram",
+  "titleCn": "Bigram 分词",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.651363718465892,
+  "testcases": [
+    {
+      "input": "</strong> text = \"alice is a good girl she is a good student\", first = \"a\", second = \"good\" <strong>Output:</strong> [\"girl\",\"student\"]",
+      "expectedOutput": "</strong> [\"girl\",\"student\"]"
+    },
+    {
+      "input": "</strong> text = \"we will we will rock you\", first = \"we\", second = \"will\" <strong>Output:</strong> [\"we\",\"rock\"]",
+      "expectedOutput": "</strong> [\"we\",\"rock\"]"
+    }
+  ]
+}

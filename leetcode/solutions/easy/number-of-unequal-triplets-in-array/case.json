@@ -1,0 +1,23 @@
+{
+  "problemId": "2566",
+  "titleSlug": "number-of-unequal-triplets-in-array",
+  "title": "Number of Unequal Triplets in Array",
+  "titleCn": "数组中不等三元组的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.7774381064869497,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,4,2,4,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> The following triplets meet the conditions: - (0, 2, 4) because 4 != 2 != 3 - (1, 2, 4) because 4 != 2 != 3 - (2, 3, 4) because 2 != 4 != 3 Since there are 3 triplets, we return 3. Note that (2, 0, 4) is not a valid triplet because 2 > 0.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The following triplets meet the conditions: - (0, 2, 4) because 4 != 2 != 3 - (1, 2, 4) because 4 != 2 != 3 - (2, 3, 4) because 2 != 4 != 3 Since there are 3 triplets, we return 3. Note that (2, 0, 4) is not a valid triplet because 2 > 0."
+    },
+    {
+      "input": "</strong> nums = [1,1,1,1,1] <strong>Output:</strong> 0 <strong>Explanation:</strong> No triplets meet the conditions so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No triplets meet the conditions so we return 0."
+    }
+  ]
+}

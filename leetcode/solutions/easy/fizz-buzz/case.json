@@ -1,0 +1,27 @@
+{
+  "problemId": "412",
+  "titleSlug": "fizz-buzz",
+  "title": "Fizz Buzz",
+  "titleCn": "Fizz Buzz",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.701446203209795,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> [\"1\",\"2\",\"Fizz\"]",
+      "expectedOutput": "</strong> [\"1\",\"2\",\"Fizz\"]"
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> [\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\"]",
+      "expectedOutput": "</strong> [\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\"]"
+    },
+    {
+      "input": "</strong> n = 15 <strong>Output:</strong> [\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\",\"Fizz\",\"7\",\"8\",\"Fizz\",\"Buzz\",\"11\",\"Fizz\",\"13\",\"14\",\"FizzBuzz\"]",
+      "expectedOutput": "</strong> [\"1\",\"2\",\"Fizz\",\"4\",\"Buzz\",\"Fizz\",\"7\",\"8\",\"Fizz\",\"Buzz\",\"11\",\"Fizz\",\"13\",\"14\",\"FizzBuzz\"]"
+    }
+  ]
+}

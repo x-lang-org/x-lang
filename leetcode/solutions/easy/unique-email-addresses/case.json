@@ -1,0 +1,23 @@
+{
+  "problemId": "965",
+  "titleSlug": "unique-email-addresses",
+  "title": "Unique Email Addresses",
+  "titleCn": "独特的电子邮件地址",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6855052691510275,
+  "testcases": [
+    {
+      "input": "</strong> emails = [\"test.email+alex@leetcode.com\",\"test.e.mail+bob.cathy@leetcode.com\",\"testemail+david@lee.tcode.com\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> \"testemail@leetcode.com\" and \"testemail@lee.tcode.com\" actually receive mails.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> \"testemail@leetcode.com\" and \"testemail@lee.tcode.com\" actually receive mails."
+    },
+    {
+      "input": "</strong> emails = [\"a@leetcode.com\",\"b@leetcode.com\",\"c@leetcode.com\"] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

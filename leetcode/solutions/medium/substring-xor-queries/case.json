@@ -1,0 +1,28 @@
+{
+  "problemId": "2700",
+  "titleSlug": "substring-xor-queries",
+  "title": "Substring XOR Queries",
+  "titleCn": "子字符串异或查询",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4055595547926242,
+  "testcases": [
+    {
+      "input": "</strong> s = \"101101\", queries = [[0,5],[1,2]] <strong>Output:</strong> [[0,2],[2,3]] <strong>Explanation:</strong> For the first query the substring in range <code>[0,2]</code> is <strong>\"101\"</strong> which has a decimal value of <strong><code>5</code></strong>, and <strong><code>5 ^ 0 = 5</code></strong>, hence the answer to the first query is <code>[0,2]</code>. In the second query, the substring in range <code>[2,3]</code> is <strong>\"11\",</strong> and has a decimal value of <strong>3</strong>, and <strong>3<code> ^ 1 = 2</code></strong>. So, <code>[2,3]</code> is returned for the second query.",
+      "expectedOutput": "</strong> [[0,2],[2,3]] <strong>Explanation:</strong> For the first query the substring in range <code>[0,2]</code> is <strong>\"101\"</strong> which has a decimal value of <strong><code>5</code></strong>, and <strong><code>5 ^ 0 = 5</code></strong>, hence the answer to the first query is <code>[0,2]</code>. In the second query, the substring in range <code>[2,3]</code> is <strong>\"11\",</strong> and has a decimal value of <strong>3</strong>, and <strong>3<code> ^ 1 = 2</code></strong>. So, <code>[2,3]</code> is returned for the second query."
+    },
+    {
+      "input": "</strong> s = \"0101\", queries = [[12,8]] <strong>Output:</strong> [[-1,-1]] <strong>Explanation:</strong> In this example there is no substring that answers the query, hence <code>[-1,-1] is returned</code>.",
+      "expectedOutput": "</strong> [[-1,-1]] <strong>Explanation:</strong> In this example there is no substring that answers the query, hence <code>[-1,-1] is returned</code>."
+    },
+    {
+      "input": "</strong> s = \"1\", queries = [[4,5]] <strong>Output:</strong> [[0,0]] <strong>Explanation:</strong> For this example, the substring in range <code>[0,0]</code> has a decimal value of <strong><code>1</code></strong>, and <strong><code>1 ^ 4 = 5</code></strong>. So, the answer is <code>[0,0]</code>.",
+      "expectedOutput": "</strong> [[0,0]] <strong>Explanation:</strong> For this example, the substring in range <code>[0,0]</code> has a decimal value of <strong><code>1</code></strong>, and <strong><code>1 ^ 4 = 5</code></strong>. So, the answer is <code>[0,0]</code>."
+    }
+  ]
+}

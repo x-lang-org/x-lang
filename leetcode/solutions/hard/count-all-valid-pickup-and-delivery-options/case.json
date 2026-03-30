@@ -1,0 +1,27 @@
+{
+  "problemId": "1461",
+  "titleSlug": "count-all-valid-pickup-and-delivery-options",
+  "title": "Count All Valid Pickup and Delivery Options",
+  "titleCn": "有效的快递序列数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.6070260165134757,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> Unique order (P1, D1), Delivery 1 always is after of Pickup 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Unique order (P1, D1), Delivery 1 always is after of Pickup 1."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 6 <strong>Explanation:</strong> All possible orders: (P1,P2,D1,D2), (P1,P2,D2,D1), (P1,D1,P2,D2), (P2,P1,D1,D2), (P2,P1,D2,D1) and (P2,D2,P1,D1). This is an invalid order (P1,D2,P2,D1) because Pickup 2 is after of Delivery 2.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> All possible orders: (P1,P2,D1,D2), (P1,P2,D2,D1), (P1,D1,P2,D2), (P2,P1,D1,D2), (P2,P1,D2,D1) and (P2,D2,P1,D1). This is an invalid order (P1,D2,P2,D1) because Pickup 2 is after of Delivery 2."
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 90",
+      "expectedOutput": "</strong> 90"
+    }
+  ]
+}

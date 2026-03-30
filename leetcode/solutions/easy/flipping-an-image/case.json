@@ -1,0 +1,25 @@
+{
+  "problemId": "861",
+  "titleSlug": "flipping-an-image",
+  "title": "Flipping an Image",
+  "titleCn": "翻转图像",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "two-pointers",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.7967518045530261,
+  "testcases": [
+    {
+      "input": "</strong> image = [[1,1,0],[1,0,1],[0,0,0]] <strong>Output:</strong> [[1,0,0],[0,1,0],[1,1,1]] <strong>Explanation:</strong> First reverse each row: [[0,1,1],[1,0,1],[0,0,0]]. Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]",
+      "expectedOutput": "</strong> [[1,0,0],[0,1,0],[1,1,1]] <strong>Explanation:</strong> First reverse each row: [[0,1,1],[1,0,1],[0,0,0]]. Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]"
+    },
+    {
+      "input": "</strong> image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]] <strong>Output:</strong> [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]] <strong>Explanation:</strong> First reverse each row: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]]. Then invert the image: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]",
+      "expectedOutput": "</strong> [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]] <strong>Explanation:</strong> First reverse each row: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]]. Then invert the image: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]"
+    }
+  ]
+}

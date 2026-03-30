@@ -1,0 +1,23 @@
+{
+  "problemId": "939",
+  "titleSlug": "valid-permutations-for-di-sequence",
+  "title": "Valid Permutations for DI Sequence",
+  "titleCn": "DI 序列的有效排列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.6017086715079026,
+  "testcases": [
+    {
+      "input": "</strong> s = \"DID\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The 5 valid permutations of (0, 1, 2, 3) are: (1, 0, 3, 2) (2, 0, 3, 1) (2, 1, 3, 0) (3, 0, 2, 1) (3, 1, 2, 0)",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The 5 valid permutations of (0, 1, 2, 3) are: (1, 0, 3, 2) (2, 0, 3, 1) (2, 1, 3, 0) (3, 0, 2, 1) (3, 1, 2, 0)"
+    },
+    {
+      "input": "</strong> s = \"D\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

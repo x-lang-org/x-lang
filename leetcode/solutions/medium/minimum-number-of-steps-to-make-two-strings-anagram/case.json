@@ -1,0 +1,27 @@
+{
+  "problemId": "1469",
+  "titleSlug": "minimum-number-of-steps-to-make-two-strings-anagram",
+  "title": "Minimum Number of Steps to Make Two Strings Anagram",
+  "titleCn": "制造字母异位词的最小步骤数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.7756985388361959,
+  "testcases": [
+    {
+      "input": "</strong> s = \"bab\", t = \"aba\" <strong>Output:</strong> 1 <strong>Explanation:</strong> Replace the first 'a' in t with b, t = \"bba\" which is anagram of s.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Replace the first 'a' in t with b, t = \"bba\" which is anagram of s."
+    },
+    {
+      "input": "</strong> s = \"leetcode\", t = \"practice\" <strong>Output:</strong> 5 <strong>Explanation:</strong> Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to make t anagram of s.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Replace 'p', 'r', 'a', 'i' and 'c' from t with proper characters to make t anagram of s."
+    },
+    {
+      "input": "</strong> s = \"anagram\", t = \"mangaar\" <strong>Output:</strong> 0 <strong>Explanation:</strong> \"anagram\" and \"mangaar\" are anagrams.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> \"anagram\" and \"mangaar\" are anagrams."
+    }
+  ]
+}

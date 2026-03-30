@@ -1,0 +1,23 @@
+{
+  "problemId": "1342",
+  "titleSlug": "queens-that-can-attack-the-king",
+  "title": "Queens That Can Attack the King",
+  "titleCn": "可以攻击国王的皇后",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.7407693180528764,
+  "testcases": [
+    {
+      "input": "</strong> queens = [[0,1],[1,0],[4,0],[0,4],[3,3],[2,4]], king = [0,0] <strong>Output:</strong> [[0,1],[1,0],[3,3]] <strong>Explanation:</strong> The diagram above shows the three queens that can directly attack the king and the three queens that cannot attack the king (i.e., marked with red dashes).",
+      "expectedOutput": "</strong> [[0,1],[1,0],[3,3]] <strong>Explanation:</strong> The diagram above shows the three queens that can directly attack the king and the three queens that cannot attack the king (i.e., marked with red dashes)."
+    },
+    {
+      "input": "</strong> queens = [[0,0],[1,1],[2,2],[3,4],[3,5],[4,4],[4,5]], king = [3,3] <strong>Output:</strong> [[2,2],[3,4],[4,4]] <strong>Explanation:</strong> The diagram above shows the three queens that can directly attack the king and the three queens that cannot attack the king (i.e., marked with red dashes).",
+      "expectedOutput": "</strong> [[2,2],[3,4],[4,4]] <strong>Explanation:</strong> The diagram above shows the three queens that can directly attack the king and the three queens that cannot attack the king (i.e., marked with red dashes)."
+    }
+  ]
+}

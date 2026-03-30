@@ -1,0 +1,25 @@
+{
+  "problemId": "2300",
+  "titleSlug": "construct-string-with-repeat-limit",
+  "title": "Construct String With Repeat Limit",
+  "titleCn": "构造限制重复的字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6063530057097265,
+  "testcases": [
+    {
+      "input": "</strong> s = \"cczazcc\", repeatLimit = 3 <strong>Output:</strong> \"zzcccac\" <strong>Explanation:</strong> We use all of the characters from s to construct the repeatLimitedString \"zzcccac\". The letter 'a' appears at most 1 time in a row. The letter 'c' appears at most 3 times in a row. The letter 'z' appears at most 2 times in a row. Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString. The string is the lexicographically largest repeatLimitedString possible so we return \"zzcccac\". Note that the string \"zzcccca\" is lexicographically larger but the letter 'c' appears more than 3 times in a row, so it is not a valid repeatLimitedString.",
+      "expectedOutput": "</strong> \"zzcccac\" <strong>Explanation:</strong> We use all of the characters from s to construct the repeatLimitedString \"zzcccac\". The letter 'a' appears at most 1 time in a row. The letter 'c' appears at most 3 times in a row. The letter 'z' appears at most 2 times in a row. Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString. The string is the lexicographically largest repeatLimitedString possible so we return \"zzcccac\". Note that the string \"zzcccca\" is lexicographically larger but the letter 'c' appears more than 3 times in a row, so it is not a valid repeatLimitedString."
+    },
+    {
+      "input": "</strong> s = \"aababab\", repeatLimit = 2 <strong>Output:</strong> \"bbabaa\" <strong>Explanation:</strong> We use only some of the characters from s to construct the repeatLimitedString \"bbabaa\". The letter 'a' appears at most 2 times in a row. The letter 'b' appears at most 2 times in a row. Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString. The string is the lexicographically largest repeatLimitedString possible so we return \"bbabaa\". Note that the string \"bbabaaa\" is lexicographically larger but the letter 'a' appears more than 2 times in a row, so it is not a valid repeatLimitedString.",
+      "expectedOutput": "</strong> \"bbabaa\" <strong>Explanation:</strong> We use only some of the characters from s to construct the repeatLimitedString \"bbabaa\". The letter 'a' appears at most 2 times in a row. The letter 'b' appears at most 2 times in a row. Hence, no letter appears more than repeatLimit times in a row and the string is a valid repeatLimitedString. The string is the lexicographically largest repeatLimitedString possible so we return \"bbabaa\". Note that the string \"bbabaaa\" is lexicographically larger but the letter 'a' appears more than 2 times in a row, so it is not a valid repeatLimitedString."
+    }
+  ]
+}

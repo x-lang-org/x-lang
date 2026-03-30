@@ -1,0 +1,22 @@
+{
+  "problemId": "147",
+  "titleSlug": "insertion-sort-list",
+  "title": "Insertion Sort List",
+  "titleCn": "对链表进行插入排序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "sorting"
+  ],
+  "acRate": 0.7055895605318354,
+  "testcases": [
+    {
+      "input": "</strong> head = [4,2,1,3] <strong>Output:</strong> [1,2,3,4]",
+      "expectedOutput": "</strong> [1,2,3,4]"
+    },
+    {
+      "input": "</strong> head = [-1,5,3,4,0] <strong>Output:</strong> [-1,0,3,4,5]",
+      "expectedOutput": "</strong> [-1,0,3,4,5]"
+    }
+  ]
+}

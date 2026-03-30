@@ -1,0 +1,28 @@
+{
+  "problemId": "1003",
+  "titleSlug": "minimum-area-rectangle-ii",
+  "title": "Minimum Area Rectangle II",
+  "titleCn": "最小面积矩形 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.5374769708135363,
+  "testcases": [
+    {
+      "input": "</strong> points = [[1,2],[2,1],[1,0],[0,1]] <strong>Output:</strong> 2.00000 <strong>Explanation:</strong> The minimum area rectangle occurs at [1,2],[2,1],[1,0],[0,1], with an area of 2.",
+      "expectedOutput": "</strong> 2.00000 <strong>Explanation:</strong> The minimum area rectangle occurs at [1,2],[2,1],[1,0],[0,1], with an area of 2."
+    },
+    {
+      "input": "</strong> points = [[0,1],[2,1],[1,1],[1,0],[2,0]] <strong>Output:</strong> 1.00000 <strong>Explanation:</strong> The minimum area rectangle occurs at [1,0],[1,1],[2,1],[2,0], with an area of 1.",
+      "expectedOutput": "</strong> 1.00000 <strong>Explanation:</strong> The minimum area rectangle occurs at [1,0],[1,1],[2,1],[2,0], with an area of 1."
+    },
+    {
+      "input": "</strong> points = [[0,3],[1,2],[3,1],[1,3],[2,1]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no possible rectangle to form from these points.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no possible rectangle to form from these points."
+    }
+  ]
+}

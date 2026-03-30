@@ -1,0 +1,26 @@
+{
+  "problemId": "1444",
+  "titleSlug": "number-of-steps-to-reduce-a-number-to-zero",
+  "title": "Number of Steps to Reduce a Number to Zero",
+  "titleCn": "将数字变成 0 的操作次数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.7498048465212318,
+  "testcases": [
+    {
+      "input": "</strong> num = 14 <strong>Output:</strong> 6 <strong>Explanation:</strong>  Step 1) 14 is even; divide by 2 and obtain 7.  Step 2) 7 is odd; subtract 1 and obtain 6. Step 3) 6 is even; divide by 2 and obtain 3.  Step 4) 3 is odd; subtract 1 and obtain 2.  Step 5) 2 is even; divide by 2 and obtain 1.  Step 6) 1 is odd; subtract 1 and obtain 0.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong>  Step 1) 14 is even; divide by 2 and obtain 7.  Step 2) 7 is odd; subtract 1 and obtain 6. Step 3) 6 is even; divide by 2 and obtain 3.  Step 4) 3 is odd; subtract 1 and obtain 2.  Step 5) 2 is even; divide by 2 and obtain 1.  Step 6) 1 is odd; subtract 1 and obtain 0."
+    },
+    {
+      "input": "</strong> num = 8 <strong>Output:</strong> 4 <strong>Explanation:</strong>  Step 1) 8 is even; divide by 2 and obtain 4.  Step 2) 4 is even; divide by 2 and obtain 2.  Step 3) 2 is even; divide by 2 and obtain 1.  Step 4) 1 is odd; subtract 1 and obtain 0.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong>  Step 1) 8 is even; divide by 2 and obtain 4.  Step 2) 4 is even; divide by 2 and obtain 2.  Step 3) 2 is even; divide by 2 and obtain 1.  Step 4) 1 is odd; subtract 1 and obtain 0."
+    },
+    {
+      "input": "</strong> num = 123 <strong>Output:</strong> 12",
+      "expectedOutput": "</strong> 12"
+    }
+  ]
+}

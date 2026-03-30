@@ -1,0 +1,22 @@
+{
+  "problemId": "2058",
+  "titleSlug": "concatenation-of-array",
+  "title": "Concatenation of Array",
+  "titleCn": "数组串联",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.7765356413030412,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,1] <strong>Output:</strong> [1,2,1,1,2,1] <strong>Explanation:</strong> The array ans is formed as follows: - ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]] - ans = [1,2,1,1,2,1]",
+      "expectedOutput": "</strong> [1,2,1,1,2,1] <strong>Explanation:</strong> The array ans is formed as follows: - ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]] - ans = [1,2,1,1,2,1]"
+    },
+    {
+      "input": "</strong> nums = [1,3,2,1] <strong>Output:</strong> [1,3,2,1,1,3,2,1] <strong>Explanation:</strong> The array ans is formed as follows: - ans = [nums[0],nums[1],nums[2],nums[3],nums[0],nums[1],nums[2],nums[3]] - ans = [1,3,2,1,1,3,2,1]",
+      "expectedOutput": "</strong> [1,3,2,1,1,3,2,1] <strong>Explanation:</strong> The array ans is formed as follows: - ans = [nums[0],nums[1],nums[2],nums[3],nums[0],nums[1],nums[2],nums[3]] - ans = [1,3,2,1,1,3,2,1]"
+    }
+  ]
+}

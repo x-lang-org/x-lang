@@ -1,0 +1,24 @@
+{
+  "problemId": "316",
+  "titleSlug": "remove-duplicate-letters",
+  "title": "Remove Duplicate Letters",
+  "titleCn": "去除重复字母",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string",
+    "monotonic-stack"
+  ],
+  "acRate": 0.5027220082894853,
+  "testcases": [
+    {
+      "input": "</strong> s = \"bcabc\" <strong>Output:</strong> \"abc\"",
+      "expectedOutput": "</strong> \"abc"
+    },
+    {
+      "input": "</strong> s = \"cbacdcbc\" <strong>Output:</strong> \"acdb\"",
+      "expectedOutput": "</strong> \"acdb"
+    }
+  ]
+}

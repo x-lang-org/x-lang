@@ -1,0 +1,25 @@
+{
+  "problemId": "932",
+  "titleSlug": "monotonic-array",
+  "title": "Monotonic Array",
+  "titleCn": "单调数列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5598966589832135,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,2,3] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> nums = [6,5,4,4] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> nums = [1,3,2] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

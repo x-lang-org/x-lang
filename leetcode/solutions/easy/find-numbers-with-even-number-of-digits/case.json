@@ -1,0 +1,22 @@
+{
+  "problemId": "1421",
+  "titleSlug": "find-numbers-with-even-number-of-digits",
+  "title": "Find Numbers with Even Number of Digits",
+  "titleCn": "统计位数为偶数的数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.8036958749088492,
+  "testcases": [
+    {
+      "input": "</strong> nums = [12,345,2,6,7896] <strong>Output:</strong> 2 <strong>Explanation: </strong>12 contains 2 digits (even number of digits).  345 contains 3 digits (odd number of digits).  2 contains 1 digit (odd number of digits).  6 contains 1 digit (odd number of digits).  7896 contains 4 digits (even number of digits).  Therefore only 12 and 7896 contain an even number of digits.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>12 contains 2 digits (even number of digits).  345 contains 3 digits (odd number of digits).  2 contains 1 digit (odd number of digits).  6 contains 1 digit (odd number of digits).  7896 contains 4 digits (even number of digits).  Therefore only 12 and 7896 contain an even number of digits."
+    },
+    {
+      "input": "</strong> nums = [555,901,482,1771] <strong>Output:</strong> 1 <strong>Explanation: </strong> Only 1771 contains an even number of digits.",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong> Only 1771 contains an even number of digits."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2027",
+  "titleSlug": "maximum-number-of-removable-characters",
+  "title": "Maximum Number of Removable Characters",
+  "titleCn": "可移除字符的最大数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string",
+    "binary-search"
+  ],
+  "acRate": 0.45162930065814116,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcacb\", p = \"ab\", removable = [3,1,0] <strong>Output:</strong> 2 <strong>Explanation</strong>: After removing the characters at indices 3 and 1, \"a<s><strong>b</strong></s>c<s><strong>a</strong></s>cb\" becomes \"accb\". \"ab\" is a subsequence of \"<strong><u>a</u></strong>cc<strong><u>b</u></strong>\". If we remove the characters at indices 3, 1, and 0, \"<s><strong>ab</strong></s>c<s><strong>a</strong></s>cb\" becomes \"ccb\", and \"ab\" is no longer a subsequence. Hence, the maximum k is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation</strong>: After removing the characters at indices 3 and 1, \"a<s><strong>b</strong></s>c<s><strong>a</strong></s>cb\" becomes \"accb\". \"ab\" is a subsequence of \"<strong><u>a</u></strong>cc<strong><u>b</u></strong>\". If we remove the characters at indices 3, 1, and 0, \"<s><strong>ab</strong></s>c<s><strong>a</strong></s>cb\" becomes \"ccb\", and \"ab\" is no longer a subsequence. Hence, the maximum k is 2."
+    },
+    {
+      "input": "</strong> s = \"abcbddddd\", p = \"abcd\", removable = [3,2,1,4,5,6] <strong>Output:</strong> 1 <strong>Explanation</strong>: After removing the character at index 3, \"abc<s><strong>b</strong></s>ddddd\" becomes \"abcddddd\". \"abcd\" is a subsequence of \"<u><strong>abcd</strong></u>dddd\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation</strong>: After removing the character at index 3, \"abc<s><strong>b</strong></s>ddddd\" becomes \"abcddddd\". \"abcd\" is a subsequence of \"<u><strong>abcd</strong></u>dddd\"."
+    },
+    {
+      "input": "</strong> s = \"abcab\", p = \"abc\", removable = [0,1,2,3,4] <strong>Output:</strong> 0 <strong>Explanation</strong>: If you remove the first index in the array removable, \"abc\" is no longer a subsequence.",
+      "expectedOutput": "</strong> 0 <strong>Explanation</strong>: If you remove the first index in the array removable, \"abc\" is no longer a subsequence."
+    }
+  ]
+}

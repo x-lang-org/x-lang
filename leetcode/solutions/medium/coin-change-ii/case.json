@@ -1,0 +1,26 @@
+{
+  "problemId": "518",
+  "titleSlug": "coin-change-ii",
+  "title": "Coin Change II",
+  "titleCn": "零钱兑换 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6591376477751864,
+  "testcases": [
+    {
+      "input": "</strong> amount = 5, coins = [1,2,5] <strong>Output:</strong> 4 <strong>Explanation:</strong> there are four ways to make up the amount: 5=5 5=2+2+1 5=2+1+1+1 5=1+1+1+1+1",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> there are four ways to make up the amount: 5=5 5=2+2+1 5=2+1+1+1 5=1+1+1+1+1"
+    },
+    {
+      "input": "</strong> amount = 3, coins = [2] <strong>Output:</strong> 0 <strong>Explanation:</strong> the amount of 3 cannot be made up just with coins of 2.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> the amount of 3 cannot be made up just with coins of 2."
+    },
+    {
+      "input": "</strong> amount = 10, coins = [10] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

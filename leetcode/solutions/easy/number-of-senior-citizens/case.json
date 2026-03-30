@@ -1,0 +1,22 @@
+{
+  "problemId": "2727",
+  "titleSlug": "number-of-senior-citizens",
+  "title": "Number of Senior Citizens",
+  "titleCn": "老人的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.7902927224343399,
+  "testcases": [
+    {
+      "input": "</strong> details = [\"7868190130M7522\",\"5303914400F9211\",\"9273338290F4010\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> The passengers at indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2 people who are over 60 years old.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The passengers at indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2 people who are over 60 years old."
+    },
+    {
+      "input": "</strong> details = [\"1313579440F2036\",\"2921522980M5644\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> None of the passengers are older than 60.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> None of the passengers are older than 60."
+    }
+  ]
+}

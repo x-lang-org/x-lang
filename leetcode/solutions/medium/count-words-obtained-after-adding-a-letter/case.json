@@ -1,0 +1,25 @@
+{
+  "problemId": "2256",
+  "titleSlug": "count-words-obtained-after-adding-a-letter",
+  "title": "Count Words Obtained After Adding a Letter",
+  "titleCn": "统计追加字母可以获得的单词数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.3829119246510063,
+  "testcases": [
+    {
+      "input": "</strong> startWords = [\"ant\",\"act\",\"tack\"], targetWords = [\"tack\",\"act\",\"acti\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> - In order to form targetWords[0] = \"tack\", we use startWords[1] = \"act\", append 'k' to it, and rearrange \"actk\" to \"tack\". - There is no string in startWords that can be used to obtain targetWords[1] = \"act\".  Note that \"act\" does exist in startWords, but we <strong>must</strong> append one letter to the string before rearranging it. - In order to form targetWords[2] = \"acti\", we use startWords[1] = \"act\", append 'i' to it, and rearrange \"acti\" to \"acti\" itself.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - In order to form targetWords[0] = \"tack\", we use startWords[1] = \"act\", append 'k' to it, and rearrange \"actk\" to \"tack\". - There is no string in startWords that can be used to obtain targetWords[1] = \"act\".  Note that \"act\" does exist in startWords, but we <strong>must</strong> append one letter to the string before rearranging it. - In order to form targetWords[2] = \"acti\", we use startWords[1] = \"act\", append 'i' to it, and rearrange \"acti\" to \"acti\" itself."
+    },
+    {
+      "input": "</strong> startWords = [\"ab\",\"a\"], targetWords = [\"abc\",\"abcd\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> - In order to form targetWords[0] = \"abc\", we use startWords[0] = \"ab\", add 'c' to it, and rearrange it to \"abc\". - There is no string in startWords that can be used to obtain targetWords[1] = \"abcd\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> - In order to form targetWords[0] = \"abc\", we use startWords[0] = \"ab\", add 'c' to it, and rearrange it to \"abc\". - There is no string in startWords that can be used to obtain targetWords[1] = \"abcd\"."
+    }
+  ]
+}

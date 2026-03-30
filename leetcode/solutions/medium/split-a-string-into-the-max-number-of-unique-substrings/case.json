@@ -1,0 +1,27 @@
+{
+  "problemId": "1715",
+  "titleSlug": "split-a-string-into-the-max-number-of-unique-substrings",
+  "title": "Split a String Into the Max Number of Unique Substrings",
+  "titleCn": "拆分字符串使唯一子字符串的数目最大",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.6323650731622595,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ababccc\" <strong>Output:</strong> 5 <strong>Explanation</strong>: One way to split maximally is ['a', 'b', 'ab', 'c', 'cc']. Splitting like ['a', 'b', 'a', 'b', 'c', 'cc'] is not valid as you have 'a' and 'b' multiple times.",
+      "expectedOutput": "</strong> 5 <strong>Explanation</strong>: One way to split maximally is ['a', 'b', 'ab', 'c', 'cc']. Splitting like ['a', 'b', 'a', 'b', 'c', 'cc'] is not valid as you have 'a' and 'b' multiple times."
+    },
+    {
+      "input": "</strong> s = \"aba\" <strong>Output:</strong> 2 <strong>Explanation</strong>: One way to split maximally is ['a', 'ba'].",
+      "expectedOutput": "</strong> 2 <strong>Explanation</strong>: One way to split maximally is ['a', 'ba']."
+    },
+    {
+      "input": "</strong> s = \"aa\" <strong>Output:</strong> 1 <strong>Explanation</strong>: It is impossible to split the string any further.",
+      "expectedOutput": "</strong> 1 <strong>Explanation</strong>: It is impossible to split the string any further."
+    }
+  ]
+}

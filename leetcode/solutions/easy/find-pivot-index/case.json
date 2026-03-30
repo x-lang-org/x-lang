@@ -1,0 +1,26 @@
+{
+  "problemId": "724",
+  "titleSlug": "find-pivot-index",
+  "title": "Find Pivot Index",
+  "titleCn": "寻找数组的中心下标",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.5496949657600241,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,7,3,6,5,6] <strong>Output:</strong> 3 <strong>Explanation:</strong> The pivot index is 3. Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 Right sum = nums[4] + nums[5] = 5 + 6 = 11",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The pivot index is 3. Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 Right sum = nums[4] + nums[5] = 5 + 6 = 11"
+    },
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no index that satisfies the conditions in the problem statement.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no index that satisfies the conditions in the problem statement."
+    },
+    {
+      "input": "</strong> nums = [2,1,-1] <strong>Output:</strong> 0 <strong>Explanation:</strong> The pivot index is 0. Left sum = 0 (no elements to the left of index 0) Right sum = nums[1] + nums[2] = 1 + -1 = 0",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The pivot index is 0. Left sum = 0 (no elements to the left of index 0) Right sum = nums[1] + nums[2] = 1 + -1 = 0"
+    }
+  ]
+}

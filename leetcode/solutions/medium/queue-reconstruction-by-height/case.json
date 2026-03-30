@@ -1,0 +1,24 @@
+{
+  "problemId": "406",
+  "titleSlug": "queue-reconstruction-by-height",
+  "title": "Queue Reconstruction by Height",
+  "titleCn": "根据身高重建队列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.7686673760897147,
+  "testcases": [
+    {
+      "input": "</strong> people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]] <strong>Output:</strong> [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] <strong>Explanation:</strong> Person 0 has height 5 with no other people taller or the same height in front. Person 1 has height 7 with no other people taller or the same height in front. Person 2 has height 5 with two persons taller or the same height in front, which is person 0 and 1. Person 3 has height 6 with one person taller or the same height in front, which is person 1. Person 4 has height 4 with four people taller or the same height in front, which are people 0, 1, 2, and 3. Person 5 has height 7 with one person taller or the same height in front, which is person 1. Hence [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] is the reconstructed queue.",
+      "expectedOutput": "</strong> [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] <strong>Explanation:</strong> Person 0 has height 5 with no other people taller or the same height in front. Person 1 has height 7 with no other people taller or the same height in front. Person 2 has height 5 with two persons taller or the same height in front, which is person 0 and 1. Person 3 has height 6 with one person taller or the same height in front, which is person 1. Person 4 has height 4 with four people taller or the same height in front, which are people 0, 1, 2, and 3. Person 5 has height 7 with one person taller or the same height in front, which is person 1. Hence [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] is the reconstructed queue."
+    },
+    {
+      "input": "</strong> people = [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]] <strong>Output:</strong> [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]",
+      "expectedOutput": "</strong> [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]"
+    }
+  ]
+}

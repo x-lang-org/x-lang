@@ -1,0 +1,26 @@
+{
+  "problemId": "1515",
+  "titleSlug": "find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k",
+  "title": "Find the Minimum Number of Fibonacci Numbers Whose Sum Is K",
+  "titleCn": "和为 K 的最少斐波那契数字数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.7050898833831516,
+  "testcases": [
+    {
+      "input": "</strong> k = 7 <strong>Output:</strong> 2 <strong>Explanation:</strong> The Fibonacci numbers are: 1, 1, 2, 3, 5, 8, 13, ... For k = 7 we can use 2 + 5 = 7.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The Fibonacci numbers are: 1, 1, 2, 3, 5, 8, 13, ... For k = 7 we can use 2 + 5 = 7."
+    },
+    {
+      "input": "</strong> k = 10 <strong>Output:</strong> 2 <strong>Explanation:</strong> For k = 10 we can use 2 + 8 = 10.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> For k = 10 we can use 2 + 8 = 10."
+    },
+    {
+      "input": "</strong> k = 19 <strong>Output:</strong> 3 <strong>Explanation:</strong> For k = 19 we can use 1 + 5 + 13 = 19.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> For k = 19 we can use 1 + 5 + 13 = 19."
+    }
+  ]
+}

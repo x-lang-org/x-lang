@@ -1,0 +1,23 @@
+{
+  "problemId": "2691",
+  "titleSlug": "count-vowel-strings-in-ranges",
+  "title": "Count Vowel Strings in Ranges",
+  "titleCn": "统计范围内的元音字符串数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.6755387469673184,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"aba\",\"bcb\",\"ece\",\"aa\",\"e\"], queries = [[0,2],[1,4],[1,1]] <strong>Output:</strong> [2,3,0] <strong>Explanation:</strong> The strings starting and ending with a vowel are \"aba\", \"ece\", \"aa\" and \"e\". The answer to the query [0,2] is 2 (strings \"aba\" and \"ece\"). to query [1,4] is 3 (strings \"ece\", \"aa\", \"e\"). to query [1,1] is 0. We return [2,3,0].",
+      "expectedOutput": "</strong> [2,3,0] <strong>Explanation:</strong> The strings starting and ending with a vowel are \"aba\", \"ece\", \"aa\" and \"e\". The answer to the query [0,2] is 2 (strings \"aba\" and \"ece\"). to query [1,4] is 3 (strings \"ece\", \"aa\", \"e\"). to query [1,1] is 0. We return [2,3,0]."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"e\",\"i\"], queries = [[0,2],[0,1],[2,2]] <strong>Output:</strong> [3,2,1] <strong>Explanation:</strong> Every string satisfies the conditions, so we return [3,2,1].",
+      "expectedOutput": "</strong> [3,2,1] <strong>Explanation:</strong> Every string satisfies the conditions, so we return [3,2,1]."
+    }
+  ]
+}

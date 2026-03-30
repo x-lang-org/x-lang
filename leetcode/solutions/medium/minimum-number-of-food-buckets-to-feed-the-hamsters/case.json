@@ -1,0 +1,27 @@
+{
+  "problemId": "2191",
+  "titleSlug": "minimum-number-of-food-buckets-to-feed-the-hamsters",
+  "title": "Minimum Number of Food Buckets to Feed the Hamsters",
+  "titleCn": "喂食仓鼠的最小食物桶数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.49591455273698265,
+  "testcases": [
+    {
+      "input": "</strong> hamsters = \"H..H\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We place two food buckets at indices 1 and 2. It can be shown that if we place only one food bucket, one of the hamsters will not be fed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We place two food buckets at indices 1 and 2. It can be shown that if we place only one food bucket, one of the hamsters will not be fed."
+    },
+    {
+      "input": "</strong> hamsters = \".H.H.\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We place one food bucket at index 2.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We place one food bucket at index 2."
+    },
+    {
+      "input": "</strong> hamsters = \".HHH.\" <strong>Output:</strong> -1 <strong>Explanation:</strong> If we place a food bucket at every empty index as shown, the hamster at index 2 will not be able to eat.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> If we place a food bucket at every empty index as shown, the hamster at index 2 will not be able to eat."
+    }
+  ]
+}

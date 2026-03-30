@@ -1,0 +1,23 @@
+{
+  "problemId": "423",
+  "titleSlug": "reconstruct-original-digits-from-english",
+  "title": "Reconstruct Original Digits from English",
+  "titleCn": "从英文中重建数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6056008403920057,
+  "testcases": [
+    {
+      "input": "</strong> s = \"owoztneoer\" <strong>Output:</strong> \"012\"",
+      "expectedOutput": "</strong> \"012"
+    },
+    {
+      "input": "</strong> s = \"fviefuro\" <strong>Output:</strong> \"45\"",
+      "expectedOutput": "</strong> \"45"
+    }
+  ]
+}

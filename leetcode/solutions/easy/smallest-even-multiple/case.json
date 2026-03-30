@@ -1,0 +1,22 @@
+{
+  "problemId": "2491",
+  "titleSlug": "smallest-even-multiple",
+  "title": "Smallest Even Multiple",
+  "titleCn": "最小偶倍数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.826037920209559,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 10 <strong>Explanation:</strong> The smallest multiple of both 5 and 2 is 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The smallest multiple of both 5 and 2 is 10."
+    },
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> 6 <strong>Explanation:</strong> The smallest multiple of both 6 and 2 is 6. Note that a number is a multiple of itself.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The smallest multiple of both 6 and 2 is 6. Note that a number is a multiple of itself."
+    }
+  ]
+}

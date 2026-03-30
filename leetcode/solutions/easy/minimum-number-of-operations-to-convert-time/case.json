@@ -1,0 +1,22 @@
+{
+  "problemId": "2345",
+  "titleSlug": "minimum-number-of-operations-to-convert-time",
+  "title": "Minimum Number of Operations to Convert Time",
+  "titleCn": "转化时间需要的最少操作数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.7014260249554367,
+  "testcases": [
+    {
+      "input": "</strong> current = \"02:30\", correct = \"04:35\" <strong>Output:</strong> 3 <strong>Explanation: </strong>We can convert current to correct in 3 operations as follows: - Add 60 minutes to current. current becomes \"03:30\". - Add 60 minutes to current. current becomes \"04:30\". - Add 5 minutes to current. current becomes \"04:35\". It can be proven that it is not possible to convert current to correct in fewer than 3 operations.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>We can convert current to correct in 3 operations as follows: - Add 60 minutes to current. current becomes \"03:30\". - Add 60 minutes to current. current becomes \"04:30\". - Add 5 minutes to current. current becomes \"04:35\". It can be proven that it is not possible to convert current to correct in fewer than 3 operations."
+    },
+    {
+      "input": "</strong> current = \"11:00\", correct = \"11:01\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We only have to add one minute to current, so the minimum number of operations needed is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We only have to add one minute to current, so the minimum number of operations needed is 1."
+    }
+  ]
+}

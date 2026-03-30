@@ -1,0 +1,28 @@
+{
+  "problemId": "489",
+  "titleSlug": "kth-smallest-instructions",
+  "title": "Kth Smallest Instructions",
+  "titleCn": "第 K 条最小指令",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.5139689578713968,
+  "testcases": [
+    {
+      "input": "</strong> destination = [2,3], k = 1 <strong>Output:</strong> \"HHHVV\" <strong>Explanation:</strong> All the instructions that reach (2, 3) in lexicographic order are as follows: [\"HHHVV\", \"HHVHV\", \"HHVVH\", \"HVHHV\", \"HVHVH\", \"HVVHH\", \"VHHHV\", \"VHHVH\", \"VHVHH\", \"VVHHH\"].",
+      "expectedOutput": "</strong> \"HHHVV\" <strong>Explanation:</strong> All the instructions that reach (2, 3) in lexicographic order are as follows: [\"HHHVV\", \"HHVHV\", \"HHVVH\", \"HVHHV\", \"HVHVH\", \"HVVHH\", \"VHHHV\", \"VHHVH\", \"VHVHH\", \"VVHHH\"]."
+    },
+    {
+      "input": "</strong> destination = [2,3], k = 2 <strong>Output:</strong> \"HHVHV\"",
+      "expectedOutput": "</strong> \"HHVHV"
+    },
+    {
+      "input": "</strong> destination = [2,3], k = 3 <strong>Output:</strong> \"HHVVH\"",
+      "expectedOutput": "</strong> \"HHVVH"
+    }
+  ]
+}

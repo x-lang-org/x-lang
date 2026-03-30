@@ -1,0 +1,24 @@
+{
+  "problemId": "2497",
+  "titleSlug": "maximum-matching-of-players-with-trainers",
+  "title": "Maximum Matching of Players With Trainers",
+  "titleCn": "运动员和训练师的最大匹配数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.7365903456322007,
+  "testcases": [
+    {
+      "input": "</strong> players = [4,7,9], trainers = [8,2,5,8] <strong>Output:</strong> 2 <strong>Explanation:</strong> One of the ways we can form two matchings is as follows: - players[0] can be matched with trainers[0] since 4 <= 8. - players[1] can be matched with trainers[3] since 7 <= 8. It can be proven that 2 is the maximum number of matchings that can be formed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One of the ways we can form two matchings is as follows: - players[0] can be matched with trainers[0] since 4 <= 8. - players[1] can be matched with trainers[3] since 7 <= 8. It can be proven that 2 is the maximum number of matchings that can be formed."
+    },
+    {
+      "input": "</strong> players = [1,1,1], trainers = [10] <strong>Output:</strong> 1 <strong>Explanation:</strong> The trainer can be matched with any of the 3 players. Each player can only be matched with one trainer, so the maximum answer is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The trainer can be matched with any of the 3 players. Each player can only be matched with one trainer, so the maximum answer is 1."
+    }
+  ]
+}

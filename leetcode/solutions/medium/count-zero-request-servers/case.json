@@ -1,0 +1,24 @@
+{
+  "problemId": "2833",
+  "titleSlug": "count-zero-request-servers",
+  "title": "Count Zero Request Servers",
+  "titleCn": "统计没有收到请求的服务器数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.38793795132388337,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, logs = [[1,3],[2,6],[1,5]], x = 5, queries = [10,11] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> For queries[0]: The servers with ids 1 and 2 get requests in the duration of [5, 10]. Hence, only server 3 gets zero requests. For queries[1]: Only the server with id 2 gets a request in duration of [6,11]. Hence, the servers with ids 1 and 3 are the only servers that do not receive any requests during that time period.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> For queries[0]: The servers with ids 1 and 2 get requests in the duration of [5, 10]. Hence, only server 3 gets zero requests. For queries[1]: Only the server with id 2 gets a request in duration of [6,11]. Hence, the servers with ids 1 and 3 are the only servers that do not receive any requests during that time period."
+    },
+    {
+      "input": "</strong> n = 3, logs = [[2,4],[2,1],[1,2],[3,1]], x = 2, queries = [3,4] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> For queries[0]: All servers get at least one request in the duration of [1, 3]. For queries[1]: Only server with id 3 gets no request in the duration [2,4].",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> For queries[0]: All servers get at least one request in the duration of [1, 3]. For queries[1]: Only server with id 3 gets no request in the duration [2,4]."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "392",
+  "titleSlug": "is-subsequence",
+  "title": "Is Subsequence",
+  "titleCn": "判断子序列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5313677797506287,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abc\", t = \"ahbgdc\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"axc\", t = \"ahbgdc\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

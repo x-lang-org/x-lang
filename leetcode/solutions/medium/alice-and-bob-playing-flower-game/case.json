@@ -1,0 +1,21 @@
+{
+  "problemId": "3279",
+  "titleSlug": "alice-and-bob-playing-flower-game",
+  "title": "Alice and Bob Playing Flower Game",
+  "titleCn": "Alice 和 Bob 玩鲜花游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.59935123196908,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, m = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1)."
+    },
+    {
+      "input": "</strong> n = 1, m = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> No pairs satisfy the conditions described in the statement.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No pairs satisfy the conditions described in the statement."
+    }
+  ]
+}

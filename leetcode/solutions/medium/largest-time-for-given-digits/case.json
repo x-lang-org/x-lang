@@ -1,0 +1,24 @@
+{
+  "problemId": "986",
+  "titleSlug": "largest-time-for-given-digits",
+  "title": "Largest Time for Given Digits",
+  "titleCn": "给定数字能组成的最大时间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "backtracking",
+    "enumeration"
+  ],
+  "acRate": 0.39212310902451747,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2,3,4] <strong>Output:</strong> \"23:41\" <strong>Explanation:</strong> The valid 24-hour times are \"12:34\", \"12:43\", \"13:24\", \"13:42\", \"14:23\", \"14:32\", \"21:34\", \"21:43\", \"23:14\", and \"23:41\". Of these times, \"23:41\" is the latest.",
+      "expectedOutput": "</strong> \"23:41\" <strong>Explanation:</strong> The valid 24-hour times are \"12:34\", \"12:43\", \"13:24\", \"13:42\", \"14:23\", \"14:32\", \"21:34\", \"21:43\", \"23:14\", and \"23:41\". Of these times, \"23:41\" is the latest."
+    },
+    {
+      "input": "</strong> arr = [5,5,5,5] <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are no valid 24-hour times as \"55:55\" is not valid.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are no valid 24-hour times as \"55:55\" is not valid."
+    }
+  ]
+}

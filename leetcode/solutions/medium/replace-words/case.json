@@ -1,0 +1,24 @@
+{
+  "problemId": "648",
+  "titleSlug": "replace-words",
+  "title": "Replace Words",
+  "titleCn": "单词替换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6389718938114417,
+  "testcases": [
+    {
+      "input": "</strong> dictionary = [\"cat\",\"bat\",\"rat\"], sentence = \"the cattle was rattled by the battery\" <strong>Output:</strong> \"the cat was rat by the bat\"",
+      "expectedOutput": "</strong> \"the cat was rat by the bat"
+    },
+    {
+      "input": "</strong> dictionary = [\"a\",\"b\",\"c\"], sentence = \"aadsfasf absbs bbab cadsfafs\" <strong>Output:</strong> \"a a b c\"",
+      "expectedOutput": "</strong> \"a a b c"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "1531",
+  "titleSlug": "number-of-ways-to-wear-different-hats-to-each-other",
+  "title": "Number of Ways to Wear Different Hats to Each Other",
+  "titleCn": "每个人戴不同帽子的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.5509977004673244,
+  "testcases": [
+    {
+      "input": "</strong> hats = [[3,4],[4,5],[5]] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is only one way to choose hats given the conditions. First person chooses hat 3, Second person chooses hat 4 and last one hat 5.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is only one way to choose hats given the conditions. First person chooses hat 3, Second person chooses hat 4 and last one hat 5."
+    },
+    {
+      "input": "</strong> hats = [[3,5,1],[3,5]] <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 ways to choose hats: (3,5), (5,3), (1,3) and (1,5)",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 ways to choose hats: (3,5), (5,3), (1,3) and (1,5)"
+    },
+    {
+      "input": "</strong> hats = [[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]] <strong>Output:</strong> 24 <strong>Explanation:</strong> Each person can choose hats labeled from 1 to 4. Number of Permutations of (1,2,3,4) = 24.",
+      "expectedOutput": "</strong> 24 <strong>Explanation:</strong> Each person can choose hats labeled from 1 to 4. Number of Permutations of (1,2,3,4) = 24."
+    }
+  ]
+}

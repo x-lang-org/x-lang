@@ -1,0 +1,21 @@
+{
+  "problemId": "1221",
+  "titleSlug": "element-appearing-more-than-25-in-sorted-array",
+  "title": "Element Appearing More Than 25% In Sorted Array",
+  "titleCn": "有序数组中出现次数超过25%的元素",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.588963293141343,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2,2,6,6,6,6,7,10] <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> arr = [1,1] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1355",
+  "titleSlug": "minimum-deletions-to-make-array-beautiful",
+  "title": "Minimum Deletions to Make Array Beautiful",
+  "titleCn": "美化数组的最少删除数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.6305638919601959,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,2,3,5] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can delete either <code>nums[0]</code> or <code>nums[1]</code> to make <code>nums</code> = [1,2,3,5] which is beautiful. It can be proven you need at least 1 deletion to make <code>nums</code> beautiful.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can delete either <code>nums[0]</code> or <code>nums[1]</code> to make <code>nums</code> = [1,2,3,5] which is beautiful. It can be proven you need at least 1 deletion to make <code>nums</code> beautiful."
+    },
+    {
+      "input": "</strong> nums = [1,1,2,2,3,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> You can delete <code>nums[0]</code> and <code>nums[5]</code> to make nums = [1,2,2,3] which is beautiful. It can be proven you need at least 2 deletions to make nums beautiful.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can delete <code>nums[0]</code> and <code>nums[5]</code> to make nums = [1,2,2,3] which is beautiful. It can be proven you need at least 2 deletions to make nums beautiful."
+    }
+  ]
+}

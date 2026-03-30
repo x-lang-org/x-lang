@@ -1,0 +1,22 @@
+{
+  "problemId": "2042",
+  "titleSlug": "maximum-product-difference-between-two-pairs",
+  "title": "Maximum Product Difference Between Two Pairs",
+  "titleCn": "两个数对之间的最大乘积差",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.8022350059178113,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,6,2,7,4]\r <strong>Output:</strong> 34\r <strong>Explanation:</strong> We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).\r The product difference is (6 * 7) - (2 * 4) = 34.",
+      "expectedOutput": "</strong> 34\r <strong>Explanation:</strong> We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).\r The product difference is (6 * 7) - (2 * 4) = 34."
+    },
+    {
+      "input": "</strong> nums = [4,2,5,9,7,4,8]\r <strong>Output:</strong> 64\r <strong>Explanation:</strong> We can choose indices 3 and 6 for the first pair (9, 8) and indices 1 and 5 for the second pair (2, 4).\r The product difference is (9 * 8) - (2 * 4) = 64.",
+      "expectedOutput": "</strong> 64\r <strong>Explanation:</strong> We can choose indices 3 and 6 for the first pair (9, 8) and indices 1 and 5 for the second pair (2, 4).\r The product difference is (9 * 8) - (2 * 4) = 64."
+    }
+  ]
+}

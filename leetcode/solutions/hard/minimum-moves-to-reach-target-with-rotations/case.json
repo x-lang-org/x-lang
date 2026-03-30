@@ -1,0 +1,23 @@
+{
+  "problemId": "1322",
+  "titleSlug": "minimum-moves-to-reach-target-with-rotations",
+  "title": "Minimum Moves to Reach Target with Rotations",
+  "titleCn": "穿过迷宫的最少移动次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6342903045543448,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,0,0,0,0,1],        [1,1,0,0,1,0],         [0,0,0,0,1,1],         [0,0,1,0,1,0],         [0,1,1,0,0,0],         [0,1,1,0,0,0]] <strong>Output:</strong> 11 <strong>Explanation: </strong>One possible solution is [right, right, rotate clockwise, right, down, down, down, down, rotate counterclockwise, right, down].",
+      "expectedOutput": "</strong> 11 <strong>Explanation: </strong>One possible solution is [right, right, rotate clockwise, right, down, down, down, down, rotate counterclockwise, right, down]."
+    },
+    {
+      "input": "</strong> grid = [[0,0,1,1,1,1],         [0,0,0,0,1,1],         [1,1,0,0,0,1],         [1,1,1,0,0,1],         [1,1,1,0,0,1],         [1,1,1,0,0,0]] <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2360",
+  "titleSlug": "substring-with-largest-variance",
+  "title": "Substring With Largest Variance",
+  "titleCn": "最大波动的子字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "enumeration"
+  ],
+  "acRate": 0.50841617916233,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aababbb\" <strong>Output:</strong> 3 <strong>Explanation:</strong> All possible variances along with their respective substrings are listed below: - Variance 0 for substrings \"a\", \"aa\", \"ab\", \"abab\", \"aababb\", \"ba\", \"b\", \"bb\", and \"bbb\". - Variance 1 for substrings \"aab\", \"aba\", \"abb\", \"aabab\", \"ababb\", \"aababbb\", and \"bab\". - Variance 2 for substrings \"aaba\", \"ababbb\", \"abbb\", and \"babb\". - Variance 3 for substring \"babbb\". Since the largest possible variance is 3, we return it.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> All possible variances along with their respective substrings are listed below: - Variance 0 for substrings \"a\", \"aa\", \"ab\", \"abab\", \"aababb\", \"ba\", \"b\", \"bb\", and \"bbb\". - Variance 1 for substrings \"aab\", \"aba\", \"abb\", \"aabab\", \"ababb\", \"aababbb\", and \"bab\". - Variance 2 for substrings \"aaba\", \"ababbb\", \"abbb\", and \"babb\". - Variance 3 for substring \"babbb\". Since the largest possible variance is 3, we return it."
+    },
+    {
+      "input": "</strong> s = \"abcde\" <strong>Output:</strong> 0 <strong>Explanation:</strong> No letter occurs more than once in s, so the variance of every substring is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No letter occurs more than once in s, so the variance of every substring is 0."
+    }
+  ]
+}

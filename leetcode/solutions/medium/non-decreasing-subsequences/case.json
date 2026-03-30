@@ -1,0 +1,24 @@
+{
+  "problemId": "491",
+  "titleSlug": "non-decreasing-subsequences",
+  "title": "Non-decreasing Subsequences",
+  "titleCn": "非递减子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "backtracking"
+  ],
+  "acRate": 0.5261759472174599,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,6,7,7] <strong>Output:</strong> [[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]",
+      "expectedOutput": "</strong> [[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]"
+    },
+    {
+      "input": "</strong> nums = [4,4,3,2,1] <strong>Output:</strong> [[4,4]]",
+      "expectedOutput": "</strong> [[4,4]]"
+    }
+  ]
+}

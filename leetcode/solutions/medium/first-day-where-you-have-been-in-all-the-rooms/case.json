@@ -1,0 +1,26 @@
+{
+  "problemId": "2124",
+  "titleSlug": "first-day-where-you-have-been-in-all-the-rooms",
+  "title": "First Day Where You Have Been in All the Rooms",
+  "titleCn": "访问完所有房间的第一天",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.44450502021716415,
+  "testcases": [
+    {
+      "input": "</strong> nextVisit = [0,0] <strong>Output:</strong> 2 <strong>Explanation:</strong> - On day 0, you visit room 0. The total times you have been in room 0 is 1, which is odd.   On the next day you will visit room nextVisit[0] = 0 - On day 1, you visit room 0, The total times you have been in room 0 is 2, which is even.   On the next day you will visit room (0 + 1) mod 2 = 1 - On day 2, you visit room 1. This is the first day where you have been in all the rooms.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - On day 0, you visit room 0. The total times you have been in room 0 is 1, which is odd.   On the next day you will visit room nextVisit[0] = 0 - On day 1, you visit room 0, The total times you have been in room 0 is 2, which is even.   On the next day you will visit room (0 + 1) mod 2 = 1 - On day 2, you visit room 1. This is the first day where you have been in all the rooms."
+    },
+    {
+      "input": "</strong> nextVisit = [0,0,2] <strong>Output:</strong> 6 <strong>Explanation:</strong> Your room visiting order for each day is: [0,0,1,0,0,1,2,...]. Day 6 is the first day where you have been in all the rooms.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Your room visiting order for each day is: [0,0,1,0,0,1,2,...]. Day 6 is the first day where you have been in all the rooms."
+    },
+    {
+      "input": "</strong> nextVisit = [0,1,2,0] <strong>Output:</strong> 6 <strong>Explanation:</strong> Your room visiting order for each day is: [0,0,1,1,2,2,3,...]. Day 6 is the first day where you have been in all the rooms.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Your room visiting order for each day is: [0,0,1,1,2,2,3,...]. Day 6 is the first day where you have been in all the rooms."
+    }
+  ]
+}

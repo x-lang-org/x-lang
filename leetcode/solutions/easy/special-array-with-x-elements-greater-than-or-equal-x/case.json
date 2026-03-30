@@ -1,0 +1,27 @@
+{
+  "problemId": "1730",
+  "titleSlug": "special-array-with-x-elements-greater-than-or-equal-x",
+  "title": "Special Array With X Elements Greater Than or Equal X",
+  "titleCn": "特殊数组的特征值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.6182823164003433,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,5] <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 values (3 and 5) that are greater than or equal to 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 values (3 and 5) that are greater than or equal to 2."
+    },
+    {
+      "input": "</strong> nums = [0,0] <strong>Output:</strong> -1 <strong>Explanation:</strong> No numbers fit the criteria for x. If x = 0, there should be 0 numbers >= x, but there are 2. If x = 1, there should be 1 number >= x, but there are 0. If x = 2, there should be 2 numbers >= x, but there are 0. x cannot be greater since there are only 2 numbers in nums.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> No numbers fit the criteria for x. If x = 0, there should be 0 numbers >= x, but there are 2. If x = 1, there should be 1 number >= x, but there are 0. If x = 2, there should be 2 numbers >= x, but there are 0. x cannot be greater since there are only 2 numbers in nums."
+    },
+    {
+      "input": "</strong> nums = [0,4,3,0,4] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 values that are greater than or equal to 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 values that are greater than or equal to 3."
+    }
+  ]
+}

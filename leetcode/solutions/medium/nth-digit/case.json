@@ -1,0 +1,22 @@
+{
+  "problemId": "400",
+  "titleSlug": "nth-digit",
+  "title": "Nth Digit",
+  "titleCn": "第 N 位数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.4575632936914134,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> n = 11 <strong>Output:</strong> 0 <strong>Explanation:</strong> The 11<sup>th</sup> digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The 11<sup>th</sup> digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10."
+    }
+  ]
+}

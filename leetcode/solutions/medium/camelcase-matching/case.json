@@ -1,0 +1,29 @@
+{
+  "problemId": "1080",
+  "titleSlug": "camelcase-matching",
+  "title": "Camelcase Matching",
+  "titleCn": "驼峰式匹配",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "two-pointers",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.6571898540159629,
+  "testcases": [
+    {
+      "input": "</strong> queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FB\" <strong>Output:</strong> [true,false,true,true,false] <strong>Explanation:</strong> \"FooBar\" can be generated like this \"F\" + \"oo\" + \"B\" + \"ar\". \"FootBall\" can be generated like this \"F\" + \"oot\" + \"B\" + \"all\". \"FrameBuffer\" can be generated like this \"F\" + \"rame\" + \"B\" + \"uffer\".",
+      "expectedOutput": "</strong> [true,false,true,true,false] <strong>Explanation:</strong> \"FooBar\" can be generated like this \"F\" + \"oo\" + \"B\" + \"ar\". \"FootBall\" can be generated like this \"F\" + \"oot\" + \"B\" + \"all\". \"FrameBuffer\" can be generated like this \"F\" + \"rame\" + \"B\" + \"uffer\"."
+    },
+    {
+      "input": "</strong> queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FoBa\" <strong>Output:</strong> [true,false,true,false,false] <strong>Explanation:</strong> \"FooBar\" can be generated like this \"Fo\" + \"o\" + \"Ba\" + \"r\". \"FootBall\" can be generated like this \"Fo\" + \"ot\" + \"Ba\" + \"ll\".",
+      "expectedOutput": "</strong> [true,false,true,false,false] <strong>Explanation:</strong> \"FooBar\" can be generated like this \"Fo\" + \"o\" + \"Ba\" + \"r\". \"FootBall\" can be generated like this \"Fo\" + \"ot\" + \"Ba\" + \"ll\"."
+    },
+    {
+      "input": "</strong> queries = [\"FooBar\",\"FooBarTest\",\"FootBall\",\"FrameBuffer\",\"ForceFeedBack\"], pattern = \"FoBaT\" <strong>Output:</strong> [false,true,false,false,false] <strong>Explanation:</strong> \"FooBarTest\" can be generated like this \"Fo\" + \"o\" + \"Ba\" + \"r\" + \"T\" + \"est\".",
+      "expectedOutput": "</strong> [false,true,false,false,false] <strong>Explanation:</strong> \"FooBarTest\" can be generated like this \"Fo\" + \"o\" + \"Ba\" + \"r\" + \"T\" + \"est\"."
+    }
+  ]
+}

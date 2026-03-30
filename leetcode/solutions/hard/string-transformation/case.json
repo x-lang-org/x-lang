@@ -1,0 +1,24 @@
+{
+  "problemId": "3024",
+  "titleSlug": "string-transformation",
+  "title": "String Transformation",
+  "titleCn": "字符串转换",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string",
+    "dynamic-programming",
+    "string-matching"
+  ],
+  "acRate": 0.4537037037037037,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcd\", t = \"cdab\", k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> First way: In first operation, choose suffix from index = 3, so resulting s = \"dabc\". In second operation, choose suffix from index = 3, so resulting s = \"cdab\". Second way: In first operation, choose suffix from index = 1, so resulting s = \"bcda\". In second operation, choose suffix from index = 1, so resulting s = \"cdab\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> First way: In first operation, choose suffix from index = 3, so resulting s = \"dabc\". In second operation, choose suffix from index = 3, so resulting s = \"cdab\". Second way: In first operation, choose suffix from index = 1, so resulting s = \"bcda\". In second operation, choose suffix from index = 1, so resulting s = \"cdab\"."
+    },
+    {
+      "input": "</strong> s = \"ababab\", t = \"ababab\", k = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> First way: Choose suffix from index = 2, so resulting s = \"ababab\". Second way: Choose suffix from index = 4, so resulting s = \"ababab\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> First way: Choose suffix from index = 2, so resulting s = \"ababab\". Second way: Choose suffix from index = 4, so resulting s = \"ababab\"."
+    }
+  ]
+}

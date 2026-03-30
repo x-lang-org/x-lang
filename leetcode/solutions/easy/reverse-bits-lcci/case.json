@@ -1,0 +1,22 @@
+{
+  "problemId": "100230",
+  "titleSlug": "reverse-bits-lcci",
+  "title": "Reverse Bits LCCI",
+  "titleCn": "翻转数位",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "acRate": 0.3816261082814563,
+  "testcases": [
+    {
+      "input": "</strong> <code>num</code> = 1775(11011101111<sub>2</sub>)\r <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    },
+    {
+      "input": "</strong> <code>num</code> = 7(0111<sub>2</sub>)\r <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1648",
+  "titleSlug": "minimum-insertions-to-balance-a-parentheses-string",
+  "title": "Minimum Insertions to Balance a Parentheses String",
+  "titleCn": "平衡括号字符串的最少插入次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.49816237888406284,
+  "testcases": [
+    {
+      "input": "</strong> s = \"(()))\" <strong>Output:</strong> 1 <strong>Explanation:</strong> The second '(' has two matching '))', but the first '(' has only ')' matching. We need to add one more ')' at the end of the string to be \"(())))\" which is balanced.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The second '(' has two matching '))', but the first '(' has only ')' matching. We need to add one more ')' at the end of the string to be \"(())))\" which is balanced."
+    },
+    {
+      "input": "</strong> s = \"())\" <strong>Output:</strong> 0 <strong>Explanation:</strong> The string is already balanced.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The string is already balanced."
+    },
+    {
+      "input": "</strong> s = \"))())(\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Add '(' to match the first '))', Add '))' to match the last '('.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Add '(' to match the first '))', Add '))' to match the last '('."
+    }
+  ]
+}

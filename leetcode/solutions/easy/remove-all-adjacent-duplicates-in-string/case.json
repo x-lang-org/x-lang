@@ -1,0 +1,22 @@
+{
+  "problemId": "1128",
+  "titleSlug": "remove-all-adjacent-duplicates-in-string",
+  "title": "Remove All Adjacent Duplicates In String",
+  "titleCn": "删除字符串中的所有相邻重复项",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.736513944085903,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abbaca\" <strong>Output:</strong> \"ca\" <strong>Explanation:</strong> For example, in \"abbaca\" we could remove \"bb\" since the letters are adjacent and equal, and this is the only possible move. The result of this move is that the string is \"aaca\", of which only \"aa\" is possible, so the final string is \"ca\".",
+      "expectedOutput": "</strong> \"ca\" <strong>Explanation:</strong> For example, in \"abbaca\" we could remove \"bb\" since the letters are adjacent and equal, and this is the only possible move. The result of this move is that the string is \"aaca\", of which only \"aa\" is possible, so the final string is \"ca\"."
+    },
+    {
+      "input": "</strong> s = \"azxxzy\" <strong>Output:</strong> \"ay\"",
+      "expectedOutput": "</strong> \"ay"
+    }
+  ]
+}

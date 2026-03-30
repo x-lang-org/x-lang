@@ -1,0 +1,24 @@
+{
+  "problemId": "1743",
+  "titleSlug": "count-substrings-that-differ-by-one-character",
+  "title": "Count Substrings That Differ by One Character",
+  "titleCn": "统计只差一个字符的子串数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "enumeration"
+  ],
+  "acRate": 0.7772337439575862,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aba\", t = \"baba\" <strong>Output:</strong> 6 <strong>Explanation:</strong> The following are the pairs of substrings from s and t that differ by exactly 1 character: (\"<u>a</u>ba\", \"<u>b</u>aba\") (\"<u>a</u>ba\", \"ba<u>b</u>a\") (\"ab<u>a</u>\", \"<u>b</u>aba\") (\"ab<u>a</u>\", \"ba<u>b</u>a\") (\"a<u>b</u>a\", \"b<u>a</u>ba\") (\"a<u>b</u>a\", \"bab<u>a</u>\") The underlined portions are the substrings that are chosen from s and t.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The following are the pairs of substrings from s and t that differ by exactly 1 character: (\"<u>a</u>ba\", \"<u>b</u>aba\") (\"<u>a</u>ba\", \"ba<u>b</u>a\") (\"ab<u>a</u>\", \"<u>b</u>aba\") (\"ab<u>a</u>\", \"ba<u>b</u>a\") (\"a<u>b</u>a\", \"b<u>a</u>ba\") (\"a<u>b</u>a\", \"bab<u>a</u>\") The underlined portions are the substrings that are chosen from s and t."
+    },
+    {
+      "input": "</strong> s = \"ab\", t = \"bb\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The following are the pairs of substrings from s and t that differ by 1 character: (\"<u>a</u>b\", \"<u>b</u>b\") (\"<u>a</u>b\", \"b<u>b</u>\") (\"<u>ab</u>\", \"<u>bb</u>\") ​​​​The underlined portions are the substrings that are chosen from s and t.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The following are the pairs of substrings from s and t that differ by 1 character: (\"<u>a</u>b\", \"<u>b</u>b\") (\"<u>a</u>b\", \"b<u>b</u>\") (\"<u>ab</u>\", \"<u>bb</u>\") ​​​​The underlined portions are the substrings that are chosen from s and t."
+    }
+  ]
+}

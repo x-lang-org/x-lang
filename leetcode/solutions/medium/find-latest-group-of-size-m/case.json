@@ -1,0 +1,24 @@
+{
+  "problemId": "1684",
+  "titleSlug": "find-latest-group-of-size-m",
+  "title": "Find Latest Group of Size M",
+  "titleCn": "查找大小为 M 的最新分组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "simulation"
+  ],
+  "acRate": 0.3963306712713145,
+  "testcases": [
+    {
+      "input": "</strong> arr = [3,5,1,2,4], m = 1 <strong>Output:</strong> 4 <strong>Explanation:</strong> Step 1: \"00<u>1</u>00\", groups: [\"1\"] Step 2: \"0010<u>1</u>\", groups: [\"1\", \"1\"] Step 3: \"<u>1</u>0101\", groups: [\"1\", \"1\", \"1\"] Step 4: \"1<u>1</u>101\", groups: [\"111\", \"1\"] Step 5: \"111<u>1</u>1\", groups: [\"11111\"] The latest step at which there exists a group of size 1 is step 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Step 1: \"00<u>1</u>00\", groups: [\"1\"] Step 2: \"0010<u>1</u>\", groups: [\"1\", \"1\"] Step 3: \"<u>1</u>0101\", groups: [\"1\", \"1\", \"1\"] Step 4: \"1<u>1</u>101\", groups: [\"111\", \"1\"] Step 5: \"111<u>1</u>1\", groups: [\"11111\"] The latest step at which there exists a group of size 1 is step 4."
+    },
+    {
+      "input": "</strong> arr = [3,1,5,4,2], m = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> Step 1: \"00<u>1</u>00\", groups: [\"1\"] Step 2: \"<u>1</u>0100\", groups: [\"1\", \"1\"] Step 3: \"1010<u>1</u>\", groups: [\"1\", \"1\", \"1\"] Step 4: \"101<u>1</u>1\", groups: [\"1\", \"111\"] Step 5: \"1<u>1</u>111\", groups: [\"11111\"] No group of size 2 exists during any step.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Step 1: \"00<u>1</u>00\", groups: [\"1\"] Step 2: \"<u>1</u>0100\", groups: [\"1\", \"1\"] Step 3: \"1010<u>1</u>\", groups: [\"1\", \"1\", \"1\"] Step 4: \"101<u>1</u>1\", groups: [\"1\", \"111\"] Step 5: \"1<u>1</u>111\", groups: [\"11111\"] No group of size 2 exists during any step."
+    }
+  ]
+}

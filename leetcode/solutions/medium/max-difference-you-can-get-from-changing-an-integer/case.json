@@ -1,0 +1,22 @@
+{
+  "problemId": "1529",
+  "titleSlug": "max-difference-you-can-get-from-changing-an-integer",
+  "title": "Max Difference You Can Get From Changing an Integer",
+  "titleCn": "改变一个整数能得到的最大差值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.4440284537626357,
+  "testcases": [
+    {
+      "input": "</strong> num = 555 <strong>Output:</strong> 888 <strong>Explanation:</strong> The first time pick x = 5 and y = 9 and store the new integer in a. The second time pick x = 5 and y = 1 and store the new integer in b. We have now a = 999 and b = 111 and max difference = 888",
+      "expectedOutput": "</strong> 888 <strong>Explanation:</strong> The first time pick x = 5 and y = 9 and store the new integer in a. The second time pick x = 5 and y = 1 and store the new integer in b. We have now a = 999 and b = 111 and max difference = 888"
+    },
+    {
+      "input": "</strong> num = 9 <strong>Output:</strong> 8 <strong>Explanation:</strong> The first time pick x = 9 and y = 9 and store the new integer in a. The second time pick x = 9 and y = 1 and store the new integer in b. We have now a = 9 and b = 1 and max difference = 8",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The first time pick x = 9 and y = 9 and store the new integer in a. The second time pick x = 9 and y = 1 and store the new integer in b. We have now a = 9 and b = 1 and max difference = 8"
+    }
+  ]
+}

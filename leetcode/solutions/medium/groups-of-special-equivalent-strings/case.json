@@ -1,0 +1,24 @@
+{
+  "problemId": "929",
+  "titleSlug": "groups-of-special-equivalent-strings",
+  "title": "Groups of Special-Equivalent Strings",
+  "titleCn": "特殊等价字符串组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.743281573001298,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abcd\",\"cdab\",\"cbad\",\"xyzz\",\"zzxy\",\"zzyx\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> One group is [\"abcd\", \"cdab\", \"cbad\"], since they are all pairwise special equivalent, and none of the other strings is all pairwise special equivalent to these. The other two groups are [\"xyzz\", \"zzxy\"] and [\"zzyx\"]. Note that in particular, \"zzxy\" is not special equivalent to \"zzyx\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One group is [\"abcd\", \"cdab\", \"cbad\"], since they are all pairwise special equivalent, and none of the other strings is all pairwise special equivalent to these. The other two groups are [\"xyzz\", \"zzxy\"] and [\"zzyx\"]. Note that in particular, \"zzxy\" is not special equivalent to \"zzyx\"."
+    },
+    {
+      "input": "</strong> words = [\"abc\",\"acb\",\"bac\",\"bca\",\"cab\",\"cba\"] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

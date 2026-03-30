@@ -1,0 +1,20 @@
+{
+  "problemId": "100175",
+  "titleSlug": "list-of-depth-lcci",
+  "title": "List of Depth LCCI",
+  "titleCn": "特定深度节点链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "breadth-first-search",
+    "linked-list",
+    "binary-tree"
+  ],
+  "acRate": 0.8107294963466573,
+  "testcases": [
+    {
+      "input": "</strong>[1,2,3,4,5,null,7,8]\r \r     1\r    / \\ \r    2  3\r   / \\  \\ \r   4  5  7\r  /\r  8\r \r <strong>Output: </strong>[[1],[2,3],[4,5,7],[8]]",
+      "expectedOutput": "</strong>[[1],[2,3],[4,5,7],[8]]"
+    }
+  ]
+}

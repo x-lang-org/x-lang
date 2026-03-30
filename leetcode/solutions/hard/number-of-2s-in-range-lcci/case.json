@@ -1,0 +1,19 @@
+{
+  "problemId": "1000034",
+  "titleSlug": "number-of-2s-in-range-lcci",
+  "title": "Number Of 2s In Range LCCI",
+  "titleCn": "2出现的次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5065451305599342,
+  "testcases": [
+    {
+      "input": "</strong>25\r <strong>Output: </strong>9\r <strong>Explanation: </strong>(2, 12, 20, 21, 22, 23, 24, 25)(Note that 22 counts for two 2s.)",
+      "expectedOutput": "</strong>9\r <strong>Explanation: </strong>(2, 12, 20, 21, 22, 23, 24, 25)(Note that 22 counts for two 2s.)"
+    }
+  ]
+}

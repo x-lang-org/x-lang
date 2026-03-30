@@ -1,0 +1,23 @@
+{
+  "problemId": "1185",
+  "titleSlug": "find-in-mountain-array",
+  "title": "Find in Mountain Array",
+  "titleCn": "山脉数组中查找目标值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "interactive"
+  ],
+  "acRate": 0.3852325782465848,
+  "testcases": [
+    {
+      "input": "</strong> mountainArr = [1,2,3,4,5,3,1], target = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> 3 exists in the array, at index=2 and index=5. Return the minimum index, which is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 3 exists in the array, at index=2 and index=5. Return the minimum index, which is 2."
+    },
+    {
+      "input": "</strong> mountainArr = [0,1,2,4,2,1], target = 3 <strong>Output:</strong> -1 <strong>Explanation:</strong> 3 does not exist in <code>the array,</code> so we return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> 3 does not exist in <code>the array,</code> so we return -1."
+    }
+  ]
+}

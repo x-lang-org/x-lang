@@ -1,0 +1,23 @@
+{
+  "problemId": "2043",
+  "titleSlug": "cyclically-rotating-a-grid",
+  "title": "Cyclically Rotating a Grid",
+  "titleCn": "循环轮转矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.489047831917747,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[40,10],[30,20]], k = 1\r <strong>Output:</strong> [[10,20],[40,30]]\r <strong>Explanation:</strong> The figures above represent the grid at every state.",
+      "expectedOutput": "</strong> [[10,20],[40,30]]\r <strong>Explanation:</strong> The figures above represent the grid at every state."
+    },
+    {
+      "input": "</strong> grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], k = 2\r <strong>Output:</strong> [[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]\r <strong>Explanation:</strong> The figures above represent the grid at every state.",
+      "expectedOutput": "</strong> [[3,4,8,12],[2,11,10,16],[1,7,6,15],[5,9,13,14]]\r <strong>Explanation:</strong> The figures above represent the grid at every state."
+    }
+  ]
+}

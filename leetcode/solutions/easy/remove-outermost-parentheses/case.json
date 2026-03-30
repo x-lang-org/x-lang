@@ -1,0 +1,26 @@
+{
+  "problemId": "1078",
+  "titleSlug": "remove-outermost-parentheses",
+  "title": "Remove Outermost Parentheses",
+  "titleCn": "删除最外层的括号",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.8160029876539594,
+  "testcases": [
+    {
+      "input": "</strong> s = \"(()())(())\" <strong>Output:</strong> \"()()()\" <strong>Explanation:</strong> The input string is \"(()())(())\", with primitive decomposition \"(()())\" + \"(())\". After removing outer parentheses of each part, this is \"()()\" + \"()\" = \"()()()\".",
+      "expectedOutput": "</strong> \"()()()\" <strong>Explanation:</strong> The input string is \"(()())(())\", with primitive decomposition \"(()())\" + \"(())\". After removing outer parentheses of each part, this is \"()()\" + \"()\" = \"()()()\"."
+    },
+    {
+      "input": "</strong> s = \"(()())(())(()(()))\" <strong>Output:</strong> \"()()()()(())\" <strong>Explanation:</strong> The input string is \"(()())(())(()(()))\", with primitive decomposition \"(()())\" + \"(())\" + \"(()(()))\". After removing outer parentheses of each part, this is \"()()\" + \"()\" + \"()(())\" = \"()()()()(())\".",
+      "expectedOutput": "</strong> \"()()()()(())\" <strong>Explanation:</strong> The input string is \"(()())(())(()(()))\", with primitive decomposition \"(()())\" + \"(())\" + \"(()(()))\". After removing outer parentheses of each part, this is \"()()\" + \"()\" + \"()(())\" = \"()()()()(())\"."
+    },
+    {
+      "input": "</strong> s = \"()()\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> The input string is \"()()\", with primitive decomposition \"()\" + \"()\". After removing outer parentheses of each part, this is \"\" + \"\" = \"\".",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> The input string is \"()()\", with primitive decomposition \"()\" + \"()\". After removing outer parentheses of each part, this is \"\" + \"\" = \"\"."
+    }
+  ]
+}

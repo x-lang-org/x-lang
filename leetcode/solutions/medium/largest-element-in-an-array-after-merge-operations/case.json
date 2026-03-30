@@ -1,0 +1,22 @@
+{
+  "problemId": "2872",
+  "titleSlug": "largest-element-in-an-array-after-merge-operations",
+  "title": "Largest Element in an Array after Merge Operations",
+  "titleCn": "合并后数组中的最大元素",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.575520577143794,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,7,9,3] <strong>Output:</strong> 21 <strong>Explanation:</strong> We can apply the following operations on the array: - Choose i = 0. The resulting array will be nums = [<u>5</u>,7,9,3]. - Choose i = 1. The resulting array will be nums = [5,<u>16</u>,3]. - Choose i = 0. The resulting array will be nums = [<u>21</u>,3]. The largest element in the final array is 21. It can be shown that we cannot obtain a larger element.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> We can apply the following operations on the array: - Choose i = 0. The resulting array will be nums = [<u>5</u>,7,9,3]. - Choose i = 1. The resulting array will be nums = [5,<u>16</u>,3]. - Choose i = 0. The resulting array will be nums = [<u>21</u>,3]. The largest element in the final array is 21. It can be shown that we cannot obtain a larger element."
+    },
+    {
+      "input": "</strong> nums = [5,3,3] <strong>Output:</strong> 11 <strong>Explanation:</strong> We can do the following operations on the array: - Choose i = 1. The resulting array will be nums = [5,<u>6</u>]. - Choose i = 0. The resulting array will be nums = [<u>11</u>]. There is only one element in the final array, which is 11.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> We can do the following operations on the array: - Choose i = 1. The resulting array will be nums = [5,<u>6</u>]. - Choose i = 0. The resulting array will be nums = [<u>11</u>]. There is only one element in the final array, which is 11."
+    }
+  ]
+}

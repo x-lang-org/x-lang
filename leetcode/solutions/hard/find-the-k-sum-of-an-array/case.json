@@ -1,0 +1,23 @@
+{
+  "problemId": "2462",
+  "titleSlug": "find-the-k-sum-of-an-array",
+  "title": "Find the K-Sum of an Array",
+  "titleCn": "找出数组的第 K 大和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5522095147864925,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,4,-2], k = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> All the possible subsequence sums that we can obtain are the following sorted in decreasing order: 6, 4, 4, 2, <u>2</u>, 0, 0, -2. The 5-Sum of the array is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> All the possible subsequence sums that we can obtain are the following sorted in decreasing order: 6, 4, 4, 2, <u>2</u>, 0, 0, -2. The 5-Sum of the array is 2."
+    },
+    {
+      "input": "</strong> nums = [1,-2,3,4,-10,12], k = 16 <strong>Output:</strong> 10 <strong>Explanation:</strong> The 16-Sum of the array is 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The 16-Sum of the array is 10."
+    }
+  ]
+}

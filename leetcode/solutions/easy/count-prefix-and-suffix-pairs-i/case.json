@@ -1,0 +1,30 @@
+{
+  "problemId": "3309",
+  "titleSlug": "count-prefix-and-suffix-pairs-i",
+  "title": "Count Prefix and Suffix Pairs I",
+  "titleCn": "统计前后缀下标对 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.7062562989379022,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"a\",\"aba\",\"ababa\",\"aa\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> In this example, the counted index pairs are: i = 0 and j = 1 because isPrefixAndSuffix(\"a\", \"aba\") is true. i = 0 and j = 2 because isPrefixAndSuffix(\"a\", \"ababa\") is true. i = 0 and j = 3 because isPrefixAndSuffix(\"a\", \"aa\") is true. i = 1 and j = 2 because isPrefixAndSuffix(\"aba\", \"ababa\") is true. Therefore, the answer is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> In this example, the counted index pairs are: i = 0 and j = 1 because isPrefixAndSuffix(\"a\", \"aba\") is true. i = 0 and j = 2 because isPrefixAndSuffix(\"a\", \"ababa\") is true. i = 0 and j = 3 because isPrefixAndSuffix(\"a\", \"aa\") is true. i = 1 and j = 2 because isPrefixAndSuffix(\"aba\", \"ababa\") is true. Therefore, the answer is 4."
+    },
+    {
+      "input": "</strong> words = [\"pa\",\"papa\",\"ma\",\"mama\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, the counted index pairs are: i = 0 and j = 1 because isPrefixAndSuffix(\"pa\", \"papa\") is true. i = 2 and j = 3 because isPrefixAndSuffix(\"ma\", \"mama\") is true. Therefore, the answer is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, the counted index pairs are: i = 0 and j = 1 because isPrefixAndSuffix(\"pa\", \"papa\") is true. i = 2 and j = 3 because isPrefixAndSuffix(\"ma\", \"mama\") is true. Therefore, the answer is 2."
+    },
+    {
+      "input": "</strong> words = [\"abab\",\"ab\"] <strong>Output:</strong> 0 <strong>Explanation: </strong>In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix(\"abab\", \"ab\") is false. Therefore, the answer is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation: </strong>In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix(\"abab\", \"ab\") is false. Therefore, the answer is 0."
+    }
+  ]
+}

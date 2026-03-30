@@ -1,0 +1,31 @@
+{
+  "problemId": "2765",
+  "titleSlug": "make-array-empty",
+  "title": "Make Array Empty",
+  "titleCn": "将数组清空",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search",
+    "ordered-set",
+    "sorting"
+  ],
+  "acRate": 0.4224231858792765,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,4,-1] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> nums = [1,2,4,3] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

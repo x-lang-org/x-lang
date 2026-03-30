@@ -1,0 +1,26 @@
+{
+  "problemId": "206",
+  "titleSlug": "reverse-linked-list",
+  "title": "Reverse Linked List",
+  "titleCn": "反转链表",
+  "difficulty": "EASY",
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "acRate": 0.7638350693314863,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,3,4,5] <strong>Output:</strong> [5,4,3,2,1]",
+      "expectedOutput": "</strong> [5,4,3,2,1]"
+    },
+    {
+      "input": "</strong> head = [1,2] <strong>Output:</strong> [2,1]",
+      "expectedOutput": "</strong> [2,1]"
+    },
+    {
+      "input": "</strong> head = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

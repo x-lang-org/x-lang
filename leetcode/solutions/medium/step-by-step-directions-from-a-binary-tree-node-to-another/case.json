@@ -1,0 +1,24 @@
+{
+  "problemId": "2217",
+  "titleSlug": "step-by-step-directions-from-a-binary-tree-node-to-another",
+  "title": "Step-By-Step Directions From a Binary Tree Node to Another",
+  "titleCn": "从二叉树一个节点到另一个节点每一步的方向",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "string",
+    "binary-tree"
+  ],
+  "acRate": 0.48995513292707427,
+  "testcases": [
+    {
+      "input": "</strong> root = [5,1,2,3,null,6,4], startValue = 3, destValue = 6 <strong>Output:</strong> \"UURL\" <strong>Explanation:</strong> The shortest path is: 3 → 1 → 5 → 2 → 6.",
+      "expectedOutput": "</strong> \"UURL\" <strong>Explanation:</strong> The shortest path is: 3 → 1 → 5 → 2 → 6."
+    },
+    {
+      "input": "</strong> root = [2,1], startValue = 2, destValue = 1 <strong>Output:</strong> \"L\" <strong>Explanation:</strong> The shortest path is: 2 → 1.",
+      "expectedOutput": "</strong> \"L\" <strong>Explanation:</strong> The shortest path is: 2 → 1."
+    }
+  ]
+}

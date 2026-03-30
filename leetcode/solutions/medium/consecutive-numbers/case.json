@@ -1,0 +1,17 @@
+{
+  "problemId": "180",
+  "titleSlug": "consecutive-numbers",
+  "title": "Consecutive Numbers",
+  "titleCn": "连续出现的数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.45902549536634524,
+  "testcases": [
+    {
+      "input": "</strong> Logs table: +----+-----+ | id | num | +----+-----+ | 1 | 1  | | 2 | 1  | | 3 | 1  | | 4 | 2  | | 5 | 1  | | 6 | 2  | | 7 | 2  | +----+-----+ <strong>Output:</strong> +-----------------+ | ConsecutiveNums | +-----------------+ | 1        | +-----------------+ <strong>Explanation:</strong> 1 is the only number that appears consecutively for at least three times.",
+      "expectedOutput": "</strong> +-----------------+ | ConsecutiveNums | +-----------------+ | 1        | +-----------------+ <strong>Explanation:</strong> 1 is the only number that appears consecutively for at least three times."
+    }
+  ]
+}

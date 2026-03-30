@@ -1,0 +1,27 @@
+{
+  "problemId": "739",
+  "titleSlug": "daily-temperatures",
+  "title": "Daily Temperatures",
+  "titleCn": "每日温度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6974363495798173,
+  "testcases": [
+    {
+      "input": "</strong> temperatures = [73,74,75,71,69,72,76,73] <strong>Output:</strong> [1,1,4,2,1,1,0,0]",
+      "expectedOutput": "</strong> [1,1,4,2,1,1,0,0]"
+    },
+    {
+      "input": "</strong> temperatures = [30,40,50,60] <strong>Output:</strong> [1,1,1,0]",
+      "expectedOutput": "</strong> [1,1,1,0]"
+    },
+    {
+      "input": "</strong> temperatures = [30,60,90] <strong>Output:</strong> [1,1,0]",
+      "expectedOutput": "</strong> [1,1,0]"
+    }
+  ]
+}

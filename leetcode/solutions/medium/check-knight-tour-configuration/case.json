@@ -1,0 +1,25 @@
+{
+  "problemId": "2662",
+  "titleSlug": "check-knight-tour-configuration",
+  "title": "Check Knight Tour Configuration",
+  "titleCn": "检查骑士巡视方案",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.5772290603422395,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,11,16,5,20],[17,4,19,10,15],[12,1,8,21,6],[3,18,23,14,9],[24,13,2,7,22]] <strong>Output:</strong> true <strong>Explanation:</strong> The above diagram represents the grid. It can be shown that it is a valid configuration.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The above diagram represents the grid. It can be shown that it is a valid configuration."
+    },
+    {
+      "input": "</strong> grid = [[0,3,6],[5,8,1],[2,7,4]] <strong>Output:</strong> false <strong>Explanation:</strong> The above diagram represents the grid. The 8<sup>th</sup> move of the knight is not valid considering its position after the 7<sup>th</sup> move.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The above diagram represents the grid. The 8<sup>th</sup> move of the knight is not valid considering its position after the 7<sup>th</sup> move."
+    }
+  ]
+}

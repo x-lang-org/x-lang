@@ -1,0 +1,28 @@
+{
+  "problemId": "1160",
+  "titleSlug": "letter-tile-possibilities",
+  "title": "Letter Tile Possibilities",
+  "titleCn": "活字印刷",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "backtracking",
+    "counting"
+  ],
+  "acRate": 0.7907374952156484,
+  "testcases": [
+    {
+      "input": "</strong> tiles = \"AAB\" <strong>Output:</strong> 8 <strong>Explanation: </strong>The possible sequences are \"A\", \"B\", \"AA\", \"AB\", \"BA\", \"AAB\", \"ABA\", \"BAA\".",
+      "expectedOutput": "</strong> 8 <strong>Explanation: </strong>The possible sequences are \"A\", \"B\", \"AA\", \"AB\", \"BA\", \"AAB\", \"ABA\", \"BAA\"."
+    },
+    {
+      "input": "</strong> tiles = \"AAABBC\" <strong>Output:</strong> 188",
+      "expectedOutput": "</strong> 188"
+    },
+    {
+      "input": "</strong> tiles = \"V\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

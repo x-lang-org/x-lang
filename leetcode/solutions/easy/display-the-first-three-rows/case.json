@@ -1,0 +1,15 @@
+{
+  "problemId": "3065",
+  "titleSlug": "display-the-first-three-rows",
+  "title": "Display the First Three Rows",
+  "titleCn": "显示前三行",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.9182269774551013,
+  "testcases": [
+    {
+      "input": "</strong>DataFrame employees +-------------+-----------+-----------------------+--------+ | employee_id | name   | department      | salary | +-------------+-----------+-----------------------+--------+ | 3      | Bob    | Operations      | 48675 | | 90     | Alice   | Sales         | 11096 | | 9      | Tatiana  | Engineering      | 33805 | | 60     | Annabelle | InformationTechnology | 37678 | | 49     | Jonathan | HumanResources    | 23793 | | 43     | Khaled  | Administration    | 40454 | +-------------+-----------+-----------------------+--------+ <strong>Output:</strong> +-------------+---------+-------------+--------+ | employee_id | name  | department | salary | +-------------+---------+-------------+--------+ | 3      | Bob   | Operations | 48675 | | 90     | Alice  | Sales    | 11096 | | 9      | Tatiana | Engineering | 33805 | +-------------+---------+-------------+--------+ <strong>Explanation:</strong> Only the first 3 rows are displayed.",
+      "expectedOutput": "</strong> +-------------+---------+-------------+--------+ | employee_id | name  | department | salary | +-------------+---------+-------------+--------+ | 3      | Bob   | Operations | 48675 | | 90     | Alice  | Sales    | 11096 | | 9      | Tatiana | Engineering | 33805 | +-------------+---------+-------------+--------+ <strong>Explanation:</strong> Only the first 3 rows are displayed."
+    }
+  ]
+}

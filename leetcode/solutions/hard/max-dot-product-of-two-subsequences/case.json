@@ -1,0 +1,26 @@
+{
+  "problemId": "1569",
+  "titleSlug": "max-dot-product-of-two-subsequences",
+  "title": "Max Dot Product of Two Subsequences",
+  "titleCn": "两个子序列的最大点积",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.608823137411702,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [2,1,-2,5], nums2 = [3,0,-6] <strong>Output:</strong> 18 <strong>Explanation:</strong> Take subsequence [2,-2] from nums1 and subsequence [3,-6] from nums2. Their dot product is (2*3 + (-2)*(-6)) = 18.",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> Take subsequence [2,-2] from nums1 and subsequence [3,-6] from nums2. Their dot product is (2*3 + (-2)*(-6)) = 18."
+    },
+    {
+      "input": "</strong> nums1 = [3,-2], nums2 = [2,-6,7] <strong>Output:</strong> 21 <strong>Explanation:</strong> Take subsequence [3] from nums1 and subsequence [7] from nums2. Their dot product is (3*7) = 21.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> Take subsequence [3] from nums1 and subsequence [7] from nums2. Their dot product is (3*7) = 21."
+    },
+    {
+      "input": "</strong> nums1 = [-1,-1], nums2 = [1,1] <strong>Output:</strong> -1 <strong>Explanation: </strong>Take subsequence [-1] from nums1 and subsequence [1] from nums2. Their dot product is -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation: </strong>Take subsequence [-1] from nums1 and subsequence [1] from nums2. Their dot product is -1."
+    }
+  ]
+}

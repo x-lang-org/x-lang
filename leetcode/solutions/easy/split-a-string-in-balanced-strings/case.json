@@ -1,0 +1,27 @@
+{
+  "problemId": "1341",
+  "titleSlug": "split-a-string-in-balanced-strings",
+  "title": "Split a String in Balanced Strings",
+  "titleCn": "分割平衡字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.8565878534343772,
+  "testcases": [
+    {
+      "input": "</strong> s = \"RLRRLLRLRL\" <strong>Output:</strong> 4 <strong>Explanation:</strong> s can be split into \"RL\", \"RRLL\", \"RL\", \"RL\", each substring contains same number of 'L' and 'R'.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> s can be split into \"RL\", \"RRLL\", \"RL\", \"RL\", each substring contains same number of 'L' and 'R'."
+    },
+    {
+      "input": "</strong> s = \"RLRRRLLRLL\" <strong>Output:</strong> 2 <strong>Explanation:</strong> s can be split into \"RL\", \"RRRLLRLL\", each substring contains same number of 'L' and 'R'. Note that s cannot be split into \"RL\", \"RR\", \"RL\", \"LR\", \"LL\", because the 2<sup>nd</sup> and 5<sup>th</sup> substrings are not balanced.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> s can be split into \"RL\", \"RRRLLRLL\", each substring contains same number of 'L' and 'R'. Note that s cannot be split into \"RL\", \"RR\", \"RL\", \"LR\", \"LL\", because the 2<sup>nd</sup> and 5<sup>th</sup> substrings are not balanced."
+    },
+    {
+      "input": "</strong> s = \"LLLLRRRR\" <strong>Output:</strong> 1 <strong>Explanation:</strong> s can be split into \"LLLLRRRR\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> s can be split into \"LLLLRRRR\"."
+    }
+  ]
+}

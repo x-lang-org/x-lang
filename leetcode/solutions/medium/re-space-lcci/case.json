@@ -1,0 +1,23 @@
+{
+  "problemId": "1000020",
+  "titleSlug": "re-space-lcci",
+  "title": "Re-Space LCCI",
+  "titleCn": "恢复空格",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.5564844063596224,
+  "testcases": [
+    {
+      "input": "</strong>\r dictionary = [\"looked\",\"just\",\"like\",\"her\",\"brother\"]\r sentence = \"jesslookedjustliketimherbrother\"\r <strong>Output: </strong> 7\r <strong>Explanation: </strong> After unconcatenating, we got \"<strong>jess</strong> looked just like <strong>tim</strong> her brother\", which containing 7 unrecognized characters.",
+      "expectedOutput": "</strong> 7\r <strong>Explanation: </strong> After unconcatenating, we got \"<strong>jess</strong> looked just like <strong>tim</strong> her brother\", which containing 7 unrecognized characters."
+    }
+  ]
+}

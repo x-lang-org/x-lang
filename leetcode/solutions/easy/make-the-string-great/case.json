@@ -1,0 +1,26 @@
+{
+  "problemId": "1666",
+  "titleSlug": "make-the-string-great",
+  "title": "Make The String Great",
+  "titleCn": "整理字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.5986149953389266,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leEeetcode\" <strong>Output:</strong> \"leetcode\" <strong>Explanation:</strong> In the first step, either you choose i = 1 or i = 2, both will result \"leEeetcode\" to be reduced to \"leetcode\".",
+      "expectedOutput": "</strong> \"leetcode\" <strong>Explanation:</strong> In the first step, either you choose i = 1 or i = 2, both will result \"leEeetcode\" to be reduced to \"leetcode\"."
+    },
+    {
+      "input": "</strong> s = \"abBAcC\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> We have many possible scenarios, and all lead to the same answer. For example: \"abBAcC\" --> \"aAcC\" --> \"cC\" --> \"\" \"abBAcC\" --> \"abBA\" --> \"aA\" --> \"\"",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> We have many possible scenarios, and all lead to the same answer. For example: \"abBAcC\" --> \"aAcC\" --> \"cC\" --> \"\" \"abBAcC\" --> \"abBA\" --> \"aA\" --> "
+    },
+    {
+      "input": "</strong> s = \"s\" <strong>Output:</strong> \"s\"",
+      "expectedOutput": "</strong> \"s"
+    }
+  ]
+}

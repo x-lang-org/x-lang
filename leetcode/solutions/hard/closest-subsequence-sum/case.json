@@ -1,0 +1,30 @@
+{
+  "problemId": "1881",
+  "titleSlug": "closest-subsequence-sum",
+  "title": "Closest Subsequence Sum",
+  "titleCn": "最接近目标值的子序列和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "bitmask",
+    "sorting"
+  ],
+  "acRate": 0.4885315677465122,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,-7,3,5], goal = 6 <strong>Output:</strong> 0 <strong>Explanation:</strong> Choose the whole array as a subsequence, with a sum of 6. This is equal to the goal, so the absolute difference is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Choose the whole array as a subsequence, with a sum of 6. This is equal to the goal, so the absolute difference is 0."
+    },
+    {
+      "input": "</strong> nums = [7,-9,15,-2], goal = -5 <strong>Output:</strong> 1 <strong>Explanation:</strong> Choose the subsequence [7,-9,-2], with a sum of -4. The absolute difference is abs(-4 - (-5)) = abs(1) = 1, which is the minimum.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Choose the subsequence [7,-9,-2], with a sum of -4. The absolute difference is abs(-4 - (-5)) = abs(1) = 1, which is the minimum."
+    },
+    {
+      "input": "</strong> nums = [1,2,3], goal = -7 <strong>Output:</strong> 7",
+      "expectedOutput": "</strong> 7"
+    }
+  ]
+}

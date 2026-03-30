@@ -1,0 +1,25 @@
+{
+  "problemId": "796",
+  "titleSlug": "reaching-points",
+  "title": "Reaching Points",
+  "titleCn": "到达终点",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.3800788096838387,
+  "testcases": [
+    {
+      "input": "</strong> sx = 1, sy = 1, tx = 3, ty = 5 <strong>Output:</strong> true <strong>Explanation:</strong> One series of moves that transforms the starting point to the target is: (1, 1) -> (1, 2) (1, 2) -> (3, 2) (3, 2) -> (3, 5)",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> One series of moves that transforms the starting point to the target is: (1, 1) -> (1, 2) (1, 2) -> (3, 2) (3, 2) -> (3, 5)"
+    },
+    {
+      "input": "</strong> sx = 1, sy = 1, tx = 2, ty = 2 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> sx = 1, sy = 1, tx = 1, ty = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

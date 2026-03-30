@@ -1,0 +1,27 @@
+{
+  "problemId": "388",
+  "titleSlug": "longest-absolute-file-path",
+  "title": "Longest Absolute File Path",
+  "titleCn": "文件的最长绝对路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "depth-first-search",
+    "string"
+  ],
+  "acRate": 0.6390582012190488,
+  "testcases": [
+    {
+      "input": "</strong> input = \"dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext\" <strong>Output:</strong> 20 <strong>Explanation:</strong> We have only one file, and the absolute path is \"dir/subdir2/file.ext\" of length 20.",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> We have only one file, and the absolute path is \"dir/subdir2/file.ext\" of length 20."
+    },
+    {
+      "input": "</strong> input = \"dir\\n\\tsubdir1\\n\\t\\tfile1.ext\\n\\t\\tsubsubdir1\\n\\tsubdir2\\n\\t\\tsubsubdir2\\n\\t\\t\\tfile2.ext\" <strong>Output:</strong> 32 <strong>Explanation:</strong> We have two files: \"dir/subdir1/file1.ext\" of length 21 \"dir/subdir2/subsubdir2/file2.ext\" of length 32. We return 32 since it is the longest absolute path to a file.",
+      "expectedOutput": "</strong> 32 <strong>Explanation:</strong> We have two files: \"dir/subdir1/file1.ext\" of length 21 \"dir/subdir2/subsubdir2/file2.ext\" of length 32. We return 32 since it is the longest absolute path to a file."
+    },
+    {
+      "input": "</strong> input = \"a\" <strong>Output:</strong> 0 <strong>Explanation:</strong> We do not have any files, just a single directory named \"a\".",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> We do not have any files, just a single directory named \"a\"."
+    }
+  ]
+}

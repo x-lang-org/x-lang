@@ -1,0 +1,26 @@
+{
+  "problemId": "1267",
+  "titleSlug": "remove-zero-sum-consecutive-nodes-from-linked-list",
+  "title": "Remove Zero Sum Consecutive Nodes from Linked List",
+  "titleCn": "从链表中删去总和值为零的连续节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "linked-list"
+  ],
+  "acRate": 0.537408439748493,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,-3,3,1] <strong>Output:</strong> [3,1] <strong>Note:</strong> The answer [1,2,1] would also be accepted.",
+      "expectedOutput": "</strong> [3,1] <strong>Note:</strong> The answer [1,2,1] would also be accepted."
+    },
+    {
+      "input": "</strong> head = [1,2,3,-3,4] <strong>Output:</strong> [1,2,4]",
+      "expectedOutput": "</strong> [1,2,4]"
+    },
+    {
+      "input": "</strong> head = [1,2,3,-3,-2] <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    }
+  ]
+}

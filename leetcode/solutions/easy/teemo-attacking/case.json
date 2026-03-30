@@ -1,0 +1,22 @@
+{
+  "problemId": "495",
+  "titleSlug": "teemo-attacking",
+  "title": "Teemo Attacking",
+  "titleCn": "提莫攻击",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.5959524731301735,
+  "testcases": [
+    {
+      "input": "</strong> timeSeries = [1,4], duration = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> Teemo's attacks on Ashe go as follows: - At second 1, Teemo attacks, and Ashe is poisoned for seconds 1 and 2. - At second 4, Teemo attacks, and Ashe is poisoned for seconds 4 and 5. Ashe is poisoned for seconds 1, 2, 4, and 5, which is 4 seconds in total.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Teemo's attacks on Ashe go as follows: - At second 1, Teemo attacks, and Ashe is poisoned for seconds 1 and 2. - At second 4, Teemo attacks, and Ashe is poisoned for seconds 4 and 5. Ashe is poisoned for seconds 1, 2, 4, and 5, which is 4 seconds in total."
+    },
+    {
+      "input": "</strong> timeSeries = [1,2], duration = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> Teemo's attacks on Ashe go as follows: - At second 1, Teemo attacks, and Ashe is poisoned for seconds 1 and 2. - At second 2 however, Teemo attacks again and resets the poison timer. Ashe is poisoned for seconds 2 and 3. Ashe is poisoned for seconds 1, 2, and 3, which is 3 seconds in total.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Teemo's attacks on Ashe go as follows: - At second 1, Teemo attacks, and Ashe is poisoned for seconds 1 and 2. - At second 2 however, Teemo attacks again and resets the poison timer. Ashe is poisoned for seconds 2 and 3. Ashe is poisoned for seconds 1, 2, and 3, which is 3 seconds in total."
+    }
+  ]
+}

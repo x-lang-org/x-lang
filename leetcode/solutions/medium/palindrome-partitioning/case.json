@@ -1,0 +1,23 @@
+{
+  "problemId": "131",
+  "titleSlug": "palindrome-partitioning",
+  "title": "Palindrome Partitioning",
+  "titleCn": "分割回文串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.751549614457114,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aab\" <strong>Output:</strong> [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]",
+      "expectedOutput": "</strong> [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]"
+    },
+    {
+      "input": "</strong> s = \"a\" <strong>Output:</strong> [[\"a\"]]",
+      "expectedOutput": "</strong> [[\"a\"]]"
+    }
+  ]
+}

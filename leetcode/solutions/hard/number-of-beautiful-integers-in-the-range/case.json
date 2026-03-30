@@ -1,0 +1,26 @@
+{
+  "problemId": "3017",
+  "titleSlug": "number-of-beautiful-integers-in-the-range",
+  "title": "Number of Beautiful Integers in the Range",
+  "titleCn": "范围中美丽整数的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.37756497948016415,
+  "testcases": [
+    {
+      "input": "</strong> low = 10, high = 20, k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 beautiful integers in the given range: [12,18]. - 12 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 3. - 18 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 3. Additionally we can see that: - 16 is not beautiful because it is not divisible by k = 3. - 15 is not beautiful because it does not contain equal counts even and odd digits. It can be shown that there are only 2 beautiful integers in the given range.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 beautiful integers in the given range: [12,18]. - 12 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 3. - 18 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 3. Additionally we can see that: - 16 is not beautiful because it is not divisible by k = 3. - 15 is not beautiful because it does not contain equal counts even and odd digits. It can be shown that there are only 2 beautiful integers in the given range."
+    },
+    {
+      "input": "</strong> low = 1, high = 10, k = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> There is 1 beautiful integer in the given range: [10]. - 10 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 1. It can be shown that there is only 1 beautiful integer in the given range.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is 1 beautiful integer in the given range: [10]. - 10 is beautiful because it contains 1 odd digit and 1 even digit, and is divisible by k = 1. It can be shown that there is only 1 beautiful integer in the given range."
+    },
+    {
+      "input": "</strong> low = 5, high = 5, k = 2 <strong>Output:</strong> 0 <strong>Explanation:</strong> There are 0 beautiful integers in the given range. - 5 is not beautiful because it is not divisible by k = 2 and it does not contain equal even and odd digits.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are 0 beautiful integers in the given range. - 5 is not beautiful because it is not divisible by k = 2 and it does not contain equal even and odd digits."
+    }
+  ]
+}

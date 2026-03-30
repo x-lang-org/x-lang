@@ -1,0 +1,17 @@
+{
+  "problemId": "1811",
+  "titleSlug": "fix-names-in-a-table",
+  "title": "Fix Names in a Table",
+  "titleCn": "修复表中的名字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6181933427926776,
+  "testcases": [
+    {
+      "input": "</strong> Users table: +---------+-------+ | user_id | name | +---------+-------+ | 1    | aLice | | 2    | bOB  | +---------+-------+ <strong>Output:</strong> +---------+-------+ | user_id | name | +---------+-------+ | 1    | Alice | | 2    | Bob  | +---------+-------+",
+      "expectedOutput": "</strong> +---------+-------+ | user_id | name | +---------+-------+ | 1    | Alice | | 2    | Bob  | +---------+-------+"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "263",
+  "titleSlug": "ugly-number",
+  "title": "Ugly Number",
+  "titleCn": "丑数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5019978995388832,
+  "testcases": [
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> true <strong>Explanation:</strong> 6 = 2 × 3",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 6 = 2 × 3"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true <strong>Explanation:</strong> 1 has no prime factors.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 1 has no prime factors."
+    },
+    {
+      "input": "</strong> n = 14 <strong>Output:</strong> false <strong>Explanation:</strong> 14 is not ugly since it includes the prime factor 7.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> 14 is not ugly since it includes the prime factor 7."
+    }
+  ]
+}

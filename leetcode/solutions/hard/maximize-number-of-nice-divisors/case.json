@@ -1,0 +1,23 @@
+{
+  "problemId": "1936",
+  "titleSlug": "maximize-number-of-nice-divisors",
+  "title": "Maximize Number of Nice Divisors",
+  "titleCn": "好因子的最大数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.3063997139792635,
+  "testcases": [
+    {
+      "input": "</strong> primeFactors = 5\r <strong>Output:</strong> 6\r <strong>Explanation:</strong> 200 is a valid value of n.\r It has 5 prime factors: [2,2,2,5,5], and it has 6 nice divisors: [10,20,40,50,100,200].\r There is not other value of n that has at most 5 prime factors and more nice divisors.",
+      "expectedOutput": "</strong> 6\r <strong>Explanation:</strong> 200 is a valid value of n.\r It has 5 prime factors: [2,2,2,5,5], and it has 6 nice divisors: [10,20,40,50,100,200].\r There is not other value of n that has at most 5 prime factors and more nice divisors."
+    },
+    {
+      "input": "</strong> primeFactors = 8\r <strong>Output:</strong> 18",
+      "expectedOutput": "</strong> 18"
+    }
+  ]
+}

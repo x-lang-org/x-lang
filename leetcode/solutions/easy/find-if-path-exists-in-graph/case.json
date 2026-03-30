@@ -1,0 +1,24 @@
+{
+  "problemId": "2121",
+  "titleSlug": "find-if-path-exists-in-graph",
+  "title": "Find if Path Exists in Graph",
+  "titleCn": "寻找图中是否存在路径",
+  "difficulty": "EASY",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.5306634965450627,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2 <strong>Output:</strong> true <strong>Explanation:</strong> There are two paths from vertex 0 to vertex 2: - 0 → 1 → 2 - 0 → 2",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There are two paths from vertex 0 to vertex 2: - 0 → 1 → 2 - 0 → 2"
+    },
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[0,2],[3,5],[5,4],[4,3]], source = 0, destination = 5 <strong>Output:</strong> false <strong>Explanation:</strong> There is no path from vertex 0 to vertex 5.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no path from vertex 0 to vertex 5."
+    }
+  ]
+}

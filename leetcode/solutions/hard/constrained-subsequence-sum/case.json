@@ -1,0 +1,30 @@
+{
+  "problemId": "1286",
+  "titleSlug": "constrained-subsequence-sum",
+  "title": "Constrained Subsequence Sum",
+  "titleCn": "带限制的子序列和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "queue",
+    "array",
+    "dynamic-programming",
+    "sliding-window",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5003220532131001,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,2,-10,5,20], k = 2 <strong>Output:</strong> 37 <b>Explanation:</b> The subsequence is [10, 2, 5, 20].",
+      "expectedOutput": "</strong> 37 <b>Explanation:</b> The subsequence is [10, 2, 5, 20]."
+    },
+    {
+      "input": "</strong> nums = [-1,-2,-3], k = 1 <strong>Output:</strong> -1 <b>Explanation:</b> The subsequence must be non-empty, so we choose the largest number.",
+      "expectedOutput": "</strong> -1 <b>Explanation:</b> The subsequence must be non-empty, so we choose the largest number."
+    },
+    {
+      "input": "</strong> nums = [10,-2,-10,-5,20], k = 2 <strong>Output:</strong> 23 <b>Explanation:</b> The subsequence is [10, -2, -5, 20].",
+      "expectedOutput": "</strong> 23 <b>Explanation:</b> The subsequence is [10, -2, -5, 20]."
+    }
+  ]
+}

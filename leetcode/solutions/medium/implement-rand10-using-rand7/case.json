@@ -1,0 +1,28 @@
+{
+  "problemId": "903",
+  "titleSlug": "implement-rand10-using-rand7",
+  "title": "Implement Rand10() Using Rand7()",
+  "titleCn": "用 Rand7() 实现 Rand10()",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "rejection-sampling",
+    "probability-and-statistics",
+    "randomized"
+  ],
+  "acRate": 0.5564330983638363,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> [2]",
+      "expectedOutput": "</strong> [2]"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> [2,8]",
+      "expectedOutput": "</strong> [2,8]"
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> [3,8,10]",
+      "expectedOutput": "</strong> [3,8,10]"
+    }
+  ]
+}

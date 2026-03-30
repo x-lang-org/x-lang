@@ -1,0 +1,23 @@
+{
+  "problemId": "2005",
+  "titleSlug": "check-if-all-the-integers-in-a-range-are-covered",
+  "title": "Check if All the Integers in a Range Are Covered",
+  "titleCn": "检查是否区域内所有整数都被覆盖",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.5955801910874481,
+  "testcases": [
+    {
+      "input": "</strong> ranges = [[1,2],[3,4],[5,6]], left = 2, right = 5 <strong>Output:</strong> true <strong>Explanation:</strong> Every integer between 2 and 5 is covered: - 2 is covered by the first range. - 3 and 4 are covered by the second range. - 5 is covered by the third range.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Every integer between 2 and 5 is covered: - 2 is covered by the first range. - 3 and 4 are covered by the second range. - 5 is covered by the third range."
+    },
+    {
+      "input": "</strong> ranges = [[1,10],[10,20]], left = 21, right = 21 <strong>Output:</strong> false <strong>Explanation:</strong> 21 is not covered by any range.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> 21 is not covered by any range."
+    }
+  ]
+}

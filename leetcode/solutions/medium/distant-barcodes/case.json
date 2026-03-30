@@ -1,0 +1,26 @@
+{
+  "problemId": "1140",
+  "titleSlug": "distant-barcodes",
+  "title": "Distant Barcodes",
+  "titleCn": "距离相等的条形码",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "counting",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.4613215806734037,
+  "testcases": [
+    {
+      "input": "</strong> barcodes = [1,1,1,2,2,2] <strong>Output:</strong> [2,1,2,1,2,1]",
+      "expectedOutput": "</strong> [2,1,2,1,2,1]"
+    },
+    {
+      "input": "</strong> barcodes = [1,1,1,1,2,2,3,3] <strong>Output:</strong> [1,3,1,3,1,2,1,2]",
+      "expectedOutput": "</strong> [1,3,1,3,1,2,1,2]"
+    }
+  ]
+}

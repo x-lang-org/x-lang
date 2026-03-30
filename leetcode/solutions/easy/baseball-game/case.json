@@ -1,0 +1,27 @@
+{
+  "problemId": "682",
+  "titleSlug": "baseball-game",
+  "title": "Baseball Game",
+  "titleCn": "棒球比赛",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.7258700314522218,
+  "testcases": [
+    {
+      "input": "</strong> ops = [\"5\",\"2\",\"C\",\"D\",\"+\"] <strong>Output:</strong> 30 <strong>Explanation:</strong> \"5\" - Add 5 to the record, record is now [5]. \"2\" - Add 2 to the record, record is now [5, 2]. \"C\" - Invalidate and remove the previous score, record is now [5]. \"D\" - Add 2 * 5 = 10 to the record, record is now [5, 10]. \"+\" - Add 5 + 10 = 15 to the record, record is now [5, 10, 15]. The total sum is 5 + 10 + 15 = 30.",
+      "expectedOutput": "</strong> 30 <strong>Explanation:</strong> \"5\" - Add 5 to the record, record is now [5]. \"2\" - Add 2 to the record, record is now [5, 2]. \"C\" - Invalidate and remove the previous score, record is now [5]. \"D\" - Add 2 * 5 = 10 to the record, record is now [5, 10]. \"+\" - Add 5 + 10 = 15 to the record, record is now [5, 10, 15]. The total sum is 5 + 10 + 15 = 30."
+    },
+    {
+      "input": "</strong> ops = [\"5\",\"-2\",\"4\",\"C\",\"D\",\"9\",\"+\",\"+\"] <strong>Output:</strong> 27 <strong>Explanation:</strong> \"5\" - Add 5 to the record, record is now [5]. \"-2\" - Add -2 to the record, record is now [5, -2]. \"4\" - Add 4 to the record, record is now [5, -2, 4]. \"C\" - Invalidate and remove the previous score, record is now [5, -2]. \"D\" - Add 2 * -2 = -4 to the record, record is now [5, -2, -4]. \"9\" - Add 9 to the record, record is now [5, -2, -4, 9]. \"+\" - Add -4 + 9 = 5 to the record, record is now [5, -2, -4, 9, 5]. \"+\" - Add 9 + 5 = 14 to the record, record is now [5, -2, -4, 9, 5, 14]. The total sum is 5 + -2 + -4 + 9 + 5 + 14 = 27.",
+      "expectedOutput": "</strong> 27 <strong>Explanation:</strong> \"5\" - Add 5 to the record, record is now [5]. \"-2\" - Add -2 to the record, record is now [5, -2]. \"4\" - Add 4 to the record, record is now [5, -2, 4]. \"C\" - Invalidate and remove the previous score, record is now [5, -2]. \"D\" - Add 2 * -2 = -4 to the record, record is now [5, -2, -4]. \"9\" - Add 9 to the record, record is now [5, -2, -4, 9]. \"+\" - Add -4 + 9 = 5 to the record, record is now [5, -2, -4, 9, 5]. \"+\" - Add 9 + 5 = 14 to the record, record is now [5, -2, -4, 9, 5, 14]. The total sum is 5 + -2 + -4 + 9 + 5 + 14 = 27."
+    },
+    {
+      "input": "</strong> ops = [\"1\",\"C\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> \"1\" - Add 1 to the record, record is now [1]. \"C\" - Invalidate and remove the previous score, record is now []. Since the record is empty, the total sum is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> \"1\" - Add 1 to the record, record is now [1]. \"C\" - Invalidate and remove the previous score, record is now []. Since the record is empty, the total sum is 0."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2401",
+  "titleSlug": "count-asterisks",
+  "title": "Count Asterisks",
+  "titleCn": "统计星号",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.846871580240751,
+  "testcases": [
+    {
+      "input": "</strong> s = \"l|*e*et|c**o|*de|\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The considered characters are underlined: \"<u>l</u>|*e*et|<u>c**o</u>|*de|\". The characters between the first and second '|' are excluded from the answer. Also, the characters between the third and fourth '|' are excluded from the answer. There are 2 asterisks considered. Therefore, we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The considered characters are underlined: \"<u>l</u>|*e*et|<u>c**o</u>|*de|\". The characters between the first and second '|' are excluded from the answer. Also, the characters between the third and fourth '|' are excluded from the answer. There are 2 asterisks considered. Therefore, we return 2."
+    },
+    {
+      "input": "</strong> s = \"iamprogrammer\" <strong>Output:</strong> 0 <strong>Explanation:</strong> In this example, there are no asterisks in s. Therefore, we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> In this example, there are no asterisks in s. Therefore, we return 0."
+    },
+    {
+      "input": "</strong> s = \"yo|uar|e**|b|e***au|tifu|l\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The considered characters are underlined: \"<u>yo</u>|uar|<u>e**</u>|b|<u>e***au</u>|tifu|<u>l</u>\". There are 5 asterisks considered. Therefore, we return 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The considered characters are underlined: \"<u>yo</u>|uar|<u>e**</u>|b|<u>e***au</u>|tifu|<u>l</u>\". There are 5 asterisks considered. Therefore, we return 5."
+    }
+  ]
+}

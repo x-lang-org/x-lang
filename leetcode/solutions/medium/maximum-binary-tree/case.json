@@ -1,0 +1,26 @@
+{
+  "problemId": "654",
+  "titleSlug": "maximum-binary-tree",
+  "title": "Maximum Binary Tree",
+  "titleCn": "最大二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "tree",
+    "array",
+    "divide-and-conquer",
+    "binary-tree",
+    "monotonic-stack"
+  ],
+  "acRate": 0.8233808344578397,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,1,6,0,5] <strong>Output:</strong> [6,3,5,null,2,0,null,null,1] <strong>Explanation:</strong> The recursive calls are as follow: - The largest value in [3,2,1,6,0,5] is 6. Left prefix is [3,2,1] and right suffix is [0,5].   - The largest value in [3,2,1] is 3. Left prefix is [] and right suffix is [2,1].     - Empty array, so no child.     - The largest value in [2,1] is 2. Left prefix is [] and right suffix is [1].       - Empty array, so no child.       - Only one element, so child is a node with value 1.   - The largest value in [0,5] is 5. Left prefix is [0] and right suffix is [].     - Only one element, so child is a node with value 0.     - Empty array, so no child.",
+      "expectedOutput": "</strong> [6,3,5,null,2,0,null,null,1] <strong>Explanation:</strong> The recursive calls are as follow: - The largest value in [3,2,1,6,0,5] is 6. Left prefix is [3,2,1] and right suffix is [0,5].   - The largest value in [3,2,1] is 3. Left prefix is [] and right suffix is [2,1].     - Empty array, so no child.     - The largest value in [2,1] is 2. Left prefix is [] and right suffix is [1].       - Empty array, so no child.       - Only one element, so child is a node with value 1.   - The largest value in [0,5] is 5. Left prefix is [0] and right suffix is [].     - Only one element, so child is a node with value 0.     - Empty array, so no child."
+    },
+    {
+      "input": "</strong> nums = [3,2,1] <strong>Output:</strong> [3,null,2,null,1]",
+      "expectedOutput": "</strong> [3,null,2,null,1]"
+    }
+  ]
+}

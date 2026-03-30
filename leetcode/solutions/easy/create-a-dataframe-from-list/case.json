@@ -1,0 +1,15 @@
+{
+  "problemId": "3062",
+  "titleSlug": "create-a-dataframe-from-list",
+  "title": "Create a DataFrame from List",
+  "titleCn": "从表中创建 DataFrame",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7814003206841261,
+  "testcases": [
+    {
+      "input": "</strong>student_data:<strong> </strong><code>[  [1, 15],  [2, 11],  [3, 11],  [4, 20] ]</code> <strong>Output:</strong> +------------+-----+ | student_id | age | +------------+-----+ | 1     | 15 | | 2     | 11 | | 3     | 11 | | 4     | 20 | +------------+-----+ <strong>Explanation:</strong> A DataFrame was created on top of student_data, with two columns named <code>student_id</code> and <code>age</code>.",
+      "expectedOutput": "</strong> +------------+-----+ | student_id | age | +------------+-----+ | 1     | 15 | | 2     | 11 | | 3     | 11 | | 4     | 20 | +------------+-----+ <strong>Explanation:</strong> A DataFrame was created on top of student_data, with two columns named <code>student_id</code> and <code>age</code>."
+    }
+  ]
+}

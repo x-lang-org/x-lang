@@ -1,0 +1,24 @@
+{
+  "problemId": "901",
+  "titleSlug": "advantage-shuffle",
+  "title": "Advantage Shuffle",
+  "titleCn": "优势洗牌",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.5206951429117067,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [2,7,11,15], nums2 = [1,10,4,11] <strong>Output:</strong> [2,11,7,15]",
+      "expectedOutput": "</strong> [2,11,7,15]"
+    },
+    {
+      "input": "</strong> nums1 = [12,24,8,32], nums2 = [13,25,32,11] <strong>Output:</strong> [24,32,8,12]",
+      "expectedOutput": "</strong> [24,32,8,12]"
+    }
+  ]
+}

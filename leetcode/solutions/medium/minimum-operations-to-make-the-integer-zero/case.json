@@ -1,0 +1,23 @@
+{
+  "problemId": "2837",
+  "titleSlug": "minimum-operations-to-make-the-integer-zero",
+  "title": "Minimum Operations to Make the Integer Zero",
+  "titleCn": "得到整数零需要执行的最少操作数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "enumeration"
+  ],
+  "acRate": 0.48667258316246903,
+  "testcases": [
+    {
+      "input": "</strong> num1 = 3, num2 = -2 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can make 3 equal to 0 with the following operations: - We choose i = 2 and subtract 2<sup>2</sup> + (-2) from 3, 3 - (4 + (-2)) = 1. - We choose i = 2 and subtract 2<sup>2</sup> + (-2) from 1, 1 - (4 + (-2)) = -1. - We choose i = 0 and subtract 2<sup>0</sup> + (-2) from -1, (-1) - (1 + (-2)) = 0. It can be proven, that 3 is the minimum number of operations that we need to perform.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can make 3 equal to 0 with the following operations: - We choose i = 2 and subtract 2<sup>2</sup> + (-2) from 3, 3 - (4 + (-2)) = 1. - We choose i = 2 and subtract 2<sup>2</sup> + (-2) from 1, 1 - (4 + (-2)) = -1. - We choose i = 0 and subtract 2<sup>0</sup> + (-2) from -1, (-1) - (1 + (-2)) = 0. It can be proven, that 3 is the minimum number of operations that we need to perform."
+    },
+    {
+      "input": "</strong> num1 = 5, num2 = 7 <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be proven, that it is impossible to make 5 equal to 0 with the given operation.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be proven, that it is impossible to make 5 equal to 0 with the given operation."
+    }
+  ]
+}

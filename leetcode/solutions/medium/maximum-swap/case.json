@@ -1,0 +1,22 @@
+{
+  "problemId": "670",
+  "titleSlug": "maximum-swap",
+  "title": "Maximum Swap",
+  "titleCn": "最大交换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.49277079099907295,
+  "testcases": [
+    {
+      "input": "</strong> num = 2736 <strong>Output:</strong> 7236 <strong>Explanation:</strong> Swap the number 2 and the number 7.",
+      "expectedOutput": "</strong> 7236 <strong>Explanation:</strong> Swap the number 2 and the number 7."
+    },
+    {
+      "input": "</strong> num = 9973 <strong>Output:</strong> 9973 <strong>Explanation:</strong> No swap.",
+      "expectedOutput": "</strong> 9973 <strong>Explanation:</strong> No swap."
+    }
+  ]
+}

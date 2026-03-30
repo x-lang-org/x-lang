@@ -1,0 +1,25 @@
+{
+  "problemId": "693",
+  "titleSlug": "binary-number-with-alternating-bits",
+  "title": "Binary Number with Alternating Bits",
+  "titleCn": "交替位二进制数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.6628773591040932,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> true <strong>Explanation:</strong> The binary representation of 5 is: 101",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The binary representation of 5 is: 101"
+    },
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> false <strong>Explanation:</strong> The binary representation of 7 is: 111.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The binary representation of 7 is: 111."
+    },
+    {
+      "input": "</strong> n = 11 <strong>Output:</strong> false <strong>Explanation:</strong> The binary representation of 11 is: 1011.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The binary representation of 11 is: 1011."
+    }
+  ]
+}

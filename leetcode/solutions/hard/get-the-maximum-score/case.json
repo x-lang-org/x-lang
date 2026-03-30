@@ -1,0 +1,28 @@
+{
+  "problemId": "1659",
+  "titleSlug": "get-the-maximum-score",
+  "title": "Get the Maximum Score",
+  "titleCn": "最大得分",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "dynamic-programming"
+  ],
+  "acRate": 0.43639455782312925,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [2,4,5,8,10], nums2 = [4,6,8,9] <strong>Output:</strong> 30 <strong>Explanation:</strong> Valid paths: [2,4,5,8,10], [2,4,5,8,9], [2,4,6,8,9], [2,4,6,8,10], (starting from nums1) [4,6,8,9], [4,5,8,10], [4,5,8,9], [4,6,8,10]  (starting from nums2) The maximum is obtained with the path in green <strong>[2,4,6,8,10]</strong>.",
+      "expectedOutput": "</strong> 30 <strong>Explanation:</strong> Valid paths: [2,4,5,8,10], [2,4,5,8,9], [2,4,6,8,9], [2,4,6,8,10], (starting from nums1) [4,6,8,9], [4,5,8,10], [4,5,8,9], [4,6,8,10]  (starting from nums2) The maximum is obtained with the path in green <strong>[2,4,6,8,10]</strong>."
+    },
+    {
+      "input": "</strong> nums1 = [1,3,5,7,9], nums2 = [3,5,100] <strong>Output:</strong> 109 <strong>Explanation:</strong> Maximum sum is obtained with the path <strong>[1,3,5,100]</strong>.",
+      "expectedOutput": "</strong> 109 <strong>Explanation:</strong> Maximum sum is obtained with the path <strong>[1,3,5,100]</strong>."
+    },
+    {
+      "input": "</strong> nums1 = [1,2,3,4,5], nums2 = [6,7,8,9,10] <strong>Output:</strong> 40 <strong>Explanation:</strong> There are no common elements between nums1 and nums2. Maximum sum is obtained with the path [6,7,8,9,10].",
+      "expectedOutput": "</strong> 40 <strong>Explanation:</strong> There are no common elements between nums1 and nums2. Maximum sum is obtained with the path [6,7,8,9,10]."
+    }
+  ]
+}

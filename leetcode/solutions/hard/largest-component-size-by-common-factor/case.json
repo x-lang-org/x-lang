@@ -1,0 +1,29 @@
+{
+  "problemId": "989",
+  "titleSlug": "largest-component-size-by-common-factor",
+  "title": "Largest Component Size by Common Factor",
+  "titleCn": "按公因数计算最大组件大小",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "array",
+    "hash-table",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.5201871942139971,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,6,15,35] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> nums = [20,50,9,63] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> nums = [2,3,6,7,4,12,21,39] <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    }
+  ]
+}

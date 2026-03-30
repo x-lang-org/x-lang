@@ -1,0 +1,24 @@
+{
+  "problemId": "2308",
+  "titleSlug": "divide-array-into-equal-pairs",
+  "title": "Divide Array Into Equal Pairs",
+  "titleCn": "将数组划分成相等数对",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.7366966626514561,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,3,2,2,2] <strong>Output:</strong> true <strong>Explanation:</strong> There are 6 elements in nums, so they should be divided into 6 / 2 = 3 pairs. If nums is divided into the pairs (2, 2), (3, 3), and (2, 2), it will satisfy all the conditions.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There are 6 elements in nums, so they should be divided into 6 / 2 = 3 pairs. If nums is divided into the pairs (2, 2), (3, 3), and (2, 2), it will satisfy all the conditions."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> false <strong>Explanation:</strong> There is no way to divide nums into 4 / 2 = 2 pairs such that the pairs satisfy every condition.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no way to divide nums into 4 / 2 = 2 pairs such that the pairs satisfy every condition."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2260",
+  "titleSlug": "divide-a-string-into-groups-of-size-k",
+  "title": "Divide a String Into Groups of Size k",
+  "titleCn": "将字符串拆分为若干长度为 k 的组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.7265444238778344,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcdefghi\", k = 3, fill = \"x\" <strong>Output:</strong> [\"abc\",\"def\",\"ghi\"] <strong>Explanation:</strong> The first 3 characters \"abc\" form the first group. The next 3 characters \"def\" form the second group. The last 3 characters \"ghi\" form the third group. Since all groups can be completely filled by characters from the string, we do not need to use fill. Thus, the groups formed are \"abc\", \"def\", and \"ghi\".",
+      "expectedOutput": "</strong> [\"abc\",\"def\",\"ghi\"] <strong>Explanation:</strong> The first 3 characters \"abc\" form the first group. The next 3 characters \"def\" form the second group. The last 3 characters \"ghi\" form the third group. Since all groups can be completely filled by characters from the string, we do not need to use fill. Thus, the groups formed are \"abc\", \"def\", and \"ghi\"."
+    },
+    {
+      "input": "</strong> s = \"abcdefghij\", k = 3, fill = \"x\" <strong>Output:</strong> [\"abc\",\"def\",\"ghi\",\"jxx\"] <strong>Explanation:</strong> Similar to the previous example, we are forming the first three groups \"abc\", \"def\", and \"ghi\". For the last group, we can only use the character 'j' from the string. To complete this group, we add 'x' twice. Thus, the 4 groups formed are \"abc\", \"def\", \"ghi\", and \"jxx\".",
+      "expectedOutput": "</strong> [\"abc\",\"def\",\"ghi\",\"jxx\"] <strong>Explanation:</strong> Similar to the previous example, we are forming the first three groups \"abc\", \"def\", and \"ghi\". For the last group, we can only use the character 'j' from the string. To complete this group, we add 'x' twice. Thus, the 4 groups formed are \"abc\", \"def\", \"ghi\", and \"jxx\"."
+    }
+  ]
+}

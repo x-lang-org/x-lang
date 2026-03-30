@@ -1,0 +1,25 @@
+{
+  "problemId": "1553",
+  "titleSlug": "count-triplets-that-can-form-two-arrays-of-equal-xor",
+  "title": "Count Triplets That Can Form Two Arrays of Equal XOR",
+  "titleCn": "形成两个异或相等数组的三元组数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math",
+    "prefix-sum"
+  ],
+  "acRate": 0.8008186989420708,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,3,1,6,7] <strong>Output:</strong> 4 <strong>Explanation:</strong> The triplets are (0,1,2), (0,2,2), (2,3,4) and (2,4,4)",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The triplets are (0,1,2), (0,2,2), (2,3,4) and (2,4,4)"
+    },
+    {
+      "input": "</strong> arr = [1,1,1,1,1] <strong>Output:</strong> 10",
+      "expectedOutput": "</strong> 10"
+    }
+  ]
+}

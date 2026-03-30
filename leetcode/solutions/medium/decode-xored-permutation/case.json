@@ -1,0 +1,22 @@
+{
+  "problemId": "1835",
+  "titleSlug": "decode-xored-permutation",
+  "title": "Decode XORed Permutation",
+  "titleCn": "解码异或后的排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.7269929001527815,
+  "testcases": [
+    {
+      "input": "</strong> encoded = [3,1] <strong>Output:</strong> [1,2,3] <strong>Explanation:</strong> If perm = [1,2,3], then encoded = [1 XOR 2,2 XOR 3] = [3,1]",
+      "expectedOutput": "</strong> [1,2,3] <strong>Explanation:</strong> If perm = [1,2,3], then encoded = [1 XOR 2,2 XOR 3] = [3,1]"
+    },
+    {
+      "input": "</strong> encoded = [6,5,4,6] <strong>Output:</strong> [2,4,1,5,3]",
+      "expectedOutput": "</strong> [2,4,1,5,3]"
+    }
+  ]
+}

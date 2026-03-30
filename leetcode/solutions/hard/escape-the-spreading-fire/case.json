@@ -1,0 +1,28 @@
+{
+  "problemId": "2344",
+  "titleSlug": "escape-the-spreading-fire",
+  "title": "Escape the Spreading Fire",
+  "titleCn": "逃离火灾",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "binary-search",
+    "matrix"
+  ],
+  "acRate": 0.5061198445385463,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,2,0,0,0,0,0],[0,0,0,2,2,1,0],[0,2,0,0,1,2,0],[0,0,2,2,2,0,2],[0,0,0,0,0,0,0]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The figure above shows the scenario where you stay in the initial position for 3 minutes. You will still be able to safely reach the safehouse. Staying for more than 3 minutes will not allow you to safely reach the safehouse.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The figure above shows the scenario where you stay in the initial position for 3 minutes. You will still be able to safely reach the safehouse. Staying for more than 3 minutes will not allow you to safely reach the safehouse."
+    },
+    {
+      "input": "</strong> grid = [[0,0,0,0],[0,1,2,0],[0,2,0,0]] <strong>Output:</strong> -1 <strong>Explanation:</strong> The figure above shows the scenario where you immediately move towards the safehouse. Fire will spread to any cell you move towards and it is impossible to safely reach the safehouse. Thus, -1 is returned.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The figure above shows the scenario where you immediately move towards the safehouse. Fire will spread to any cell you move towards and it is impossible to safely reach the safehouse. Thus, -1 is returned."
+    },
+    {
+      "input": "</strong> grid = [[0,0,0],[2,2,0],[1,2,0]] <strong>Output:</strong> 1000000000 <strong>Explanation:</strong> The figure above shows the initial grid. Notice that the fire is contained by walls and you will always be able to safely reach the safehouse. Thus, 10<sup>9</sup> is returned.",
+      "expectedOutput": "</strong> 1000000000 <strong>Explanation:</strong> The figure above shows the initial grid. Notice that the fire is contained by walls and you will always be able to safely reach the safehouse. Thus, 10<sup>9</sup> is returned."
+    }
+  ]
+}

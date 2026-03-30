@@ -1,0 +1,24 @@
+{
+  "problemId": "1000030",
+  "titleSlug": "word-transformer-lcci",
+  "title": "Word Transformer LCCI",
+  "titleCn": "单词转换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.41112179562351947,
+  "testcases": [
+    {
+      "input": "</strong>\r beginWord = \"hit\",\r endWord = \"cog\",\r wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]\r \r <strong>Output:</strong>\r [\"hit\",\"hot\",\"dot\",\"lot\",\"log\",\"cog\"]",
+      "expectedOutput": "</strong>\r [\"hit\",\"hot\",\"dot\",\"lot\",\"log\",\"cog\"]"
+    },
+    {
+      "input": "</strong>\r beginWord = \"hit\"\r endWord = \"cog\"\r wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]\r \r <strong>Output: </strong>[]\r \r <strong>Explanation:</strong> <em>endWord</em> \"cog\" is not in the dictionary, so there's no possible transforming sequence.",
+      "expectedOutput": "</strong>[]\r \r <strong>Explanation:</strong> <em>endWord</em> \"cog\" is not in the dictionary, so there's no possible transforming sequence."
+    }
+  ]
+}

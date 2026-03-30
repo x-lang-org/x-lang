@@ -1,0 +1,27 @@
+{
+  "problemId": "301",
+  "titleSlug": "remove-invalid-parentheses",
+  "title": "Remove Invalid Parentheses",
+  "titleCn": "删除无效的括号",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.562019860162232,
+  "testcases": [
+    {
+      "input": "</strong> s = \"()())()\" <strong>Output:</strong> [\"(())()\",\"()()()\"]",
+      "expectedOutput": "</strong> [\"(())()\",\"()()()\"]"
+    },
+    {
+      "input": "</strong> s = \"(a)())()\" <strong>Output:</strong> [\"(a())()\",\"(a)()()\"]",
+      "expectedOutput": "</strong> [\"(a())()\",\"(a)()()\"]"
+    },
+    {
+      "input": "</strong> s = \")(\" <strong>Output:</strong> [\"\"]",
+      "expectedOutput": "</strong> [\"\"]"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "2174",
+  "titleSlug": "next-greater-numerically-balanced-number",
+  "title": "Next Greater Numerically Balanced Number",
+  "titleCn": "下一个更大的数值平衡数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "backtracking",
+    "counting",
+    "enumeration"
+  ],
+  "acRate": 0.6066107241448655,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 22 <strong>Explanation:</strong> 22 is numerically balanced since: - The digit 2 occurs 2 times. It is also the smallest numerically balanced number strictly greater than 1.",
+      "expectedOutput": "</strong> 22 <strong>Explanation:</strong> 22 is numerically balanced since: - The digit 2 occurs 2 times. It is also the smallest numerically balanced number strictly greater than 1."
+    },
+    {
+      "input": "</strong> n = 1000 <strong>Output:</strong> 1333 <strong>Explanation:</strong> 1333 is numerically balanced since: - The digit 1 occurs 1 time. - The digit 3 occurs 3 times. It is also the smallest numerically balanced number strictly greater than 1000. Note that 1022 cannot be the answer because 0 appeared more than 0 times.",
+      "expectedOutput": "</strong> 1333 <strong>Explanation:</strong> 1333 is numerically balanced since: - The digit 1 occurs 1 time. - The digit 3 occurs 3 times. It is also the smallest numerically balanced number strictly greater than 1000. Note that 1022 cannot be the answer because 0 appeared more than 0 times."
+    },
+    {
+      "input": "</strong> n = 3000 <strong>Output:</strong> 3133 <strong>Explanation:</strong> 3133 is numerically balanced since: - The digit 1 occurs 1 time. - The digit 3 occurs 3 times. It is also the smallest numerically balanced number strictly greater than 3000.",
+      "expectedOutput": "</strong> 3133 <strong>Explanation:</strong> 3133 is numerically balanced since: - The digit 1 occurs 1 time. - The digit 3 occurs 3 times. It is also the smallest numerically balanced number strictly greater than 3000."
+    }
+  ]
+}

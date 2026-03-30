@@ -1,0 +1,22 @@
+{
+  "problemId": "2575",
+  "titleSlug": "minimum-cuts-to-divide-a-circle",
+  "title": "Minimum Cuts to Divide a Circle",
+  "titleCn": "分割圆的最少切割次数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "acRate": 0.5938983916262446,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> The above figure shows how cutting the circle twice through the middle divides it into 4 equal slices.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The above figure shows how cutting the circle twice through the middle divides it into 4 equal slices."
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> At least 3 cuts are needed to divide the circle into 3 equal slices. It can be shown that less than 3 cuts cannot result in 3 slices of equal size and shape. Also note that the first cut will not divide the circle into distinct parts.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> At least 3 cuts are needed to divide the circle into 3 equal slices. It can be shown that less than 3 cuts cannot result in 3 slices of equal size and shape. Also note that the first cut will not divide the circle into distinct parts."
+    }
+  ]
+}

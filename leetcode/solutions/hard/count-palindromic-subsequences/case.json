@@ -1,0 +1,26 @@
+{
+  "problemId": "2577",
+  "titleSlug": "count-palindromic-subsequences",
+  "title": "Count Palindromic Subsequences",
+  "titleCn": "统计回文子序列数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4895165268870252,
+  "testcases": [
+    {
+      "input": "</strong> s = \"103301\" <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 6 possible subsequences of length 5: \"10330\",\"10331\",\"10301\",\"10301\",\"13301\",\"03301\". Two of them (both equal to \"10301\") are palindromic.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 6 possible subsequences of length 5: \"10330\",\"10331\",\"10301\",\"10301\",\"13301\",\"03301\". Two of them (both equal to \"10301\") are palindromic."
+    },
+    {
+      "input": "</strong> s = \"0000000\" <strong>Output:</strong> 21 <strong>Explanation:</strong> All 21 subsequences are \"00000\", which is palindromic.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> All 21 subsequences are \"00000\", which is palindromic."
+    },
+    {
+      "input": "</strong> s = \"9999900000\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The only two palindromic subsequences are \"99999\" and \"00000\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The only two palindromic subsequences are \"99999\" and \"00000\"."
+    }
+  ]
+}

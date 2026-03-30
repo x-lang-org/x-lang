@@ -1,0 +1,24 @@
+{
+  "problemId": "395",
+  "titleSlug": "longest-substring-with-at-least-k-repeating-characters",
+  "title": "Longest Substring with At Least K Repeating Characters",
+  "titleCn": "至少有 K 个重复字符的最长子串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "divide-and-conquer",
+    "sliding-window"
+  ],
+  "acRate": 0.5315171355967125,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aaabb\", k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The longest substring is \"aaa\", as 'a' is repeated 3 times.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The longest substring is \"aaa\", as 'a' is repeated 3 times."
+    },
+    {
+      "input": "</strong> s = \"ababbc\", k = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> The longest substring is \"ababb\", as 'a' is repeated 2 times and 'b' is repeated 3 times.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The longest substring is \"ababb\", as 'a' is repeated 2 times and 'b' is repeated 3 times."
+    }
+  ]
+}

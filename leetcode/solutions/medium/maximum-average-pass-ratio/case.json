@@ -1,0 +1,23 @@
+{
+  "problemId": "1917",
+  "titleSlug": "maximum-average-pass-ratio",
+  "title": "Maximum Average Pass Ratio",
+  "titleCn": "最大平均通过率",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6158263109704052,
+  "testcases": [
+    {
+      "input": "</strong> classes = [[1,2],[3,5],[2,2]], <code>extraStudents</code> = 2 <strong>Output:</strong> 0.78333 <strong>Explanation:</strong> You can assign the two extra students to the first class. The average pass ratio will be equal to (3/4 + 3/5 + 2/2) / 3 = 0.78333.",
+      "expectedOutput": "</strong> 0.78333 <strong>Explanation:</strong> You can assign the two extra students to the first class. The average pass ratio will be equal to (3/4 + 3/5 + 2/2) / 3 = 0.78333."
+    },
+    {
+      "input": "</strong> classes = [[2,4],[3,9],[4,5],[2,10]], <code>extraStudents</code> = 4 <strong>Output:</strong> 0.53485",
+      "expectedOutput": "</strong> 0.53485"
+    }
+  ]
+}

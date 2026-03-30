@@ -1,0 +1,27 @@
+{
+  "problemId": "2569",
+  "titleSlug": "number-of-beautiful-partitions",
+  "title": "Number of Beautiful Partitions",
+  "titleCn": "完美分割的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.4133039526236056,
+  "testcases": [
+    {
+      "input": "</strong> s = \"23542185131\", k = 3, minLength = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> There exists three ways to create a beautiful partition: \"2354 | 218 | 5131\" \"2354 | 21851 | 31\" \"2354218 | 51 | 31\"",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There exists three ways to create a beautiful partition: \"2354 | 218 | 5131\" \"2354 | 21851 | 31\" \"2354218 | 51 | 31"
+    },
+    {
+      "input": "</strong> s = \"23542185131\", k = 3, minLength = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> There exists one way to create a beautiful partition: \"2354 | 218 | 5131\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There exists one way to create a beautiful partition: \"2354 | 218 | 5131\"."
+    },
+    {
+      "input": "</strong> s = \"3312958\", k = 3, minLength = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> There exists one way to create a beautiful partition: \"331 | 29 | 58\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There exists one way to create a beautiful partition: \"331 | 29 | 58\"."
+    }
+  ]
+}

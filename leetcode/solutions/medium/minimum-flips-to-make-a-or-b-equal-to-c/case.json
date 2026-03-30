@@ -1,0 +1,25 @@
+{
+  "problemId": "1441",
+  "titleSlug": "minimum-flips-to-make-a-or-b-equal-to-c",
+  "title": "Minimum Flips to Make a OR b Equal to c",
+  "titleCn": "或运算的最小翻转次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.7001983157531687,
+  "testcases": [
+    {
+      "input": "</strong> a = 2, b = 6, c = 5\r <strong>Output:</strong> 3\r <strong>Explanation: </strong>After flips a = 1 , b = 4 , c = 5 such that (<code>a</code> OR <code>b</code> == <code>c</code>)",
+      "expectedOutput": "</strong> 3\r <strong>Explanation: </strong>After flips a = 1 , b = 4 , c = 5 such that (<code>a</code> OR <code>b</code> == <code>c</code>)"
+    },
+    {
+      "input": "</strong> a = 4, b = 2, c = 7\r <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> a = 1, b = 2, c = 3\r <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

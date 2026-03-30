@@ -1,0 +1,21 @@
+{
+  "problemId": "1714",
+  "titleSlug": "rearrange-spaces-between-words",
+  "title": "Rearrange Spaces Between Words",
+  "titleCn": "重新排列单词间的空格",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.467777743034927,
+  "testcases": [
+    {
+      "input": "</strong> text = \" this  is a sentence \" <strong>Output:</strong> \"this  is  a  sentence\" <strong>Explanation:</strong> There are a total of 9 spaces and 4 words. We can evenly divide the 9 spaces between the words: 9 / (4-1) = 3 spaces.",
+      "expectedOutput": "</strong> \"this  is  a  sentence\" <strong>Explanation:</strong> There are a total of 9 spaces and 4 words. We can evenly divide the 9 spaces between the words: 9 / (4-1) = 3 spaces."
+    },
+    {
+      "input": "</strong> text = \" practice  makes  perfect\" <strong>Output:</strong> \"practice  makes  perfect \" <strong>Explanation:</strong> There are a total of 7 spaces and 3 words. 7 / (3-1) = 3 spaces plus 1 extra space. We place this extra space at the end of the string.",
+      "expectedOutput": "</strong> \"practice  makes  perfect \" <strong>Explanation:</strong> There are a total of 7 spaces and 3 words. 7 / (3-1) = 3 spaces plus 1 extra space. We place this extra space at the end of the string."
+    }
+  ]
+}

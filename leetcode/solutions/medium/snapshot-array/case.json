@@ -1,0 +1,20 @@
+{
+  "problemId": "1249",
+  "titleSlug": "snapshot-array",
+  "title": "Snapshot Array",
+  "titleCn": "快照数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "design",
+    "array",
+    "hash-table",
+    "binary-search"
+  ],
+  "acRate": 0.3862851780267906,
+  "testcases": [
+    {
+      "input": "</strong> [\"SnapshotArray\",\"set\",\"snap\",\"set\",\"get\"] [[3],[0,5],[],[0,6],[0,0]] <strong>Output:</strong> [null,null,0,null,5] <strong>Explanation: </strong> SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3 snapshotArr.set(0,5); // Set array[0] = 5 snapshotArr.snap(); // Take a snapshot, return snap_id = 0 snapshotArr.set(0,6); snapshotArr.get(0,0); // Get the value of array[0] with snap_id = 0, return 5",
+      "expectedOutput": "</strong> [null,null,0,null,5] <strong>Explanation: </strong> SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3 snapshotArr.set(0,5); // Set array[0] = 5 snapshotArr.snap(); // Take a snapshot, return snap_id = 0 snapshotArr.set(0,6); snapshotArr.get(0,0); // Get the value of array[0] with snap_id = 0, return 5"
+    }
+  ]
+}

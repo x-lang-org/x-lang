@@ -1,0 +1,22 @@
+{
+  "problemId": "1133",
+  "titleSlug": "last-substring-in-lexicographical-order",
+  "title": "Last Substring in Lexicographical Order",
+  "titleCn": "按字典序排在最后的子串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.36159134083175026,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abab\" <strong>Output:</strong> \"bab\" <strong>Explanation:</strong> The substrings are [\"a\", \"ab\", \"aba\", \"abab\", \"b\", \"ba\", \"bab\"]. The lexicographically maximum substring is \"bab\".",
+      "expectedOutput": "</strong> \"bab\" <strong>Explanation:</strong> The substrings are [\"a\", \"ab\", \"aba\", \"abab\", \"b\", \"ba\", \"bab\"]. The lexicographically maximum substring is \"bab\"."
+    },
+    {
+      "input": "</strong> s = \"leetcode\" <strong>Output:</strong> \"tcode\"",
+      "expectedOutput": "</strong> \"tcode"
+    }
+  ]
+}

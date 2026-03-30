@@ -1,0 +1,29 @@
+{
+  "problemId": "3267",
+  "titleSlug": "find-longest-special-substring-that-occurs-thrice-i",
+  "title": "Find Longest Special Substring That Occurs Thrice I",
+  "titleCn": "找出出现至少三次的最长特殊子字符串 I",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "binary-search",
+    "counting",
+    "sliding-window"
+  ],
+  "acRate": 0.5872712726146541,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aaaa\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The longest special substring which occurs thrice is \"aa\": substrings \"<u><strong>aa</strong></u>aa\", \"a<u><strong>aa</strong></u>a\", and \"aa<u><strong>aa</strong></u>\". It can be shown that the maximum length achievable is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The longest special substring which occurs thrice is \"aa\": substrings \"<u><strong>aa</strong></u>aa\", \"a<u><strong>aa</strong></u>a\", and \"aa<u><strong>aa</strong></u>\". It can be shown that the maximum length achievable is 2."
+    },
+    {
+      "input": "</strong> s = \"abcdef\" <strong>Output:</strong> -1 <strong>Explanation:</strong> There exists no special substring which occurs at least thrice. Hence return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There exists no special substring which occurs at least thrice. Hence return -1."
+    },
+    {
+      "input": "</strong> s = \"abcaba\" <strong>Output:</strong> 1 <strong>Explanation:</strong> The longest special substring which occurs thrice is \"a\": substrings \"<u><strong>a</strong></u>bcaba\", \"abc<u><strong>a</strong></u>ba\", and \"abcab<u><strong>a</strong></u>\". It can be shown that the maximum length achievable is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The longest special substring which occurs thrice is \"a\": substrings \"<u><strong>a</strong></u>bcaba\", \"abc<u><strong>a</strong></u>ba\", and \"abcab<u><strong>a</strong></u>\". It can be shown that the maximum length achievable is 1."
+    }
+  ]
+}

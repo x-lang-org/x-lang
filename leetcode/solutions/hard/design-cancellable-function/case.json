@@ -1,0 +1,35 @@
+{
+  "problemId": "2788",
+  "titleSlug": "design-cancellable-function",
+  "title": "Design Cancellable Function",
+  "titleCn": "设计可取消函数",
+  "difficulty": "HARD",
+  "topicTags": [],
+  "acRate": 0.6021112464474219,
+  "testcases": [
+    {
+      "input": "</strong> generatorFunction = function*() {   return 42; } cancelledAt = 100 <strong>Output:</strong> {\"resolved\": 42} <strong>Explanation:</strong> const generator = generatorFunction(); const [cancel, promise] = cancellable(generator); setTimeout(cancel, 100); promise.then(console.log); // resolves 42 at t=0ms The generator immediately yields 42 and finishes. Because of that, the returned promise immediately resolves 42. Note that cancelling a finished generator does nothing.",
+      "expectedOutput": "</strong> {\"resolved\": 42} <strong>Explanation:</strong> const generator = generatorFunction(); const [cancel, promise] = cancellable(generator); setTimeout(cancel, 100); promise.then(console.log); // resolves 42 at t=0ms The generator immediately yields 42 and finishes. Because of that, the returned promise immediately resolves 42. Note that cancelling a finished generator does nothing."
+    },
+    {
+      "input": "</strong> generatorFunction = function*() {   const msg = yield new Promise(res => res(\"Hello\"));   throw `Error: ${msg}`; } cancelledAt = null <strong>Output:</strong> {\"rejected\": \"Error: Hello\"} <strong>Explanation:</strong> A promise is yielded. The function handles this by waiting for it to resolve and then passes the resolved value back to the generator. Then an error is thrown which has the effect of causing the promise to reject with the same thrown error.",
+      "expectedOutput": "</strong> {\"rejected\": \"Error: Hello\"} <strong>Explanation:</strong> A promise is yielded. The function handles this by waiting for it to resolve and then passes the resolved value back to the generator. Then an error is thrown which has the effect of causing the promise to reject with the same thrown error."
+    },
+    {
+      "input": "</strong> generatorFunction = function*() {   yield new Promise(res => setTimeout(res, 200));   return \"Success\"; } cancelledAt = 100 <strong>Output:</strong> {\"rejected\": \"Cancelled\"} <strong>Explanation:</strong> While the function is waiting for the yielded promise to resolve, cancel() is called. This causes an error message to be sent back to the generator. Since this error is uncaught, the returned promise rejected with this error.",
+      "expectedOutput": "</strong> {\"rejected\": \"Cancelled\"} <strong>Explanation:</strong> While the function is waiting for the yielded promise to resolve, cancel() is called. This causes an error message to be sent back to the generator. Since this error is uncaught, the returned promise rejected with this error."
+    },
+    {
+      "input": "</strong> generatorFunction = function*() {   let result = 0;   yield new Promise(res => setTimeout(res, 100));   result += yield new Promise(res => res(1));   yield new Promise(res => setTimeout(res, 100));   result += yield new Promise(res => res(1));   return result; } cancelledAt = null <strong>Output:</strong> {\"resolved\": 2} <strong>Explanation:</strong> 4 promises are yielded. Two of those promises have their values added to the result. After 200ms, the generator finishes with a value of 2, and that value is resolved by the returned promise.",
+      "expectedOutput": "</strong> {\"resolved\": 2} <strong>Explanation:</strong> 4 promises are yielded. Two of those promises have their values added to the result. After 200ms, the generator finishes with a value of 2, and that value is resolved by the returned promise."
+    },
+    {
+      "input": "</strong> generatorFunction = function*() {   let result = 0;   try {    yield new Promise(res => setTimeout(res, 100));    result += yield new Promise(res => res(1));    yield new Promise(res => setTimeout(res, 100));    result += yield new Promise(res => res(1));   } catch(e) {    return result;   }   return result; } cancelledAt = 150 <strong>Output:</strong> {\"resolved\": 1} <strong>Explanation:</strong> The first two yielded promises resolve and cause the result to increment. However, at t=150ms, the generator is cancelled. The error sent to the generator is caught and the result is returned and finally resolved by the returned promise.",
+      "expectedOutput": "</strong> {\"resolved\": 1} <strong>Explanation:</strong> The first two yielded promises resolve and cause the result to increment. However, at t=150ms, the generator is cancelled. The error sent to the generator is caught and the result is returned and finally resolved by the returned promise."
+    },
+    {
+      "input": "</strong> generatorFunction = function*() {   try {    yield new Promise((resolve, reject) => reject(\"Promise Rejected\"));   } catch(e) {    let a = yield new Promise(resolve => resolve(2));   let b = yield new Promise(resolve => resolve(2));    return a + b;   }; } cancelledAt = null <strong>Output:</strong> {\"resolved\": 4} <strong>Explanation:</strong> The first yielded promise immediately rejects. This error is caught. Because the generator hasn't been cancelled, execution continues as usual. It ends up resolving 2 + 2 = 4.",
+      "expectedOutput": "</strong> {\"resolved\": 4} <strong>Explanation:</strong> The first yielded promise immediately rejects. This error is caught. Because the generator hasn't been cancelled, execution continues as usual. It ends up resolving 2 + 2 = 4."
+    }
+  ]
+}

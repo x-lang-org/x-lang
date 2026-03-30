@@ -1,0 +1,23 @@
+{
+  "problemId": "202",
+  "titleSlug": "happy-number",
+  "title": "Happy Number",
+  "titleCn": "快乐数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "two-pointers"
+  ],
+  "acRate": 0.6603508600362921,
+  "testcases": [
+    {
+      "input": "</strong> n = 19 <strong>Output:</strong> true <strong>Explanation:</strong> 1<sup>2</sup> + 9<sup>2</sup> = 82 8<sup>2</sup> + 2<sup>2</sup> = 68 6<sup>2</sup> + 8<sup>2</sup> = 100 1<sup>2</sup> + 0<sup>2</sup> + 0<sup>2</sup> = 1",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 1<sup>2</sup> + 9<sup>2</sup> = 82 8<sup>2</sup> + 2<sup>2</sup> = 68 6<sup>2</sup> + 8<sup>2</sup> = 100 1<sup>2</sup> + 0<sup>2</sup> + 0<sup>2</sup> = 1"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1304",
+  "titleSlug": "longest-happy-string",
+  "title": "Longest Happy String",
+  "titleCn": "最长快乐字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6339328104525515,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 1, c = 7 <strong>Output:</strong> \"ccaccbcc\" <strong>Explanation:</strong> \"ccbccacc\" would also be a correct answer.",
+      "expectedOutput": "</strong> \"ccaccbcc\" <strong>Explanation:</strong> \"ccbccacc\" would also be a correct answer."
+    },
+    {
+      "input": "</strong> a = 7, b = 1, c = 0 <strong>Output:</strong> \"aabaa\" <strong>Explanation:</strong> It is the only correct answer in this case.",
+      "expectedOutput": "</strong> \"aabaa\" <strong>Explanation:</strong> It is the only correct answer in this case."
+    }
+  ]
+}

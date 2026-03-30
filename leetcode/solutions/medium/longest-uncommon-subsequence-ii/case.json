@@ -1,0 +1,25 @@
+{
+  "problemId": "522",
+  "titleSlug": "longest-uncommon-subsequence-ii",
+  "title": "Longest Uncommon Subsequence II",
+  "titleCn": "最长特殊序列 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5208807091925226,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"aba\",\"cdc\",\"eae\"] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> strs = [\"aaa\",\"aaa\",\"aa\"] <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

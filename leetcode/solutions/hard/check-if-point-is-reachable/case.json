@@ -1,0 +1,22 @@
+{
+  "problemId": "2635",
+  "titleSlug": "check-if-point-is-reachable",
+  "title": "Check if Point Is Reachable",
+  "titleCn": "判断一个点是否可以到达",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.4965153833078361,
+  "testcases": [
+    {
+      "input": "</strong> targetX = 6, targetY = 9 <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to reach (6,9) from (1,1) using any sequence of moves, so false is returned.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to reach (6,9) from (1,1) using any sequence of moves, so false is returned."
+    },
+    {
+      "input": "</strong> targetX = 4, targetY = 7 <strong>Output:</strong> true <strong>Explanation:</strong> You can follow the path (1,1) -> (1,2) -> (1,4) -> (1,8) -> (1,7) -> (2,7) -> (4,7).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can follow the path (1,1) -> (1,2) -> (1,4) -> (1,8) -> (1,7) -> (2,7) -> (4,7)."
+    }
+  ]
+}

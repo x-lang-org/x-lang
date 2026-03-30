@@ -1,0 +1,28 @@
+{
+  "problemId": "726",
+  "titleSlug": "number-of-atoms",
+  "title": "Number of Atoms",
+  "titleCn": "原子的数量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5566982499915702,
+  "testcases": [
+    {
+      "input": "</strong> formula = \"H2O\" <strong>Output:</strong> \"H2O\" <strong>Explanation:</strong> The count of elements are {'H': 2, 'O': 1}.",
+      "expectedOutput": "</strong> \"H2O\" <strong>Explanation:</strong> The count of elements are {'H': 2, 'O': 1}."
+    },
+    {
+      "input": "</strong> formula = \"Mg(OH)2\" <strong>Output:</strong> \"H2MgO2\" <strong>Explanation:</strong> The count of elements are {'H': 2, 'Mg': 1, 'O': 2}.",
+      "expectedOutput": "</strong> \"H2MgO2\" <strong>Explanation:</strong> The count of elements are {'H': 2, 'Mg': 1, 'O': 2}."
+    },
+    {
+      "input": "</strong> formula = \"K4(ON(SO3)2)2\" <strong>Output:</strong> \"K4N2O14S4\" <strong>Explanation:</strong> The count of elements are {'K': 4, 'N': 2, 'O': 14, 'S': 4}.",
+      "expectedOutput": "</strong> \"K4N2O14S4\" <strong>Explanation:</strong> The count of elements are {'K': 4, 'N': 2, 'O': 14, 'S': 4}."
+    }
+  ]
+}

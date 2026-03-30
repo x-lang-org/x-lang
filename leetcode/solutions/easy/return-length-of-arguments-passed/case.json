@@ -1,0 +1,19 @@
+{
+  "problemId": "2820",
+  "titleSlug": "return-length-of-arguments-passed",
+  "title": "Return Length of Arguments Passed",
+  "titleCn": "返回传递的参数的长度",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.9254001635705106,
+  "testcases": [
+    {
+      "input": "</strong> args = [5] <strong>Output:</strong> 1 <strong>Explanation:</strong> argumentsLength(5); // 1 One value was passed to the function so it should return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> argumentsLength(5); // 1 One value was passed to the function so it should return 1."
+    },
+    {
+      "input": "</strong> args = [{}, null, \"3\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> argumentsLength({}, null, \"3\"); // 3 Three values were passed to the function so it should return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> argumentsLength({}, null, \"3\"); // 3 Three values were passed to the function so it should return 3."
+    }
+  ]
+}

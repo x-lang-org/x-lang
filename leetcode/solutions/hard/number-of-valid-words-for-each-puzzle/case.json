@@ -1,0 +1,25 @@
+{
+  "problemId": "1282",
+  "titleSlug": "number-of-valid-words-for-each-puzzle",
+  "title": "Number of Valid Words for Each Puzzle",
+  "titleCn": "猜字谜",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4732683982683983,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"aaaa\",\"asas\",\"able\",\"ability\",\"actt\",\"actor\",\"access\"], puzzles = [\"aboveyz\",\"abrodyz\",\"abslute\",\"absoryz\",\"actresz\",\"gaswxyz\"] <strong>Output:</strong> [1,1,3,2,4,0] <strong>Explanation:</strong> 1 valid word for \"aboveyz\" : \"aaaa\" 1 valid word for \"abrodyz\" : \"aaaa\" 3 valid words for \"abslute\" : \"aaaa\", \"asas\", \"able\" 2 valid words for \"absoryz\" : \"aaaa\", \"asas\" 4 valid words for \"actresz\" : \"aaaa\", \"asas\", \"actt\", \"access\" There are no valid words for \"gaswxyz\" cause none of the words in the list contains letter 'g'.",
+      "expectedOutput": "</strong> [1,1,3,2,4,0] <strong>Explanation:</strong> 1 valid word for \"aboveyz\" : \"aaaa\" 1 valid word for \"abrodyz\" : \"aaaa\" 3 valid words for \"abslute\" : \"aaaa\", \"asas\", \"able\" 2 valid words for \"absoryz\" : \"aaaa\", \"asas\" 4 valid words for \"actresz\" : \"aaaa\", \"asas\", \"actt\", \"access\" There are no valid words for \"gaswxyz\" cause none of the words in the list contains letter 'g'."
+    },
+    {
+      "input": "</strong> words = [\"apple\",\"pleas\",\"please\"], puzzles = [\"aelwxyz\",\"aelpxyz\",\"aelpsxy\",\"saelpxy\",\"xaelpsy\"] <strong>Output:</strong> [0,1,3,2,0]",
+      "expectedOutput": "</strong> [0,1,3,2,0]"
+    }
+  ]
+}

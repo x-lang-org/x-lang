@@ -1,0 +1,27 @@
+{
+  "problemId": "1020",
+  "titleSlug": "longest-turbulent-subarray",
+  "title": "Longest Turbulent Subarray",
+  "titleCn": "最长湍流子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "acRate": 0.48209324911350854,
+  "testcases": [
+    {
+      "input": "</strong> arr = [9,4,2,10,7,8,8,1,9] <strong>Output:</strong> 5 <strong>Explanation:</strong> arr[1] > arr[2] < arr[3] > arr[4] < arr[5]",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> arr[1] > arr[2] < arr[3] > arr[4] < arr[5]"
+    },
+    {
+      "input": "</strong> arr = [4,8,12,16] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> arr = [100] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

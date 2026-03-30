@@ -1,0 +1,25 @@
+{
+  "problemId": "779",
+  "titleSlug": "max-chunks-to-make-sorted-ii",
+  "title": "Max Chunks To Make Sorted II",
+  "titleCn": "最多能完成排序的块 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "acRate": 0.5783482539870753,
+  "testcases": [
+    {
+      "input": "</strong> arr = [5,4,3,2,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> Splitting into two or more chunks will not return the required result. For example, splitting into [5, 4], [3, 2, 1] will result in [4, 5, 1, 2, 3], which isn't sorted.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Splitting into two or more chunks will not return the required result. For example, splitting into [5, 4], [3, 2, 1] will result in [4, 5, 1, 2, 3], which isn't sorted."
+    },
+    {
+      "input": "</strong> arr = [2,1,3,4,4] <strong>Output:</strong> 4 <strong>Explanation:</strong> We can split into two chunks, such as [2, 1], [3, 4, 4]. However, splitting into [2, 1], [3], [4], [4] is the highest number of chunks possible.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can split into two chunks, such as [2, 1], [3, 4, 4]. However, splitting into [2, 1], [3], [4], [4] is the highest number of chunks possible."
+    }
+  ]
+}

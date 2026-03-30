@@ -1,0 +1,17 @@
+{
+  "problemId": "1734",
+  "titleSlug": "bank-account-summary-ii",
+  "title": "Bank Account Summary II",
+  "titleCn": "银行账户概要 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7787243072818771,
+  "testcases": [
+    {
+      "input": "</strong> Users table: +------------+--------------+ | account  | name     | +------------+--------------+ | 900001   | Alice    | | 900002   | Bob     | | 900003   | Charlie   | +------------+--------------+ Transactions table: +------------+------------+------------+---------------+ | trans_id  | account  | amount   | transacted_on | +------------+------------+------------+---------------+ | 1     | 900001   | 7000    | 2020-08-01  | | 2     | 900001   | 7000    | 2020-09-01  | | 3     | 900001   | -3000   | 2020-09-02  | | 4     | 900002   | 1000    | 2020-09-12  | | 5     | 900003   | 6000    | 2020-08-07  | | 6     | 900003   | 6000    | 2020-09-07  | | 7     | 900003   | -4000   | 2020-09-11  | +------------+------------+------------+---------------+ <strong>Output:</strong> +------------+------------+ | name    | balance  | +------------+------------+ | Alice   | 11000   | +------------+------------+ <strong>Explanation:</strong> Alice's balance is (7000 + 7000 - 3000) = 11000. Bob's balance is 1000. Charlie's balance is (6000 + 6000 - 4000) = 8000.",
+      "expectedOutput": "</strong> +------------+------------+ | name    | balance  | +------------+------------+ | Alice   | 11000   | +------------+------------+ <strong>Explanation:</strong> Alice's balance is (7000 + 7000 - 3000) = 11000. Bob's balance is 1000. Charlie's balance is (6000 + 6000 - 4000) = 8000."
+    }
+  ]
+}

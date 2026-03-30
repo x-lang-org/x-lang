@@ -1,0 +1,23 @@
+{
+  "problemId": "1563",
+  "titleSlug": "maximum-number-of-darts-inside-of-a-circular-dartboard",
+  "title": "Maximum Number of Darts Inside of a Circular Dartboard",
+  "titleCn": "圆形靶内的最大飞镖数量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "acRate": 0.3979002624671916,
+  "testcases": [
+    {
+      "input": "</strong> darts = [[-2,0],[2,0],[0,2],[0,-2]], r = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> Circle dartboard with center in (0,0) and radius = 2 contain all points.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Circle dartboard with center in (0,0) and radius = 2 contain all points."
+    },
+    {
+      "input": "</strong> darts = [[-3,0],[3,0],[2,6],[5,4],[0,9],[7,8]], r = 5 <strong>Output:</strong> 5 <strong>Explanation:</strong> Circle dartboard with center in (0,4) and radius = 5 contain all points except the point (7,8).",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Circle dartboard with center in (0,4) and radius = 5 contain all points except the point (7,8)."
+    }
+  ]
+}

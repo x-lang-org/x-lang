@@ -1,0 +1,22 @@
+{
+  "problemId": "790",
+  "titleSlug": "global-and-local-inversions",
+  "title": "Global and Local Inversions",
+  "titleCn": "全局倒置与局部倒置",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.4966972884460603,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,0,2] <strong>Output:</strong> true <strong>Explanation:</strong> There is 1 global inversion and 1 local inversion.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There is 1 global inversion and 1 local inversion."
+    },
+    {
+      "input": "</strong> nums = [1,2,0] <strong>Output:</strong> false <strong>Explanation:</strong> There are 2 global inversions and 1 local inversion.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There are 2 global inversions and 1 local inversion."
+    }
+  ]
+}

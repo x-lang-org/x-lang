@@ -1,0 +1,23 @@
+{
+  "problemId": "1423",
+  "titleSlug": "maximum-number-of-occurrences-of-a-substring",
+  "title": "Maximum Number of Occurrences of a Substring",
+  "titleCn": "子串的最大出现次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.5575504048546652,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aababcaab\", maxLetters = 2, minSize = 3, maxSize = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> Substring \"aab\" has 2 occurrences in the original string. It satisfies the conditions, 2 unique letters and size 3 (between minSize and maxSize).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Substring \"aab\" has 2 occurrences in the original string. It satisfies the conditions, 2 unique letters and size 3 (between minSize and maxSize)."
+    },
+    {
+      "input": "</strong> s = \"aaaa\", maxLetters = 1, minSize = 3, maxSize = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> Substring \"aaa\" occur 2 times in the string. It can overlap.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Substring \"aaa\" occur 2 times in the string. It can overlap."
+    }
+  ]
+}

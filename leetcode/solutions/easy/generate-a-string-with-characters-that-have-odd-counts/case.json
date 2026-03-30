@@ -1,0 +1,25 @@
+{
+  "problemId": "1490",
+  "titleSlug": "generate-a-string-with-characters-that-have-odd-counts",
+  "title": "Generate a String With Characters That Have Odd Counts",
+  "titleCn": "生成每种字符都是奇数个的字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7800220296471275,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> \"pppz\" <strong>Explanation:</strong> \"pppz\" is a valid string since the character 'p' occurs three times and the character 'z' occurs once. Note that there are many other valid strings such as \"ohhh\" and \"love\".",
+      "expectedOutput": "</strong> \"pppz\" <strong>Explanation:</strong> \"pppz\" is a valid string since the character 'p' occurs three times and the character 'z' occurs once. Note that there are many other valid strings such as \"ohhh\" and \"love\"."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> \"xy\" <strong>Explanation:</strong> \"xy\" is a valid string since the characters 'x' and 'y' occur once. Note that there are many other valid strings such as \"ag\" and \"ur\".",
+      "expectedOutput": "</strong> \"xy\" <strong>Explanation:</strong> \"xy\" is a valid string since the characters 'x' and 'y' occur once. Note that there are many other valid strings such as \"ag\" and \"ur\"."
+    },
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> \"holasss\"",
+      "expectedOutput": "</strong> \"holasss"
+    }
+  ]
+}

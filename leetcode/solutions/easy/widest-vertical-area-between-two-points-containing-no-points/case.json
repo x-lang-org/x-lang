@@ -1,0 +1,22 @@
+{
+  "problemId": "1742",
+  "titleSlug": "widest-vertical-area-between-two-points-containing-no-points",
+  "title": "Widest Vertical Area Between Two Points Containing No Points",
+  "titleCn": "两点之间不包含任何点的最宽垂直区域",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.8413074486860237,
+  "testcases": [
+    {
+      "input": "</strong> points = [[8,7],[9,9],[7,4],[9,7]] <strong>Output:</strong> 1 <strong>Explanation:</strong> Both the red and the blue area are optimal.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Both the red and the blue area are optimal."
+    },
+    {
+      "input": "</strong> points = [[3,1],[9,0],[1,0],[1,4],[5,3],[8,8]] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

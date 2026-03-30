@@ -1,0 +1,26 @@
+{
+  "problemId": "1636",
+  "titleSlug": "number-of-substrings-with-only-1s",
+  "title": "Number of Substrings With Only 1s",
+  "titleCn": "仅含 1 的子串数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.47664617138982635,
+  "testcases": [
+    {
+      "input": "</strong> s = \"0110111\" <strong>Output:</strong> 9 <strong>Explanation:</strong> There are 9 substring in total with only 1's characters. \"1\" -> 5 times. \"11\" -> 3 times. \"111\" -> 1 time.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> There are 9 substring in total with only 1's characters. \"1\" -> 5 times. \"11\" -> 3 times. \"111\" -> 1 time."
+    },
+    {
+      "input": "</strong> s = \"101\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Substring \"1\" is shown 2 times in s.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Substring \"1\" is shown 2 times in s."
+    },
+    {
+      "input": "</strong> s = \"111111\" <strong>Output:</strong> 21 <strong>Explanation:</strong> Each substring contains only 1's characters.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> Each substring contains only 1's characters."
+    }
+  ]
+}

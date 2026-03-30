@@ -1,0 +1,24 @@
+{
+  "problemId": "542",
+  "titleSlug": "01-matrix",
+  "title": "01 Matrix",
+  "titleCn": "01 矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.47889551149495196,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[0,0,0],[0,1,0],[0,0,0]] <strong>Output:</strong> [[0,0,0],[0,1,0],[0,0,0]]",
+      "expectedOutput": "</strong> [[0,0,0],[0,1,0],[0,0,0]]"
+    },
+    {
+      "input": "</strong> mat = [[0,0,0],[0,1,0],[1,1,1]] <strong>Output:</strong> [[0,0,0],[0,1,0],[1,2,1]]",
+      "expectedOutput": "</strong> [[0,0,0],[0,1,0],[1,2,1]]"
+    }
+  ]
+}

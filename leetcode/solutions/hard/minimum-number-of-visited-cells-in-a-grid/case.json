@@ -1,0 +1,32 @@
+{
+  "problemId": "2697",
+  "titleSlug": "minimum-number-of-visited-cells-in-a-grid",
+  "title": "Minimum Number of Visited Cells in a Grid",
+  "titleCn": "网格图中最少访问的格子数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "monotonic-stack",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.3694308401882935,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[3,4,2,1],[4,2,3,1],[2,1,0,0],[2,4,0,0]] <strong>Output:</strong> 4 <strong>Explanation:</strong> The image above shows one of the paths that visits exactly 4 cells.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The image above shows one of the paths that visits exactly 4 cells."
+    },
+    {
+      "input": "</strong> grid = [[3,4,2,1],[4,2,1,1],[2,1,1,0],[3,4,1,0]] <strong>Output:</strong> 3 <strong>Explanation: </strong>The image above shows one of the paths that visits exactly 3 cells.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>The image above shows one of the paths that visits exactly 3 cells."
+    },
+    {
+      "input": "</strong> grid = [[2,1,0],[1,0,0]] <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be proven that no path exists.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be proven that no path exists."
+    }
+  ]
+}

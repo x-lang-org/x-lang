@@ -1,0 +1,19 @@
+{
+  "problemId": "2733",
+  "titleSlug": "sleep",
+  "title": "Sleep",
+  "titleCn": "睡眠函数",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8287077646398372,
+  "testcases": [
+    {
+      "input": "</strong> millis = 100 <strong>Output:</strong> 100 <strong>Explanation:</strong> It should return a promise that resolves after 100ms. let t = Date.now(); sleep(100).then(() => {  console.log(Date.now() - t); // 100 });",
+      "expectedOutput": "</strong> 100 <strong>Explanation:</strong> It should return a promise that resolves after 100ms. let t = Date.now(); sleep(100).then(() => {  console.log(Date.now() - t); // 100 });"
+    },
+    {
+      "input": "</strong> millis = 200 <strong>Output:</strong> 200 <strong>Explanation:</strong> It should return a promise that resolves after 200ms.",
+      "expectedOutput": "</strong> 200 <strong>Explanation:</strong> It should return a promise that resolves after 200ms."
+    }
+  ]
+}

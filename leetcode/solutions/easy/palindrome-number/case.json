@@ -11,7 +11,7 @@
   "testcases": [
     {
       "input": "121",
-      "expectedOutput": "-121"
+      "expectedOutput": "true"
     },
     {
       "input": "10",

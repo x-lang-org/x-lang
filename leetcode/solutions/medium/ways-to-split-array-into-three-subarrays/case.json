@@ -1,0 +1,28 @@
+{
+  "problemId": "1831",
+  "titleSlug": "ways-to-split-array-into-three-subarrays",
+  "title": "Ways to Split Array Into Three Subarrays",
+  "titleCn": "将数组分成三个子数组的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "prefix-sum"
+  ],
+  "acRate": 0.3082755708806868,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> The only good way to split nums is [1] [1] [1].",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only good way to split nums is [1] [1] [1]."
+    },
+    {
+      "input": "</strong> nums = [1,2,2,2,5,0] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are three good ways of splitting nums: [1] [2] [2,2,5,0] [1] [2,2] [2,5,0] [1,2] [2,2] [5,0]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are three good ways of splitting nums: [1] [2] [2,2,5,0] [1] [2,2] [2,5,0] [1,2] [2,2] [5,0]"
+    },
+    {
+      "input": "</strong> nums = [3,2,1] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no good way to split nums.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no good way to split nums."
+    }
+  ]
+}

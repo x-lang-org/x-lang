@@ -1,0 +1,27 @@
+{
+  "problemId": "442",
+  "titleSlug": "find-all-duplicates-in-an-array",
+  "title": "Find All Duplicates in an Array",
+  "titleCn": "数组中重复的数据",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.7560889340566822,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,3,2,7,8,2,3,1] <strong>Output:</strong> [2,3]",
+      "expectedOutput": "</strong> [2,3]"
+    },
+    {
+      "input": "</strong> nums = [1,1,2] <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

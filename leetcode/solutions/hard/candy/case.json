@@ -1,0 +1,22 @@
+{
+  "problemId": "135",
+  "titleSlug": "candy",
+  "title": "Candy",
+  "titleCn": "分发糖果",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.487174534575137,
+  "testcases": [
+    {
+      "input": "</strong> ratings = [1,0,2] <strong>Output:</strong> 5 <strong>Explanation:</strong> You can allocate to the first, second and third child with 2, 1, 2 candies respectively.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> You can allocate to the first, second and third child with 2, 1, 2 candies respectively."
+    },
+    {
+      "input": "</strong> ratings = [1,2,2] <strong>Output:</strong> 4 <strong>Explanation:</strong> You can allocate to the first, second and third child with 1, 2, 1 candies respectively. The third child gets 1 candy because it satisfies the above two conditions.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> You can allocate to the first, second and third child with 1, 2, 1 candies respectively. The third child gets 1 candy because it satisfies the above two conditions."
+    }
+  ]
+}

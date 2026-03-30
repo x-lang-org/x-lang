@@ -1,0 +1,26 @@
+{
+  "problemId": "2328",
+  "titleSlug": "minimize-result-by-adding-parentheses-to-expression",
+  "title": "Minimize Result by Adding Parentheses to Expression",
+  "titleCn": "向表达式添加括号后的最小结果",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.6246021862460218,
+  "testcases": [
+    {
+      "input": "</strong> expression = \"247+38\" <strong>Output:</strong> \"2(47+38)\" <strong>Explanation:</strong> The <code>expression</code> evaluates to 2 * (47 + 38) = 2 * 85 = 170. Note that \"2(4)7+38\" is invalid because the right parenthesis must be to the right of the <code>'+'</code>. It can be shown that 170 is the smallest possible value.",
+      "expectedOutput": "</strong> \"2(47+38)\" <strong>Explanation:</strong> The <code>expression</code> evaluates to 2 * (47 + 38) = 2 * 85 = 170. Note that \"2(4)7+38\" is invalid because the right parenthesis must be to the right of the <code>'+'</code>. It can be shown that 170 is the smallest possible value."
+    },
+    {
+      "input": "</strong> expression = \"12+34\" <strong>Output:</strong> \"1(2+3)4\" <strong>Explanation:</strong> The expression evaluates to 1 * (2 + 3) * 4 = 1 * 5 * 4 = 20.",
+      "expectedOutput": "</strong> \"1(2+3)4\" <strong>Explanation:</strong> The expression evaluates to 1 * (2 + 3) * 4 = 1 * 5 * 4 = 20."
+    },
+    {
+      "input": "</strong> expression = \"999+999\" <strong>Output:</strong> \"(999+999)\" <strong>Explanation:</strong> The <code>expression</code> evaluates to 999 + 999 = 1998.",
+      "expectedOutput": "</strong> \"(999+999)\" <strong>Explanation:</strong> The <code>expression</code> evaluates to 999 + 999 = 1998."
+    }
+  ]
+}

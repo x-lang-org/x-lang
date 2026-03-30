@@ -1,0 +1,22 @@
+{
+  "problemId": "777",
+  "titleSlug": "toeplitz-matrix",
+  "title": "Toeplitz Matrix",
+  "titleCn": "托普利茨矩阵",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6987012531460192,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]] <strong>Output:</strong> true <strong>Explanation:</strong> In the above grid, the diagonals are: \"[9]\", \"[5, 5]\", \"[1, 1, 1]\", \"[2, 2, 2]\", \"[3, 3]\", \"[4]\". In each diagonal all elements are the same, so the answer is True.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> In the above grid, the diagonals are: \"[9]\", \"[5, 5]\", \"[1, 1, 1]\", \"[2, 2, 2]\", \"[3, 3]\", \"[4]\". In each diagonal all elements are the same, so the answer is True."
+    },
+    {
+      "input": "</strong> matrix = [[1,2],[2,2]] <strong>Output:</strong> false <strong>Explanation:</strong> The diagonal \"[1, 2]\" has different elements.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The diagonal \"[1, 2]\" has different elements."
+    }
+  ]
+}

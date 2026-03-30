@@ -1,0 +1,28 @@
+{
+  "problemId": "659",
+  "titleSlug": "split-array-into-consecutive-subsequences",
+  "title": "Split Array into Consecutive Subsequences",
+  "titleCn": "分割数组为连续子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5568767757550247,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,3,4,5] <strong>Output:</strong> true <strong>Explanation:</strong> nums can be split into the following subsequences: [<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,4,5] --> 1, 2, 3 [1,2,3,<strong><u>3</u></strong>,<strong><u>4</u></strong>,<strong><u>5</u></strong>] --> 3, 4, 5",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> nums can be split into the following subsequences: [<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,4,5] --> 1, 2, 3 [1,2,3,<strong><u>3</u></strong>,<strong><u>4</u></strong>,<strong><u>5</u></strong>] --> 3, 4, 5"
+    },
+    {
+      "input": "</strong> nums = [1,2,3,3,4,4,5,5] <strong>Output:</strong> true <strong>Explanation:</strong> nums can be split into the following subsequences: [<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,<strong><u>4</u></strong>,4,<strong><u>5</u></strong>,5] --> 1, 2, 3, 4, 5 [1,2,3,<strong><u>3</u></strong>,4,<strong><u>4</u></strong>,5,<strong><u>5</u></strong>] --> 3, 4, 5",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> nums can be split into the following subsequences: [<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>3</u></strong>,3,<strong><u>4</u></strong>,4,<strong><u>5</u></strong>,5] --> 1, 2, 3, 4, 5 [1,2,3,<strong><u>3</u></strong>,4,<strong><u>4</u></strong>,5,<strong><u>5</u></strong>] --> 3, 4, 5"
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,4,5] <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to split nums into consecutive increasing subsequences of length 3 or more.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to split nums into consecutive increasing subsequences of length 3 or more."
+    }
+  ]
+}

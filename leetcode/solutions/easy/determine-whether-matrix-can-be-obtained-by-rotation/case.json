@@ -1,0 +1,26 @@
+{
+  "problemId": "2015",
+  "titleSlug": "determine-whether-matrix-can-be-obtained-by-rotation",
+  "title": "Determine Whether Matrix Can Be Obtained By Rotation",
+  "titleCn": "判断矩阵经轮转后是否一致",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6600936019633582,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[0,1],[1,0]], target = [[1,0],[0,1]] <strong>Output:</strong> true <strong>Explanation: </strong>We can rotate mat 90 degrees clockwise to make mat equal target.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>We can rotate mat 90 degrees clockwise to make mat equal target."
+    },
+    {
+      "input": "</strong> mat = [[0,1],[1,1]], target = [[1,0],[0,1]] <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to make mat equal to target by rotating mat.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to make mat equal to target by rotating mat."
+    },
+    {
+      "input": "</strong> mat = [[0,0,0],[0,1,0],[1,1,1]], target = [[1,1,1],[0,1,0],[0,0,0]] <strong>Output:</strong> true <strong>Explanation: </strong>We can rotate mat 90 degrees clockwise two times to make mat equal target.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>We can rotate mat 90 degrees clockwise two times to make mat equal target."
+    }
+  ]
+}

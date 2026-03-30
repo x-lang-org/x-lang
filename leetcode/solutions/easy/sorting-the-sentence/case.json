@@ -1,0 +1,22 @@
+{
+  "problemId": "1970",
+  "titleSlug": "sorting-the-sentence",
+  "title": "Sorting the Sentence",
+  "titleCn": "将句子排序",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.7410130167936871,
+  "testcases": [
+    {
+      "input": "</strong> s = \"is2 sentence4 This1 a3\" <strong>Output:</strong> \"This is a sentence\" <strong>Explanation:</strong> Sort the words in s to their original positions \"This1 is2 a3 sentence4\", then remove the numbers.",
+      "expectedOutput": "</strong> \"This is a sentence\" <strong>Explanation:</strong> Sort the words in s to their original positions \"This1 is2 a3 sentence4\", then remove the numbers."
+    },
+    {
+      "input": "</strong> s = \"Myself2 Me1 I4 and3\" <strong>Output:</strong> \"Me Myself and I\" <strong>Explanation:</strong> Sort the words in s to their original positions \"Me1 Myself2 and3 I4\", then remove the numbers.",
+      "expectedOutput": "</strong> \"Me Myself and I\" <strong>Explanation:</strong> Sort the words in s to their original positions \"Me1 Myself2 and3 I4\", then remove the numbers."
+    }
+  ]
+}

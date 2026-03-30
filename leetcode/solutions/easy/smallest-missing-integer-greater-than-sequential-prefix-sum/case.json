@@ -1,0 +1,23 @@
+{
+  "problemId": "3236",
+  "titleSlug": "smallest-missing-integer-greater-than-sequential-prefix-sum",
+  "title": "Smallest Missing Integer Greater Than Sequential Prefix Sum",
+  "titleCn": "大于等于顺序前缀和的最小缺失整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.3855380002306539,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,2,5] <strong>Output:</strong> 6 <strong>Explanation:</strong> The longest sequential prefix of nums is [1,2,3] with a sum of 6. 6 is not in the array, therefore 6 is the smallest missing integer greater than or equal to the sum of the longest sequential prefix.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The longest sequential prefix of nums is [1,2,3] with a sum of 6. 6 is not in the array, therefore 6 is the smallest missing integer greater than or equal to the sum of the longest sequential prefix."
+    },
+    {
+      "input": "</strong> nums = [3,4,5,1,12,14,13] <strong>Output:</strong> 15 <strong>Explanation:</strong> The longest sequential prefix of nums is [3,4,5] with a sum of 12. 12, 13, and 14 belong to the array while 15 does not. Therefore 15 is the smallest missing integer greater than or equal to the sum of the longest sequential prefix.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The longest sequential prefix of nums is [3,4,5] with a sum of 12. 12, 13, and 14 belong to the array while 15 does not. Therefore 15 is the smallest missing integer greater than or equal to the sum of the longest sequential prefix."
+    }
+  ]
+}

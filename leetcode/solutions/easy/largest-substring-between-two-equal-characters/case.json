@@ -1,0 +1,26 @@
+{
+  "problemId": "1746",
+  "titleSlug": "largest-substring-between-two-equal-characters",
+  "title": "Largest Substring Between Two Equal Characters",
+  "titleCn": "两个相同字符之间的最长子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.64791259765625,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aa\" <strong>Output:</strong> 0 <strong>Explanation:</strong> The optimal substring here is an empty substring between the two <code>'a's</code>.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The optimal substring here is an empty substring between the two <code>'a's</code>."
+    },
+    {
+      "input": "</strong> s = \"abca\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The optimal substring here is \"bc\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The optimal substring here is \"bc\"."
+    },
+    {
+      "input": "</strong> s = \"cbzxy\" <strong>Output:</strong> -1 <strong>Explanation:</strong> There are no characters that appear twice in s.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are no characters that appear twice in s."
+    }
+  ]
+}

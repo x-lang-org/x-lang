@@ -1,0 +1,22 @@
+{
+  "problemId": "2808",
+  "titleSlug": "painting-the-walls",
+  "title": "Painting the Walls",
+  "titleCn": "给墙壁刷油漆",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5156931412713096,
+  "testcases": [
+    {
+      "input": "</strong> cost = [1,2,3,2], time = [1,2,3,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> The walls at index 0 and 1 will be painted by the paid painter, and it will take 3 units of time; meanwhile, the free painter will paint the walls at index 2 and 3, free of cost in 2 units of time. Thus, the total cost is 1 + 2 = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The walls at index 0 and 1 will be painted by the paid painter, and it will take 3 units of time; meanwhile, the free painter will paint the walls at index 2 and 3, free of cost in 2 units of time. Thus, the total cost is 1 + 2 = 3."
+    },
+    {
+      "input": "</strong> cost = [2,3,4,2], time = [1,1,1,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> The walls at index 0 and 3 will be painted by the paid painter, and it will take 2 units of time; meanwhile, the free painter will paint the walls at index 1 and 2, free of cost in 2 units of time. Thus, the total cost is 2 + 2 = 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The walls at index 0 and 3 will be painted by the paid painter, and it will take 2 units of time; meanwhile, the free painter will paint the walls at index 1 and 2, free of cost in 2 units of time. Thus, the total cost is 2 + 2 = 4."
+    }
+  ]
+}

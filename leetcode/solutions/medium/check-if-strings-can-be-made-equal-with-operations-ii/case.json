@@ -1,0 +1,23 @@
+{
+  "problemId": "2978",
+  "titleSlug": "check-if-strings-can-be-made-equal-with-operations-ii",
+  "title": "Check if Strings Can be Made Equal With Operations II",
+  "titleCn": "判断通过操作能否让字符串相等 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6513501742160279,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"abcdba\", s2 = \"cabdab\" <strong>Output:</strong> true <strong>Explanation:</strong> We can apply the following operations on s1: - Choose the indices i = 0, j = 2. The resulting string is s1 = \"cbadba\". - Choose the indices i = 2, j = 4. The resulting string is s1 = \"cbbdaa\". - Choose the indices i = 1, j = 5. The resulting string is s1 = \"cabdab\" = s2.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can apply the following operations on s1: - Choose the indices i = 0, j = 2. The resulting string is s1 = \"cbadba\". - Choose the indices i = 2, j = 4. The resulting string is s1 = \"cbbdaa\". - Choose the indices i = 1, j = 5. The resulting string is s1 = \"cabdab\" = s2."
+    },
+    {
+      "input": "</strong> s1 = \"abe\", s2 = \"bea\" <strong>Output:</strong> false <strong>Explanation:</strong> It is not possible to make the two strings equal.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is not possible to make the two strings equal."
+    }
+  ]
+}

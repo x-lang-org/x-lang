@@ -1,0 +1,21 @@
+{
+  "problemId": "1548",
+  "titleSlug": "check-if-all-1s-are-at-least-length-k-places-away",
+  "title": "Check If All 1's Are at Least Length K Places Away",
+  "titleCn": "是否所有 1 都至少相隔 k 个元素",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5903322105330374,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,0,0,0,1,0,0,1], k = 2 <strong>Output:</strong> true <strong>Explanation:</strong> Each of the 1s are at least 2 places away from each other.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Each of the 1s are at least 2 places away from each other."
+    },
+    {
+      "input": "</strong> nums = [1,0,0,1,0,1], k = 2 <strong>Output:</strong> false <strong>Explanation:</strong> The second 1 and third 1 are only one apart from each other.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The second 1 and third 1 are only one apart from each other."
+    }
+  ]
+}

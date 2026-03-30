@@ -1,0 +1,29 @@
+{
+  "problemId": "1483",
+  "titleSlug": "rank-teams-by-votes",
+  "title": "Rank Teams by Votes",
+  "titleCn": "通过投票对团队排名",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5987209353435013,
+  "testcases": [
+    {
+      "input": "</strong> votes = [\"ABC\",\"ACB\",\"ABC\",\"ACB\",\"ACB\"] <strong>Output:</strong> \"ACB\" <strong>Explanation:</strong> Team A was ranked first place by 5 voters. No other team was voted as first place, so team A is the first team. Team B was ranked second by 2 voters and ranked third by 3 voters. Team C was ranked second by 3 voters and ranked third by 2 voters. As most of the voters ranked C second, team C is the second team, and team B is the third.",
+      "expectedOutput": "</strong> \"ACB\" <strong>Explanation:</strong> Team A was ranked first place by 5 voters. No other team was voted as first place, so team A is the first team. Team B was ranked second by 2 voters and ranked third by 3 voters. Team C was ranked second by 3 voters and ranked third by 2 voters. As most of the voters ranked C second, team C is the second team, and team B is the third."
+    },
+    {
+      "input": "</strong> votes = [\"WXYZ\",\"XYZW\"] <strong>Output:</strong> \"XWYZ\" <strong>Explanation:</strong> X is the winner due to the tie-breaking rule. X has the same votes as W for the first position, but X has one vote in the second position, while W does not have any votes in the second position.",
+      "expectedOutput": "</strong> \"XWYZ\" <strong>Explanation:</strong> X is the winner due to the tie-breaking rule. X has the same votes as W for the first position, but X has one vote in the second position, while W does not have any votes in the second position."
+    },
+    {
+      "input": "</strong> votes = [\"ZMNAGUEDSJYLBOPHRQICWFXTVK\"] <strong>Output:</strong> \"ZMNAGUEDSJYLBOPHRQICWFXTVK\" <strong>Explanation:</strong> Only one voter, so their votes are used for the ranking.",
+      "expectedOutput": "</strong> \"ZMNAGUEDSJYLBOPHRQICWFXTVK\" <strong>Explanation:</strong> Only one voter, so their votes are used for the ranking."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1824",
+  "titleSlug": "maximum-number-of-eaten-apples",
+  "title": "Maximum Number of Eaten Apples",
+  "titleCn": "吃苹果的最大数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.48121481602349675,
+  "testcases": [
+    {
+      "input": "</strong> apples = [1,2,3,5,2], days = [3,2,1,4,2] <strong>Output:</strong> 7 <strong>Explanation:</strong> You can eat 7 apples: - On the first day, you eat an apple that grew on the first day. - On the second day, you eat an apple that grew on the second day. - On the third day, you eat an apple that grew on the second day. After this day, the apples that grew on the third day rot. - On the fourth to the seventh days, you eat apples that grew on the fourth day.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> You can eat 7 apples: - On the first day, you eat an apple that grew on the first day. - On the second day, you eat an apple that grew on the second day. - On the third day, you eat an apple that grew on the second day. After this day, the apples that grew on the third day rot. - On the fourth to the seventh days, you eat apples that grew on the fourth day."
+    },
+    {
+      "input": "</strong> apples = [3,0,0,0,0,2], days = [3,0,0,0,0,2] <strong>Output:</strong> 5 <strong>Explanation:</strong> You can eat 5 apples: - On the first to the third day you eat apples that grew on the first day. - Do nothing on the fouth and fifth days. - On the sixth and seventh days you eat apples that grew on the sixth day.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> You can eat 5 apples: - On the first to the third day you eat apples that grew on the first day. - Do nothing on the fouth and fifth days. - On the sixth and seventh days you eat apples that grew on the sixth day."
+    }
+  ]
+}

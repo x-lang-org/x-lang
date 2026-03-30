@@ -1,0 +1,26 @@
+{
+  "problemId": "1561",
+  "titleSlug": "rearrange-words-in-a-sentence",
+  "title": "Rearrange Words in a Sentence",
+  "titleCn": "重新排列句子中的单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5591873094185768,
+  "testcases": [
+    {
+      "input": "</strong> text = \"Leetcode is cool\" <strong>Output:</strong> \"Is cool leetcode\" <strong>Explanation: </strong>There are 3 words, \"Leetcode\" of length 8, \"is\" of length 2 and \"cool\" of length 4. Output is ordered by length and the new first word starts with capital letter.",
+      "expectedOutput": "</strong> \"Is cool leetcode\" <strong>Explanation: </strong>There are 3 words, \"Leetcode\" of length 8, \"is\" of length 2 and \"cool\" of length 4. Output is ordered by length and the new first word starts with capital letter."
+    },
+    {
+      "input": "</strong> text = \"Keep calm and code on\" <strong>Output:</strong> \"On and keep calm code\" <strong>Explanation: </strong>Output is ordered as follows: \"On\" 2 letters. \"and\" 3 letters. \"keep\" 4 letters in case of tie order by position in original text. \"calm\" 4 letters. \"code\" 4 letters.",
+      "expectedOutput": "</strong> \"On and keep calm code\" <strong>Explanation: </strong>Output is ordered as follows: \"On\" 2 letters. \"and\" 3 letters. \"keep\" 4 letters in case of tie order by position in original text. \"calm\" 4 letters. \"code\" 4 letters."
+    },
+    {
+      "input": "</strong> text = \"To be or not to be\" <strong>Output:</strong> \"To be or to be not\"",
+      "expectedOutput": "</strong> \"To be or to be not"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "793",
+  "titleSlug": "swap-adjacent-in-lr-string",
+  "title": "Swap Adjacent in LR String",
+  "titleCn": "在 LR 字符串中交换相邻字符",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.39718529150600285,
+  "testcases": [
+    {
+      "input": "</strong> start = \"RXXLRXRXL\", result = \"XRLXXRRLX\" <strong>Output:</strong> true <strong>Explanation:</strong> We can transform start to result following these steps: RXXLRXRXL -> XRXLRXRXL -> XRLXRXRXL -> XRLXXRRXL -> XRLXXRRLX",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can transform start to result following these steps: RXXLRXRXL -> XRXLRXRXL -> XRLXRXRXL -> XRLXXRRXL -> XRLXXRRLX"
+    },
+    {
+      "input": "</strong> start = \"X\", result = \"L\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

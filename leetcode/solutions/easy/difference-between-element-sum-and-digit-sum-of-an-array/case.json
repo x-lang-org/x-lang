@@ -1,0 +1,22 @@
+{
+  "problemId": "2624",
+  "titleSlug": "difference-between-element-sum-and-digit-sum-of-an-array",
+  "title": "Difference Between Element Sum and Digit Sum of an Array",
+  "titleCn": "数组元素和与数字和的绝对差",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.8534180929095354,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,15,6,3] <strong>Output:</strong> 9 <strong>Explanation:</strong> The element sum of nums is 1 + 15 + 6 + 3 = 25. The digit sum of nums is 1 + 1 + 5 + 6 + 3 = 16. The absolute difference between the element sum and digit sum is |25 - 16| = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> The element sum of nums is 1 + 15 + 6 + 3 = 25. The digit sum of nums is 1 + 1 + 5 + 6 + 3 = 16. The absolute difference between the element sum and digit sum is |25 - 16| = 9."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 0 <strong>Explanation:</strong> The element sum of nums is 1 + 2 + 3 + 4 = 10. The digit sum of nums is 1 + 2 + 3 + 4 = 10. The absolute difference between the element sum and digit sum is |10 - 10| = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The element sum of nums is 1 + 2 + 3 + 4 = 10. The digit sum of nums is 1 + 2 + 3 + 4 = 10. The absolute difference between the element sum and digit sum is |10 - 10| = 0."
+    }
+  ]
+}

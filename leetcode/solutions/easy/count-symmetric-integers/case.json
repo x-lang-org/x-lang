@@ -1,0 +1,22 @@
+{
+  "problemId": "2998",
+  "titleSlug": "count-symmetric-integers",
+  "title": "  Count Symmetric Integers",
+  "titleCn": "统计对称整数的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.7733425708804093,
+  "testcases": [
+    {
+      "input": "</strong> low = 1, high = 100 <strong>Output:</strong> 9 <strong>Explanation:</strong> There are 9 symmetric integers between 1 and 100: 11, 22, 33, 44, 55, 66, 77, 88, and 99.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> There are 9 symmetric integers between 1 and 100: 11, 22, 33, 44, 55, 66, 77, 88, and 99."
+    },
+    {
+      "input": "</strong> low = 1200, high = 1230 <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 symmetric integers between 1200 and 1230: 1203, 1212, 1221, and 1230.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 symmetric integers between 1200 and 1230: 1203, 1212, 1221, and 1230."
+    }
+  ]
+}

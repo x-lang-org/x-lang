@@ -1,0 +1,27 @@
+{
+  "problemId": "2798",
+  "titleSlug": "chunk-array",
+  "title": "Chunk Array",
+  "titleCn": "分块数组",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7784390537893626,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2,3,4,5], size = 1 <strong>Output:</strong> [[1],[2],[3],[4],[5]] <strong>Explanation:</strong> The arr has been split into subarrays each with 1 element.",
+      "expectedOutput": "</strong> [[1],[2],[3],[4],[5]] <strong>Explanation:</strong> The arr has been split into subarrays each with 1 element."
+    },
+    {
+      "input": "</strong> arr = [1,9,6,3,2], size = 3 <strong>Output:</strong> [[1,9,6],[3,2]] <strong>Explanation:</strong> The arr has been split into subarrays with 3 elements. However, only two elements are left for the 2nd subarray.",
+      "expectedOutput": "</strong> [[1,9,6],[3,2]] <strong>Explanation:</strong> The arr has been split into subarrays with 3 elements. However, only two elements are left for the 2nd subarray."
+    },
+    {
+      "input": "</strong> arr = [8,5,3,2,6], size = 6 <strong>Output:</strong> [[8,5,3,2,6]] <strong>Explanation:</strong> Size is greater than arr.length thus all elements are in the first subarray.",
+      "expectedOutput": "</strong> [[8,5,3,2,6]] <strong>Explanation:</strong> Size is greater than arr.length thus all elements are in the first subarray."
+    },
+    {
+      "input": "</strong> arr = [], size = 1 <strong>Output:</strong> [] <strong>Explanation:</strong> There are no elements to be chunked so an empty array is returned.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There are no elements to be chunked so an empty array is returned."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2871",
+  "titleSlug": "double-a-number-represented-as-a-linked-list",
+  "title": "Double a Number Represented as a Linked List",
+  "titleCn": "翻倍以链表形式表示的数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "linked-list",
+    "math"
+  ],
+  "acRate": 0.6615134829874347,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,8,9] <strong>Output:</strong> [3,7,8] <strong>Explanation:</strong> The figure above corresponds to the given linked list which represents the number 189. Hence, the returned linked list represents the number 189 * 2 = 378.",
+      "expectedOutput": "</strong> [3,7,8] <strong>Explanation:</strong> The figure above corresponds to the given linked list which represents the number 189. Hence, the returned linked list represents the number 189 * 2 = 378."
+    },
+    {
+      "input": "</strong> head = [9,9,9] <strong>Output:</strong> [1,9,9,8] <strong>Explanation:</strong> The figure above corresponds to the given linked list which represents the number 999. Hence, the returned linked list reprersents the number 999 * 2 = 1998.",
+      "expectedOutput": "</strong> [1,9,9,8] <strong>Explanation:</strong> The figure above corresponds to the given linked list which represents the number 999. Hence, the returned linked list reprersents the number 999 * 2 = 1998."
+    }
+  ]
+}

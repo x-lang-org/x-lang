@@ -1,0 +1,23 @@
+{
+  "problemId": "357",
+  "titleSlug": "count-numbers-with-unique-digits",
+  "title": "Count Numbers with Unique Digits",
+  "titleCn": "统计各位数字都不同的数字个数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.6091532846715328,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 91 <strong>Explanation:</strong> The answer should be the total numbers in the range of 0 ≤ x < 100, excluding 11,22,33,44,55,66,77,88,99",
+      "expectedOutput": "</strong> 91 <strong>Explanation:</strong> The answer should be the total numbers in the range of 0 ≤ x < 100, excluding 11,22,33,44,55,66,77,88,99"
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

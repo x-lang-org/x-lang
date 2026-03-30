@@ -1,0 +1,28 @@
+{
+  "problemId": "1272",
+  "titleSlug": "invalid-transactions",
+  "title": "Invalid Transactions",
+  "titleCn": "查询无效交易",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.3484060932007331,
+  "testcases": [
+    {
+      "input": "</strong> transactions = [\"alice,20,800,mtv\",\"alice,50,100,beijing\"] <strong>Output:</strong> [\"alice,20,800,mtv\",\"alice,50,100,beijing\"] <strong>Explanation:</strong> The first transaction is invalid because the second transaction occurs within a difference of 60 minutes, have the same name and is in a different city. Similarly the second one is invalid too.",
+      "expectedOutput": "</strong> [\"alice,20,800,mtv\",\"alice,50,100,beijing\"] <strong>Explanation:</strong> The first transaction is invalid because the second transaction occurs within a difference of 60 minutes, have the same name and is in a different city. Similarly the second one is invalid too."
+    },
+    {
+      "input": "</strong> transactions = [\"alice,20,800,mtv\",\"alice,50,1200,mtv\"] <strong>Output:</strong> [\"alice,50,1200,mtv\"]",
+      "expectedOutput": "</strong> [\"alice,50,1200,mtv\"]"
+    },
+    {
+      "input": "</strong> transactions = [\"alice,20,800,mtv\",\"bob,50,1200,mtv\"] <strong>Output:</strong> [\"bob,50,1200,mtv\"]",
+      "expectedOutput": "</strong> [\"bob,50,1200,mtv\"]"
+    }
+  ]
+}

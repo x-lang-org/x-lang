@@ -1,0 +1,25 @@
+{
+  "problemId": "1283",
+  "titleSlug": "reformat-date",
+  "title": "Reformat Date",
+  "titleCn": "转变日期格式",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6162801384761496,
+  "testcases": [
+    {
+      "input": "</strong> date = \"20th Oct 2052\" <strong>Output:</strong> \"2052-10-20\"",
+      "expectedOutput": "</strong> \"2052-10-20"
+    },
+    {
+      "input": "</strong> date = \"6th Jun 1933\" <strong>Output:</strong> \"1933-06-06\"",
+      "expectedOutput": "</strong> \"1933-06-06"
+    },
+    {
+      "input": "</strong> date = \"26th May 1960\" <strong>Output:</strong> \"1960-05-26\"",
+      "expectedOutput": "</strong> \"1960-05-26"
+    }
+  ]
+}

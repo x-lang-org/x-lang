@@ -1,0 +1,23 @@
+{
+  "problemId": "2363",
+  "titleSlug": "maximum-trailing-zeros-in-a-cornered-path",
+  "title": "Maximum Trailing Zeros in a Cornered Path",
+  "titleCn": "转角路径的乘积中最多能有几个尾随零",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.3841960063058329,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[23,17,15,3,20],[8,1,20,27,11],[9,4,6,2,21],[40,9,1,10,6],[22,7,4,5,3]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The grid on the left shows a valid cornered path. It has a product of 15 * 20 * 6 * 1 * 10 = 18000 which has 3 trailing zeros. It can be shown that this is the maximum trailing zeros in the product of a cornered path. The grid in the middle is not a cornered path as it has more than one turn. The grid on the right is not a cornered path as it requires a return to a previously visited cell.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The grid on the left shows a valid cornered path. It has a product of 15 * 20 * 6 * 1 * 10 = 18000 which has 3 trailing zeros. It can be shown that this is the maximum trailing zeros in the product of a cornered path. The grid in the middle is not a cornered path as it has more than one turn. The grid on the right is not a cornered path as it requires a return to a previously visited cell."
+    },
+    {
+      "input": "</strong> grid = [[4,3,2],[7,6,1],[8,8,8]] <strong>Output:</strong> 0 <strong>Explanation:</strong> The grid is shown in the figure above. There are no cornered paths in the grid that result in a product with a trailing zero.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The grid is shown in the figure above. There are no cornered paths in the grid that result in a product with a trailing zero."
+    }
+  ]
+}

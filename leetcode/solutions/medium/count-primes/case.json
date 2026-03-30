@@ -1,0 +1,28 @@
+{
+  "problemId": "204",
+  "titleSlug": "count-primes",
+  "title": "Count Primes",
+  "titleCn": "计数质数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "acRate": 0.36957537137764096,
+  "testcases": [
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 prime numbers less than 10, they are 2, 3, 5, 7.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 prime numbers less than 10, they are 2, 3, 5, 7."
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1899",
+  "titleSlug": "count-items-matching-a-rule",
+  "title": "Count Items Matching a Rule",
+  "titleCn": "统计匹配检索规则的物品数量",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8608370142996182,
+  "testcases": [
+    {
+      "input": "</strong> items = [[\"phone\",\"blue\",\"pixel\"],[\"computer\",\"silver\",\"lenovo\"],[\"phone\",\"gold\",\"iphone\"]], ruleKey = \"color\", ruleValue = \"silver\" <strong>Output:</strong> 1 <strong>Explanation:</strong> There is only one item matching the given rule, which is [\"computer\",\"silver\",\"lenovo\"].",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is only one item matching the given rule, which is [\"computer\",\"silver\",\"lenovo\"]."
+    },
+    {
+      "input": "</strong> items = [[\"phone\",\"blue\",\"pixel\"],[\"computer\",\"silver\",\"phone\"],[\"phone\",\"gold\",\"iphone\"]], ruleKey = \"type\", ruleValue = \"phone\" <strong>Output:</strong> 2 <strong>Explanation:</strong> There are only two items matching the given rule, which are [\"phone\",\"blue\",\"pixel\"] and [\"phone\",\"gold\",\"iphone\"]. Note that the item [\"computer\",\"silver\",\"phone\"] does not match.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are only two items matching the given rule, which are [\"phone\",\"blue\",\"pixel\"] and [\"phone\",\"gold\",\"iphone\"]. Note that the item [\"computer\",\"silver\",\"phone\"] does not match."
+    }
+  ]
+}

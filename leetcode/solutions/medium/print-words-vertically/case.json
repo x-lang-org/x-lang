@@ -1,0 +1,27 @@
+{
+  "problemId": "1449",
+  "titleSlug": "print-words-vertically",
+  "title": "Print Words Vertically",
+  "titleCn": "竖直打印单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.6201747997086672,
+  "testcases": [
+    {
+      "input": "</strong> s = \"HOW ARE YOU\"\r <strong>Output:</strong> [\"HAY\",\"ORO\",\"WEU\"]\r <strong>Explanation: </strong>Each word is printed vertically. \r \"HAY\"\r  \"ORO\"\r  \"WEU\"",
+      "expectedOutput": "</strong> [\"HAY\",\"ORO\",\"WEU\"]\r <strong>Explanation: </strong>Each word is printed vertically. \r \"HAY\"\r  \"ORO\"\r  \"WEU"
+    },
+    {
+      "input": "</strong> s = \"TO BE OR NOT TO BE\"\r <strong>Output:</strong> [\"TBONTB\",\"OEROOE\",\"  T\"]\r <strong>Explanation: </strong>Trailing spaces is not allowed. \r \"TBONTB\"\r \"OEROOE\"\r \"  T\"",
+      "expectedOutput": "</strong> [\"TBONTB\",\"OEROOE\",\"  T\"]\r <strong>Explanation: </strong>Trailing spaces is not allowed. \r \"TBONTB\"\r \"OEROOE\"\r \"  T"
+    },
+    {
+      "input": "</strong> s = \"CONTEST IS COMING\"\r <strong>Output:</strong> [\"CIC\",\"OSO\",\"N M\",\"T I\",\"E N\",\"S G\",\"T\"]",
+      "expectedOutput": "</strong> [\"CIC\",\"OSO\",\"N M\",\"T I\",\"E N\",\"S G\",\"T\"]"
+    }
+  ]
+}

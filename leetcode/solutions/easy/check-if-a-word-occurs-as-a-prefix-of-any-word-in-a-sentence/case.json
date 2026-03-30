@@ -1,0 +1,27 @@
+{
+  "problemId": "1566",
+  "titleSlug": "check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence",
+  "title": "Check If a Word Occurs As a Prefix of Any Word in a Sentence",
+  "titleCn": "检查单词是否为句中其他单词的前缀",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.6427110952814384,
+  "testcases": [
+    {
+      "input": "</strong> sentence = \"i love eating burger\", searchWord = \"burg\" <strong>Output:</strong> 4 <strong>Explanation:</strong> \"burg\" is prefix of \"burger\" which is the 4th word in the sentence.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> \"burg\" is prefix of \"burger\" which is the 4th word in the sentence."
+    },
+    {
+      "input": "</strong> sentence = \"this problem is an easy problem\", searchWord = \"pro\" <strong>Output:</strong> 2 <strong>Explanation:</strong> \"pro\" is prefix of \"problem\" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> \"pro\" is prefix of \"problem\" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index."
+    },
+    {
+      "input": "</strong> sentence = \"i am tired\", searchWord = \"you\" <strong>Output:</strong> -1 <strong>Explanation:</strong> \"you\" is not a prefix of any word in the sentence.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> \"you\" is not a prefix of any word in the sentence."
+    }
+  ]
+}

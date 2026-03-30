@@ -1,0 +1,27 @@
+{
+  "problemId": "2189",
+  "titleSlug": "maximum-path-quality-of-a-graph",
+  "title": "Maximum Path Quality of a Graph",
+  "titleCn": "最大化一张图中的路径价值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "array",
+    "backtracking"
+  ],
+  "acRate": 0.6842201249259108,
+  "testcases": [
+    {
+      "input": "</strong> values = [0,32,10,43], edges = [[0,1,10],[1,2,15],[0,3,10]], maxTime = 49 <strong>Output:</strong> 75 <strong>Explanation:</strong> One possible path is 0 -> 1 -> 0 -> 3 -> 0. The total time taken is 10 + 10 + 10 + 10 = 40 <= 49. The nodes visited are 0, 1, and 3, giving a maximal path quality of 0 + 32 + 43 = 75.",
+      "expectedOutput": "</strong> 75 <strong>Explanation:</strong> One possible path is 0 -> 1 -> 0 -> 3 -> 0. The total time taken is 10 + 10 + 10 + 10 = 40 <= 49. The nodes visited are 0, 1, and 3, giving a maximal path quality of 0 + 32 + 43 = 75."
+    },
+    {
+      "input": "</strong> values = [5,10,15,20], edges = [[0,1,10],[1,2,10],[0,3,10]], maxTime = 30 <strong>Output:</strong> 25 <strong>Explanation:</strong> One possible path is 0 -> 3 -> 0. The total time taken is 10 + 10 = 20 <= 30. The nodes visited are 0 and 3, giving a maximal path quality of 5 + 20 = 25.",
+      "expectedOutput": "</strong> 25 <strong>Explanation:</strong> One possible path is 0 -> 3 -> 0. The total time taken is 10 + 10 = 20 <= 30. The nodes visited are 0 and 3, giving a maximal path quality of 5 + 20 = 25."
+    },
+    {
+      "input": "</strong> values = [1,2,3,4], edges = [[0,1,10],[1,2,11],[2,3,12],[1,3,13]], maxTime = 50 <strong>Output:</strong> 7 <strong>Explanation:</strong> One possible path is 0 -> 1 -> 3 -> 1 -> 0. The total time taken is 10 + 13 + 13 + 10 = 46 <= 50. The nodes visited are 0, 1, and 3, giving a maximal path quality of 1 + 2 + 4 = 7.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> One possible path is 0 -> 1 -> 3 -> 1 -> 0. The total time taken is 10 + 13 + 13 + 10 = 46 <= 50. The nodes visited are 0, 1, and 3, giving a maximal path quality of 1 + 2 + 4 = 7."
+    }
+  ]
+}

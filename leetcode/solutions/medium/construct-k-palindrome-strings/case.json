@@ -1,0 +1,28 @@
+{
+  "problemId": "1502",
+  "titleSlug": "construct-k-palindrome-strings",
+  "title": "Construct K Palindrome Strings",
+  "titleCn": "构造 K 个回文字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6204867485760015,
+  "testcases": [
+    {
+      "input": "</strong> s = \"annabelle\", k = 2 <strong>Output:</strong> true <strong>Explanation:</strong> You can construct two palindromes using all characters in s. Some possible constructions \"anna\" + \"elble\", \"anbna\" + \"elle\", \"anellena\" + \"b\"",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can construct two palindromes using all characters in s. Some possible constructions \"anna\" + \"elble\", \"anbna\" + \"elle\", \"anellena\" + \"b"
+    },
+    {
+      "input": "</strong> s = \"leetcode\", k = 3 <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to construct 3 palindromes using all the characters of s.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to construct 3 palindromes using all the characters of s."
+    },
+    {
+      "input": "</strong> s = \"true\", k = 4 <strong>Output:</strong> true <strong>Explanation:</strong> The only possible solution is to put each character in a separate string.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The only possible solution is to put each character in a separate string."
+    }
+  ]
+}

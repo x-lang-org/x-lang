@@ -1,0 +1,25 @@
+{
+  "problemId": "1927",
+  "titleSlug": "maximum-ascending-subarray-sum",
+  "title": "Maximum Ascending Subarray Sum",
+  "titleCn": "最大升序子数组和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6854253469826992,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,20,30,5,10,50] <strong>Output:</strong> 65 <strong>Explanation: </strong>[5,10,50] is the ascending subarray with the maximum sum of 65.",
+      "expectedOutput": "</strong> 65 <strong>Explanation: </strong>[5,10,50] is the ascending subarray with the maximum sum of 65."
+    },
+    {
+      "input": "</strong> nums = [10,20,30,40,50] <strong>Output:</strong> 150 <strong>Explanation: </strong>[10,20,30,40,50] is the ascending subarray with the maximum sum of 150.",
+      "expectedOutput": "</strong> 150 <strong>Explanation: </strong>[10,20,30,40,50] is the ascending subarray with the maximum sum of 150."
+    },
+    {
+      "input": "</strong> nums = [12,17,15,13,10,11,12] <strong>Output:</strong> 33 <strong>Explanation: </strong>[10,11,12] is the ascending subarray with the maximum sum of 33.",
+      "expectedOutput": "</strong> 33 <strong>Explanation: </strong>[10,11,12] is the ascending subarray with the maximum sum of 33."
+    }
+  ]
+}

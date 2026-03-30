@@ -1,0 +1,26 @@
+{
+  "problemId": "2086",
+  "titleSlug": "count-number-of-special-subsequences",
+  "title": "Count Number of Special Subsequences",
+  "titleCn": "统计特殊子序列的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5368916797488226,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,2,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> The special subsequences are bolded [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,2], [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,<strong><u>2</u></strong>], and [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>2</u></strong>].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The special subsequences are bolded [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,2], [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,<strong><u>2</u></strong>], and [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,<strong><u>2</u></strong>]."
+    },
+    {
+      "input": "</strong> nums = [2,2,0,0] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no special subsequences in [2,2,0,0].",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no special subsequences in [2,2,0,0]."
+    },
+    {
+      "input": "</strong> nums = [0,1,2,0,1,2] <strong>Output:</strong> 7 <strong>Explanation:</strong> The special subsequences are bolded: - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,0,1,2] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,0,1,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,0,1,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,0,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,1,2,<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,1,2,0,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [0,1,2,<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>]",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The special subsequences are bolded: - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,0,1,2] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,0,1,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>,0,1,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,<strong><u>1</u></strong>,2,0,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,1,2,<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [<strong><u>0</u></strong>,1,2,0,<strong><u>1</u></strong>,<strong><u>2</u></strong>] - [0,1,2,<strong><u>0</u></strong>,<strong><u>1</u></strong>,<strong><u>2</u></strong>]"
+    }
+  ]
+}

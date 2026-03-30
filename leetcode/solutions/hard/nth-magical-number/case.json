@@ -1,0 +1,22 @@
+{
+  "problemId": "910",
+  "titleSlug": "nth-magical-number",
+  "title": "Nth Magical Number",
+  "titleCn": "第 N 个神奇数字",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.40563506804083665,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, a = 2, b = 3 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> n = 4, a = 2, b = 3 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    }
+  ]
+}

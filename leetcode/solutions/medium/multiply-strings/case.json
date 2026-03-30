@@ -12,12 +12,12 @@
   "acRate": 0.4499690038477982,
   "testcases": [
     {
-      "input": "\"2\"",
-      "expectedOutput": "\"3\""
+      "input": {"num1": "2", "num2": "3"},
+      "expectedOutput": "6"
     },
     {
-      "input": "\"123\"",
-      "expectedOutput": "\"456\""
+      "input": {"num1": "123", "num2": "456"},
+      "expectedOutput": "56088"
     }
   ]
 }

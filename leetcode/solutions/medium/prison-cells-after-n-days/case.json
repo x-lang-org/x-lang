@@ -1,0 +1,24 @@
+{
+  "problemId": "994",
+  "titleSlug": "prison-cells-after-n-days",
+  "title": "Prison Cells After N Days",
+  "titleCn": "N 天后的牢房",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.3843499237766572,
+  "testcases": [
+    {
+      "input": "</strong> cells = [0,1,0,1,1,0,0,1], n = 7 <strong>Output:</strong> [0,0,1,1,0,0,0,0] <strong>Explanation:</strong> The following table summarizes the state of the prison on each day: Day 0: [0, 1, 0, 1, 1, 0, 0, 1] Day 1: [0, 1, 1, 0, 0, 0, 0, 0] Day 2: [0, 0, 0, 0, 1, 1, 1, 0] Day 3: [0, 1, 1, 0, 0, 1, 0, 0] Day 4: [0, 0, 0, 0, 0, 1, 0, 0] Day 5: [0, 1, 1, 1, 0, 1, 0, 0] Day 6: [0, 0, 1, 0, 1, 1, 0, 0] Day 7: [0, 0, 1, 1, 0, 0, 0, 0]",
+      "expectedOutput": "</strong> [0,0,1,1,0,0,0,0] <strong>Explanation:</strong> The following table summarizes the state of the prison on each day: Day 0: [0, 1, 0, 1, 1, 0, 0, 1] Day 1: [0, 1, 1, 0, 0, 0, 0, 0] Day 2: [0, 0, 0, 0, 1, 1, 1, 0] Day 3: [0, 1, 1, 0, 0, 1, 0, 0] Day 4: [0, 0, 0, 0, 0, 1, 0, 0] Day 5: [0, 1, 1, 1, 0, 1, 0, 0] Day 6: [0, 0, 1, 0, 1, 1, 0, 0] Day 7: [0, 0, 1, 1, 0, 0, 0, 0]"
+    },
+    {
+      "input": "</strong> cells = [1,0,0,1,0,0,1,0], n = 1000000000 <strong>Output:</strong> [0,0,1,1,1,1,1,0]",
+      "expectedOutput": "</strong> [0,0,1,1,1,1,1,0]"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2395",
+  "titleSlug": "longest-binary-subsequence-less-than-or-equal-to-k",
+  "title": "Longest Binary Subsequence Less Than or Equal to K",
+  "titleCn": "小于等于 K 的最长二进制子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "memoization",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4704446665581925,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1001010\", k = 5 <strong>Output:</strong> 5 <strong>Explanation:</strong> The longest subsequence of s that makes up a binary number less than or equal to 5 is \"00010\", as this number is equal to 2 in decimal. Note that \"00100\" and \"00101\" are also possible, which are equal to 4 and 5 in decimal, respectively. The length of this subsequence is 5, so 5 is returned.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The longest subsequence of s that makes up a binary number less than or equal to 5 is \"00010\", as this number is equal to 2 in decimal. Note that \"00100\" and \"00101\" are also possible, which are equal to 4 and 5 in decimal, respectively. The length of this subsequence is 5, so 5 is returned."
+    },
+    {
+      "input": "</strong> s = \"00101001\", k = 1 <strong>Output:</strong> 6 <strong>Explanation:</strong> \"000001\" is the longest subsequence of s that makes up a binary number less than or equal to 1, as this number is equal to 1 in decimal. The length of this subsequence is 6, so 6 is returned.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> \"000001\" is the longest subsequence of s that makes up a binary number less than or equal to 1, as this number is equal to 1 in decimal. The length of this subsequence is 6, so 6 is returned."
+    }
+  ]
+}

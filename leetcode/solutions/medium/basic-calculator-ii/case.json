@@ -1,0 +1,27 @@
+{
+  "problemId": "227",
+  "titleSlug": "basic-calculator-ii",
+  "title": "Basic Calculator II",
+  "titleCn": "基本计算器 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "math",
+    "string"
+  ],
+  "acRate": 0.46287304210905367,
+  "testcases": [
+    {
+      "input": "</strong> s = \"3+2*2\" <strong>Output:</strong> 7",
+      "expectedOutput": "</strong> 7"
+    },
+    {
+      "input": "</strong> s = \" 3/2 \" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> s = \" 3+5 / 2 \" <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

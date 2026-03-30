@@ -1,0 +1,24 @@
+{
+  "problemId": "100164",
+  "titleSlug": "palindrome-linked-list-lcci",
+  "title": "Palindrome Linked List LCCI",
+  "titleCn": "回文链表",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.4948442235186471,
+  "testcases": [
+    {
+      "input": "</strong>1->2\r <strong>Output: </strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong>1->2->2->1\r <strong>Output: </strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

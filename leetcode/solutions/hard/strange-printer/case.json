@@ -1,0 +1,22 @@
+{
+  "problemId": "664",
+  "titleSlug": "strange-printer",
+  "title": "Strange Printer",
+  "titleCn": "奇怪的打印机",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.650904033379694,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aaabbb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Print \"aaa\" first and then print \"bbb\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Print \"aaa\" first and then print \"bbb\"."
+    },
+    {
+      "input": "</strong> s = \"aba\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Print \"aaa\" first and then print \"b\" from the second place of the string, which will cover the existing character 'a'.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Print \"aaa\" first and then print \"b\" from the second place of the string, which will cover the existing character 'a'."
+    }
+  ]
+}

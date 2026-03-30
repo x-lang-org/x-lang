@@ -1,0 +1,24 @@
+{
+  "problemId": "143",
+  "titleSlug": "reorder-list",
+  "title": "Reorder List",
+  "titleCn": "重排链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.6785087221795304,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,3,4] <strong>Output:</strong> [1,4,2,3]",
+      "expectedOutput": "</strong> [1,4,2,3]"
+    },
+    {
+      "input": "</strong> head = [1,2,3,4,5] <strong>Output:</strong> [1,5,2,4,3]",
+      "expectedOutput": "</strong> [1,5,2,4,3]"
+    }
+  ]
+}

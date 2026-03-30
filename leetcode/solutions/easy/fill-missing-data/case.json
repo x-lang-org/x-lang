@@ -1,0 +1,15 @@
+{
+  "problemId": "3070",
+  "titleSlug": "fill-missing-data",
+  "title": "Fill Missing Data",
+  "titleCn": "填充缺失值",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7101925786754345,
+  "testcases": [
+    {
+      "input": "</strong>+-----------------+----------+-------+ | name      | quantity | price | +-----------------+----------+-------+ | Wristwatch   | None   | 135  | | WirelessEarbuds | None   | 821  | | GolfClubs    | 779   | 9319 | | Printer     | 849   | 3051 | +-----------------+----------+-------+ <strong>Output: </strong>+-----------------+----------+-------+ | name      | quantity | price | +-----------------+----------+-------+ | Wristwatch   | 0    | 135  | | WirelessEarbuds | 0    | 821  | | GolfClubs    | 779   | 9319 | | Printer     | 849   | 3051 | +-----------------+----------+-------+ <strong>Explanation:</strong> The quantity for Wristwatch and WirelessEarbuds are filled by 0.",
+      "expectedOutput": "</strong>+-----------------+----------+-------+ | name      | quantity | price | +-----------------+----------+-------+ | Wristwatch   | 0    | 135  | | WirelessEarbuds | 0    | 821  | | GolfClubs    | 779   | 9319 | | Printer     | 849   | 3051 | +-----------------+----------+-------+ <strong>Explanation:</strong> The quantity for Wristwatch and WirelessEarbuds are filled by 0."
+    }
+  ]
+}

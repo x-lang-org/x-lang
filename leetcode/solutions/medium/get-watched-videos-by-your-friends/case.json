@@ -1,0 +1,25 @@
+{
+  "problemId": "1436",
+  "titleSlug": "get-watched-videos-by-your-friends",
+  "title": "Get Watched Videos by Your Friends",
+  "titleCn": "获取你好友已观看的视频",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "graph",
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.4656456706990048,
+  "testcases": [
+    {
+      "input": "</strong> watchedVideos = [[\"A\",\"B\"],[\"C\"],[\"B\",\"C\"],[\"D\"]], friends = [[1,2],[0,3],[0,3],[1,2]], id = 0, level = 1 <strong>Output:</strong> [\"B\",\"C\"] <strong>Explanation:</strong> You have id = 0 (green color in the figure) and your friends are (yellow color in the figure): Person with id = 1 -> watchedVideos = [\"C\"]  Person with id = 2 -> watchedVideos = [\"B\",\"C\"]  The frequencies of watchedVideos by your friends are:  B -> 1  C -> 2",
+      "expectedOutput": "</strong> [\"B\",\"C\"] <strong>Explanation:</strong> You have id = 0 (green color in the figure) and your friends are (yellow color in the figure): Person with id = 1 -> watchedVideos = [\"C\"]  Person with id = 2 -> watchedVideos = [\"B\",\"C\"]  The frequencies of watchedVideos by your friends are:  B -> 1  C -> 2"
+    },
+    {
+      "input": "</strong> watchedVideos = [[\"A\",\"B\"],[\"C\"],[\"B\",\"C\"],[\"D\"]], friends = [[1,2],[0,3],[0,3],[1,2]], id = 0, level = 2 <strong>Output:</strong> [\"D\"] <strong>Explanation:</strong> You have id = 0 (green color in the figure) and the only friend of your friends is the person with id = 3 (yellow color in the figure).",
+      "expectedOutput": "</strong> [\"D\"] <strong>Explanation:</strong> You have id = 0 (green color in the figure) and the only friend of your friends is the person with id = 3 (yellow color in the figure)."
+    }
+  ]
+}

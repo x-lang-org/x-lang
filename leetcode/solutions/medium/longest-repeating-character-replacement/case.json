@@ -1,0 +1,23 @@
+{
+  "problemId": "424",
+  "titleSlug": "longest-repeating-character-replacement",
+  "title": "Longest Repeating Character Replacement",
+  "titleCn": "替换后的最长重复字符",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.5645132594201813,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ABAB\", k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> Replace the two 'A's with two 'B's or vice versa.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Replace the two 'A's with two 'B's or vice versa."
+    },
+    {
+      "input": "</strong> s = \"AABABBA\", k = 1 <strong>Output:</strong> 4 <strong>Explanation:</strong> Replace the one 'A' in the middle with 'B' and form \"AABBBBA\". The substring \"BBBB\" has the longest repeating letters, which is 4. There may exists other ways to achieve this answer too.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Replace the one 'A' in the middle with 'B' and form \"AABBBBA\". The substring \"BBBB\" has the longest repeating letters, which is 4. There may exists other ways to achieve this answer too."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "3033",
+  "titleSlug": "apply-operations-to-make-two-strings-equal",
+  "title": "Apply Operations to Make Two Strings Equal",
+  "titleCn": "执行操作使两个字符串相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.3485116126921819,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"1100011000\", s2 = \"0101001010\", x = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> We can do the following operations: - Choose i = 3 and apply the second operation. The resulting string is s1 = \"110<u><strong>11</strong></u>11000\". - Choose i = 4 and apply the second operation. The resulting string is s1 = \"1101<strong><u>00</u></strong>1000\". - Choose i = 0 and j = 8 and apply the first operation. The resulting string is s1 = \"<u><strong>0</strong></u>1010010<u><strong>1</strong></u>0\" = s2. The total cost is 1 + 1 + 2 = 4. It can be shown that it is the minimum cost possible.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can do the following operations: - Choose i = 3 and apply the second operation. The resulting string is s1 = \"110<u><strong>11</strong></u>11000\". - Choose i = 4 and apply the second operation. The resulting string is s1 = \"1101<strong><u>00</u></strong>1000\". - Choose i = 0 and j = 8 and apply the first operation. The resulting string is s1 = \"<u><strong>0</strong></u>1010010<u><strong>1</strong></u>0\" = s2. The total cost is 1 + 1 + 2 = 4. It can be shown that it is the minimum cost possible."
+    },
+    {
+      "input": "</strong> s1 = \"10110\", s2 = \"00011\", x = 4 <strong>Output:</strong> -1 <strong>Explanation:</strong> It is not possible to make the two strings equal.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is not possible to make the two strings equal."
+    }
+  ]
+}

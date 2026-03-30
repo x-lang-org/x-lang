@@ -1,0 +1,31 @@
+{
+  "problemId": "1753",
+  "titleSlug": "path-with-minimum-effort",
+  "title": "Path With Minimum Effort",
+  "titleCn": "最小体力消耗路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "binary-search",
+    "matrix",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5417991307154089,
+  "testcases": [
+    {
+      "input": "</strong> heights = [[1,2,2],[3,8,2],[5,3,5]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The route of [1,3,5,3,5] has a maximum absolute difference of 2 in consecutive cells. This is better than the route of [1,2,2,2,5], where the maximum absolute difference is 3.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The route of [1,3,5,3,5] has a maximum absolute difference of 2 in consecutive cells. This is better than the route of [1,2,2,2,5], where the maximum absolute difference is 3."
+    },
+    {
+      "input": "</strong> heights = [[1,2,3],[3,8,4],[5,3,5]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The route of [1,2,3,4,5] has a maximum absolute difference of 1 in consecutive cells, which is better than route [1,3,5,3,5].",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The route of [1,2,3,4,5] has a maximum absolute difference of 1 in consecutive cells, which is better than route [1,3,5,3,5]."
+    },
+    {
+      "input": "</strong> heights = [[1,2,1,1,1],[1,2,1,2,1],[1,2,1,2,1],[1,2,1,2,1],[1,1,1,2,1]] <strong>Output:</strong> 0 <strong>Explanation:</strong> This route does not require any effort.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> This route does not require any effort."
+    }
+  ]
+}

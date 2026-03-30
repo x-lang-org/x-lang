@@ -1,0 +1,25 @@
+{
+  "problemId": "2061",
+  "titleSlug": "painting-a-grid-with-three-different-colors",
+  "title": "Painting a Grid With Three Different Colors",
+  "titleCn": "用三种不同颜色为网格涂色",
+  "difficulty": "HARD",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.7458858858858859,
+  "testcases": [
+    {
+      "input": "</strong> m = 1, n = 1 <strong>Output:</strong> 3 <strong>Explanation:</strong> The three possible colorings are shown in the image above.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The three possible colorings are shown in the image above."
+    },
+    {
+      "input": "</strong> m = 1, n = 2 <strong>Output:</strong> 6 <strong>Explanation:</strong> The six possible colorings are shown in the image above.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The six possible colorings are shown in the image above."
+    },
+    {
+      "input": "</strong> m = 5, n = 5 <strong>Output:</strong> 580986",
+      "expectedOutput": "</strong> 580986"
+    }
+  ]
+}

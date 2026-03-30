@@ -1,0 +1,29 @@
+{
+  "problemId": "1873",
+  "titleSlug": "longest-nice-substring",
+  "title": "Longest Nice Substring",
+  "titleCn": "最长的美好子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "divide-and-conquer",
+    "sliding-window"
+  ],
+  "acRate": 0.6698351759906975,
+  "testcases": [
+    {
+      "input": "</strong> s = \"YazaAay\" <strong>Output:</strong> \"aAa\" <strong>Explanation: </strong>\"aAa\" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear. \"aAa\" is the longest nice substring.",
+      "expectedOutput": "</strong> \"aAa\" <strong>Explanation: </strong>\"aAa\" is a nice string because 'A/a' is the only letter of the alphabet in s, and both 'A' and 'a' appear. \"aAa\" is the longest nice substring."
+    },
+    {
+      "input": "</strong> s = \"Bb\" <strong>Output:</strong> \"Bb\" <strong>Explanation:</strong> \"Bb\" is a nice string because both 'B' and 'b' appear. The whole string is a substring.",
+      "expectedOutput": "</strong> \"Bb\" <strong>Explanation:</strong> \"Bb\" is a nice string because both 'B' and 'b' appear. The whole string is a substring."
+    },
+    {
+      "input": "</strong> s = \"c\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are no nice substrings.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are no nice substrings."
+    }
+  ]
+}

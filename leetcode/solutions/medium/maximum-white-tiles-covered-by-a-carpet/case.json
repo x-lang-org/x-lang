@@ -1,0 +1,26 @@
+{
+  "problemId": "2359",
+  "titleSlug": "maximum-white-tiles-covered-by-a-carpet",
+  "title": "Maximum White Tiles Covered by a Carpet",
+  "titleCn": "毯子覆盖的最多白色砖块数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.4015445157854247,
+  "testcases": [
+    {
+      "input": "</strong> tiles = [[1,5],[10,11],[12,18],[20,25],[30,32]], carpetLen = 10 <strong>Output:</strong> 9 <strong>Explanation:</strong> Place the carpet starting on tile 10. It covers 9 white tiles, so we return 9. Note that there may be other places where the carpet covers 9 white tiles. It can be shown that the carpet cannot cover more than 9 white tiles.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Place the carpet starting on tile 10. It covers 9 white tiles, so we return 9. Note that there may be other places where the carpet covers 9 white tiles. It can be shown that the carpet cannot cover more than 9 white tiles."
+    },
+    {
+      "input": "</strong> tiles = [[10,11],[1,1]], carpetLen = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> Place the carpet starting on tile 10. It covers 2 white tiles, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Place the carpet starting on tile 10. It covers 2 white tiles, so we return 2."
+    }
+  ]
+}

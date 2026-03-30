@@ -1,0 +1,21 @@
+{
+  "problemId": "1187",
+  "titleSlug": "print-foobar-alternately",
+  "title": "Print FooBar Alternately",
+  "titleCn": "交替打印 FooBar",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "concurrency"
+  ],
+  "acRate": 0.5974286862193652,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> \"foobar\" <strong>Explanation:</strong> There are two threads being fired asynchronously. One of them calls foo(), while the other calls bar(). \"foobar\" is being output 1 time.",
+      "expectedOutput": "</strong> \"foobar\" <strong>Explanation:</strong> There are two threads being fired asynchronously. One of them calls foo(), while the other calls bar(). \"foobar\" is being output 1 time."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> \"foobarfoobar\" <strong>Explanation:</strong> \"foobar\" is being output 2 times.",
+      "expectedOutput": "</strong> \"foobarfoobar\" <strong>Explanation:</strong> \"foobar\" is being output 2 times."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1000027",
+  "titleSlug": "calculator-lcci",
+  "title": "Calculator LCCI",
+  "titleCn": "计算器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "math",
+    "string"
+  ],
+  "acRate": 0.4077792339457481,
+  "testcases": [
+    {
+      "input": "</strong>\"3+2*2\"\r <strong>Output:</strong> 7",
+      "expectedOutput": "</strong> 7"
+    },
+    {
+      "input": "</strong> \" 3/2 \"\r <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> \" 3+5 / 2 \"\r <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

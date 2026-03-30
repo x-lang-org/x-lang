@@ -1,0 +1,23 @@
+{
+  "problemId": "827",
+  "titleSlug": "expressive-words",
+  "title": "Expressive Words",
+  "titleCn": "情感丰富的文字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.4909910610182666,
+  "testcases": [
+    {
+      "input": "</strong> s = \"heeellooo\", words = [\"hello\", \"hi\", \"helo\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> We can extend \"e\" and \"o\" in the word \"hello\" to get \"heeellooo\". We can't extend \"helo\" to get \"heeellooo\" because the group \"ll\" is not size 3 or more.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can extend \"e\" and \"o\" in the word \"hello\" to get \"heeellooo\". We can't extend \"helo\" to get \"heeellooo\" because the group \"ll\" is not size 3 or more."
+    },
+    {
+      "input": "</strong> s = \"zzzzzyyyyy\", words = [\"zzyy\",\"zy\",\"zyy\"] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

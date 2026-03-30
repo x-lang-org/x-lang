@@ -1,0 +1,21 @@
+{
+  "problemId": "1000029",
+  "titleSlug": "volume-of-histogram-lcci",
+  "title": "Volume of Histogram LCCI",
+  "titleCn": "直方图的水量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6362151606603941,
+  "testcases": [
+    {
+      "input": "</strong> [0,1,0,2,1,0,1,3,2,1,2,1]\r <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    }
+  ]
+}

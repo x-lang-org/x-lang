@@ -1,0 +1,26 @@
+{
+  "problemId": "1677",
+  "titleSlug": "matrix-diagonal-sum",
+  "title": "Matrix Diagonal Sum",
+  "titleCn": "矩阵对角线元素的和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.823735391002211,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[<strong>1</strong>,2,<strong>3</strong>],         [4,<strong>5</strong>,6],         [<strong>7</strong>,8,<strong>9</strong>]] <strong>Output:</strong> 25 <strong>Explanation: </strong>Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25 Notice that element mat[1][1] = 5 is counted only once.",
+      "expectedOutput": "</strong> 25 <strong>Explanation: </strong>Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25 Notice that element mat[1][1] = 5 is counted only once."
+    },
+    {
+      "input": "</strong> mat = [[<strong>1</strong>,1,1,<strong>1</strong>],         [1,<strong>1</strong>,<strong>1</strong>,1],         [1,<strong>1</strong>,<strong>1</strong>,1],         [<strong>1</strong>,1,1,<strong>1</strong>]] <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    },
+    {
+      "input": "</strong> mat = [[<strong>5</strong>]] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

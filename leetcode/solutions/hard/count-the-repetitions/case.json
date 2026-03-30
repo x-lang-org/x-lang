@@ -1,0 +1,23 @@
+{
+  "problemId": "466",
+  "titleSlug": "count-the-repetitions",
+  "title": "Count The Repetitions",
+  "titleCn": "统计重复个数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.41716177744770394,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"acb\", n1 = 4, s2 = \"ab\", n2 = 2 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> s1 = \"acb\", n1 = 1, s2 = \"acb\", n2 = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

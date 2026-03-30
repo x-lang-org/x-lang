@@ -1,0 +1,25 @@
+{
+  "problemId": "220",
+  "titleSlug": "contains-duplicate-iii",
+  "title": "Contains Duplicate III",
+  "titleCn": "存在重复元素 III",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "bucket-sort",
+    "ordered-set",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.31762641273584263,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,1], indexDiff = 3, valueDiff = 0 <strong>Output:</strong> true <strong>Explanation:</strong> We can choose (i, j) = (0, 3). We satisfy the three conditions: i != j --> 0 != 3 abs(i - j) <= indexDiff --> abs(0 - 3) <= 3 abs(nums[i] - nums[j]) <= valueDiff --> abs(1 - 1) <= 0",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can choose (i, j) = (0, 3). We satisfy the three conditions: i != j --> 0 != 3 abs(i - j) <= indexDiff --> abs(0 - 3) <= 3 abs(nums[i] - nums[j]) <= valueDiff --> abs(1 - 1) <= 0"
+    },
+    {
+      "input": "</strong> nums = [1,5,9,1,5,9], indexDiff = 2, valueDiff = 3 <strong>Output:</strong> false <strong>Explanation:</strong> After trying all the possible pairs (i, j), we cannot satisfy the three conditions, so we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> After trying all the possible pairs (i, j), we cannot satisfy the three conditions, so we return false."
+    }
+  ]
+}

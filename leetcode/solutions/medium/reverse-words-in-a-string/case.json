@@ -1,0 +1,26 @@
+{
+  "problemId": "151",
+  "titleSlug": "reverse-words-in-a-string",
+  "title": "Reverse Words in a String",
+  "titleCn": "反转字符串中的单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.5951212038817263,
+  "testcases": [
+    {
+      "input": "</strong> s = \"the sky is blue\" <strong>Output:</strong> \"blue is sky the\"",
+      "expectedOutput": "</strong> \"blue is sky the"
+    },
+    {
+      "input": "</strong> s = \" hello world \" <strong>Output:</strong> \"world hello\" <strong>Explanation:</strong> Your reversed string should not contain leading or trailing spaces.",
+      "expectedOutput": "</strong> \"world hello\" <strong>Explanation:</strong> Your reversed string should not contain leading or trailing spaces."
+    },
+    {
+      "input": "</strong> s = \"a good  example\" <strong>Output:</strong> \"example good a\" <strong>Explanation:</strong> You need to reduce multiple spaces between two words to a single space in the reversed string.",
+      "expectedOutput": "</strong> \"example good a\" <strong>Explanation:</strong> You need to reduce multiple spaces between two words to a single space in the reversed string."
+    }
+  ]
+}

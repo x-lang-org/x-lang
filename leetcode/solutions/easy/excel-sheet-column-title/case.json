@@ -1,0 +1,26 @@
+{
+  "problemId": "168",
+  "titleSlug": "excel-sheet-column-title",
+  "title": "Excel Sheet Column Title",
+  "titleCn": "Excel 表列名称",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.4604978135881448,
+  "testcases": [
+    {
+      "input": "</strong> columnNumber = 1 <strong>Output:</strong> \"A\"",
+      "expectedOutput": "</strong> \"A"
+    },
+    {
+      "input": "</strong> columnNumber = 28 <strong>Output:</strong> \"AB\"",
+      "expectedOutput": "</strong> \"AB"
+    },
+    {
+      "input": "</strong> columnNumber = 701 <strong>Output:</strong> \"ZY\"",
+      "expectedOutput": "</strong> \"ZY"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "943",
+  "titleSlug": "sum-of-subarray-minimums",
+  "title": "Sum of Subarray Minimums",
+  "titleCn": "子数组的最小值之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "dynamic-programming",
+    "monotonic-stack"
+  ],
+  "acRate": 0.40750283844945484,
+  "testcases": [
+    {
+      "input": "</strong> arr = [3,1,2,4] <strong>Output:</strong> 17 <strong>Explanation:</strong> Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1. Sum is 17.",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4]. Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1. Sum is 17."
+    },
+    {
+      "input": "</strong> arr = [11,81,94,43,3] <strong>Output:</strong> 444",
+      "expectedOutput": "</strong> 444"
+    }
+  ]
+}

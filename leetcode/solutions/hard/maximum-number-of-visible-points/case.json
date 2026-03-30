@@ -1,0 +1,29 @@
+{
+  "problemId": "1733",
+  "titleSlug": "maximum-number-of-visible-points",
+  "title": "Maximum Number of Visible Points",
+  "titleCn": "可见点的最大数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.4436353421638324,
+  "testcases": [
+    {
+      "input": "</strong> points = [[2,1],[2,2],[3,3]], angle = 90, location = [1,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> The shaded region represents your field of view. All points can be made visible in your field of view, including [3,3] even though [2,2] is in front and in the same line of sight.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The shaded region represents your field of view. All points can be made visible in your field of view, including [3,3] even though [2,2] is in front and in the same line of sight."
+    },
+    {
+      "input": "</strong> points = [[2,1],[2,2],[3,4],[1,1]], angle = 90, location = [1,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> All points can be made visible in your field of view, including the one at your location.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> All points can be made visible in your field of view, including the one at your location."
+    },
+    {
+      "input": "</strong> points = [[1,0],[2,1]], angle = 13, location = [1,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can only see one of the two points, as shown above.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can only see one of the two points, as shown above."
+    }
+  ]
+}

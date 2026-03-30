@@ -1,0 +1,23 @@
+{
+  "problemId": "100186",
+  "titleSlug": "zero-matrix-lcci",
+  "title": "Zero Matrix LCCI",
+  "titleCn": "零矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.6282163698485169,
+  "testcases": [
+    {
+      "input": "</strong>\r [\r  [1,1,1],\r  [1,0,1],\r  [1,1,1]\r ]\r <strong>Output: </strong>\r [\r  [1,0,1],\r  [0,0,0],\r  [1,0,1]\r ]",
+      "expectedOutput": "</strong>\r [\r  [1,0,1],\r  [0,0,0],\r  [1,0,1]\r ]"
+    },
+    {
+      "input": "</strong>\r [\r  [0,1,2,0],\r  [3,4,5,2],\r  [1,3,1,5]\r ]\r <strong>Output: </strong>\r [\r  [0,0,0,0],\r  [0,4,5,0],\r  [0,3,1,0]\r ]",
+      "expectedOutput": "</strong>\r [\r  [0,0,0,0],\r  [0,4,5,0],\r  [0,3,1,0]\r ]"
+    }
+  ]
+}

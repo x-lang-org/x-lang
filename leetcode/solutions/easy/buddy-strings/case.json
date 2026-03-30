@@ -1,0 +1,26 @@
+{
+  "problemId": "889",
+  "titleSlug": "buddy-strings",
+  "title": "Buddy Strings",
+  "titleCn": "亲密字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.3542037875256488,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ab\", goal = \"ba\" <strong>Output:</strong> true <strong>Explanation:</strong> You can swap s[0] = 'a' and s[1] = 'b' to get \"ba\", which is equal to goal.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can swap s[0] = 'a' and s[1] = 'b' to get \"ba\", which is equal to goal."
+    },
+    {
+      "input": "</strong> s = \"ab\", goal = \"ab\" <strong>Output:</strong> false <strong>Explanation:</strong> The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in \"ba\" != goal.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in \"ba\" != goal."
+    },
+    {
+      "input": "</strong> s = \"aa\", goal = \"aa\" <strong>Output:</strong> true <strong>Explanation:</strong> You can swap s[0] = 'a' and s[1] = 'a' to get \"aa\", which is equal to goal.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can swap s[0] = 'a' and s[1] = 'a' to get \"aa\", which is equal to goal."
+    }
+  ]
+}

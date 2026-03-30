@@ -1,0 +1,23 @@
+{
+  "problemId": "868",
+  "titleSlug": "push-dominoes",
+  "title": "Push Dominoes",
+  "titleCn": "推多米诺",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5871263770750818,
+  "testcases": [
+    {
+      "input": "</strong> dominoes = \"RR.L\" <strong>Output:</strong> \"RR.L\" <strong>Explanation:</strong> The first domino expends no additional force on the second domino.",
+      "expectedOutput": "</strong> \"RR.L\" <strong>Explanation:</strong> The first domino expends no additional force on the second domino."
+    },
+    {
+      "input": "</strong> dominoes = \".L.R...LR..L..\" <strong>Output:</strong> \"LL.RR.LLRRLL..\"",
+      "expectedOutput": "</strong> \"LL.RR.LLRRLL.."
+    }
+  ]
+}

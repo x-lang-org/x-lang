@@ -1,0 +1,26 @@
+{
+  "problemId": "2709",
+  "titleSlug": "count-the-number-of-square-free-subsets",
+  "title": "Count the Number of Square-Free Subsets",
+  "titleCn": "无平方子集计数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math",
+    "dynamic-programming",
+    "bitmask",
+    "number-theory"
+  ],
+  "acRate": 0.33242080563159954,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,4,4,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 square-free subsets in this example: - The subset consisting of the 0<sup>th</sup> element [3]. The product of its elements is 3, which is a square-free integer. - The subset consisting of the 3<sup>rd</sup> element [5]. The product of its elements is 5, which is a square-free integer. - The subset consisting of 0<sup>th</sup> and 3<sup>rd</sup> elements [3,5]. The product of its elements is 15, which is a square-free integer. It can be proven that there are no more than 3 square-free subsets in the given array.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 square-free subsets in this example: - The subset consisting of the 0<sup>th</sup> element [3]. The product of its elements is 3, which is a square-free integer. - The subset consisting of the 3<sup>rd</sup> element [5]. The product of its elements is 5, which is a square-free integer. - The subset consisting of 0<sup>th</sup> and 3<sup>rd</sup> elements [3,5]. The product of its elements is 15, which is a square-free integer. It can be proven that there are no more than 3 square-free subsets in the given array."
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is 1 square-free subset in this example: - The subset consisting of the 0<sup>th</sup> element [1]. The product of its elements is 1, which is a square-free integer. It can be proven that there is no more than 1 square-free subset in the given array.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is 1 square-free subset in this example: - The subset consisting of the 0<sup>th</sup> element [1]. The product of its elements is 1, which is a square-free integer. It can be proven that there is no more than 1 square-free subset in the given array."
+    }
+  ]
+}

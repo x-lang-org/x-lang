@@ -1,0 +1,27 @@
+{
+  "problemId": "342",
+  "titleSlug": "power-of-four",
+  "title": "Power of Four",
+  "titleCn": "4的幂",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.5404358764168811,
+  "testcases": [
+    {
+      "input": "</strong> n = 16 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

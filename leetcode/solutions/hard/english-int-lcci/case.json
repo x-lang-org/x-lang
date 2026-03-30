@@ -1,0 +1,31 @@
+{
+  "problemId": "1000018",
+  "titleSlug": "english-int-lcci",
+  "title": "English Int LCCI",
+  "titleCn": "整数的英语表示",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math",
+    "string"
+  ],
+  "acRate": 0.40320386882272935,
+  "testcases": [
+    {
+      "input": "</strong> 123\r <strong>Output:</strong> \"One Hundred Twenty Three\"",
+      "expectedOutput": "</strong> \"One Hundred Twenty Three"
+    },
+    {
+      "input": "</strong> 12345\r <strong>Output:</strong> \"Twelve Thousand Three Hundred Forty Five\"",
+      "expectedOutput": "</strong> \"Twelve Thousand Three Hundred Forty Five"
+    },
+    {
+      "input": "</strong> 1234567\r <strong>Output:</strong> \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"",
+      "expectedOutput": "</strong> \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+    },
+    {
+      "input": "</strong> 1234567891\r <strong>Output:</strong> \"One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One\"",
+      "expectedOutput": "</strong> \"One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+    }
+  ]
+}

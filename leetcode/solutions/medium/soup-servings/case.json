@@ -1,0 +1,23 @@
+{
+  "problemId": "826",
+  "titleSlug": "soup-servings",
+  "title": "Soup Servings",
+  "titleCn": "分汤",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "probability-and-statistics"
+  ],
+  "acRate": 0.588173617814466,
+  "testcases": [
+    {
+      "input": "</strong> n = 50 <strong>Output:</strong> 0.62500 <strong>Explanation:</strong> If we perform either of the first two serving operations, soup A will become empty first. If we perform the third operation, A and B will become empty at the same time. If we perform the fourth operation, B will become empty first. So the total probability of A becoming empty first plus half the probability that A and B become empty at the same time, is 0.25 * (1 + 1 + 0.5 + 0) = 0.625.",
+      "expectedOutput": "</strong> 0.62500 <strong>Explanation:</strong> If we perform either of the first two serving operations, soup A will become empty first. If we perform the third operation, A and B will become empty at the same time. If we perform the fourth operation, B will become empty first. So the total probability of A becoming empty first plus half the probability that A and B become empty at the same time, is 0.25 * (1 + 1 + 0.5 + 0) = 0.625."
+    },
+    {
+      "input": "</strong> n = 100 <strong>Output:</strong> 0.71875 <strong>Explanation:</strong> If we perform the first serving operation, soup A will become empty first. If we perform the second serving operations, A will become empty on performing operation [1, 2, 3], and both A and B become empty on performing operation 4. If we perform the third operation, A will become empty on performing operation [1, 2], and both A and B become empty on performing operation 3. If we perform the fourth operation, A will become empty on performing operation 1, and both A and B become empty on performing operation 2. So the total probability of A becoming empty first plus half the probability that A and B become empty at the same time, is 0.71875.",
+      "expectedOutput": "</strong> 0.71875 <strong>Explanation:</strong> If we perform the first serving operation, soup A will become empty first. If we perform the second serving operations, A will become empty on performing operation [1, 2, 3], and both A and B become empty on performing operation 4. If we perform the third operation, A will become empty on performing operation [1, 2], and both A and B become empty on performing operation 3. If we perform the fourth operation, A will become empty on performing operation 1, and both A and B become empty on performing operation 2. So the total probability of A becoming empty first plus half the probability that A and B become empty at the same time, is 0.71875."
+    }
+  ]
+}

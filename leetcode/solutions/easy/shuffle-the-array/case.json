@@ -1,0 +1,25 @@
+{
+  "problemId": "1580",
+  "titleSlug": "shuffle-the-array",
+  "title": "Shuffle the Array",
+  "titleCn": "重新排列数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.8099451480820007,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,5,1,3,4,7], n = 3\r <strong>Output:</strong> [2,3,5,4,1,7] \r <strong>Explanation:</strong> Since x<sub>1</sub>=2, x<sub>2</sub>=5, x<sub>3</sub>=1, y<sub>1</sub>=3, y<sub>2</sub>=4, y<sub>3</sub>=7 then the answer is [2,3,5,4,1,7].",
+      "expectedOutput": "</strong> [2,3,5,4,1,7] \r <strong>Explanation:</strong> Since x<sub>1</sub>=2, x<sub>2</sub>=5, x<sub>3</sub>=1, y<sub>1</sub>=3, y<sub>2</sub>=4, y<sub>3</sub>=7 then the answer is [2,3,5,4,1,7]."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,4,3,2,1], n = 4\r <strong>Output:</strong> [1,4,2,3,3,2,4,1]",
+      "expectedOutput": "</strong> [1,4,2,3,3,2,4,1]"
+    },
+    {
+      "input": "</strong> nums = [1,1,2,2], n = 2\r <strong>Output:</strong> [1,2,1,2]",
+      "expectedOutput": "</strong> [1,2,1,2]"
+    }
+  ]
+}

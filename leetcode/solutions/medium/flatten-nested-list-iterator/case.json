@@ -1,0 +1,26 @@
+{
+  "problemId": "341",
+  "titleSlug": "flatten-nested-list-iterator",
+  "title": "Flatten Nested List Iterator",
+  "titleCn": "扁平化嵌套列表迭代器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search",
+    "design",
+    "queue",
+    "iterator"
+  ],
+  "acRate": 0.7283144051588444,
+  "testcases": [
+    {
+      "input": "</strong> nestedList = [[1,1],2,[1,1]] <strong>Output:</strong> [1,1,2,1,1] <strong>Explanation:</strong> By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].",
+      "expectedOutput": "</strong> [1,1,2,1,1] <strong>Explanation:</strong> By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1]."
+    },
+    {
+      "input": "</strong> nestedList = [1,[4,[6]]] <strong>Output:</strong> [1,4,6] <strong>Explanation:</strong> By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].",
+      "expectedOutput": "</strong> [1,4,6] <strong>Explanation:</strong> By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6]."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2463",
+  "titleSlug": "minimum-recolors-to-get-k-consecutive-black-blocks",
+  "title": "Minimum Recolors to Get K Consecutive Black Blocks",
+  "titleCn": "得到 K 个黑块的最少涂色次数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.6435945929187078,
+  "testcases": [
+    {
+      "input": "</strong> blocks = \"WBBWWBBWBW\", k = 7 <strong>Output:</strong> 3 <strong>Explanation:</strong> One way to achieve 7 consecutive black blocks is to recolor the 0th, 3rd, and 4th blocks so that blocks = \"BBBBBBBWBW\". It can be shown that there is no way to achieve 7 consecutive black blocks in less than 3 operations. Therefore, we return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One way to achieve 7 consecutive black blocks is to recolor the 0th, 3rd, and 4th blocks so that blocks = \"BBBBBBBWBW\". It can be shown that there is no way to achieve 7 consecutive black blocks in less than 3 operations. Therefore, we return 3."
+    },
+    {
+      "input": "</strong> blocks = \"WBWBBBW\", k = 2 <strong>Output:</strong> 0 <strong>Explanation:</strong> No changes need to be made, since 2 consecutive black blocks already exist. Therefore, we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No changes need to be made, since 2 consecutive black blocks already exist. Therefore, we return 0."
+    }
+  ]
+}

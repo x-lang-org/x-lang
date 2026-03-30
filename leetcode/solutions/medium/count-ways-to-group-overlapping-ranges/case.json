@@ -1,0 +1,22 @@
+{
+  "problemId": "2651",
+  "titleSlug": "count-ways-to-group-overlapping-ranges",
+  "title": "Count Ways to Group Overlapping Ranges",
+  "titleCn": "统计将重叠区间合并成组的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.4680794196258114,
+  "testcases": [
+    {
+      "input": "</strong> ranges = [[6,10],[5,15]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The two ranges are overlapping, so they must be in the same group. Thus, there are two possible ways: - Put both the ranges together in group 1. - Put both the ranges together in group 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The two ranges are overlapping, so they must be in the same group. Thus, there are two possible ways: - Put both the ranges together in group 1. - Put both the ranges together in group 2."
+    },
+    {
+      "input": "</strong> ranges = [[1,3],[10,20],[2,5],[4,8]] <strong>Output:</strong> 4 <strong>Explanation:</strong> Ranges [1,3], and [2,5] are overlapping. So, they must be in the same group. Again, ranges [2,5] and [4,8] are also overlapping. So, they must also be in the same group. Thus, there are four possible ways to group them: - All the ranges in group 1. - All the ranges in group 2. - Ranges [1,3], [2,5], and [4,8] in group 1 and [10,20] in group 2. - Ranges [1,3], [2,5], and [4,8] in group 2 and [10,20] in group 1.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Ranges [1,3], and [2,5] are overlapping. So, they must be in the same group. Again, ranges [2,5] and [4,8] are also overlapping. So, they must also be in the same group. Thus, there are four possible ways to group them: - All the ranges in group 1. - All the ranges in group 2. - Ranges [1,3], [2,5], and [4,8] in group 1 and [10,20] in group 2. - Ranges [1,3], [2,5], and [4,8] in group 2 and [10,20] in group 1."
+    }
+  ]
+}

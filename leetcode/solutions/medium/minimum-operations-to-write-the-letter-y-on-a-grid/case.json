@@ -1,0 +1,24 @@
+{
+  "problemId": "3335",
+  "titleSlug": "minimum-operations-to-write-the-letter-y-on-a-grid",
+  "title": "Minimum Operations to Write the Letter Y on a Grid",
+  "titleCn": "在矩阵上写出字母 Y 所需的最少操作次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "matrix"
+  ],
+  "acRate": 0.6311036789297659,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,2,2],[1,1,0],[0,1,0]] <strong>Output:</strong> 3 <strong>Explanation:</strong> We can write Y on the grid by applying the changes highlighted in blue in the image above. After the operations, all cells that belong to Y, denoted in bold, have the same value of 1 while those that do not belong to Y are equal to 0. It can be shown that 3 is the minimum number of operations needed to write Y on the grid.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can write Y on the grid by applying the changes highlighted in blue in the image above. After the operations, all cells that belong to Y, denoted in bold, have the same value of 1 while those that do not belong to Y are equal to 0. It can be shown that 3 is the minimum number of operations needed to write Y on the grid."
+    },
+    {
+      "input": "</strong> grid = [[0,1,0,1,0],[2,1,0,1,2],[2,2,2,0,1],[2,2,2,2,2],[2,1,2,2,2]] <strong>Output:</strong> 12 <strong>Explanation:</strong> We can write Y on the grid by applying the changes highlighted in blue in the image above. After the operations, all cells that belong to Y, denoted in bold, have the same value of 0 while those that do not belong to Y are equal to 2. It can be shown that 12 is the minimum number of operations needed to write Y on the grid.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> We can write Y on the grid by applying the changes highlighted in blue in the image above. After the operations, all cells that belong to Y, denoted in bold, have the same value of 0 while those that do not belong to Y are equal to 2. It can be shown that 12 is the minimum number of operations needed to write Y on the grid."
+    }
+  ]
+}

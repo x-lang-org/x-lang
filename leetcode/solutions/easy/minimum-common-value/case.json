@@ -1,0 +1,24 @@
+{
+  "problemId": "2634",
+  "titleSlug": "minimum-common-value",
+  "title": "Minimum Common Value",
+  "titleCn": "最小公共值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search"
+  ],
+  "acRate": 0.5963453574025481,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,3], nums2 = [2,4] <strong>Output:</strong> 2 <strong>Explanation:</strong> The smallest element common to both arrays is 2, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The smallest element common to both arrays is 2, so we return 2."
+    },
+    {
+      "input": "</strong> nums1 = [1,2,3,6], nums2 = [2,3,4,5] <strong>Output:</strong> 2 <strong>Explanation:</strong> There are two common elements in the array 2 and 3 out of which 2 is the smallest, so 2 is returned.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are two common elements in the array 2 and 3 out of which 2 is the smallest, so 2 is returned."
+    }
+  ]
+}

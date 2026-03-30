@@ -1,0 +1,24 @@
+{
+  "problemId": "508",
+  "titleSlug": "most-frequent-subtree-sum",
+  "title": "Most Frequent Subtree Sum",
+  "titleCn": "出现次数最多的子树元素和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "acRate": 0.7647405428762226,
+  "testcases": [
+    {
+      "input": "</strong> root = [5,2,-3] <strong>Output:</strong> [2,-3,4]",
+      "expectedOutput": "</strong> [2,-3,4]"
+    },
+    {
+      "input": "</strong> root = [5,2,-5] <strong>Output:</strong> [2]",
+      "expectedOutput": "</strong> [2]"
+    }
+  ]
+}

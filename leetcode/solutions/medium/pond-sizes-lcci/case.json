@@ -1,0 +1,21 @@
+{
+  "problemId": "1000005",
+  "titleSlug": "pond-sizes-lcci",
+  "title": "Pond Sizes LCCI",
+  "titleCn": "水域大小",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6773674551899244,
+  "testcases": [
+    {
+      "input": "</strong>\r [\r  [0,2,1,0],\r  [0,1,0,1],\r  [1,1,0,1],\r  [0,1,0,1]\r ]\r <strong>Output: </strong> [1,2,4]",
+      "expectedOutput": "</strong> [1,2,4]"
+    }
+  ]
+}

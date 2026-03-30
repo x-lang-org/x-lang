@@ -1,0 +1,23 @@
+{
+  "problemId": "2761",
+  "titleSlug": "array-reduce-transformation",
+  "title": "Array Reduce Transformation",
+  "titleCn": "数组归约运算",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7996592119275825,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] fn = function sum(accum, curr) { return accum + curr; } init = 0 <strong>Output:</strong> 10 <strong>Explanation:</strong> initially, the value is init=0. (0) + nums[0] = 1 (1) + nums[1] = 3 (3) + nums[2] = 6 (6) + nums[3] = 10 The final answer is 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> initially, the value is init=0. (0) + nums[0] = 1 (1) + nums[1] = 3 (3) + nums[2] = 6 (6) + nums[3] = 10 The final answer is 10."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] fn = function sum(accum, curr) { return accum + curr * curr; } init = 100 <strong>Output:</strong> 130 <strong>Explanation:</strong> initially, the value is init=100. (100) + nums[0] * nums[0] = 101 (101) + nums[1] * nums[1] = 105 (105) + nums[2] * nums[2] = 114 (114) + nums[3] * nums[3] = 130 The final answer is 130.",
+      "expectedOutput": "</strong> 130 <strong>Explanation:</strong> initially, the value is init=100. (100) + nums[0] * nums[0] = 101 (101) + nums[1] * nums[1] = 105 (105) + nums[2] * nums[2] = 114 (114) + nums[3] * nums[3] = 130 The final answer is 130."
+    },
+    {
+      "input": "</strong> nums = [] fn = function sum(accum, curr) { return 0; } init = 25 <strong>Output:</strong> 25 <strong>Explanation:</strong> For empty arrays, the answer is always init.",
+      "expectedOutput": "</strong> 25 <strong>Explanation:</strong> For empty arrays, the answer is always init."
+    }
+  ]
+}

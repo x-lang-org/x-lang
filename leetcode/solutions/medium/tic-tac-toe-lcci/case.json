@@ -1,0 +1,27 @@
+{
+  "problemId": "100261",
+  "titleSlug": "tic-tac-toe-lcci",
+  "title": "Tic-Tac-Toe LCCI",
+  "titleCn": "井字游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "counting",
+    "matrix"
+  ],
+  "acRate": 0.48320211755124204,
+  "testcases": [
+    {
+      "input": "</strong> board = [\"O X\",\" XO\",\"X O\"]\r <strong>Output: </strong> \"X\"",
+      "expectedOutput": "</strong> \"X"
+    },
+    {
+      "input": "</strong> board = [\"OOX\",\"XXO\",\"OXO\"]\r <strong>Output: </strong> \"Draw\"\r <strong>Explanation: </strong> no player wins and no empty grid left",
+      "expectedOutput": "</strong> \"Draw\"\r <strong>Explanation: </strong> no player wins and no empty grid left"
+    },
+    {
+      "input": "</strong> board = [\"OOX\",\"XXO\",\"OX \"]\r <strong>Output: </strong> \"Pending\"\r <strong>Explanation: </strong> no player wins but there is still a empty grid",
+      "expectedOutput": "</strong> \"Pending\"\r <strong>Explanation: </strong> no player wins but there is still a empty grid"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "2231",
+  "titleSlug": "find-first-palindromic-string-in-the-array",
+  "title": "Find First Palindromic String in the Array",
+  "titleCn": "找出数组中的第一个回文字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7862836458854788,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abc\",\"car\",\"ada\",\"racecar\",\"cool\"] <strong>Output:</strong> \"ada\" <strong>Explanation:</strong> The first string that is palindromic is \"ada\". Note that \"racecar\" is also palindromic, but it is not the first.",
+      "expectedOutput": "</strong> \"ada\" <strong>Explanation:</strong> The first string that is palindromic is \"ada\". Note that \"racecar\" is also palindromic, but it is not the first."
+    },
+    {
+      "input": "</strong> words = [\"notapalindrome\",\"racecar\"] <strong>Output:</strong> \"racecar\" <strong>Explanation:</strong> The first and only string that is palindromic is \"racecar\".",
+      "expectedOutput": "</strong> \"racecar\" <strong>Explanation:</strong> The first and only string that is palindromic is \"racecar\"."
+    },
+    {
+      "input": "</strong> words = [\"def\",\"ghi\"] <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are no palindromic strings, so the empty string is returned.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are no palindromic strings, so the empty string is returned."
+    }
+  ]
+}

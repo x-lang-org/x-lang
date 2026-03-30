@@ -1,0 +1,22 @@
+{
+  "problemId": "1871",
+  "titleSlug": "palindrome-partitioning-iv",
+  "title": "Palindrome Partitioning IV",
+  "titleCn": "分割回文串 IV",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5967665595496101,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcbdd\" <strong>Output:</strong> true <strong>Explanation: </strong>\"abcbdd\" = \"a\" + \"bcb\" + \"dd\", and all three substrings are palindromes.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>\"abcbdd\" = \"a\" + \"bcb\" + \"dd\", and all three substrings are palindromes."
+    },
+    {
+      "input": "</strong> s = \"bcbddxy\" <strong>Output:</strong> false <strong>Explanation: </strong>s cannot be split into 3 palindromes.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>s cannot be split into 3 palindromes."
+    }
+  ]
+}

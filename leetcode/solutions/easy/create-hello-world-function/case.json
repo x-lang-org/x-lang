@@ -1,0 +1,19 @@
+{
+  "problemId": "2809",
+  "titleSlug": "create-hello-world-function",
+  "title": "Create Hello World Function",
+  "titleCn": "创建 Hello World 函数",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8627569528415961,
+  "testcases": [
+    {
+      "input": "</strong> args = [] <strong>Output:</strong> \"Hello World\" <strong>Explanation:</strong> const f = createHelloWorld(); f(); // \"Hello World\" The function returned by createHelloWorld should always return \"Hello World\".",
+      "expectedOutput": "</strong> \"Hello World\" <strong>Explanation:</strong> const f = createHelloWorld(); f(); // \"Hello World\" The function returned by createHelloWorld should always return \"Hello World\"."
+    },
+    {
+      "input": "</strong> args = [{},null,42] <strong>Output:</strong> \"Hello World\" <strong>Explanation:</strong> const f = createHelloWorld(); f({}, null, 42); // \"Hello World\" Any arguments could be passed to the function but it should still always return \"Hello World\".",
+      "expectedOutput": "</strong> \"Hello World\" <strong>Explanation:</strong> const f = createHelloWorld(); f({}, null, 42); // \"Hello World\" Any arguments could be passed to the function but it should still always return \"Hello World\"."
+    }
+  ]
+}

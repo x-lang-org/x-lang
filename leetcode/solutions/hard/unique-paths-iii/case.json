@@ -1,0 +1,28 @@
+{
+  "problemId": "1022",
+  "titleSlug": "unique-paths-iii",
+  "title": "Unique Paths III",
+  "titleCn": "不同路径 III",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking",
+    "matrix"
+  ],
+  "acRate": 0.7712221652807856,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0,0,0],[0,0,0,0],[0,0,2,-1]] <strong>Output:</strong> 2 <strong>Explanation:</strong> We have the following two paths: 1. (0,0),(0,1),(0,2),(0,3),(1,3),(1,2),(1,1),(1,0),(2,0),(2,1),(2,2) 2. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2)",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We have the following two paths: 1. (0,0),(0,1),(0,2),(0,3),(1,3),(1,2),(1,1),(1,0),(2,0),(2,1),(2,2) 2. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2)"
+    },
+    {
+      "input": "</strong> grid = [[1,0,0,0],[0,0,0,0],[0,0,0,2]] <strong>Output:</strong> 4 <strong>Explanation:</strong> We have the following four paths: 1. (0,0),(0,1),(0,2),(0,3),(1,3),(1,2),(1,1),(1,0),(2,0),(2,1),(2,2),(2,3) 2. (0,0),(0,1),(1,1),(1,0),(2,0),(2,1),(2,2),(1,2),(0,2),(0,3),(1,3),(2,3) 3. (0,0),(1,0),(2,0),(2,1),(2,2),(1,2),(1,1),(0,1),(0,2),(0,3),(1,3),(2,3) 4. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2),(2,3)",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We have the following four paths: 1. (0,0),(0,1),(0,2),(0,3),(1,3),(1,2),(1,1),(1,0),(2,0),(2,1),(2,2),(2,3) 2. (0,0),(0,1),(1,1),(1,0),(2,0),(2,1),(2,2),(1,2),(0,2),(0,3),(1,3),(2,3) 3. (0,0),(1,0),(2,0),(2,1),(2,2),(1,2),(1,1),(0,1),(0,2),(0,3),(1,3),(2,3) 4. (0,0),(1,0),(2,0),(2,1),(1,1),(0,1),(0,2),(0,3),(1,3),(1,2),(2,2),(2,3)"
+    },
+    {
+      "input": "</strong> grid = [[0,1],[2,0]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no path that walks over every empty square exactly once. Note that the starting and ending square can be anywhere in the grid.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no path that walks over every empty square exactly once. Note that the starting and ending square can be anywhere in the grid."
+    }
+  ]
+}

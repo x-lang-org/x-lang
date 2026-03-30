@@ -1,0 +1,26 @@
+{
+  "problemId": "2050",
+  "titleSlug": "count-good-numbers",
+  "title": "Count Good Numbers",
+  "titleCn": "统计好数字的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.49433920704845813,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 5 <strong>Explanation:</strong> The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The good numbers of length 1 are \"0\", \"2\", \"4\", \"6\", \"8\"."
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 400",
+      "expectedOutput": "</strong> 400"
+    },
+    {
+      "input": "</strong> n = 50 <strong>Output:</strong> 564908303",
+      "expectedOutput": "</strong> 564908303"
+    }
+  ]
+}

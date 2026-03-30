@@ -1,0 +1,26 @@
+{
+  "problemId": "916",
+  "titleSlug": "decoded-string-at-index",
+  "title": "Decoded String at Index",
+  "titleCn": "索引处的解码字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.28556169724158187,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leet2code3\", k = 10 <strong>Output:</strong> \"o\" <strong>Explanation:</strong> The decoded string is \"leetleetcodeleetleetcodeleetleetcode\". The 10<sup>th</sup> letter in the string is \"o\".",
+      "expectedOutput": "</strong> \"o\" <strong>Explanation:</strong> The decoded string is \"leetleetcodeleetleetcodeleetleetcode\". The 10<sup>th</sup> letter in the string is \"o\"."
+    },
+    {
+      "input": "</strong> s = \"ha22\", k = 5 <strong>Output:</strong> \"h\" <strong>Explanation:</strong> The decoded string is \"hahahaha\". The 5<sup>th</sup> letter is \"h\".",
+      "expectedOutput": "</strong> \"h\" <strong>Explanation:</strong> The decoded string is \"hahahaha\". The 5<sup>th</sup> letter is \"h\"."
+    },
+    {
+      "input": "</strong> s = \"a2345678999999999999999\", k = 1 <strong>Output:</strong> \"a\" <strong>Explanation:</strong> The decoded string is \"a\" repeated 8301530446056247680 times. The 1<sup>st</sup> letter is \"a\".",
+      "expectedOutput": "</strong> \"a\" <strong>Explanation:</strong> The decoded string is \"a\" repeated 8301530446056247680 times. The 1<sup>st</sup> letter is \"a\"."
+    }
+  ]
+}

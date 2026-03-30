@@ -1,0 +1,27 @@
+{
+  "problemId": "1524",
+  "titleSlug": "string-matching-in-an-array",
+  "title": "String Matching in an Array",
+  "titleCn": "数组中的字符串匹配",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.6441944411021537,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"mass\",\"as\",\"hero\",\"superhero\"] <strong>Output:</strong> [\"as\",\"hero\"] <strong>Explanation:</strong> \"as\" is substring of \"mass\" and \"hero\" is substring of \"superhero\". [\"hero\",\"as\"] is also a valid answer.",
+      "expectedOutput": "</strong> [\"as\",\"hero\"] <strong>Explanation:</strong> \"as\" is substring of \"mass\" and \"hero\" is substring of \"superhero\". [\"hero\",\"as\"] is also a valid answer."
+    },
+    {
+      "input": "</strong> words = [\"leetcode\",\"et\",\"code\"] <strong>Output:</strong> [\"et\",\"code\"] <strong>Explanation:</strong> \"et\", \"code\" are substring of \"leetcode\".",
+      "expectedOutput": "</strong> [\"et\",\"code\"] <strong>Explanation:</strong> \"et\", \"code\" are substring of \"leetcode\"."
+    },
+    {
+      "input": "</strong> words = [\"blue\",\"green\",\"bu\"] <strong>Output:</strong> [] <strong>Explanation:</strong> No string of words is substring of another string.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> No string of words is substring of another string."
+    }
+  ]
+}

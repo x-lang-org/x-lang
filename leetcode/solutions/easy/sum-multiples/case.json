@@ -1,0 +1,25 @@
+{
+  "problemId": "2752",
+  "titleSlug": "sum-multiples",
+  "title": "Sum Multiples",
+  "titleCn": "倍数求和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7809817225145389,
+  "testcases": [
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> 21 <strong>Explanation:</strong> Numbers in the range <code>[1, 7]</code> that are divisible by <code>3</code>, <code>5,</code> or <code>7 </code>are <code>3, 5, 6, 7</code>. The sum of these numbers is <code>21</code>.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> Numbers in the range <code>[1, 7]</code> that are divisible by <code>3</code>, <code>5,</code> or <code>7 </code>are <code>3, 5, 6, 7</code>. The sum of these numbers is <code>21</code>."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 40 <strong>Explanation:</strong> Numbers in the range <code>[1, 10] that are</code> divisible by <code>3</code>, <code>5,</code> or <code>7</code> are <code>3, 5, 6, 7, 9, 10</code>. The sum of these numbers is 40.",
+      "expectedOutput": "</strong> 40 <strong>Explanation:</strong> Numbers in the range <code>[1, 10] that are</code> divisible by <code>3</code>, <code>5,</code> or <code>7</code> are <code>3, 5, 6, 7, 9, 10</code>. The sum of these numbers is 40."
+    },
+    {
+      "input": "</strong> n = 9 <strong>Output:</strong> 30 <strong>Explanation:</strong> Numbers in the range <code>[1, 9]</code> that are divisible by <code>3</code>, <code>5</code>, or <code>7</code> are <code>3, 5, 6, 7, 9</code>. The sum of these numbers is <code>30</code>.",
+      "expectedOutput": "</strong> 30 <strong>Explanation:</strong> Numbers in the range <code>[1, 9]</code> that are divisible by <code>3</code>, <code>5</code>, or <code>7</code> are <code>3, 5, 6, 7, 9</code>. The sum of these numbers is <code>30</code>."
+    }
+  ]
+}

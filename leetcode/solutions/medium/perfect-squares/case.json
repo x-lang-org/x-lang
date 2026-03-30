@@ -1,0 +1,23 @@
+{
+  "problemId": "279",
+  "titleSlug": "perfect-squares",
+  "title": "Perfect Squares",
+  "titleCn": "完全平方数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6834351413967708,
+  "testcases": [
+    {
+      "input": "</strong> n = 12 <strong>Output:</strong> 3 <strong>Explanation:</strong> 12 = 4 + 4 + 4.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 12 = 4 + 4 + 4."
+    },
+    {
+      "input": "</strong> n = 13 <strong>Output:</strong> 2 <strong>Explanation:</strong> 13 = 4 + 9.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 13 = 4 + 9."
+    }
+  ]
+}

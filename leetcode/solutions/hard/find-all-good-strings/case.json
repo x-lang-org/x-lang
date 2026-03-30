@@ -1,0 +1,27 @@
+{
+  "problemId": "1513",
+  "titleSlug": "find-all-good-strings",
+  "title": "Find All Good Strings",
+  "titleCn": "找到所有好字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "string-matching"
+  ],
+  "acRate": 0.4763231197771588,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, s1 = \"aa\", s2 = \"da\", evil = \"b\" <strong>Output:</strong> 51 <strong>Explanation:</strong> There are 25 good strings starting with 'a': \"aa\",\"ac\",\"ad\",...,\"az\". Then there are 25 good strings starting with 'c': \"ca\",\"cc\",\"cd\",...,\"cz\" and finally there is one good string starting with 'd': \"da\".",
+      "expectedOutput": "</strong> 51 <strong>Explanation:</strong> There are 25 good strings starting with 'a': \"aa\",\"ac\",\"ad\",...,\"az\". Then there are 25 good strings starting with 'c': \"ca\",\"cc\",\"cd\",...,\"cz\" and finally there is one good string starting with 'd': \"da\"."
+    },
+    {
+      "input": "</strong> n = 8, s1 = \"leetcode\", s2 = \"leetgoes\", evil = \"leet\" <strong>Output:</strong> 0 <strong>Explanation:</strong> All strings greater than or equal to s1 and smaller than or equal to s2 start with the prefix \"leet\", therefore, there is not any good string.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All strings greater than or equal to s1 and smaller than or equal to s2 start with the prefix \"leet\", therefore, there is not any good string."
+    },
+    {
+      "input": "</strong> n = 2, s1 = \"gx\", s2 = \"gz\", evil = \"x\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

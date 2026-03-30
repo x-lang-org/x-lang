@@ -1,0 +1,22 @@
+{
+  "problemId": "516",
+  "titleSlug": "longest-palindromic-subsequence",
+  "title": "Longest Palindromic Subsequence",
+  "titleCn": "最长回文子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6760121202412327,
+  "testcases": [
+    {
+      "input": "</strong> s = \"bbbab\" <strong>Output:</strong> 4 <strong>Explanation:</strong> One possible longest palindromic subsequence is \"bbbb\".",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One possible longest palindromic subsequence is \"bbbb\"."
+    },
+    {
+      "input": "</strong> s = \"cbbd\" <strong>Output:</strong> 2 <strong>Explanation:</strong> One possible longest palindromic subsequence is \"bb\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One possible longest palindromic subsequence is \"bb\"."
+    }
+  ]
+}

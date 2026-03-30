@@ -1,0 +1,25 @@
+{
+  "problemId": "1613",
+  "titleSlug": "find-critical-and-pseudo-critical-edges-in-minimum-spanning-tree",
+  "title": "Find Critical and Pseudo-Critical Edges in Minimum Spanning Tree",
+  "titleCn": "找到最小生成树里的关键边和伪关键边",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "graph",
+    "minimum-spanning-tree",
+    "sorting",
+    "strongly-connected-component"
+  ],
+  "acRate": 0.6550686250902962,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, edges = [[0,1,1],[1,2,1],[2,3,2],[0,3,2],[0,4,3],[3,4,3],[1,4,6]] <strong>Output:</strong> [[0,1],[2,3,4,5]] <strong>Explanation:</strong> The figure above describes the graph. The following figure shows all the possible MSTs: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/06/04/msts.png\" style=\"width: 540px; height: 553px;\" /> Notice that the two edges 0 and 1 appear in all MSTs, therefore they are critical edges, so we return them in the first list of the output. The edges 2, 3, 4, and 5 are only part of some MSTs, therefore they are considered pseudo-critical edges. We add them to the second list of the output.",
+      "expectedOutput": "</strong> [[0,1],[2,3,4,5]] <strong>Explanation:</strong> The figure above describes the graph. The following figure shows all the possible MSTs: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/06/04/msts.png\" style=\"width: 540px; height: 553px;\" /> Notice that the two edges 0 and 1 appear in all MSTs, therefore they are critical edges, so we return them in the first list of the output. The edges 2, 3, 4, and 5 are only part of some MSTs, therefore they are considered pseudo-critical edges. We add them to the second list of the output."
+    },
+    {
+      "input": "</strong> n = 4, edges = [[0,1,1],[1,2,1],[2,3,1],[0,3,1]] <strong>Output:</strong> [[],[0,1,2,3]] <strong>Explanation:</strong> We can observe that since all 4 edges have equal weight, choosing any 3 edges from the given 4 will yield an MST. Therefore all 4 edges are pseudo-critical.",
+      "expectedOutput": "</strong> [[],[0,1,2,3]] <strong>Explanation:</strong> We can observe that since all 4 edges have equal weight, choosing any 3 edges from the given 4 will yield an MST. Therefore all 4 edges are pseudo-critical."
+    }
+  ]
+}

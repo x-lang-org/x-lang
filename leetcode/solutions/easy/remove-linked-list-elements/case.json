@@ -1,0 +1,26 @@
+{
+  "problemId": "203",
+  "titleSlug": "remove-linked-list-elements",
+  "title": "Remove Linked List Elements",
+  "titleCn": "移除链表元素",
+  "difficulty": "EASY",
+  "topicTags": [
+    "recursion",
+    "linked-list"
+  ],
+  "acRate": 0.5941020417859748,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,6,3,4,5,6], val = 6 <strong>Output:</strong> [1,2,3,4,5]",
+      "expectedOutput": "</strong> [1,2,3,4,5]"
+    },
+    {
+      "input": "</strong> head = [], val = 1 <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    },
+    {
+      "input": "</strong> head = [7,7,7,7], val = 7 <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

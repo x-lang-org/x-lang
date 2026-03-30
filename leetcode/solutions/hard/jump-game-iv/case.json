@@ -1,0 +1,27 @@
+{
+  "problemId": "1447",
+  "titleSlug": "jump-game-iv",
+  "title": "Jump Game IV",
+  "titleCn": "跳跃游戏 IV",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.4551722276940513,
+  "testcases": [
+    {
+      "input": "</strong> arr = [100,-23,-23,404,100,23,23,23,3,404] <strong>Output:</strong> 3 <strong>Explanation:</strong> You need three jumps from index 0 --> 4 --> 3 --> 9. Note that index 9 is the last index of the array.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You need three jumps from index 0 --> 4 --> 3 --> 9. Note that index 9 is the last index of the array."
+    },
+    {
+      "input": "</strong> arr = [7] <strong>Output:</strong> 0 <strong>Explanation:</strong> Start index is the last index. You do not need to jump.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Start index is the last index. You do not need to jump."
+    },
+    {
+      "input": "</strong> arr = [7,6,9,6,9,6,9,7] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can jump directly from index 0 to index 7 which is last index of the array.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can jump directly from index 0 to index 7 which is last index of the array."
+    }
+  ]
+}

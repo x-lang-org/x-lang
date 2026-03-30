@@ -1,0 +1,19 @@
+{
+  "problemId": "2775",
+  "titleSlug": "generate-fibonacci-sequence",
+  "title": "Generate Fibonacci Sequence",
+  "titleCn": "生成斐波那契数列",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8071115973741795,
+  "testcases": [
+    {
+      "input": "</strong> callCount = 5 <strong>Output:</strong> [0,1,1,2,3] <strong>Explanation:</strong> const gen = fibGenerator(); gen.next().value; // 0 gen.next().value; // 1 gen.next().value; // 1 gen.next().value; // 2 gen.next().value; // 3",
+      "expectedOutput": "</strong> [0,1,1,2,3] <strong>Explanation:</strong> const gen = fibGenerator(); gen.next().value; // 0 gen.next().value; // 1 gen.next().value; // 1 gen.next().value; // 2 gen.next().value; // 3"
+    },
+    {
+      "input": "</strong> callCount = 0 <strong>Output:</strong> [] <strong>Explanation:</strong> gen.next() is never called so nothing is outputted",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> gen.next() is never called so nothing is outputted"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "940",
+  "titleSlug": "fruit-into-baskets",
+  "title": "Fruit Into Baskets",
+  "titleCn": "水果成篮",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.4791508025951083,
+  "testcases": [
+    {
+      "input": "</strong> fruits = [<u>1,2,1</u>] <strong>Output:</strong> 3 <strong>Explanation:</strong> We can pick from all 3 trees.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can pick from all 3 trees."
+    },
+    {
+      "input": "</strong> fruits = [0,<u>1,2,2</u>] <strong>Output:</strong> 3 <strong>Explanation:</strong> We can pick from trees [1,2,2]. If we had started at the first tree, we would only pick from trees [0,1].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can pick from trees [1,2,2]. If we had started at the first tree, we would only pick from trees [0,1]."
+    },
+    {
+      "input": "</strong> fruits = [1,<u>2,3,2,2</u>] <strong>Output:</strong> 4 <strong>Explanation:</strong> We can pick from trees [2,3,2,2]. If we had started at the first tree, we would only pick from trees [1,2].",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can pick from trees [2,3,2,2]. If we had started at the first tree, we would only pick from trees [1,2]."
+    }
+  ]
+}

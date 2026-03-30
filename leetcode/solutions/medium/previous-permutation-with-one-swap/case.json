@@ -1,0 +1,26 @@
+{
+  "problemId": "1139",
+  "titleSlug": "previous-permutation-with-one-swap",
+  "title": "Previous Permutation With One Swap",
+  "titleCn": "交换一次的先前排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.4847049910029359,
+  "testcases": [
+    {
+      "input": "</strong> arr = [3,2,1] <strong>Output:</strong> [3,1,2] <strong>Explanation:</strong> Swapping 2 and 1.",
+      "expectedOutput": "</strong> [3,1,2] <strong>Explanation:</strong> Swapping 2 and 1."
+    },
+    {
+      "input": "</strong> arr = [1,1,5] <strong>Output:</strong> [1,1,5] <strong>Explanation:</strong> This is already the smallest permutation.",
+      "expectedOutput": "</strong> [1,1,5] <strong>Explanation:</strong> This is already the smallest permutation."
+    },
+    {
+      "input": "</strong> arr = [1,9,4,6,7] <strong>Output:</strong> [1,7,4,6,9] <strong>Explanation:</strong> Swapping 9 and 7.",
+      "expectedOutput": "</strong> [1,7,4,6,9] <strong>Explanation:</strong> Swapping 9 and 7."
+    }
+  ]
+}

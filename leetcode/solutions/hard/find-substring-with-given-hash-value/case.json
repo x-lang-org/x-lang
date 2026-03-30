@@ -1,0 +1,24 @@
+{
+  "problemId": "2275",
+  "titleSlug": "find-substring-with-given-hash-value",
+  "title": "Find Substring With Given Hash Value",
+  "titleCn": "查找给定哈希值的子串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "sliding-window",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.31062834546945073,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leetcode\", power = 7, modulo = 20, k = 2, hashValue = 0 <strong>Output:</strong> \"ee\" <strong>Explanation:</strong> The hash of \"ee\" can be computed to be hash(\"ee\", 7, 20) = (5 * 1 + 5 * 7) mod 20 = 40 mod 20 = 0. \"ee\" is the first substring of length 2 with hashValue 0. Hence, we return \"ee\".",
+      "expectedOutput": "</strong> \"ee\" <strong>Explanation:</strong> The hash of \"ee\" can be computed to be hash(\"ee\", 7, 20) = (5 * 1 + 5 * 7) mod 20 = 40 mod 20 = 0. \"ee\" is the first substring of length 2 with hashValue 0. Hence, we return \"ee\"."
+    },
+    {
+      "input": "</strong> s = \"fbxzaad\", power = 31, modulo = 100, k = 3, hashValue = 32 <strong>Output:</strong> \"fbx\" <strong>Explanation:</strong> The hash of \"fbx\" can be computed to be hash(\"fbx\", 31, 100) = (6 * 1 + 2 * 31 + 24 * 31<sup>2</sup>) mod 100 = 23132 mod 100 = 32. The hash of \"bxz\" can be computed to be hash(\"bxz\", 31, 100) = (2 * 1 + 24 * 31 + 26 * 31<sup>2</sup>) mod 100 = 25732 mod 100 = 32. \"fbx\" is the first substring of length 3 with hashValue 32. Hence, we return \"fbx\". Note that \"bxz\" also has a hash of 32 but it appears later than \"fbx\".",
+      "expectedOutput": "</strong> \"fbx\" <strong>Explanation:</strong> The hash of \"fbx\" can be computed to be hash(\"fbx\", 31, 100) = (6 * 1 + 2 * 31 + 24 * 31<sup>2</sup>) mod 100 = 23132 mod 100 = 32. The hash of \"bxz\" can be computed to be hash(\"bxz\", 31, 100) = (2 * 1 + 24 * 31 + 26 * 31<sup>2</sup>) mod 100 = 25732 mod 100 = 32. \"fbx\" is the first substring of length 3 with hashValue 32. Hence, we return \"fbx\". Note that \"bxz\" also has a hash of 32 but it appears later than \"fbx\"."
+    }
+  ]
+}

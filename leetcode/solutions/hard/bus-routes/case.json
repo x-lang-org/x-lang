@@ -1,0 +1,23 @@
+{
+  "problemId": "833",
+  "titleSlug": "bus-routes",
+  "title": "Bus Routes",
+  "titleCn": "公交路线",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.47277893476556243,
+  "testcases": [
+    {
+      "input": "</strong> routes = [[1,2,7],[3,6,7]], source = 1, target = 6 <strong>Output:</strong> 2 <strong>Explanation:</strong> The best strategy is take the first bus to the bus stop 7, then take the second bus to the bus stop 6.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The best strategy is take the first bus to the bus stop 7, then take the second bus to the bus stop 6."
+    },
+    {
+      "input": "</strong> routes = [[7,12],[4,5,15],[6],[15,19],[9,12,13]], source = 15, target = 12 <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

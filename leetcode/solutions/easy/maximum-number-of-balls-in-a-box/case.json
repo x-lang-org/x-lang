@@ -1,0 +1,27 @@
+{
+  "problemId": "1844",
+  "titleSlug": "maximum-number-of-balls-in-a-box",
+  "title": "Maximum Number of Balls in a Box",
+  "titleCn": "盒子中小球的最大数量",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "counting"
+  ],
+  "acRate": 0.7745017233628053,
+  "testcases": [
+    {
+      "input": "</strong> lowLimit = 1, highLimit = 10 <strong>Output:</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 ... Ball Count: 2 1 1 1 1 1 1 1 1 0 0 ... Box 1 has the most number of balls with 2 balls.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 ... Ball Count: 2 1 1 1 1 1 1 1 1 0 0 ... Box 1 has the most number of balls with 2 balls."
+    },
+    {
+      "input": "</strong> lowLimit = 5, highLimit = 15 <strong>Output:</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 ... Ball Count: 1 1 1 1 2 2 1 1 1 0 0 ... Boxes 5 and 6 have the most number of balls with 2 balls in each.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 ... Ball Count: 1 1 1 1 2 2 1 1 1 0 0 ... Boxes 5 and 6 have the most number of balls with 2 balls in each."
+    },
+    {
+      "input": "</strong> lowLimit = 19, highLimit = 28 <strong>Output:</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 12 ... Ball Count: 0 1 1 1 1 1 1 1 1 2 0 0 ... Box 10 has the most number of balls with 2 balls.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Box Number: 1 2 3 4 5 6 7 8 9 10 11 12 ... Ball Count: 0 1 1 1 1 1 1 1 1 2 0 0 ... Box 10 has the most number of balls with 2 balls."
+    }
+  ]
+}

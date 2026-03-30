@@ -1,0 +1,26 @@
+{
+  "problemId": "472",
+  "titleSlug": "concatenated-words",
+  "title": "Concatenated Words",
+  "titleCn": "连接词",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "trie",
+    "array",
+    "string",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.5241412323995972,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"cat\",\"cats\",\"catsdogcats\",\"dog\",\"dogcatsdog\",\"hippopotamuses\",\"rat\",\"ratcatdogcat\"] <strong>Output:</strong> [\"catsdogcats\",\"dogcatsdog\",\"ratcatdogcat\"] <strong>Explanation:</strong> \"catsdogcats\" can be concatenated by \"cats\", \"dog\" and \"cats\"; \"dogcatsdog\" can be concatenated by \"dog\", \"cats\" and \"dog\"; \"ratcatdogcat\" can be concatenated by \"rat\", \"cat\", \"dog\" and \"cat\".",
+      "expectedOutput": "</strong> [\"catsdogcats\",\"dogcatsdog\",\"ratcatdogcat\"] <strong>Explanation:</strong> \"catsdogcats\" can be concatenated by \"cats\", \"dog\" and \"cats\"; \"dogcatsdog\" can be concatenated by \"dog\", \"cats\" and \"dog\"; \"ratcatdogcat\" can be concatenated by \"rat\", \"cat\", \"dog\" and \"cat\"."
+    },
+    {
+      "input": "</strong> words = [\"cat\",\"dog\",\"catdog\"] <strong>Output:</strong> [\"catdog\"]",
+      "expectedOutput": "</strong> [\"catdog\"]"
+    }
+  ]
+}

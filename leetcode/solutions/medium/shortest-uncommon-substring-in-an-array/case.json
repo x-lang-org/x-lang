@@ -1,0 +1,24 @@
+{
+  "problemId": "3356",
+  "titleSlug": "shortest-uncommon-substring-in-an-array",
+  "title": "Shortest Uncommon Substring in an Array",
+  "titleCn": "数组中的最短非公共子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5088052612349288,
+  "testcases": [
+    {
+      "input": "</strong> arr = [\"cab\",\"ad\",\"bad\",\"c\"] <strong>Output:</strong> [\"ab\",\"\",\"ba\",\"\"] <strong>Explanation:</strong> We have the following: - For the string \"cab\", the shortest substring that does not occur in any other string is either \"ca\" or \"ab\", we choose the lexicographically smaller substring, which is \"ab\". - For the string \"ad\", there is no substring that does not occur in any other string. - For the string \"bad\", the shortest substring that does not occur in any other string is \"ba\". - For the string \"c\", there is no substring that does not occur in any other string.",
+      "expectedOutput": "</strong> [\"ab\",\"\",\"ba\",\"\"] <strong>Explanation:</strong> We have the following: - For the string \"cab\", the shortest substring that does not occur in any other string is either \"ca\" or \"ab\", we choose the lexicographically smaller substring, which is \"ab\". - For the string \"ad\", there is no substring that does not occur in any other string. - For the string \"bad\", the shortest substring that does not occur in any other string is \"ba\". - For the string \"c\", there is no substring that does not occur in any other string."
+    },
+    {
+      "input": "</strong> arr = [\"abc\",\"bcd\",\"abcd\"] <strong>Output:</strong> [\"\",\"\",\"abcd\"] <strong>Explanation:</strong> We have the following: - For the string \"abc\", there is no substring that does not occur in any other string. - For the string \"bcd\", there is no substring that does not occur in any other string. - For the string \"abcd\", the shortest substring that does not occur in any other string is \"abcd\".",
+      "expectedOutput": "</strong> [\"\",\"\",\"abcd\"] <strong>Explanation:</strong> We have the following: - For the string \"abc\", there is no substring that does not occur in any other string. - For the string \"bcd\", there is no substring that does not occur in any other string. - For the string \"abcd\", the shortest substring that does not occur in any other string is \"abcd\"."
+    }
+  ]
+}

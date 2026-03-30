@@ -1,0 +1,28 @@
+{
+  "problemId": "672",
+  "titleSlug": "bulb-switcher-ii",
+  "title": "Bulb Switcher II",
+  "titleCn": "灯泡开关 Ⅱ",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "depth-first-search",
+    "breadth-first-search",
+    "math"
+  ],
+  "acRate": 0.6032001319642047,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, presses = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> Status can be: - [off] by pressing button 1 - [on] by pressing button 2",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Status can be: - [off] by pressing button 1 - [on] by pressing button 2"
+    },
+    {
+      "input": "</strong> n = 2, presses = 1 <strong>Output:</strong> 3 <strong>Explanation:</strong> Status can be: - [off, off] by pressing button 1 - [on, off] by pressing button 2 - [off, on] by pressing button 3",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Status can be: - [off, off] by pressing button 1 - [on, off] by pressing button 2 - [off, on] by pressing button 3"
+    },
+    {
+      "input": "</strong> n = 3, presses = 1 <strong>Output:</strong> 4 <strong>Explanation:</strong> Status can be: - [off, off, off] by pressing button 1 - [on, off, on] by pressing button 2 - [off, on, off] by pressing button 3 - [off, on, on] by pressing button 4",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Status can be: - [off, off, off] by pressing button 1 - [on, off, on] by pressing button 2 - [off, on, off] by pressing button 3 - [off, on, on] by pressing button 4"
+    }
+  ]
+}

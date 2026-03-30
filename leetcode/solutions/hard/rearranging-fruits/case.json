@@ -1,0 +1,24 @@
+{
+  "problemId": "2689",
+  "titleSlug": "rearranging-fruits",
+  "title": "Rearranging Fruits",
+  "titleCn": "重排水果",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "sort",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.48760268857356237,
+  "testcases": [
+    {
+      "input": "</strong> basket1 = [4,2,2,2], basket2 = [1,4,1,2] <strong>Output:</strong> 1 <strong>Explanation:</strong> Swap index 1 of basket1 with index 0 of basket2, which has cost 1. Now basket1 = [4,1,2,2] and basket2 = [2,4,1,2]. Rearranging both the arrays makes them equal.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Swap index 1 of basket1 with index 0 of basket2, which has cost 1. Now basket1 = [4,1,2,2] and basket2 = [2,4,1,2]. Rearranging both the arrays makes them equal."
+    },
+    {
+      "input": "</strong> basket1 = [2,3,4,1], basket2 = [3,2,5,1] <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be shown that it is impossible to make both the baskets equal.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be shown that it is impossible to make both the baskets equal."
+    }
+  ]
+}

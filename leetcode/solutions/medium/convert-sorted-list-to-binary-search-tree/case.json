@@ -1,0 +1,25 @@
+{
+  "problemId": "109",
+  "titleSlug": "convert-sorted-list-to-binary-search-tree",
+  "title": "Convert Sorted List to Binary Search Tree",
+  "titleCn": "有序链表转换二叉搜索树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "linked-list",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "acRate": 0.7718262354216272,
+  "testcases": [
+    {
+      "input": "</strong> head = [-10,-3,0,5,9] <strong>Output:</strong> [0,-3,9,-10,null,5] <strong>Explanation:</strong> One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.",
+      "expectedOutput": "</strong> [0,-3,9,-10,null,5] <strong>Explanation:</strong> One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST."
+    },
+    {
+      "input": "</strong> head = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "problemId": "3069",
+  "titleSlug": "change-data-type",
+  "title": "Change Data Type",
+  "titleCn": "改变数据类型",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8322600747818861,
+  "testcases": [
+    {
+      "input": "</strong>DataFrame students: +------------+------+-----+-------+ | student_id | name | age | grade | +------------+------+-----+-------+ | 1     | Ava | 6  | 73.0 | | 2     | Kate | 15 | 87.0 | +------------+------+-----+-------+ <strong>Output: </strong>+------------+------+-----+-------+ | student_id | name | age | grade | +------------+------+-----+-------+ | 1     | Ava | 6  | 73  | | 2     | Kate | 15 | 87  | +------------+------+-----+-------+ <strong>Explanation:</strong> The data types of the column grade is converted to int.",
+      "expectedOutput": "</strong>+------------+------+-----+-------+ | student_id | name | age | grade | +------------+------+-----+-------+ | 1     | Ava | 6  | 73  | | 2     | Kate | 15 | 87  | +------------+------+-----+-------+ <strong>Explanation:</strong> The data types of the column grade is converted to int."
+    }
+  ]
+}

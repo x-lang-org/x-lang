@@ -1,0 +1,26 @@
+{
+  "problemId": "1306",
+  "titleSlug": "minimum-absolute-difference",
+  "title": "Minimum Absolute Difference",
+  "titleCn": "最小绝对差",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.7398851239072322,
+  "testcases": [
+    {
+      "input": "</strong> arr = [4,2,1,3] <strong>Output:</strong> [[1,2],[2,3],[3,4]] <strong>Explanation: </strong>The minimum absolute difference is 1. List all pairs with difference equal to 1 in ascending order.",
+      "expectedOutput": "</strong> [[1,2],[2,3],[3,4]] <strong>Explanation: </strong>The minimum absolute difference is 1. List all pairs with difference equal to 1 in ascending order."
+    },
+    {
+      "input": "</strong> arr = [1,3,6,10,15] <strong>Output:</strong> [[1,3]]",
+      "expectedOutput": "</strong> [[1,3]]"
+    },
+    {
+      "input": "</strong> arr = [3,8,-10,23,19,-4,-14,27] <strong>Output:</strong> [[-14,-10],[19,23],[23,27]]",
+      "expectedOutput": "</strong> [[-14,-10],[19,23],[23,27]]"
+    }
+  ]
+}

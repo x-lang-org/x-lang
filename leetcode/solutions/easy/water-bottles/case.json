@@ -1,0 +1,22 @@
+{
+  "problemId": "1642",
+  "titleSlug": "water-bottles",
+  "title": "Water Bottles",
+  "titleCn": "换水问题",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.7136401263662933,
+  "testcases": [
+    {
+      "input": "</strong> numBottles = 9, numExchange = 3 <strong>Output:</strong> 13 <strong>Explanation:</strong> You can exchange 3 empty bottles to get 1 full water bottle. Number of water bottles you can drink: 9 + 3 + 1 = 13.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> You can exchange 3 empty bottles to get 1 full water bottle. Number of water bottles you can drink: 9 + 3 + 1 = 13."
+    },
+    {
+      "input": "</strong> numBottles = 15, numExchange = 4 <strong>Output:</strong> 19 <strong>Explanation:</strong> You can exchange 4 empty bottles to get 1 full water bottle. Number of water bottles you can drink: 15 + 3 + 1 = 19.",
+      "expectedOutput": "</strong> 19 <strong>Explanation:</strong> You can exchange 4 empty bottles to get 1 full water bottle. Number of water bottles you can drink: 15 + 3 + 1 = 19."
+    }
+  ]
+}

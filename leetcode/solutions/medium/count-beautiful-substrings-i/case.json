@@ -1,0 +1,30 @@
+{
+  "problemId": "3210",
+  "titleSlug": "count-beautiful-substrings-i",
+  "title": "Count Beautiful Substrings I",
+  "titleCn": "统计美丽子字符串 I",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "enumeration",
+    "number-theory",
+    "prefix-sum"
+  ],
+  "acRate": 0.6018324318357434,
+  "testcases": [
+    {
+      "input": "</strong> s = \"baeyh\", k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 beautiful substrings in the given string. - Substring \"b<u>aeyh</u>\", vowels = 2 ([\"a\",e\"]), consonants = 2 ([\"y\",\"h\"]). You can see that string \"aeyh\" is beautiful as vowels == consonants and vowels * consonants % k == 0. - Substring \"<u>baey</u>h\", vowels = 2 ([\"a\",e\"]), consonants = 2 ([\"b\",\"y\"]). You can see that string \"baey\" is beautiful as vowels == consonants and vowels * consonants % k == 0. It can be shown that there are only 2 beautiful substrings in the given string.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 beautiful substrings in the given string. - Substring \"b<u>aeyh</u>\", vowels = 2 ([\"a\",e\"]), consonants = 2 ([\"y\",\"h\"]). You can see that string \"aeyh\" is beautiful as vowels == consonants and vowels * consonants % k == 0. - Substring \"<u>baey</u>h\", vowels = 2 ([\"a\",e\"]), consonants = 2 ([\"b\",\"y\"]). You can see that string \"baey\" is beautiful as vowels == consonants and vowels * consonants % k == 0. It can be shown that there are only 2 beautiful substrings in the given string."
+    },
+    {
+      "input": "</strong> s = \"abba\", k = 1 <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 beautiful substrings in the given string. - Substring \"<u>ab</u>ba\", vowels = 1 ([\"a\"]), consonants = 1 ([\"b\"]). - Substring \"ab<u>ba</u>\", vowels = 1 ([\"a\"]), consonants = 1 ([\"b\"]). - Substring \"<u>abba</u>\", vowels = 2 ([\"a\",\"a\"]), consonants = 2 ([\"b\",\"b\"]). It can be shown that there are only 3 beautiful substrings in the given string.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 beautiful substrings in the given string. - Substring \"<u>ab</u>ba\", vowels = 1 ([\"a\"]), consonants = 1 ([\"b\"]). - Substring \"ab<u>ba</u>\", vowels = 1 ([\"a\"]), consonants = 1 ([\"b\"]). - Substring \"<u>abba</u>\", vowels = 2 ([\"a\",\"a\"]), consonants = 2 ([\"b\",\"b\"]). It can be shown that there are only 3 beautiful substrings in the given string."
+    },
+    {
+      "input": "</strong> s = \"bcdf\", k = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no beautiful substrings in the given string.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no beautiful substrings in the given string."
+    }
+  ]
+}

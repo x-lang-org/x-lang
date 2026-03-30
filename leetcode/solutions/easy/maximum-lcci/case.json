@@ -1,0 +1,19 @@
+{
+  "problemId": "100349",
+  "titleSlug": "maximum-lcci",
+  "title": "Maximum LCCI",
+  "titleCn": "最大数值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "brainteaser",
+    "math"
+  ],
+  "acRate": 0.7485390887932623,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 2\r <strong>Output: </strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

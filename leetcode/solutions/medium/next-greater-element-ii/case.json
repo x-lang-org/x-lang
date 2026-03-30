@@ -1,0 +1,23 @@
+{
+  "problemId": "503",
+  "titleSlug": "next-greater-element-ii",
+  "title": "Next Greater Element II",
+  "titleCn": "下一个更大元素 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6916255056286771,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,1] <strong>Output:</strong> [2,-1,2] Explanation: The first 1's next greater number is 2; The number 2 can't find next greater number. The second 1's next greater number needs to search circularly, which is also 2.",
+      "expectedOutput": "</strong> [2,-1,2] Explanation: The first 1's next greater number is 2; The number 2 can't find next greater number. The second 1's next greater number needs to search circularly, which is also 2."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,3] <strong>Output:</strong> [2,3,4,-1,4]",
+      "expectedOutput": "</strong> [2,3,4,-1,4]"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "397",
+  "titleSlug": "integer-replacement",
+  "title": "Integer Replacement",
+  "titleCn": "整数替换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation",
+    "memoization",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4237203250435765,
+  "testcases": [
+    {
+      "input": "</strong> n = 8 <strong>Output:</strong> 3 <strong>Explanation:</strong> 8 -> 4 -> 2 -> 1",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 8 -> 4 -> 2 -> 1"
+    },
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> 4 <strong>Explanation: </strong>7 -> 8 -> 4 -> 2 -> 1 or 7 -> 6 -> 3 -> 2 -> 1",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>7 -> 8 -> 4 -> 2 -> 1 or 7 -> 6 -> 3 -> 2 -> 1"
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

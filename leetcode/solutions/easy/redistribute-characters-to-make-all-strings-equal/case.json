@@ -1,0 +1,23 @@
+{
+  "problemId": "2025",
+  "titleSlug": "redistribute-characters-to-make-all-strings-equal",
+  "title": "Redistribute Characters to Make All Strings Equal",
+  "titleCn": "重新分配字符使所有字符串都相等",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.5715897156637754,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abc\",\"aabc\",\"bc\"] <strong>Output:</strong> true <strong>Explanation:</strong> Move the first 'a' in <code>words[1] to the front of words[2], to make </code><code>words[1]</code> = \"abc\" and words[2] = \"abc\". All the strings are now equal to \"abc\", so return <code>true</code>.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Move the first 'a' in <code>words[1] to the front of words[2], to make </code><code>words[1]</code> = \"abc\" and words[2] = \"abc\". All the strings are now equal to \"abc\", so return <code>true</code>."
+    },
+    {
+      "input": "</strong> words = [\"ab\",\"a\"] <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to make all the strings equal using the operation.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to make all the strings equal using the operation."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "966",
+  "titleSlug": "binary-subarrays-with-sum",
+  "title": "Binary Subarrays With Sum",
+  "titleCn": "和相同的二元子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.6047013967360807,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,0,1,0,1], goal = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> The 4 subarrays are bolded and underlined below: [<u><strong>1,0,1</strong></u>,0,1] [<u><strong>1,0,1,0</strong></u>,1] [1,<u><strong>0,1,0,1</strong></u>] [1,0,<u><strong>1,0,1</strong></u>]",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The 4 subarrays are bolded and underlined below: [<u><strong>1,0,1</strong></u>,0,1] [<u><strong>1,0,1,0</strong></u>,1] [1,<u><strong>0,1,0,1</strong></u>] [1,0,<u><strong>1,0,1</strong></u>]"
+    },
+    {
+      "input": "</strong> nums = [0,0,0,0,0], goal = 0 <strong>Output:</strong> 15",
+      "expectedOutput": "</strong> 15"
+    }
+  ]
+}

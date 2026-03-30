@@ -1,0 +1,27 @@
+{
+  "problemId": "332",
+  "titleSlug": "reconstruct-itinerary",
+  "title": "Reconstruct Itinerary",
+  "titleCn": "重新安排行程",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "graph",
+    "array",
+    "string",
+    "sorting",
+    "eulerian-circuit",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.42287297951075725,
+  "testcases": [
+    {
+      "input": "</strong> tickets = [[\"MUC\",\"LHR\"],[\"JFK\",\"MUC\"],[\"SFO\",\"SJC\"],[\"LHR\",\"SFO\"]] <strong>Output:</strong> [\"JFK\",\"MUC\",\"LHR\",\"SFO\",\"SJC\"]",
+      "expectedOutput": "</strong> [\"JFK\",\"MUC\",\"LHR\",\"SFO\",\"SJC\"]"
+    },
+    {
+      "input": "</strong> tickets = [[\"JFK\",\"SFO\"],[\"JFK\",\"ATL\"],[\"SFO\",\"ATL\"],[\"ATL\",\"JFK\"],[\"ATL\",\"SFO\"]] <strong>Output:</strong> [\"JFK\",\"ATL\",\"JFK\",\"SFO\",\"ATL\",\"SFO\"] <strong>Explanation:</strong> Another possible reconstruction is [\"JFK\",\"SFO\",\"ATL\",\"JFK\",\"ATL\",\"SFO\"] but it is larger in lexical order.",
+      "expectedOutput": "</strong> [\"JFK\",\"ATL\",\"JFK\",\"SFO\",\"ATL\",\"SFO\"] <strong>Explanation:</strong> Another possible reconstruction is [\"JFK\",\"SFO\",\"ATL\",\"JFK\",\"ATL\",\"SFO\"] but it is larger in lexical order."
+    }
+  ]
+}

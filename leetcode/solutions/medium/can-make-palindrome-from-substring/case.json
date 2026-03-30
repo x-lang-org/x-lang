@@ -1,0 +1,25 @@
+{
+  "problemId": "1281",
+  "titleSlug": "can-make-palindrome-from-substring",
+  "title": "Can Make Palindrome from Substring",
+  "titleCn": "构建回文串检测",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.4639805765566415,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcda\", queries = [[3,3,0],[1,2,0],[0,3,1],[0,3,2],[0,4,1]] <strong>Output:</strong> [true,false,false,true,true] <strong>Explanation:</strong> queries[0]: substring = \"d\", is palidrome. queries[1]: substring = \"bc\", is not palidrome. queries[2]: substring = \"abcd\", is not palidrome after replacing only 1 character. queries[3]: substring = \"abcd\", could be changed to \"abba\" which is palidrome. Also this can be changed to \"baab\" first rearrange it \"bacd\" then replace \"cd\" with \"ab\". queries[4]: substring = \"abcda\", could be changed to \"abcba\" which is palidrome.",
+      "expectedOutput": "</strong> [true,false,false,true,true] <strong>Explanation:</strong> queries[0]: substring = \"d\", is palidrome. queries[1]: substring = \"bc\", is not palidrome. queries[2]: substring = \"abcd\", is not palidrome after replacing only 1 character. queries[3]: substring = \"abcd\", could be changed to \"abba\" which is palidrome. Also this can be changed to \"baab\" first rearrange it \"bacd\" then replace \"cd\" with \"ab\". queries[4]: substring = \"abcda\", could be changed to \"abcba\" which is palidrome."
+    },
+    {
+      "input": "</strong> s = \"lyb\", queries = [[0,1,0],[2,2,1]] <strong>Output:</strong> [false,true]",
+      "expectedOutput": "</strong> [false,true]"
+    }
+  ]
+}

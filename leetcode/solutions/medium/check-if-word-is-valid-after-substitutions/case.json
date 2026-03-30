@@ -1,0 +1,26 @@
+{
+  "problemId": "1045",
+  "titleSlug": "check-if-word-is-valid-after-substitutions",
+  "title": "Check If Word Is Valid After Substitutions",
+  "titleCn": "检查替换后的词是否有效",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.6530191721913635,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabcbc\" <strong>Output:</strong> true <strong>Explanation:</strong> \"\" -> \"<u>abc</u>\" -> \"a<u>abc</u>bc\" Thus, \"aabcbc\" is valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> \"\" -> \"<u>abc</u>\" -> \"a<u>abc</u>bc\" Thus, \"aabcbc\" is valid."
+    },
+    {
+      "input": "</strong> s = \"abcabcababcc\" <strong>Output:</strong> true <strong>Explanation:</strong> \"\" -> \"<u>abc</u>\" -> \"abc<u>abc</u>\" -> \"abcabc<u>abc</u>\" -> \"abcabcab<u>abc</u>c\" Thus, \"abcabcababcc\" is valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> \"\" -> \"<u>abc</u>\" -> \"abc<u>abc</u>\" -> \"abcabc<u>abc</u>\" -> \"abcabcab<u>abc</u>c\" Thus, \"abcabcababcc\" is valid."
+    },
+    {
+      "input": "</strong> s = \"abccba\" <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to get \"abccba\" using the operation.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to get \"abccba\" using the operation."
+    }
+  ]
+}

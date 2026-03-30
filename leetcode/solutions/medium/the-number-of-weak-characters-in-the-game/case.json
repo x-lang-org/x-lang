@@ -1,0 +1,29 @@
+{
+  "problemId": "2123",
+  "titleSlug": "the-number-of-weak-characters-in-the-game",
+  "title": "The Number of Weak Characters in the Game",
+  "titleCn": "游戏中弱角色的数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "acRate": 0.4216453447965199,
+  "testcases": [
+    {
+      "input": "</strong> properties = [[5,5],[6,3],[3,6]] <strong>Output:</strong> 0 <strong>Explanation:</strong> No character has strictly greater attack and defense than the other.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No character has strictly greater attack and defense than the other."
+    },
+    {
+      "input": "</strong> properties = [[2,2],[3,3]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The first character is weak because the second character has a strictly greater attack and defense.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The first character is weak because the second character has a strictly greater attack and defense."
+    },
+    {
+      "input": "</strong> properties = [[1,5],[10,4],[4,3]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The third character is weak because the second character has a strictly greater attack and defense.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The third character is weak because the second character has a strictly greater attack and defense."
+    }
+  ]
+}

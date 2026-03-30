@@ -1,0 +1,27 @@
+{
+  "problemId": "640",
+  "titleSlug": "solve-the-equation",
+  "title": "Solve the Equation",
+  "titleCn": "求解方程",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.44406074385483246,
+  "testcases": [
+    {
+      "input": "</strong> equation = \"x+5-3+x=6+x-2\" <strong>Output:</strong> \"x=2\"",
+      "expectedOutput": "</strong> \"x=2"
+    },
+    {
+      "input": "</strong> equation = \"x=x\" <strong>Output:</strong> \"Infinite solutions\"",
+      "expectedOutput": "</strong> \"Infinite solutions"
+    },
+    {
+      "input": "</strong> equation = \"2x=x\" <strong>Output:</strong> \"x=0\"",
+      "expectedOutput": "</strong> \"x=0"
+    }
+  ]
+}

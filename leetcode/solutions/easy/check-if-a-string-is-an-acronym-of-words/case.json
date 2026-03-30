@@ -1,0 +1,26 @@
+{
+  "problemId": "2977",
+  "titleSlug": "check-if-a-string-is-an-acronym-of-words",
+  "title": "Check if a String Is an Acronym of Words",
+  "titleCn": "判别首字母缩略词",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8446475801586933,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"alice\",\"bob\",\"charlie\"], s = \"abc\" <strong>Output:</strong> true <strong>Explanation:</strong> The first character in the words \"alice\", \"bob\", and \"charlie\" are 'a', 'b', and 'c', respectively. Hence, s = \"abc\" is the acronym.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The first character in the words \"alice\", \"bob\", and \"charlie\" are 'a', 'b', and 'c', respectively. Hence, s = \"abc\" is the acronym."
+    },
+    {
+      "input": "</strong> words = [\"an\",\"apple\"], s = \"a\" <strong>Output:</strong> false <strong>Explanation:</strong> The first character in the words \"an\" and \"apple\" are 'a' and 'a', respectively. The acronym formed by concatenating these characters is \"aa\". Hence, s = \"a\" is not the acronym.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The first character in the words \"an\" and \"apple\" are 'a' and 'a', respectively. The acronym formed by concatenating these characters is \"aa\". Hence, s = \"a\" is not the acronym."
+    },
+    {
+      "input": "</strong> words = [\"never\",\"gonna\",\"give\",\"up\",\"on\",\"you\"], s = \"ngguoy\" <strong>Output:</strong> true <strong>Explanation: </strong>By concatenating the first character of the words in the array, we get the string \"ngguoy\". Hence, s = \"ngguoy\" is the acronym.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>By concatenating the first character of the words in the array, we get the string \"ngguoy\". Hence, s = \"ngguoy\" is the acronym."
+    }
+  ]
+}

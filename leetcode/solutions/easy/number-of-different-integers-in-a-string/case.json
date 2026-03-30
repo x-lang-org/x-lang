@@ -1,0 +1,26 @@
+{
+  "problemId": "1933",
+  "titleSlug": "number-of-different-integers-in-a-string",
+  "title": "Number of Different Integers in a String",
+  "titleCn": "字符串中不同整数的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4312789135949858,
+  "testcases": [
+    {
+      "input": "</strong> word = \"a<u>123</u>bc<u>34</u>d<u>8</u>ef<u>34</u>\" <strong>Output:</strong> 3 <strong>Explanation: </strong>The three different integers are \"123\", \"34\", and \"8\". Notice that \"34\" is only counted once.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>The three different integers are \"123\", \"34\", and \"8\". Notice that \"34\" is only counted once."
+    },
+    {
+      "input": "</strong> word = \"leet<u>1234</u>code<u>234</u>\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> word = \"a<u>1</u>b<u>01</u>c<u>001</u>\" <strong>Output:</strong> 1 <strong>Explanation: </strong>The three integers \"1\", \"01\", and \"001\" all represent the same integer because the leading zeros are ignored when comparing their decimal values.",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong>The three integers \"1\", \"01\", and \"001\" all represent the same integer because the leading zeros are ignored when comparing their decimal values."
+    }
+  ]
+}

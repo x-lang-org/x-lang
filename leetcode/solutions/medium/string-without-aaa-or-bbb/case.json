@@ -1,0 +1,22 @@
+{
+  "problemId": "1026",
+  "titleSlug": "string-without-aaa-or-bbb",
+  "title": "String Without AAA or BBB",
+  "titleCn": "不含 AAA 或 BBB 的字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.4592934332923802,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 2 <strong>Output:</strong> \"abb\" <strong>Explanation:</strong> \"abb\", \"bab\" and \"bba\" are all correct answers.",
+      "expectedOutput": "</strong> \"abb\" <strong>Explanation:</strong> \"abb\", \"bab\" and \"bba\" are all correct answers."
+    },
+    {
+      "input": "</strong> a = 4, b = 1 <strong>Output:</strong> \"aabaa\"",
+      "expectedOutput": "</strong> \"aabaa"
+    }
+  ]
+}

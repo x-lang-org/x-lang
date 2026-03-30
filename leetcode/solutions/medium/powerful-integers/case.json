@@ -1,0 +1,23 @@
+{
+  "problemId": "1010",
+  "titleSlug": "powerful-integers",
+  "title": "Powerful Integers",
+  "titleCn": "强整数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.46895663374838986,
+  "testcases": [
+    {
+      "input": "</strong> x = 2, y = 3, bound = 10 <strong>Output:</strong> [2,3,4,5,7,9,10] <strong>Explanation:</strong> 2 = 2<sup>0</sup> + 3<sup>0</sup> 3 = 2<sup>1</sup> + 3<sup>0</sup> 4 = 2<sup>0</sup> + 3<sup>1</sup> 5 = 2<sup>1</sup> + 3<sup>1</sup> 7 = 2<sup>2</sup> + 3<sup>1</sup> 9 = 2<sup>3</sup> + 3<sup>0</sup> 10 = 2<sup>0</sup> + 3<sup>2</sup>",
+      "expectedOutput": "</strong> [2,3,4,5,7,9,10] <strong>Explanation:</strong> 2 = 2<sup>0</sup> + 3<sup>0</sup> 3 = 2<sup>1</sup> + 3<sup>0</sup> 4 = 2<sup>0</sup> + 3<sup>1</sup> 5 = 2<sup>1</sup> + 3<sup>1</sup> 7 = 2<sup>2</sup> + 3<sup>1</sup> 9 = 2<sup>3</sup> + 3<sup>0</sup> 10 = 2<sup>0</sup> + 3<sup>2</sup>"
+    },
+    {
+      "input": "</strong> x = 3, y = 5, bound = 15 <strong>Output:</strong> [2,4,6,8,10,14]",
+      "expectedOutput": "</strong> [2,4,6,8,10,14]"
+    }
+  ]
+}

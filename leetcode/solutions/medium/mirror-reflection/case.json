@@ -1,0 +1,23 @@
+{
+  "problemId": "888",
+  "titleSlug": "mirror-reflection",
+  "title": "Mirror Reflection",
+  "titleCn": "镜面反射",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.5942664682384272,
+  "testcases": [
+    {
+      "input": "</strong> p = 2, q = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> The ray meets receptor 2 the first time it gets reflected back to the left wall.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The ray meets receptor 2 the first time it gets reflected back to the left wall."
+    },
+    {
+      "input": "</strong> p = 3, q = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "445",
+  "titleSlug": "add-two-numbers-ii",
+  "title": "Add Two Numbers II",
+  "titleCn": "两数相加 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "linked-list",
+    "math"
+  ],
+  "acRate": 0.6191658601598675,
+  "testcases": [
+    {
+      "input": "</strong> l1 = [7,2,4,3], l2 = [5,6,4] <strong>Output:</strong> [7,8,0,7]",
+      "expectedOutput": "</strong> [7,8,0,7]"
+    },
+    {
+      "input": "</strong> l1 = [2,4,3], l2 = [5,6,4] <strong>Output:</strong> [8,0,7]",
+      "expectedOutput": "</strong> [8,0,7]"
+    },
+    {
+      "input": "</strong> l1 = [0], l2 = [0] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    }
+  ]
+}

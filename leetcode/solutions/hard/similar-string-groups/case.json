@@ -1,0 +1,26 @@
+{
+  "problemId": "869",
+  "titleSlug": "similar-string-groups",
+  "title": "Similar String Groups",
+  "titleCn": "相似字符串组",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6079475624743957,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"tars\",\"rats\",\"arts\",\"star\"] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> strs = [\"omv\",\"ovm\"] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

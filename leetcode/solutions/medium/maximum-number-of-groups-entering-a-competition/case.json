@@ -1,0 +1,24 @@
+{
+  "problemId": "2437",
+  "titleSlug": "maximum-number-of-groups-entering-a-competition",
+  "title": "Maximum Number of Groups Entering a Competition",
+  "titleCn": "分组的最大数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.659834885283671,
+  "testcases": [
+    {
+      "input": "</strong> grades = [10,6,12,7,3,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> The following is a possible way to form 3 groups of students: - 1<sup>st</sup> group has the students with grades = [12]. Sum of grades: 12. Student count: 1 - 2<sup>nd</sup> group has the students with grades = [6,7]. Sum of grades: 6 + 7 = 13. Student count: 2 - 3<sup>rd</sup> group has the students with grades = [10,3,5]. Sum of grades: 10 + 3 + 5 = 18. Student count: 3 It can be shown that it is not possible to form more than 3 groups.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The following is a possible way to form 3 groups of students: - 1<sup>st</sup> group has the students with grades = [12]. Sum of grades: 12. Student count: 1 - 2<sup>nd</sup> group has the students with grades = [6,7]. Sum of grades: 6 + 7 = 13. Student count: 2 - 3<sup>rd</sup> group has the students with grades = [10,3,5]. Sum of grades: 10 + 3 + 5 = 18. Student count: 3 It can be shown that it is not possible to form more than 3 groups."
+    },
+    {
+      "input": "</strong> grades = [8,8] <strong>Output:</strong> 1 <strong>Explanation:</strong> We can only form 1 group, since forming 2 groups would lead to an equal number of students in both groups.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can only form 1 group, since forming 2 groups would lead to an equal number of students in both groups."
+    }
+  ]
+}

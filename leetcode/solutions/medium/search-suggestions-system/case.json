@@ -1,0 +1,26 @@
+{
+  "problemId": "1397",
+  "titleSlug": "search-suggestions-system",
+  "title": "Search Suggestions System",
+  "titleCn": "搜索推荐系统",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "binary-search",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6240622395109753,
+  "testcases": [
+    {
+      "input": "</strong> products = [\"mobile\",\"mouse\",\"moneypot\",\"monitor\",\"mousepad\"], searchWord = \"mouse\" <strong>Output:</strong> [[\"mobile\",\"moneypot\",\"monitor\"],[\"mobile\",\"moneypot\",\"monitor\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"]] <strong>Explanation:</strong> products sorted lexicographically = [\"mobile\",\"moneypot\",\"monitor\",\"mouse\",\"mousepad\"]. After typing m and mo all products match and we show user [\"mobile\",\"moneypot\",\"monitor\"]. After typing mou, mous and mouse the system suggests [\"mouse\",\"mousepad\"].",
+      "expectedOutput": "</strong> [[\"mobile\",\"moneypot\",\"monitor\"],[\"mobile\",\"moneypot\",\"monitor\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"],[\"mouse\",\"mousepad\"]] <strong>Explanation:</strong> products sorted lexicographically = [\"mobile\",\"moneypot\",\"monitor\",\"mouse\",\"mousepad\"]. After typing m and mo all products match and we show user [\"mobile\",\"moneypot\",\"monitor\"]. After typing mou, mous and mouse the system suggests [\"mouse\",\"mousepad\"]."
+    },
+    {
+      "input": "</strong> products = [\"havana\"], searchWord = \"havana\" <strong>Output:</strong> [[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"]] <strong>Explanation:</strong> The only word \"havana\" will be always suggested while typing the search word.",
+      "expectedOutput": "</strong> [[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"],[\"havana\"]] <strong>Explanation:</strong> The only word \"havana\" will be always suggested while typing the search word."
+    }
+  ]
+}

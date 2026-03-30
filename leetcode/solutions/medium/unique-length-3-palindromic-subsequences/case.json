@@ -1,0 +1,28 @@
+{
+  "problemId": "2059",
+  "titleSlug": "unique-length-3-palindromic-subsequences",
+  "title": "Unique Length-3 Palindromic Subsequences",
+  "titleCn": "长度为 3 的不同回文子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.6570717385754404,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabca\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The 3 palindromic subsequences of length 3 are: - \"aba\" (subsequence of \"<u>a</u>a<u>b</u>c<u>a</u>\") - \"aaa\" (subsequence of \"<u>aa</u>bc<u>a</u>\") - \"aca\" (subsequence of \"<u>a</u>ab<u>ca</u>\")",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The 3 palindromic subsequences of length 3 are: - \"aba\" (subsequence of \"<u>a</u>a<u>b</u>c<u>a</u>\") - \"aaa\" (subsequence of \"<u>aa</u>bc<u>a</u>\") - \"aca\" (subsequence of \"<u>a</u>ab<u>ca</u>\")"
+    },
+    {
+      "input": "</strong> s = \"adc\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no palindromic subsequences of length 3 in \"adc\".",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no palindromic subsequences of length 3 in \"adc\"."
+    },
+    {
+      "input": "</strong> s = \"bbcbaba\" <strong>Output:</strong> 4 <strong>Explanation:</strong> The 4 palindromic subsequences of length 3 are: - \"bbb\" (subsequence of \"<u>bb</u>c<u>b</u>aba\") - \"bcb\" (subsequence of \"<u>b</u>b<u>cb</u>aba\") - \"bab\" (subsequence of \"<u>b</u>bcb<u>ab</u>a\") - \"aba\" (subsequence of \"bbcb<u>aba</u>\")",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The 4 palindromic subsequences of length 3 are: - \"bbb\" (subsequence of \"<u>bb</u>c<u>b</u>aba\") - \"bcb\" (subsequence of \"<u>b</u>b<u>cb</u>aba\") - \"bab\" (subsequence of \"<u>b</u>bcb<u>ab</u>a\") - \"aba\" (subsequence of \"bbcb<u>aba</u>\")"
+    }
+  ]
+}

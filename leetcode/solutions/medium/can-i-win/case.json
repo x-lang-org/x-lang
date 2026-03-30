@@ -1,0 +1,30 @@
+{
+  "problemId": "464",
+  "titleSlug": "can-i-win",
+  "title": "Can I Win",
+  "titleCn": "我能赢吗",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "memoization",
+    "math",
+    "dynamic-programming",
+    "bitmask",
+    "game-theory"
+  ],
+  "acRate": 0.4066020919517035,
+  "testcases": [
+    {
+      "input": "</strong> maxChoosableInteger = 10, desiredTotal = 11 <strong>Output:</strong> false <strong>Explanation:</strong> No matter which integer the first player choose, the first player will lose. The first player can choose an integer from 1 up to 10. If the first player choose 1, the second player can only choose integers from 2 up to 10. The second player will win by choosing 10 and get a total = 11, which is >= desiredTotal. Same with other integers chosen by the first player, the second player will always win.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> No matter which integer the first player choose, the first player will lose. The first player can choose an integer from 1 up to 10. If the first player choose 1, the second player can only choose integers from 2 up to 10. The second player will win by choosing 10 and get a total = 11, which is >= desiredTotal. Same with other integers chosen by the first player, the second player will always win."
+    },
+    {
+      "input": "</strong> maxChoosableInteger = 10, desiredTotal = 0 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> maxChoosableInteger = 10, desiredTotal = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "2211",
+  "titleSlug": "k-radius-subarray-averages",
+  "title": "K Radius Subarray Averages",
+  "titleCn": "半径为 k 的子数组平均值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "acRate": 0.46180868449589907,
+  "testcases": [
+    {
+      "input": "</strong> nums = [7,4,3,9,1,8,5,2,6], k = 3 <strong>Output:</strong> [-1,-1,-1,5,4,4,-1,-1,-1] <strong>Explanation:</strong> - avg[0], avg[1], and avg[2] are -1 because there are less than k elements <strong>before</strong> each index. - The sum of the subarray centered at index 3 with radius 3 is: 7 + 4 + 3 + 9 + 1 + 8 + 5 = 37.  Using <strong>integer division</strong>, avg[3] = 37 / 7 = 5. - For the subarray centered at index 4, avg[4] = (4 + 3 + 9 + 1 + 8 + 5 + 2) / 7 = 4. - For the subarray centered at index 5, avg[5] = (3 + 9 + 1 + 8 + 5 + 2 + 6) / 7 = 4. - avg[6], avg[7], and avg[8] are -1 because there are less than k elements <strong>after</strong> each index.",
+      "expectedOutput": "</strong> [-1,-1,-1,5,4,4,-1,-1,-1] <strong>Explanation:</strong> - avg[0], avg[1], and avg[2] are -1 because there are less than k elements <strong>before</strong> each index. - The sum of the subarray centered at index 3 with radius 3 is: 7 + 4 + 3 + 9 + 1 + 8 + 5 = 37.  Using <strong>integer division</strong>, avg[3] = 37 / 7 = 5. - For the subarray centered at index 4, avg[4] = (4 + 3 + 9 + 1 + 8 + 5 + 2) / 7 = 4. - For the subarray centered at index 5, avg[5] = (3 + 9 + 1 + 8 + 5 + 2 + 6) / 7 = 4. - avg[6], avg[7], and avg[8] are -1 because there are less than k elements <strong>after</strong> each index."
+    },
+    {
+      "input": "</strong> nums = [100000], k = 0 <strong>Output:</strong> [100000] <strong>Explanation:</strong> - The sum of the subarray centered at index 0 with radius 0 is: 100000.  avg[0] = 100000 / 1 = 100000.",
+      "expectedOutput": "</strong> [100000] <strong>Explanation:</strong> - The sum of the subarray centered at index 0 with radius 0 is: 100000.  avg[0] = 100000 / 1 = 100000."
+    },
+    {
+      "input": "</strong> nums = [8], k = 100000 <strong>Output:</strong> [-1] <strong>Explanation:</strong> - avg[0] is -1 because there are less than k elements before and after index 0.",
+      "expectedOutput": "</strong> [-1] <strong>Explanation:</strong> - avg[0] is -1 because there are less than k elements before and after index 0."
+    }
+  ]
+}

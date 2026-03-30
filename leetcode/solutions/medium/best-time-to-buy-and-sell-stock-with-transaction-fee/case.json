@@ -1,0 +1,23 @@
+{
+  "problemId": "714",
+  "titleSlug": "best-time-to-buy-and-sell-stock-with-transaction-fee",
+  "title": "Best Time to Buy and Sell Stock with Transaction Fee",
+  "titleCn": "买卖股票的最佳时机含手续费",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.7755481217244219,
+  "testcases": [
+    {
+      "input": "</strong> prices = [1,3,2,8,4,9], fee = 2 <strong>Output:</strong> 8 <strong>Explanation:</strong> The maximum profit can be achieved by: - Buying at prices[0] = 1 - Selling at prices[3] = 8 - Buying at prices[4] = 4 - Selling at prices[5] = 9 The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The maximum profit can be achieved by: - Buying at prices[0] = 1 - Selling at prices[3] = 8 - Buying at prices[4] = 4 - Selling at prices[5] = 9 The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8."
+    },
+    {
+      "input": "</strong> prices = [1,3,7,5,10,3], fee = 3 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    }
+  ]
+}

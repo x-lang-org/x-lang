@@ -1,0 +1,22 @@
+{
+  "problemId": "283",
+  "titleSlug": "move-zeroes",
+  "title": "Move Zeroes",
+  "titleCn": "移动零",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.6379583367690886,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,0,3,12] <strong>Output:</strong> [1,3,12,0,0]",
+      "expectedOutput": "</strong> [1,3,12,0,0]"
+    },
+    {
+      "input": "</strong> nums = [0] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    }
+  ]
+}

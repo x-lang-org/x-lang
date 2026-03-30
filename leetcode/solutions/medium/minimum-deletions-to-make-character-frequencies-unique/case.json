@@ -1,0 +1,28 @@
+{
+  "problemId": "1770",
+  "titleSlug": "minimum-deletions-to-make-character-frequencies-unique",
+  "title": "Minimum Deletions to Make Character Frequencies Unique",
+  "titleCn": "字符频次唯一的最小删除次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5488944070001183,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aab\" <strong>Output:</strong> 0 <strong>Explanation:</strong> <code>s</code> is already good.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> <code>s</code> is already good."
+    },
+    {
+      "input": "</strong> s = \"aaabbbcc\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You can delete two 'b's resulting in the good string \"aaabcc\". Another way it to delete one 'b' and one 'c' resulting in the good string \"aaabbc\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can delete two 'b's resulting in the good string \"aaabcc\". Another way it to delete one 'b' and one 'c' resulting in the good string \"aaabbc\"."
+    },
+    {
+      "input": "</strong> s = \"ceabaacb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You can delete both 'c's resulting in the good string \"eabaab\". Note that we only care about characters that are still in the string at the end (i.e. frequency of 0 is ignored).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can delete both 'c's resulting in the good string \"eabaab\". Note that we only care about characters that are still in the string at the end (i.e. frequency of 0 is ignored)."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "691",
+  "titleSlug": "stickers-to-spell-word",
+  "title": "Stickers to Spell Word",
+  "titleCn": "贴纸拼词",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "memoization",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.5716913438598408,
+  "testcases": [
+    {
+      "input": "</strong> stickers = [\"with\",\"example\",\"science\"], target = \"thehat\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We can use 2 \"with\" stickers, and 1 \"example\" sticker. After cutting and rearrange the letters of those stickers, we can form the target \"thehat\". Also, this is the minimum number of stickers necessary to form the target string.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can use 2 \"with\" stickers, and 1 \"example\" sticker. After cutting and rearrange the letters of those stickers, we can form the target \"thehat\". Also, this is the minimum number of stickers necessary to form the target string."
+    },
+    {
+      "input": "</strong> stickers = [\"notice\",\"possible\"], target = \"basicbasic\" <strong>Output:</strong> -1 Explanation: We cannot form the target \"basicbasic\" from cutting letters from the given stickers.",
+      "expectedOutput": "</strong> -1 Explanation: We cannot form the target \"basicbasic\" from cutting letters from the given stickers."
+    }
+  ]
+}

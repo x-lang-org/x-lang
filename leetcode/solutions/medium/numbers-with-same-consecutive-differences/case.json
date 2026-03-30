@@ -1,0 +1,22 @@
+{
+  "problemId": "1007",
+  "titleSlug": "numbers-with-same-consecutive-differences",
+  "title": "Numbers With Same Consecutive Differences",
+  "titleCn": "连续差相同的数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "backtracking"
+  ],
+  "acRate": 0.5566990504418464,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, k = 7 <strong>Output:</strong> [181,292,707,818,929] <strong>Explanation:</strong> Note that 070 is not a valid number, because it has leading zeroes.",
+      "expectedOutput": "</strong> [181,292,707,818,929] <strong>Explanation:</strong> Note that 070 is not a valid number, because it has leading zeroes."
+    },
+    {
+      "input": "</strong> n = 2, k = 1 <strong>Output:</strong> [10,12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98]",
+      "expectedOutput": "</strong> [10,12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98]"
+    }
+  ]
+}

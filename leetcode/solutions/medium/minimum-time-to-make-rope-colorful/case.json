@@ -1,0 +1,28 @@
+{
+  "problemId": "1700",
+  "titleSlug": "minimum-time-to-make-rope-colorful",
+  "title": "Minimum Time to Make Rope Colorful",
+  "titleCn": "使绳子变成彩色的最短时间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6498023293086869,
+  "testcases": [
+    {
+      "input": "</strong> colors = \"abaac\", neededTime = [1,2,3,4,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> In the above image, 'a' is blue, 'b' is red, and 'c' is green. Bob can remove the blue balloon at index 2. This takes 3 seconds. There are no longer two consecutive balloons of the same color. Total time = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In the above image, 'a' is blue, 'b' is red, and 'c' is green. Bob can remove the blue balloon at index 2. This takes 3 seconds. There are no longer two consecutive balloons of the same color. Total time = 3."
+    },
+    {
+      "input": "</strong> colors = \"abc\", neededTime = [1,2,3] <strong>Output:</strong> 0 <strong>Explanation:</strong> The rope is already colorful. Bob does not need to remove any balloons from the rope.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The rope is already colorful. Bob does not need to remove any balloons from the rope."
+    },
+    {
+      "input": "</strong> colors = \"aabaa\", neededTime = [1,2,3,4,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> Bob will remove the balloons at indices 0 and 4. Each balloons takes 1 second to remove. There are no longer two consecutive balloons of the same color. Total time = 1 + 1 = 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Bob will remove the balloons at indices 0 and 4. Each balloons takes 1 second to remove. There are no longer two consecutive balloons of the same color. Total time = 1 + 1 = 2."
+    }
+  ]
+}

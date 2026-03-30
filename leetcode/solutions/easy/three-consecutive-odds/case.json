@@ -1,0 +1,21 @@
+{
+  "problemId": "1293",
+  "titleSlug": "three-consecutive-odds",
+  "title": "Three Consecutive Odds",
+  "titleCn": "存在连续三个奇数的数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6795823276585309,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,6,4,1] <strong>Output:</strong> false <b>Explanation:</b> There are no three consecutive odds.",
+      "expectedOutput": "</strong> false <b>Explanation:</b> There are no three consecutive odds."
+    },
+    {
+      "input": "</strong> arr = [1,2,34,3,4,5,7,23,12] <strong>Output:</strong> true <b>Explanation:</b> [5,7,23] are three consecutive odds.",
+      "expectedOutput": "</strong> true <b>Explanation:</b> [5,7,23] are three consecutive odds."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1818",
+  "titleSlug": "maximum-score-from-removing-substrings",
+  "title": "Maximum Score From Removing Substrings",
+  "titleCn": "删除子字符串的最大得分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.6166200427842685,
+  "testcases": [
+    {
+      "input": "</strong> s = \"cdbcbbaaabab\", x = 4, y = 5 <strong>Output:</strong> 19 <strong>Explanation:</strong> - Remove the \"ba\" underlined in \"cdbcbbaaa<u>ba</u>b\". Now, s = \"cdbcbbaaab\" and 5 points are added to the score. - Remove the \"ab\" underlined in \"cdbcbbaa<u>ab</u>\". Now, s = \"cdbcbbaa\" and 4 points are added to the score. - Remove the \"ba\" underlined in \"cdbcb<u>ba</u>a\". Now, s = \"cdbcba\" and 5 points are added to the score. - Remove the \"ba\" underlined in \"cdbc<u>ba</u>\". Now, s = \"cdbc\" and 5 points are added to the score. Total score = 5 + 4 + 5 + 5 = 19.",
+      "expectedOutput": "</strong> 19 <strong>Explanation:</strong> - Remove the \"ba\" underlined in \"cdbcbbaaa<u>ba</u>b\". Now, s = \"cdbcbbaaab\" and 5 points are added to the score. - Remove the \"ab\" underlined in \"cdbcbbaa<u>ab</u>\". Now, s = \"cdbcbbaa\" and 4 points are added to the score. - Remove the \"ba\" underlined in \"cdbcb<u>ba</u>a\". Now, s = \"cdbcba\" and 5 points are added to the score. - Remove the \"ba\" underlined in \"cdbc<u>ba</u>\". Now, s = \"cdbc\" and 5 points are added to the score. Total score = 5 + 4 + 5 + 5 = 19."
+    },
+    {
+      "input": "</strong> s = \"aabbaaxybbaabb\", x = 5, y = 4 <strong>Output:</strong> 20",
+      "expectedOutput": "</strong> 20"
+    }
+  ]
+}

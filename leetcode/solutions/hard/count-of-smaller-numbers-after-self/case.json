@@ -1,0 +1,31 @@
+{
+  "problemId": "315",
+  "titleSlug": "count-of-smaller-numbers-after-self",
+  "title": "Count of Smaller Numbers After Self",
+  "titleCn": "计算右侧小于当前元素的个数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "ordered-set",
+    "merge-sort"
+  ],
+  "acRate": 0.4448391277953699,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,2,6,1] <strong>Output:</strong> [2,1,1,0] <strong>Explanation:</strong> To the right of 5 there are <b>2</b> smaller elements (2 and 1). To the right of 2 there is only <b>1</b> smaller element (1). To the right of 6 there is <b>1</b> smaller element (1). To the right of 1 there is <b>0</b> smaller element.",
+      "expectedOutput": "</strong> [2,1,1,0] <strong>Explanation:</strong> To the right of 5 there are <b>2</b> smaller elements (2 and 1). To the right of 2 there is only <b>1</b> smaller element (1). To the right of 6 there is <b>1</b> smaller element (1). To the right of 1 there is <b>0</b> smaller element."
+    },
+    {
+      "input": "</strong> nums = [-1] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    },
+    {
+      "input": "</strong> nums = [-1,-1] <strong>Output:</strong> [0,0]",
+      "expectedOutput": "</strong> [0,0]"
+    }
+  ]
+}

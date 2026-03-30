@@ -1,0 +1,22 @@
+{
+  "problemId": "782",
+  "titleSlug": "jewels-and-stones",
+  "title": "Jewels and Stones",
+  "titleCn": "宝石与石头",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.8554641295015458,
+  "testcases": [
+    {
+      "input": "</strong> jewels = \"aA\", stones = \"aAAbbbb\" <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> jewels = \"z\", stones = \"ZZ\" <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

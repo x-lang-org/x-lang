@@ -1,0 +1,26 @@
+{
+  "problemId": "372",
+  "titleSlug": "super-pow",
+  "title": "Super Pow",
+  "titleCn": "超级次方",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "divide-and-conquer"
+  ],
+  "acRate": 0.5606174434794803,
+  "testcases": [
+    {
+      "input": "</strong> a = 2, b = [3] <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    },
+    {
+      "input": "</strong> a = 2, b = [1,0] <strong>Output:</strong> 1024",
+      "expectedOutput": "</strong> 1024"
+    },
+    {
+      "input": "</strong> a = 1, b = [4,3,3,8,5,2] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "415",
+  "titleSlug": "add-strings",
+  "title": "Add Strings",
+  "titleCn": "字符串相加",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.5508025920691505,
+  "testcases": [
+    {
+      "input": "</strong> num1 = \"11\", num2 = \"123\" <strong>Output:</strong> \"134\"",
+      "expectedOutput": "</strong> \"134"
+    },
+    {
+      "input": "</strong> num1 = \"456\", num2 = \"77\" <strong>Output:</strong> \"533\"",
+      "expectedOutput": "</strong> \"533"
+    },
+    {
+      "input": "</strong> num1 = \"0\", num2 = \"0\" <strong>Output:</strong> \"0\"",
+      "expectedOutput": "</strong> \"0"
+    }
+  ]
+}

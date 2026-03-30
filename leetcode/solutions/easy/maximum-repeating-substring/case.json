@@ -1,0 +1,27 @@
+{
+  "problemId": "1764",
+  "titleSlug": "maximum-repeating-substring",
+  "title": "Maximum Repeating Substring",
+  "titleCn": "最大重复子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "string-matching"
+  ],
+  "acRate": 0.4633034379671151,
+  "testcases": [
+    {
+      "input": "</strong> sequence = \"ababc\", word = \"ab\" <strong>Output:</strong> 2 <strong>Explanation: </strong>\"abab\" is a substring in \"<u>abab</u>c\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>\"abab\" is a substring in \"<u>abab</u>c\"."
+    },
+    {
+      "input": "</strong> sequence = \"ababc\", word = \"ba\" <strong>Output:</strong> 1 <strong>Explanation: </strong>\"ba\" is a substring in \"a<u>ba</u>bc\". \"baba\" is not a substring in \"ababc\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong>\"ba\" is a substring in \"a<u>ba</u>bc\". \"baba\" is not a substring in \"ababc\"."
+    },
+    {
+      "input": "</strong> sequence = \"ababc\", word = \"ac\" <strong>Output:</strong> 0 <strong>Explanation: </strong>\"ac\" is not a substring in \"ababc\".",
+      "expectedOutput": "</strong> 0 <strong>Explanation: </strong>\"ac\" is not a substring in \"ababc\"."
+    }
+  ]
+}

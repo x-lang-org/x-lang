@@ -1,0 +1,25 @@
+{
+  "problemId": "1184",
+  "titleSlug": "car-pooling",
+  "title": "Car Pooling",
+  "titleCn": "拼车",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "prefix-sum",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5381063460733297,
+  "testcases": [
+    {
+      "input": "</strong> trips = [[2,1,5],[3,3,7]], capacity = 4 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> trips = [[2,1,5],[3,3,7]], capacity = 5 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

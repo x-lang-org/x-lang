@@ -1,0 +1,24 @@
+{
+  "problemId": "875",
+  "titleSlug": "longest-mountain-in-array",
+  "title": "Longest Mountain in Array",
+  "titleCn": "数组中的最长山脉",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "enumeration"
+  ],
+  "acRate": 0.4341088410580382,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,1,4,7,3,2,5] <strong>Output:</strong> 5 <strong>Explanation:</strong> The largest mountain is [1,4,7,3,2] which has length 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The largest mountain is [1,4,7,3,2] which has length 5."
+    },
+    {
+      "input": "</strong> arr = [2,2,2] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no mountain.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no mountain."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "521",
+  "titleSlug": "longest-uncommon-subsequence-i",
+  "title": "Longest Uncommon Subsequence I",
+  "titleCn": "最长特殊序列 Ⅰ",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7458253856707827,
+  "testcases": [
+    {
+      "input": "</strong> a = \"aba\", b = \"cdc\" <strong>Output:</strong> 3 <strong>Explanation:</strong> One longest uncommon subsequence is \"aba\" because \"aba\" is a subsequence of \"aba\" but not \"cdc\". Note that \"cdc\" is also a longest uncommon subsequence.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One longest uncommon subsequence is \"aba\" because \"aba\" is a subsequence of \"aba\" but not \"cdc\". Note that \"cdc\" is also a longest uncommon subsequence."
+    },
+    {
+      "input": "</strong> a = \"aaa\", b = \"bbb\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The longest uncommon subsequences are \"aaa\" and \"bbb\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The longest uncommon subsequences are \"aaa\" and \"bbb\"."
+    },
+    {
+      "input": "</strong> a = \"aaa\", b = \"aaa\" <strong>Output:</strong> -1 <strong>Explanation:</strong> Every subsequence of string a is also a subsequence of string b. Similarly, every subsequence of string b is also a subsequence of string a. So the answer would be <code>-1</code>.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Every subsequence of string a is also a subsequence of string b. Similarly, every subsequence of string b is also a subsequence of string a. So the answer would be <code>-1</code>."
+    }
+  ]
+}

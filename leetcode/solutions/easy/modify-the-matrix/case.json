@@ -1,0 +1,22 @@
+{
+  "problemId": "3330",
+  "titleSlug": "modify-the-matrix",
+  "title": "Modify the Matrix",
+  "titleCn": "修改矩阵",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.8283403507709084,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[1,2,-1],[4,-1,6],[7,8,9]] <strong>Output:</strong> [[1,2,9],[4,8,6],[7,8,9]] <strong>Explanation:</strong> The diagram above shows the elements that are changed (in blue). - We replace the value in the cell [1][1] with the maximum value in the column 1, that is 8. - We replace the value in the cell [0][2] with the maximum value in the column 2, that is 9.",
+      "expectedOutput": "</strong> [[1,2,9],[4,8,6],[7,8,9]] <strong>Explanation:</strong> The diagram above shows the elements that are changed (in blue). - We replace the value in the cell [1][1] with the maximum value in the column 1, that is 8. - We replace the value in the cell [0][2] with the maximum value in the column 2, that is 9."
+    },
+    {
+      "input": "</strong> matrix = [[3,-1],[5,2]] <strong>Output:</strong> [[3,2],[5,2]] <strong>Explanation:</strong> The diagram above shows the elements that are changed (in blue).",
+      "expectedOutput": "</strong> [[3,2],[5,2]] <strong>Explanation:</strong> The diagram above shows the elements that are changed (in blue)."
+    }
+  ]
+}

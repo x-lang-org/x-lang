@@ -1,0 +1,18 @@
+{
+  "problemId": "1000008",
+  "titleSlug": "partition-list-lcci",
+  "title": "Partition List LCCI",
+  "titleCn": "分割链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.5855818252288244,
+  "testcases": [
+    {
+      "input": "</strong> head = 3->5->8->5->10->2->1, <em>x</em> = 5\r <strong>Output:</strong> 3->1->2->10->5->5->8",
+      "expectedOutput": "</strong> 3->1->2->10->5->5->8"
+    }
+  ]
+}

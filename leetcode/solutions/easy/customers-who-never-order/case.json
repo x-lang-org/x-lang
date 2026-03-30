@@ -1,0 +1,17 @@
+{
+  "problemId": "183",
+  "titleSlug": "customers-who-never-order",
+  "title": "Customers Who Never Order",
+  "titleCn": "从不订购的客户",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6691220868797826,
+  "testcases": [
+    {
+      "input": "</strong> Customers table: +----+-------+ | id | name | +----+-------+ | 1 | Joe  | | 2 | Henry | | 3 | Sam  | | 4 | Max  | +----+-------+ Orders table: +----+------------+ | id | customerId | +----+------------+ | 1 | 3     | | 2 | 1     | +----+------------+ <strong>Output:</strong> +-----------+ | Customers | +-----------+ | Henry   | | Max    | +-----------+",
+      "expectedOutput": "</strong> +-----------+ | Customers | +-----------+ | Henry   | | Max    | +-----------+"
+    }
+  ]
+}

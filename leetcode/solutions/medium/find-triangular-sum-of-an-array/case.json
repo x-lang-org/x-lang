@@ -1,0 +1,25 @@
+{
+  "problemId": "2324",
+  "titleSlug": "find-triangular-sum-of-an-array",
+  "title": "Find Triangular Sum of an Array",
+  "titleCn": "数组的三角和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "combinatorics",
+    "number-theory",
+    "simulation"
+  ],
+  "acRate": 0.795409388808161,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> 8 <strong>Explanation:</strong> The above diagram depicts the process from which we obtain the triangular sum of the array.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The above diagram depicts the process from which we obtain the triangular sum of the array."
+    },
+    {
+      "input": "</strong> nums = [5] <strong>Output:</strong> 5 <strong>Explanation:</strong> Since there is only one element in nums, the triangular sum is the value of that element itself.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Since there is only one element in nums, the triangular sum is the value of that element itself."
+    }
+  ]
+}

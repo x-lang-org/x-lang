@@ -1,0 +1,23 @@
+{
+  "problemId": "935",
+  "titleSlug": "orderly-queue",
+  "title": "Orderly Queue",
+  "titleCn": "有序队列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6354553630782466,
+  "testcases": [
+    {
+      "input": "</strong> s = \"cba\", k = 1 <strong>Output:</strong> \"acb\" <strong>Explanation:</strong> In the first move, we move the 1<sup>st</sup> character 'c' to the end, obtaining the string \"bac\". In the second move, we move the 1<sup>st</sup> character 'b' to the end, obtaining the final result \"acb\".",
+      "expectedOutput": "</strong> \"acb\" <strong>Explanation:</strong> In the first move, we move the 1<sup>st</sup> character 'c' to the end, obtaining the string \"bac\". In the second move, we move the 1<sup>st</sup> character 'b' to the end, obtaining the final result \"acb\"."
+    },
+    {
+      "input": "</strong> s = \"baaca\", k = 3 <strong>Output:</strong> \"aaabc\" <strong>Explanation:</strong> In the first move, we move the 1<sup>st</sup> character 'b' to the end, obtaining the string \"aacab\". In the second move, we move the 3<sup>rd</sup> character 'c' to the end, obtaining the final result \"aaabc\".",
+      "expectedOutput": "</strong> \"aaabc\" <strong>Explanation:</strong> In the first move, we move the 1<sup>st</sup> character 'b' to the end, obtaining the string \"aacab\". In the second move, we move the 3<sup>rd</sup> character 'c' to the end, obtaining the final result \"aaabc\"."
+    }
+  ]
+}

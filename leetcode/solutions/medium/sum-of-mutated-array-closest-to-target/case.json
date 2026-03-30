@@ -1,0 +1,27 @@
+{
+  "problemId": "1232",
+  "titleSlug": "sum-of-mutated-array-closest-to-target",
+  "title": "Sum of Mutated Array Closest to Target",
+  "titleCn": "转变数组后最接近目标值的数组和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.471242444593687,
+  "testcases": [
+    {
+      "input": "</strong> arr = [4,9,3], target = 10 <strong>Output:</strong> 3 <strong>Explanation:</strong> When using 3 arr converts to [3, 3, 3] which sums 9 and that's the optimal answer.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> When using 3 arr converts to [3, 3, 3] which sums 9 and that's the optimal answer."
+    },
+    {
+      "input": "</strong> arr = [2,3,5], target = 10 <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> arr = [60864,25176,27249,21296,20204], target = 56803 <strong>Output:</strong> 11361",
+      "expectedOutput": "</strong> 11361"
+    }
+  ]
+}

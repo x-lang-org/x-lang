@@ -1,0 +1,21 @@
+{
+  "problemId": "1406",
+  "titleSlug": "subtract-the-product-and-sum-of-digits-of-an-integer",
+  "title": "Subtract the Product and Sum of Digits of an Integer",
+  "titleCn": "整数的各位积和之差",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.8077161560511497,
+  "testcases": [
+    {
+      "input": "</strong> n = 234 <strong>Output:</strong> 15 <b>Explanation:</b> Product of digits = 2 * 3 * 4 = 24 Sum of digits = 2 + 3 + 4 = 9 Result = 24 - 9 = 15",
+      "expectedOutput": "</strong> 15 <b>Explanation:</b> Product of digits = 2 * 3 * 4 = 24 Sum of digits = 2 + 3 + 4 = 9 Result = 24 - 9 = 15"
+    },
+    {
+      "input": "</strong> n = 4421 <strong>Output:</strong> 21 <b>Explanation: </b>Product of digits = 4 * 4 * 2 * 1 = 32 Sum of digits = 4 + 4 + 2 + 1 = 11 Result = 32 - 11 = 21",
+      "expectedOutput": "</strong> 21 <b>Explanation: </b>Product of digits = 4 * 4 * 2 * 1 = 32 Sum of digits = 4 + 4 + 2 + 1 = 11 Result = 32 - 11 = 21"
+    }
+  ]
+}

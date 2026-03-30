@@ -1,0 +1,22 @@
+{
+  "problemId": "3221",
+  "titleSlug": "find-the-peaks",
+  "title": "Find the Peaks",
+  "titleCn": "找出峰值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "enumeration"
+  ],
+  "acRate": 0.8318178597576816,
+  "testcases": [
+    {
+      "input": "</strong> mountain = [2,4,4] <strong>Output:</strong> [] <strong>Explanation:</strong> mountain[0] and mountain[2] can not be a peak because they are first and last elements of the array. mountain[1] also can not be a peak because it is not strictly greater than mountain[2]. So the answer is [].",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> mountain[0] and mountain[2] can not be a peak because they are first and last elements of the array. mountain[1] also can not be a peak because it is not strictly greater than mountain[2]. So the answer is []."
+    },
+    {
+      "input": "</strong> mountain = [1,4,3,8,5] <strong>Output:</strong> [1,3] <strong>Explanation:</strong> mountain[0] and mountain[4] can not be a peak because they are first and last elements of the array. mountain[2] also can not be a peak because it is not strictly greater than mountain[3] and mountain[1]. But mountain [1] and mountain[3] are strictly greater than their neighboring elements. So the answer is [1,3].",
+      "expectedOutput": "</strong> [1,3] <strong>Explanation:</strong> mountain[0] and mountain[4] can not be a peak because they are first and last elements of the array. mountain[2] also can not be a peak because it is not strictly greater than mountain[3] and mountain[1]. But mountain [1] and mountain[3] are strictly greater than their neighboring elements. So the answer is [1,3]."
+    }
+  ]
+}

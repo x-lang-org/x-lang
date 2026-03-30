@@ -1,0 +1,27 @@
+{
+  "problemId": "1372",
+  "titleSlug": "check-if-it-is-a-good-array",
+  "title": "Check If It Is a Good Array",
+  "titleCn": "检查「好数组」",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.7074239687287157,
+  "testcases": [
+    {
+      "input": "</strong> nums = [12,5,7,23] <strong>Output:</strong> true <strong>Explanation:</strong> Pick numbers 5 and 7. 5*3 + 7*(-2) = 1",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Pick numbers 5 and 7. 5*3 + 7*(-2) = 1"
+    },
+    {
+      "input": "</strong> nums = [29,6,10] <strong>Output:</strong> true <strong>Explanation:</strong> Pick numbers 29, 6 and 10. 29*1 + 6*(-3) + 10*(-1) = 1",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Pick numbers 29, 6 and 10. 29*1 + 6*(-3) + 10*(-1) = 1"
+    },
+    {
+      "input": "</strong> nums = [3,6] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "1334",
+  "titleSlug": "sum-of-numbers-with-units-digit-k",
+  "title": "Sum of Numbers With Units Digit K",
+  "titleCn": "个位数字为 K 的整数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "dynamic-programming",
+    "enumeration"
+  ],
+  "acRate": 0.2947691831044098,
+  "testcases": [
+    {
+      "input": "</strong> num = 58, k = 9 <strong>Output:</strong> 2 <strong>Explanation:</strong> One valid set is [9,49], as the sum is 58 and each integer has a units digit of 9. Another valid set is [19,39]. It can be shown that 2 is the minimum possible size of a valid set.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One valid set is [9,49], as the sum is 58 and each integer has a units digit of 9. Another valid set is [19,39]. It can be shown that 2 is the minimum possible size of a valid set."
+    },
+    {
+      "input": "</strong> num = 37, k = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> It is not possible to obtain a sum of 37 using only integers that have a units digit of 2.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is not possible to obtain a sum of 37 using only integers that have a units digit of 2."
+    },
+    {
+      "input": "</strong> num = 0, k = 7 <strong>Output:</strong> 0 <strong>Explanation:</strong> The sum of an empty set is considered 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The sum of an empty set is considered 0."
+    }
+  ]
+}

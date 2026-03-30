@@ -1,0 +1,22 @@
+{
+  "problemId": "393",
+  "titleSlug": "utf-8-validation",
+  "title": "UTF-8 Validation",
+  "titleCn": "UTF-8 编码验证",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.44043356808435297,
+  "testcases": [
+    {
+      "input": "</strong> data = [197,130,1] <strong>Output:</strong> true <strong>Explanation:</strong> data represents the octet sequence: 11000101 10000010 00000001. It is a valid utf-8 encoding for a 2-bytes character followed by a 1-byte character.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> data represents the octet sequence: 11000101 10000010 00000001. It is a valid utf-8 encoding for a 2-bytes character followed by a 1-byte character."
+    },
+    {
+      "input": "</strong> data = [235,140,4] <strong>Output:</strong> false <strong>Explanation:</strong> data represented the octet sequence: 11101011 10001100 00000100. The first 3 bits are all one's and the 4th bit is 0 means it is a 3-bytes character. The next byte is a continuation byte which starts with 10 and that's correct. But the second continuation byte does not start with 10, so it is invalid.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> data represented the octet sequence: 11101011 10001100 00000100. The first 3 bits are all one's and the 4th bit is 0 means it is a 3-bytes character. The next byte is a continuation byte which starts with 10 and that's correct. But the second continuation byte does not start with 10, so it is invalid."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "2792",
+  "titleSlug": "neighboring-bitwise-xor",
+  "title": "Neighboring Bitwise XOR",
+  "titleCn": "相邻值的按位异或",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.8052264688712613,
+  "testcases": [
+    {
+      "input": "</strong> derived = [1,1,0] <strong>Output:</strong> true <strong>Explanation:</strong> A valid original array that gives derived is [0,1,0]. derived[0] = original[0] ⊕ original[1] = 0 ⊕ 1 = 1 derived[1] = original[1] ⊕ original[2] = 1 ⊕ 0 = 1 derived[2] = original[2] ⊕ original[0] = 0 ⊕ 0 = 0",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> A valid original array that gives derived is [0,1,0]. derived[0] = original[0] ⊕ original[1] = 0 ⊕ 1 = 1 derived[1] = original[1] ⊕ original[2] = 1 ⊕ 0 = 1 derived[2] = original[2] ⊕ original[0] = 0 ⊕ 0 = 0"
+    },
+    {
+      "input": "</strong> derived = [1,1] <strong>Output:</strong> true <strong>Explanation:</strong> A valid original array that gives derived is [0,1]. derived[0] = original[0] ⊕ original[1] = 1 derived[1] = original[1] ⊕ original[0] = 1",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> A valid original array that gives derived is [0,1]. derived[0] = original[0] ⊕ original[1] = 1 derived[1] = original[1] ⊕ original[0] = 1"
+    },
+    {
+      "input": "</strong> derived = [1,0] <strong>Output:</strong> false <strong>Explanation:</strong> There is no valid original array that gives derived.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no valid original array that gives derived."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2893",
+  "titleSlug": "visit-array-positions-to-maximize-score",
+  "title": "Visit Array Positions to Maximize Score",
+  "titleCn": "访问数组中的位置使分数最大",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5091137649277184,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,6,1,9,2], x = 5 <strong>Output:</strong> 13 <strong>Explanation:</strong> We can visit the following positions in the array: 0 -> 2 -> 3 -> 4. The corresponding values are 2, 6, 1 and 9. Since the integers 6 and 1 have different parities, the move 2 -> 3 will make you lose a score of x = 5. The total score will be: 2 + 6 + 1 + 9 - 5 = 13.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> We can visit the following positions in the array: 0 -> 2 -> 3 -> 4. The corresponding values are 2, 6, 1 and 9. Since the integers 6 and 1 have different parities, the move 2 -> 3 will make you lose a score of x = 5. The total score will be: 2 + 6 + 1 + 9 - 5 = 13."
+    },
+    {
+      "input": "</strong> nums = [2,4,6,8], x = 3 <strong>Output:</strong> 20 <strong>Explanation:</strong> All the integers in the array have the same parities, so we can visit all of them without losing any score. The total score is: 2 + 4 + 6 + 8 = 20.",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> All the integers in the array have the same parities, so we can visit all of them without losing any score. The total score is: 2 + 4 + 6 + 8 = 20."
+    }
+  ]
+}

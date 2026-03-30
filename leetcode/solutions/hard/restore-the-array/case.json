@@ -1,0 +1,26 @@
+{
+  "problemId": "1517",
+  "titleSlug": "restore-the-array",
+  "title": "Restore The Array",
+  "titleCn": "恢复数组",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.43043659428677256,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1000\", k = 10000 <strong>Output:</strong> 1 <strong>Explanation:</strong> The only possible array is [1000]",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only possible array is [1000]"
+    },
+    {
+      "input": "</strong> s = \"1000\", k = 10 <strong>Output:</strong> 0 <strong>Explanation:</strong> There cannot be an array that was printed this way and has all integer >= 1 and <= 10.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There cannot be an array that was printed this way and has all integer >= 1 and <= 10."
+    },
+    {
+      "input": "</strong> s = \"1317\", k = 2000 <strong>Output:</strong> 8 <strong>Explanation:</strong> Possible arrays are [1317],[131,7],[13,17],[1,317],[13,1,7],[1,31,7],[1,3,17],[1,3,1,7]",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Possible arrays are [1317],[131,7],[13,17],[1,317],[13,1,7],[1,31,7],[1,3,17],[1,3,1,7]"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "919",
+  "titleSlug": "projection-area-of-3d-shapes",
+  "title": "Projection Area of 3D Shapes",
+  "titleCn": "三维形体投影面积",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "matrix"
+  ],
+  "acRate": 0.7699880799964681,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,2],[3,4]] <strong>Output:</strong> 17 <strong>Explanation:</strong> Here are the three projections (\"shadows\") of the shape made with each axis-aligned plane.",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> Here are the three projections (\"shadows\") of the shape made with each axis-aligned plane."
+    },
+    {
+      "input": "</strong> grid = [[2]] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> grid = [[1,0],[0,2]] <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    }
+  ]
+}

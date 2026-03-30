@@ -1,0 +1,22 @@
+{
+  "problemId": "100356",
+  "titleSlug": "sub-sort-lcci",
+  "title": "Sub Sort LCCI",
+  "titleCn": "部分排序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "acRate": 0.46168155290175084,
+  "testcases": [
+    {
+      "input": "</strong> [1,2,4,7,10,11,7,12,6,7,16,18,19]\r <strong>Output: </strong> [3,9]",
+      "expectedOutput": "</strong> [3,9]"
+    }
+  ]
+}

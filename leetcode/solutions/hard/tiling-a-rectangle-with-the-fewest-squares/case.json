@@ -1,0 +1,25 @@
+{
+  "problemId": "1361",
+  "titleSlug": "tiling-a-rectangle-with-the-fewest-squares",
+  "title": "Tiling a Rectangle with the Fewest Squares",
+  "titleCn": "铺瓷砖",
+  "difficulty": "HARD",
+  "topicTags": [
+    "backtracking"
+  ],
+  "acRate": 0.6335672514619883,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, m = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> <code>3</code> squares are necessary to cover the rectangle. <code>2</code> (squares of <code>1x1</code>) <code>1</code> (square of <code>2x2</code>)",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> <code>3</code> squares are necessary to cover the rectangle. <code>2</code> (squares of <code>1x1</code>) <code>1</code> (square of <code>2x2</code>)"
+    },
+    {
+      "input": "</strong> n = 5, m = 8 <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> n = 11, m = 13 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    }
+  ]
+}

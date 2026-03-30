@@ -1,0 +1,25 @@
+{
+  "problemId": "106",
+  "titleSlug": "construct-binary-tree-from-inorder-and-postorder-traversal",
+  "title": "Construct Binary Tree from Inorder and Postorder Traversal",
+  "titleCn": "从中序与后序遍历序列构造二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "acRate": 0.7307103749870872,
+  "testcases": [
+    {
+      "input": "</strong> inorder = [9,3,15,20,7], postorder = [9,15,7,20,3] <strong>Output:</strong> [3,9,20,null,null,15,7]",
+      "expectedOutput": "</strong> [3,9,20,null,null,15,7]"
+    },
+    {
+      "input": "</strong> inorder = [-1], postorder = [-1] <strong>Output:</strong> [-1]",
+      "expectedOutput": "</strong> [-1]"
+    }
+  ]
+}

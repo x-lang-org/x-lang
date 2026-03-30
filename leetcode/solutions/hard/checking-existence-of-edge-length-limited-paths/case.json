@@ -1,0 +1,25 @@
+{
+  "problemId": "1815",
+  "titleSlug": "checking-existence-of-edge-length-limited-paths",
+  "title": "Checking Existence of Edge Length Limited Paths",
+  "titleCn": "检查边长度限制的路径是否存在",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "graph",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.6436765380678409,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, edgeList = [[0,1,2],[1,2,4],[2,0,8],[1,0,16]], queries = [[0,1,2],[0,2,5]] <strong>Output:</strong> [false,true] <strong>Explanation:</strong> The above figure shows the given graph. Note that there are two overlapping edges between 0 and 1 with distances 2 and 16. For the first query, between 0 and 1 there is no path where each distance is less than 2, thus we return false for this query. For the second query, there is a path (0 -> 1 -> 2) of two edges with distances less than 5, thus we return true for this query.",
+      "expectedOutput": "</strong> [false,true] <strong>Explanation:</strong> The above figure shows the given graph. Note that there are two overlapping edges between 0 and 1 with distances 2 and 16. For the first query, between 0 and 1 there is no path where each distance is less than 2, thus we return false for this query. For the second query, there is a path (0 -> 1 -> 2) of two edges with distances less than 5, thus we return true for this query."
+    },
+    {
+      "input": "</strong> n = 5, edgeList = [[0,1,10],[1,2,5],[2,3,9],[3,4,13]], queries = [[0,4,14],[1,4,13]] <strong>Output:</strong> [true,false] <strong>Explanation:</strong> The above figure shows the given graph.",
+      "expectedOutput": "</strong> [true,false] <strong>Explanation:</strong> The above figure shows the given graph."
+    }
+  ]
+}

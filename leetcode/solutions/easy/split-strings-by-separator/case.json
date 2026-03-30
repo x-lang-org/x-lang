@@ -1,0 +1,26 @@
+{
+  "problemId": "2881",
+  "titleSlug": "split-strings-by-separator",
+  "title": "Split Strings by Separator",
+  "titleCn": "按分隔符拆分字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8003374267064941,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"one.two.three\",\"four.five\",\"six\"], separator = \".\" <strong>Output:</strong> [\"one\",\"two\",\"three\",\"four\",\"five\",\"six\"] <strong>Explanation: </strong>In this example we split as follows: \"one.two.three\" splits into \"one\", \"two\", \"three\" \"four.five\" splits into \"four\", \"five\" \"six\" splits into \"six\"  Hence, the resulting array is [\"one\",\"two\",\"three\",\"four\",\"five\",\"six\"].",
+      "expectedOutput": "</strong> [\"one\",\"two\",\"three\",\"four\",\"five\",\"six\"] <strong>Explanation: </strong>In this example we split as follows: \"one.two.three\" splits into \"one\", \"two\", \"three\" \"four.five\" splits into \"four\", \"five\" \"six\" splits into \"six\"  Hence, the resulting array is [\"one\",\"two\",\"three\",\"four\",\"five\",\"six\"]."
+    },
+    {
+      "input": "</strong> words = [\"$easy$\",\"$problem$\"], separator = \"$\" <strong>Output:</strong> [\"easy\",\"problem\"] <strong>Explanation:</strong> In this example we split as follows:  \"$easy$\" splits into \"easy\" (excluding empty strings) \"$problem$\" splits into \"problem\" (excluding empty strings) Hence, the resulting array is [\"easy\",\"problem\"].",
+      "expectedOutput": "</strong> [\"easy\",\"problem\"] <strong>Explanation:</strong> In this example we split as follows:  \"$easy$\" splits into \"easy\" (excluding empty strings) \"$problem$\" splits into \"problem\" (excluding empty strings) Hence, the resulting array is [\"easy\",\"problem\"]."
+    },
+    {
+      "input": "</strong> words = [\"|||\"], separator = \"|\" <strong>Output:</strong> [] <strong>Explanation:</strong> In this example the resulting split of \"|||\" will contain only empty strings, so we return an empty array [].",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> In this example the resulting split of \"|||\" will contain only empty strings, so we return an empty array []."
+    }
+  ]
+}

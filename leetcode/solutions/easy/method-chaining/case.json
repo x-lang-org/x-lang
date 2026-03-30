@@ -1,0 +1,15 @@
+{
+  "problemId": "3063",
+  "titleSlug": "method-chaining",
+  "title": "Method Chaining",
+  "titleCn": "方法链",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.754485158203762,
+  "testcases": [
+    {
+      "input": "</strong> DataFrame animals: +----------+---------+-----+--------+ | name   | species | age | weight | +----------+---------+-----+--------+ | Tatiana | Snake  | 98 | 464  | | Khaled  | Giraffe | 50 | 41   | | Alex   | Leopard | 6  | 328  | | Jonathan | Monkey | 45 | 463  | | Stefan  | Bear  | 100 | 50   | | Tommy  | Panda  | 26 | 349  | +----------+---------+-----+--------+ <strong>Output:</strong> +----------+ | name   | +----------+ | Tatiana | | Jonathan | | Tommy  | | Alex   | +----------+ <strong>Explanation:</strong> All animals weighing more than 100 should be included in the results table. Tatiana's weight is 464, Jonathan's weight is 463, Tommy's weight is 349, and Alex's weight is 328. The results should be sorted in descending order of weight.",
+      "expectedOutput": "</strong> +----------+ | name   | +----------+ | Tatiana | | Jonathan | | Tommy  | | Alex   | +----------+ <strong>Explanation:</strong> All animals weighing more than 100 should be included in the results table. Tatiana's weight is 464, Jonathan's weight is 463, Tommy's weight is 349, and Alex's weight is 328. The results should be sorted in descending order of weight."
+    }
+  ]
+}

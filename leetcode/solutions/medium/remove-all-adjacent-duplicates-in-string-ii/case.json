@@ -1,0 +1,26 @@
+{
+  "problemId": "1320",
+  "titleSlug": "remove-all-adjacent-duplicates-in-string-ii",
+  "title": "Remove All Adjacent Duplicates in String II",
+  "titleCn": "删除字符串中的所有相邻重复项 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.5487741352965689,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcd\", k = 2 <strong>Output:</strong> \"abcd\" <strong>Explanation: </strong>There's nothing to delete.",
+      "expectedOutput": "</strong> \"abcd\" <strong>Explanation: </strong>There's nothing to delete."
+    },
+    {
+      "input": "</strong> s = \"deeedbbcccbdaa\", k = 3 <strong>Output:</strong> \"aa\" <strong>Explanation: </strong>First delete \"eee\" and \"ccc\", get \"ddbbbdaa\" Then delete \"bbb\", get \"dddaa\" Finally delete \"ddd\", get \"aa\"",
+      "expectedOutput": "</strong> \"aa\" <strong>Explanation: </strong>First delete \"eee\" and \"ccc\", get \"ddbbbdaa\" Then delete \"bbb\", get \"dddaa\" Finally delete \"ddd\", get \"aa"
+    },
+    {
+      "input": "</strong> s = \"pbbcggttciiippooaais\", k = 2 <strong>Output:</strong> \"ps\"",
+      "expectedOutput": "</strong> \"ps"
+    }
+  ]
+}

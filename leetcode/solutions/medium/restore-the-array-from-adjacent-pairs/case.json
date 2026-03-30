@@ -1,0 +1,27 @@
+{
+  "problemId": "1866",
+  "titleSlug": "restore-the-array-from-adjacent-pairs",
+  "title": "Restore the Array From Adjacent Pairs",
+  "titleCn": "从相邻元素对还原数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.698227636325613,
+  "testcases": [
+    {
+      "input": "</strong> adjacentPairs = [[2,1],[3,4],[3,2]] <strong>Output:</strong> [1,2,3,4] <strong>Explanation:</strong> This array has all its adjacent pairs in adjacentPairs. Notice that adjacentPairs[i] may not be in left-to-right order.",
+      "expectedOutput": "</strong> [1,2,3,4] <strong>Explanation:</strong> This array has all its adjacent pairs in adjacentPairs. Notice that adjacentPairs[i] may not be in left-to-right order."
+    },
+    {
+      "input": "</strong> adjacentPairs = [[4,-2],[1,4],[-3,1]] <strong>Output:</strong> [-2,4,1,-3] <strong>Explanation:</strong> There can be negative numbers. Another solution is [-3,1,4,-2], which would also be accepted.",
+      "expectedOutput": "</strong> [-2,4,1,-3] <strong>Explanation:</strong> There can be negative numbers. Another solution is [-3,1,4,-2], which would also be accepted."
+    },
+    {
+      "input": "</strong> adjacentPairs = [[100000,-100000]] <strong>Output:</strong> [100000,-100000]",
+      "expectedOutput": "</strong> [100000,-100000]"
+    }
+  ]
+}

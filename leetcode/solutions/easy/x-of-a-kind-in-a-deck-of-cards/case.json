@@ -1,0 +1,25 @@
+{
+  "problemId": "950",
+  "titleSlug": "x-of-a-kind-in-a-deck-of-cards",
+  "title": "X of a Kind in a Deck of Cards",
+  "titleCn": "卡牌分组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting",
+    "number-theory"
+  ],
+  "acRate": 0.37234048143263254,
+  "testcases": [
+    {
+      "input": "</strong> deck = [1,2,3,4,4,3,2,1] <strong>Output:</strong> true <strong>Explanation</strong>: Possible partition [1,1],[2,2],[3,3],[4,4].",
+      "expectedOutput": "</strong> true <strong>Explanation</strong>: Possible partition [1,1],[2,2],[3,3],[4,4]."
+    },
+    {
+      "input": "</strong> deck = [1,1,1,2,2,2,3,3] <strong>Output:</strong> false <strong>Explanation</strong>: No possible partition.",
+      "expectedOutput": "</strong> false <strong>Explanation</strong>: No possible partition."
+    }
+  ]
+}

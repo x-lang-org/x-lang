@@ -1,0 +1,27 @@
+{
+  "problemId": "2615",
+  "titleSlug": "make-number-of-distinct-characters-equal",
+  "title": "Make Number of Distinct Characters Equal",
+  "titleCn": "使字符串中不同字符的数目相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.3075446175328359,
+  "testcases": [
+    {
+      "input": "</strong> word1 = \"ac\", word2 = \"b\" <strong>Output:</strong> false <strong>Explanation:</strong> Any pair of swaps would yield two distinct characters in the first string, and one in the second string.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Any pair of swaps would yield two distinct characters in the first string, and one in the second string."
+    },
+    {
+      "input": "</strong> word1 = \"abcc\", word2 = \"aab\" <strong>Output:</strong> true <strong>Explanation:</strong> We swap index 2 of the first string with index 0 of the second string. The resulting strings are word1 = \"abac\" and word2 = \"cab\", which both have 3 distinct characters.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We swap index 2 of the first string with index 0 of the second string. The resulting strings are word1 = \"abac\" and word2 = \"cab\", which both have 3 distinct characters."
+    },
+    {
+      "input": "</strong> word1 = \"abcde\", word2 = \"fghij\" <strong>Output:</strong> true <strong>Explanation:</strong> Both resulting strings will have 5 distinct characters, regardless of which indices we swap.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Both resulting strings will have 5 distinct characters, regardless of which indices we swap."
+    }
+  ]
+}

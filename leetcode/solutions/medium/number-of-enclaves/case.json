@@ -1,0 +1,25 @@
+{
+  "problemId": "1073",
+  "titleSlug": "number-of-enclaves",
+  "title": "Number of Enclaves",
+  "titleCn": "飞地的数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6224790462159385,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are three 1s that are enclosed by 0s, and one 1 that is not enclosed because its on the boundary.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are three 1s that are enclosed by 0s, and one 1 that is not enclosed because its on the boundary."
+    },
+    {
+      "input": "</strong> grid = [[0,1,1,0],[0,0,1,0],[0,0,1,0],[0,0,0,0]] <strong>Output:</strong> 0 <strong>Explanation:</strong> All 1s are either on the boundary or can reach the boundary.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All 1s are either on the boundary or can reach the boundary."
+    }
+  ]
+}

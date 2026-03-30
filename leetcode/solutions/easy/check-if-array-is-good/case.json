@@ -1,0 +1,31 @@
+{
+  "problemId": "2892",
+  "titleSlug": "check-if-array-is-good",
+  "title": "Check if Array is Good",
+  "titleCn": "检查数组是否是好的",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.6124811672349536,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2, 1, 3] <strong>Output:</strong> false <strong>Explanation:</strong> Since the maximum element of the array is 3, the only candidate n for which this array could be a permutation of base[n], is n = 3. However, base[3] has four elements but array nums has three. Therefore, it can not be a permutation of base[3] = [1, 2, 3, 3]. So the answer is false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Since the maximum element of the array is 3, the only candidate n for which this array could be a permutation of base[n], is n = 3. However, base[3] has four elements but array nums has three. Therefore, it can not be a permutation of base[3] = [1, 2, 3, 3]. So the answer is false."
+    },
+    {
+      "input": "</strong> nums = [1, 3, 3, 2] <strong>Output:</strong> true <strong>Explanation:</strong> Since the maximum element of the array is 3, the only candidate n for which this array could be a permutation of base[n], is n = 3. It can be seen that nums is a permutation of base[3] = [1, 2, 3, 3] (by swapping the second and fourth elements in nums, we reach base[3]). Therefore, the answer is true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Since the maximum element of the array is 3, the only candidate n for which this array could be a permutation of base[n], is n = 3. It can be seen that nums is a permutation of base[3] = [1, 2, 3, 3] (by swapping the second and fourth elements in nums, we reach base[3]). Therefore, the answer is true."
+    },
+    {
+      "input": "</strong> nums = [1, 1] <strong>Output:</strong> true <strong>Explanation:</strong> Since the maximum element of the array is 1, the only candidate n for which this array could be a permutation of base[n], is n = 1. It can be seen that nums is a permutation of base[1] = [1, 1]. Therefore, the answer is true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Since the maximum element of the array is 1, the only candidate n for which this array could be a permutation of base[n], is n = 1. It can be seen that nums is a permutation of base[1] = [1, 1]. Therefore, the answer is true."
+    },
+    {
+      "input": "</strong> nums = [3, 4, 4, 1, 2, 1] <strong>Output:</strong> false <strong>Explanation:</strong> Since the maximum element of the array is 4, the only candidate n for which this array could be a permutation of base[n], is n = 4. However, base[4] has five elements but array nums has six. Therefore, it can not be a permutation of base[4] = [1, 2, 3, 4, 4]. So the answer is false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Since the maximum element of the array is 4, the only candidate n for which this array could be a permutation of base[n], is n = 4. However, base[4] has five elements but array nums has six. Therefore, it can not be a permutation of base[4] = [1, 2, 3, 4, 4]. So the answer is false."
+    }
+  ]
+}

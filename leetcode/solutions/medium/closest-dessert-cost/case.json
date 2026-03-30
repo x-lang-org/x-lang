@@ -1,0 +1,27 @@
+{
+  "problemId": "1900",
+  "titleSlug": "closest-dessert-cost",
+  "title": "Closest Dessert Cost",
+  "titleCn": "最接近目标价格的甜点成本",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.5638339791160438,
+  "testcases": [
+    {
+      "input": "</strong> baseCosts = [1,7], toppingCosts = [3,4], target = 10 <strong>Output:</strong> 10 <strong>Explanation:</strong> Consider the following combination (all 0-indexed): - Choose base 1: cost 7 - Take 1 of topping 0: cost 1 x 3 = 3 - Take 0 of topping 1: cost 0 x 4 = 0 Total: 7 + 3 + 0 = 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> Consider the following combination (all 0-indexed): - Choose base 1: cost 7 - Take 1 of topping 0: cost 1 x 3 = 3 - Take 0 of topping 1: cost 0 x 4 = 0 Total: 7 + 3 + 0 = 10."
+    },
+    {
+      "input": "</strong> baseCosts = [2,3], toppingCosts = [4,5,100], target = 18 <strong>Output:</strong> 17 <strong>Explanation:</strong> Consider the following combination (all 0-indexed): - Choose base 1: cost 3 - Take 1 of topping 0: cost 1 x 4 = 4 - Take 2 of topping 1: cost 2 x 5 = 10 - Take 0 of topping 2: cost 0 x 100 = 0 Total: 3 + 4 + 10 + 0 = 17. You cannot make a dessert with a total cost of 18.",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> Consider the following combination (all 0-indexed): - Choose base 1: cost 3 - Take 1 of topping 0: cost 1 x 4 = 4 - Take 2 of topping 1: cost 2 x 5 = 10 - Take 0 of topping 2: cost 0 x 100 = 0 Total: 3 + 4 + 10 + 0 = 17. You cannot make a dessert with a total cost of 18."
+    },
+    {
+      "input": "</strong> baseCosts = [3,10], toppingCosts = [2,5], target = 9 <strong>Output:</strong> 8 <strong>Explanation:</strong> It is possible to make desserts with cost 8 and 10. Return 8 as it is the lower cost.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> It is possible to make desserts with cost 8 and 10. Return 8 as it is the lower cost."
+    }
+  ]
+}

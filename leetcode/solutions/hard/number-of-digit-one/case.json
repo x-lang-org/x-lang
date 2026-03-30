@@ -1,0 +1,23 @@
+{
+  "problemId": "233",
+  "titleSlug": "number-of-digit-one",
+  "title": "Number of Digit One",
+  "titleCn": "数字 1 的个数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.49762662826217524,
+  "testcases": [
+    {
+      "input": "</strong> n = 13 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

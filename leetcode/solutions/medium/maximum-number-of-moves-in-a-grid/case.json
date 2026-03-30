@@ -1,0 +1,23 @@
+{
+  "problemId": "2794",
+  "titleSlug": "maximum-number-of-moves-in-a-grid",
+  "title": "Maximum Number of Moves in a Grid",
+  "titleCn": "矩阵中移动的最大次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.5018809744064138,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[2,4,3,5],[5,4,9,3],[3,4,2,11],[10,9,13,15]] <strong>Output:</strong> 3 <strong>Explanation:</strong> We can start at the cell (0, 0) and make the following moves: - (0, 0) -> (0, 1). - (0, 1) -> (1, 2). - (1, 2) -> (2, 3). It can be shown that it is the maximum number of moves that can be made.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can start at the cell (0, 0) and make the following moves: - (0, 0) -> (0, 1). - (0, 1) -> (1, 2). - (1, 2) -> (2, 3). It can be shown that it is the maximum number of moves that can be made."
+    },
+    {
+      "input": "</strong> grid = [[3,2,4],[2,1,9],[1,1,7]] <strong>Output:</strong> 0 <strong>Explanation:</strong> Starting from any cell in the first column we cannot perform any moves.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Starting from any cell in the first column we cannot perform any moves."
+    }
+  ]
+}

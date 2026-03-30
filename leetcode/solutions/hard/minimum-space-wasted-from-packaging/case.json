@@ -1,0 +1,28 @@
+{
+  "problemId": "2018",
+  "titleSlug": "minimum-space-wasted-from-packaging",
+  "title": "Minimum Space Wasted From Packaging",
+  "titleCn": "装包裹的最小浪费空间",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.32561373805780625,
+  "testcases": [
+    {
+      "input": "</strong> packages = [2,3,5], boxes = [[4,8],[2,8]] <strong>Output:</strong> 6 <strong>Explanation</strong>: It is optimal to choose the first supplier, using two size-4 boxes and one size-8 box. The total waste is (4-2) + (4-3) + (8-5) = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation</strong>: It is optimal to choose the first supplier, using two size-4 boxes and one size-8 box. The total waste is (4-2) + (4-3) + (8-5) = 6."
+    },
+    {
+      "input": "</strong> packages = [2,3,5], boxes = [[1,4],[2,3],[3,4]] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no box that the package of size 5 can fit in.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no box that the package of size 5 can fit in."
+    },
+    {
+      "input": "</strong> packages = [3,5,8,10,11,12], boxes = [[12],[11,9],[10,5,14]] <strong>Output:</strong> 9 <strong>Explanation:</strong> It is optimal to choose the third supplier, using two size-5 boxes, two size-10 boxes, and two size-14 boxes. The total waste is (5-3) + (5-5) + (10-8) + (10-10) + (14-11) + (14-12) = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> It is optimal to choose the third supplier, using two size-5 boxes, two size-10 boxes, and two size-14 boxes. The total waste is (5-3) + (5-5) + (10-8) + (10-10) + (14-11) + (14-12) = 9."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "3104",
+  "titleSlug": "happy-students",
+  "title": "Happy Students",
+  "titleCn": "让所有学生保持开心的分组方法数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "enumeration",
+    "sorting"
+  ],
+  "acRate": 0.6757809352421369,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> The two possible ways are: The class teacher selects no student. The class teacher selects both students to form the group. If the class teacher selects just one student to form a group then the both students will not be happy. Therefore, there are only two possible ways.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The two possible ways are: The class teacher selects no student. The class teacher selects both students to form the group. If the class teacher selects just one student to form a group then the both students will not be happy. Therefore, there are only two possible ways."
+    },
+    {
+      "input": "</strong> nums = [6,0,3,3,6,7,2,7] <strong>Output:</strong> 3 <strong>Explanation:</strong> The three possible ways are: The class teacher selects the student with index = 1 to form the group. The class teacher selects the students with index = 1, 2, 3, 6 to form the group. The class teacher selects all the students to form the group.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The three possible ways are: The class teacher selects the student with index = 1 to form the group. The class teacher selects the students with index = 1, 2, 3, 6 to form the group. The class teacher selects all the students to form the group."
+    }
+  ]
+}

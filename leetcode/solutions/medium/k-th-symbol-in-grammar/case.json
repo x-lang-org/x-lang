@@ -1,0 +1,27 @@
+{
+  "problemId": "795",
+  "titleSlug": "k-th-symbol-in-grammar",
+  "title": "K-th Symbol in Grammar",
+  "titleCn": "第K个语法符号",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.5015067917408139,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, k = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> row 1: <u>0</u>",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> row 1: <u>0</u>"
+    },
+    {
+      "input": "</strong> n = 2, k = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> row 1: 0 row 2: <u>0</u>1",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> row 1: 0 row 2: <u>0</u>1"
+    },
+    {
+      "input": "</strong> n = 2, k = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> row 1: 0 row 2: 0<u>1</u>",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> row 1: 0 row 2: 0<u>1</u>"
+    }
+  ]
+}

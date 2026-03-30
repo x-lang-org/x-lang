@@ -1,0 +1,23 @@
+{
+  "problemId": "2329",
+  "titleSlug": "maximum-product-after-k-increments",
+  "title": "Maximum Product After K Increments",
+  "titleCn": "K 次增加后的最大乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.39848175518302326,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,4], k = 5 <strong>Output:</strong> 20 <strong>Explanation:</strong> Increment the first number 5 times. Now nums = [5, 4], with a product of 5 * 4 = 20. It can be shown that 20 is maximum product possible, so we return 20. Note that there may be other ways to increment nums to have the maximum product.",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> Increment the first number 5 times. Now nums = [5, 4], with a product of 5 * 4 = 20. It can be shown that 20 is maximum product possible, so we return 20. Note that there may be other ways to increment nums to have the maximum product."
+    },
+    {
+      "input": "</strong> nums = [6,3,3,2], k = 2 <strong>Output:</strong> 216 <strong>Explanation:</strong> Increment the second number 1 time and increment the fourth number 1 time. Now nums = [6, 4, 3, 3], with a product of 6 * 4 * 3 * 3 = 216. It can be shown that 216 is maximum product possible, so we return 216. Note that there may be other ways to increment nums to have the maximum product.",
+      "expectedOutput": "</strong> 216 <strong>Explanation:</strong> Increment the second number 1 time and increment the fourth number 1 time. Now nums = [6, 4, 3, 3], with a product of 6 * 4 * 3 * 3 = 216. It can be shown that 216 is maximum product possible, so we return 216. Note that there may be other ways to increment nums to have the maximum product."
+    }
+  ]
+}

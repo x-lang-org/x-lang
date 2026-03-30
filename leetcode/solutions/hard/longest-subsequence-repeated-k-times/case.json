@@ -1,0 +1,30 @@
+{
+  "problemId": "2140",
+  "titleSlug": "longest-subsequence-repeated-k-times",
+  "title": "Longest Subsequence Repeated k Times",
+  "titleCn": "重复 K 次的最长子序列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "two-pointers",
+    "string",
+    "backtracking",
+    "counting",
+    "enumeration"
+  ],
+  "acRate": 0.6893203883495146,
+  "testcases": [
+    {
+      "input": "</strong> s = \"letsleetcode\", k = 2 <strong>Output:</strong> \"let\" <strong>Explanation:</strong> There are two longest subsequences repeated 2 times: \"let\" and \"ete\". \"let\" is the lexicographically largest one.",
+      "expectedOutput": "</strong> \"let\" <strong>Explanation:</strong> There are two longest subsequences repeated 2 times: \"let\" and \"ete\". \"let\" is the lexicographically largest one."
+    },
+    {
+      "input": "</strong> s = \"bb\", k = 2 <strong>Output:</strong> \"b\" <strong>Explanation:</strong> The longest subsequence repeated 2 times is \"b\".",
+      "expectedOutput": "</strong> \"b\" <strong>Explanation:</strong> The longest subsequence repeated 2 times is \"b\"."
+    },
+    {
+      "input": "</strong> s = \"ab\", k = 2 <strong>Output:</strong> \"\" <strong>Explanation:</strong> There is no subsequence repeated 2 times. Empty string is returned.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There is no subsequence repeated 2 times. Empty string is returned."
+    }
+  ]
+}

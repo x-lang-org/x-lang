@@ -1,0 +1,28 @@
+{
+  "problemId": "1321",
+  "titleSlug": "get-equal-substrings-within-budget",
+  "title": "Get Equal Substrings Within Budget",
+  "titleCn": "尽可能使字符串相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.540864676611774,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcd\", t = \"bcdf\", maxCost = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> \"abc\" of s can change to \"bcd\". That costs 3, so the maximum length is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> \"abc\" of s can change to \"bcd\". That costs 3, so the maximum length is 3."
+    },
+    {
+      "input": "</strong> s = \"abcd\", t = \"cdef\", maxCost = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> Each character in s costs 2 to change to character in t, so the maximum length is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Each character in s costs 2 to change to character in t, so the maximum length is 1."
+    },
+    {
+      "input": "</strong> s = \"abcd\", t = \"acde\", maxCost = 0 <strong>Output:</strong> 1 <strong>Explanation:</strong> You cannot make any change, so the maximum length is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You cannot make any change, so the maximum length is 1."
+    }
+  ]
+}

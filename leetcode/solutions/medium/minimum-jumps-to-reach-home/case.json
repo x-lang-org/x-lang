@@ -1,0 +1,27 @@
+{
+  "problemId": "1757",
+  "titleSlug": "minimum-jumps-to-reach-home",
+  "title": "Minimum Jumps to Reach Home",
+  "titleCn": "到家的最少跳跃次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.36912923142431336,
+  "testcases": [
+    {
+      "input": "</strong> forbidden = [14,4,18,1,15], a = 3, b = 15, x = 9 <strong>Output:</strong> 3 <strong>Explanation:</strong> 3 jumps forward (0 -> 3 -> 6 -> 9) will get the bug home.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 3 jumps forward (0 -> 3 -> 6 -> 9) will get the bug home."
+    },
+    {
+      "input": "</strong> forbidden = [8,3,16,6,12,20], a = 15, b = 13, x = 11 <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    },
+    {
+      "input": "</strong> forbidden = [1,6,2,14,5,17,4], a = 16, b = 9, x = 7 <strong>Output:</strong> 2 <strong>Explanation:</strong> One jump forward (0 -> 16) then one jump backward (16 -> 7) will get the bug home.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One jump forward (0 -> 16) then one jump backward (16 -> 7) will get the bug home."
+    }
+  ]
+}

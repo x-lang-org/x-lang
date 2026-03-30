@@ -1,0 +1,28 @@
+{
+  "problemId": "1747",
+  "titleSlug": "lexicographically-smallest-string-after-applying-operations",
+  "title": "Lexicographically Smallest String After Applying Operations",
+  "titleCn": "执行操作后字典序最小的字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.6930308712071197,
+  "testcases": [
+    {
+      "input": "</strong> s = \"5525\", a = 9, b = 2 <strong>Output:</strong> \"2050\" <strong>Explanation:</strong> We can apply the following operations: Start: \"5525\" Rotate: \"2555\" Add:  \"2454\" Add:  \"2353\" Rotate: \"5323\" Add:  \"5222\" Add:  \"5121\" Rotate: \"2151\" Add:  \"2050\"​​​​​ There is no way to obtain a string that is lexicographically smaller than \"2050\".",
+      "expectedOutput": "</strong> \"2050\" <strong>Explanation:</strong> We can apply the following operations: Start: \"5525\" Rotate: \"2555\" Add:  \"2454\" Add:  \"2353\" Rotate: \"5323\" Add:  \"5222\" Add:  \"5121\" Rotate: \"2151\" Add:  \"2050\"​​​​​ There is no way to obtain a string that is lexicographically smaller than \"2050\"."
+    },
+    {
+      "input": "</strong> s = \"74\", a = 5, b = 1 <strong>Output:</strong> \"24\" <strong>Explanation:</strong> We can apply the following operations: Start: \"74\" Rotate: \"47\" ​​​​​​​Add:  \"42\" ​​​​​​​Rotate: \"24\"​​​​​​​​​​​​ There is no way to obtain a string that is lexicographically smaller than \"24\".",
+      "expectedOutput": "</strong> \"24\" <strong>Explanation:</strong> We can apply the following operations: Start: \"74\" Rotate: \"47\" ​​​​​​​Add:  \"42\" ​​​​​​​Rotate: \"24\"​​​​​​​​​​​​ There is no way to obtain a string that is lexicographically smaller than \"24\"."
+    },
+    {
+      "input": "</strong> s = \"0011\", a = 4, b = 2 <strong>Output:</strong> \"0011\" <strong>Explanation:</strong> There are no sequence of operations that will give us a lexicographically smaller string than \"0011\".",
+      "expectedOutput": "</strong> \"0011\" <strong>Explanation:</strong> There are no sequence of operations that will give us a lexicographically smaller string than \"0011\"."
+    }
+  ]
+}

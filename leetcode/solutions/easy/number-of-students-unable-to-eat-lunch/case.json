@@ -1,0 +1,24 @@
+{
+  "problemId": "1802",
+  "titleSlug": "number-of-students-unable-to-eat-lunch",
+  "title": "Number of Students Unable to Eat Lunch",
+  "titleCn": "无法吃午餐的学生数量",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "queue",
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.7327287626331603,
+  "testcases": [
+    {
+      "input": "</strong> students = [1,1,0,0], sandwiches = [0,1,0,1] <strong>Output:</strong> 0<strong> Explanation:</strong> - Front student leaves the top sandwich and returns to the end of the line making students = [1,0,0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [0,0,1,1]. - Front student takes the top sandwich and leaves the line making students = [0,1,1] and sandwiches = [1,0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [1,1,0]. - Front student takes the top sandwich and leaves the line making students = [1,0] and sandwiches = [0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [0,1]. - Front student takes the top sandwich and leaves the line making students = [1] and sandwiches = [1]. - Front student takes the top sandwich and leaves the line making students = [] and sandwiches = []. Hence all students are able to eat.",
+      "expectedOutput": "</strong> 0<strong> Explanation:</strong> - Front student leaves the top sandwich and returns to the end of the line making students = [1,0,0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [0,0,1,1]. - Front student takes the top sandwich and leaves the line making students = [0,1,1] and sandwiches = [1,0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [1,1,0]. - Front student takes the top sandwich and leaves the line making students = [1,0] and sandwiches = [0,1]. - Front student leaves the top sandwich and returns to the end of the line making students = [0,1]. - Front student takes the top sandwich and leaves the line making students = [1] and sandwiches = [1]. - Front student takes the top sandwich and leaves the line making students = [] and sandwiches = []. Hence all students are able to eat."
+    },
+    {
+      "input": "</strong> students = [1,1,1,0,0,1], sandwiches = [1,0,0,0,1,1] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

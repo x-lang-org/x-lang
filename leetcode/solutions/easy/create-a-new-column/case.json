@@ -1,0 +1,15 @@
+{
+  "problemId": "3066",
+  "titleSlug": "create-a-new-column",
+  "title": "Create a New Column",
+  "titleCn": "创建新列",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8993662377568657,
+  "testcases": [
+    {
+      "input": "</strong> DataFrame employees +---------+--------+ | name  | salary | +---------+--------+ | Piper  | 4548  | | Grace  | 28150 | | Georgia | 1103  | | Willow | 6593  | | Finn  | 74576 | | Thomas | 24433 | +---------+--------+ <strong>Output:</strong> +---------+--------+--------+ | name  | salary | bonus | +---------+--------+--------+ | Piper  | 4548  | 9096  | | Grace  | 28150 | 56300 | | Georgia | 1103  | 2206  | | Willow | 6593  | 13186 | | Finn  | 74576 | 149152 | | Thomas | 24433 | 48866 | +---------+--------+--------+ <strong>Explanation:</strong> A new column bonus is created by doubling the value in the column salary.",
+      "expectedOutput": "</strong> +---------+--------+--------+ | name  | salary | bonus | +---------+--------+--------+ | Piper  | 4548  | 9096  | | Grace  | 28150 | 56300 | | Georgia | 1103  | 2206  | | Willow | 6593  | 13186 | | Finn  | 74576 | 149152 | | Thomas | 24433 | 48866 | +---------+--------+--------+ <strong>Explanation:</strong> A new column bonus is created by doubling the value in the column salary."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "772",
+  "titleSlug": "construct-quad-tree",
+  "title": "Construct Quad Tree",
+  "titleCn": "建立四叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "array",
+    "divide-and-conquer",
+    "matrix"
+  ],
+  "acRate": 0.7397425162235712,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1],[1,0]] <strong>Output:</strong> [[0,1],[1,0],[1,1],[1,1],[1,0]] <strong>Explanation:</strong> The explanation of this example is shown below: Notice that 0 represents False and 1 represents True in the photo representing the Quad-Tree. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/12/e1tree.png\" style=\"width: 777px; height: 186px;\" />",
+      "expectedOutput": "</strong> [[0,1],[1,0],[1,1],[1,1],[1,0]] <strong>Explanation:</strong> The explanation of this example is shown below: Notice that 0 represents False and 1 represents True in the photo representing the Quad-Tree. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/12/e1tree.png\" style=\"width: 777px; height: 186px;\" />"
+    },
+    {
+      "input": "</strong> grid = [[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]] <strong>Output:</strong> [[0,1],[1,1],[0,1],[1,1],[1,0],null,null,null,null,[1,0],[1,0],[1,1],[1,1]] <strong>Explanation:</strong> All values in the grid are not the same. We divide the grid into four sub-grids. The topLeft, bottomLeft and bottomRight each has the same value. The topRight have different values so we divide it into 4 sub-grids where each has the same value. Explanation is shown in the photo below: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/12/e2tree.png\" style=\"width: 777px; height: 328px;\" />",
+      "expectedOutput": "</strong> [[0,1],[1,1],[0,1],[1,1],[1,0],null,null,null,null,[1,0],[1,0],[1,1],[1,1]] <strong>Explanation:</strong> All values in the grid are not the same. We divide the grid into four sub-grids. The topLeft, bottomLeft and bottomRight each has the same value. The topRight have different values so we divide it into 4 sub-grids where each has the same value. Explanation is shown in the photo below: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/12/e2tree.png\" style=\"width: 777px; height: 328px;\" />"
+    }
+  ]
+}

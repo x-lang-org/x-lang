@@ -1,0 +1,23 @@
+{
+  "problemId": "1890",
+  "titleSlug": "sum-of-beauty-of-all-substrings",
+  "title": "Sum of Beauty of All Substrings",
+  "titleCn": "所有子字符串美丽值之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6665919059011164,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabcb\" <strong>Output:</strong> 5 <strong>Explanation: </strong>The substrings with non-zero beauty are [\"aab\",\"aabc\",\"aabcb\",\"abcb\",\"bcb\"], each with beauty equal to 1.",
+      "expectedOutput": "</strong> 5 <strong>Explanation: </strong>The substrings with non-zero beauty are [\"aab\",\"aabc\",\"aabcb\",\"abcb\",\"bcb\"], each with beauty equal to 1."
+    },
+    {
+      "input": "</strong> s = \"aabcbaa\" <strong>Output:</strong> 17",
+      "expectedOutput": "</strong> 17"
+    }
+  ]
+}

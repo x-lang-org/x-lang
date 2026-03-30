@@ -1,0 +1,21 @@
+{
+  "problemId": "608",
+  "titleSlug": "tree-node",
+  "title": "Tree Node",
+  "titleCn": "树节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6455268078639381,
+  "testcases": [
+    {
+      "input": "</strong> Tree table: +----+------+ | id | p_id | +----+------+ | 1 | null | | 2 | 1  | | 3 | 1  | | 4 | 2  | | 5 | 2  | +----+------+ <strong>Output:</strong> +----+-------+ | id | type | +----+-------+ | 1 | Root | | 2 | Inner | | 3 | Leaf | | 4 | Leaf | | 5 | Leaf | +----+-------+ <strong>Explanation:</strong> Node 1 is the root node because its parent node is null and it has child nodes 2 and 3. Node 2 is an inner node because it has parent node 1 and child node 4 and 5. Nodes 3, 4, and 5 are leaf nodes because they have parent nodes and they do not have child nodes.",
+      "expectedOutput": "</strong> +----+-------+ | id | type | +----+-------+ | 1 | Root | | 2 | Inner | | 3 | Leaf | | 4 | Leaf | | 5 | Leaf | +----+-------+ <strong>Explanation:</strong> Node 1 is the root node because its parent node is null and it has child nodes 2 and 3. Node 2 is an inner node because it has parent node 1 and child node 4 and 5. Nodes 3, 4, and 5 are leaf nodes because they have parent nodes and they do not have child nodes."
+    },
+    {
+      "input": "</strong> Tree table: +----+------+ | id | p_id | +----+------+ | 1 | null | +----+------+ <strong>Output:</strong> +----+-------+ | id | type | +----+-------+ | 1 | Root | +----+-------+ <strong>Explanation:</strong> If there is only one node on the tree, you only need to output its root attributes.",
+      "expectedOutput": "</strong> +----+-------+ | id | type | +----+-------+ | 1 | Root | +----+-------+ <strong>Explanation:</strong> If there is only one node on the tree, you only need to output its root attributes."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "349",
+  "titleSlug": "intersection-of-two-arrays",
+  "title": "Intersection of Two Arrays",
+  "titleCn": "两个数组的交集",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.7516263130447739,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,2,1], nums2 = [2,2] <strong>Output:</strong> [2]",
+      "expectedOutput": "</strong> [2]"
+    },
+    {
+      "input": "</strong> nums1 = [4,9,5], nums2 = [9,4,9,8,4] <strong>Output:</strong> [9,4] <strong>Explanation:</strong> [4,9] is also accepted.",
+      "expectedOutput": "</strong> [9,4] <strong>Explanation:</strong> [4,9] is also accepted."
+    }
+  ]
+}

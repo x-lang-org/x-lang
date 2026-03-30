@@ -1,0 +1,22 @@
+{
+  "problemId": "2028",
+  "titleSlug": "the-earliest-and-latest-rounds-where-players-compete",
+  "title": "The Earliest and Latest Rounds Where Players Compete",
+  "titleCn": "最佳运动员的比拼回合",
+  "difficulty": "HARD",
+  "topicTags": [
+    "memoization",
+    "dynamic-programming"
+  ],
+  "acRate": 0.615583625019023,
+  "testcases": [
+    {
+      "input": "</strong> n = 11, firstPlayer = 2, secondPlayer = 4 <strong>Output:</strong> [3,4] <strong>Explanation:</strong> One possible scenario which leads to the earliest round number: First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 Second round: 2, 3, 4, 5, 6, 11 Third round: 2, 3, 4 One possible scenario which leads to the latest round number: First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 Second round: 1, 2, 3, 4, 5, 6 Third round: 1, 2, 4 Fourth round: 2, 4",
+      "expectedOutput": "</strong> [3,4] <strong>Explanation:</strong> One possible scenario which leads to the earliest round number: First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 Second round: 2, 3, 4, 5, 6, 11 Third round: 2, 3, 4 One possible scenario which leads to the latest round number: First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 Second round: 1, 2, 3, 4, 5, 6 Third round: 1, 2, 4 Fourth round: 2, 4"
+    },
+    {
+      "input": "</strong> n = 5, firstPlayer = 1, secondPlayer = 5 <strong>Output:</strong> [1,1] <strong>Explanation:</strong> The players numbered 1 and 5 compete in the first round. There is no way to make them compete in any other round.",
+      "expectedOutput": "</strong> [1,1] <strong>Explanation:</strong> The players numbered 1 and 5 compete in the first round. There is no way to make them compete in any other round."
+    }
+  ]
+}

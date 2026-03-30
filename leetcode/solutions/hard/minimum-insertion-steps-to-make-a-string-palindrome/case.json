@@ -1,0 +1,26 @@
+{
+  "problemId": "1437",
+  "titleSlug": "minimum-insertion-steps-to-make-a-string-palindrome",
+  "title": "Minimum Insertion Steps to Make a String Palindrome",
+  "titleCn": "让字符串成为回文串的最少插入次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.7102807666442502,
+  "testcases": [
+    {
+      "input": "</strong> s = \"zzazz\" <strong>Output:</strong> 0 <strong>Explanation:</strong> The string \"zzazz\" is already palindrome we do not need any insertions.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The string \"zzazz\" is already palindrome we do not need any insertions."
+    },
+    {
+      "input": "</strong> s = \"mbadm\" <strong>Output:</strong> 2 <strong>Explanation:</strong> String can be \"mbdadbm\" or \"mdbabdm\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> String can be \"mbdadbm\" or \"mdbabdm\"."
+    },
+    {
+      "input": "</strong> s = \"leetcode\" <strong>Output:</strong> 5 <strong>Explanation:</strong> Inserting 5 characters the string becomes \"leetcodocteel\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Inserting 5 characters the string becomes \"leetcodocteel\"."
+    }
+  ]
+}

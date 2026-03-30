@@ -1,0 +1,23 @@
+{
+  "problemId": "1675",
+  "titleSlug": "magnetic-force-between-two-balls",
+  "title": "Magnetic Force Between Two Balls",
+  "titleCn": "两球之间的磁力",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.6468315037105434,
+  "testcases": [
+    {
+      "input": "</strong> position = [1,2,3,4,7], m = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> Distributing the 3 balls into baskets 1, 4 and 7 will make the magnetic force between ball pairs [3, 3, 6]. The minimum magnetic force is 3. We cannot achieve a larger minimum magnetic force than 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Distributing the 3 balls into baskets 1, 4 and 7 will make the magnetic force between ball pairs [3, 3, 6]. The minimum magnetic force is 3. We cannot achieve a larger minimum magnetic force than 3."
+    },
+    {
+      "input": "</strong> position = [5,4,3,2,1,1000000000], m = 2 <strong>Output:</strong> 999999999 <strong>Explanation:</strong> We can use baskets 1 and 1000000000.",
+      "expectedOutput": "</strong> 999999999 <strong>Explanation:</strong> We can use baskets 1 and 1000000000."
+    }
+  ]
+}

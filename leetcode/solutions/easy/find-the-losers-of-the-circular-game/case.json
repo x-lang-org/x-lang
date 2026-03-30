@@ -1,0 +1,23 @@
+{
+  "problemId": "2791",
+  "titleSlug": "find-the-losers-of-the-circular-game",
+  "title": "Find the Losers of the Circular Game",
+  "titleCn": "找出转圈游戏输家",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "acRate": 0.6078882078225336,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, k = 2 <strong>Output:</strong> [4,5] <strong>Explanation:</strong> The game goes as follows: 1) Start at 1<sup>st</sup> friend and pass the ball to the friend who is 2 steps away from them - 3<sup>rd</sup> friend. 2) 3<sup>rd</sup> friend passes the ball to the friend who is 4 steps away from them - 2<sup>nd</sup> friend. 3) 2<sup>nd</sup> friend passes the ball to the friend who is 6 steps away from them - 3<sup>rd</sup> friend. 4) The game ends as 3<sup>rd</sup> friend receives the ball for the second time.",
+      "expectedOutput": "</strong> [4,5] <strong>Explanation:</strong> The game goes as follows: 1) Start at 1<sup>st</sup> friend and pass the ball to the friend who is 2 steps away from them - 3<sup>rd</sup> friend. 2) 3<sup>rd</sup> friend passes the ball to the friend who is 4 steps away from them - 2<sup>nd</sup> friend. 3) 2<sup>nd</sup> friend passes the ball to the friend who is 6 steps away from them - 3<sup>rd</sup> friend. 4) The game ends as 3<sup>rd</sup> friend receives the ball for the second time."
+    },
+    {
+      "input": "</strong> n = 4, k = 4 <strong>Output:</strong> [2,3,4] <strong>Explanation:</strong> The game goes as follows: 1) Start at the 1<sup>st</sup> friend and pass the ball to the friend who is 4 steps away from them - 1<sup>st</sup> friend. 2) The game ends as 1<sup>st</sup> friend receives the ball for the second time.",
+      "expectedOutput": "</strong> [2,3,4] <strong>Explanation:</strong> The game goes as follows: 1) Start at the 1<sup>st</sup> friend and pass the ball to the friend who is 4 steps away from them - 1<sup>st</sup> friend. 2) The game ends as 1<sup>st</sup> friend receives the ball for the second time."
+    }
+  ]
+}

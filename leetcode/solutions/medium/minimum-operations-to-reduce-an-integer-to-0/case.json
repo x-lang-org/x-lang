@@ -1,0 +1,23 @@
+{
+  "problemId": "2710",
+  "titleSlug": "minimum-operations-to-reduce-an-integer-to-0",
+  "title": "Minimum Operations to Reduce an Integer to 0",
+  "titleCn": "将整数减少到零需要的最少操作数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5912640435286413,
+  "testcases": [
+    {
+      "input": "</strong> n = 39 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can do the following operations: - Add 2<sup>0</sup> = 1 to n, so now n = 40. - Subtract 2<sup>3</sup> = 8 from n, so now n = 32. - Subtract 2<sup>5</sup> = 32 from n, so now n = 0. It can be shown that 3 is the minimum number of operations we need to make n equal to 0.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can do the following operations: - Add 2<sup>0</sup> = 1 to n, so now n = 40. - Subtract 2<sup>3</sup> = 8 from n, so now n = 32. - Subtract 2<sup>5</sup> = 32 from n, so now n = 0. It can be shown that 3 is the minimum number of operations we need to make n equal to 0."
+    },
+    {
+      "input": "</strong> n = 54 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can do the following operations: - Add 2<sup>1</sup> = 2 to n, so now n = 56. - Add 2<sup>3</sup> = 8 to n, so now n = 64. - Subtract 2<sup>6</sup> = 64 from n, so now n = 0. So the minimum number of operations is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can do the following operations: - Add 2<sup>1</sup> = 2 to n, so now n = 56. - Add 2<sup>3</sup> = 8 to n, so now n = 64. - Subtract 2<sup>6</sup> = 64 from n, so now n = 0. So the minimum number of operations is 3."
+    }
+  ]
+}

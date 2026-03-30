@@ -1,0 +1,24 @@
+{
+  "problemId": "2647",
+  "titleSlug": "split-the-array-to-make-coprime-products",
+  "title": "Split the Array to Make Coprime Products",
+  "titleCn": "分割数组使乘积互质",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.28747178329571105,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,7,8,15,3,5] <strong>Output:</strong> 2 <strong>Explanation:</strong> The table above shows the values of the product of the first i + 1 elements, the remaining elements, and their gcd at each index i. The only valid split is at index 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The table above shows the values of the product of the first i + 1 elements, the remaining elements, and their gcd at each index i. The only valid split is at index 2."
+    },
+    {
+      "input": "</strong> nums = [4,7,15,8,3,5] <strong>Output:</strong> -1 <strong>Explanation:</strong> The table above shows the values of the product of the first i + 1 elements, the remaining elements, and their gcd at each index i. There is no valid split.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The table above shows the values of the product of the first i + 1 elements, the remaining elements, and their gcd at each index i. There is no valid split."
+    }
+  ]
+}

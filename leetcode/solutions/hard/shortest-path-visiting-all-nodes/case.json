@@ -1,0 +1,25 @@
+{
+  "problemId": "877",
+  "titleSlug": "shortest-path-visiting-all-nodes",
+  "title": "Shortest Path Visiting All Nodes",
+  "titleCn": "访问所有节点的最短路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "breadth-first-search",
+    "graph",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.6758558140515915,
+  "testcases": [
+    {
+      "input": "</strong> graph = [[1,2,3],[0],[0],[0]] <strong>Output:</strong> 4 <strong>Explanation:</strong> One possible path is [1,0,2,0,3]",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One possible path is [1,0,2,0,3]"
+    },
+    {
+      "input": "</strong> graph = [[1],[0,2,4],[1,3,4],[2],[1,2]] <strong>Output:</strong> 4 <strong>Explanation:</strong> One possible path is [0,1,4,2,3]",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One possible path is [0,1,4,2,3]"
+    }
+  ]
+}

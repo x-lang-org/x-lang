@@ -1,0 +1,18 @@
+{
+  "problemId": "1000039",
+  "titleSlug": "find-closest-lcci",
+  "title": "Find Closest LCCI",
+  "titleCn": "单词距离",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.7304465349051933,
+  "testcases": [
+    {
+      "input": "</strong>words = [\"I\",\"am\",\"a\",\"student\",\"from\",\"a\",\"university\",\"in\",\"a\",\"city\"], word1 = \"a\", word2 = \"student\"\r <strong>Output: </strong>1",
+      "expectedOutput": "</strong>1"
+    }
+  ]
+}

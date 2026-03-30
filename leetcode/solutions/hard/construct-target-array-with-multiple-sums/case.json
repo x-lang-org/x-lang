@@ -1,0 +1,26 @@
+{
+  "problemId": "1479",
+  "titleSlug": "construct-target-array-with-multiple-sums",
+  "title": "Construct Target Array With Multiple Sums",
+  "titleCn": "多次求和构造目标数组",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.32038991380004833,
+  "testcases": [
+    {
+      "input": "</strong> target = [9,3,5] <strong>Output:</strong> true <strong>Explanation:</strong> Start with arr = [1, 1, 1] [1, 1, 1], sum = 3 choose index 1 [1, 3, 1], sum = 5 choose index 2 [1, 3, 5], sum = 9 choose index 0 [9, 3, 5] Done",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Start with arr = [1, 1, 1] [1, 1, 1], sum = 3 choose index 1 [1, 3, 1], sum = 5 choose index 2 [1, 3, 5], sum = 9 choose index 0 [9, 3, 5] Done"
+    },
+    {
+      "input": "</strong> target = [1,1,1,2] <strong>Output:</strong> false <strong>Explanation:</strong> Impossible to create target array from [1,1,1,1].",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Impossible to create target array from [1,1,1,1]."
+    },
+    {
+      "input": "</strong> target = [8,5] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

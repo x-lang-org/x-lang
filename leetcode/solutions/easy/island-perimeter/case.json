@@ -1,0 +1,28 @@
+{
+  "problemId": "463",
+  "titleSlug": "island-perimeter",
+  "title": "Island Perimeter",
+  "titleCn": "岛屿的周长",
+  "difficulty": "EASY",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.7108912715341605,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]] <strong>Output:</strong> 16 <strong>Explanation:</strong> The perimeter is the 16 yellow stripes in the image above.",
+      "expectedOutput": "</strong> 16 <strong>Explanation:</strong> The perimeter is the 16 yellow stripes in the image above."
+    },
+    {
+      "input": "</strong> grid = [[1]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> grid = [[1,0]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

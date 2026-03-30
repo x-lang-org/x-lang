@@ -1,0 +1,26 @@
+{
+  "problemId": "2150",
+  "titleSlug": "kth-smallest-product-of-two-sorted-arrays",
+  "title": "Kth Smallest Product of Two Sorted Arrays",
+  "titleCn": "两个有序数组的第 K 小乘积",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.49435622728142337,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [2,5], nums2 = [3,4], k = 2 <strong>Output:</strong> 8 <strong>Explanation:</strong> The 2 smallest products are: - nums1[0] * nums2[0] = 2 * 3 = 6 - nums1[0] * nums2[1] = 2 * 4 = 8 The 2<sup>nd</sup> smallest product is 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The 2 smallest products are: - nums1[0] * nums2[0] = 2 * 3 = 6 - nums1[0] * nums2[1] = 2 * 4 = 8 The 2<sup>nd</sup> smallest product is 8."
+    },
+    {
+      "input": "</strong> nums1 = [-4,-2,0,3], nums2 = [2,4], k = 6 <strong>Output:</strong> 0 <strong>Explanation:</strong> The 6 smallest products are: - nums1[0] * nums2[1] = (-4) * 4 = -16 - nums1[0] * nums2[0] = (-4) * 2 = -8 - nums1[1] * nums2[1] = (-2) * 4 = -8 - nums1[1] * nums2[0] = (-2) * 2 = -4 - nums1[2] * nums2[0] = 0 * 2 = 0 - nums1[2] * nums2[1] = 0 * 4 = 0 The 6<sup>th</sup> smallest product is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The 6 smallest products are: - nums1[0] * nums2[1] = (-4) * 4 = -16 - nums1[0] * nums2[0] = (-4) * 2 = -8 - nums1[1] * nums2[1] = (-2) * 4 = -8 - nums1[1] * nums2[0] = (-2) * 2 = -4 - nums1[2] * nums2[0] = 0 * 2 = 0 - nums1[2] * nums2[1] = 0 * 4 = 0 The 6<sup>th</sup> smallest product is 0."
+    },
+    {
+      "input": "</strong> nums1 = [-2,-1,0,1,2], nums2 = [-3,-1,2,4,5], k = 3 <strong>Output:</strong> -6 <strong>Explanation:</strong> The 3 smallest products are: - nums1[0] * nums2[4] = (-2) * 5 = -10 - nums1[0] * nums2[3] = (-2) * 4 = -8 - nums1[4] * nums2[0] = 2 * (-3) = -6 The 3<sup>rd</sup> smallest product is -6.",
+      "expectedOutput": "</strong> -6 <strong>Explanation:</strong> The 3 smallest products are: - nums1[0] * nums2[4] = (-2) * 5 = -10 - nums1[0] * nums2[3] = (-2) * 4 = -8 - nums1[4] * nums2[0] = 2 * (-3) = -6 The 3<sup>rd</sup> smallest product is -6."
+    }
+  ]
+}

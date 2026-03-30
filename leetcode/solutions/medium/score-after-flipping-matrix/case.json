@@ -1,0 +1,24 @@
+{
+  "problemId": "891",
+  "titleSlug": "score-after-flipping-matrix",
+  "title": "Score After Flipping Matrix",
+  "titleCn": "翻转矩阵后的得分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.8082830719742662,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,0,1,1],[1,0,1,0],[1,1,0,0]] <strong>Output:</strong> 39 <strong>Explanation:</strong> 0b1111 + 0b1001 + 0b1111 = 15 + 9 + 15 = 39",
+      "expectedOutput": "</strong> 39 <strong>Explanation:</strong> 0b1111 + 0b1001 + 0b1111 = 15 + 9 + 15 = 39"
+    },
+    {
+      "input": "</strong> grid = [[0]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

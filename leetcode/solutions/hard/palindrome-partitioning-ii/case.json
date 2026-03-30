@@ -1,0 +1,26 @@
+{
+  "problemId": "132",
+  "titleSlug": "palindrome-partitioning-ii",
+  "title": "Palindrome Partitioning II",
+  "titleCn": "分割回文串 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5111463069875168,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aab\" <strong>Output:</strong> 1 <strong>Explanation:</strong> The palindrome partitioning [\"aa\",\"b\"] could be produced using 1 cut.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The palindrome partitioning [\"aa\",\"b\"] could be produced using 1 cut."
+    },
+    {
+      "input": "</strong> s = \"a\" <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> s = \"ab\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

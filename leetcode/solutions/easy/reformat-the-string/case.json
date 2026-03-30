@@ -1,0 +1,25 @@
+{
+  "problemId": "1532",
+  "titleSlug": "reformat-the-string",
+  "title": "Reformat The String",
+  "titleCn": "重新格式化字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5498796669009435,
+  "testcases": [
+    {
+      "input": "</strong> s = \"a0b1c2\" <strong>Output:</strong> \"0a1b2c\" <strong>Explanation:</strong> No two adjacent characters have the same type in \"0a1b2c\". \"a0b1c2\", \"0a1b2c\", \"0c2a1b\" are also valid permutations.",
+      "expectedOutput": "</strong> \"0a1b2c\" <strong>Explanation:</strong> No two adjacent characters have the same type in \"0a1b2c\". \"a0b1c2\", \"0a1b2c\", \"0c2a1b\" are also valid permutations."
+    },
+    {
+      "input": "</strong> s = \"leetcode\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> \"leetcode\" has only characters so we cannot separate them by digits.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> \"leetcode\" has only characters so we cannot separate them by digits."
+    },
+    {
+      "input": "</strong> s = \"1229857369\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> \"1229857369\" has only digits so we cannot separate them by characters.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> \"1229857369\" has only digits so we cannot separate them by characters."
+    }
+  ]
+}

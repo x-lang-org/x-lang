@@ -1,0 +1,25 @@
+{
+  "problemId": "857",
+  "titleSlug": "positions-of-large-groups",
+  "title": "Positions of Large Groups",
+  "titleCn": "较大分组的位置",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5463306625037833,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abbxxxxzzy\" <strong>Output:</strong> [[3,6]] <strong>Explanation:</strong> <code>\"xxxx\" is the only </code>large group with start index 3 and end index 6.",
+      "expectedOutput": "</strong> [[3,6]] <strong>Explanation:</strong> <code>\"xxxx\" is the only </code>large group with start index 3 and end index 6."
+    },
+    {
+      "input": "</strong> s = \"abc\" <strong>Output:</strong> [] <strong>Explanation:</strong> We have groups \"a\", \"b\", and \"c\", none of which are large groups.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> We have groups \"a\", \"b\", and \"c\", none of which are large groups."
+    },
+    {
+      "input": "</strong> s = \"abcdddeeeeaabbbcd\" <strong>Output:</strong> [[3,5],[6,9],[12,14]] <strong>Explanation:</strong> The large groups are \"ddd\", \"eeee\", and \"bbb\".",
+      "expectedOutput": "</strong> [[3,5],[6,9],[12,14]] <strong>Explanation:</strong> The large groups are \"ddd\", \"eeee\", and \"bbb\"."
+    }
+  ]
+}

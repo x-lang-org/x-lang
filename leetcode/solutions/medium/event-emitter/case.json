@@ -1,0 +1,27 @@
+{
+  "problemId": "2797",
+  "titleSlug": "event-emitter",
+  "title": "Event Emitter",
+  "titleCn": "事件发射器",
+  "difficulty": "MEDIUM",
+  "topicTags": [],
+  "acRate": 0.655494071146245,
+  "testcases": [
+    {
+      "input": "</strong> actions = [\"EventEmitter\", \"emit\", \"subscribe\", \"subscribe\", \"emit\"], values = [[], [\"firstEvent\"], [\"firstEvent\", \"function cb1() { return 5; }\"],  [\"firstEvent\", \"function cb1() { return 6; }\"], [\"firstEvent\"]] <strong>Output:</strong> [[],[\"emitted\",[]],[\"subscribed\"],[\"subscribed\"],[\"emitted\",[5,6]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); emitter.emit(\"firstEvent\"); // [], no callback are subscribed yet emitter.subscribe(\"firstEvent\", function cb1() { return 5; }); emitter.subscribe(\"firstEvent\", function cb2() { return 6; }); emitter.emit(\"firstEvent\"); // [5, 6], returns the output of cb1 and cb2",
+      "expectedOutput": "</strong> [[],[\"emitted\",[]],[\"subscribed\"],[\"subscribed\"],[\"emitted\",[5,6]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); emitter.emit(\"firstEvent\"); // [], no callback are subscribed yet emitter.subscribe(\"firstEvent\", function cb1() { return 5; }); emitter.subscribe(\"firstEvent\", function cb2() { return 6; }); emitter.emit(\"firstEvent\"); // [5, 6], returns the output of cb1 and cb2"
+    },
+    {
+      "input": "</strong> actions = [\"EventEmitter\", \"subscribe\", \"emit\", \"emit\"], values = [[], [\"firstEvent\", \"function cb1(...args) { return args.join(','); }\"], [\"firstEvent\", [1,2,3]], [\"firstEvent\", [3,4,6]]] <strong>Output:</strong> [[],[\"subscribed\"],[\"emitted\",[\"1,2,3\"]],[\"emitted\",[\"3,4,6\"]]] <strong>Explanation: </strong>Note that the emit method should be able to accept an OPTIONAL array of arguments. const emitter = new EventEmitter(); emitter.subscribe(\"firstEvent, function cb1(...args) { return args.join(','); }); emitter.emit(\"firstEvent\", [1, 2, 3]); // [\"1,2,3\"] emitter.emit(\"firstEvent\", [3, 4, 6]); // [\"3,4,6\"]",
+      "expectedOutput": "</strong> [[],[\"subscribed\"],[\"emitted\",[\"1,2,3\"]],[\"emitted\",[\"3,4,6\"]]] <strong>Explanation: </strong>Note that the emit method should be able to accept an OPTIONAL array of arguments. const emitter = new EventEmitter(); emitter.subscribe(\"firstEvent, function cb1(...args) { return args.join(','); }); emitter.emit(\"firstEvent\", [1, 2, 3]); // [\"1,2,3\"] emitter.emit(\"firstEvent\", [3, 4, 6]); // [\"3,4,6\"]"
+    },
+    {
+      "input": "</strong> actions = [\"EventEmitter\", \"subscribe\", \"emit\", \"unsubscribe\", \"emit\"], values = [[], [\"firstEvent\", \"(...args) => args.join(',')\"], [\"firstEvent\", [1,2,3]], [0], [\"firstEvent\", [4,5,6]]] <strong>Output:</strong> [[],[\"subscribed\"],[\"emitted\",[\"1,2,3\"]],[\"unsubscribed\",0],[\"emitted\",[]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); const sub = emitter.subscribe(\"firstEvent\", (...args) => args.join(',')); emitter.emit(\"firstEvent\", [1, 2, 3]); // [\"1,2,3\"] sub.unsubscribe(); // undefined emitter.emit(\"firstEvent\", [4, 5, 6]); // [], there are no subscriptions",
+      "expectedOutput": "</strong> [[],[\"subscribed\"],[\"emitted\",[\"1,2,3\"]],[\"unsubscribed\",0],[\"emitted\",[]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); const sub = emitter.subscribe(\"firstEvent\", (...args) => args.join(',')); emitter.emit(\"firstEvent\", [1, 2, 3]); // [\"1,2,3\"] sub.unsubscribe(); // undefined emitter.emit(\"firstEvent\", [4, 5, 6]); // [], there are no subscriptions"
+    },
+    {
+      "input": "</strong> actions = [\"EventEmitter\", \"subscribe\", \"subscribe\", \"unsubscribe\", \"emit\"], values = [[], [\"firstEvent\", \"x => x + 1\"], [\"firstEvent\", \"x => x + 2\"], [0], [\"firstEvent\", [5]]] <strong>Output:</strong> [[],[\"subscribed\"],[\"subscribed\"],[\"unsubscribed\",0],[\"emitted\",[7]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); const sub1 = emitter.subscribe(\"firstEvent\", x => x + 1); const sub2 = emitter.subscribe(\"firstEvent\", x => x + 2); sub1.unsubscribe(); // undefined emitter.emit(\"firstEvent\", [5]); // [7]",
+      "expectedOutput": "</strong> [[],[\"subscribed\"],[\"subscribed\"],[\"unsubscribed\",0],[\"emitted\",[7]]] <strong>Explanation:</strong> const emitter = new EventEmitter(); const sub1 = emitter.subscribe(\"firstEvent\", x => x + 1); const sub2 = emitter.subscribe(\"firstEvent\", x => x + 2); sub1.unsubscribe(); // undefined emitter.emit(\"firstEvent\", [5]); // [7]"
+    }
+  ]
+}

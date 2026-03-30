@@ -1,0 +1,17 @@
+{
+  "problemId": "596",
+  "titleSlug": "classes-with-at-least-5-students",
+  "title": "Classes With at Least 5 Students",
+  "titleCn": "超过 5 名学生的课",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5826428046089728,
+  "testcases": [
+    {
+      "input": "</strong> Courses table: +---------+----------+ | student | class  | +---------+----------+ | A    | Math   | | B    | English | | C    | Math   | | D    | Biology | | E    | Math   | | F    | Computer | | G    | Math   | | H    | Math   | | I    | Math   | +---------+----------+ <strong>Output:</strong> +---------+ | class  | +---------+ | Math  | +---------+ <strong>Explanation:</strong> - Math has 6 students, so we include it. - English has 1 student, so we do not include it. - Biology has 1 student, so we do not include it. - Computer has 1 student, so we do not include it.",
+      "expectedOutput": "</strong> +---------+ | class  | +---------+ | Math  | +---------+ <strong>Explanation:</strong> - Math has 6 students, so we include it. - English has 1 student, so we do not include it. - Biology has 1 student, so we do not include it. - Computer has 1 student, so we do not include it."
+    }
+  ]
+}

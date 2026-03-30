@@ -1,0 +1,21 @@
+{
+  "problemId": "1843",
+  "titleSlug": "number-of-rectangles-that-can-form-the-largest-square",
+  "title": "Number Of Rectangles That Can Form The Largest Square",
+  "titleCn": "可以形成最大正方形的矩形数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.824779161094683,
+  "testcases": [
+    {
+      "input": "</strong> rectangles = [[5,8],[3,9],[5,12],[16,5]]\r <strong>Output:</strong> 3\r <strong>Explanation:</strong> The largest squares you can get from each rectangle are of lengths [5,3,5,5].\r The largest possible square is of length 5, and you can get it out of 3 rectangles.",
+      "expectedOutput": "</strong> 3\r <strong>Explanation:</strong> The largest squares you can get from each rectangle are of lengths [5,3,5,5].\r The largest possible square is of length 5, and you can get it out of 3 rectangles."
+    },
+    {
+      "input": "</strong> rectangles = [[2,3],[3,7],[4,3],[3,7]]\r <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

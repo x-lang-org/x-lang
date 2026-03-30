@@ -1,0 +1,23 @@
+{
+  "problemId": "419",
+  "titleSlug": "battleships-in-a-board",
+  "title": "Battleships in a Board",
+  "titleCn": "棋盘上的战舰",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.7861320412388738,
+  "testcases": [
+    {
+      "input": "</strong> board = [[\"X\",\".\",\".\",\"X\"],[\".\",\".\",\".\",\"X\"],[\".\",\".\",\".\",\"X\"]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> board = [[\".\"]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

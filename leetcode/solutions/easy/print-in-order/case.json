@@ -1,0 +1,21 @@
+{
+  "problemId": "1203",
+  "titleSlug": "print-in-order",
+  "title": "Print in Order",
+  "titleCn": "按序打印",
+  "difficulty": "EASY",
+  "topicTags": [
+    "concurrency"
+  ],
+  "acRate": 0.668285491688943,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> \"firstsecondthird\" <strong>Explanation:</strong> There are three threads being fired asynchronously. The input [1,2,3] means thread A calls first(), thread B calls second(), and thread C calls third(). \"firstsecondthird\" is the correct output.",
+      "expectedOutput": "</strong> \"firstsecondthird\" <strong>Explanation:</strong> There are three threads being fired asynchronously. The input [1,2,3] means thread A calls first(), thread B calls second(), and thread C calls third(). \"firstsecondthird\" is the correct output."
+    },
+    {
+      "input": "</strong> nums = [1,3,2] <strong>Output:</strong> \"firstsecondthird\" <strong>Explanation:</strong> The input [1,3,2] means thread A calls first(), thread B calls third(), and thread C calls second(). \"firstsecondthird\" is the correct output.",
+      "expectedOutput": "</strong> \"firstsecondthird\" <strong>Explanation:</strong> The input [1,3,2] means thread A calls first(), thread B calls third(), and thread C calls second(). \"firstsecondthird\" is the correct output."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "2233",
+  "titleSlug": "number-of-smooth-descent-periods-of-a-stock",
+  "title": "Number of Smooth Descent Periods of a Stock",
+  "titleCn": "股票平滑下跌阶段的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "two-pointers",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "acRate": 0.6144580819638028,
+  "testcases": [
+    {
+      "input": "</strong> prices = [3,2,1,4] <strong>Output:</strong> 7 <strong>Explanation:</strong> There are 7 smooth descent periods: [3], [2], [1], [4], [3,2], [2,1], and [3,2,1] Note that a period with one day is a smooth descent period by the definition.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> There are 7 smooth descent periods: [3], [2], [1], [4], [3,2], [2,1], and [3,2,1] Note that a period with one day is a smooth descent period by the definition."
+    },
+    {
+      "input": "</strong> prices = [8,6,7,7] <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 smooth descent periods: [8], [6], [7], and [7] Note that [8,6] is not a smooth descent period as 8 - 6 ≠ 1.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 smooth descent periods: [8], [6], [7], and [7] Note that [8,6] is not a smooth descent period as 8 - 6 ≠ 1."
+    },
+    {
+      "input": "</strong> prices = [1] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is 1 smooth descent period: [1]",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is 1 smooth descent period: [1]"
+    }
+  ]
+}

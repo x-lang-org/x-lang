@@ -1,0 +1,26 @@
+{
+  "problemId": "1148",
+  "titleSlug": "adding-two-negabinary-numbers",
+  "title": "Adding Two Negabinary Numbers",
+  "titleCn": "负二进制数相加",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.41811000385898806,
+  "testcases": [
+    {
+      "input": "</strong> arr1 = [1,1,1,1,1], arr2 = [1,0,1] <strong>Output:</strong> [1,0,0,0,0] <strong>Explanation: </strong>arr1 represents 11, arr2 represents 5, the output represents 16.",
+      "expectedOutput": "</strong> [1,0,0,0,0] <strong>Explanation: </strong>arr1 represents 11, arr2 represents 5, the output represents 16."
+    },
+    {
+      "input": "</strong> arr1 = [0], arr2 = [0] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    },
+    {
+      "input": "</strong> arr1 = [0], arr2 = [1] <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    }
+  ]
+}

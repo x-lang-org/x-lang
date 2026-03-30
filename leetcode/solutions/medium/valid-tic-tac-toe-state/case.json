@@ -1,0 +1,26 @@
+{
+  "problemId": "810",
+  "titleSlug": "valid-tic-tac-toe-state",
+  "title": "Valid Tic-Tac-Toe State",
+  "titleCn": "有效的井字游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.384957660786851,
+  "testcases": [
+    {
+      "input": "</strong> board = [\"O \",\"  \",\"  \"] <strong>Output:</strong> false <strong>Explanation:</strong> The first player always plays \"X\".",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The first player always plays \"X\"."
+    },
+    {
+      "input": "</strong> board = [\"XOX\",\" X \",\"  \"] <strong>Output:</strong> false <strong>Explanation:</strong> Players take turns making moves.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Players take turns making moves."
+    },
+    {
+      "input": "</strong> board = [\"XOX\",\"O O\",\"XOX\"] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

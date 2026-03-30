@@ -1,0 +1,23 @@
+{
+  "problemId": "2654",
+  "titleSlug": "count-the-number-of-vowel-strings-in-range",
+  "title": "Count the Number of Vowel Strings in Range",
+  "titleCn": "统计范围内的元音字符串数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.7713049602575712,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"are\",\"amy\",\"u\"], left = 0, right = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> - \"are\" is a vowel string because it starts with 'a' and ends with 'e'. - \"amy\" is not a vowel string because it does not end with a vowel. - \"u\" is a vowel string because it starts with 'u' and ends with 'u'. The number of vowel strings in the mentioned range is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - \"are\" is a vowel string because it starts with 'a' and ends with 'e'. - \"amy\" is not a vowel string because it does not end with a vowel. - \"u\" is a vowel string because it starts with 'u' and ends with 'u'. The number of vowel strings in the mentioned range is 2."
+    },
+    {
+      "input": "</strong> words = [\"hey\",\"aeo\",\"mu\",\"ooo\",\"artro\"], left = 1, right = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> - \"aeo\" is a vowel string because it starts with 'a' and ends with 'o'. - \"mu\" is not a vowel string because it does not start with a vowel. - \"ooo\" is a vowel string because it starts with 'o' and ends with 'o'. - \"artro\" is a vowel string because it starts with 'a' and ends with 'o'. The number of vowel strings in the mentioned range is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> - \"aeo\" is a vowel string because it starts with 'a' and ends with 'o'. - \"mu\" is not a vowel string because it does not start with a vowel. - \"ooo\" is a vowel string because it starts with 'o' and ends with 'o'. - \"artro\" is a vowel string because it starts with 'a' and ends with 'o'. The number of vowel strings in the mentioned range is 3."
+    }
+  ]
+}

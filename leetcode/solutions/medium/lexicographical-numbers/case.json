@@ -1,0 +1,22 @@
+{
+  "problemId": "386",
+  "titleSlug": "lexicographical-numbers",
+  "title": "Lexicographical Numbers",
+  "titleCn": "字典序排数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "trie"
+  ],
+  "acRate": 0.7520905988675142,
+  "testcases": [
+    {
+      "input": "</strong> n = 13 <strong>Output:</strong> [1,10,11,12,13,2,3,4,5,6,7,8,9]",
+      "expectedOutput": "</strong> [1,10,11,12,13,2,3,4,5,6,7,8,9]"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    }
+  ]
+}

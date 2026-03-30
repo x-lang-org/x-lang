@@ -1,0 +1,25 @@
+{
+  "problemId": "552",
+  "titleSlug": "student-attendance-record-ii",
+  "title": "Student Attendance Record II",
+  "titleCn": "学生出勤记录 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.6250739044947683,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 8 <strong>Explanation:</strong> There are 8 records with length 2 that are eligible for an award: \"PP\", \"AP\", \"PA\", \"LP\", \"PL\", \"AL\", \"LA\", \"LL\" Only \"AA\" is not eligible because there are 2 absences (there need to be fewer than 2).",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> There are 8 records with length 2 that are eligible for an award: \"PP\", \"AP\", \"PA\", \"LP\", \"PL\", \"AL\", \"LA\", \"LL\" Only \"AA\" is not eligible because there are 2 absences (there need to be fewer than 2)."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> n = 10101 <strong>Output:</strong> 183236316",
+      "expectedOutput": "</strong> 183236316"
+    }
+  ]
+}

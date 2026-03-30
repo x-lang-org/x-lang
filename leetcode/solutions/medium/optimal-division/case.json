@@ -1,0 +1,23 @@
+{
+  "problemId": "553",
+  "titleSlug": "optimal-division",
+  "title": "Optimal Division",
+  "titleCn": "最优除法",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6478934089102409,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1000,100,10,2] <strong>Output:</strong> \"1000/(100/10/2)\" <strong>Explanation:</strong> 1000/(100/10/2) = 1000/((100/10)/2) = 200 However, the bold parenthesis in \"1000/(<strong>(</strong>100/10<strong>)</strong>/2)\" are redundant since they do not influence the operation priority. So you should return \"1000/(100/10/2)\". Other cases: 1000/(100/10)/2 = 50 1000/(100/(10/2)) = 50 1000/100/10/2 = 0.5 1000/100/(10/2) = 2",
+      "expectedOutput": "</strong> \"1000/(100/10/2)\" <strong>Explanation:</strong> 1000/(100/10/2) = 1000/((100/10)/2) = 200 However, the bold parenthesis in \"1000/(<strong>(</strong>100/10<strong>)</strong>/2)\" are redundant since they do not influence the operation priority. So you should return \"1000/(100/10/2)\". Other cases: 1000/(100/10)/2 = 50 1000/(100/(10/2)) = 50 1000/100/10/2 = 0.5 1000/100/(10/2) = 2"
+    },
+    {
+      "input": "</strong> nums = [2,3,4] <strong>Output:</strong> \"2/(3/4)\" <strong>Explanation:</strong> (2/(3/4)) = 8/3 = 2.667 It can be shown that after trying all possibilities, we cannot get an expression with evaluation greater than 2.667",
+      "expectedOutput": "</strong> \"2/(3/4)\" <strong>Explanation:</strong> (2/(3/4)) = 8/3 = 2.667 It can be shown that after trying all possibilities, we cannot get an expression with evaluation greater than 2.667"
+    }
+  ]
+}

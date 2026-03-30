@@ -1,0 +1,27 @@
+{
+  "problemId": "2040",
+  "titleSlug": "minimum-cost-to-reach-destination-in-time",
+  "title": "Minimum Cost to Reach Destination in Time",
+  "titleCn": "规定时间内到达终点的最小花费",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5470617612785084,
+  "testcases": [
+    {
+      "input": "</strong> maxTime = 30, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3] <strong>Output:</strong> 11 <strong>Explanation:</strong> The path to take is 0 -> 1 -> 2 -> 5, which takes 30 minutes and has $11 worth of passing fees.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> The path to take is 0 -> 1 -> 2 -> 5, which takes 30 minutes and has $11 worth of passing fees."
+    },
+    {
+      "input": "</strong> maxTime = 29, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3] <strong>Output:</strong> 48 <strong>Explanation:</strong> The path to take is 0 -> 3 -> 4 -> 5, which takes 26 minutes and has $48 worth of passing fees. You cannot take path 0 -> 1 -> 2 -> 5 since it would take too long.",
+      "expectedOutput": "</strong> 48 <strong>Explanation:</strong> The path to take is 0 -> 3 -> 4 -> 5, which takes 26 minutes and has $48 worth of passing fees. You cannot take path 0 -> 1 -> 2 -> 5 since it would take too long."
+    },
+    {
+      "input": "</strong> maxTime = 25, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no way to reach city 5 from city 0 within 25 minutes.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no way to reach city 5 from city 0 within 25 minutes."
+    }
+  ]
+}

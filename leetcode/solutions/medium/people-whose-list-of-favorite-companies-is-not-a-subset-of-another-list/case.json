@@ -1,0 +1,27 @@
+{
+  "problemId": "1562",
+  "titleSlug": "people-whose-list-of-favorite-companies-is-not-a-subset-of-another-list",
+  "title": "People Whose List of Favorite Companies Is Not a Subset of Another List",
+  "titleCn": "收藏清单",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5244023355734273,
+  "testcases": [
+    {
+      "input": "</strong> favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"google\",\"microsoft\"],[\"google\",\"facebook\"],[\"google\"],[\"amazon\"]] <strong>Output:</strong> [0,1,4] <strong>Explanation:</strong> Person with index=2 has favoriteCompanies[2]=[\"google\",\"facebook\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] corresponding to the person with index 0. Person with index=3 has favoriteCompanies[3]=[\"google\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] and favoriteCompanies[1]=[\"google\",\"microsoft\"]. Other lists of favorite companies are not a subset of another list, therefore, the answer is [0,1,4].",
+      "expectedOutput": "</strong> [0,1,4] <strong>Explanation:</strong> Person with index=2 has favoriteCompanies[2]=[\"google\",\"facebook\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] corresponding to the person with index 0. Person with index=3 has favoriteCompanies[3]=[\"google\"] which is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"] and favoriteCompanies[1]=[\"google\",\"microsoft\"]. Other lists of favorite companies are not a subset of another list, therefore, the answer is [0,1,4]."
+    },
+    {
+      "input": "</strong> favoriteCompanies = [[\"leetcode\",\"google\",\"facebook\"],[\"leetcode\",\"amazon\"],[\"facebook\",\"google\"]] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> In this case favoriteCompanies[2]=[\"facebook\",\"google\"] is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"], therefore, the answer is [0,1].",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> In this case favoriteCompanies[2]=[\"facebook\",\"google\"] is a subset of favoriteCompanies[0]=[\"leetcode\",\"google\",\"facebook\"], therefore, the answer is [0,1]."
+    },
+    {
+      "input": "</strong> favoriteCompanies = [[\"leetcode\"],[\"google\"],[\"facebook\"],[\"amazon\"]] <strong>Output:</strong> [0,1,2,3]",
+      "expectedOutput": "</strong> [0,1,2,3]"
+    }
+  ]
+}

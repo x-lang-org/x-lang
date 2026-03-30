@@ -1,0 +1,26 @@
+{
+  "problemId": "872",
+  "titleSlug": "split-array-into-fibonacci-sequence",
+  "title": "Split Array into Fibonacci Sequence",
+  "titleCn": "将数组拆分成斐波那契序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.4828712081904352,
+  "testcases": [
+    {
+      "input": "</strong> num = \"1101111\" <strong>Output:</strong> [11,0,11,11] <strong>Explanation:</strong> The output [110, 1, 111] would also be accepted.",
+      "expectedOutput": "</strong> [11,0,11,11] <strong>Explanation:</strong> The output [110, 1, 111] would also be accepted."
+    },
+    {
+      "input": "</strong> num = \"112358130\" <strong>Output:</strong> [] <strong>Explanation:</strong> The task is impossible.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> The task is impossible."
+    },
+    {
+      "input": "</strong> num = \"0123\" <strong>Output:</strong> [] <strong>Explanation:</strong> Leading zeroes are not allowed, so \"01\", \"2\", \"3\" is not valid.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> Leading zeroes are not allowed, so \"01\", \"2\", \"3\" is not valid."
+    }
+  ]
+}

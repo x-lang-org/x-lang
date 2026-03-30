@@ -1,0 +1,21 @@
+{
+  "problemId": "1660",
+  "titleSlug": "thousand-separator",
+  "title": "Thousand Separator",
+  "titleCn": "千位分隔数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5732040243599779,
+  "testcases": [
+    {
+      "input": "</strong> n = 987 <strong>Output:</strong> \"987\"",
+      "expectedOutput": "</strong> \"987"
+    },
+    {
+      "input": "</strong> n = 1234 <strong>Output:</strong> \"1.234\"",
+      "expectedOutput": "</strong> \"1.234"
+    }
+  ]
+}

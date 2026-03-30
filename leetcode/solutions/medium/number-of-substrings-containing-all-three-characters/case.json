@@ -1,0 +1,27 @@
+{
+  "problemId": "1460",
+  "titleSlug": "number-of-substrings-containing-all-three-characters",
+  "title": "Number of Substrings Containing All Three Characters",
+  "titleCn": "包含所有三种字符的子字符串数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.6705828061607091,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcabc\" <strong>Output:</strong> 10 <strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>abc<em>\", \"</em>abca<em>\", \"</em>abcab<em>\", \"</em>abcabc<em>\", \"</em>bca<em>\", \"</em>bcab<em>\", \"</em>bcabc<em>\", \"</em>cab<em>\", \"</em>cabc<em>\" </em>and<em> \"</em>abc<em>\" </em>(<strong>again</strong>)<em>. </em>",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>abc<em>\", \"</em>abca<em>\", \"</em>abcab<em>\", \"</em>abcabc<em>\", \"</em>bca<em>\", \"</em>bcab<em>\", \"</em>bcabc<em>\", \"</em>cab<em>\", \"</em>cabc<em>\" </em>and<em> \"</em>abc<em>\" </em>(<strong>again</strong>)<em>. </em>"
+    },
+    {
+      "input": "</strong> s = \"aaacb\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>aaacb<em>\", \"</em>aacb<em>\" </em>and<em> \"</em>acb<em>\".</em><em> </em>",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The substrings containing at least one occurrence of the characters <em>a</em>, <em>b</em> and <em>c are \"</em>aaacb<em>\", \"</em>aacb<em>\" </em>and<em> \"</em>acb<em>\".</em><em> </em>"
+    },
+    {
+      "input": "</strong> s = \"abc\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

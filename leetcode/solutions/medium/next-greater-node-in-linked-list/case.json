@@ -1,0 +1,24 @@
+{
+  "problemId": "1072",
+  "titleSlug": "next-greater-node-in-linked-list",
+  "title": "Next Greater Node In Linked List",
+  "titleCn": "链表中的下一个更大节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "linked-list",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6708256723820926,
+  "testcases": [
+    {
+      "input": "</strong> head = [2,1,5] <strong>Output:</strong> [5,5,0]",
+      "expectedOutput": "</strong> [5,5,0]"
+    },
+    {
+      "input": "</strong> head = [2,7,4,3,5] <strong>Output:</strong> [7,0,5,5,0]",
+      "expectedOutput": "</strong> [7,0,5,5,0]"
+    }
+  ]
+}

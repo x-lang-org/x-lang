@@ -1,0 +1,27 @@
+{
+  "problemId": "3271",
+  "titleSlug": "count-the-number-of-houses-at-a-certain-distance-i",
+  "title": "Count the Number of Houses at a Certain Distance I",
+  "titleCn": "按距离统计房屋对数目 I",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "graph",
+    "prefix-sum"
+  ],
+  "acRate": 0.4796600976315314,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, x = 1, y = 3 <strong>Output:</strong> [6,0,0] <strong>Explanation:</strong> Let's look at each pair of houses: - For the pair (1, 2), we can go from house 1 to house 2 directly. - For the pair (2, 1), we can go from house 2 to house 1 directly. - For the pair (1, 3), we can go from house 1 to house 3 directly. - For the pair (3, 1), we can go from house 3 to house 1 directly. - For the pair (2, 3), we can go from house 2 to house 3 directly. - For the pair (3, 2), we can go from house 3 to house 2 directly.",
+      "expectedOutput": "</strong> [6,0,0] <strong>Explanation:</strong> Let's look at each pair of houses: - For the pair (1, 2), we can go from house 1 to house 2 directly. - For the pair (2, 1), we can go from house 2 to house 1 directly. - For the pair (1, 3), we can go from house 1 to house 3 directly. - For the pair (3, 1), we can go from house 3 to house 1 directly. - For the pair (2, 3), we can go from house 2 to house 3 directly. - For the pair (3, 2), we can go from house 3 to house 2 directly."
+    },
+    {
+      "input": "</strong> n = 5, x = 2, y = 4 <strong>Output:</strong> [10,8,2,0,0] <strong>Explanation:</strong> For each distance k the pairs are: - For k == 1, the pairs are (1, 2), (2, 1), (2, 3), (3, 2), (2, 4), (4, 2), (3, 4), (4, 3), (4, 5), and (5, 4). - For k == 2, the pairs are (1, 3), (3, 1), (1, 4), (4, 1), (2, 5), (5, 2), (3, 5), and (5, 3). - For k == 3, the pairs are (1, 5), and (5, 1). - For k == 4 and k == 5, there are no pairs.",
+      "expectedOutput": "</strong> [10,8,2,0,0] <strong>Explanation:</strong> For each distance k the pairs are: - For k == 1, the pairs are (1, 2), (2, 1), (2, 3), (3, 2), (2, 4), (4, 2), (3, 4), (4, 3), (4, 5), and (5, 4). - For k == 2, the pairs are (1, 3), (3, 1), (1, 4), (4, 1), (2, 5), (5, 2), (3, 5), and (5, 3). - For k == 3, the pairs are (1, 5), and (5, 1). - For k == 4 and k == 5, there are no pairs."
+    },
+    {
+      "input": "</strong> n = 4, x = 1, y = 1 <strong>Output:</strong> [6,4,2,0] <strong>Explanation:</strong> For each distance k the pairs are: - For k == 1, the pairs are (1, 2), (2, 1), (2, 3), (3, 2), (3, 4), and (4, 3). - For k == 2, the pairs are (1, 3), (3, 1), (2, 4), and (4, 2). - For k == 3, the pairs are (1, 4), and (4, 1). - For k == 4, there are no pairs.",
+      "expectedOutput": "</strong> [6,4,2,0] <strong>Explanation:</strong> For each distance k the pairs are: - For k == 1, the pairs are (1, 2), (2, 1), (2, 3), (3, 2), (3, 4), and (4, 3). - For k == 2, the pairs are (1, 3), (3, 1), (2, 4), and (4, 2). - For k == 3, the pairs are (1, 4), and (4, 1). - For k == 4, there are no pairs."
+    }
+  ]
+}

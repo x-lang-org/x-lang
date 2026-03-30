@@ -1,0 +1,29 @@
+{
+  "problemId": "2079",
+  "titleSlug": "delete-duplicate-folders-in-system",
+  "title": "Delete Duplicate Folders in System",
+  "titleCn": "删除系统中的重复文件夹",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "hash-function"
+  ],
+  "acRate": 0.7176607977003234,
+  "testcases": [
+    {
+      "input": "</strong> paths = [[\"a\"],[\"c\"],[\"d\"],[\"a\",\"b\"],[\"c\",\"b\"],[\"d\",\"a\"]] <strong>Output:</strong> [[\"d\"],[\"d\",\"a\"]] <strong>Explanation:</strong> The file structure is as shown. Folders \"/a\" and \"/c\" (and their subfolders) are marked for deletion because they both contain an empty folder named \"b\".",
+      "expectedOutput": "</strong> [[\"d\"],[\"d\",\"a\"]] <strong>Explanation:</strong> The file structure is as shown. Folders \"/a\" and \"/c\" (and their subfolders) are marked for deletion because they both contain an empty folder named \"b\"."
+    },
+    {
+      "input": "</strong> paths = [[\"a\"],[\"c\"],[\"a\",\"b\"],[\"c\",\"b\"],[\"a\",\"b\",\"x\"],[\"a\",\"b\",\"x\",\"y\"],[\"w\"],[\"w\",\"y\"]] <strong>Output:</strong> [[\"c\"],[\"c\",\"b\"],[\"a\"],[\"a\",\"b\"]] <strong>Explanation: </strong>The file structure is as shown. Folders \"/a/b/x\" and \"/w\" (and their subfolders) are marked for deletion because they both contain an empty folder named \"y\". Note that folders \"/a\" and \"/c\" are identical after the deletion, but they are not deleted because they were not marked beforehand.",
+      "expectedOutput": "</strong> [[\"c\"],[\"c\",\"b\"],[\"a\"],[\"a\",\"b\"]] <strong>Explanation: </strong>The file structure is as shown. Folders \"/a/b/x\" and \"/w\" (and their subfolders) are marked for deletion because they both contain an empty folder named \"y\". Note that folders \"/a\" and \"/c\" are identical after the deletion, but they are not deleted because they were not marked beforehand."
+    },
+    {
+      "input": "</strong> paths = [[\"a\",\"b\"],[\"c\",\"d\"],[\"c\"],[\"a\"]] <strong>Output:</strong> [[\"c\"],[\"c\",\"d\"],[\"a\"],[\"a\",\"b\"]] <strong>Explanation:</strong> All folders are unique in the file system. Note that the returned array can be in a different order as the order does not matter.",
+      "expectedOutput": "</strong> [[\"c\"],[\"c\",\"d\"],[\"a\"],[\"a\",\"b\"]] <strong>Explanation:</strong> All folders are unique in the file system. Note that the returned array can be in a different order as the order does not matter."
+    }
+  ]
+}

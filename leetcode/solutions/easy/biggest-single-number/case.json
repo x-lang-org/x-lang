@@ -1,0 +1,21 @@
+{
+  "problemId": "619",
+  "titleSlug": "biggest-single-number",
+  "title": "Biggest Single Number",
+  "titleCn": "只出现一次的最大数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6038407347492564,
+  "testcases": [
+    {
+      "input": "</strong> MyNumbers table: +-----+ | num | +-----+ | 8  | | 8  | | 3  | | 3  | | 1  | | 4  | | 5  | | 6  | +-----+ <strong>Output:</strong> +-----+ | num | +-----+ | 6  | +-----+ <strong>Explanation:</strong> The single numbers are 1, 4, 5, and 6. Since 6 is the largest single number, we return it.",
+      "expectedOutput": "</strong> +-----+ | num | +-----+ | 6  | +-----+ <strong>Explanation:</strong> The single numbers are 1, 4, 5, and 6. Since 6 is the largest single number, we return it."
+    },
+    {
+      "input": "</strong> MyNumbers table: +-----+ | num | +-----+ | 8  | | 8  | | 7  | | 7  | | 3  | | 3  | | 3  | +-----+ <strong>Output:</strong> +------+ | num | +------+ | null | +------+ <strong>Explanation:</strong> There are no single numbers in the input table so we return null.",
+      "expectedOutput": "</strong> +------+ | num | +------+ | null | +------+ <strong>Explanation:</strong> There are no single numbers in the input table so we return null."
+    }
+  ]
+}

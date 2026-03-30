@@ -1,0 +1,25 @@
+{
+  "problemId": "410",
+  "titleSlug": "split-array-largest-sum",
+  "title": "Split Array Largest Sum",
+  "titleCn": "分割数组的最大值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.6078554332716688,
+  "testcases": [
+    {
+      "input": "</strong> nums = [7,2,5,10,8], k = 2 <strong>Output:</strong> 18 <strong>Explanation:</strong> There are four ways to split nums into two subarrays. The best way is to split it into [7,2,5] and [10,8], where the largest sum among the two subarrays is only 18.",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> There are four ways to split nums into two subarrays. The best way is to split it into [7,2,5] and [10,8], where the largest sum among the two subarrays is only 18."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5], k = 2 <strong>Output:</strong> 9 <strong>Explanation:</strong> There are four ways to split nums into two subarrays. The best way is to split it into [1,2,3] and [4,5], where the largest sum among the two subarrays is only 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> There are four ways to split nums into two subarrays. The best way is to split it into [1,2,3] and [4,5], where the largest sum among the two subarrays is only 9."
+    }
+  ]
+}

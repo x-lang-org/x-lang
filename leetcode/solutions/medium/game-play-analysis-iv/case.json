@@ -1,0 +1,17 @@
+{
+  "problemId": "1182",
+  "titleSlug": "game-play-analysis-iv",
+  "title": "Game Play Analysis IV",
+  "titleCn": "游戏玩法分析 IV",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.4318011999615302,
+  "testcases": [
+    {
+      "input": "</strong> Activity table: +-----------+-----------+------------+--------------+ | player_id | device_id | event_date | games_played | +-----------+-----------+------------+--------------+ | 1     | 2     | 2016-03-01 | 5      | | 1     | 2     | 2016-03-02 | 6      | | 2     | 3     | 2017-06-25 | 1      | | 3     | 1     | 2016-03-02 | 0      | | 3     | 4     | 2018-07-03 | 5      | +-----------+-----------+------------+--------------+ <strong>Output:</strong> +-----------+ | fraction | +-----------+ | 0.33   | +-----------+ <strong>Explanation:</strong> Only the player with id 1 logged back in after the first day he had logged in so the answer is 1/3 = 0.33",
+      "expectedOutput": "</strong> +-----------+ | fraction | +-----------+ | 0.33   | +-----------+ <strong>Explanation:</strong> Only the player with id 1 logged back in after the first day he had logged in so the answer is 1/3 = 0.33"
+    }
+  ]
+}

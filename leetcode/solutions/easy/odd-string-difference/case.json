@@ -1,0 +1,23 @@
+{
+  "problemId": "2547",
+  "titleSlug": "odd-string-difference",
+  "title": "Odd String Difference",
+  "titleCn": "差值数组不同的字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.663079653871755,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"adc\",\"wzy\",\"abc\"] <strong>Output:</strong> \"abc\" <strong>Explanation:</strong> - The difference integer array of \"adc\" is [3 - 0, 2 - 3] = [3, -1]. - The difference integer array of \"wzy\" is [25 - 22, 24 - 25]= [3, -1]. - The difference integer array of \"abc\" is [1 - 0, 2 - 1] = [1, 1]. The odd array out is [1, 1], so we return the corresponding string, \"abc\".",
+      "expectedOutput": "</strong> \"abc\" <strong>Explanation:</strong> - The difference integer array of \"adc\" is [3 - 0, 2 - 3] = [3, -1]. - The difference integer array of \"wzy\" is [25 - 22, 24 - 25]= [3, -1]. - The difference integer array of \"abc\" is [1 - 0, 2 - 1] = [1, 1]. The odd array out is [1, 1], so we return the corresponding string, \"abc\"."
+    },
+    {
+      "input": "</strong> words = [\"aaa\",\"bob\",\"ccc\",\"ddd\"] <strong>Output:</strong> \"bob\" <strong>Explanation:</strong> All the integer arrays are [0, 0] except for \"bob\", which corresponds to [13, -13].",
+      "expectedOutput": "</strong> \"bob\" <strong>Explanation:</strong> All the integer arrays are [0, 0] except for \"bob\", which corresponds to [13, -13]."
+    }
+  ]
+}

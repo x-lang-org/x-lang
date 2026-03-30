@@ -1,0 +1,27 @@
+{
+  "problemId": "2758",
+  "titleSlug": "check-if-object-instance-of-class",
+  "title": "Check if Object Instance of Class",
+  "titleCn": "检查是否是类的对象实例",
+  "difficulty": "MEDIUM",
+  "topicTags": [],
+  "acRate": 0.34774028024472076,
+  "testcases": [
+    {
+      "input": "</strong> func = () => checkIfInstanceOf(new Date(), Date) <strong>Output:</strong> true <strong>Explanation: </strong>The object returned by the Date constructor is, by definition, an instance of Date.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>The object returned by the Date constructor is, by definition, an instance of Date."
+    },
+    {
+      "input": "</strong> func = () => { class Animal {}; class Dog extends Animal {}; return checkIfInstanceOf(new Dog(), Animal); } <strong>Output:</strong> true <strong>Explanation:</strong> class Animal {}; class Dog extends Animal {}; checkIfInstanceOf(new Dog(), Animal); // true Dog is a subclass of Animal. Therefore, a Dog object is an instance of both Dog and Animal.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> class Animal {}; class Dog extends Animal {}; checkIfInstanceOf(new Dog(), Animal); // true Dog is a subclass of Animal. Therefore, a Dog object is an instance of both Dog and Animal."
+    },
+    {
+      "input": "</strong> func = () => checkIfInstanceOf(Date, Date) <strong>Output:</strong> false <strong>Explanation: </strong>A date constructor cannot logically be an instance of itself.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>A date constructor cannot logically be an instance of itself."
+    },
+    {
+      "input": "</strong> func = () => checkIfInstanceOf(5, Number) <strong>Output:</strong> true <strong>Explanation: </strong>5 is a Number. Note that the \"instanceof\" keyword would return false. However, it is still considered an instance of Number because it accesses the Number methods. For example \"toFixed()\".",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>5 is a Number. Note that the \"instanceof\" keyword would return false. However, it is still considered an instance of Number because it accesses the Number methods. For example \"toFixed()\"."
+    }
+  ]
+}

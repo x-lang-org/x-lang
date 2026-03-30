@@ -11,16 +11,16 @@
   "acRate": 0.391372480738258,
   "testcases": [
     {
-      "input": "2.00000",
-      "expectedOutput": "10"
+      "input": "[2, 10]",
+      "expectedOutput": "1024"
     },
     {
-      "input": "2.10000",
-      "expectedOutput": "3"
+      "input": "[2.1, 3]",
+      "expectedOutput": "9.261"
     },
     {
-      "input": "2.00000",
-      "expectedOutput": "-2"
+      "input": "[2, -2]",
+      "expectedOutput": "0.25"
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "problemId": "1670",
+  "titleSlug": "patients-with-a-condition",
+  "title": "Patients With a Condition",
+  "titleCn": "患某种疾病的患者",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.457131401890236,
+  "testcases": [
+    {
+      "input": "</strong> Patients table: +------------+--------------+--------------+ | patient_id | patient_name | conditions  | +------------+--------------+--------------+ | 1     | Daniel    | YFEV COUGH  | | 2     | Alice    |       | | 3     | Bob     | DIAB100 MYOP | | 4     | George    | ACNE DIAB100 | | 5     | Alain    | DIAB201   | +------------+--------------+--------------+ <strong>Output:</strong> +------------+--------------+--------------+ | patient_id | patient_name | conditions  | +------------+--------------+--------------+ | 3     | Bob     | DIAB100 MYOP | | 4     | George    | ACNE DIAB100 | +------------+--------------+--------------+ <strong>Explanation:</strong> Bob and George both have a condition that starts with DIAB1.",
+      "expectedOutput": "</strong> +------------+--------------+--------------+ | patient_id | patient_name | conditions  | +------------+--------------+--------------+ | 3     | Bob     | DIAB100 MYOP | | 4     | George    | ACNE DIAB100 | +------------+--------------+--------------+ <strong>Explanation:</strong> Bob and George both have a condition that starts with DIAB1."
+    }
+  ]
+}

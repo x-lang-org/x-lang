@@ -1,0 +1,21 @@
+{
+  "problemId": "176",
+  "titleSlug": "second-highest-salary",
+  "title": "Second Highest Salary",
+  "titleCn": "第二高的薪水",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.3901343068845433,
+  "testcases": [
+    {
+      "input": "</strong> Employee table: +----+--------+ | id | salary | +----+--------+ | 1 | 100  | | 2 | 200  | | 3 | 300  | +----+--------+ <strong>Output:</strong> +---------------------+ | SecondHighestSalary | +---------------------+ | 200         | +---------------------+",
+      "expectedOutput": "</strong> +---------------------+ | SecondHighestSalary | +---------------------+ | 200         | +---------------------+"
+    },
+    {
+      "input": "</strong> Employee table: +----+--------+ | id | salary | +----+--------+ | 1 | 100  | +----+--------+ <strong>Output:</strong> +---------------------+ | SecondHighestSalary | +---------------------+ | null        | +---------------------+",
+      "expectedOutput": "</strong> +---------------------+ | SecondHighestSalary | +---------------------+ | null        | +---------------------+"
+    }
+  ]
+}

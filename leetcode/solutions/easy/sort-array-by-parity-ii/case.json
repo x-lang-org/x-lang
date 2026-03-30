@@ -1,0 +1,23 @@
+{
+  "problemId": "958",
+  "titleSlug": "sort-array-by-parity-ii",
+  "title": "Sort Array By Parity II",
+  "titleCn": "按奇偶排序数组 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.7238294530755022,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,2,5,7] <strong>Output:</strong> [4,5,2,7] <strong>Explanation:</strong> [4,7,2,5], [2,5,4,7], [2,7,4,5] would also have been accepted.",
+      "expectedOutput": "</strong> [4,5,2,7] <strong>Explanation:</strong> [4,7,2,5], [2,5,4,7], [2,7,4,5] would also have been accepted."
+    },
+    {
+      "input": "</strong> nums = [2,3] <strong>Output:</strong> [2,3]",
+      "expectedOutput": "</strong> [2,3]"
+    }
+  ]
+}

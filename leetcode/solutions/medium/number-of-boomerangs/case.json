@@ -1,0 +1,27 @@
+{
+  "problemId": "447",
+  "titleSlug": "number-of-boomerangs",
+  "title": "Number of Boomerangs",
+  "titleCn": "回旋镖的数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.6876149576631689,
+  "testcases": [
+    {
+      "input": "</strong> points = [[0,0],[1,0],[2,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]."
+    },
+    {
+      "input": "</strong> points = [[1,1],[2,2],[3,3]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> points = [[1,1]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "537",
+  "titleSlug": "complex-number-multiplication",
+  "title": "Complex Number Multiplication",
+  "titleCn": "复数乘法",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.7415473451262585,
+  "testcases": [
+    {
+      "input": "</strong> num1 = \"1+1i\", num2 = \"1+1i\" <strong>Output:</strong> \"0+2i\" <strong>Explanation:</strong> (1 + i) * (1 + i) = 1 + i2 + 2 * i = 2i, and you need convert it to the form of 0+2i.",
+      "expectedOutput": "</strong> \"0+2i\" <strong>Explanation:</strong> (1 + i) * (1 + i) = 1 + i2 + 2 * i = 2i, and you need convert it to the form of 0+2i."
+    },
+    {
+      "input": "</strong> num1 = \"1+-1i\", num2 = \"1+-1i\" <strong>Output:</strong> \"0+-2i\" <strong>Explanation:</strong> (1 - i) * (1 - i) = 1 + i2 - 2 * i = -2i, and you need convert it to the form of 0+-2i.",
+      "expectedOutput": "</strong> \"0+-2i\" <strong>Explanation:</strong> (1 - i) * (1 - i) = 1 + i2 - 2 * i = -2i, and you need convert it to the form of 0+-2i."
+    }
+  ]
+}

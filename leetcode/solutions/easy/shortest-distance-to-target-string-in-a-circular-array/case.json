@@ -1,0 +1,26 @@
+{
+  "problemId": "2598",
+  "titleSlug": "shortest-distance-to-target-string-in-a-circular-array",
+  "title": "Shortest Distance to Target String in a Circular Array",
+  "titleCn": "到目标字符串的最短距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.5604875804967802,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"hello\",\"i\",\"am\",\"leetcode\",\"hello\"], target = \"hello\", startIndex = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> We start from index 1 and can reach \"hello\" by - moving 3 units to the right to reach index 4. - moving 2 units to the left to reach index 4. - moving 4 units to the right to reach index 0. - moving 1 unit to the left to reach index 0. The shortest distance to reach \"hello\" is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We start from index 1 and can reach \"hello\" by - moving 3 units to the right to reach index 4. - moving 2 units to the left to reach index 4. - moving 4 units to the right to reach index 0. - moving 1 unit to the left to reach index 0. The shortest distance to reach \"hello\" is 1."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"b\",\"leetcode\"], target = \"leetcode\", startIndex = 0 <strong>Output:</strong> 1 <strong>Explanation:</strong> We start from index 0 and can reach \"leetcode\" by - moving 2 units to the right to reach index 2. - moving 1 unit to the left to reach index 2. The shortest distance to reach \"leetcode\" is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We start from index 0 and can reach \"leetcode\" by - moving 2 units to the right to reach index 2. - moving 1 unit to the left to reach index 2. The shortest distance to reach \"leetcode\" is 1."
+    },
+    {
+      "input": "</strong> words = [\"i\",\"eat\",\"leetcode\"], target = \"ate\", startIndex = 0 <strong>Output:</strong> -1 <strong>Explanation:</strong> Since \"ate\" does not exist in <code>words</code>, we return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Since \"ate\" does not exist in <code>words</code>, we return -1."
+    }
+  ]
+}

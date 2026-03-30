@@ -1,0 +1,22 @@
+{
+  "problemId": "1247",
+  "titleSlug": "decrease-elements-to-make-array-zigzag",
+  "title": "Decrease Elements To Make Array Zigzag",
+  "titleCn": "递减元素使数组呈锯齿状",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.5100336371215823,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> We can decrease 2 to 0 or 3 to 1.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can decrease 2 to 0 or 3 to 1."
+    },
+    {
+      "input": "</strong> nums = [9,6,1,6,2] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

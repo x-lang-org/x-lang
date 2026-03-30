@@ -1,0 +1,23 @@
+{
+  "problemId": "2476",
+  "titleSlug": "check-distances-between-same-letters",
+  "title": "Check Distances Between Same Letters",
+  "titleCn": "检查相同字母间的距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7488624688096287,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abaccb\", distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] <strong>Output:</strong> true <strong>Explanation:</strong> - 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1. - 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3. - 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0. Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored. Return true because s is a well-spaced string.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> - 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1. - 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3. - 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0. Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored. Return true because s is a well-spaced string."
+    },
+    {
+      "input": "</strong> s = \"aa\", distance = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] <strong>Output:</strong> false <strong>Explanation:</strong> - 'a' appears at indices 0 and 1 so there are zero letters between them. Because distance[0] = 1, s is not a well-spaced string.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> - 'a' appears at indices 0 and 1 so there are zero letters between them. Because distance[0] = 1, s is not a well-spaced string."
+    }
+  ]
+}

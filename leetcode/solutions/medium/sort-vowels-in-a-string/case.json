@@ -1,0 +1,22 @@
+{
+  "problemId": "2887",
+  "titleSlug": "sort-vowels-in-a-string",
+  "title": "Sort Vowels in a String",
+  "titleCn": "将字符串中的元音字母排序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.8125625818377878,
+  "testcases": [
+    {
+      "input": "</strong> s = \"lEetcOde\" <strong>Output:</strong> \"lEOtcede\" <strong>Explanation:</strong> 'E', 'O', and 'e' are the vowels in s; 'l', 't', 'c', and 'd' are all consonants. The vowels are sorted according to their ASCII values, and the consonants remain in the same places.",
+      "expectedOutput": "</strong> \"lEOtcede\" <strong>Explanation:</strong> 'E', 'O', and 'e' are the vowels in s; 'l', 't', 'c', and 'd' are all consonants. The vowels are sorted according to their ASCII values, and the consonants remain in the same places."
+    },
+    {
+      "input": "</strong> s = \"lYmpH\" <strong>Output:</strong> \"lYmpH\" <strong>Explanation:</strong> There are no vowels in s (all characters in s are consonants), so we return \"lYmpH\".",
+      "expectedOutput": "</strong> \"lYmpH\" <strong>Explanation:</strong> There are no vowels in s (all characters in s are consonants), so we return \"lYmpH\"."
+    }
+  ]
+}

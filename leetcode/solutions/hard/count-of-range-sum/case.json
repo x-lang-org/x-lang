@@ -1,0 +1,27 @@
+{
+  "problemId": "327",
+  "titleSlug": "count-of-range-sum",
+  "title": "Count of Range Sum",
+  "titleCn": "区间和的个数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "ordered-set",
+    "merge-sort"
+  ],
+  "acRate": 0.4084999044525129,
+  "testcases": [
+    {
+      "input": "</strong> nums = [-2,5,-1], lower = -2, upper = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> The three ranges are: [0,0], [2,2], and [0,2] and their respective sums are: -2, -1, 2.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The three ranges are: [0,0], [2,2], and [0,2] and their respective sums are: -2, -1, 2."
+    },
+    {
+      "input": "</strong> nums = [0], lower = 0, upper = 0 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "100260",
+  "titleSlug": "intersection-lcci",
+  "title": "Intersection LCCI",
+  "titleCn": "交点",
+  "difficulty": "HARD",
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "acRate": 0.4422593994270152,
+  "testcases": [
+    {
+      "input": "</strong>\r line1 = {0, 0}, {1, 0}\r line2 = {1, 1}, {0, -1}\r <strong>Output: </strong> {0.5, 0}",
+      "expectedOutput": "</strong> {0.5, 0}"
+    },
+    {
+      "input": "</strong>\r line1 = {0, 0}, {3, 3}\r line2 = {1, 1}, {2, 2}\r <strong>Output: </strong> {1, 1}",
+      "expectedOutput": "</strong> {1, 1}"
+    },
+    {
+      "input": "</strong>\r line1 = {0, 0}, {1, 1}\r line2 = {1, 0}, {2, 1}\r <strong>Output: </strong> {} (no intersection)",
+      "expectedOutput": "</strong> {} (no intersection)"
+    }
+  ]
+}

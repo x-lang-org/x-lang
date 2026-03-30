@@ -1,0 +1,23 @@
+{
+  "problemId": "506",
+  "titleSlug": "relative-ranks",
+  "title": "Relative Ranks",
+  "titleCn": "相对名次",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6632214157814581,
+  "testcases": [
+    {
+      "input": "</strong> score = [5,4,3,2,1] <strong>Output:</strong> [\"Gold Medal\",\"Silver Medal\",\"Bronze Medal\",\"4\",\"5\"] <strong>Explanation:</strong> The placements are [1<sup>st</sup>, 2<sup>nd</sup>, 3<sup>rd</sup>, 4<sup>th</sup>, 5<sup>th</sup>].",
+      "expectedOutput": "</strong> [\"Gold Medal\",\"Silver Medal\",\"Bronze Medal\",\"4\",\"5\"] <strong>Explanation:</strong> The placements are [1<sup>st</sup>, 2<sup>nd</sup>, 3<sup>rd</sup>, 4<sup>th</sup>, 5<sup>th</sup>]."
+    },
+    {
+      "input": "</strong> score = [10,3,8,9,4] <strong>Output:</strong> [\"Gold Medal\",\"5\",\"Bronze Medal\",\"Silver Medal\",\"4\"] <strong>Explanation:</strong> The placements are [1<sup>st</sup>, 5<sup>th</sup>, 3<sup>rd</sup>, 2<sup>nd</sup>, 4<sup>th</sup>].",
+      "expectedOutput": "</strong> [\"Gold Medal\",\"5\",\"Bronze Medal\",\"Silver Medal\",\"4\"] <strong>Explanation:</strong> The placements are [1<sup>st</sup>, 5<sup>th</sup>, 3<sup>rd</sup>, 2<sup>nd</sup>, 4<sup>th</sup>]."
+    }
+  ]
+}

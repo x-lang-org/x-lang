@@ -1,0 +1,29 @@
+{
+  "problemId": "2919",
+  "titleSlug": "maximum-number-of-groups-with-increasing-length",
+  "title": "Maximum Number of Groups With Increasing Length",
+  "titleCn": "长度递增组的最大数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.24530032095369098,
+  "testcases": [
+    {
+      "input": "</strong> <code>usageLimits</code> = [1,2,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> In this example, we can use 0 at most once, 1 at most twice, and 2 at most five times. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [2]. Group 2 contains the numbers [1,2]. Group 3 contains the numbers [0,1,2]. It can be shown that the maximum number of groups is 3. So, the output is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In this example, we can use 0 at most once, 1 at most twice, and 2 at most five times. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [2]. Group 2 contains the numbers [1,2]. Group 3 contains the numbers [0,1,2]. It can be shown that the maximum number of groups is 3. So, the output is 3."
+    },
+    {
+      "input": "</strong> <code>usageLimits</code> = [2,1,2] <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, we can use 0 at most twice, 1 at most once, and 2 at most twice. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [0]. Group 2 contains the numbers [1,2]. It can be shown that the maximum number of groups is 2. So, the output is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, we can use 0 at most twice, 1 at most once, and 2 at most twice. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [0]. Group 2 contains the numbers [1,2]. It can be shown that the maximum number of groups is 2. So, the output is 2."
+    },
+    {
+      "input": "</strong> <code>usageLimits</code> = [1,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> In this example, we can use both 0 and 1 at most once. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [0]. It can be shown that the maximum number of groups is 1. So, the output is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In this example, we can use both 0 and 1 at most once. One way of creating the maximum number of groups while satisfying the conditions is: Group 1 contains the number [0]. It can be shown that the maximum number of groups is 1. So, the output is 1."
+    }
+  ]
+}

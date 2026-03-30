@@ -1,0 +1,27 @@
+{
+  "problemId": "1915",
+  "titleSlug": "check-if-one-string-swap-can-make-strings-equal",
+  "title": "Check if One String Swap Can Make Strings Equal",
+  "titleCn": "仅执行一次字符串交换能否使两个字符串相等",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.5271092263851608,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"bank\", s2 = \"kanb\" <strong>Output:</strong> true <strong>Explanation:</strong> For example, swap the first character with the last character of s2 to make \"bank\".",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> For example, swap the first character with the last character of s2 to make \"bank\"."
+    },
+    {
+      "input": "</strong> s1 = \"attack\", s2 = \"defend\" <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to make them equal with one string swap.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to make them equal with one string swap."
+    },
+    {
+      "input": "</strong> s1 = \"kelb\", s2 = \"kelb\" <strong>Output:</strong> true <strong>Explanation:</strong> The two strings are already equal, so no string swap operation is required.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The two strings are already equal, so no string swap operation is required."
+    }
+  ]
+}

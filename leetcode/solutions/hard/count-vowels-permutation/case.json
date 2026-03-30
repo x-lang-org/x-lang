@@ -1,0 +1,25 @@
+{
+  "problemId": "1332",
+  "titleSlug": "count-vowels-permutation",
+  "title": "Count Vowels Permutation",
+  "titleCn": "统计元音字母序列的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.6094784169191285,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 5 <strong>Explanation:</strong> All possible strings are: \"a\", \"e\", \"i\" , \"o\" and \"u\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> All possible strings are: \"a\", \"e\", \"i\" , \"o\" and \"u\"."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 10 <strong>Explanation:</strong> All possible strings are: \"ae\", \"ea\", \"ei\", \"ia\", \"ie\", \"io\", \"iu\", \"oi\", \"ou\" and \"ua\".",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> All possible strings are: \"ae\", \"ea\", \"ei\", \"ia\", \"ie\", \"io\", \"iu\", \"oi\", \"ou\" and \"ua\"."
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 68",
+      "expectedOutput": "</strong> 68"
+    }
+  ]
+}

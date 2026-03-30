@@ -1,0 +1,22 @@
+{
+  "problemId": "481",
+  "titleSlug": "magical-string",
+  "title": "Magical String",
+  "titleCn": "神奇字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.6383995588370455,
+  "testcases": [
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> 3 <strong>Explanation:</strong> The first 6 elements of magical string s is \"122112\" and it contains three 1's, so return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The first 6 elements of magical string s is \"122112\" and it contains three 1's, so return 3."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

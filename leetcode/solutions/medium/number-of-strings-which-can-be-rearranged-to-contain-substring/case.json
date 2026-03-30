@@ -1,0 +1,23 @@
+{
+  "problemId": "3200",
+  "titleSlug": "number-of-strings-which-can-be-rearranged-to-contain-substring",
+  "title": "Number of Strings Which Can Be Rearranged to Contain Substring",
+  "titleCn": "重新排列后包含指定子字符串的字符串数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.6368948247078464,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 12 <strong>Explanation:</strong> The 12 strings which can be rearranged to have \"leet\" as a substring are: \"eelt\", \"eetl\", \"elet\", \"elte\", \"etel\", \"etle\", \"leet\", \"lete\", \"ltee\", \"teel\", \"tele\", and \"tlee\".",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> The 12 strings which can be rearranged to have \"leet\" as a substring are: \"eelt\", \"eetl\", \"elet\", \"elte\", \"etel\", \"etle\", \"leet\", \"lete\", \"ltee\", \"teel\", \"tele\", and \"tlee\"."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 83943898 <strong>Explanation:</strong> The number of strings with length 10 which can be rearranged to have \"leet\" as a substring is 526083947580. Hence the answer is 526083947580 % (10<sup>9</sup> + 7) = 83943898.",
+      "expectedOutput": "</strong> 83943898 <strong>Explanation:</strong> The number of strings with length 10 which can be rearranged to have \"leet\" as a substring is 526083947580. Hence the answer is 526083947580 % (10<sup>9</sup> + 7) = 83943898."
+    }
+  ]
+}

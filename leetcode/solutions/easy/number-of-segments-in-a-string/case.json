@@ -1,0 +1,21 @@
+{
+  "problemId": "434",
+  "titleSlug": "number-of-segments-in-a-string",
+  "title": "Number of Segments in a String",
+  "titleCn": "字符串中的单词数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.3806622148922505,
+  "testcases": [
+    {
+      "input": "</strong> s = \"Hello, my name is John\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The five segments are [\"Hello,\", \"my\", \"name\", \"is\", \"John\"]",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The five segments are [\"Hello,\", \"my\", \"name\", \"is\", \"John\"]"
+    },
+    {
+      "input": "</strong> s = \"Hello\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

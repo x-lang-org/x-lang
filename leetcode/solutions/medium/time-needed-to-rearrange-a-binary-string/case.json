@@ -1,0 +1,23 @@
+{
+  "problemId": "2464",
+  "titleSlug": "time-needed-to-rearrange-a-binary-string",
+  "title": "Time Needed to Rearrange a Binary String",
+  "titleCn": "二进制字符串重新安排顺序需要的时间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "simulation"
+  ],
+  "acRate": 0.5716008037508372,
+  "testcases": [
+    {
+      "input": "</strong> s = \"0110101\" <strong>Output:</strong> 4 <strong>Explanation:</strong> After one second, s becomes \"1011010\". After another second, s becomes \"1101100\". After the third second, s becomes \"1110100\". After the fourth second, s becomes \"1111000\". No occurrence of \"01\" exists any longer, and the process needed 4 seconds to complete, so we return 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> After one second, s becomes \"1011010\". After another second, s becomes \"1101100\". After the third second, s becomes \"1110100\". After the fourth second, s becomes \"1111000\". No occurrence of \"01\" exists any longer, and the process needed 4 seconds to complete, so we return 4."
+    },
+    {
+      "input": "</strong> s = \"11100\" <strong>Output:</strong> 0 <strong>Explanation:</strong> No occurrence of \"01\" exists in s, and the processes needed 0 seconds to complete, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No occurrence of \"01\" exists in s, and the processes needed 0 seconds to complete, so we return 0."
+    }
+  ]
+}

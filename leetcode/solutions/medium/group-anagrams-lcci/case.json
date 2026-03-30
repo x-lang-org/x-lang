@@ -1,0 +1,20 @@
+{
+  "problemId": "1000040",
+  "titleSlug": "group-anagrams-lcci",
+  "title": "Group Anagrams LCCI",
+  "titleCn": "变位词组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.7460581583198708,
+  "testcases": [
+    {
+      "input": "</strong> <code>[\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]</code>,\r <strong>Output:</strong>\r [\r  [\"ate\",\"eat\",\"tea\"],\r  [\"nat\",\"tan\"],\r  [\"bat\"]\r ]",
+      "expectedOutput": "</strong>\r [\r  [\"ate\",\"eat\",\"tea\"],\r  [\"nat\",\"tan\"],\r  [\"bat\"]\r ]"
+    }
+  ]
+}

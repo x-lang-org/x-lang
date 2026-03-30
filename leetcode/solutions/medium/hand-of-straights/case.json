@@ -1,0 +1,24 @@
+{
+  "problemId": "876",
+  "titleSlug": "hand-of-straights",
+  "title": "Hand of Straights",
+  "titleCn": "一手顺子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.5747236613805404,
+  "testcases": [
+    {
+      "input": "</strong> hand = [1,2,3,6,2,3,4,7,8], groupSize = 3 <strong>Output:</strong> true <strong>Explanation:</strong> Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]"
+    },
+    {
+      "input": "</strong> hand = [1,2,3,4,5], groupSize = 4 <strong>Output:</strong> false <strong>Explanation:</strong> Alice's hand can not be rearranged into groups of 4.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Alice's hand can not be rearranged into groups of 4."
+    }
+  ]
+}

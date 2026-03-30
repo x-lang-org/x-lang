@@ -1,0 +1,23 @@
+{
+  "problemId": "926",
+  "titleSlug": "find-and-replace-pattern",
+  "title": "Find and Replace Pattern",
+  "titleCn": "查找和替换模式",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7865871302334899,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abc\",\"deq\",\"mee\",\"aqq\",\"dkd\",\"ccc\"], pattern = \"abb\" <strong>Output:</strong> [\"mee\",\"aqq\"] <strong>Explanation:</strong> \"mee\" matches the pattern because there is a permutation {a -> m, b -> e, ...}. \"ccc\" does not match the pattern because {a -> c, b -> c, ...} is not a permutation, since a and b map to the same letter.",
+      "expectedOutput": "</strong> [\"mee\",\"aqq\"] <strong>Explanation:</strong> \"mee\" matches the pattern because there is a permutation {a -> m, b -> e, ...}. \"ccc\" does not match the pattern because {a -> c, b -> c, ...} is not a permutation, since a and b map to the same letter."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"b\",\"c\"], pattern = \"a\" <strong>Output:</strong> [\"a\",\"b\",\"c\"]",
+      "expectedOutput": "</strong> [\"a\",\"b\",\"c\"]"
+    }
+  ]
+}

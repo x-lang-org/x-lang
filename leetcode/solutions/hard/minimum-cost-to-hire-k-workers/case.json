@@ -1,0 +1,24 @@
+{
+  "problemId": "887",
+  "titleSlug": "minimum-cost-to-hire-k-workers",
+  "title": "Minimum Cost to Hire K Workers",
+  "titleCn": "雇佣 K 名工人的最低成本",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6594400371424535,
+  "testcases": [
+    {
+      "input": "</strong> quality = [10,20,5], wage = [70,50,30], k = 2 <strong>Output:</strong> 105.00000 <strong>Explanation:</strong> We pay 70 to 0<sup>th</sup> worker and 35 to 2<sup>nd</sup> worker.",
+      "expectedOutput": "</strong> 105.00000 <strong>Explanation:</strong> We pay 70 to 0<sup>th</sup> worker and 35 to 2<sup>nd</sup> worker."
+    },
+    {
+      "input": "</strong> quality = [3,1,10,10,1], wage = [4,8,2,2,7], k = 3 <strong>Output:</strong> 30.66667 <strong>Explanation:</strong> We pay 4 to 0<sup>th</sup> worker, 13.33333 to 2<sup>nd</sup> and 3<sup>rd</sup> workers separately.",
+      "expectedOutput": "</strong> 30.66667 <strong>Explanation:</strong> We pay 4 to 0<sup>th</sup> worker, 13.33333 to 2<sup>nd</sup> and 3<sup>rd</sup> workers separately."
+    }
+  ]
+}

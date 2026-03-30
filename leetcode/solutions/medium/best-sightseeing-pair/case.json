@@ -1,0 +1,22 @@
+{
+  "problemId": "1063",
+  "titleSlug": "best-sightseeing-pair",
+  "title": "Best Sightseeing Pair",
+  "titleCn": "最佳观光组合",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5921295060928348,
+  "testcases": [
+    {
+      "input": "</strong> values = [8,1,5,2,6] <strong>Output:</strong> 11 <strong>Explanation:</strong> i = 0, j = 2, values[i] + values[j] + i - j = 8 + 5 + 0 - 2 = 11",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> i = 0, j = 2, values[i] + values[j] + i - j = 8 + 5 + 0 - 2 = 11"
+    },
+    {
+      "input": "</strong> values = [1,2] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

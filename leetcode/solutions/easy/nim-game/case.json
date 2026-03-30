@@ -1,0 +1,27 @@
+{
+  "problemId": "292",
+  "titleSlug": "nim-game",
+  "title": "Nim Game",
+  "titleCn": "Nim 游戏",
+  "difficulty": "EASY",
+  "topicTags": [
+    "brainteaser",
+    "math",
+    "game-theory"
+  ],
+  "acRate": 0.7066748787435523,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> false <strong>Explanation:</strong> These are the possible outcomes: 1. You remove 1 stone. Your friend removes 3 stones, including the last stone. Your friend wins. 2. You remove 2 stones. Your friend removes 2 stones, including the last stone. Your friend wins. 3. You remove 3 stones. Your friend removes the last stone. Your friend wins. In all outcomes, your friend wins.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> These are the possible outcomes: 1. You remove 1 stone. Your friend removes 3 stones, including the last stone. Your friend wins. 2. You remove 2 stones. Your friend removes 2 stones, including the last stone. Your friend wins. 3. You remove 3 stones. Your friend removes the last stone. Your friend wins. In all outcomes, your friend wins."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

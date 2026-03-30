@@ -1,0 +1,24 @@
+{
+  "problemId": "2428",
+  "titleSlug": "equal-row-and-column-pairs",
+  "title": "Equal Row and Column Pairs",
+  "titleCn": "相等行列对",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.7338064774090364,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[3,2,1],[1,7,6],[2,7,7]] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is 1 equal row and column pair: - (Row 2, Column 1): [2,7,7]",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is 1 equal row and column pair: - (Row 2, Column 1): [2,7,7]"
+    },
+    {
+      "input": "</strong> grid = [[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 equal row and column pairs: - (Row 0, Column 0): [3,1,2,2] - (Row 2, Column 2): [2,4,2,2] - (Row 3, Column 2): [2,4,2,2]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 equal row and column pairs: - (Row 0, Column 0): [3,1,2,2] - (Row 2, Column 2): [2,4,2,2] - (Row 3, Column 2): [2,4,2,2]"
+    }
+  ]
+}

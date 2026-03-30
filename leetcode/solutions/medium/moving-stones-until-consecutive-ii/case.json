@@ -1,0 +1,24 @@
+{
+  "problemId": "1113",
+  "titleSlug": "moving-stones-until-consecutive-ii",
+  "title": "Moving Stones Until Consecutive II",
+  "titleCn": "移动石子直到连续 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.6561685823754789,
+  "testcases": [
+    {
+      "input": "</strong> stones = [7,4,9] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> We can move 4 -> 8 for one move to finish the game. Or, we can move 9 -> 5, 4 -> 6 for two moves to finish the game.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> We can move 4 -> 8 for one move to finish the game. Or, we can move 9 -> 5, 4 -> 6 for two moves to finish the game."
+    },
+    {
+      "input": "</strong> stones = [6,5,4,3,10] <strong>Output:</strong> [2,3] <strong>Explanation:</strong> We can move 3 -> 8 then 10 -> 7 to finish the game. Or, we can move 3 -> 7, 4 -> 8, 5 -> 9 to finish the game. Notice we cannot move 10 -> 2 to finish the game, because that would be an illegal move.",
+      "expectedOutput": "</strong> [2,3] <strong>Explanation:</strong> We can move 3 -> 8 then 10 -> 7 to finish the game. Or, we can move 3 -> 7, 4 -> 8, 5 -> 9 to finish the game. Notice we cannot move 10 -> 2 to finish the game, because that would be an illegal move."
+    }
+  ]
+}

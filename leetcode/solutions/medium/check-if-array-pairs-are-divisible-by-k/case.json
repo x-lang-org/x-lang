@@ -1,0 +1,27 @@
+{
+  "problemId": "1620",
+  "titleSlug": "check-if-array-pairs-are-divisible-by-k",
+  "title": "Check If Array Pairs Are Divisible by k",
+  "titleCn": "检查数组对是否可以被 k 整除",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.41399003974962306,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2,3,4,5,10,6,7,8,9], k = 5 <strong>Output:</strong> true <strong>Explanation:</strong> Pairs are (1,9),(2,8),(3,7),(4,6) and (5,10).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Pairs are (1,9),(2,8),(3,7),(4,6) and (5,10)."
+    },
+    {
+      "input": "</strong> arr = [1,2,3,4,5,6], k = 7 <strong>Output:</strong> true <strong>Explanation:</strong> Pairs are (1,6),(2,5) and(3,4).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Pairs are (1,6),(2,5) and(3,4)."
+    },
+    {
+      "input": "</strong> arr = [1,2,3,4,5,6], k = 10 <strong>Output:</strong> false <strong>Explanation:</strong> You can try all possible pairs to see that there is no way to divide arr into 3 pairs each with sum divisible by 10.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> You can try all possible pairs to see that there is no way to divide arr into 3 pairs each with sum divisible by 10."
+    }
+  ]
+}

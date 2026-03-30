@@ -1,0 +1,27 @@
+{
+  "problemId": "808",
+  "titleSlug": "number-of-matching-subsequences",
+  "title": "Number of Matching Subsequences",
+  "titleCn": "匹配子序列的单词数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "binary-search",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.510239030342805,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcde\", words = [\"a\",\"bb\",\"acd\",\"ace\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are three strings in words that are a subsequence of s: \"a\", \"acd\", \"ace\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are three strings in words that are a subsequence of s: \"a\", \"acd\", \"ace\"."
+    },
+    {
+      "input": "</strong> s = \"dsahjpjauf\", words = [\"ahjpjau\",\"ja\",\"ahbwzgqnuk\",\"tnmlanowax\"] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

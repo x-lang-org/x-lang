@@ -1,0 +1,19 @@
+{
+  "problemId": "2796",
+  "titleSlug": "allow-one-function-call",
+  "title": "Allow One Function Call",
+  "titleCn": "只允许一次函数调用",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7828665152662124,
+  "testcases": [
+    {
+      "input": "</strong> fn = (a,b,c) => (a + b + c), calls = [[1,2,3],[2,3,6]] <strong>Output:</strong> [{\"calls\":1,\"value\":6}] <strong>Explanation:</strong> const onceFn = once(fn); onceFn(1, 2, 3); // 6 onceFn(2, 3, 6); // undefined, fn was not called",
+      "expectedOutput": "</strong> [{\"calls\":1,\"value\":6}] <strong>Explanation:</strong> const onceFn = once(fn); onceFn(1, 2, 3); // 6 onceFn(2, 3, 6); // undefined, fn was not called"
+    },
+    {
+      "input": "</strong> fn = (a,b,c) => (a * b * c), calls = [[5,7,4],[2,3,6],[4,6,8]] <strong>Output:</strong> [{\"calls\":1,\"value\":140}] <strong>Explanation:</strong> const onceFn = once(fn); onceFn(5, 7, 4); // 140 onceFn(2, 3, 6); // undefined, fn was not called onceFn(4, 6, 8); // undefined, fn was not called",
+      "expectedOutput": "</strong> [{\"calls\":1,\"value\":140}] <strong>Explanation:</strong> const onceFn = once(fn); onceFn(5, 7, 4); // 140 onceFn(2, 3, 6); // undefined, fn was not called onceFn(4, 6, 8); // undefined, fn was not called"
+    }
+  ]
+}

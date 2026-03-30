@@ -1,0 +1,22 @@
+{
+  "problemId": "1704",
+  "titleSlug": "special-positions-in-a-binary-matrix",
+  "title": "Special Positions in a Binary Matrix",
+  "titleCn": "二进制矩阵中的特殊位置",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.7021129410051337,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,0,0],[0,0,1],[1,0,0]] <strong>Output:</strong> 1 <strong>Explanation:</strong> (1, 2) is a special position because mat[1][2] == 1 and all other elements in row 1 and column 2 are 0.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> (1, 2) is a special position because mat[1][2] == 1 and all other elements in row 1 and column 2 are 0."
+    },
+    {
+      "input": "</strong> mat = [[1,0,0],[0,1,0],[0,0,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> (0, 0), (1, 1) and (2, 2) are special positions.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> (0, 0), (1, 1) and (2, 2) are special positions."
+    }
+  ]
+}

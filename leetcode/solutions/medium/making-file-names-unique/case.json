@@ -1,0 +1,27 @@
+{
+  "problemId": "1611",
+  "titleSlug": "making-file-names-unique",
+  "title": "Making File Names Unique",
+  "titleCn": "保证文件名唯一",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4182832730284668,
+  "testcases": [
+    {
+      "input": "</strong> names = [\"pes\",\"fifa\",\"gta\",\"pes(2019)\"] <strong>Output:</strong> [\"pes\",\"fifa\",\"gta\",\"pes(2019)\"] <strong>Explanation:</strong> Let's see how the file system creates folder names: \"pes\" --> not assigned before, remains \"pes\" \"fifa\" --> not assigned before, remains \"fifa\" \"gta\" --> not assigned before, remains \"gta\" \"pes(2019)\" --> not assigned before, remains \"pes(2019)\"",
+      "expectedOutput": "</strong> [\"pes\",\"fifa\",\"gta\",\"pes(2019)\"] <strong>Explanation:</strong> Let's see how the file system creates folder names: \"pes\" --> not assigned before, remains \"pes\" \"fifa\" --> not assigned before, remains \"fifa\" \"gta\" --> not assigned before, remains \"gta\" \"pes(2019)\" --> not assigned before, remains \"pes(2019)"
+    },
+    {
+      "input": "</strong> names = [\"gta\",\"gta(1)\",\"gta\",\"avalon\"] <strong>Output:</strong> [\"gta\",\"gta(1)\",\"gta(2)\",\"avalon\"] <strong>Explanation:</strong> Let's see how the file system creates folder names: \"gta\" --> not assigned before, remains \"gta\" \"gta(1)\" --> not assigned before, remains \"gta(1)\" \"gta\" --> the name is reserved, system adds (k), since \"gta(1)\" is also reserved, systems put k = 2. it becomes \"gta(2)\" \"avalon\" --> not assigned before, remains \"avalon\"",
+      "expectedOutput": "</strong> [\"gta\",\"gta(1)\",\"gta(2)\",\"avalon\"] <strong>Explanation:</strong> Let's see how the file system creates folder names: \"gta\" --> not assigned before, remains \"gta\" \"gta(1)\" --> not assigned before, remains \"gta(1)\" \"gta\" --> the name is reserved, system adds (k), since \"gta(1)\" is also reserved, systems put k = 2. it becomes \"gta(2)\" \"avalon\" --> not assigned before, remains \"avalon"
+    },
+    {
+      "input": "</strong> names = [\"onepiece\",\"onepiece(1)\",\"onepiece(2)\",\"onepiece(3)\",\"onepiece\"] <strong>Output:</strong> [\"onepiece\",\"onepiece(1)\",\"onepiece(2)\",\"onepiece(3)\",\"onepiece(4)\"] <strong>Explanation:</strong> When the last folder is created, the smallest positive valid k is 4, and it becomes \"onepiece(4)\".",
+      "expectedOutput": "</strong> [\"onepiece\",\"onepiece(1)\",\"onepiece(2)\",\"onepiece(3)\",\"onepiece(4)\"] <strong>Explanation:</strong> When the last folder is created, the smallest positive valid k is 4, and it becomes \"onepiece(4)\"."
+    }
+  ]
+}

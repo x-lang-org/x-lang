@@ -1,0 +1,25 @@
+{
+  "problemId": "978",
+  "titleSlug": "valid-mountain-array",
+  "title": "Valid Mountain Array",
+  "titleCn": "有效的山脉数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.4026938013075751,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,1] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> arr = [3,5,5] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> arr = [0,3,2,1] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2746",
+  "titleSlug": "filter-elements-from-array",
+  "title": "Filter Elements from Array",
+  "titleCn": "过滤数组中的元素",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7774892550143266,
+  "testcases": [
+    {
+      "input": "</strong> arr = [0,10,20,30], fn = function greaterThan10(n) { return n > 10; } <strong>Output:</strong> [20,30] <strong>Explanation:</strong> const newArray = filter(arr, fn); // [20, 30] The function filters out values that are not greater than 10",
+      "expectedOutput": "</strong> [20,30] <strong>Explanation:</strong> const newArray = filter(arr, fn); // [20, 30] The function filters out values that are not greater than 10"
+    },
+    {
+      "input": "</strong> arr = [1,2,3], fn = function firstIndex(n, i) { return i === 0; } <strong>Output:</strong> [1] <strong>Explanation:</strong> fn can also accept the index of each element In this case, the function removes elements not at index 0",
+      "expectedOutput": "</strong> [1] <strong>Explanation:</strong> fn can also accept the index of each element In this case, the function removes elements not at index 0"
+    },
+    {
+      "input": "</strong> arr = [-2,-1,0,1,2], fn = function plusOne(n) { return n + 1 } <strong>Output:</strong> [-2,0,1,2] <strong>Explanation:</strong> Falsey values such as 0 should be filtered out",
+      "expectedOutput": "</strong> [-2,0,1,2] <strong>Explanation:</strong> Falsey values such as 0 should be filtered out"
+    }
+  ]
+}

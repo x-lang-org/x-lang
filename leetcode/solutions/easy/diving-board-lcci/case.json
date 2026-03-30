@@ -1,0 +1,18 @@
+{
+  "problemId": "100352",
+  "titleSlug": "diving-board-lcci",
+  "title": "Diving Board LCCI",
+  "titleCn": "跳水板",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.43735278220774976,
+  "testcases": [
+    {
+      "input": "</strong>\r shorter = 1\r longer = 2\r k = 3\r <strong>Output: </strong> {3,4,5,6}",
+      "expectedOutput": "</strong> {3,4,5,6}"
+    }
+  ]
+}

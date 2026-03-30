@@ -1,0 +1,25 @@
+{
+  "problemId": "1446",
+  "titleSlug": "angle-between-hands-of-a-clock",
+  "title": "Angle Between Hands of a Clock",
+  "titleCn": "时钟指针的夹角",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.6133784508727768,
+  "testcases": [
+    {
+      "input": "</strong> hour = 12, minutes = 30 <strong>Output:</strong> 165",
+      "expectedOutput": "</strong> 165"
+    },
+    {
+      "input": "</strong> hour = 3, minutes = 30 <strong>Output:</strong> 75",
+      "expectedOutput": "</strong> 75"
+    },
+    {
+      "input": "</strong> hour = 3, minutes = 15 <strong>Output:</strong> 7.5",
+      "expectedOutput": "</strong> 7.5"
+    }
+  ]
+}

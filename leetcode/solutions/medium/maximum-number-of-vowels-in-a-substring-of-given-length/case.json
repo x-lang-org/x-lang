@@ -1,0 +1,26 @@
+{
+  "problemId": "1567",
+  "titleSlug": "maximum-number-of-vowels-in-a-substring-of-given-length",
+  "title": "Maximum Number of Vowels in a Substring of Given Length",
+  "titleCn": "定长子串中元音的最大数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.6179562315402684,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abciiidef\", k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The substring \"iii\" contains 3 vowel letters.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The substring \"iii\" contains 3 vowel letters."
+    },
+    {
+      "input": "</strong> s = \"aeiou\", k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> Any substring of length 2 contains 2 vowels.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Any substring of length 2 contains 2 vowels."
+    },
+    {
+      "input": "</strong> s = \"leetcode\", k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> \"lee\", \"eet\" and \"ode\" contain 2 vowels.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> \"lee\", \"eet\" and \"ode\" contain 2 vowels."
+    }
+  ]
+}

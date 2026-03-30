@@ -1,0 +1,27 @@
+{
+  "problemId": "2330",
+  "titleSlug": "maximum-total-beauty-of-the-gardens",
+  "title": "Maximum Total Beauty of the Gardens",
+  "titleCn": "花园的最大总美丽值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "binary-search",
+    "enumeration",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.4054597606409284,
+  "testcases": [
+    {
+      "input": "</strong> flowers = [1,3,1,1], newFlowers = 7, target = 6, full = 12, partial = 1 <strong>Output:</strong> 14 <strong>Explanation:</strong> Alice can plant - 2 flowers in the 0<sup>th</sup> garden - 3 flowers in the 1<sup>st</sup> garden - 1 flower in the 2<sup>nd</sup> garden - 1 flower in the 3<sup>rd</sup> garden The gardens will then be [3,6,2,2]. She planted a total of 2 + 3 + 1 + 1 = 7 flowers. There is 1 garden that is complete. The minimum number of flowers in the incomplete gardens is 2. Thus, the total beauty is 1 * 12 + 2 * 1 = 12 + 2 = 14. No other way of planting flowers can obtain a total beauty higher than 14.",
+      "expectedOutput": "</strong> 14 <strong>Explanation:</strong> Alice can plant - 2 flowers in the 0<sup>th</sup> garden - 3 flowers in the 1<sup>st</sup> garden - 1 flower in the 2<sup>nd</sup> garden - 1 flower in the 3<sup>rd</sup> garden The gardens will then be [3,6,2,2]. She planted a total of 2 + 3 + 1 + 1 = 7 flowers. There is 1 garden that is complete. The minimum number of flowers in the incomplete gardens is 2. Thus, the total beauty is 1 * 12 + 2 * 1 = 12 + 2 = 14. No other way of planting flowers can obtain a total beauty higher than 14."
+    },
+    {
+      "input": "</strong> flowers = [2,4,5,3], newFlowers = 10, target = 5, full = 2, partial = 6 <strong>Output:</strong> 30 <strong>Explanation:</strong> Alice can plant - 3 flowers in the 0<sup>th</sup> garden - 0 flowers in the 1<sup>st</sup> garden - 0 flowers in the 2<sup>nd</sup> garden - 2 flowers in the 3<sup>rd</sup> garden The gardens will then be [5,4,5,5]. She planted a total of 3 + 0 + 0 + 2 = 5 flowers. There are 3 gardens that are complete. The minimum number of flowers in the incomplete gardens is 4. Thus, the total beauty is 3 * 2 + 4 * 6 = 6 + 24 = 30. No other way of planting flowers can obtain a total beauty higher than 30. Note that Alice could make all the gardens complete but in this case, she would obtain a lower total beauty.",
+      "expectedOutput": "</strong> 30 <strong>Explanation:</strong> Alice can plant - 3 flowers in the 0<sup>th</sup> garden - 0 flowers in the 1<sup>st</sup> garden - 0 flowers in the 2<sup>nd</sup> garden - 2 flowers in the 3<sup>rd</sup> garden The gardens will then be [5,4,5,5]. She planted a total of 3 + 0 + 0 + 2 = 5 flowers. There are 3 gardens that are complete. The minimum number of flowers in the incomplete gardens is 4. Thus, the total beauty is 3 * 2 + 4 * 6 = 6 + 24 = 30. No other way of planting flowers can obtain a total beauty higher than 30. Note that Alice could make all the gardens complete but in this case, she would obtain a lower total beauty."
+    }
+  ]
+}

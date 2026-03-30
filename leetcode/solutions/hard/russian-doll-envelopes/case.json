@@ -1,0 +1,24 @@
+{
+  "problemId": "354",
+  "titleSlug": "russian-doll-envelopes",
+  "title": "Russian Doll Envelopes",
+  "titleCn": "俄罗斯套娃信封问题",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.35036475630872294,
+  "testcases": [
+    {
+      "input": "</strong> envelopes = [[5,4],[6,4],[6,7],[2,3]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The maximum number of envelopes you can Russian doll is <code>3</code> ([2,3] => [5,4] => [6,7]).",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The maximum number of envelopes you can Russian doll is <code>3</code> ([2,3] => [5,4] => [6,7])."
+    },
+    {
+      "input": "</strong> envelopes = [[1,1],[1,1],[1,1]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

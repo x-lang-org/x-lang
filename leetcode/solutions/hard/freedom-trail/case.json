@@ -1,0 +1,24 @@
+{
+  "problemId": "514",
+  "titleSlug": "freedom-trail",
+  "title": "Freedom Trail",
+  "titleCn": "自由之路",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5459329094496821,
+  "testcases": [
+    {
+      "input": "</strong> ring = \"godding\", key = \"gd\" <strong>Output:</strong> 4 <strong>Explanation:</strong> For the first key character 'g', since it is already in place, we just need 1 step to spell this character. For the second key character 'd', we need to rotate the ring \"godding\" anticlockwise by two steps to make it become \"ddinggo\". Also, we need 1 more step for spelling. So the final output is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> For the first key character 'g', since it is already in place, we just need 1 step to spell this character. For the second key character 'd', we need to rotate the ring \"godding\" anticlockwise by two steps to make it become \"ddinggo\". Also, we need 1 more step for spelling. So the final output is 4."
+    },
+    {
+      "input": "</strong> ring = \"godding\", key = \"godding\" <strong>Output:</strong> 13",
+      "expectedOutput": "</strong> 13"
+    }
+  ]
+}

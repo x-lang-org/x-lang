@@ -1,0 +1,22 @@
+{
+  "problemId": "2438",
+  "titleSlug": "find-closest-node-to-given-two-nodes",
+  "title": "Find Closest Node to Given Two Nodes",
+  "titleCn": "找到离给定两个节点最近的节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "graph"
+  ],
+  "acRate": 0.41604030065568526,
+  "testcases": [
+    {
+      "input": "</strong> edges = [2,2,3,-1], node1 = 0, node2 = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> The distance from node 0 to node 2 is 1, and the distance from node 1 to node 2 is 1. The maximum of those two distances is 1. It can be proven that we cannot get a node with a smaller maximum distance than 1, so we return node 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The distance from node 0 to node 2 is 1, and the distance from node 1 to node 2 is 1. The maximum of those two distances is 1. It can be proven that we cannot get a node with a smaller maximum distance than 1, so we return node 2."
+    },
+    {
+      "input": "</strong> edges = [1,2,-1], node1 = 0, node2 = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> The distance from node 0 to node 2 is 2, and the distance from node 2 to itself is 0. The maximum of those two distances is 2. It can be proven that we cannot get a node with a smaller maximum distance than 2, so we return node 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The distance from node 0 to node 2 is 2, and the distance from node 2 to itself is 0. The maximum of those two distances is 2. It can be proven that we cannot get a node with a smaller maximum distance than 2, so we return node 2."
+    }
+  ]
+}

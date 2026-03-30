@@ -1,0 +1,27 @@
+{
+  "problemId": "1968",
+  "titleSlug": "maximum-building-height",
+  "title": "Maximum Building Height",
+  "titleCn": "最高建筑高度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "sorting"
+  ],
+  "acRate": 0.416981710432206,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, restrictions = [[2,1],[4,1]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,1,2], and the tallest building has a height of 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,1,2], and the tallest building has a height of 2."
+    },
+    {
+      "input": "</strong> n = 6, restrictions = [] <strong>Output:</strong> 5 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,3,4,5], and the tallest building has a height of 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,3,4,5], and the tallest building has a height of 5."
+    },
+    {
+      "input": "</strong> n = 10, restrictions = [[5,3],[2,5],[7,4],[10,3]] <strong>Output:</strong> 5 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,3,3,4,4,5,4,3], and the tallest building has a height of 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The green area in the image indicates the maximum allowed height for each building. We can build the buildings with heights [0,1,2,3,3,4,4,5,4,3], and the tallest building has a height of 5."
+    }
+  ]
+}

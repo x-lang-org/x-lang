@@ -1,0 +1,25 @@
+{
+  "problemId": "2423",
+  "titleSlug": "minimum-deletions-to-make-array-divisible",
+  "title": "Minimum Deletions to Make Array Divisible",
+  "titleCn": "使数组可以被整除的最少删除次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "number-theory",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.551440123795737,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,2,4,3], numsDivide = [9,6,9,3,15] <strong>Output:</strong> 2 <strong>Explanation:</strong> The smallest element in [2,3,2,4,3] is 2, which does not divide all the elements of numsDivide. We use 2 deletions to delete the elements in nums that are equal to 2 which makes nums = [3,4,3]. The smallest element in [3,4,3] is 3, which divides all the elements of numsDivide. It can be shown that 2 is the minimum number of deletions needed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The smallest element in [2,3,2,4,3] is 2, which does not divide all the elements of numsDivide. We use 2 deletions to delete the elements in nums that are equal to 2 which makes nums = [3,4,3]. The smallest element in [3,4,3] is 3, which divides all the elements of numsDivide. It can be shown that 2 is the minimum number of deletions needed."
+    },
+    {
+      "input": "</strong> nums = [4,3,6], numsDivide = [8,2,6,10] <strong>Output:</strong> -1 <strong>Explanation:</strong> We want the smallest element in nums to divide all the elements of numsDivide. There is no way to delete elements from nums to allow this.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We want the smallest element in nums to divide all the elements of numsDivide. There is no way to delete elements from nums to allow this."
+    }
+  ]
+}

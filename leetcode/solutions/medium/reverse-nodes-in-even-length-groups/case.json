@@ -1,0 +1,25 @@
+{
+  "problemId": "2196",
+  "titleSlug": "reverse-nodes-in-even-length-groups",
+  "title": "Reverse Nodes in Even Length Groups",
+  "titleCn": "反转偶数长度组的节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list"
+  ],
+  "acRate": 0.5284019975031211,
+  "testcases": [
+    {
+      "input": "</strong> head = [5,2,6,3,9,1,7,3,8,4] <strong>Output:</strong> [5,6,2,3,9,1,4,8,3,7] <strong>Explanation:</strong> - The length of the first group is 1, which is odd, hence no reversal occurs. - The length of the second group is 2, which is even, hence the nodes are reversed. - The length of the third group is 3, which is odd, hence no reversal occurs. - The length of the last group is 4, which is even, hence the nodes are reversed.",
+      "expectedOutput": "</strong> [5,6,2,3,9,1,4,8,3,7] <strong>Explanation:</strong> - The length of the first group is 1, which is odd, hence no reversal occurs. - The length of the second group is 2, which is even, hence the nodes are reversed. - The length of the third group is 3, which is odd, hence no reversal occurs. - The length of the last group is 4, which is even, hence the nodes are reversed."
+    },
+    {
+      "input": "</strong> head = [1,1,0,6] <strong>Output:</strong> [1,0,1,6] <strong>Explanation:</strong> - The length of the first group is 1. No reversal occurs. - The length of the second group is 2. The nodes are reversed. - The length of the last group is 1. No reversal occurs.",
+      "expectedOutput": "</strong> [1,0,1,6] <strong>Explanation:</strong> - The length of the first group is 1. No reversal occurs. - The length of the second group is 2. The nodes are reversed. - The length of the last group is 1. No reversal occurs."
+    },
+    {
+      "input": "</strong> head = [1,1,0,6,5] <strong>Output:</strong> [1,0,1,5,6] <strong>Explanation:</strong> - The length of the first group is 1. No reversal occurs. - The length of the second group is 2. The nodes are reversed. - The length of the last group is 2. The nodes are reversed.",
+      "expectedOutput": "</strong> [1,0,1,5,6] <strong>Explanation:</strong> - The length of the first group is 1. No reversal occurs. - The length of the second group is 2. The nodes are reversed. - The length of the last group is 2. The nodes are reversed."
+    }
+  ]
+}

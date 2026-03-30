@@ -13,11 +13,11 @@
   "testcases": [
     {
       "input": "\"abcabcbb\"",
-      "expectedOutput": "\"bbbbb\""
+      "expectedOutput": "3"
     },
     {
       "input": "\"pwwkew\"",
-      "expectedOutput": ""
+      "expectedOutput": "3"
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "problemId": "643",
+  "titleSlug": "maximum-average-subarray-i",
+  "title": "Maximum Average Subarray I",
+  "titleCn": "子数组最大平均数 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "acRate": 0.44305557689648284,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,12,-5,-6,50,3], k = 4 <strong>Output:</strong> 12.75000 <strong>Explanation:</strong> Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75",
+      "expectedOutput": "</strong> 12.75000 <strong>Explanation:</strong> Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75"
+    },
+    {
+      "input": "</strong> nums = [5], k = 1 <strong>Output:</strong> 5.00000",
+      "expectedOutput": "</strong> 5.00000"
+    }
+  ]
+}

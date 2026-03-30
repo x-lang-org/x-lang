@@ -1,0 +1,24 @@
+{
+  "problemId": "2417",
+  "titleSlug": "the-latest-time-to-catch-a-bus",
+  "title": "The Latest Time to Catch a Bus",
+  "titleCn": "坐上公交的最晚时间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.31663309952080004,
+  "testcases": [
+    {
+      "input": "</strong> buses = [10,20], passengers = [2,17,18,19], capacity = 2 <strong>Output:</strong> 16 <strong>Explanation:</strong> Suppose you arrive at time 16. At time 10, the first bus departs with the 0<sup>th</sup> passenger. At time 20, the second bus departs with you and the 1<sup>st</sup> passenger. Note that you may not arrive at the same time as another passenger, which is why you must arrive before the 1<sup>st</sup> passenger to catch the bus.",
+      "expectedOutput": "</strong> 16 <strong>Explanation:</strong> Suppose you arrive at time 16. At time 10, the first bus departs with the 0<sup>th</sup> passenger. At time 20, the second bus departs with you and the 1<sup>st</sup> passenger. Note that you may not arrive at the same time as another passenger, which is why you must arrive before the 1<sup>st</sup> passenger to catch the bus."
+    },
+    {
+      "input": "</strong> buses = [20,30,10], passengers = [19,13,26,4,25,11,21], capacity = 2 <strong>Output:</strong> 20 <strong>Explanation:</strong> Suppose you arrive at time 20. At time 10, the first bus departs with the 3<sup>rd</sup> passenger. At time 20, the second bus departs with the 5<sup>th</sup> and 1<sup>st</sup> passengers. At time 30, the third bus departs with the 0<sup>th</sup> passenger and you. Notice if you had arrived any later, then the 6<sup>th</sup> passenger would have taken your seat on the third bus.",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> Suppose you arrive at time 20. At time 10, the first bus departs with the 3<sup>rd</sup> passenger. At time 20, the second bus departs with the 5<sup>th</sup> and 1<sup>st</sup> passengers. At time 30, the third bus departs with the 0<sup>th</sup> passenger and you. Notice if you had arrived any later, then the 6<sup>th</sup> passenger would have taken your seat on the third bus."
+    }
+  ]
+}

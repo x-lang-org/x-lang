@@ -1,0 +1,25 @@
+{
+  "problemId": "2020",
+  "titleSlug": "remove-one-element-to-make-the-array-strictly-increasing",
+  "title": "Remove One Element to Make the Array Strictly Increasing",
+  "titleCn": "删除一个元素使数组严格递增",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.3237842114873501,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,<u>10</u>,5,7] <strong>Output:</strong> true <strong>Explanation:</strong> By removing 10 at index 2 from nums, it becomes [1,2,5,7]. [1,2,5,7] is strictly increasing, so return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> By removing 10 at index 2 from nums, it becomes [1,2,5,7]. [1,2,5,7] is strictly increasing, so return true."
+    },
+    {
+      "input": "</strong> nums = [2,3,1,2] <strong>Output:</strong> false <strong>Explanation:</strong> [3,1,2] is the result of removing the element at index 0. [2,1,2] is the result of removing the element at index 1. [2,3,2] is the result of removing the element at index 2. [2,3,1] is the result of removing the element at index 3. No resulting array is strictly increasing, so return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> [3,1,2] is the result of removing the element at index 0. [2,1,2] is the result of removing the element at index 1. [2,3,2] is the result of removing the element at index 2. [2,3,1] is the result of removing the element at index 3. No resulting array is strictly increasing, so return false."
+    },
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> false <strong>Explanation:</strong> The result of removing any element is [1,1]. [1,1] is not strictly increasing, so return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The result of removing any element is [1,1]. [1,1] is not strictly increasing, so return false."
+    }
+  ]
+}

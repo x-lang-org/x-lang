@@ -1,0 +1,23 @@
+{
+  "problemId": "258",
+  "titleSlug": "add-digits",
+  "title": "Add Digits",
+  "titleCn": "各位相加",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "number-theory",
+    "simulation"
+  ],
+  "acRate": 0.6927155328972984,
+  "testcases": [
+    {
+      "input": "</strong> num = 38 <strong>Output:</strong> 2 <strong>Explanation:</strong> The process is 38 --> 3 + 8 --> 11 11 --> 1 + 1 --> 2 Since 2 has only one digit, return it.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The process is 38 --> 3 + 8 --> 11 11 --> 1 + 1 --> 2 Since 2 has only one digit, return it."
+    },
+    {
+      "input": "</strong> num = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

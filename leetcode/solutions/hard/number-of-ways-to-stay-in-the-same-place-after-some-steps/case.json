@@ -1,0 +1,25 @@
+{
+  "problemId": "1398",
+  "titleSlug": "number-of-ways-to-stay-in-the-same-place-after-some-steps",
+  "title": "Number of Ways to Stay in the Same Place After Some Steps",
+  "titleCn": "停在原地的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.4936283913400932,
+  "testcases": [
+    {
+      "input": "</strong> steps = 3, arrLen = 2 <strong>Output:</strong> 4 <strong>Explanation: </strong>There are 4 differents ways to stay at index 0 after 3 steps. Right, Left, Stay Stay, Right, Left Right, Stay, Left Stay, Stay, Stay",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>There are 4 differents ways to stay at index 0 after 3 steps. Right, Left, Stay Stay, Right, Left Right, Stay, Left Stay, Stay, Stay"
+    },
+    {
+      "input": "</strong> steps = 2, arrLen = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 differents ways to stay at index 0 after 2 steps Right, Left Stay, Stay",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 differents ways to stay at index 0 after 2 steps Right, Left Stay, Stay"
+    },
+    {
+      "input": "</strong> steps = 4, arrLen = 2 <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    }
+  ]
+}

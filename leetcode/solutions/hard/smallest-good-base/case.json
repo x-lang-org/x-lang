@@ -1,0 +1,26 @@
+{
+  "problemId": "483",
+  "titleSlug": "smallest-good-base",
+  "title": "Smallest Good Base",
+  "titleCn": "最小好进制",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.5854003481288077,
+  "testcases": [
+    {
+      "input": "</strong> n = \"13\" <strong>Output:</strong> \"3\" <strong>Explanation:</strong> 13 base 3 is 111.",
+      "expectedOutput": "</strong> \"3\" <strong>Explanation:</strong> 13 base 3 is 111."
+    },
+    {
+      "input": "</strong> n = \"4681\" <strong>Output:</strong> \"8\" <strong>Explanation:</strong> 4681 base 8 is 11111.",
+      "expectedOutput": "</strong> \"8\" <strong>Explanation:</strong> 4681 base 8 is 11111."
+    },
+    {
+      "input": "</strong> n = \"1000000000000000000\" <strong>Output:</strong> \"999999999999999999\" <strong>Explanation:</strong> 1000000000000000000 base 999999999999999999 is 11.",
+      "expectedOutput": "</strong> \"999999999999999999\" <strong>Explanation:</strong> 1000000000000000000 base 999999999999999999 is 11."
+    }
+  ]
+}

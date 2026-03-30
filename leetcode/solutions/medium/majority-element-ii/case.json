@@ -1,0 +1,28 @@
+{
+  "problemId": "229",
+  "titleSlug": "majority-element-ii",
+  "title": "Majority Element II",
+  "titleCn": "多数元素 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5483792522674257,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,3] <strong>Output:</strong> [3]",
+      "expectedOutput": "</strong> [3]"
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    },
+    {
+      "input": "</strong> nums = [1,2] <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "111",
+  "titleSlug": "minimum-depth-of-binary-tree",
+  "title": "Minimum Depth of Binary Tree",
+  "titleCn": "二叉树的最小深度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.5679262263944094,
+  "testcases": [
+    {
+      "input": "</strong> root = [3,9,20,null,null,15,7] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> root = [2,null,3,null,4,null,5,null,6] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "125",
+  "titleSlug": "valid-palindrome",
+  "title": "Valid Palindrome",
+  "titleCn": "验证回文串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.48815972193049945,
+  "testcases": [
+    {
+      "input": "</strong> s = \"A man, a plan, a canal: Panama\" <strong>Output:</strong> true <strong>Explanation:</strong> \"amanaplanacanalpanama\" is a palindrome.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> \"amanaplanacanalpanama\" is a palindrome."
+    },
+    {
+      "input": "</strong> s = \"race a car\" <strong>Output:</strong> false <strong>Explanation:</strong> \"raceacar\" is not a palindrome.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> \"raceacar\" is not a palindrome."
+    },
+    {
+      "input": "</strong> s = \" \" <strong>Output:</strong> true <strong>Explanation:</strong> s is an empty string \"\" after removing non-alphanumeric characters. Since an empty string reads the same forward and backward, it is a palindrome.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> s is an empty string \"\" after removing non-alphanumeric characters. Since an empty string reads the same forward and backward, it is a palindrome."
+    }
+  ]
+}

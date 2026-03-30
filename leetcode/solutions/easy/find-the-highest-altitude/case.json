@@ -1,0 +1,22 @@
+{
+  "problemId": "1833",
+  "titleSlug": "find-the-highest-altitude",
+  "title": "Find the Highest Altitude",
+  "titleCn": "找到最高海拔",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.8219923788786064,
+  "testcases": [
+    {
+      "input": "</strong> gain = [-5,1,5,0,-7] <strong>Output:</strong> 1 <strong>Explanation:</strong> The altitudes are [0,-5,-4,1,1,-6]. The highest is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The altitudes are [0,-5,-4,1,1,-6]. The highest is 1."
+    },
+    {
+      "input": "</strong> gain = [-4,-3,-2,-1,4,3,2] <strong>Output:</strong> 0 <strong>Explanation:</strong> The altitudes are [0,-4,-7,-9,-10,-6,-3,-1]. The highest is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The altitudes are [0,-4,-7,-9,-10,-6,-3,-1]. The highest is 0."
+    }
+  ]
+}

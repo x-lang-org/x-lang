@@ -1,0 +1,25 @@
+{
+  "problemId": "1738",
+  "titleSlug": "maximal-network-rank",
+  "title": "Maximal Network Rank",
+  "titleCn": "最大网络秩",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "graph"
+  ],
+  "acRate": 0.6123406005758947,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, roads = [[0,1],[0,3],[1,2],[1,3]] <strong>Output:</strong> 4 <strong>Explanation:</strong> The network rank of cities 0 and 1 is 4 as there are 4 roads that are connected to either 0 or 1. The road between 0 and 1 is only counted once.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The network rank of cities 0 and 1 is 4 as there are 4 roads that are connected to either 0 or 1. The road between 0 and 1 is only counted once."
+    },
+    {
+      "input": "</strong> n = 5, roads = [[0,1],[0,3],[1,2],[1,3],[2,3],[2,4]] <strong>Output:</strong> 5 <strong>Explanation:</strong> There are 5 roads that are connected to cities 1 or 2.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> There are 5 roads that are connected to cities 1 or 2."
+    },
+    {
+      "input": "</strong> n = 8, roads = [[0,1],[1,2],[2,3],[2,4],[5,6],[5,7]] <strong>Output:</strong> 5 <strong>Explanation:</strong> The network rank of 2 and 5 is 5. Notice that all the cities do not have to be connected.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The network rank of 2 and 5 is 5. Notice that all the cities do not have to be connected."
+    }
+  ]
+}

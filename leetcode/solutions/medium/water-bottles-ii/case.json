@@ -1,0 +1,22 @@
+{
+  "problemId": "3336",
+  "titleSlug": "water-bottles-ii",
+  "title": "Water Bottles II",
+  "titleCn": "换水问题 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.7733530596309538,
+  "testcases": [
+    {
+      "input": "</strong> numBottles = 13, numExchange = 6 <strong>Output:</strong> 15 <strong>Explanation:</strong> The table above shows the number of full water bottles, empty water bottles, the value of numExchange, and the number of bottles drunk.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The table above shows the number of full water bottles, empty water bottles, the value of numExchange, and the number of bottles drunk."
+    },
+    {
+      "input": "</strong> numBottles = 10, numExchange = 3 <strong>Output:</strong> 13 <strong>Explanation:</strong> The table above shows the number of full water bottles, empty water bottles, the value of numExchange, and the number of bottles drunk.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> The table above shows the number of full water bottles, empty water bottles, the value of numExchange, and the number of bottles drunk."
+    }
+  ]
+}

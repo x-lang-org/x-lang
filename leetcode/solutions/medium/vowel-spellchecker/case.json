@@ -1,0 +1,23 @@
+{
+  "problemId": "1006",
+  "titleSlug": "vowel-spellchecker",
+  "title": "Vowel Spellchecker",
+  "titleCn": "元音拼写检查器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5494436968722308,
+  "testcases": [
+    {
+      "input": "</strong> wordlist = [\"KiTe\",\"kite\",\"hare\",\"Hare\"], queries = [\"kite\",\"Kite\",\"KiTe\",\"Hare\",\"HARE\",\"Hear\",\"hear\",\"keti\",\"keet\",\"keto\"] <strong>Output:</strong> [\"kite\",\"KiTe\",\"KiTe\",\"Hare\",\"hare\",\"\",\"\",\"KiTe\",\"\",\"KiTe\"]",
+      "expectedOutput": "</strong> [\"kite\",\"KiTe\",\"KiTe\",\"Hare\",\"hare\",\"\",\"\",\"KiTe\",\"\",\"KiTe\"]"
+    },
+    {
+      "input": "</strong> wordlist = [\"yellow\"], queries = [\"YellOw\"] <strong>Output:</strong> [\"yellow\"]",
+      "expectedOutput": "</strong> [\"yellow\"]"
+    }
+  ]
+}

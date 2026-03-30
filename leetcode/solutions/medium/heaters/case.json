@@ -1,0 +1,28 @@
+{
+  "problemId": "475",
+  "titleSlug": "heaters",
+  "title": "Heaters",
+  "titleCn": "供暖器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.4221987285340718,
+  "testcases": [
+    {
+      "input": "</strong> houses = [1,2,3], heaters = [2] <strong>Output:</strong> 1 <strong>Explanation:</strong> The only heater was placed in the position 2, and if we use the radius 1 standard, then all the houses can be warmed.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only heater was placed in the position 2, and if we use the radius 1 standard, then all the houses can be warmed."
+    },
+    {
+      "input": "</strong> houses = [1,2,3,4], heaters = [1,4] <strong>Output:</strong> 1 <strong>Explanation:</strong> The two heaters were placed at positions 1 and 4. We need to use a radius 1 standard, then all the houses can be warmed.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The two heaters were placed at positions 1 and 4. We need to use a radius 1 standard, then all the houses can be warmed."
+    },
+    {
+      "input": "</strong> houses = [1,5], heaters = [2] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2625",
+  "titleSlug": "increment-submatrices-by-one",
+  "title": "Increment Submatrices by One",
+  "titleCn": "子矩阵元素加 1",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.734138872245523,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, queries = [[1,1,2,2],[0,0,1,1]] <strong>Output:</strong> [[1,1,0],[1,2,1],[0,1,1]] <strong>Explanation:</strong> The diagram above shows the initial matrix, the matrix after the first query, and the matrix after the second query. - In the first query, we add 1 to every element in the submatrix with the top left corner (1, 1) and bottom right corner (2, 2). - In the second query, we add 1 to every element in the submatrix with the top left corner (0, 0) and bottom right corner (1, 1).",
+      "expectedOutput": "</strong> [[1,1,0],[1,2,1],[0,1,1]] <strong>Explanation:</strong> The diagram above shows the initial matrix, the matrix after the first query, and the matrix after the second query. - In the first query, we add 1 to every element in the submatrix with the top left corner (1, 1) and bottom right corner (2, 2). - In the second query, we add 1 to every element in the submatrix with the top left corner (0, 0) and bottom right corner (1, 1)."
+    },
+    {
+      "input": "</strong> n = 2, queries = [[0,0,1,1]] <strong>Output:</strong> [[1,1],[1,1]] <strong>Explanation:</strong> The diagram above shows the initial matrix and the matrix after the first query. - In the first query we add 1 to every element in the matrix.",
+      "expectedOutput": "</strong> [[1,1],[1,1]] <strong>Explanation:</strong> The diagram above shows the initial matrix and the matrix after the first query. - In the first query we add 1 to every element in the matrix."
+    }
+  ]
+}

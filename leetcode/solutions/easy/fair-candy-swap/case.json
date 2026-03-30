@@ -1,0 +1,28 @@
+{
+  "problemId": "924",
+  "titleSlug": "fair-candy-swap",
+  "title": "Fair Candy Swap",
+  "titleCn": "公平的糖果交换",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.639862189133534,
+  "testcases": [
+    {
+      "input": "</strong> aliceSizes = [1,1], bobSizes = [2,2] <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    },
+    {
+      "input": "</strong> aliceSizes = [1,2], bobSizes = [2,3] <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    },
+    {
+      "input": "</strong> aliceSizes = [2], bobSizes = [1,3] <strong>Output:</strong> [2,3]",
+      "expectedOutput": "</strong> [2,3]"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "1285",
+  "titleSlug": "balance-a-binary-search-tree",
+  "title": "Balance a Binary Search Tree",
+  "titleCn": "将二叉搜索树变平衡",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "acRate": 0.7772997405206328,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,null,2,null,3,null,4,null,null] <strong>Output:</strong> [2,1,3,null,null,null,4] <b>Explanation:</b> This is not the only correct answer, [3,1,4,null,2] is also correct.",
+      "expectedOutput": "</strong> [2,1,3,null,null,null,4] <b>Explanation:</b> This is not the only correct answer, [3,1,4,null,2] is also correct."
+    },
+    {
+      "input": "</strong> root = [2,1,3] <strong>Output:</strong> [2,1,3]",
+      "expectedOutput": "</strong> [2,1,3]"
+    }
+  ]
+}

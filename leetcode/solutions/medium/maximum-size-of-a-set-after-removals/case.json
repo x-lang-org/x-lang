@@ -1,0 +1,27 @@
+{
+  "problemId": "3228",
+  "titleSlug": "maximum-size-of-a-set-after-removals",
+  "title": "Maximum Size of a Set After Removals",
+  "titleCn": "移除后集合的最多元素数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.43601780655605016,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,1,2], nums2 = [1,1,1,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> We remove two occurences of 1 from nums1 and nums2. After the removals, the arrays become equal to nums1 = [2,2] and nums2 = [1,1]. Therefore, s = {1,2}. It can be shown that 2 is the maximum possible size of the set s after the removals.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We remove two occurences of 1 from nums1 and nums2. After the removals, the arrays become equal to nums1 = [2,2] and nums2 = [1,1]. Therefore, s = {1,2}. It can be shown that 2 is the maximum possible size of the set s after the removals."
+    },
+    {
+      "input": "</strong> nums1 = [1,2,3,4,5,6], nums2 = [2,3,2,3,2,3] <strong>Output:</strong> 5 <strong>Explanation:</strong> We remove 2, 3, and 6 from nums1, as well as 2 and two occurrences of 3 from nums2. After the removals, the arrays become equal to nums1 = [1,4,5] and nums2 = [2,3,2]. Therefore, s = {1,2,3,4,5}. It can be shown that 5 is the maximum possible size of the set s after the removals.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We remove 2, 3, and 6 from nums1, as well as 2 and two occurrences of 3 from nums2. After the removals, the arrays become equal to nums1 = [1,4,5] and nums2 = [2,3,2]. Therefore, s = {1,2,3,4,5}. It can be shown that 5 is the maximum possible size of the set s after the removals."
+    },
+    {
+      "input": "</strong> nums1 = [1,1,2,2,3,3], nums2 = [4,4,5,5,6,6] <strong>Output:</strong> 6 <strong>Explanation:</strong> We remove 1, 2, and 3 from nums1, as well as 4, 5, and 6 from nums2. After the removals, the arrays become equal to nums1 = [1,2,3] and nums2 = [4,5,6]. Therefore, s = {1,2,3,4,5,6}. It can be shown that 6 is the maximum possible size of the set s after the removals.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> We remove 1, 2, and 3 from nums1, as well as 4, 5, and 6 from nums2. After the removals, the arrays become equal to nums1 = [1,2,3] and nums2 = [4,5,6]. Therefore, s = {1,2,3,4,5,6}. It can be shown that 6 is the maximum possible size of the set s after the removals."
+    }
+  ]
+}

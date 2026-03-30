@@ -1,0 +1,28 @@
+{
+  "problemId": "1725",
+  "titleSlug": "number-of-sets-of-k-non-overlapping-line-segments",
+  "title": "Number of Sets of K Non-Overlapping Line Segments",
+  "titleCn": "大小为 K 的不重叠线段的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics",
+    "prefix-sum"
+  ],
+  "acRate": 0.5109700412072614,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, k = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> The two line segments are shown in red and blue. The image above shows the 5 different ways {(0,2),(2,3)}, {(0,1),(1,3)}, {(0,1),(2,3)}, {(1,2),(2,3)}, {(0,1),(1,2)}.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The two line segments are shown in red and blue. The image above shows the 5 different ways {(0,2),(2,3)}, {(0,1),(1,3)}, {(0,1),(2,3)}, {(1,2),(2,3)}, {(0,1),(1,2)}."
+    },
+    {
+      "input": "</strong> n = 3, k = 1 <strong>Output:</strong> 3 <strong>Explanation:</strong> The 3 ways are {(0,1)}, {(0,2)}, {(1,2)}.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The 3 ways are {(0,1)}, {(0,2)}, {(1,2)}."
+    },
+    {
+      "input": "</strong> n = 30, k = 7 <strong>Output:</strong> 796297179 <strong>Explanation:</strong> The total number of possible ways to draw 7 line segments is 3796297200. Taking this number modulo 10<sup>9</sup> + 7 gives us 796297179.",
+      "expectedOutput": "</strong> 796297179 <strong>Explanation:</strong> The total number of possible ways to draw 7 line segments is 3796297200. Taking this number modulo 10<sup>9</sup> + 7 gives us 796297179."
+    }
+  ]
+}

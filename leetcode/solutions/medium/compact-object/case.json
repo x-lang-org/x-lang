@@ -1,0 +1,23 @@
+{
+  "problemId": "2804",
+  "titleSlug": "compact-object",
+  "title": "Compact Object",
+  "titleCn": "精简对象",
+  "difficulty": "MEDIUM",
+  "topicTags": [],
+  "acRate": 0.6422018348623854,
+  "testcases": [
+    {
+      "input": "</strong> obj = [null, 0, false, 1] <strong>Output:</strong> [1] <strong>Explanation:</strong> All falsy values have been removed from the array.",
+      "expectedOutput": "</strong> [1] <strong>Explanation:</strong> All falsy values have been removed from the array."
+    },
+    {
+      "input": "</strong> obj = {\"a\": null, \"b\": [false, 1]} <strong>Output:</strong> {\"b\": [1]} <strong>Explanation:</strong> obj[\"a\"] and obj[\"b\"][0] had falsy values and were removed.",
+      "expectedOutput": "</strong> {\"b\": [1]} <strong>Explanation:</strong> obj[\"a\"] and obj[\"b\"][0] had falsy values and were removed."
+    },
+    {
+      "input": "</strong> obj = [null, 0, 5, [0], [false, 16]] <strong>Output:</strong> [5, [], [16]] <strong>Explanation:</strong> obj[0], obj[1], obj[3][0], and obj[4][0] were falsy and removed.",
+      "expectedOutput": "</strong> [5, [], [16]] <strong>Explanation:</strong> obj[0], obj[1], obj[3][0], and obj[4][0] were falsy and removed."
+    }
+  ]
+}

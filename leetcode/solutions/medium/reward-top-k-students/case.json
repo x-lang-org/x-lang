@@ -1,0 +1,25 @@
+{
+  "problemId": "2603",
+  "titleSlug": "reward-top-k-students",
+  "title": "Reward Top K Students",
+  "titleCn": "奖励最顶尖的 K 名学生",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5347245065789473,
+  "testcases": [
+    {
+      "input": "</strong> positive_feedback = [\"smart\",\"brilliant\",\"studious\"], negative_feedback = [\"not\"], report = [\"this student is studious\",\"the student is smart\"], student_id = [1,2], k = 2 <strong>Output:</strong> [1,2] <strong>Explanation:</strong> Both the students have 1 positive feedback and 3 points but since student 1 has a lower ID he ranks higher.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> Both the students have 1 positive feedback and 3 points but since student 1 has a lower ID he ranks higher."
+    },
+    {
+      "input": "</strong> positive_feedback = [\"smart\",\"brilliant\",\"studious\"], negative_feedback = [\"not\"], report = [\"this student is not studious\",\"the student is smart\"], student_id = [1,2], k = 2 <strong>Output:</strong> [2,1] <strong>Explanation:</strong> - The student with ID 1 has 1 positive feedback and 1 negative feedback, so he has 3-1=2 points. - The student with ID 2 has 1 positive feedback, so he has 3 points. Since student 2 has more points, [2,1] is returned.",
+      "expectedOutput": "</strong> [2,1] <strong>Explanation:</strong> - The student with ID 1 has 1 positive feedback and 1 negative feedback, so he has 3-1=2 points. - The student with ID 2 has 1 positive feedback, so he has 3 points. Since student 2 has more points, [2,1] is returned."
+    }
+  ]
+}

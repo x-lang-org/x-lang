@@ -1,0 +1,22 @@
+{
+  "problemId": "479",
+  "titleSlug": "largest-palindrome-product",
+  "title": "Largest Palindrome Product",
+  "titleCn": "最大回文数乘积",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.6044143774771081,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 987 Explanation: 99 x 91 = 9009, 9009 % 1337 = 987",
+      "expectedOutput": "</strong> 987 Explanation: 99 x 91 = 9009, 9009 % 1337 = 987"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    }
+  ]
+}

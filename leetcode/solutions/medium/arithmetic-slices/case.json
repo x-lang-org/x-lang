@@ -1,0 +1,23 @@
+{
+  "problemId": "413",
+  "titleSlug": "arithmetic-slices",
+  "title": "Arithmetic Slices",
+  "titleCn": "等差数列划分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "acRate": 0.6931178115645187,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 3 <strong>Explanation:</strong> We have 3 arithmetic slices in nums: [1, 2, 3], [2, 3, 4] and [1,2,3,4] itself.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We have 3 arithmetic slices in nums: [1, 2, 3], [2, 3, 4] and [1,2,3,4] itself."
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

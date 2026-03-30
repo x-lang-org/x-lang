@@ -1,0 +1,21 @@
+{
+  "problemId": "2819",
+  "titleSlug": "remove-trailing-zeros-from-a-string",
+  "title": "Remove Trailing Zeros From a String",
+  "titleCn": "移除字符串中的尾随零",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.8455442252272224,
+  "testcases": [
+    {
+      "input": "</strong> num = \"51230100\" <strong>Output:</strong> \"512301\" <strong>Explanation:</strong> Integer \"51230100\" has 2 trailing zeros, we remove them and return integer \"512301\".",
+      "expectedOutput": "</strong> \"512301\" <strong>Explanation:</strong> Integer \"51230100\" has 2 trailing zeros, we remove them and return integer \"512301\"."
+    },
+    {
+      "input": "</strong> num = \"123\" <strong>Output:</strong> \"123\" <strong>Explanation:</strong> Integer \"123\" has no trailing zeros, we return integer \"123\".",
+      "expectedOutput": "</strong> \"123\" <strong>Explanation:</strong> Integer \"123\" has no trailing zeros, we return integer \"123\"."
+    }
+  ]
+}

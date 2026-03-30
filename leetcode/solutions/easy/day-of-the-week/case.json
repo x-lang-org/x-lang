@@ -1,0 +1,25 @@
+{
+  "problemId": "1289",
+  "titleSlug": "day-of-the-week",
+  "title": "Day of the Week",
+  "titleCn": "一周中的第几天",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.6358169469670865,
+  "testcases": [
+    {
+      "input": "</strong> day = 31, month = 8, year = 2019 <strong>Output:</strong> \"Saturday\"",
+      "expectedOutput": "</strong> \"Saturday"
+    },
+    {
+      "input": "</strong> day = 18, month = 7, year = 1999 <strong>Output:</strong> \"Sunday\"",
+      "expectedOutput": "</strong> \"Sunday"
+    },
+    {
+      "input": "</strong> day = 15, month = 8, year = 1993 <strong>Output:</strong> \"Sunday\"",
+      "expectedOutput": "</strong> \"Sunday"
+    }
+  ]
+}

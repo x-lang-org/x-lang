@@ -1,0 +1,26 @@
+{
+  "problemId": "2457",
+  "titleSlug": "count-special-integers",
+  "title": "Count Special Integers",
+  "titleCn": "统计特殊整数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5976674499320931,
+  "testcases": [
+    {
+      "input": "</strong> n = 20 <strong>Output:</strong> 19 <strong>Explanation:</strong> All the integers from 1 to 20, except 11, are special. Thus, there are 19 special integers.",
+      "expectedOutput": "</strong> 19 <strong>Explanation:</strong> All the integers from 1 to 20, except 11, are special. Thus, there are 19 special integers."
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 5 <strong>Explanation:</strong> All the integers from 1 to 5 are special.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> All the integers from 1 to 5 are special."
+    },
+    {
+      "input": "</strong> n = 135 <strong>Output:</strong> 110 <strong>Explanation:</strong> There are 110 integers from 1 to 135 that are special. Some of the integers that are not special are: 22, 114, and 131.",
+      "expectedOutput": "</strong> 110 <strong>Explanation:</strong> There are 110 integers from 1 to 135 that are special. Some of the integers that are not special are: 22, 114, and 131."
+    }
+  ]
+}

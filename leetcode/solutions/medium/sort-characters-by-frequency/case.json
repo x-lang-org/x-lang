@@ -1,0 +1,30 @@
+{
+  "problemId": "451",
+  "titleSlug": "sort-characters-by-frequency",
+  "title": "Sort Characters By Frequency",
+  "titleCn": "根据字符出现频率排序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "bucket-sort",
+    "counting",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.7246585091485113,
+  "testcases": [
+    {
+      "input": "</strong> s = \"tree\" <strong>Output:</strong> \"eert\" <strong>Explanation:</strong> 'e' appears twice while 'r' and 't' both appear once. So 'e' must appear before both 'r' and 't'. Therefore \"eetr\" is also a valid answer.",
+      "expectedOutput": "</strong> \"eert\" <strong>Explanation:</strong> 'e' appears twice while 'r' and 't' both appear once. So 'e' must appear before both 'r' and 't'. Therefore \"eetr\" is also a valid answer."
+    },
+    {
+      "input": "</strong> s = \"cccaaa\" <strong>Output:</strong> \"aaaccc\" <strong>Explanation:</strong> Both 'c' and 'a' appear three times, so both \"cccaaa\" and \"aaaccc\" are valid answers. Note that \"cacaca\" is incorrect, as the same characters must be together.",
+      "expectedOutput": "</strong> \"aaaccc\" <strong>Explanation:</strong> Both 'c' and 'a' appear three times, so both \"cccaaa\" and \"aaaccc\" are valid answers. Note that \"cacaca\" is incorrect, as the same characters must be together."
+    },
+    {
+      "input": "</strong> s = \"Aabb\" <strong>Output:</strong> \"bbAa\" <strong>Explanation:</strong> \"bbaA\" is also a valid answer, but \"Aabb\" is incorrect. Note that 'A' and 'a' are treated as two different characters.",
+      "expectedOutput": "</strong> \"bbAa\" <strong>Explanation:</strong> \"bbaA\" is also a valid answer, but \"Aabb\" is incorrect. Note that 'A' and 'a' are treated as two different characters."
+    }
+  ]
+}

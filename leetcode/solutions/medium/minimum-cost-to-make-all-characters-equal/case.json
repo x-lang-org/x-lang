@@ -1,0 +1,23 @@
+{
+  "problemId": "2817",
+  "titleSlug": "minimum-cost-to-make-all-characters-equal",
+  "title": "Minimum Cost to Make All Characters Equal",
+  "titleCn": "使所有字符相等的最小成本",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6865509424587771,
+  "testcases": [
+    {
+      "input": "</strong> s = \"0011\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Apply the second operation with <code>i = 2</code> to obtain <code>s = \"0000\" for a cost of 2</code>. It can be shown that 2 is the minimum cost to make all characters equal.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Apply the second operation with <code>i = 2</code> to obtain <code>s = \"0000\" for a cost of 2</code>. It can be shown that 2 is the minimum cost to make all characters equal."
+    },
+    {
+      "input": "</strong> s = \"010101\" <strong>Output:</strong> 9 <strong>Explanation:</strong> Apply the first operation with i = 2 to obtain s = \"101101\" for a cost of 3. Apply the first operation with i = 1 to obtain s = \"011101\" for a cost of 2. Apply the first operation with i = 0 to obtain s = \"111101\" for a cost of 1. Apply the second operation with i = 4 to obtain s = \"111110\" for a cost of 2. Apply the second operation with i = 5 to obtain s = \"111111\" for a cost of 1. The total cost to make all characters equal is 9. It can be shown that 9 is the minimum cost to make all characters equal.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Apply the first operation with i = 2 to obtain s = \"101101\" for a cost of 3. Apply the first operation with i = 1 to obtain s = \"011101\" for a cost of 2. Apply the first operation with i = 0 to obtain s = \"111101\" for a cost of 1. Apply the second operation with i = 4 to obtain s = \"111110\" for a cost of 2. Apply the second operation with i = 5 to obtain s = \"111111\" for a cost of 1. The total cost to make all characters equal is 9. It can be shown that 9 is the minimum cost to make all characters equal."
+    }
+  ]
+}

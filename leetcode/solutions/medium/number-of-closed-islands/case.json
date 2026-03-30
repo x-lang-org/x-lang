@@ -1,0 +1,29 @@
+{
+  "problemId": "1380",
+  "titleSlug": "number-of-closed-islands",
+  "title": "Number of Closed Islands",
+  "titleCn": "统计封闭岛屿的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6469237940787051,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Islands in gray are closed because they are completely surrounded by water (group of 1s).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Islands in gray are closed because they are completely surrounded by water (group of 1s)."
+    },
+    {
+      "input": "</strong> grid = [[0,0,1,0,0],[0,1,0,1,0],[0,1,1,1,0]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> grid = [[1,1,1,1,1,1,1],         [1,0,0,0,0,0,1],         [1,0,1,1,1,0,1],         [1,0,1,0,1,0,1],         [1,0,1,1,1,0,1],         [1,0,0,0,0,0,1],        [1,1,1,1,1,1,1]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

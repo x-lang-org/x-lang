@@ -1,0 +1,28 @@
+{
+  "problemId": "2170",
+  "titleSlug": "count-number-of-maximum-bitwise-or-subsets",
+  "title": "Count Number of Maximum Bitwise-OR Subsets",
+  "titleCn": "统计按位或能得到最大值的子集数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking",
+    "enumeration"
+  ],
+  "acRate": 0.8356920009005822,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> The maximum possible bitwise OR of a subset is 3. There are 2 subsets with a bitwise OR of 3: - [3] - [3,1]",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The maximum possible bitwise OR of a subset is 3. There are 2 subsets with a bitwise OR of 3: - [3] - [3,1]"
+    },
+    {
+      "input": "</strong> nums = [2,2,2] <strong>Output:</strong> 7 <strong>Explanation:</strong> All non-empty subsets of [2,2,2] have a bitwise OR of 2. There are 2<sup>3</sup> - 1 = 7 total subsets.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> All non-empty subsets of [2,2,2] have a bitwise OR of 2. There are 2<sup>3</sup> - 1 = 7 total subsets."
+    },
+    {
+      "input": "</strong> nums = [3,2,1,5] <strong>Output:</strong> 6 <strong>Explanation:</strong> The maximum possible bitwise OR of a subset is 7. There are 6 subsets with a bitwise OR of 7: - [3,5] - [3,1,5] - [3,2,5] - [3,2,1,5] - [2,5] - [2,1,5]",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The maximum possible bitwise OR of a subset is 7. There are 6 subsets with a bitwise OR of 7: - [3,5] - [3,1,5] - [3,2,5] - [3,2,1,5] - [2,5] - [2,1,5]"
+    }
+  ]
+}

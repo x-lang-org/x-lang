@@ -1,0 +1,24 @@
+{
+  "problemId": "2573",
+  "titleSlug": "remove-nodes-from-linked-list",
+  "title": "Remove Nodes From Linked List",
+  "titleCn": "从链表中移除节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "monotonic-stack"
+  ],
+  "acRate": 0.7552564924166133,
+  "testcases": [
+    {
+      "input": "</strong> head = [5,2,13,3,8] <strong>Output:</strong> [13,8] <strong>Explanation:</strong> The nodes that should be removed are 5, 2 and 3. - Node 13 is to the right of node 5. - Node 13 is to the right of node 2. - Node 8 is to the right of node 3.",
+      "expectedOutput": "</strong> [13,8] <strong>Explanation:</strong> The nodes that should be removed are 5, 2 and 3. - Node 13 is to the right of node 5. - Node 13 is to the right of node 2. - Node 8 is to the right of node 3."
+    },
+    {
+      "input": "</strong> head = [1,1,1,1] <strong>Output:</strong> [1,1,1,1] <strong>Explanation:</strong> Every node has value 1, so no nodes are removed.",
+      "expectedOutput": "</strong> [1,1,1,1] <strong>Explanation:</strong> Every node has value 1, so no nodes are removed."
+    }
+  ]
+}

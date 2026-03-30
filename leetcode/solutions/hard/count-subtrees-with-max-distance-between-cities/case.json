@@ -1,0 +1,29 @@
+{
+  "problemId": "1740",
+  "titleSlug": "count-subtrees-with-max-distance-between-cities",
+  "title": "Count Subtrees With Max Distance Between Cities",
+  "titleCn": "统计子树中城市之间最大距离",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "tree",
+    "dynamic-programming",
+    "bitmask",
+    "enumeration"
+  ],
+  "acRate": 0.779306435822126,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, edges = [[1,2],[2,3],[2,4]]\r <strong>Output:</strong> [3,4,0]\r <strong>Explanation:\r </strong>The subtrees with subsets {1,2}, {2,3} and {2,4} have a max distance of 1.\r The subtrees with subsets {1,2,3}, {1,2,4}, {2,3,4} and {1,2,3,4} have a max distance of 2.\r No subtree has two nodes where the max distance between them is 3.",
+      "expectedOutput": "</strong> [3,4,0]\r <strong>Explanation:\r </strong>The subtrees with subsets {1,2}, {2,3} and {2,4} have a max distance of 1.\r The subtrees with subsets {1,2,3}, {1,2,4}, {2,3,4} and {1,2,3,4} have a max distance of 2.\r No subtree has two nodes where the max distance between them is 3."
+    },
+    {
+      "input": "</strong> n = 2, edges = [[1,2]]\r <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    },
+    {
+      "input": "</strong> n = 3, edges = [[1,2],[2,3]]\r <strong>Output:</strong> [2,1]",
+      "expectedOutput": "</strong> [2,1]"
+    }
+  ]
+}

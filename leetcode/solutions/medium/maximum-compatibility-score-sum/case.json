@@ -1,0 +1,25 @@
+{
+  "problemId": "2078",
+  "titleSlug": "maximum-compatibility-score-sum",
+  "title": "Maximum Compatibility Score Sum",
+  "titleCn": "最大兼容性评分和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.6398277202847401,
+  "testcases": [
+    {
+      "input": "</strong> students = [[1,1,0],[1,0,1],[0,0,1]], mentors = [[1,0,0],[0,0,1],[1,1,0]] <strong>Output:</strong> 8 <strong>Explanation:</strong> We assign students to mentors in the following way: - student 0 to mentor 2 with a compatibility score of 3. - student 1 to mentor 0 with a compatibility score of 2. - student 2 to mentor 1 with a compatibility score of 3. The compatibility score sum is 3 + 2 + 3 = 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> We assign students to mentors in the following way: - student 0 to mentor 2 with a compatibility score of 3. - student 1 to mentor 0 with a compatibility score of 2. - student 2 to mentor 1 with a compatibility score of 3. The compatibility score sum is 3 + 2 + 3 = 8."
+    },
+    {
+      "input": "</strong> students = [[0,0],[0,0],[0,0]], mentors = [[1,1],[1,1],[1,1]] <strong>Output:</strong> 0 <strong>Explanation:</strong> The compatibility score of any student-mentor pair is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The compatibility score of any student-mentor pair is 0."
+    }
+  ]
+}

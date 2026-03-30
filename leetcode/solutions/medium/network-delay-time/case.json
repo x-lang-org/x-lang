@@ -1,0 +1,29 @@
+{
+  "problemId": "744",
+  "titleSlug": "network-delay-time",
+  "title": "Network Delay Time",
+  "titleCn": "网络延迟时间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5931750423881048,
+  "testcases": [
+    {
+      "input": "</strong> times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> times = [[1,2,1]], n = 2, k = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> times = [[1,2,1]], n = 2, k = 2 <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

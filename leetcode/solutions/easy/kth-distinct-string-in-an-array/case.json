@@ -1,0 +1,28 @@
+{
+  "problemId": "2163",
+  "titleSlug": "kth-distinct-string-in-an-array",
+  "title": "Kth Distinct String in an Array",
+  "titleCn": "数组中第 K 个独一无二的字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.7339593860234531,
+  "testcases": [
+    {
+      "input": "</strong> arr = [\"d\",\"b\",\"c\",\"b\",\"c\",\"a\"], k = 2 <strong>Output:</strong> \"a\" <strong>Explanation:</strong> The only distinct strings in arr are \"d\" and \"a\". \"d\" appears 1<sup>st</sup>, so it is the 1<sup>st</sup> distinct string. \"a\" appears 2<sup>nd</sup>, so it is the 2<sup>nd</sup> distinct string. Since k == 2, \"a\" is returned.",
+      "expectedOutput": "</strong> \"a\" <strong>Explanation:</strong> The only distinct strings in arr are \"d\" and \"a\". \"d\" appears 1<sup>st</sup>, so it is the 1<sup>st</sup> distinct string. \"a\" appears 2<sup>nd</sup>, so it is the 2<sup>nd</sup> distinct string. Since k == 2, \"a\" is returned."
+    },
+    {
+      "input": "</strong> arr = [\"aaa\",\"aa\",\"a\"], k = 1 <strong>Output:</strong> \"aaa\" <strong>Explanation:</strong> All strings in arr are distinct, so the 1<sup>st</sup> string \"aaa\" is returned.",
+      "expectedOutput": "</strong> \"aaa\" <strong>Explanation:</strong> All strings in arr are distinct, so the 1<sup>st</sup> string \"aaa\" is returned."
+    },
+    {
+      "input": "</strong> arr = [\"a\",\"b\",\"a\"], k = 3 <strong>Output:</strong> \"\" <strong>Explanation:</strong> The only distinct string is \"b\". Since there are fewer than 3 distinct strings, we return an empty string \"\".",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> The only distinct string is \"b\". Since there are fewer than 3 distinct strings, we return an empty string \"\"."
+    }
+  ]
+}

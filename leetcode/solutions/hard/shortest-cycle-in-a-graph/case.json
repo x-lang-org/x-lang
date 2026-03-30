@@ -1,0 +1,22 @@
+{
+  "problemId": "2671",
+  "titleSlug": "shortest-cycle-in-a-graph",
+  "title": "Shortest Cycle in a Graph",
+  "titleCn": "图中的最短环",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "graph"
+  ],
+  "acRate": 0.4665988876263381,
+  "testcases": [
+    {
+      "input": "</strong> n = 7, edges = [[0,1],[1,2],[2,0],[3,4],[4,5],[5,6],[6,3]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The cycle with the smallest length is : 0 -> 1 -> 2 -> 0",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The cycle with the smallest length is : 0 -> 1 -> 2 -> 0"
+    },
+    {
+      "input": "</strong> n = 4, edges = [[0,1],[0,2]] <strong>Output:</strong> -1 <strong>Explanation:</strong> There are no cycles in this graph.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are no cycles in this graph."
+    }
+  ]
+}

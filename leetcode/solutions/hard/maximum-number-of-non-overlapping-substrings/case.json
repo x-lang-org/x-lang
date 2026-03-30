@@ -1,0 +1,24 @@
+{
+  "problemId": "1644",
+  "titleSlug": "maximum-number-of-non-overlapping-substrings",
+  "title": "Maximum Number of Non-Overlapping Substrings",
+  "titleCn": "最多的不重叠子字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.3828978238006634,
+  "testcases": [
+    {
+      "input": "</strong> s = \"adefaddaccc\" <strong>Output:</strong> [\"e\",\"f\",\"ccc\"] <b>Explanation:</b> The following are all the possible substrings that meet the conditions: [   \"adefaddaccc\"   \"adefadda\",   \"ef\",   \"e\",  \"f\",   \"ccc\", ] If we choose the first string, we cannot choose anything else and we'd get only 1. If we choose \"adefadda\", we are left with \"ccc\" which is the only one that doesn't overlap, thus obtaining 2 substrings. Notice also, that it's not optimal to choose \"ef\" since it can be split into two. Therefore, the optimal way is to choose [\"e\",\"f\",\"ccc\"] which gives us 3 substrings. No other solution of the same number of substrings exist.",
+      "expectedOutput": "</strong> [\"e\",\"f\",\"ccc\"] <b>Explanation:</b> The following are all the possible substrings that meet the conditions: [   \"adefaddaccc\"   \"adefadda\",   \"ef\",   \"e\",  \"f\",   \"ccc\", ] If we choose the first string, we cannot choose anything else and we'd get only 1. If we choose \"adefadda\", we are left with \"ccc\" which is the only one that doesn't overlap, thus obtaining 2 substrings. Notice also, that it's not optimal to choose \"ef\" since it can be split into two. Therefore, the optimal way is to choose [\"e\",\"f\",\"ccc\"] which gives us 3 substrings. No other solution of the same number of substrings exist."
+    },
+    {
+      "input": "</strong> s = \"abbaccd\" <strong>Output:</strong> [\"d\",\"bb\",\"cc\"] <b>Explanation: </b>Notice that while the set of substrings [\"d\",\"abba\",\"cc\"] also has length 3, it's considered incorrect since it has larger total length.",
+      "expectedOutput": "</strong> [\"d\",\"bb\",\"cc\"] <b>Explanation: </b>Notice that while the set of substrings [\"d\",\"abba\",\"cc\"] also has length 3, it's considered incorrect since it has larger total length."
+    }
+  ]
+}

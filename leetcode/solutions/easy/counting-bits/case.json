@@ -1,0 +1,22 @@
+{
+  "problemId": "338",
+  "titleSlug": "counting-bits",
+  "title": "Counting Bits",
+  "titleCn": "比特位计数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "dynamic-programming"
+  ],
+  "acRate": 0.790395562980499,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> [0,1,1] <strong>Explanation:</strong> 0 --> 0 1 --> 1 2 --> 10",
+      "expectedOutput": "</strong> [0,1,1] <strong>Explanation:</strong> 0 --> 0 1 --> 1 2 --> 10"
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> [0,1,1,2,1,2] <strong>Explanation:</strong> 0 --> 0 1 --> 1 2 --> 10 3 --> 11 4 --> 100 5 --> 101",
+      "expectedOutput": "</strong> [0,1,1,2,1,2] <strong>Explanation:</strong> 0 --> 0 1 --> 1 2 --> 10 3 --> 11 4 --> 100 5 --> 101"
+    }
+  ]
+}

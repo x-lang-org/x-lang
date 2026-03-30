@@ -1,0 +1,29 @@
+{
+  "problemId": "1277",
+  "titleSlug": "largest-multiple-of-three",
+  "title": "Largest Multiple of Three",
+  "titleCn": "形成三的最大倍数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.3731363605419021,
+  "testcases": [
+    {
+      "input": "</strong> digits = [8,1,9] <strong>Output:</strong> \"981\"",
+      "expectedOutput": "</strong> \"981"
+    },
+    {
+      "input": "</strong> digits = [8,6,7,1,0] <strong>Output:</strong> \"8760\"",
+      "expectedOutput": "</strong> \"8760"
+    },
+    {
+      "input": "</strong> digits = [1] <strong>Output:</strong> \"\"",
+      "expectedOutput": "</strong> "
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "problemId": "2206",
+  "titleSlug": "detonate-the-maximum-bombs",
+  "title": "Detonate the Maximum Bombs",
+  "titleCn": "引爆最多的炸弹",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "geometry",
+    "array",
+    "math"
+  ],
+  "acRate": 0.5167302775410383,
+  "testcases": [
+    {
+      "input": "</strong> bombs = [[2,1,3],[6,1,4]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The above figure shows the positions and ranges of the 2 bombs. If we detonate the left bomb, the right bomb will not be affected. But if we detonate the right bomb, both bombs will be detonated. So the maximum bombs that can be detonated is max(1, 2) = 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The above figure shows the positions and ranges of the 2 bombs. If we detonate the left bomb, the right bomb will not be affected. But if we detonate the right bomb, both bombs will be detonated. So the maximum bombs that can be detonated is max(1, 2) = 2."
+    },
+    {
+      "input": "</strong> bombs = [[1,1,5],[10,10,5]] <strong>Output:</strong> 1 <strong>Explanation: </strong>Detonating either bomb will not detonate the other bomb, so the maximum number of bombs that can be detonated is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong>Detonating either bomb will not detonate the other bomb, so the maximum number of bombs that can be detonated is 1."
+    },
+    {
+      "input": "</strong> bombs = [[1,2,3],[2,3,1],[3,4,2],[4,5,3],[5,6,4]] <strong>Output:</strong> 5 <strong>Explanation:</strong> The best bomb to detonate is bomb 0 because: - Bomb 0 detonates bombs 1 and 2. The red circle denotes the range of bomb 0. - Bomb 2 detonates bomb 3. The blue circle denotes the range of bomb 2. - Bomb 3 detonates bomb 4. The green circle denotes the range of bomb 3. Thus all 5 bombs are detonated.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The best bomb to detonate is bomb 0 because: - Bomb 0 detonates bombs 1 and 2. The red circle denotes the range of bomb 0. - Bomb 2 detonates bomb 3. The blue circle denotes the range of bomb 2. - Bomb 3 detonates bomb 4. The green circle denotes the range of bomb 3. Thus all 5 bombs are detonated."
+    }
+  ]
+}

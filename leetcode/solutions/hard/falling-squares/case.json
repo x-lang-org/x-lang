@@ -1,0 +1,23 @@
+{
+  "problemId": "699",
+  "titleSlug": "falling-squares",
+  "title": "Falling Squares",
+  "titleCn": "掉落的方块",
+  "difficulty": "HARD",
+  "topicTags": [
+    "segment-tree",
+    "array",
+    "ordered-set"
+  ],
+  "acRate": 0.5564235848771495,
+  "testcases": [
+    {
+      "input": "</strong> positions = [[1,2],[2,3],[6,1]] <strong>Output:</strong> [2,5,5] <strong>Explanation:</strong> After the first drop, the tallest stack is square 1 with a height of 2. After the second drop, the tallest stack is squares 1 and 2 with a height of 5. After the third drop, the tallest stack is still squares 1 and 2 with a height of 5. Thus, we return an answer of [2, 5, 5].",
+      "expectedOutput": "</strong> [2,5,5] <strong>Explanation:</strong> After the first drop, the tallest stack is square 1 with a height of 2. After the second drop, the tallest stack is squares 1 and 2 with a height of 5. After the third drop, the tallest stack is still squares 1 and 2 with a height of 5. Thus, we return an answer of [2, 5, 5]."
+    },
+    {
+      "input": "</strong> positions = [[100,100],[200,100]] <strong>Output:</strong> [100,100] <strong>Explanation:</strong> After the first drop, the tallest stack is square 1 with a height of 100. After the second drop, the tallest stack is either square 1 or square 2, both with heights of 100. Thus, we return an answer of [100, 100]. Note that square 2 only brushes the right side of square 1, which does not count as landing on it.",
+      "expectedOutput": "</strong> [100,100] <strong>Explanation:</strong> After the first drop, the tallest stack is square 1 with a height of 100. After the second drop, the tallest stack is either square 1 or square 2, both with heights of 100. Thus, we return an answer of [100, 100]. Note that square 2 only brushes the right side of square 1, which does not count as landing on it."
+    }
+  ]
+}

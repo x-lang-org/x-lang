@@ -1,0 +1,24 @@
+{
+  "problemId": "768",
+  "titleSlug": "partition-labels",
+  "title": "Partition Labels",
+  "titleCn": "划分字母区间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7897605991014773,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ababcbacadefegdehijhklij\" <strong>Output:</strong> [9,7,8] <strong>Explanation:</strong> The partition is \"ababcbaca\", \"defegde\", \"hijhklij\". This is a partition so that each letter appears in at most one part. A partition like \"ababcbacadefegde\", \"hijhklij\" is incorrect, because it splits s into less parts.",
+      "expectedOutput": "</strong> [9,7,8] <strong>Explanation:</strong> The partition is \"ababcbaca\", \"defegde\", \"hijhklij\". This is a partition so that each letter appears in at most one part. A partition like \"ababcbacadefegde\", \"hijhklij\" is incorrect, because it splits s into less parts."
+    },
+    {
+      "input": "</strong> s = \"eccbbbbdec\" <strong>Output:</strong> [10]",
+      "expectedOutput": "</strong> [10]"
+    }
+  ]
+}

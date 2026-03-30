@@ -1,0 +1,28 @@
+{
+  "problemId": "1845",
+  "titleSlug": "largest-submatrix-with-rearrangements",
+  "title": "Largest Submatrix With Rearrangements",
+  "titleCn": "重新排列后的最大子矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "matrix",
+    "sorting"
+  ],
+  "acRate": 0.7008478188793634,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[0,0,1],[1,1,1],[1,0,1]] <strong>Output:</strong> 4 <strong>Explanation:</strong> You can rearrange the columns as shown above. The largest submatrix of 1s, in bold, has an area of 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> You can rearrange the columns as shown above. The largest submatrix of 1s, in bold, has an area of 4."
+    },
+    {
+      "input": "</strong> matrix = [[1,0,1,0,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can rearrange the columns as shown above. The largest submatrix of 1s, in bold, has an area of 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can rearrange the columns as shown above. The largest submatrix of 1s, in bold, has an area of 3."
+    },
+    {
+      "input": "</strong> matrix = [[1,1,0],[1,0,1]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Notice that you must rearrange entire columns, and there is no way to make a submatrix of 1s larger than an area of 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Notice that you must rearrange entire columns, and there is no way to make a submatrix of 1s larger than an area of 2."
+    }
+  ]
+}

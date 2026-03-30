@@ -1,0 +1,26 @@
+{
+  "problemId": "3018",
+  "titleSlug": "make-string-a-subsequence-using-cyclic-increments",
+  "title": "Make String a Subsequence Using Cyclic Increments",
+  "titleCn": "循环增长使字符串子序列等于另一个字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.632832353154723,
+  "testcases": [
+    {
+      "input": "</strong> str1 = \"abc\", str2 = \"ad\" <strong>Output:</strong> true <strong>Explanation:</strong> Select index 2 in str1. Increment str1[2] to become 'd'. Hence, str1 becomes \"abd\" and str2 is now a subsequence. Therefore, true is returned.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Select index 2 in str1. Increment str1[2] to become 'd'. Hence, str1 becomes \"abd\" and str2 is now a subsequence. Therefore, true is returned."
+    },
+    {
+      "input": "</strong> str1 = \"zc\", str2 = \"ad\" <strong>Output:</strong> true <strong>Explanation:</strong> Select indices 0 and 1 in str1. Increment str1[0] to become 'a'. Increment str1[1] to become 'd'. Hence, str1 becomes \"ad\" and str2 is now a subsequence. Therefore, true is returned.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Select indices 0 and 1 in str1. Increment str1[0] to become 'a'. Increment str1[1] to become 'd'. Hence, str1 becomes \"ad\" and str2 is now a subsequence. Therefore, true is returned."
+    },
+    {
+      "input": "</strong> str1 = \"ab\", str2 = \"d\" <strong>Output:</strong> false <strong>Explanation:</strong> In this example, it can be shown that it is impossible to make str2 a subsequence of str1 using the operation at most once. Therefore, false is returned.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> In this example, it can be shown that it is impossible to make str2 a subsequence of str1 using the operation at most once. Therefore, false is returned."
+    }
+  ]
+}

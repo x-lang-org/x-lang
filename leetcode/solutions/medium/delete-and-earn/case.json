@@ -1,0 +1,23 @@
+{
+  "problemId": "740",
+  "titleSlug": "delete-and-earn",
+  "title": "Delete and Earn",
+  "titleCn": "删除并获得点数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5998895672614258,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,4,2] <strong>Output:</strong> 6 <strong>Explanation:</strong> You can perform the following operations: - Delete 4 to earn 4 points. Consequently, 3 is also deleted. nums = [2]. - Delete 2 to earn 2 points. nums = []. You earn a total of 6 points.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> You can perform the following operations: - Delete 4 to earn 4 points. Consequently, 3 is also deleted. nums = [2]. - Delete 2 to earn 2 points. nums = []. You earn a total of 6 points."
+    },
+    {
+      "input": "</strong> nums = [2,2,3,3,3,4] <strong>Output:</strong> 9 <strong>Explanation:</strong> You can perform the following operations: - Delete a 3 to earn 3 points. All 2's and 4's are also deleted. nums = [3,3]. - Delete a 3 again to earn 3 points. nums = [3]. - Delete a 3 once more to earn 3 points. nums = []. You earn a total of 9 points.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> You can perform the following operations: - Delete a 3 to earn 3 points. All 2's and 4's are also deleted. nums = [3,3]. - Delete a 3 again to earn 3 points. nums = [3]. - Delete a 3 once more to earn 3 points. nums = []. You earn a total of 9 points."
+    }
+  ]
+}

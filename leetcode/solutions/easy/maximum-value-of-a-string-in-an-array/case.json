@@ -1,0 +1,22 @@
+{
+  "problemId": "2589",
+  "titleSlug": "maximum-value-of-a-string-in-an-array",
+  "title": "Maximum Value of a String in an Array",
+  "titleCn": "数组中字符串的最大值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.7744257182270737,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"alic3\",\"bob\",\"3\",\"4\",\"00000\"] <strong>Output:</strong> 5 <strong>Explanation:</strong> - \"alic3\" consists of both letters and digits, so its value is its length, i.e. 5. - \"bob\" consists only of letters, so its value is also its length, i.e. 3. - \"3\" consists only of digits, so its value is its numeric equivalent, i.e. 3. - \"4\" also consists only of digits, so its value is 4. - \"00000\" consists only of digits, so its value is 0. Hence, the maximum value is 5, of \"alic3\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> - \"alic3\" consists of both letters and digits, so its value is its length, i.e. 5. - \"bob\" consists only of letters, so its value is also its length, i.e. 3. - \"3\" consists only of digits, so its value is its numeric equivalent, i.e. 3. - \"4\" also consists only of digits, so its value is 4. - \"00000\" consists only of digits, so its value is 0. Hence, the maximum value is 5, of \"alic3\"."
+    },
+    {
+      "input": "</strong> strs = [\"1\",\"01\",\"001\",\"0001\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> Each string in the array has value 1. Hence, we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Each string in the array has value 1. Hence, we return 1."
+    }
+  ]
+}

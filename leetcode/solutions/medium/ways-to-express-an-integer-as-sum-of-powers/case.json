@@ -1,0 +1,21 @@
+{
+  "problemId": "2882",
+  "titleSlug": "ways-to-express-an-integer-as-sum-of-powers",
+  "title": "Ways to Express an Integer as Sum of Powers",
+  "titleCn": "将一个数字表示成幂的和的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.5437689490194704,
+  "testcases": [
+    {
+      "input": "</strong> n = 10, x = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> We can express n as the following: n = 3<sup>2</sup> + 1<sup>2</sup> = 10. It can be shown that it is the only way to express 10 as the sum of the 2<sup>nd</sup> power of unique integers.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can express n as the following: n = 3<sup>2</sup> + 1<sup>2</sup> = 10. It can be shown that it is the only way to express 10 as the sum of the 2<sup>nd</sup> power of unique integers."
+    },
+    {
+      "input": "</strong> n = 4, x = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> We can express n in the following ways: - n = 4<sup>1</sup> = 4. - n = 3<sup>1</sup> + 1<sup>1</sup> = 4.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can express n in the following ways: - n = 4<sup>1</sup> = 4. - n = 3<sup>1</sup> + 1<sup>1</sup> = 4."
+    }
+  ]
+}

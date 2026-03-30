@@ -1,0 +1,15 @@
+{
+  "problemId": "3072",
+  "titleSlug": "reshape-data-pivot",
+  "title": "Reshape Data: Pivot",
+  "titleCn": "数据重塑：透视",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7884571428571429,
+  "testcases": [
+    {
+      "input": "</strong> +--------------+----------+-------------+ | city     | month  | temperature | +--------------+----------+-------------+ | Jacksonville | January | 13     | | Jacksonville | February | 23     | | Jacksonville | March  | 38     | | Jacksonville | April  | 5      | | Jacksonville | May   | 34     | | ElPaso    | January | 20     | | ElPaso    | February | 6      | | ElPaso    | March  | 26     | | ElPaso    | April  | 2      | | ElPaso    | May   | 43     | +--------------+----------+-------------+ <strong>Output:</strong><code> +----------+--------+--------------+ | month  | ElPaso | Jacksonville | +----------+--------+--------------+ | April  | 2   | 5      | | February | 6   | 23      | | January | 20   | 13      | | March  | 26   | 38      | | May   | 43   | 34      | +----------+--------+--------------+</code> <strong>Explanation: </strong>The table is pivoted, each column represents a city, and each row represents a specific month.",
+      "expectedOutput": "</strong><code> +----------+--------+--------------+ | month  | ElPaso | Jacksonville | +----------+--------+--------------+ | April  | 2   | 5      | | February | 6   | 23      | | January | 20   | 13      | | March  | 26   | 38      | | May   | 43   | 34      | +----------+--------+--------------+</code> <strong>Explanation: </strong>The table is pivoted, each column represents a city, and each row represents a specific month."
+    }
+  ]
+}

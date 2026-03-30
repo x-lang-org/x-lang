@@ -1,0 +1,21 @@
+{
+  "problemId": "665",
+  "titleSlug": "non-decreasing-array",
+  "title": "Non-decreasing Array",
+  "titleCn": "非递减数列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.2820177498121713,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,2,3] <strong>Output:</strong> true <strong>Explanation:</strong> You could modify the first 4 to 1 to get a non-decreasing array.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You could modify the first 4 to 1 to get a non-decreasing array."
+    },
+    {
+      "input": "</strong> nums = [4,2,1] <strong>Output:</strong> false <strong>Explanation:</strong> You cannot get a non-decreasing array by modifying at most one element.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> You cannot get a non-decreasing array by modifying at most one element."
+    }
+  ]
+}

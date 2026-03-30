@@ -1,0 +1,17 @@
+{
+  "problemId": "2110",
+  "titleSlug": "employees-with-missing-information",
+  "title": "Employees With Missing Information",
+  "titleCn": "丢失信息的雇员",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7080921402739012,
+  "testcases": [
+    {
+      "input": "</strong> Employees table: +-------------+----------+ | employee_id | name   | +-------------+----------+ | 2      | Crew   | | 4      | Haven  | | 5      | Kristian | +-------------+----------+ Salaries table: +-------------+--------+ | employee_id | salary | +-------------+--------+ | 5      | 76071 | | 1      | 22517 | | 4      | 63539 | +-------------+--------+ <strong>Output:</strong> +-------------+ | employee_id | +-------------+ | 1      | | 2      | +-------------+ <strong>Explanation:</strong> Employees 1, 2, 4, and 5 are working at this company. The name of employee 1 is missing. The salary of employee 2 is missing.",
+      "expectedOutput": "</strong> +-------------+ | employee_id | +-------------+ | 1      | | 2      | +-------------+ <strong>Explanation:</strong> Employees 1, 2, 4, and 5 are working at this company. The name of employee 1 is missing. The salary of employee 2 is missing."
+    }
+  ]
+}

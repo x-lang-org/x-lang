@@ -1,0 +1,26 @@
+{
+  "problemId": "3092",
+  "titleSlug": "minimum-moves-to-spread-stones-over-grid",
+  "title": "Minimum Moves to Spread Stones Over Grid",
+  "titleCn": "将石头分散到网格图的最少移动次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask",
+    "matrix"
+  ],
+  "acRate": 0.5963468917881811,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,1,0],[1,1,1],[1,2,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> One possible sequence of moves to place one stone in each cell is: 1- Move one stone from cell (2,1) to cell (2,2). 2- Move one stone from cell (2,2) to cell (1,2). 3- Move one stone from cell (1,2) to cell (0,2). In total, it takes 3 moves to place one stone in each cell of the grid. It can be shown that 3 is the minimum number of moves required to place one stone in each cell.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One possible sequence of moves to place one stone in each cell is: 1- Move one stone from cell (2,1) to cell (2,2). 2- Move one stone from cell (2,2) to cell (1,2). 3- Move one stone from cell (1,2) to cell (0,2). In total, it takes 3 moves to place one stone in each cell of the grid. It can be shown that 3 is the minimum number of moves required to place one stone in each cell."
+    },
+    {
+      "input": "</strong> grid = [[1,3,0],[1,0,0],[1,0,3]] <strong>Output:</strong> 4 <strong>Explanation:</strong> One possible sequence of moves to place one stone in each cell is: 1- Move one stone from cell (0,1) to cell (0,2). 2- Move one stone from cell (0,1) to cell (1,1). 3- Move one stone from cell (2,2) to cell (1,2). 4- Move one stone from cell (2,2) to cell (2,1). In total, it takes 4 moves to place one stone in each cell of the grid. It can be shown that 4 is the minimum number of moves required to place one stone in each cell.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One possible sequence of moves to place one stone in each cell is: 1- Move one stone from cell (0,1) to cell (0,2). 2- Move one stone from cell (0,1) to cell (1,1). 3- Move one stone from cell (2,2) to cell (1,2). 4- Move one stone from cell (2,2) to cell (2,1). In total, it takes 4 moves to place one stone in each cell of the grid. It can be shown that 4 is the minimum number of moves required to place one stone in each cell."
+    }
+  ]
+}

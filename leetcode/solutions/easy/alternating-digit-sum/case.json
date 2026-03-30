@@ -1,0 +1,25 @@
+{
+  "problemId": "2630",
+  "titleSlug": "alternating-digit-sum",
+  "title": "Alternating Digit Sum",
+  "titleCn": "交替数字和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7777323716311477,
+  "testcases": [
+    {
+      "input": "</strong> n = 521 <strong>Output:</strong> 4 <strong>Explanation:</strong> (+5) + (-2) + (+1) = 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> (+5) + (-2) + (+1) = 4."
+    },
+    {
+      "input": "</strong> n = 111 <strong>Output:</strong> 1 <strong>Explanation:</strong> (+1) + (-1) + (+1) = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> (+1) + (-1) + (+1) = 1."
+    },
+    {
+      "input": "</strong> n = 886996 <strong>Output:</strong> 0 <strong>Explanation:</strong> (+8) + (-8) + (+6) + (-9) + (+9) + (-6) = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> (+8) + (-8) + (+6) + (-9) + (+9) + (-6) = 0."
+    }
+  ]
+}

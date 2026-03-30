@@ -1,0 +1,27 @@
+{
+  "problemId": "918",
+  "titleSlug": "reachable-nodes-in-subdivided-graph",
+  "title": "Reachable Nodes In Subdivided Graph",
+  "titleCn": "细分图中的可到达节点",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6342065036131184,
+  "testcases": [
+    {
+      "input": "</strong> edges = [[0,1,10],[0,2,1],[1,2,2]], maxMoves = 6, n = 3 <strong>Output:</strong> 13 <strong>Explanation:</strong> The edge subdivisions are shown in the image above. The nodes that are reachable are highlighted in yellow.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> The edge subdivisions are shown in the image above. The nodes that are reachable are highlighted in yellow."
+    },
+    {
+      "input": "</strong> edges = [[0,1,4],[1,2,6],[0,2,8],[1,3,1]], maxMoves = 10, n = 4 <strong>Output:</strong> 23",
+      "expectedOutput": "</strong> 23"
+    },
+    {
+      "input": "</strong> edges = [[1,2,4],[1,4,5],[1,3,1],[2,3,4],[3,4,5]], maxMoves = 17, n = 5 <strong>Output:</strong> 1 <strong>Explanation:</strong> Node 0 is disconnected from the rest of the graph, so only node 0 is reachable.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Node 0 is disconnected from the rest of the graph, so only node 0 is reachable."
+    }
+  ]
+}

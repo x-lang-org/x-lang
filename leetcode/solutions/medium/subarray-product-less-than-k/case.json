@@ -1,0 +1,24 @@
+{
+  "problemId": "713",
+  "titleSlug": "subarray-product-less-than-k",
+  "title": "Subarray Product Less Than K",
+  "titleCn": "乘积小于 K 的子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.5432814990257042,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,5,2,6], k = 100 <strong>Output:</strong> 8 <strong>Explanation:</strong> The 8 subarrays that have product less than 100 are: [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6] Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The 8 subarrays that have product less than 100 are: [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6] Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k."
+    },
+    {
+      "input": "</strong> nums = [1,2,3], k = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

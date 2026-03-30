@@ -1,0 +1,28 @@
+{
+  "problemId": "1360",
+  "titleSlug": "maximum-length-of-a-concatenated-string-with-unique-characters",
+  "title": "Maximum Length of a Concatenated String with Unique Characters",
+  "titleCn": "串联字符串的最大长度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.49818727466817053,
+  "testcases": [
+    {
+      "input": "</strong> arr = [\"un\",\"iq\",\"ue\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> All the valid concatenations are: - \"\" - \"un\" - \"iq\" - \"ue\" - \"uniq\" (\"un\" + \"iq\") - \"ique\" (\"iq\" + \"ue\") Maximum length is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> All the valid concatenations are: - \"\" - \"un\" - \"iq\" - \"ue\" - \"uniq\" (\"un\" + \"iq\") - \"ique\" (\"iq\" + \"ue\") Maximum length is 4."
+    },
+    {
+      "input": "</strong> arr = [\"cha\",\"r\",\"act\",\"ers\"] <strong>Output:</strong> 6 <strong>Explanation:</strong> Possible longest valid concatenations are \"chaers\" (\"cha\" + \"ers\") and \"acters\" (\"act\" + \"ers\").",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Possible longest valid concatenations are \"chaers\" (\"cha\" + \"ers\") and \"acters\" (\"act\" + \"ers\")."
+    },
+    {
+      "input": "</strong> arr = [\"abcdefghijklmnopqrstuvwxyz\"] <strong>Output:</strong> 26 <strong>Explanation:</strong> The only string in arr has all 26 characters.",
+      "expectedOutput": "</strong> 26 <strong>Explanation:</strong> The only string in arr has all 26 characters."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2483",
+  "titleSlug": "task-scheduler-ii",
+  "title": "Task Scheduler II",
+  "titleCn": "任务调度器 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "acRate": 0.49908529613537617,
+  "testcases": [
+    {
+      "input": "</strong> tasks = [1,2,1,2,3,1], space = 3 <strong>Output:</strong> 9 <strong>Explanation:</strong> One way to complete all tasks in 9 days is as follows: Day 1: Complete the 0th task. Day 2: Complete the 1st task. Day 3: Take a break. Day 4: Take a break. Day 5: Complete the 2nd task. Day 6: Complete the 3rd task. Day 7: Take a break. Day 8: Complete the 4th task. Day 9: Complete the 5th task. It can be shown that the tasks cannot be completed in less than 9 days.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> One way to complete all tasks in 9 days is as follows: Day 1: Complete the 0th task. Day 2: Complete the 1st task. Day 3: Take a break. Day 4: Take a break. Day 5: Complete the 2nd task. Day 6: Complete the 3rd task. Day 7: Take a break. Day 8: Complete the 4th task. Day 9: Complete the 5th task. It can be shown that the tasks cannot be completed in less than 9 days."
+    },
+    {
+      "input": "</strong> tasks = [5,8,8,5], space = 2 <strong>Output:</strong> 6 <strong>Explanation:</strong> One way to complete all tasks in 6 days is as follows: Day 1: Complete the 0th task. Day 2: Complete the 1st task. Day 3: Take a break. Day 4: Take a break. Day 5: Complete the 2nd task. Day 6: Complete the 3rd task. It can be shown that the tasks cannot be completed in less than 6 days.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> One way to complete all tasks in 6 days is as follows: Day 1: Complete the 0th task. Day 2: Complete the 1st task. Day 3: Take a break. Day 4: Take a break. Day 5: Complete the 2nd task. Day 6: Complete the 3rd task. It can be shown that the tasks cannot be completed in less than 6 days."
+    }
+  ]
+}

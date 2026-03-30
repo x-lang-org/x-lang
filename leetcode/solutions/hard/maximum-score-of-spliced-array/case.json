@@ -1,0 +1,26 @@
+{
+  "problemId": "1348",
+  "titleSlug": "maximum-score-of-spliced-array",
+  "title": "Maximum Score Of Spliced Array",
+  "titleCn": "拼接数组的最大分数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6266926829268292,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [60,60,60], nums2 = [10,90,10] <strong>Output:</strong> 210 <strong>Explanation:</strong> Choosing left = 1 and right = 1, we have nums1 = [60,<u><strong>90</strong></u>,60] and nums2 = [10,<u><strong>60</strong></u>,10]. The score is max(sum(nums1), sum(nums2)) = max(210, 80) = 210.",
+      "expectedOutput": "</strong> 210 <strong>Explanation:</strong> Choosing left = 1 and right = 1, we have nums1 = [60,<u><strong>90</strong></u>,60] and nums2 = [10,<u><strong>60</strong></u>,10]. The score is max(sum(nums1), sum(nums2)) = max(210, 80) = 210."
+    },
+    {
+      "input": "</strong> nums1 = [20,40,20,70,30], nums2 = [50,20,50,40,20] <strong>Output:</strong> 220 <strong>Explanation:</strong> Choosing left = 3, right = 4, we have nums1 = [20,40,20,<u><strong>40,20</strong></u>] and nums2 = [50,20,50,<u><strong>70,30</strong></u>]. The score is max(sum(nums1), sum(nums2)) = max(140, 220) = 220.",
+      "expectedOutput": "</strong> 220 <strong>Explanation:</strong> Choosing left = 3, right = 4, we have nums1 = [20,40,20,<u><strong>40,20</strong></u>] and nums2 = [50,20,50,<u><strong>70,30</strong></u>]. The score is max(sum(nums1), sum(nums2)) = max(140, 220) = 220."
+    },
+    {
+      "input": "</strong> nums1 = [7,11,13], nums2 = [1,1,1] <strong>Output:</strong> 31 <strong>Explanation:</strong> We choose not to swap any subarray. The score is max(sum(nums1), sum(nums2)) = max(31, 3) = 31.",
+      "expectedOutput": "</strong> 31 <strong>Explanation:</strong> We choose not to swap any subarray. The score is max(sum(nums1), sum(nums2)) = max(31, 3) = 31."
+    }
+  ]
+}

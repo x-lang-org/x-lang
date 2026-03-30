@@ -1,0 +1,22 @@
+{
+  "problemId": "1222",
+  "titleSlug": "remove-covered-intervals",
+  "title": "Remove Covered Intervals",
+  "titleCn": "删除被覆盖区间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.564808502726822,
+  "testcases": [
+    {
+      "input": "</strong> intervals = [[1,4],[3,6],[2,8]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Interval [3,6] is covered by [2,8], therefore it is removed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Interval [3,6] is covered by [2,8], therefore it is removed."
+    },
+    {
+      "input": "</strong> intervals = [[1,4],[2,3]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

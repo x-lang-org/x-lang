@@ -1,0 +1,26 @@
+{
+  "problemId": "1454",
+  "titleSlug": "remove-palindromic-subsequences",
+  "title": "Remove Palindromic Subsequences",
+  "titleCn": "删除回文子序列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7828255902513328,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ababa\" <strong>Output:</strong> 1 <strong>Explanation:</strong> s is already a palindrome, so its entirety can be removed in a single step.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> s is already a palindrome, so its entirety can be removed in a single step."
+    },
+    {
+      "input": "</strong> s = \"abb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> \"<u>a</u>bb\" -> \"<u>bb</u>\" -> \"\". Remove palindromic subsequence \"a\" then \"bb\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> \"<u>a</u>bb\" -> \"<u>bb</u>\" -> \"\". Remove palindromic subsequence \"a\" then \"bb\"."
+    },
+    {
+      "input": "</strong> s = \"baabb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> \"<u>baa</u>b<u>b</u>\" -> \"<u>b</u>\" -> \"\". Remove palindromic subsequence \"baab\" then \"b\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> \"<u>baa</u>b<u>b</u>\" -> \"<u>b</u>\" -> \"\". Remove palindromic subsequence \"baab\" then \"b\"."
+    }
+  ]
+}

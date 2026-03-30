@@ -1,0 +1,22 @@
+{
+  "problemId": "557",
+  "titleSlug": "reverse-words-in-a-string-iii",
+  "title": "Reverse Words in a String III",
+  "titleCn": "反转字符串中的单词 III",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7367849254409604,
+  "testcases": [
+    {
+      "input": "</strong> s = \"Let's take LeetCode contest\" <strong>Output:</strong> \"s'teL ekat edoCteeL tsetnoc\"",
+      "expectedOutput": "</strong> \"s'teL ekat edoCteeL tsetnoc"
+    },
+    {
+      "input": "</strong> s = \"Mr Ding\" <strong>Output:</strong> \"rM gniD\"",
+      "expectedOutput": "</strong> \"rM gniD"
+    }
+  ]
+}

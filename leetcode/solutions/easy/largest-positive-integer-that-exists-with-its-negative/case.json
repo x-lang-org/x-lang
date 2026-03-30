@@ -1,0 +1,28 @@
+{
+  "problemId": "2524",
+  "titleSlug": "largest-positive-integer-that-exists-with-its-negative",
+  "title": "Largest Positive Integer That Exists With Its Negative",
+  "titleCn": "与对应负数同时存在的最大正整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.7407665716538299,
+  "testcases": [
+    {
+      "input": "</strong> nums = [-1,2,-3,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> 3 is the only valid k we can find in the array.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 3 is the only valid k we can find in the array."
+    },
+    {
+      "input": "</strong> nums = [-1,10,6,7,-7,1] <strong>Output:</strong> 7 <strong>Explanation:</strong> Both 1 and 7 have their corresponding negative values in the array. 7 has a larger value.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> Both 1 and 7 have their corresponding negative values in the array. 7 has a larger value."
+    },
+    {
+      "input": "</strong> nums = [-10,8,6,7,-2,-3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no a single valid k, we return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no a single valid k, we return -1."
+    }
+  ]
+}

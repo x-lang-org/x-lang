@@ -1,0 +1,26 @@
+{
+  "problemId": "1771",
+  "titleSlug": "sell-diminishing-valued-colored-balls",
+  "title": "Sell Diminishing-Valued Colored Balls",
+  "titleCn": "销售价值减少的颜色球",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math",
+    "binary-search",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.34064738416900897,
+  "testcases": [
+    {
+      "input": "</strong> inventory = [2,5], orders = 4 <strong>Output:</strong> 14 <strong>Explanation:</strong> Sell the 1st color 1 time (2) and the 2nd color 3 times (5 + 4 + 3). The maximum total value is 2 + 5 + 4 + 3 = 14.",
+      "expectedOutput": "</strong> 14 <strong>Explanation:</strong> Sell the 1st color 1 time (2) and the 2nd color 3 times (5 + 4 + 3). The maximum total value is 2 + 5 + 4 + 3 = 14."
+    },
+    {
+      "input": "</strong> inventory = [3,5], orders = 6 <strong>Output:</strong> 19 <strong>Explanation: </strong>Sell the 1st color 2 times (3 + 2) and the 2nd color 4 times (5 + 4 + 3 + 2). The maximum total value is 3 + 2 + 5 + 4 + 3 + 2 = 19.",
+      "expectedOutput": "</strong> 19 <strong>Explanation: </strong>Sell the 1st color 2 times (3 + 2) and the 2nd color 4 times (5 + 4 + 3 + 2). The maximum total value is 3 + 2 + 5 + 4 + 3 + 2 = 19."
+    }
+  ]
+}

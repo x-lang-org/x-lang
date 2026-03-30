@@ -1,0 +1,23 @@
+{
+  "problemId": "2599",
+  "titleSlug": "take-k-of-each-character-from-left-and-right",
+  "title": "Take K of Each Character From Left and Right",
+  "titleCn": "每种字符至少取 K 个",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.5072235753294102,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabaaaacaabc\", k = 2 <strong>Output:</strong> 8 <strong>Explanation:</strong> Take three characters from the left of s. You now have two 'a' characters, and one 'b' character. Take five characters from the right of s. You now have four 'a' characters, two 'b' characters, and two 'c' characters. A total of 3 + 5 = 8 minutes is needed. It can be proven that 8 is the minimum number of minutes needed.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Take three characters from the left of s. You now have two 'a' characters, and one 'b' character. Take five characters from the right of s. You now have four 'a' characters, two 'b' characters, and two 'c' characters. A total of 3 + 5 = 8 minutes is needed. It can be proven that 8 is the minimum number of minutes needed."
+    },
+    {
+      "input": "</strong> s = \"a\", k = 1 <strong>Output:</strong> -1 <strong>Explanation:</strong> It is not possible to take one 'b' or 'c' so return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is not possible to take one 'b' or 'c' so return -1."
+    }
+  ]
+}

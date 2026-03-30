@@ -1,0 +1,22 @@
+{
+  "problemId": "583",
+  "titleSlug": "delete-operation-for-two-strings",
+  "title": "Delete Operation for Two Strings",
+  "titleCn": "两个字符串的删除操作",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6873025077446423,
+  "testcases": [
+    {
+      "input": "</strong> word1 = \"sea\", word2 = \"eat\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You need one step to make \"sea\" to \"ea\" and another step to make \"eat\" to \"ea\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You need one step to make \"sea\" to \"ea\" and another step to make \"eat\" to \"ea\"."
+    },
+    {
+      "input": "</strong> word1 = \"leetcode\", word2 = \"etco\" <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

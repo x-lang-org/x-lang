@@ -1,0 +1,30 @@
+{
+  "problemId": "1257",
+  "titleSlug": "rank-transform-of-a-matrix",
+  "title": "Rank Transform of a Matrix",
+  "titleCn": "矩阵转换后的排名",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "graph",
+    "topological-sort",
+    "array",
+    "matrix",
+    "sorting"
+  ],
+  "acRate": 0.5672685208469547,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[1,2],[3,4]] <strong>Output:</strong> [[1,2],[2,3]] <strong>Explanation:</strong> The rank of matrix[0][0] is 1 because it is the smallest integer in its row and column. The rank of matrix[0][1] is 2 because matrix[0][1] > matrix[0][0] and matrix[0][0] is rank 1. The rank of matrix[1][0] is 2 because matrix[1][0] > matrix[0][0] and matrix[0][0] is rank 1. The rank of matrix[1][1] is 3 because matrix[1][1] > matrix[0][1], matrix[1][1] > matrix[1][0], and both matrix[0][1] and matrix[1][0] are rank 2.",
+      "expectedOutput": "</strong> [[1,2],[2,3]] <strong>Explanation:</strong> The rank of matrix[0][0] is 1 because it is the smallest integer in its row and column. The rank of matrix[0][1] is 2 because matrix[0][1] > matrix[0][0] and matrix[0][0] is rank 1. The rank of matrix[1][0] is 2 because matrix[1][0] > matrix[0][0] and matrix[0][0] is rank 1. The rank of matrix[1][1] is 3 because matrix[1][1] > matrix[0][1], matrix[1][1] > matrix[1][0], and both matrix[0][1] and matrix[1][0] are rank 2."
+    },
+    {
+      "input": "</strong> matrix = [[7,7],[7,7]] <strong>Output:</strong> [[1,1],[1,1]]",
+      "expectedOutput": "</strong> [[1,1],[1,1]]"
+    },
+    {
+      "input": "</strong> matrix = [[20,-21,14],[-19,4,19],[22,-47,24],[-19,4,19]] <strong>Output:</strong> [[4,2,3],[1,3,4],[5,1,6],[1,3,4]]",
+      "expectedOutput": "</strong> [[4,2,3],[1,3,4],[5,1,6],[1,3,4]]"
+    }
+  ]
+}

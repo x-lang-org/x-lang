@@ -1,0 +1,17 @@
+{
+  "problemId": "182",
+  "titleSlug": "duplicate-emails",
+  "title": "Duplicate Emails",
+  "titleCn": "查找重复的电子邮箱",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7812626093121302,
+  "testcases": [
+    {
+      "input": "</strong> Person table: +----+---------+ | id | email  | +----+---------+ | 1 | a@b.com | | 2 | c@d.com | | 3 | a@b.com | +----+---------+ <strong>Output:</strong> +---------+ | Email  | +---------+ | a@b.com | +---------+ <strong>Explanation:</strong> a@b.com is repeated two times.",
+      "expectedOutput": "</strong> +---------+ | Email  | +---------+ | a@b.com | +---------+ <strong>Explanation:</strong> a@b.com is repeated two times."
+    }
+  ]
+}

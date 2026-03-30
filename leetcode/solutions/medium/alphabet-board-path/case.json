@@ -1,0 +1,22 @@
+{
+  "problemId": "1238",
+  "titleSlug": "alphabet-board-path",
+  "title": "Alphabet Board Path",
+  "titleCn": "字母板上的路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5187441681760799,
+  "testcases": [
+    {
+      "input": "</strong> target = \"leet\"\r <strong>Output:</strong> \"DDR!UURRR!!DDD!\"",
+      "expectedOutput": "</strong> \"DDR!UURRR!!DDD!"
+    },
+    {
+      "input": "</strong> target = \"code\"\r <strong>Output:</strong> \"RR!DDRR!UUL!R!\"",
+      "expectedOutput": "</strong> \"RR!DDRR!UUL!R!"
+    }
+  ]
+}

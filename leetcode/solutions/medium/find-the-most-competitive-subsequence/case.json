@@ -1,0 +1,24 @@
+{
+  "problemId": "1792",
+  "titleSlug": "find-the-most-competitive-subsequence",
+  "title": "Find the Most Competitive Subsequence",
+  "titleCn": "找出最具竞争力的子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.5117887032426434,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,5,2,6], k = 2 <strong>Output:</strong> [2,6] <strong>Explanation:</strong> Among the set of every possible subsequence: {[3,5], [3,2], [3,6], [5,2], [5,6], [2,6]}, [2,6] is the most competitive.",
+      "expectedOutput": "</strong> [2,6] <strong>Explanation:</strong> Among the set of every possible subsequence: {[3,5], [3,2], [3,6], [5,2], [5,6], [2,6]}, [2,6] is the most competitive."
+    },
+    {
+      "input": "</strong> nums = [2,4,3,3,5,4,9,6], k = 4 <strong>Output:</strong> [2,3,3,4]",
+      "expectedOutput": "</strong> [2,3,3,4]"
+    }
+  ]
+}

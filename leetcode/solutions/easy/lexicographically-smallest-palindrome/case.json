@@ -1,0 +1,27 @@
+{
+  "problemId": "2816",
+  "titleSlug": "lexicographically-smallest-palindrome",
+  "title": "Lexicographically Smallest Palindrome",
+  "titleCn": "字典序最小回文串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.8643419522233158,
+  "testcases": [
+    {
+      "input": "</strong> s = \"egcfe\" <strong>Output:</strong> \"efcfe\" <strong>Explanation:</strong> The minimum number of operations to make \"egcfe\" a palindrome is 1, and the lexicographically smallest palindrome string we can get by modifying one character is \"efcfe\", by changing 'g'.",
+      "expectedOutput": "</strong> \"efcfe\" <strong>Explanation:</strong> The minimum number of operations to make \"egcfe\" a palindrome is 1, and the lexicographically smallest palindrome string we can get by modifying one character is \"efcfe\", by changing 'g'."
+    },
+    {
+      "input": "</strong> s = \"abcd\" <strong>Output:</strong> \"abba\" <strong>Explanation:</strong> The minimum number of operations to make \"abcd\" a palindrome is 2, and the lexicographically smallest palindrome string we can get by modifying two characters is \"abba\".",
+      "expectedOutput": "</strong> \"abba\" <strong>Explanation:</strong> The minimum number of operations to make \"abcd\" a palindrome is 2, and the lexicographically smallest palindrome string we can get by modifying two characters is \"abba\"."
+    },
+    {
+      "input": "</strong> s = \"seven\" <strong>Output:</strong> \"neven\" <strong>Explanation:</strong> The minimum number of operations to make \"seven\" a palindrome is 1, and the lexicographically smallest palindrome string we can get by modifying one character is \"neven\".",
+      "expectedOutput": "</strong> \"neven\" <strong>Explanation:</strong> The minimum number of operations to make \"seven\" a palindrome is 1, and the lexicographically smallest palindrome string we can get by modifying one character is \"neven\"."
+    }
+  ]
+}

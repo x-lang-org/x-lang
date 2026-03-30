@@ -1,0 +1,26 @@
+{
+  "problemId": "2414",
+  "titleSlug": "move-pieces-to-obtain-a-string",
+  "title": "Move Pieces to Obtain a String",
+  "titleCn": "移动片段得到字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.4831682300341895,
+  "testcases": [
+    {
+      "input": "</strong> start = \"_L__R__R_\", target = \"L______RR\" <strong>Output:</strong> true <strong>Explanation:</strong> We can obtain the string target from start by doing the following moves: - Move the first piece one step to the left, start becomes equal to \"<strong>L</strong>___R__R_\". - Move the last piece one step to the right, start becomes equal to \"L___R___<strong>R</strong>\". - Move the second piece three steps to the right, start becomes equal to \"L______<strong>R</strong>R\". Since it is possible to get the string target from start, we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can obtain the string target from start by doing the following moves: - Move the first piece one step to the left, start becomes equal to \"<strong>L</strong>___R__R_\". - Move the last piece one step to the right, start becomes equal to \"L___R___<strong>R</strong>\". - Move the second piece three steps to the right, start becomes equal to \"L______<strong>R</strong>R\". Since it is possible to get the string target from start, we return true."
+    },
+    {
+      "input": "</strong> start = \"R_L_\", target = \"__LR\" <strong>Output:</strong> false <strong>Explanation:</strong> The 'R' piece in the string start can move one step to the right to obtain \"_<strong>R</strong>L_\". After that, no pieces can move anymore, so it is impossible to obtain the string target from start.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The 'R' piece in the string start can move one step to the right to obtain \"_<strong>R</strong>L_\". After that, no pieces can move anymore, so it is impossible to obtain the string target from start."
+    },
+    {
+      "input": "</strong> start = \"_R\", target = \"R_\" <strong>Output:</strong> false <strong>Explanation:</strong> The piece in the string start can move only to the right, so it is impossible to obtain the string target from start.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The piece in the string start can move only to the right, so it is impossible to obtain the string target from start."
+    }
+  ]
+}

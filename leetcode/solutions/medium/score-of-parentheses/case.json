@@ -1,0 +1,26 @@
+{
+  "problemId": "886",
+  "titleSlug": "score-of-parentheses",
+  "title": "Score of Parentheses",
+  "titleCn": "括号的分数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.6892375598401335,
+  "testcases": [
+    {
+      "input": "</strong> s = \"()\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> s = \"(())\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> s = \"()()\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

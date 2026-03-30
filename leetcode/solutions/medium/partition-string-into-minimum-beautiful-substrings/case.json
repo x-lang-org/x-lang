@@ -1,0 +1,28 @@
+{
+  "problemId": "2883",
+  "titleSlug": "partition-string-into-minimum-beautiful-substrings",
+  "title": "Partition String Into Minimum Beautiful Substrings",
+  "titleCn": "将字符串分割为最少的美丽子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.6236784542471746,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1011\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We can paritition the given string into [\"101\", \"1\"]. - The string \"101\" does not contain leading zeros and is the binary representation of integer 5<sup>1</sup> = 5. - The string \"1\" does not contain leading zeros and is the binary representation of integer 5<sup>0</sup> = 1. It can be shown that 2 is the minimum number of beautiful substrings that s can be partitioned into.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can paritition the given string into [\"101\", \"1\"]. - The string \"101\" does not contain leading zeros and is the binary representation of integer 5<sup>1</sup> = 5. - The string \"1\" does not contain leading zeros and is the binary representation of integer 5<sup>0</sup> = 1. It can be shown that 2 is the minimum number of beautiful substrings that s can be partitioned into."
+    },
+    {
+      "input": "</strong> s = \"111\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We can paritition the given string into [\"1\", \"1\", \"1\"]. - The string \"1\" does not contain leading zeros and is the binary representation of integer 5<sup>0</sup> = 1. It can be shown that 3 is the minimum number of beautiful substrings that s can be partitioned into.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can paritition the given string into [\"1\", \"1\", \"1\"]. - The string \"1\" does not contain leading zeros and is the binary representation of integer 5<sup>0</sup> = 1. It can be shown that 3 is the minimum number of beautiful substrings that s can be partitioned into."
+    },
+    {
+      "input": "</strong> s = \"0\" <strong>Output:</strong> -1 <strong>Explanation:</strong> We can not partition the given string into beautiful substrings.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We can not partition the given string into beautiful substrings."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "problemId": "1000012",
+  "titleSlug": "sorted-merge-lcci",
+  "title": "Sorted Merge LCCI",
+  "titleCn": "合并排序的数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.5623941416757996,
+  "testcases": [
+    {
+      "input": "</strong>\r A = [1,2,3,0,0,0], m = 3\r B = [2,5,6],    n = 3\r \r <strong>Output:</strong> [1,2,2,3,5,6]",
+      "expectedOutput": "</strong> [1,2,2,3,5,6]"
+    }
+  ]
+}

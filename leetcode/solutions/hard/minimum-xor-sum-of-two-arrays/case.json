@@ -1,0 +1,24 @@
+{
+  "problemId": "1989",
+  "titleSlug": "minimum-xor-sum-of-two-arrays",
+  "title": "Minimum XOR Sum of Two Arrays",
+  "titleCn": "两个数组最小的异或值之和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.5807787903893952,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2], nums2 = [2,3] <strong>Output:</strong> 2 <b>Explanation:</b> Rearrange <code>nums2</code> so that it becomes <code>[3,2]</code>. The XOR sum is (1 XOR 3) + (2 XOR 2) = 2 + 0 = 2.",
+      "expectedOutput": "</strong> 2 <b>Explanation:</b> Rearrange <code>nums2</code> so that it becomes <code>[3,2]</code>. The XOR sum is (1 XOR 3) + (2 XOR 2) = 2 + 0 = 2."
+    },
+    {
+      "input": "</strong> nums1 = [1,0,3], nums2 = [5,3,4] <strong>Output:</strong> 8 <b>Explanation:</b> Rearrange <code>nums2</code> so that it becomes <code>[5,4,3]</code>. The XOR sum is (1 XOR 5) + (0 XOR 4) + (3 XOR 3) = 4 + 4 + 0 = 8.",
+      "expectedOutput": "</strong> 8 <b>Explanation:</b> Rearrange <code>nums2</code> so that it becomes <code>[5,4,3]</code>. The XOR sum is (1 XOR 5) + (0 XOR 4) + (3 XOR 3) = 4 + 4 + 0 = 8."
+    }
+  ]
+}

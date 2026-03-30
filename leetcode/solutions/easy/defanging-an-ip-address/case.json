@@ -1,0 +1,21 @@
+{
+  "problemId": "1205",
+  "titleSlug": "defanging-an-ip-address",
+  "title": "Defanging an IP Address",
+  "titleCn": "IP 地址无效化",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.8511533797236039,
+  "testcases": [
+    {
+      "input": "</strong> address = \"1.1.1.1\"\r <strong>Output:</strong> \"1[.]1[.]1[.]1\"",
+      "expectedOutput": "</strong> \"1[.]1[.]1[.]1"
+    },
+    {
+      "input": "</strong> address = \"255.100.50.0\"\r <strong>Output:</strong> \"255[.]100[.]50[.]0\"",
+      "expectedOutput": "</strong> \"255[.]100[.]50[.]0"
+    }
+  ]
+}

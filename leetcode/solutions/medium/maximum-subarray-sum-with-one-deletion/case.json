@@ -1,0 +1,26 @@
+{
+  "problemId": "1288",
+  "titleSlug": "maximum-subarray-sum-with-one-deletion",
+  "title": "Maximum Subarray Sum with One Deletion",
+  "titleCn": "删除一次得到子数组最大和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.526521811245646,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,-2,0,3] <strong>Output:</strong> 4 <strong>Explanation: </strong>Because we can choose [1, -2, 0, 3] and drop -2, thus the subarray [1, 0, 3] becomes the maximum value.",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>Because we can choose [1, -2, 0, 3] and drop -2, thus the subarray [1, 0, 3] becomes the maximum value."
+    },
+    {
+      "input": "</strong> arr = [1,-2,-2,3] <strong>Output:</strong> 3 <strong>Explanation: </strong>We just choose [3] and it's the maximum sum.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>We just choose [3] and it's the maximum sum."
+    },
+    {
+      "input": "</strong> arr = [-1,-1,-1,-1] <strong>Output:</strong> -1 <strong>Explanation:</strong> The final subarray needs to be non-empty. You can't choose [-1] and delete -1 from it, then get an empty subarray to make the sum equals to 0.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The final subarray needs to be non-empty. You can't choose [-1] and delete -1 from it, then get an empty subarray to make the sum equals to 0."
+    }
+  ]
+}

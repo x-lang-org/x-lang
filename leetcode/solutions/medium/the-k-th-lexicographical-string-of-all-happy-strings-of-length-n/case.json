@@ -1,0 +1,26 @@
+{
+  "problemId": "1516",
+  "titleSlug": "the-k-th-lexicographical-string-of-all-happy-strings-of-length-n",
+  "title": "The k-th Lexicographical String of All Happy Strings of Length n",
+  "titleCn": "长度为 n 的开心字符串中字典序第 k 小的字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.7565995043637539,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, k = 3 <strong>Output:</strong> \"c\" <strong>Explanation:</strong> The list [\"a\", \"b\", \"c\"] contains all happy strings of length 1. The third string is \"c\".",
+      "expectedOutput": "</strong> \"c\" <strong>Explanation:</strong> The list [\"a\", \"b\", \"c\"] contains all happy strings of length 1. The third string is \"c\"."
+    },
+    {
+      "input": "</strong> n = 1, k = 4 <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are only 3 happy strings of length 1.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are only 3 happy strings of length 1."
+    },
+    {
+      "input": "</strong> n = 3, k = 9 <strong>Output:</strong> \"cab\" <strong>Explanation:</strong> There are 12 different happy string of length 3 [\"aba\", \"abc\", \"aca\", \"acb\", \"bab\", \"bac\", \"bca\", \"bcb\", \"cab\", \"cac\", \"cba\", \"cbc\"]. You will find the 9<sup>th</sup> string = \"cab\"",
+      "expectedOutput": "</strong> \"cab\" <strong>Explanation:</strong> There are 12 different happy string of length 3 [\"aba\", \"abc\", \"aca\", \"acb\", \"bab\", \"bac\", \"bca\", \"bcb\", \"cab\", \"cac\", \"cba\", \"cbc\"]. You will find the 9<sup>th</sup> string = \"cab"
+    }
+  ]
+}

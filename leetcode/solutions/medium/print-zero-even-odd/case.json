@@ -1,0 +1,21 @@
+{
+  "problemId": "1216",
+  "titleSlug": "print-zero-even-odd",
+  "title": "Print Zero Even Odd",
+  "titleCn": "打印零与奇偶数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "concurrency"
+  ],
+  "acRate": 0.5682552848900329,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> \"0102\" <strong>Explanation:</strong> There are three threads being fired asynchronously. One of them calls zero(), the other calls even(), and the last one calls odd(). \"0102\" is the correct output.",
+      "expectedOutput": "</strong> \"0102\" <strong>Explanation:</strong> There are three threads being fired asynchronously. One of them calls zero(), the other calls even(), and the last one calls odd(). \"0102\" is the correct output."
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> \"0102030405\"",
+      "expectedOutput": "</strong> \"0102030405"
+    }
+  ]
+}

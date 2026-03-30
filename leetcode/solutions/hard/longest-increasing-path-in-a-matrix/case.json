@@ -1,0 +1,32 @@
+{
+  "problemId": "329",
+  "titleSlug": "longest-increasing-path-in-a-matrix",
+  "title": "Longest Increasing Path in a Matrix",
+  "titleCn": "矩阵中的最长递增路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort",
+    "memoization",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.535623127512611,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[9,9,4],[6,6,8],[2,1,1]] <strong>Output:</strong> 4 <strong>Explanation:</strong> The longest increasing path is <code>[1, 2, 6, 9]</code>.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The longest increasing path is <code>[1, 2, 6, 9]</code>."
+    },
+    {
+      "input": "</strong> matrix = [[3,4,5],[3,2,6],[2,2,1]] <strong>Output:</strong> 4 <strong>Explanation: </strong>The longest increasing path is <code>[3, 4, 5, 6]</code>. Moving diagonally is not allowed.",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>The longest increasing path is <code>[3, 4, 5, 6]</code>. Moving diagonally is not allowed."
+    },
+    {
+      "input": "</strong> matrix = [[1]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

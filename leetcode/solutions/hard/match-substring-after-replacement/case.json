@@ -1,0 +1,28 @@
+{
+  "problemId": "2393",
+  "titleSlug": "match-substring-after-replacement",
+  "title": "Match Substring After Replacement",
+  "titleCn": "替换字符后匹配",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.4667340407613273,
+  "testcases": [
+    {
+      "input": "</strong> s = \"fool3e7bar\", sub = \"leet\", mappings = [[\"e\",\"3\"],[\"t\",\"7\"],[\"t\",\"8\"]] <strong>Output:</strong> true <strong>Explanation:</strong> Replace the first 'e' in sub with '3' and 't' in sub with '7'. Now sub = \"l3e7\" is a substring of s, so we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Replace the first 'e' in sub with '3' and 't' in sub with '7'. Now sub = \"l3e7\" is a substring of s, so we return true."
+    },
+    {
+      "input": "</strong> s = \"fooleetbar\", sub = \"f00l\", mappings = [[\"o\",\"0\"]] <strong>Output:</strong> false <strong>Explanation:</strong> The string \"f00l\" is not a substring of s and no replacements can be made. Note that we cannot replace '0' with 'o'.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The string \"f00l\" is not a substring of s and no replacements can be made. Note that we cannot replace '0' with 'o'."
+    },
+    {
+      "input": "</strong> s = \"Fool33tbaR\", sub = \"leetd\", mappings = [[\"e\",\"3\"],[\"t\",\"7\"],[\"t\",\"8\"],[\"d\",\"b\"],[\"p\",\"b\"]] <strong>Output:</strong> true <strong>Explanation:</strong> Replace the first and second 'e' in sub with '3' and 'd' in sub with 'b'. Now sub = \"l33tb\" is a substring of s, so we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Replace the first and second 'e' in sub with '3' and 'd' in sub with 'b'. Now sub = \"l33tb\" is a substring of s, so we return true."
+    }
+  ]
+}

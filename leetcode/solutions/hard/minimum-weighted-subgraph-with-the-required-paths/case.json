@@ -1,0 +1,23 @@
+{
+  "problemId": "2321",
+  "titleSlug": "minimum-weighted-subgraph-with-the-required-paths",
+  "title": "Minimum Weighted Subgraph With the Required Paths",
+  "titleCn": "包含要求路径的最小带权子图",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.4062268346923647,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, edges = [[0,2,2],[0,5,6],[1,0,3],[1,4,5],[2,1,1],[2,3,3],[2,3,4],[3,4,2],[4,5,1]], src1 = 0, src2 = 1, dest = 5 <strong>Output:</strong> 9 <strong>Explanation:</strong> The above figure represents the input graph. The blue edges represent one of the subgraphs that yield the optimal answer. Note that the subgraph [[1,0,3],[0,5,6]] also yields the optimal answer. It is not possible to get a subgraph with less weight satisfying all the constraints.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> The above figure represents the input graph. The blue edges represent one of the subgraphs that yield the optimal answer. Note that the subgraph [[1,0,3],[0,5,6]] also yields the optimal answer. It is not possible to get a subgraph with less weight satisfying all the constraints."
+    },
+    {
+      "input": "</strong> n = 3, edges = [[0,1,1],[2,1,1]], src1 = 0, src2 = 1, dest = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> The above figure represents the input graph. It can be seen that there does not exist any path from node 1 to node 2, hence there are no subgraphs satisfying all the constraints.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The above figure represents the input graph. It can be seen that there does not exist any path from node 1 to node 2, hence there are no subgraphs satisfying all the constraints."
+    }
+  ]
+}

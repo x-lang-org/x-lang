@@ -1,0 +1,22 @@
+{
+  "problemId": "2645",
+  "titleSlug": "pass-the-pillow",
+  "title": "Pass the Pillow",
+  "titleCn": "递枕头",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.5771333792502424,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, time = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> People pass the pillow in the following way: 1 -> 2 -> 3 -> 4 -> 3 -> 2. After five seconds, the 2<sup>nd</sup> person is holding the pillow.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> People pass the pillow in the following way: 1 -> 2 -> 3 -> 4 -> 3 -> 2. After five seconds, the 2<sup>nd</sup> person is holding the pillow."
+    },
+    {
+      "input": "</strong> n = 3, time = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> People pass the pillow in the following way: 1 -> 2 -> 3. After two seconds, the 3<sup>r</sup><sup>d</sup> person is holding the pillow.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> People pass the pillow in the following way: 1 -> 2 -> 3. After two seconds, the 3<sup>r</sup><sup>d</sup> person is holding the pillow."
+    }
+  ]
+}

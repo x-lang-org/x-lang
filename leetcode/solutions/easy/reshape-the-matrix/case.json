@@ -1,0 +1,23 @@
+{
+  "problemId": "566",
+  "titleSlug": "reshape-the-matrix",
+  "title": "Reshape the Matrix",
+  "titleCn": "重塑矩阵",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.6472024764962164,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,2],[3,4]], r = 1, c = 4 <strong>Output:</strong> [[1,2,3,4]]",
+      "expectedOutput": "</strong> [[1,2,3,4]]"
+    },
+    {
+      "input": "</strong> mat = [[1,2],[3,4]], r = 2, c = 4 <strong>Output:</strong> [[1,2],[3,4]]",
+      "expectedOutput": "</strong> [[1,2],[3,4]]"
+    }
+  ]
+}

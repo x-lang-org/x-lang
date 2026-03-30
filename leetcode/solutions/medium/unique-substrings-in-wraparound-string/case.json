@@ -1,0 +1,26 @@
+{
+  "problemId": "467",
+  "titleSlug": "unique-substrings-in-wraparound-string",
+  "title": "Unique Substrings in Wraparound String",
+  "titleCn": "环绕字符串中唯一的子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.529379134650943,
+  "testcases": [
+    {
+      "input": "</strong> s = \"a\" <strong>Output:</strong> 1 <strong>Explanation:</strong> Only the substring \"a\" of s is in base.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Only the substring \"a\" of s is in base."
+    },
+    {
+      "input": "</strong> s = \"cac\" <strong>Output:</strong> 2 <strong>Explanation:</strong> There are two substrings (\"a\", \"c\") of s in base.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are two substrings (\"a\", \"c\") of s in base."
+    },
+    {
+      "input": "</strong> s = \"zab\" <strong>Output:</strong> 6 <strong>Explanation:</strong> There are six substrings (\"z\", \"a\", \"b\", \"za\", \"ab\", and \"zab\") of s in base.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> There are six substrings (\"z\", \"a\", \"b\", \"za\", \"ab\", and \"zab\") of s in base."
+    }
+  ]
+}

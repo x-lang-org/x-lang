@@ -1,0 +1,22 @@
+{
+  "problemId": "3058",
+  "titleSlug": "maximum-number-of-k-divisible-components",
+  "title": "Maximum Number of K-Divisible Components",
+  "titleCn": "可以被 K 整除连通块的最大数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "tree",
+    "depth-first-search"
+  ],
+  "acRate": 0.7342378830835696,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, edges = [[0,2],[1,2],[1,3],[2,4]], values = [1,8,1,4,4], k = 6 <strong>Output:</strong> 2 <strong>Explanation:</strong> We remove the edge connecting node 1 with 2. The resulting split is valid because: - The value of the component containing nodes 1 and 3 is values[1] + values[3] = 12. - The value of the component containing nodes 0, 2, and 4 is values[0] + values[2] + values[4] = 6. It can be shown that no other valid split has more than 2 connected components.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We remove the edge connecting node 1 with 2. The resulting split is valid because: - The value of the component containing nodes 1 and 3 is values[1] + values[3] = 12. - The value of the component containing nodes 0, 2, and 4 is values[0] + values[2] + values[4] = 6. It can be shown that no other valid split has more than 2 connected components."
+    },
+    {
+      "input": "</strong> n = 7, edges = [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]], values = [3,0,6,1,5,2,1], k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> We remove the edge connecting node 0 with 2, and the edge connecting node 0 with 1. The resulting split is valid because: - The value of the component containing node 0 is values[0] = 3. - The value of the component containing nodes 2, 5, and 6 is values[2] + values[5] + values[6] = 9. - The value of the component containing nodes 1, 3, and 4 is values[1] + values[3] + values[4] = 6. It can be shown that no other valid split has more than 3 connected components.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We remove the edge connecting node 0 with 2, and the edge connecting node 0 with 1. The resulting split is valid because: - The value of the component containing node 0 is values[0] = 3. - The value of the component containing nodes 2, 5, and 6 is values[2] + values[5] + values[6] = 9. - The value of the component containing nodes 1, 3, and 4 is values[1] + values[3] + values[4] = 6. It can be shown that no other valid split has more than 3 connected components."
+    }
+  ]
+}

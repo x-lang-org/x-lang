@@ -1,0 +1,28 @@
+{
+  "problemId": "1777",
+  "titleSlug": "determine-if-two-strings-are-close",
+  "title": "Determine if Two Strings Are Close",
+  "titleCn": "确定两个字符串是否接近",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5373408820453643,
+  "testcases": [
+    {
+      "input": "</strong> word1 = \"abc\", word2 = \"bca\" <strong>Output:</strong> true <strong>Explanation:</strong> You can attain word2 from word1 in 2 operations. Apply Operation 1: \"a<u>bc</u>\" -> \"a<u>cb</u>\" Apply Operation 1: \"<u>a</u>c<u>b</u>\" -> \"<u>b</u>c<u>a</u>\"",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can attain word2 from word1 in 2 operations. Apply Operation 1: \"a<u>bc</u>\" -> \"a<u>cb</u>\" Apply Operation 1: \"<u>a</u>c<u>b</u>\" -> \"<u>b</u>c<u>a</u>"
+    },
+    {
+      "input": "</strong> word1 = \"a\", word2 = \"aa\" <strong>Output:</strong> false <strong>Explanation: </strong>It is impossible to attain word2 from word1, or vice versa, in any number of operations.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>It is impossible to attain word2 from word1, or vice versa, in any number of operations."
+    },
+    {
+      "input": "</strong> word1 = \"cabbba\", word2 = \"abbccc\" <strong>Output:</strong> true <strong>Explanation:</strong> You can attain word2 from word1 in 3 operations. Apply Operation 1: \"ca<u>b</u>bb<u>a</u>\" -> \"ca<u>a</u>bb<u>b</u>\" Apply Operation 2: \"<u>c</u>aa<u>bbb</u>\" -> \"<u>b</u>aa<u>ccc</u>\" Apply Operation 2: \"<u>baa</u>ccc\" -> \"<u>abb</u>ccc\"",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can attain word2 from word1 in 3 operations. Apply Operation 1: \"ca<u>b</u>bb<u>a</u>\" -> \"ca<u>a</u>bb<u>b</u>\" Apply Operation 2: \"<u>c</u>aa<u>bbb</u>\" -> \"<u>b</u>aa<u>ccc</u>\" Apply Operation 2: \"<u>baa</u>ccc\" -> \"<u>abb</u>ccc"
+    }
+  ]
+}

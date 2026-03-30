@@ -1,0 +1,24 @@
+{
+  "problemId": "539",
+  "titleSlug": "minimum-time-difference",
+  "title": "Minimum Time Difference",
+  "titleCn": "最小时间差",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6551921116462193,
+  "testcases": [
+    {
+      "input": "</strong> timePoints = [\"23:59\",\"00:00\"] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> timePoints = [\"00:00\",\"23:59\",\"00:00\"] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

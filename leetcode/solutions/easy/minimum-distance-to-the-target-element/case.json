@@ -1,0 +1,25 @@
+{
+  "problemId": "1975",
+  "titleSlug": "minimum-distance-to-the-target-element",
+  "title": "Minimum Distance to the Target Element",
+  "titleCn": "到目标元素的最小距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6723386977705595,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5], target = 5, start = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> nums[4] = 5 is the only value equal to target, so the answer is abs(4 - 3) = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> nums[4] = 5 is the only value equal to target, so the answer is abs(4 - 3) = 1."
+    },
+    {
+      "input": "</strong> nums = [1], target = 1, start = 0 <strong>Output:</strong> 0 <strong>Explanation:</strong> nums[0] = 1 is the only value equal to target, so the answer is abs(0 - 0) = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> nums[0] = 1 is the only value equal to target, so the answer is abs(0 - 0) = 0."
+    },
+    {
+      "input": "</strong> nums = [1,1,1,1,1,1,1,1,1,1], target = 1, start = 0 <strong>Output:</strong> 0 <strong>Explanation:</strong> Every value of nums is 1, but nums[0] minimizes abs(i - start), which is abs(0 - 0) = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Every value of nums is 1, but nums[0] minimizes abs(i - start), which is abs(0 - 0) = 0."
+    }
+  ]
+}

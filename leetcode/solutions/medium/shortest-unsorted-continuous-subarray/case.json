@@ -1,0 +1,30 @@
+{
+  "problemId": "581",
+  "titleSlug": "shortest-unsorted-continuous-subarray",
+  "title": "Shortest Unsorted Continuous Subarray",
+  "titleCn": "最短无序连续子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "acRate": 0.4319231128182512,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,6,4,8,10,9,15] <strong>Output:</strong> 5 <strong>Explanation:</strong> You need to sort [6, 4, 8, 10, 9] in ascending order to make the whole array sorted in ascending order.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> You need to sort [6, 4, 8, 10, 9] in ascending order to make the whole array sorted in ascending order."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

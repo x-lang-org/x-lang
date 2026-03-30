@@ -1,0 +1,27 @@
+{
+  "problemId": "2188",
+  "titleSlug": "minimized-maximum-of-products-distributed-to-any-store",
+  "title": "Minimized Maximum of Products Distributed to Any Store",
+  "titleCn": "分配给商店的最多商品的最小值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5394460763743181,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, quantities = [11,6] <strong>Output:</strong> 3 <strong>Explanation:</strong> One optimal way is: - The 11 products of type 0 are distributed to the first four stores in these amounts: 2, 3, 3, 3 - The 6 products of type 1 are distributed to the other two stores in these amounts: 3, 3 The maximum number of products given to any store is max(2, 3, 3, 3, 3, 3) = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One optimal way is: - The 11 products of type 0 are distributed to the first four stores in these amounts: 2, 3, 3, 3 - The 6 products of type 1 are distributed to the other two stores in these amounts: 3, 3 The maximum number of products given to any store is max(2, 3, 3, 3, 3, 3) = 3."
+    },
+    {
+      "input": "</strong> n = 7, quantities = [15,10,10] <strong>Output:</strong> 5 <strong>Explanation:</strong> One optimal way is: - The 15 products of type 0 are distributed to the first three stores in these amounts: 5, 5, 5 - The 10 products of type 1 are distributed to the next two stores in these amounts: 5, 5 - The 10 products of type 2 are distributed to the last two stores in these amounts: 5, 5 The maximum number of products given to any store is max(5, 5, 5, 5, 5, 5, 5) = 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> One optimal way is: - The 15 products of type 0 are distributed to the first three stores in these amounts: 5, 5, 5 - The 10 products of type 1 are distributed to the next two stores in these amounts: 5, 5 - The 10 products of type 2 are distributed to the last two stores in these amounts: 5, 5 The maximum number of products given to any store is max(5, 5, 5, 5, 5, 5, 5) = 5."
+    },
+    {
+      "input": "</strong> n = 1, quantities = [100000] <strong>Output:</strong> 100000 <strong>Explanation:</strong> The only optimal way is: - The 100000 products of type 0 are distributed to the only store. The maximum number of products given to any store is max(100000) = 100000.",
+      "expectedOutput": "</strong> 100000 <strong>Explanation:</strong> The only optimal way is: - The 100000 products of type 0 are distributed to the only store. The maximum number of products given to any store is max(100000) = 100000."
+    }
+  ]
+}

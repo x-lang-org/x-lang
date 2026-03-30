@@ -1,0 +1,26 @@
+{
+  "problemId": "1295",
+  "titleSlug": "minimum-garden-perimeter-to-collect-enough-apples",
+  "title": "Minimum Garden Perimeter to Collect Enough Apples",
+  "titleCn": "收集足够苹果的最小花园周长",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.6349688726285664,
+  "testcases": [
+    {
+      "input": "</strong> neededApples = 1 <strong>Output:</strong> 8 <strong>Explanation:</strong> A square plot of side length 1 does not contain any apples. However, a square plot of side length 2 has 12 apples inside (as depicted in the image above). The perimeter is 2 * 4 = 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> A square plot of side length 1 does not contain any apples. However, a square plot of side length 2 has 12 apples inside (as depicted in the image above). The perimeter is 2 * 4 = 8."
+    },
+    {
+      "input": "</strong> neededApples = 13 <strong>Output:</strong> 16",
+      "expectedOutput": "</strong> 16"
+    },
+    {
+      "input": "</strong> neededApples = 1000000000 <strong>Output:</strong> 5040",
+      "expectedOutput": "</strong> 5040"
+    }
+  ]
+}

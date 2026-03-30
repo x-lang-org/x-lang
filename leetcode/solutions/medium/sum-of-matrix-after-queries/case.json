@@ -1,0 +1,22 @@
+{
+  "problemId": "2838",
+  "titleSlug": "sum-of-matrix-after-queries",
+  "title": "Sum of Matrix After Queries",
+  "titleCn": "查询后矩阵的和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.36980224478888296,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, queries = [[0,0,1],[1,2,2],[0,2,3],[1,0,4]] <strong>Output:</strong> 23 <strong>Explanation:</strong> The image above describes the matrix after each query. The sum of the matrix after all queries are applied is 23.",
+      "expectedOutput": "</strong> 23 <strong>Explanation:</strong> The image above describes the matrix after each query. The sum of the matrix after all queries are applied is 23."
+    },
+    {
+      "input": "</strong> n = 3, queries = [[0,0,4],[0,1,2],[1,0,1],[0,2,3],[1,2,1]] <strong>Output:</strong> 17 <strong>Explanation:</strong> The image above describes the matrix after each query. The sum of the matrix after all queries are applied is 17.",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> The image above describes the matrix after each query. The sum of the matrix after all queries are applied is 17."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "917",
+  "titleSlug": "boats-to-save-people",
+  "title": "Boats to Save People",
+  "titleCn": "救生艇",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.5793438268782792,
+  "testcases": [
+    {
+      "input": "</strong> people = [1,2], limit = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> 1 boat (1, 2)",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 1 boat (1, 2)"
+    },
+    {
+      "input": "</strong> people = [3,2,2,1], limit = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> 3 boats (1, 2), (2) and (3)",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 3 boats (1, 2), (2) and (3)"
+    },
+    {
+      "input": "</strong> people = [3,5,3,4], limit = 5 <strong>Output:</strong> 4 <strong>Explanation:</strong> 4 boats (3), (3), (4), (5)",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> 4 boats (3), (3), (4), (5)"
+    }
+  ]
+}

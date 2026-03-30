@@ -1,0 +1,24 @@
+{
+  "problemId": "2525",
+  "titleSlug": "count-number-of-distinct-integers-after-reverse-operations",
+  "title": "Count Number of Distinct Integers After Reverse Operations",
+  "titleCn": "反转之后不同整数的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting"
+  ],
+  "acRate": 0.7622675330495182,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,13,10,12,31] <strong>Output:</strong> 6 <strong>Explanation:</strong> After including the reverse of each number, the resulting array is [1,13,10,12,31,<u>1,31,1,21,13</u>]. The reversed integers that were added to the end of the array are underlined. Note that for the integer 10, after reversing it, it becomes 01 which is just 1. The number of distinct integers in this array is 6 (The numbers 1, 10, 12, 13, 21, and 31).",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> After including the reverse of each number, the resulting array is [1,13,10,12,31,<u>1,31,1,21,13</u>]. The reversed integers that were added to the end of the array are underlined. Note that for the integer 10, after reversing it, it becomes 01 which is just 1. The number of distinct integers in this array is 6 (The numbers 1, 10, 12, 13, 21, and 31)."
+    },
+    {
+      "input": "</strong> nums = [2,2,2] <strong>Output:</strong> 1 <strong>Explanation:</strong> After including the reverse of each number, the resulting array is [2,2,2,<u>2,2,2</u>]. The number of distinct integers in this array is 1 (The number 2).",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> After including the reverse of each number, the resulting array is [2,2,2,<u>2,2,2</u>]. The number of distinct integers in this array is 1 (The number 2)."
+    }
+  ]
+}

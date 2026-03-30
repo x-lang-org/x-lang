@@ -1,0 +1,22 @@
+{
+  "problemId": "1274",
+  "titleSlug": "number-of-days-between-two-dates",
+  "title": "Number of Days Between Two Dates",
+  "titleCn": "日期之间隔几天",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.5300511992736261,
+  "testcases": [
+    {
+      "input": "</strong> date1 = \"2019-06-29\", date2 = \"2019-06-30\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> date1 = \"2020-01-15\", date2 = \"2019-12-31\" <strong>Output:</strong> 15",
+      "expectedOutput": "</strong> 15"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "problemId": "1827",
+  "titleSlug": "invalid-tweets",
+  "title": "Invalid Tweets",
+  "titleCn": "无效的推文",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.8357671807694839,
+  "testcases": [
+    {
+      "input": "</strong> Tweets table: +----------+-----------------------------------+ | tweet_id | content              | +----------+-----------------------------------+ | 1    | Let us Code            | | 2    | More than fifteen chars are here! | +----------+-----------------------------------+ <strong>Output:</strong> +----------+ | tweet_id | +----------+ | 2    | +----------+ <strong>Explanation:</strong> Tweet 1 has length = 11. It is a valid tweet. Tweet 2 has length = 33. It is an invalid tweet.",
+      "expectedOutput": "</strong> +----------+ | tweet_id | +----------+ | 2    | +----------+ <strong>Explanation:</strong> Tweet 1 has length = 11. It is a valid tweet. Tweet 2 has length = 33. It is an invalid tweet."
+    }
+  ]
+}

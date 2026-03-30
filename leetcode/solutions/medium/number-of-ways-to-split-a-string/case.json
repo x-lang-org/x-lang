@@ -1,0 +1,26 @@
+{
+  "problemId": "1678",
+  "titleSlug": "number-of-ways-to-split-a-string",
+  "title": "Number of Ways to Split a String",
+  "titleCn": "分割字符串的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.3385586608029508,
+  "testcases": [
+    {
+      "input": "</strong> s = \"10101\" <strong>Output:</strong> 4 <strong>Explanation:</strong> There are four ways to split s in 3 parts where each part contain the same number of letters '1'. \"1|010|1\" \"1|01|01\" \"10|10|1\" \"10|1|01\"",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are four ways to split s in 3 parts where each part contain the same number of letters '1'. \"1|010|1\" \"1|01|01\" \"10|10|1\" \"10|1|01"
+    },
+    {
+      "input": "</strong> s = \"1001\" <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> s = \"0000\" <strong>Output:</strong> 3 <strong>Explanation:</strong> There are three ways to split s in 3 parts. \"0|0|00\" \"0|00|0\" \"00|0|0\"",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are three ways to split s in 3 parts. \"0|0|00\" \"0|00|0\" \"00|0|0"
+    }
+  ]
+}

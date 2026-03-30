@@ -1,0 +1,29 @@
+{
+  "problemId": "2130",
+  "titleSlug": "maximum-product-of-the-length-of-two-palindromic-subsequences",
+  "title": "Maximum Product of the Length of Two Palindromic Subsequences",
+  "titleCn": "两个回文子序列长度的最大乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "string",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.6346095411728958,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leetcodecom\" <strong>Output:</strong> 9 <strong>Explanation</strong>: An optimal solution is to choose \"ete\" for the 1<sup>st</sup> subsequence and \"cdc\" for the 2<sup>nd</sup> subsequence. The product of their lengths is: 3 * 3 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation</strong>: An optimal solution is to choose \"ete\" for the 1<sup>st</sup> subsequence and \"cdc\" for the 2<sup>nd</sup> subsequence. The product of their lengths is: 3 * 3 = 9."
+    },
+    {
+      "input": "</strong> s = \"bb\" <strong>Output:</strong> 1 <strong>Explanation</strong>: An optimal solution is to choose \"b\" (the first character) for the 1<sup>st</sup> subsequence and \"b\" (the second character) for the 2<sup>nd</sup> subsequence. The product of their lengths is: 1 * 1 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation</strong>: An optimal solution is to choose \"b\" (the first character) for the 1<sup>st</sup> subsequence and \"b\" (the second character) for the 2<sup>nd</sup> subsequence. The product of their lengths is: 1 * 1 = 1."
+    },
+    {
+      "input": "</strong> s = \"accbcaxxcxx\" <strong>Output:</strong> 25 <strong>Explanation</strong>: An optimal solution is to choose \"accca\" for the 1<sup>st</sup> subsequence and \"xxcxx\" for the 2<sup>nd</sup> subsequence. The product of their lengths is: 5 * 5 = 25.",
+      "expectedOutput": "</strong> 25 <strong>Explanation</strong>: An optimal solution is to choose \"accca\" for the 1<sup>st</sup> subsequence and \"xxcxx\" for the 2<sup>nd</sup> subsequence. The product of their lengths is: 5 * 5 = 25."
+    }
+  ]
+}

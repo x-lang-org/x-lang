@@ -1,0 +1,25 @@
+{
+  "problemId": "172",
+  "titleSlug": "factorial-trailing-zeroes",
+  "title": "Factorial Trailing Zeroes",
+  "titleCn": "阶乘后的零",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5115221557820087,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 0 <strong>Explanation:</strong> 3! = 6, no trailing zero.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> 3! = 6, no trailing zero."
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 1 <strong>Explanation:</strong> 5! = 120, one trailing zero.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 5! = 120, one trailing zero."
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

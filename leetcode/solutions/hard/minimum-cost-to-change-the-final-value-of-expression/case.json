@@ -1,0 +1,28 @@
+{
+  "problemId": "2008",
+  "titleSlug": "minimum-cost-to-change-the-final-value-of-expression",
+  "title": "Minimum Cost to Change the Final Value of Expression",
+  "titleCn": "反转表达式值的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "math",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5169223277331385,
+  "testcases": [
+    {
+      "input": "</strong> expression = \"1&(0|1)\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can turn \"1&(0<u><strong>|</strong></u>1)\" into \"1&(0<u><strong>&</strong></u>1)\" by changing the '|' to a '&' using 1 operation. The new expression evaluates to 0.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can turn \"1&(0<u><strong>|</strong></u>1)\" into \"1&(0<u><strong>&</strong></u>1)\" by changing the '|' to a '&' using 1 operation. The new expression evaluates to 0."
+    },
+    {
+      "input": "</strong> expression = \"(0&0)&(0&0&0)\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We can turn \"(0<u><strong>&0</strong></u>)<strong><u>&</u></strong>(0&0&0)\" into \"(0<u><strong>|1</strong></u>)<u><strong>|</strong></u>(0&0&0)\" using 3 operations. The new expression evaluates to 1.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can turn \"(0<u><strong>&0</strong></u>)<strong><u>&</u></strong>(0&0&0)\" into \"(0<u><strong>|1</strong></u>)<u><strong>|</strong></u>(0&0&0)\" using 3 operations. The new expression evaluates to 1."
+    },
+    {
+      "input": "</strong> expression = \"(0|(1|0&1))\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can turn \"(0|(<u><strong>1</strong></u>|0&1))\" into \"(0|(<u><strong>0</strong></u>|0&1))\" using 1 operation. The new expression evaluates to 0.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can turn \"(0|(<u><strong>1</strong></u>|0&1))\" into \"(0|(<u><strong>0</strong></u>|0&1))\" using 1 operation. The new expression evaluates to 0."
+    }
+  ]
+}

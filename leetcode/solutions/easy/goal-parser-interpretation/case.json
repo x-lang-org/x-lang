@@ -1,0 +1,25 @@
+{
+  "problemId": "1797",
+  "titleSlug": "goal-parser-interpretation",
+  "title": "Goal Parser Interpretation",
+  "titleCn": "设计 Goal 解析器",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.8529683743295727,
+  "testcases": [
+    {
+      "input": "</strong> command = \"G()(al)\" <strong>Output:</strong> \"Goal\" <strong>Explanation:</strong> The Goal Parser interprets the command as follows: G -> G () -> o (al) -> al The final concatenated result is \"Goal\".",
+      "expectedOutput": "</strong> \"Goal\" <strong>Explanation:</strong> The Goal Parser interprets the command as follows: G -> G () -> o (al) -> al The final concatenated result is \"Goal\"."
+    },
+    {
+      "input": "</strong> command = \"G()()()()(al)\" <strong>Output:</strong> \"Gooooal\"",
+      "expectedOutput": "</strong> \"Gooooal"
+    },
+    {
+      "input": "</strong> command = \"(al)G(al)()()G\" <strong>Output:</strong> \"alGalooG\"",
+      "expectedOutput": "</strong> \"alGalooG"
+    }
+  ]
+}

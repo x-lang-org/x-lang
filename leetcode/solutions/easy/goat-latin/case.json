@@ -1,0 +1,21 @@
+{
+  "problemId": "851",
+  "titleSlug": "goat-latin",
+  "title": "Goat Latin",
+  "titleCn": "山羊拉丁文",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6544172586161536,
+  "testcases": [
+    {
+      "input": "</strong> sentence = \"I speak Goat Latin\" <strong>Output:</strong> \"Imaa peaksmaaa oatGmaaaa atinLmaaaaa\"",
+      "expectedOutput": "</strong> \"Imaa peaksmaaa oatGmaaaa atinLmaaaaa"
+    },
+    {
+      "input": "</strong> sentence = \"The quick brown fox jumped over the lazy dog\" <strong>Output:</strong> \"heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa\"",
+      "expectedOutput": "</strong> \"heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa"
+    }
+  ]
+}

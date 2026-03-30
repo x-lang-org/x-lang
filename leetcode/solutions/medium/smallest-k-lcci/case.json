@@ -1,0 +1,21 @@
+{
+  "problemId": "1000021",
+  "titleSlug": "smallest-k-lcci",
+  "title": "Smallest K LCCI",
+  "titleCn": "最小K个数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "quickselect",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5674742374148773,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,3,5,7,2,4,6,8], k = 4\r <strong>Output: </strong> [1,2,3,4]",
+      "expectedOutput": "</strong> [1,2,3,4]"
+    }
+  ]
+}

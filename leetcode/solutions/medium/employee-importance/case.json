@@ -1,0 +1,25 @@
+{
+  "problemId": "690",
+  "titleSlug": "employee-importance",
+  "title": "Employee Importance",
+  "titleCn": "员工的重要性",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.6948629786698348,
+  "testcases": [
+    {
+      "input": "</strong> employees = [[1,5,[2,3]],[2,3,[]],[3,3,[]]], id = 1 <strong>Output:</strong> 11 <strong>Explanation:</strong> Employee 1 has an importance value of 5 and has two direct subordinates: employee 2 and employee 3. They both have an importance value of 3. Thus, the total importance value of employee 1 is 5 + 3 + 3 = 11.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> Employee 1 has an importance value of 5 and has two direct subordinates: employee 2 and employee 3. They both have an importance value of 3. Thus, the total importance value of employee 1 is 5 + 3 + 3 = 11."
+    },
+    {
+      "input": "</strong> employees = [[1,2,[5]],[5,-3,[]]], id = 5 <strong>Output:</strong> -3 <strong>Explanation:</strong> Employee 5 has an importance value of -3 and has no direct subordinates. Thus, the total importance value of employee 5 is -3.",
+      "expectedOutput": "</strong> -3 <strong>Explanation:</strong> Employee 5 has an importance value of -3 and has no direct subordinates. Thus, the total importance value of employee 5 is -3."
+    }
+  ]
+}

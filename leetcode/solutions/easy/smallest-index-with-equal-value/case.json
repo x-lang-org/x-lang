@@ -1,0 +1,25 @@
+{
+  "problemId": "2181",
+  "titleSlug": "smallest-index-with-equal-value",
+  "title": "Smallest Index With Equal Value",
+  "titleCn": "值相等的最小索引",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.762821408608161,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,2] <strong>Output:</strong> 0 <strong>Explanation:</strong> i=0: 0 mod 10 = 0 == nums[0]. i=1: 1 mod 10 = 1 == nums[1]. i=2: 2 mod 10 = 2 == nums[2]. All indices have i mod 10 == nums[i], so we return the smallest index 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> i=0: 0 mod 10 = 0 == nums[0]. i=1: 1 mod 10 = 1 == nums[1]. i=2: 2 mod 10 = 2 == nums[2]. All indices have i mod 10 == nums[i], so we return the smallest index 0."
+    },
+    {
+      "input": "</strong> nums = [4,3,2,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> i=0: 0 mod 10 = 0 != nums[0]. i=1: 1 mod 10 = 1 != nums[1]. i=2: 2 mod 10 = 2 == nums[2]. i=3: 3 mod 10 = 3 != nums[3]. 2 is the only index which has i mod 10 == nums[i].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> i=0: 0 mod 10 = 0 != nums[0]. i=1: 1 mod 10 = 1 != nums[1]. i=2: 2 mod 10 = 2 == nums[2]. i=3: 3 mod 10 = 3 != nums[3]. 2 is the only index which has i mod 10 == nums[i]."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5,6,7,8,9,0] <strong>Output:</strong> -1 <strong>Explanation:</strong> No index satisfies i mod 10 == nums[i].",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> No index satisfies i mod 10 == nums[i]."
+    }
+  ]
+}

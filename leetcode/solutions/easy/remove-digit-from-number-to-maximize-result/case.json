@@ -1,0 +1,27 @@
+{
+  "problemId": "2337",
+  "titleSlug": "remove-digit-from-number-to-maximize-result",
+  "title": "Remove Digit From Number to Maximize Result",
+  "titleCn": "移除指定数字得到的最大结果",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.5229762412861004,
+  "testcases": [
+    {
+      "input": "</strong> number = \"123\", digit = \"3\" <strong>Output:</strong> \"12\" <strong>Explanation:</strong> There is only one '3' in \"123\". After removing '3', the result is \"12\".",
+      "expectedOutput": "</strong> \"12\" <strong>Explanation:</strong> There is only one '3' in \"123\". After removing '3', the result is \"12\"."
+    },
+    {
+      "input": "</strong> number = \"1231\", digit = \"1\" <strong>Output:</strong> \"231\" <strong>Explanation:</strong> We can remove the first '1' to get \"231\" or remove the second '1' to get \"123\". Since 231 > 123, we return \"231\".",
+      "expectedOutput": "</strong> \"231\" <strong>Explanation:</strong> We can remove the first '1' to get \"231\" or remove the second '1' to get \"123\". Since 231 > 123, we return \"231\"."
+    },
+    {
+      "input": "</strong> number = \"551\", digit = \"5\" <strong>Output:</strong> \"51\" <strong>Explanation:</strong> We can remove either the first or second '5' from \"551\". Both result in the string \"51\".",
+      "expectedOutput": "</strong> \"51\" <strong>Explanation:</strong> We can remove either the first or second '5' from \"551\". Both result in the string \"51\"."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "174",
+  "titleSlug": "dungeon-game",
+  "title": "Dungeon Game",
+  "titleCn": "地下城游戏",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.4892139859540939,
+  "testcases": [
+    {
+      "input": "</strong> dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]] <strong>Output:</strong> 7 <strong>Explanation:</strong> The initial health of the knight must be at least 7 if he follows the optimal path: RIGHT-> RIGHT -> DOWN -> DOWN.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The initial health of the knight must be at least 7 if he follows the optimal path: RIGHT-> RIGHT -> DOWN -> DOWN."
+    },
+    {
+      "input": "</strong> dungeon = [[0]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

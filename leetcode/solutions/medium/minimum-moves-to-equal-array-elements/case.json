@@ -1,0 +1,22 @@
+{
+  "problemId": "453",
+  "titleSlug": "minimum-moves-to-equal-array-elements",
+  "title": "Minimum Moves to Equal Array Elements",
+  "titleCn": "最小操作次数使数组元素相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.6150533817187336,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> Only three moves are needed (remember each move increments two elements): [1,2,3] => [2,3,3] => [3,4,3] => [4,4,4]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Only three moves are needed (remember each move increments two elements): [1,2,3] => [2,3,3] => [3,4,3] => [4,4,4]"
+    },
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

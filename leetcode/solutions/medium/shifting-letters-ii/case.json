@@ -1,0 +1,23 @@
+{
+  "problemId": "2465",
+  "titleSlug": "shifting-letters-ii",
+  "title": "Shifting Letters II",
+  "titleCn": "字母移位 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.4464456792488983,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abc\", shifts = [[0,1,0],[1,2,1],[0,2,1]] <strong>Output:</strong> \"ace\" <strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 1 backward. Now s = \"zac\". Secondly, shift the characters from index 1 to index 2 forward. Now s = \"zbd\". Finally, shift the characters from index 0 to index 2 forward. Now s = \"ace\".",
+      "expectedOutput": "</strong> \"ace\" <strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 1 backward. Now s = \"zac\". Secondly, shift the characters from index 1 to index 2 forward. Now s = \"zbd\". Finally, shift the characters from index 0 to index 2 forward. Now s = \"ace\"."
+    },
+    {
+      "input": "</strong> s = \"dztz\", shifts = [[0,0,0],[1,1,1]] <strong>Output:</strong> \"catz\" <strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 0 backward. Now s = \"cztz\". Finally, shift the characters from index 1 to index 1 forward. Now s = \"catz\".",
+      "expectedOutput": "</strong> \"catz\" <strong>Explanation:</strong> Firstly, shift the characters from index 0 to index 0 backward. Now s = \"cztz\". Finally, shift the characters from index 1 to index 1 forward. Now s = \"catz\"."
+    }
+  ]
+}

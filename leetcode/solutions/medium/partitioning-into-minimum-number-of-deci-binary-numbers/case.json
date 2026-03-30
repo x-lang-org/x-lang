@@ -1,0 +1,26 @@
+{
+  "problemId": "1807",
+  "titleSlug": "partitioning-into-minimum-number-of-deci-binary-numbers",
+  "title": "Partitioning Into Minimum Number Of Deci-Binary Numbers",
+  "titleCn": "十-二进制数的最少数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.8839590443686007,
+  "testcases": [
+    {
+      "input": "</strong> n = \"32\" <strong>Output:</strong> 3 <strong>Explanation:</strong> 10 + 11 + 11 = 32",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 10 + 11 + 11 = 32"
+    },
+    {
+      "input": "</strong> n = \"82734\" <strong>Output:</strong> 8",
+      "expectedOutput": "</strong> 8"
+    },
+    {
+      "input": "</strong> n = \"27346209830709182346\" <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    }
+  ]
+}

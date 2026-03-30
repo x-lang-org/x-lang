@@ -1,0 +1,23 @@
+{
+  "problemId": "1055",
+  "titleSlug": "pairs-of-songs-with-total-durations-divisible-by-60",
+  "title": "Pairs of Songs With Total Durations Divisible by 60",
+  "titleCn": "总持续时间可被 60 整除的歌曲",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.5312975559670706,
+  "testcases": [
+    {
+      "input": "</strong> time = [30,20,150,100,40] <strong>Output:</strong> 3 <strong>Explanation:</strong> Three pairs have a total duration divisible by 60: (time[0] = 30, time[2] = 150): total duration 180 (time[1] = 20, time[3] = 100): total duration 120 (time[1] = 20, time[4] = 40): total duration 60",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Three pairs have a total duration divisible by 60: (time[0] = 30, time[2] = 150): total duration 180 (time[1] = 20, time[3] = 100): total duration 120 (time[1] = 20, time[4] = 40): total duration 60"
+    },
+    {
+      "input": "</strong> time = [60,60,60] <strong>Output:</strong> 3 <strong>Explanation:</strong> All three pairs have a total duration of 120, which is divisible by 60.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> All three pairs have a total duration of 120, which is divisible by 60."
+    }
+  ]
+}

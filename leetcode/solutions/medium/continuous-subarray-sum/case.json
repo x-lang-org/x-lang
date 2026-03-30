@@ -1,0 +1,28 @@
+{
+  "problemId": "523",
+  "titleSlug": "continuous-subarray-sum",
+  "title": "Continuous Subarray Sum",
+  "titleCn": "连续的子数组和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "prefix-sum"
+  ],
+  "acRate": 0.297096423911159,
+  "testcases": [
+    {
+      "input": "</strong> nums = [23,<u>2,4</u>,6,7], k = 6 <strong>Output:</strong> true <strong>Explanation:</strong> [2, 4] is a continuous subarray of size 2 whose elements sum up to 6.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> [2, 4] is a continuous subarray of size 2 whose elements sum up to 6."
+    },
+    {
+      "input": "</strong> nums = [<u>23,2,6,4,7</u>], k = 6 <strong>Output:</strong> true <strong>Explanation:</strong> [23, 2, 6, 4, 7] is an continuous subarray of size 5 whose elements sum up to 42. 42 is a multiple of 6 because 42 = 7 * 6 and 7 is an integer.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> [23, 2, 6, 4, 7] is an continuous subarray of size 5 whose elements sum up to 42. 42 is a multiple of 6 because 42 = 7 * 6 and 7 is an integer."
+    },
+    {
+      "input": "</strong> nums = [23,2,6,4,7], k = 13 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

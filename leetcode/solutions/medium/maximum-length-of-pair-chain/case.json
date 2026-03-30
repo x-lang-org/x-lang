@@ -1,0 +1,24 @@
+{
+  "problemId": "646",
+  "titleSlug": "maximum-length-of-pair-chain",
+  "title": "Maximum Length of Pair Chain",
+  "titleCn": "最长数对链",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6440035549979088,
+  "testcases": [
+    {
+      "input": "</strong> pairs = [[1,2],[2,3],[3,4]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The longest chain is [1,2] -> [3,4].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The longest chain is [1,2] -> [3,4]."
+    },
+    {
+      "input": "</strong> pairs = [[1,2],[7,8],[4,5]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The longest chain is [1,2] -> [4,5] -> [7,8].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The longest chain is [1,2] -> [4,5] -> [7,8]."
+    }
+  ]
+}

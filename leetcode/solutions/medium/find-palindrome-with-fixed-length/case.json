@@ -1,0 +1,22 @@
+{
+  "problemId": "1375",
+  "titleSlug": "find-palindrome-with-fixed-length",
+  "title": "Find Palindrome With Fixed Length",
+  "titleCn": "找到指定长度的回文数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.3549988543496525,
+  "testcases": [
+    {
+      "input": "</strong> queries = [1,2,3,4,5,90], intLength = 3 <strong>Output:</strong> [101,111,121,131,141,999] <strong>Explanation:</strong> The first few palindromes of length 3 are: 101, 111, 121, 131, 141, 151, 161, 171, 181, 191, 202, ... The 90<sup>th</sup> palindrome of length 3 is 999.",
+      "expectedOutput": "</strong> [101,111,121,131,141,999] <strong>Explanation:</strong> The first few palindromes of length 3 are: 101, 111, 121, 131, 141, 151, 161, 171, 181, 191, 202, ... The 90<sup>th</sup> palindrome of length 3 is 999."
+    },
+    {
+      "input": "</strong> queries = [2,4,6], intLength = 4 <strong>Output:</strong> [1111,1331,1551] <strong>Explanation:</strong> The first six palindromes of length 4 are: 1001, 1111, 1221, 1331, 1441, and 1551.",
+      "expectedOutput": "</strong> [1111,1331,1551] <strong>Explanation:</strong> The first six palindromes of length 4 are: 1001, 1111, 1221, 1331, 1441, and 1551."
+    }
+  ]
+}

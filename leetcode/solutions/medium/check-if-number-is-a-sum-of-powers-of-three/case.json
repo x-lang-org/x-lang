@@ -1,0 +1,25 @@
+{
+  "problemId": "1889",
+  "titleSlug": "check-if-number-is-a-sum-of-powers-of-three",
+  "title": "Check if Number is a Sum of Powers of Three",
+  "titleCn": "判断一个数字是否可以表示成三的幂的和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7523122176062104,
+  "testcases": [
+    {
+      "input": "</strong> n = 12 <strong>Output:</strong> true <strong>Explanation:</strong> 12 = 3<sup>1</sup> + 3<sup>2</sup>",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 12 = 3<sup>1</sup> + 3<sup>2</sup>"
+    },
+    {
+      "input": "</strong> n = 91 <strong>Output:</strong> true <strong>Explanation:</strong> 91 = 3<sup>0</sup> + 3<sup>2</sup> + 3<sup>4</sup>",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 91 = 3<sup>0</sup> + 3<sup>2</sup> + 3<sup>4</sup>"
+    },
+    {
+      "input": "</strong> n = 21 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

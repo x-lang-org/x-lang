@@ -1,0 +1,24 @@
+{
+  "problemId": "2466",
+  "titleSlug": "maximum-segment-sum-after-removals",
+  "title": "Maximum Segment Sum After Removals",
+  "titleCn": "删除操作后的最大子段和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "array",
+    "ordered-set",
+    "prefix-sum"
+  ],
+  "acRate": 0.5745335029686175,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,5,6,1], removeQueries = [0,3,2,4,1] <strong>Output:</strong> [14,7,2,2,0] <strong>Explanation:</strong> Using 0 to indicate a removed element, the answer is as follows: Query 1: Remove the 0th element, nums becomes [0,2,5,6,1] and the maximum segment sum is 14 for segment [2,5,6,1]. Query 2: Remove the 3rd element, nums becomes [0,2,5,0,1] and the maximum segment sum is 7 for segment [2,5]. Query 3: Remove the 2nd element, nums becomes [0,2,0,0,1] and the maximum segment sum is 2 for segment [2]. Query 4: Remove the 4th element, nums becomes [0,2,0,0,0] and the maximum segment sum is 2 for segment [2]. Query 5: Remove the 1st element, nums becomes [0,0,0,0,0] and the maximum segment sum is 0, since there are no segments. Finally, we return [14,7,2,2,0].",
+      "expectedOutput": "</strong> [14,7,2,2,0] <strong>Explanation:</strong> Using 0 to indicate a removed element, the answer is as follows: Query 1: Remove the 0th element, nums becomes [0,2,5,6,1] and the maximum segment sum is 14 for segment [2,5,6,1]. Query 2: Remove the 3rd element, nums becomes [0,2,5,0,1] and the maximum segment sum is 7 for segment [2,5]. Query 3: Remove the 2nd element, nums becomes [0,2,0,0,1] and the maximum segment sum is 2 for segment [2]. Query 4: Remove the 4th element, nums becomes [0,2,0,0,0] and the maximum segment sum is 2 for segment [2]. Query 5: Remove the 1st element, nums becomes [0,0,0,0,0] and the maximum segment sum is 0, since there are no segments. Finally, we return [14,7,2,2,0]."
+    },
+    {
+      "input": "</strong> nums = [3,2,11,1], removeQueries = [3,2,1,0] <strong>Output:</strong> [16,5,3,0] <strong>Explanation:</strong> Using 0 to indicate a removed element, the answer is as follows: Query 1: Remove the 3rd element, nums becomes [3,2,11,0] and the maximum segment sum is 16 for segment [3,2,11]. Query 2: Remove the 2nd element, nums becomes [3,2,0,0] and the maximum segment sum is 5 for segment [3,2]. Query 3: Remove the 1st element, nums becomes [3,0,0,0] and the maximum segment sum is 3 for segment [3]. Query 4: Remove the 0th element, nums becomes [0,0,0,0] and the maximum segment sum is 0, since there are no segments. Finally, we return [16,5,3,0].",
+      "expectedOutput": "</strong> [16,5,3,0] <strong>Explanation:</strong> Using 0 to indicate a removed element, the answer is as follows: Query 1: Remove the 3rd element, nums becomes [3,2,11,0] and the maximum segment sum is 16 for segment [3,2,11]. Query 2: Remove the 2nd element, nums becomes [3,2,0,0] and the maximum segment sum is 5 for segment [3,2]. Query 3: Remove the 1st element, nums becomes [3,0,0,0] and the maximum segment sum is 3 for segment [3]. Query 4: Remove the 0th element, nums becomes [0,0,0,0] and the maximum segment sum is 0, since there are no segments. Finally, we return [16,5,3,0]."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1071",
+  "titleSlug": "binary-prefix-divisible-by-5",
+  "title": "Binary Prefix Divisible By 5",
+  "titleCn": "可被 5 整除的二进制前缀",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.5079759149049254,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,1] <strong>Output:</strong> [true,false,false] <strong>Explanation:</strong> The input numbers in binary are 0, 01, 011; which are 0, 1, and 3 in base-10. Only the first number is divisible by 5, so answer[0] is true.",
+      "expectedOutput": "</strong> [true,false,false] <strong>Explanation:</strong> The input numbers in binary are 0, 01, 011; which are 0, 1, and 3 in base-10. Only the first number is divisible by 5, so answer[0] is true."
+    },
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> [false,false,false]",
+      "expectedOutput": "</strong> [false,false,false]"
+    }
+  ]
+}

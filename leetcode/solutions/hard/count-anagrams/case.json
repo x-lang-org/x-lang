@@ -1,0 +1,25 @@
+{
+  "problemId": "2605",
+  "titleSlug": "count-anagrams",
+  "title": "Count Anagrams",
+  "titleCn": "统计同位异构字符串数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "combinatorics",
+    "counting"
+  ],
+  "acRate": 0.48635734942788883,
+  "testcases": [
+    {
+      "input": "</strong> s = \"too hot\" <strong>Output:</strong> 18 <strong>Explanation:</strong> Some of the anagrams of the given string are \"too hot\", \"oot hot\", \"oto toh\", \"too toh\", and \"too oht\".",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> Some of the anagrams of the given string are \"too hot\", \"oot hot\", \"oto toh\", \"too toh\", and \"too oht\"."
+    },
+    {
+      "input": "</strong> s = \"aa\" <strong>Output:</strong> 1 <strong>Explanation:</strong> There is only one anagram possible for the given string.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is only one anagram possible for the given string."
+    }
+  ]
+}

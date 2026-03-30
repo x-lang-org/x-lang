@@ -1,0 +1,21 @@
+{
+  "problemId": "551",
+  "titleSlug": "student-attendance-record-i",
+  "title": "Student Attendance Record I",
+  "titleCn": "学生出勤记录 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5922716176616022,
+  "testcases": [
+    {
+      "input": "</strong> s = \"PPALLP\" <strong>Output:</strong> true <strong>Explanation:</strong> The student has fewer than 2 absences and was never late 3 or more consecutive days.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The student has fewer than 2 absences and was never late 3 or more consecutive days."
+    },
+    {
+      "input": "</strong> s = \"PPALLL\" <strong>Output:</strong> false <strong>Explanation:</strong> The student was late 3 consecutive days in the last 3 days, so is not eligible for the award.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The student was late 3 consecutive days in the last 3 days, so is not eligible for the award."
+    }
+  ]
+}

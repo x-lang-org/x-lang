@@ -1,0 +1,25 @@
+{
+  "problemId": "2346",
+  "titleSlug": "largest-3-same-digit-number-in-string",
+  "title": "Largest 3-Same-Digit Number in String",
+  "titleCn": "字符串中最大的 3 位相同数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7037909574572511,
+  "testcases": [
+    {
+      "input": "</strong> num = \"6<strong><u>777</u></strong>133339\" <strong>Output:</strong> \"777\" <strong>Explanation:</strong> There are two distinct good integers: \"777\" and \"333\". \"777\" is the largest, so we return \"777\".",
+      "expectedOutput": "</strong> \"777\" <strong>Explanation:</strong> There are two distinct good integers: \"777\" and \"333\". \"777\" is the largest, so we return \"777\"."
+    },
+    {
+      "input": "</strong> num = \"23<strong><u>000</u></strong>19\" <strong>Output:</strong> \"000\" <strong>Explanation:</strong> \"000\" is the only good integer.",
+      "expectedOutput": "</strong> \"000\" <strong>Explanation:</strong> \"000\" is the only good integer."
+    },
+    {
+      "input": "</strong> num = \"42352338\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> No substring of length 3 consists of only one unique digit. Therefore, there are no good integers.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> No substring of length 3 consists of only one unique digit. Therefore, there are no good integers."
+    }
+  ]
+}

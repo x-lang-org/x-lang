@@ -1,0 +1,25 @@
+{
+  "problemId": "2682",
+  "titleSlug": "count-increasing-quadruplets",
+  "title": "Count Increasing Quadruplets",
+  "titleCn": "统计上升四元组",
+  "difficulty": "HARD",
+  "topicTags": [
+    "binary-indexed-tree",
+    "array",
+    "dynamic-programming",
+    "enumeration",
+    "prefix-sum"
+  ],
+  "acRate": 0.5048869118476286,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,3,2,4,5] <strong>Output:</strong> 2 <strong>Explanation:</strong> - When i = 0, j = 1, k = 2, and l = 3, nums[i] < nums[k] < nums[j] < nums[l]. - When i = 0, j = 1, k = 2, and l = 4, nums[i] < nums[k] < nums[j] < nums[l]. There are no other quadruplets, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - When i = 0, j = 1, k = 2, and l = 3, nums[i] < nums[k] < nums[j] < nums[l]. - When i = 0, j = 1, k = 2, and l = 4, nums[i] < nums[k] < nums[j] < nums[l]. There are no other quadruplets, so we return 2."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 0 <strong>Explanation:</strong> There exists only one quadruplet with i = 0, j = 1, k = 2, l = 3, but since nums[j] < nums[k], we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There exists only one quadruplet with i = 0, j = 1, k = 2, l = 3, but since nums[j] < nums[k], we return 0."
+    }
+  ]
+}

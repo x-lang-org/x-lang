@@ -1,0 +1,22 @@
+{
+  "problemId": "1168",
+  "titleSlug": "duplicate-zeros",
+  "title": "Duplicate Zeros",
+  "titleCn": "复写零",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.5331442862736677,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,0,2,3,0,4,5,0] <strong>Output:</strong> [1,0,0,2,3,0,0,4] <strong>Explanation:</strong> After calling your function, the input array is modified to: [1,0,0,2,3,0,0,4]",
+      "expectedOutput": "</strong> [1,0,0,2,3,0,0,4] <strong>Explanation:</strong> After calling your function, the input array is modified to: [1,0,0,2,3,0,0,4]"
+    },
+    {
+      "input": "</strong> arr = [1,2,3] <strong>Output:</strong> [1,2,3] <strong>Explanation:</strong> After calling your function, the input array is modified to: [1,2,3]",
+      "expectedOutput": "</strong> [1,2,3] <strong>Explanation:</strong> After calling your function, the input array is modified to: [1,2,3]"
+    }
+  ]
+}

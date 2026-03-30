@@ -1,0 +1,29 @@
+{
+  "problemId": "1409",
+  "titleSlug": "minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix",
+  "title": "Minimum Number of Flips to Convert Binary Matrix to Zero Matrix",
+  "titleCn": "转化为全零矩阵的最少反转次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "breadth-first-search",
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.7045287637698898,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[0,0],[0,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> One possible solution is to flip (1, 0) then (0, 1) and finally (1, 1) as shown.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One possible solution is to flip (1, 0) then (0, 1) and finally (1, 1) as shown."
+    },
+    {
+      "input": "</strong> mat = [[0]] <strong>Output:</strong> 0 <strong>Explanation:</strong> Given matrix is a zero matrix. We do not need to change it.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Given matrix is a zero matrix. We do not need to change it."
+    },
+    {
+      "input": "</strong> mat = [[1,0,0],[1,0,0]] <strong>Output:</strong> -1 <strong>Explanation:</strong> Given matrix cannot be a zero matrix.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Given matrix cannot be a zero matrix."
+    }
+  ]
+}

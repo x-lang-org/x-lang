@@ -1,0 +1,22 @@
+{
+  "problemId": "2542",
+  "titleSlug": "average-value-of-even-numbers-that-are-divisible-by-three",
+  "title": "Average Value of Even Numbers That Are Divisible by Three",
+  "titleCn": "可被三整除的偶数的平均值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.6415526687571069,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,3,6,10,12,15] <strong>Output:</strong> 9 <strong>Explanation:</strong> 6 and 12 are even numbers that are divisible by 3. (6 + 12) / 2 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> 6 and 12 are even numbers that are divisible by 3. (6 + 12) / 2 = 9."
+    },
+    {
+      "input": "</strong> nums = [1,2,4,7,10] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no single number that satisfies the requirement, so return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no single number that satisfies the requirement, so return 0."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2499",
+  "titleSlug": "minimum-money-required-before-transactions",
+  "title": "Minimum Money Required Before Transactions",
+  "titleCn": "完成所有交易的初始最少钱数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6102326834965411,
+  "testcases": [
+    {
+      "input": "</strong> transactions = [[2,1],[5,0],[4,2]] <strong>Output:</strong> 10 <strong>Explanation: </strong>Starting with money = 10, the transactions can be performed in any order. It can be shown that starting with money < 10 will fail to complete all transactions in some order.",
+      "expectedOutput": "</strong> 10 <strong>Explanation: </strong>Starting with money = 10, the transactions can be performed in any order. It can be shown that starting with money < 10 will fail to complete all transactions in some order."
+    },
+    {
+      "input": "</strong> transactions = [[3,0],[0,3]] <strong>Output:</strong> 3 <strong>Explanation:</strong> - If transactions are in the order [[3,0],[0,3]], the minimum money required to complete the transactions is 3. - If transactions are in the order [[0,3],[3,0]], the minimum money required to complete the transactions is 0. Thus, starting with money = 3, the transactions can be performed in any order.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> - If transactions are in the order [[3,0],[0,3]], the minimum money required to complete the transactions is 3. - If transactions are in the order [[0,3],[3,0]], the minimum money required to complete the transactions is 0. Thus, starting with money = 3, the transactions can be performed in any order."
+    }
+  ]
+}

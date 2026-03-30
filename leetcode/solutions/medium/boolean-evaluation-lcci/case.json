@@ -1,0 +1,23 @@
+{
+  "problemId": "1000031",
+  "titleSlug": "boolean-evaluation-lcci",
+  "title": "Boolean Evaluation LCCI",
+  "titleCn": "布尔运算",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "memoization",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5111313236313236,
+  "testcases": [
+    {
+      "input": "</strong>s = \"1^0|0|1\", result = 0\r \r <strong>Output: </strong>2\r <strong>Explanation:</strong> Two possible parenthesizing ways are:\r 1^(0|(0|1))\r 1^((0|0)|1)",
+      "expectedOutput": "</strong>2\r <strong>Explanation:</strong> Two possible parenthesizing ways are:\r 1^(0|(0|1))\r 1^((0|0)|1)"
+    },
+    {
+      "input": "</strong>s = \"0&0&0&1^1|0\", result = 1\r \r <strong>Output: </strong>10",
+      "expectedOutput": "</strong>10"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2459",
+  "titleSlug": "minimum-hours-of-training-to-win-a-competition",
+  "title": "Minimum Hours of Training to Win a Competition",
+  "titleCn": "赢得比赛需要的最少训练时长",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.4705549468411737,
+  "testcases": [
+    {
+      "input": "</strong> initialEnergy = 5, initialExperience = 3, energy = [1,4,3,2], experience = [2,6,3,1] <strong>Output:</strong> 8 <strong>Explanation:</strong> You can increase your energy to 11 after 6 hours of training, and your experience to 5 after 2 hours of training. You face the opponents in the following order: - You have more energy and experience than the 0<sup>th</sup> opponent so you win.  Your energy becomes 11 - 1 = 10, and your experience becomes 5 + 2 = 7. - You have more energy and experience than the 1<sup>st</sup> opponent so you win.  Your energy becomes 10 - 4 = 6, and your experience becomes 7 + 6 = 13. - You have more energy and experience than the 2<sup>nd</sup> opponent so you win.  Your energy becomes 6 - 3 = 3, and your experience becomes 13 + 3 = 16. - You have more energy and experience than the 3<sup>rd</sup> opponent so you win.  Your energy becomes 3 - 2 = 1, and your experience becomes 16 + 1 = 17. You did a total of 6 + 2 = 8 hours of training before the competition, so we return 8. It can be proven that no smaller answer exists.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> You can increase your energy to 11 after 6 hours of training, and your experience to 5 after 2 hours of training. You face the opponents in the following order: - You have more energy and experience than the 0<sup>th</sup> opponent so you win.  Your energy becomes 11 - 1 = 10, and your experience becomes 5 + 2 = 7. - You have more energy and experience than the 1<sup>st</sup> opponent so you win.  Your energy becomes 10 - 4 = 6, and your experience becomes 7 + 6 = 13. - You have more energy and experience than the 2<sup>nd</sup> opponent so you win.  Your energy becomes 6 - 3 = 3, and your experience becomes 13 + 3 = 16. - You have more energy and experience than the 3<sup>rd</sup> opponent so you win.  Your energy becomes 3 - 2 = 1, and your experience becomes 16 + 1 = 17. You did a total of 6 + 2 = 8 hours of training before the competition, so we return 8. It can be proven that no smaller answer exists."
+    },
+    {
+      "input": "</strong> initialEnergy = 2, initialExperience = 4, energy = [1], experience = [3] <strong>Output:</strong> 0 <strong>Explanation:</strong> You do not need any additional energy or experience to win the competition, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> You do not need any additional energy or experience to win the competition, so we return 0."
+    }
+  ]
+}

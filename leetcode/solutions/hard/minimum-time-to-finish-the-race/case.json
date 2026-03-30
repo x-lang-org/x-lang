@@ -1,0 +1,22 @@
+{
+  "problemId": "2295",
+  "titleSlug": "minimum-time-to-finish-the-race",
+  "title": "Minimum Time to Finish the Race",
+  "titleCn": "完成比赛的最少时间",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4548311076197958,
+  "testcases": [
+    {
+      "input": "</strong> tires = [[2,3],[3,4]], changeTime = 5, numLaps = 4 <strong>Output:</strong> 21 <strong>Explanation:</strong> Lap 1: Start with tire 0 and finish the lap in 2 seconds. Lap 2: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds. Lap 3: Change tires to a new tire 0 for 5 seconds and then finish the lap in another 2 seconds. Lap 4: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds. Total time = 2 + 6 + 5 + 2 + 6 = 21 seconds. The minimum time to complete the race is 21 seconds.",
+      "expectedOutput": "</strong> 21 <strong>Explanation:</strong> Lap 1: Start with tire 0 and finish the lap in 2 seconds. Lap 2: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds. Lap 3: Change tires to a new tire 0 for 5 seconds and then finish the lap in another 2 seconds. Lap 4: Continue with tire 0 and finish the lap in 2 * 3 = 6 seconds. Total time = 2 + 6 + 5 + 2 + 6 = 21 seconds. The minimum time to complete the race is 21 seconds."
+    },
+    {
+      "input": "</strong> tires = [[1,10],[2,2],[3,4]], changeTime = 6, numLaps = 5 <strong>Output:</strong> 25 <strong>Explanation:</strong> Lap 1: Start with tire 1 and finish the lap in 2 seconds. Lap 2: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds. Lap 3: Change tires to a new tire 1 for 6 seconds and then finish the lap in another 2 seconds. Lap 4: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds. Lap 5: Change tires to tire 0 for 6 seconds then finish the lap in another 1 second. Total time = 2 + 4 + 6 + 2 + 4 + 6 + 1 = 25 seconds. The minimum time to complete the race is 25 seconds.",
+      "expectedOutput": "</strong> 25 <strong>Explanation:</strong> Lap 1: Start with tire 1 and finish the lap in 2 seconds. Lap 2: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds. Lap 3: Change tires to a new tire 1 for 6 seconds and then finish the lap in another 2 seconds. Lap 4: Continue with tire 1 and finish the lap in 2 * 2 = 4 seconds. Lap 5: Change tires to tire 0 for 6 seconds then finish the lap in another 1 second. Total time = 2 + 4 + 6 + 2 + 4 + 6 + 1 = 25 seconds. The minimum time to complete the race is 25 seconds."
+    }
+  ]
+}

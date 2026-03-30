@@ -1,0 +1,27 @@
+{
+  "problemId": "1329",
+  "titleSlug": "minimum-cost-to-move-chips-to-the-same-position",
+  "title": "Minimum Cost to Move Chips to The Same Position",
+  "titleCn": "玩筹码",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math"
+  ],
+  "acRate": 0.7498074153464849,
+  "testcases": [
+    {
+      "input": "</strong> position = [1,2,3] <strong>Output:</strong> 1 <strong>Explanation:</strong> First step: Move the chip at position 3 to position 1 with cost = 0. Second step: Move the chip at position 2 to position 1 with cost = 1. Total cost is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> First step: Move the chip at position 3 to position 1 with cost = 0. Second step: Move the chip at position 2 to position 1 with cost = 1. Total cost is 1."
+    },
+    {
+      "input": "</strong> position = [2,2,2,3,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> We can move the two chips at position 3 to position 2. Each move has cost = 1. The total cost = 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can move the two chips at position 3 to position 2. Each move has cost = 1. The total cost = 2."
+    },
+    {
+      "input": "</strong> position = [1,1000000000] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

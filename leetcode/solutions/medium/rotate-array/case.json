@@ -1,0 +1,23 @@
+{
+  "problemId": "189",
+  "titleSlug": "rotate-array",
+  "title": "Rotate Array",
+  "titleCn": "轮转数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "two-pointers"
+  ],
+  "acRate": 0.48011841792342197,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5,6,7], k = 3 <strong>Output:</strong> [5,6,7,1,2,3,4] <strong>Explanation:</strong> rotate 1 steps to the right: [7,1,2,3,4,5,6] rotate 2 steps to the right: [6,7,1,2,3,4,5] rotate 3 steps to the right: [5,6,7,1,2,3,4]",
+      "expectedOutput": "</strong> [5,6,7,1,2,3,4] <strong>Explanation:</strong> rotate 1 steps to the right: [7,1,2,3,4,5,6] rotate 2 steps to the right: [6,7,1,2,3,4,5] rotate 3 steps to the right: [5,6,7,1,2,3,4]"
+    },
+    {
+      "input": "</strong> nums = [-1,-100,3,99], k = 2 <strong>Output:</strong> [3,99,-1,-100] <strong>Explanation:</strong> rotate 1 steps to the right: [99,-1,-100,3] rotate 2 steps to the right: [3,99,-1,-100]",
+      "expectedOutput": "</strong> [3,99,-1,-100] <strong>Explanation:</strong> rotate 1 steps to the right: [99,-1,-100,3] rotate 2 steps to the right: [3,99,-1,-100]"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1411",
+  "titleSlug": "convert-binary-number-in-a-linked-list-to-integer",
+  "title": "Convert Binary Number in a Linked List to Integer",
+  "titleCn": "二进制链表转整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "linked-list",
+    "math"
+  ],
+  "acRate": 0.8079687781292596,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,0,1] <strong>Output:</strong> 5 <strong>Explanation:</strong> (101) in base 2 = (5) in base 10",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> (101) in base 2 = (5) in base 10"
+    },
+    {
+      "input": "</strong> head = [0] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

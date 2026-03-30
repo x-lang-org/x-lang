@@ -1,0 +1,24 @@
+{
+  "problemId": "2244",
+  "titleSlug": "number-of-laser-beams-in-a-bank",
+  "title": "Number of Laser Beams in a Bank",
+  "titleCn": "银行中的激光束数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "string",
+    "matrix"
+  ],
+  "acRate": 0.8558296351795286,
+  "testcases": [
+    {
+      "input": "</strong> bank = [\"011001\",\"000000\",\"010100\",\"001000\"] <strong>Output:</strong> 8 <strong>Explanation:</strong> Between each of the following device pairs, there is one beam. In total, there are 8 beams: * bank[0][1] -- bank[2][1] * bank[0][1] -- bank[2][3] * bank[0][2] -- bank[2][1] * bank[0][2] -- bank[2][3] * bank[0][5] -- bank[2][1] * bank[0][5] -- bank[2][3] * bank[2][1] -- bank[3][2] * bank[2][3] -- bank[3][2] Note that there is no beam between any device on the 0<sup>th</sup> row with any on the 3<sup>rd</sup> row. This is because the 2<sup>nd</sup> row contains security devices, which breaks the second condition.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Between each of the following device pairs, there is one beam. In total, there are 8 beams: * bank[0][1] -- bank[2][1] * bank[0][1] -- bank[2][3] * bank[0][2] -- bank[2][1] * bank[0][2] -- bank[2][3] * bank[0][5] -- bank[2][1] * bank[0][5] -- bank[2][3] * bank[2][1] -- bank[3][2] * bank[2][3] -- bank[3][2] Note that there is no beam between any device on the 0<sup>th</sup> row with any on the 3<sup>rd</sup> row. This is because the 2<sup>nd</sup> row contains security devices, which breaks the second condition."
+    },
+    {
+      "input": "</strong> bank = [\"000\",\"111\",\"000\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> There does not exist two devices located on two different rows.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There does not exist two devices located on two different rows."
+    }
+  ]
+}

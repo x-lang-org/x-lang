@@ -1,0 +1,28 @@
+{
+  "problemId": "895",
+  "titleSlug": "shortest-path-to-get-all-keys",
+  "title": "Shortest Path to Get All Keys",
+  "titleCn": "获取所有钥匙的最短路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.5879037647582981,
+  "testcases": [
+    {
+      "input": "</strong> grid = [\"@.a..\",\"###.#\",\"b.A.B\"] <strong>Output:</strong> 8 <strong>Explanation:</strong> Note that the goal is to obtain all the keys not to open all the locks.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Note that the goal is to obtain all the keys not to open all the locks."
+    },
+    {
+      "input": "</strong> grid = [\"@..aA\",\"..B#.\",\"....b\"] <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> grid = [\"@Aa\"] <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

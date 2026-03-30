@@ -1,0 +1,26 @@
+{
+  "problemId": "2197",
+  "titleSlug": "decode-the-slanted-ciphertext",
+  "title": "Decode the Slanted Ciphertext",
+  "titleCn": "解码斜向换位密码",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.4855164730224415,
+  "testcases": [
+    {
+      "input": "</strong> encodedText = \"ch  ie  pr\", rows = 3 <strong>Output:</strong> \"cipher\" <strong>Explanation:</strong> This is the same example described in the problem description.",
+      "expectedOutput": "</strong> \"cipher\" <strong>Explanation:</strong> This is the same example described in the problem description."
+    },
+    {
+      "input": "</strong> encodedText = \"iveo  eed  l te  olc\", rows = 4 <strong>Output:</strong> \"i love leetcode\" <strong>Explanation:</strong> The figure above denotes the matrix that was used to encode originalText. The blue arrows show how we can find originalText from encodedText.",
+      "expectedOutput": "</strong> \"i love leetcode\" <strong>Explanation:</strong> The figure above denotes the matrix that was used to encode originalText. The blue arrows show how we can find originalText from encodedText."
+    },
+    {
+      "input": "</strong> encodedText = \"coding\", rows = 1 <strong>Output:</strong> \"coding\" <strong>Explanation:</strong> Since there is only 1 row, both originalText and encodedText are the same.",
+      "expectedOutput": "</strong> \"coding\" <strong>Explanation:</strong> Since there is only 1 row, both originalText and encodedText are the same."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "problemId": "100258",
+  "titleSlug": "swap-numbers-lcci",
+  "title": "Swap Numbers LCCI",
+  "titleCn": "交换数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.8025876931505084,
+  "testcases": [
+    {
+      "input": "</strong> numbers = [1,2]\r <strong>Output:</strong> [2,1]",
+      "expectedOutput": "</strong> [2,1]"
+    }
+  ]
+}

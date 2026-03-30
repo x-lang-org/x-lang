@@ -1,0 +1,27 @@
+{
+  "problemId": "1039",
+  "titleSlug": "find-the-town-judge",
+  "title": "Find the Town Judge",
+  "titleCn": "找到小镇的法官",
+  "difficulty": "EASY",
+  "topicTags": [
+    "graph",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.5233499109719408,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, trust = [[1,2]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> n = 3, trust = [[1,3],[2,3]] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> n = 3, trust = [[1,3],[2,3],[3,1]] <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

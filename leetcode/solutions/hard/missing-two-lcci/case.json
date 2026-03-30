@@ -1,0 +1,23 @@
+{
+  "problemId": "1000044",
+  "titleSlug": "missing-two-lcci",
+  "title": "Missing Two LCCI",
+  "titleCn": "消失的两个数字",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.6018179059947916,
+  "testcases": [
+    {
+      "input": "</strong> <code>[1]</code>\r <strong>Output: </strong>[2,3]",
+      "expectedOutput": "</strong>[2,3]"
+    },
+    {
+      "input": "</strong> <code>[2,3]</code>\r <strong>Output: </strong>[1,4]",
+      "expectedOutput": "</strong>[1,4]"
+    }
+  ]
+}

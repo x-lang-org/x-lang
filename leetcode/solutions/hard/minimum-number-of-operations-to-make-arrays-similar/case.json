@@ -1,0 +1,27 @@
+{
+  "problemId": "2539",
+  "titleSlug": "minimum-number-of-operations-to-make-arrays-similar",
+  "title": "Minimum Number of Operations to Make Arrays Similar",
+  "titleCn": "使数组相似的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.653548985268363,
+  "testcases": [
+    {
+      "input": "</strong> nums = [8,12,6], target = [2,14,10] <strong>Output:</strong> 2 <strong>Explanation:</strong> It is possible to make nums similar to target in two operations: - Choose i = 0 and j = 2, nums = [10,12,4]. - Choose i = 1 and j = 2, nums = [10,14,2]. It can be shown that 2 is the minimum number of operations needed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> It is possible to make nums similar to target in two operations: - Choose i = 0 and j = 2, nums = [10,12,4]. - Choose i = 1 and j = 2, nums = [10,14,2]. It can be shown that 2 is the minimum number of operations needed."
+    },
+    {
+      "input": "</strong> nums = [1,2,5], target = [4,1,3] <strong>Output:</strong> 1 <strong>Explanation:</strong> We can make nums similar to target in one operation: - Choose i = 1 and j = 2, nums = [1,4,3].",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can make nums similar to target in one operation: - Choose i = 1 and j = 2, nums = [1,4,3]."
+    },
+    {
+      "input": "</strong> nums = [1,1,1,1,1], target = [1,1,1,1,1] <strong>Output:</strong> 0 <strong>Explanation:</strong> The array nums is already similiar to target.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The array nums is already similiar to target."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "3113",
+  "titleSlug": "beautiful-towers-ii",
+  "title": "Beautiful Towers II",
+  "titleCn": "美丽塔 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.4709967512594755,
+  "testcases": [
+    {
+      "input": "</strong> maxHeights = [5,3,4,1,1] <strong>Output:</strong> 13 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [5,3,3,1,1]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i]  - heights is a mountain of peak i = 0. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 13.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [5,3,3,1,1]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i]  - heights is a mountain of peak i = 0. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 13."
+    },
+    {
+      "input": "</strong> maxHeights = [6,5,3,9,2,7] <strong>Output:</strong> 22 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [3,3,3,9,2,2]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i] - heights is a mountain of peak i = 3. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 22.",
+      "expectedOutput": "</strong> 22 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [3,3,3,9,2,2]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i] - heights is a mountain of peak i = 3. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 22."
+    },
+    {
+      "input": "</strong> maxHeights = [3,2,5,5,2,3] <strong>Output:</strong> 18 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [2,2,5,5,2,2]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i] - heights is a mountain of peak i = 2. Note that, for this configuration, i = 3 can also be considered a peak. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 18.",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> One beautiful configuration with a maximum sum is heights = [2,2,5,5,2,2]. This configuration is beautiful since: - 1 <= heights[i] <= maxHeights[i] - heights is a mountain of peak i = 2. Note that, for this configuration, i = 3 can also be considered a peak. It can be shown that there exists no other beautiful configuration with a sum of heights greater than 18."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "3196",
+  "titleSlug": "apply-operations-to-maximize-frequency-score",
+  "title": "Apply Operations to Maximize Frequency Score",
+  "titleCn": "执行操作使频率分数最大",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "prefix-sum",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.5201751046821469,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,6,4], k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can do the following operations on the array: - Choose i = 0, and increase the value of nums[0] by 1. The resulting array is [2,2,6,4]. - Choose i = 3, and decrease the value of nums[3] by 1. The resulting array is [2,2,6,3]. - Choose i = 3, and decrease the value of nums[3] by 1. The resulting array is [2,2,6,2]. The element 2 is the most frequent in the final array so our score is 3. It can be shown that we cannot achieve a better score.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can do the following operations on the array: - Choose i = 0, and increase the value of nums[0] by 1. The resulting array is [2,2,6,4]. - Choose i = 3, and decrease the value of nums[3] by 1. The resulting array is [2,2,6,3]. - Choose i = 3, and decrease the value of nums[3] by 1. The resulting array is [2,2,6,2]. The element 2 is the most frequent in the final array so our score is 3. It can be shown that we cannot achieve a better score."
+    },
+    {
+      "input": "</strong> nums = [1,4,4,2,4], k = 0 <strong>Output:</strong> 3 <strong>Explanation:</strong> We cannot apply any operations so our score will be the frequency of the most frequent element in the original array, which is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We cannot apply any operations so our score will be the frequency of the most frequent element in the original array, which is 3."
+    }
+  ]
+}

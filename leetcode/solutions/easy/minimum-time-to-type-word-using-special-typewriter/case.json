@@ -1,0 +1,26 @@
+{
+  "problemId": "2088",
+  "titleSlug": "minimum-time-to-type-word-using-special-typewriter",
+  "title": "Minimum Time to Type Word Using Special Typewriter",
+  "titleCn": "使用特殊打字机键入单词的最少时间",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.7331936866718628,
+  "testcases": [
+    {
+      "input": "</strong> word = \"abc\" <strong>Output:</strong> 5 <strong>Explanation: </strong>The characters are printed as follows: - Type the character 'a' in 1 second since the pointer is initially on 'a'. - Move the pointer clockwise to 'b' in 1 second. - Type the character 'b' in 1 second. - Move the pointer clockwise to 'c' in 1 second. - Type the character 'c' in 1 second.",
+      "expectedOutput": "</strong> 5 <strong>Explanation: </strong>The characters are printed as follows: - Type the character 'a' in 1 second since the pointer is initially on 'a'. - Move the pointer clockwise to 'b' in 1 second. - Type the character 'b' in 1 second. - Move the pointer clockwise to 'c' in 1 second. - Type the character 'c' in 1 second."
+    },
+    {
+      "input": "</strong> word = \"bza\" <strong>Output:</strong> 7 <strong>Explanation: </strong>The characters are printed as follows: - Move the pointer clockwise to 'b' in 1 second. - Type the character 'b' in 1 second. - Move the pointer counterclockwise to 'z' in 2 seconds. - Type the character 'z' in 1 second. - Move the pointer clockwise to 'a' in 1 second. - Type the character 'a' in 1 second.",
+      "expectedOutput": "</strong> 7 <strong>Explanation: </strong>The characters are printed as follows: - Move the pointer clockwise to 'b' in 1 second. - Type the character 'b' in 1 second. - Move the pointer counterclockwise to 'z' in 2 seconds. - Type the character 'z' in 1 second. - Move the pointer clockwise to 'a' in 1 second. - Type the character 'a' in 1 second."
+    },
+    {
+      "input": "</strong> word = \"zjpc\" <strong>Output:</strong> 34 <strong>Explanation:</strong> The characters are printed as follows: - Move the pointer counterclockwise to 'z' in 1 second. - Type the character 'z' in 1 second. - Move the pointer clockwise to 'j' in 10 seconds. - Type the character 'j' in 1 second. - Move the pointer clockwise to 'p' in 6 seconds. - Type the character 'p' in 1 second. - Move the pointer counterclockwise to 'c' in 13 seconds. - Type the character 'c' in 1 second.",
+      "expectedOutput": "</strong> 34 <strong>Explanation:</strong> The characters are printed as follows: - Move the pointer counterclockwise to 'z' in 1 second. - Type the character 'z' in 1 second. - Move the pointer clockwise to 'j' in 10 seconds. - Type the character 'j' in 1 second. - Move the pointer clockwise to 'p' in 6 seconds. - Type the character 'p' in 1 second. - Move the pointer counterclockwise to 'c' in 13 seconds. - Type the character 'c' in 1 second."
+    }
+  ]
+}

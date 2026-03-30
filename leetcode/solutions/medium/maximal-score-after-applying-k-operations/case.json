@@ -1,0 +1,23 @@
+{
+  "problemId": "2616",
+  "titleSlug": "maximal-score-after-applying-k-operations",
+  "title": "Maximal Score After Applying K Operations",
+  "titleCn": "执行 K 次操作后的最大分数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5522540368569542,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,10,10,10,10], k = 5 <strong>Output:</strong> 50 <strong>Explanation:</strong> Apply the operation to each array element exactly once. The final score is 10 + 10 + 10 + 10 + 10 = 50.",
+      "expectedOutput": "</strong> 50 <strong>Explanation:</strong> Apply the operation to each array element exactly once. The final score is 10 + 10 + 10 + 10 + 10 = 50."
+    },
+    {
+      "input": "</strong> nums = [1,10,3,3,3], k = 3 <strong>Output:</strong> 17 <strong>Explanation: </strong>You can do the following operations: Operation 1: Select i = 1, so nums becomes [1,<strong><u>4</u></strong>,3,3,3]. Your score increases by 10. Operation 2: Select i = 1, so nums becomes [1,<strong><u>2</u></strong>,3,3,3]. Your score increases by 4. Operation 3: Select i = 2, so nums becomes [1,2,<u><strong>1</strong></u>,3,3]. Your score increases by 3. The final score is 10 + 4 + 3 = 17.",
+      "expectedOutput": "</strong> 17 <strong>Explanation: </strong>You can do the following operations: Operation 1: Select i = 1, so nums becomes [1,<strong><u>4</u></strong>,3,3,3]. Your score increases by 10. Operation 2: Select i = 1, so nums becomes [1,<strong><u>2</u></strong>,3,3,3]. Your score increases by 4. Operation 3: Select i = 2, so nums becomes [1,2,<u><strong>1</strong></u>,3,3]. Your score increases by 3. The final score is 10 + 4 + 3 = 17."
+    }
+  ]
+}

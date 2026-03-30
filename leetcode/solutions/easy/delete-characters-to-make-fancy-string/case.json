@@ -1,0 +1,25 @@
+{
+  "problemId": "1302",
+  "titleSlug": "delete-characters-to-make-fancy-string",
+  "title": "Delete Characters to Make Fancy String",
+  "titleCn": "删除字符使字符串变好",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6972685738936057,
+  "testcases": [
+    {
+      "input": "</strong> s = \"le<u>e</u>etcode\" <strong>Output:</strong> \"leetcode\" <strong>Explanation:</strong> Remove an 'e' from the first group of 'e's to create \"leetcode\". No three consecutive characters are equal, so return \"leetcode\".",
+      "expectedOutput": "</strong> \"leetcode\" <strong>Explanation:</strong> Remove an 'e' from the first group of 'e's to create \"leetcode\". No three consecutive characters are equal, so return \"leetcode\"."
+    },
+    {
+      "input": "</strong> s = \"<u>a</u>aab<u>aa</u>aa\" <strong>Output:</strong> \"aabaa\" <strong>Explanation:</strong> Remove an 'a' from the first group of 'a's to create \"aabaaaa\". Remove two 'a's from the second group of 'a's to create \"aabaa\". No three consecutive characters are equal, so return \"aabaa\".",
+      "expectedOutput": "</strong> \"aabaa\" <strong>Explanation:</strong> Remove an 'a' from the first group of 'a's to create \"aabaaaa\". Remove two 'a's from the second group of 'a's to create \"aabaa\". No three consecutive characters are equal, so return \"aabaa\"."
+    },
+    {
+      "input": "</strong> s = \"aab\" <strong>Output:</strong> \"aab\" <strong>Explanation:</strong> No three consecutive characters are equal, so return \"aab\".",
+      "expectedOutput": "</strong> \"aab\" <strong>Explanation:</strong> No three consecutive characters are equal, so return \"aab\"."
+    }
+  ]
+}

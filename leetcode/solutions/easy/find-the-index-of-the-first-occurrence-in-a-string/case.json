@@ -12,12 +12,12 @@
   "acRate": 0.45316779714624866,
   "testcases": [
     {
-      "input": "\"sadbutsad\"",
-      "expectedOutput": "\"sad\""
+      "input": "[\"sadbutsad\", \"sad\"]",
+      "expectedOutput": "0"
     },
     {
-      "input": "\"leetcode\"",
-      "expectedOutput": "\"leeto\""
+      "input": "[\"leetcode\", \"leeto\"]",
+      "expectedOutput": "-1"
     }
   ]
 }

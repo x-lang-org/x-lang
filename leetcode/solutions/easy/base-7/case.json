@@ -1,0 +1,22 @@
+{
+  "problemId": "504",
+  "titleSlug": "base-7",
+  "title": "Base 7",
+  "titleCn": "七进制数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.5207352292612141,
+  "testcases": [
+    {
+      "input": "</strong> num = 100 <strong>Output:</strong> \"202\"",
+      "expectedOutput": "</strong> \"202"
+    },
+    {
+      "input": "</strong> num = -7 <strong>Output:</strong> \"-10\"",
+      "expectedOutput": "</strong> \"-10"
+    }
+  ]
+}

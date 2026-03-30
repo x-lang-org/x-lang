@@ -1,0 +1,20 @@
+{
+  "problemId": "1000037",
+  "titleSlug": "get-kth-magic-number-lcci",
+  "title": "Get Kth Magic Number LCCI",
+  "titleCn": "第 k 个数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5539061746390714,
+  "testcases": [
+    {
+      "input": "</strong>k = 5\r \r <strong>Output: </strong>9",
+      "expectedOutput": "</strong>9"
+    }
+  ]
+}

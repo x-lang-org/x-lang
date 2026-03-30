@@ -1,0 +1,27 @@
+{
+  "problemId": "1552",
+  "titleSlug": "build-an-array-with-stack-operations",
+  "title": "Build an Array With Stack Operations",
+  "titleCn": "用栈操作构建数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.7296350425490014,
+  "testcases": [
+    {
+      "input": "</strong> target = [1,3], n = 3 <strong>Output:</strong> [\"Push\",\"Push\",\"Pop\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Pop the integer on the top of the stack. s = [1]. Read 3 from the stream and push it to the stack. s = [1,3].",
+      "expectedOutput": "</strong> [\"Push\",\"Push\",\"Pop\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Pop the integer on the top of the stack. s = [1]. Read 3 from the stream and push it to the stack. s = [1,3]."
+    },
+    {
+      "input": "</strong> target = [1,2,3], n = 3 <strong>Output:</strong> [\"Push\",\"Push\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Read 3 from the stream and push it to the stack. s = [1,2,3].",
+      "expectedOutput": "</strong> [\"Push\",\"Push\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Read 3 from the stream and push it to the stack. s = [1,2,3]."
+    },
+    {
+      "input": "</strong> target = [1,2], n = 4 <strong>Output:</strong> [\"Push\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Since the stack (from the bottom to the top) is equal to target, we stop the stack operations. The answers that read integer 3 from the stream are not accepted.",
+      "expectedOutput": "</strong> [\"Push\",\"Push\"] <strong>Explanation:</strong> Initially the stack s is empty. The last element is the top of the stack. Read 1 from the stream and push it to the stack. s = [1]. Read 2 from the stream and push it to the stack. s = [1,2]. Since the stack (from the bottom to the top) is equal to target, we stop the stack operations. The answers that read integer 3 from the stream are not accepted."
+    }
+  ]
+}

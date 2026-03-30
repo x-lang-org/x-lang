@@ -1,0 +1,27 @@
+{
+  "problemId": "3230",
+  "titleSlug": "remove-adjacent-almost-equal-characters",
+  "title": "Remove Adjacent Almost-Equal Characters",
+  "titleCn": "消除相邻近似相等字符",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6153461384553821,
+  "testcases": [
+    {
+      "input": "</strong> word = \"aaaaa\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We can change word into \"a<strong><u>c</u></strong>a<u><strong>c</strong></u>a\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can change word into \"a<strong><u>c</u></strong>a<u><strong>c</strong></u>a\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 2."
+    },
+    {
+      "input": "</strong> word = \"abddez\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We can change word into \"<strong><u>y</u></strong>bd<u><strong>o</strong></u>ez\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can change word into \"<strong><u>y</u></strong>bd<u><strong>o</strong></u>ez\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 2."
+    },
+    {
+      "input": "</strong> word = \"zyxyxyz\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We can change word into \"z<u><strong>a</strong></u>x<u><strong>a</strong></u>x<strong><u>a</u></strong>z\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can change word into \"z<u><strong>a</strong></u>x<u><strong>a</strong></u>x<strong><u>a</u></strong>z\" which does not have any adjacent almost-equal characters. It can be shown that the minimum number of operations needed to remove all adjacent almost-equal characters from word is 3."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "741",
+  "titleSlug": "cherry-pickup",
+  "title": "Cherry Pickup",
+  "titleCn": "摘樱桃",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.5457705502743059,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1,-1],[1,0,-1],[1,1,1]] <strong>Output:</strong> 5 <strong>Explanation:</strong> The player started at (0, 0) and went down, down, right right to reach (2, 2). 4 cherries were picked up during this single trip, and the matrix becomes [[0,1,-1],[0,0,-1],[0,0,0]]. Then, the player went left, up, up, left to return home, picking up one more cherry. The total number of cherries picked up is 5, and this is the maximum possible.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The player started at (0, 0) and went down, down, right right to reach (2, 2). 4 cherries were picked up during this single trip, and the matrix becomes [[0,1,-1],[0,0,-1],[0,0,0]]. Then, the player went left, up, up, left to return home, picking up one more cherry. The total number of cherries picked up is 5, and this is the maximum possible."
+    },
+    {
+      "input": "</strong> grid = [[1,1,-1],[1,-1,1],[-1,1,1]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

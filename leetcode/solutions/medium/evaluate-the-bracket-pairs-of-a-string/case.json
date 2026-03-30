@@ -1,0 +1,27 @@
+{
+  "problemId": "1934",
+  "titleSlug": "evaluate-the-bracket-pairs-of-a-string",
+  "title": "Evaluate the Bracket Pairs of a String",
+  "titleCn": "替换字符串中的括号内容",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6771959837885175,
+  "testcases": [
+    {
+      "input": "</strong> s = \"(name)is(age)yearsold\", knowledge = [[\"name\",\"bob\"],[\"age\",\"two\"]] <strong>Output:</strong> \"bobistwoyearsold\" <strong>Explanation:</strong> The key \"name\" has a value of \"bob\", so replace \"(name)\" with \"bob\". The key \"age\" has a value of \"two\", so replace \"(age)\" with \"two\".",
+      "expectedOutput": "</strong> \"bobistwoyearsold\" <strong>Explanation:</strong> The key \"name\" has a value of \"bob\", so replace \"(name)\" with \"bob\". The key \"age\" has a value of \"two\", so replace \"(age)\" with \"two\"."
+    },
+    {
+      "input": "</strong> s = \"hi(name)\", knowledge = [[\"a\",\"b\"]] <strong>Output:</strong> \"hi?\" <strong>Explanation:</strong> As you do not know the value of the key \"name\", replace \"(name)\" with \"?\".",
+      "expectedOutput": "</strong> \"hi?\" <strong>Explanation:</strong> As you do not know the value of the key \"name\", replace \"(name)\" with \"?\"."
+    },
+    {
+      "input": "</strong> s = \"(a)(a)(a)aaa\", knowledge = [[\"a\",\"yes\"]] <strong>Output:</strong> \"yesyesyesaaa\" <strong>Explanation:</strong> The same key can appear multiple times. The key \"a\" has a value of \"yes\", so replace all occurrences of \"(a)\" with \"yes\". Notice that the \"a\"s not in a bracket pair are not evaluated.",
+      "expectedOutput": "</strong> \"yesyesyesaaa\" <strong>Explanation:</strong> The same key can appear multiple times. The key \"a\" has a value of \"yes\", so replace all occurrences of \"(a)\" with \"yes\". Notice that the \"a\"s not in a bracket pair are not evaluated."
+    }
+  ]
+}

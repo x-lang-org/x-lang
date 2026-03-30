@@ -1,0 +1,25 @@
+{
+  "problemId": "1427",
+  "titleSlug": "all-elements-in-two-binary-search-trees",
+  "title": "All Elements in Two Binary Search Trees",
+  "titleCn": "两棵二叉搜索树中的所有元素",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree",
+    "sorting"
+  ],
+  "acRate": 0.7816587904938018,
+  "testcases": [
+    {
+      "input": "</strong> root1 = [2,1,4], root2 = [1,0,3] <strong>Output:</strong> [0,1,1,2,3,4]",
+      "expectedOutput": "</strong> [0,1,1,2,3,4]"
+    },
+    {
+      "input": "</strong> root1 = [1,null,8], root2 = [8,1] <strong>Output:</strong> [1,1,8,8]",
+      "expectedOutput": "</strong> [1,1,8,8]"
+    }
+  ]
+}

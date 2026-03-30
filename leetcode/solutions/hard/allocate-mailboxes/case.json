@@ -1,0 +1,24 @@
+{
+  "problemId": "1571",
+  "titleSlug": "allocate-mailboxes",
+  "title": "Allocate Mailboxes",
+  "titleCn": "安排邮筒",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6427298783794252,
+  "testcases": [
+    {
+      "input": "</strong> houses = [1,4,8,10,20], k = 3 <strong>Output:</strong> 5 <strong>Explanation:</strong> Allocate mailboxes in position 3, 9 and 20. Minimum total distance from each houses to nearest mailboxes is |3-1| + |4-3| + |9-8| + |10-9| + |20-20| = 5",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Allocate mailboxes in position 3, 9 and 20. Minimum total distance from each houses to nearest mailboxes is |3-1| + |4-3| + |9-8| + |10-9| + |20-20| = 5"
+    },
+    {
+      "input": "</strong> houses = [2,3,5,12,18], k = 2 <strong>Output:</strong> 9 <strong>Explanation:</strong> Allocate mailboxes in position 3 and 14. Minimum total distance from each houses to nearest mailboxes is |2-3| + |3-3| + |5-3| + |12-14| + |18-14| = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Allocate mailboxes in position 3 and 14. Minimum total distance from each houses to nearest mailboxes is |2-3| + |3-3| + |5-3| + |12-14| + |18-14| = 9."
+    }
+  ]
+}

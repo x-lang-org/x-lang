@@ -12,12 +12,8 @@
   "acRate": 0.7020257569742449,
   "testcases": [
     {
-      "input": "3",
-      "expectedOutput": "7"
-    },
-    {
-      "input": "3",
-      "expectedOutput": "2"
+      "input": {"m": 3, "n": 7},
+      "expectedOutput": "28"
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "problemId": "1549",
+  "titleSlug": "longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit",
+  "title": "Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit",
+  "titleCn": "绝对差不超过限制的最长连续子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "queue",
+    "array",
+    "ordered-set",
+    "sliding-window",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5401709532518615,
+  "testcases": [
+    {
+      "input": "</strong> nums = [8,2,4,7], limit = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> All subarrays are: [8] with maximum absolute diff |8-8| = 0 <= 4. [8,2] with maximum absolute diff |8-2| = 6 > 4. [8,2,4] with maximum absolute diff |8-2| = 6 > 4. [8,2,4,7] with maximum absolute diff |8-2| = 6 > 4. [2] with maximum absolute diff |2-2| = 0 <= 4. [2,4] with maximum absolute diff |2-4| = 2 <= 4. [2,4,7] with maximum absolute diff |2-7| = 5 > 4. [4] with maximum absolute diff |4-4| = 0 <= 4. [4,7] with maximum absolute diff |4-7| = 3 <= 4. [7] with maximum absolute diff |7-7| = 0 <= 4. Therefore, the size of the longest subarray is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> All subarrays are: [8] with maximum absolute diff |8-8| = 0 <= 4. [8,2] with maximum absolute diff |8-2| = 6 > 4. [8,2,4] with maximum absolute diff |8-2| = 6 > 4. [8,2,4,7] with maximum absolute diff |8-2| = 6 > 4. [2] with maximum absolute diff |2-2| = 0 <= 4. [2,4] with maximum absolute diff |2-4| = 2 <= 4. [2,4,7] with maximum absolute diff |2-7| = 5 > 4. [4] with maximum absolute diff |4-4| = 0 <= 4. [4,7] with maximum absolute diff |4-7| = 3 <= 4. [7] with maximum absolute diff |7-7| = 0 <= 4. Therefore, the size of the longest subarray is 2."
+    },
+    {
+      "input": "</strong> nums = [10,1,2,4,7,2], limit = 5 <strong>Output:</strong> 4 <strong>Explanation:</strong> The subarray [2,4,7,2] is the longest since the maximum absolute diff is |2-7| = 5 <= 5.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The subarray [2,4,7,2] is the longest since the maximum absolute diff is |2-7| = 5 <= 5."
+    },
+    {
+      "input": "</strong> nums = [4,2,2,2,4,4,2,2], limit = 0 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

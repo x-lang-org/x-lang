@@ -1,0 +1,25 @@
+{
+  "problemId": "200",
+  "titleSlug": "number-of-islands",
+  "title": "Number of Islands",
+  "titleCn": "岛屿数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6385879120039136,
+  "testcases": [
+    {
+      "input": "</strong> grid = [  [\"1\",\"1\",\"1\",\"1\",\"0\"],  [\"1\",\"1\",\"0\",\"1\",\"0\"],  [\"1\",\"1\",\"0\",\"0\",\"0\"],  [\"0\",\"0\",\"0\",\"0\",\"0\"] ] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> grid = [  [\"1\",\"1\",\"0\",\"0\",\"0\"],  [\"1\",\"1\",\"0\",\"0\",\"0\"],  [\"0\",\"0\",\"1\",\"0\",\"0\"],  [\"0\",\"0\",\"0\",\"1\",\"1\"] ] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

@@ -11,16 +11,16 @@
   "acRate": 0.4549956274754073,
   "testcases": [
     {
-      "input": "\"()\"",
-      "expectedOutput": "\"()[]{}\""
+      "input": "()",
+      "expectedOutput": "true"
     },
     {
-      "input": "\"(]\"",
-      "expectedOutput": "\"([])\""
+      "input": "(]",
+      "expectedOutput": "false"
     },
     {
-      "input": "\"([)]\"",
-      "expectedOutput": ""
+      "input": "([)]",
+      "expectedOutput": "false"
     }
   ]
 }

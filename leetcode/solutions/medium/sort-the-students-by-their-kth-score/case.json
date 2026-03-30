@@ -1,0 +1,23 @@
+{
+  "problemId": "2631",
+  "titleSlug": "sort-the-students-by-their-kth-score",
+  "title": "Sort the Students by Their Kth Score",
+  "titleCn": "根据第 K 场考试的分数排序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "sorting"
+  ],
+  "acRate": 0.8835775167917043,
+  "testcases": [
+    {
+      "input": "</strong> score = [[10,6,9,1],[7,5,11,2],[4,8,3,15]], k = 2 <strong>Output:</strong> [[7,5,11,2],[10,6,9,1],[4,8,3,15]] <strong>Explanation:</strong> In the above diagram, S denotes the student, while E denotes the exam. - The student with index 1 scored 11 in exam 2, which is the highest score, so they got first place. - The student with index 0 scored 9 in exam 2, which is the second highest score, so they got second place. - The student with index 2 scored 3 in exam 2, which is the lowest score, so they got third place.",
+      "expectedOutput": "</strong> [[7,5,11,2],[10,6,9,1],[4,8,3,15]] <strong>Explanation:</strong> In the above diagram, S denotes the student, while E denotes the exam. - The student with index 1 scored 11 in exam 2, which is the highest score, so they got first place. - The student with index 0 scored 9 in exam 2, which is the second highest score, so they got second place. - The student with index 2 scored 3 in exam 2, which is the lowest score, so they got third place."
+    },
+    {
+      "input": "</strong> score = [[3,4],[5,6]], k = 0 <strong>Output:</strong> [[5,6],[3,4]] <strong>Explanation:</strong> In the above diagram, S denotes the student, while E denotes the exam. - The student with index 1 scored 5 in exam 0, which is the highest score, so they got first place. - The student with index 0 scored 3 in exam 0, which is the lowest score, so they got second place.",
+      "expectedOutput": "</strong> [[5,6],[3,4]] <strong>Explanation:</strong> In the above diagram, S denotes the student, while E denotes the exam. - The student with index 1 scored 5 in exam 0, which is the highest score, so they got first place. - The student with index 0 scored 3 in exam 0, which is the lowest score, so they got second place."
+    }
+  ]
+}

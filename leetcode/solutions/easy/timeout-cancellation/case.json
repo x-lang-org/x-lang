@@ -1,0 +1,23 @@
+{
+  "problemId": "2821",
+  "titleSlug": "timeout-cancellation",
+  "title": "Timeout Cancellation",
+  "titleCn": "执行可取消的延迟函数",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8415484192183221,
+  "testcases": [
+    {
+      "input": "</strong> fn = (x) => x * 5, args = [2], t = 20 <strong>Output:</strong> [{\"time\": 20, \"returned\": 10}] <strong>Explanation:</strong> const cancelTimeMs = 50; const cancelFn = cancellable((x) => x * 5, [2], 20); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (50ms), which happened after the execution of fn(2) at 20ms.",
+      "expectedOutput": "</strong> [{\"time\": 20, \"returned\": 10}] <strong>Explanation:</strong> const cancelTimeMs = 50; const cancelFn = cancellable((x) => x * 5, [2], 20); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (50ms), which happened after the execution of fn(2) at 20ms."
+    },
+    {
+      "input": "</strong> fn = (x) => x**2, args = [2], t = 100 <strong>Output:</strong> [] <strong>Explanation:</strong> const cancelTimeMs = 50; const cancelFn = cancellable((x) => x**2, [2], 100); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (50ms), which happened before the execution of fn(2) at 100ms, resulting in fn(2) never being called.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> const cancelTimeMs = 50; const cancelFn = cancellable((x) => x**2, [2], 100); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (50ms), which happened before the execution of fn(2) at 100ms, resulting in fn(2) never being called."
+    },
+    {
+      "input": "</strong> fn = (x1, x2) => x1 * x2, args = [2,4], t = 30 <strong>Output:</strong> [{\"time\": 30, \"returned\": 8}] <strong>Explanation: </strong>const cancelTimeMs = 100; const cancelFn = cancellable((x1, x2) => x1 * x2, [2,4], 30); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (100ms), which happened after the execution of fn(2,4) at 30ms.",
+      "expectedOutput": "</strong> [{\"time\": 30, \"returned\": 8}] <strong>Explanation: </strong>const cancelTimeMs = 100; const cancelFn = cancellable((x1, x2) => x1 * x2, [2,4], 30); setTimeout(cancelFn, cancelTimeMs); The cancellation was scheduled to occur after a delay of cancelTimeMs (100ms), which happened after the execution of fn(2,4) at 30ms."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "problemId": "3067",
+  "titleSlug": "modify-columns",
+  "title": "Modify Columns",
+  "titleCn": "修改列",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.9122157044355254,
+  "testcases": [
+    {
+      "input": "</strong>DataFrame employees +---------+--------+ | name  | salary | +---------+--------+ | Jack  | 19666 | | Piper  | 74754 | | Mia   | 62509 | | Ulysses | 54866 | +---------+--------+ <strong>Output: </strong>+---------+--------+ | name  | salary | +---------+--------+ | Jack  | 39332 | | Piper  | 149508 | | Mia   | 125018 | | Ulysses | 109732 | +---------+--------+ <strong>Explanation: </strong>Every salary has been doubled.",
+      "expectedOutput": "</strong>+---------+--------+ | name  | salary | +---------+--------+ | Jack  | 39332 | | Piper  | 149508 | | Mia   | 125018 | | Ulysses | 109732 | +---------+--------+ <strong>Explanation: </strong>Every salary has been doubled."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1369",
+  "titleSlug": "minimum-swaps-to-make-strings-equal",
+  "title": "Minimum Swaps to Make Strings Equal",
+  "titleCn": "交换字符使得字符串相同",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6891747476746487,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"xx\", s2 = \"yy\" <strong>Output:</strong> 1 <strong>Explanation:</strong> Swap s1[0] and s2[1], s1 = \"yx\", s2 = \"yx\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Swap s1[0] and s2[1], s1 = \"yx\", s2 = \"yx\"."
+    },
+    {
+      "input": "</strong> s1 = \"xy\", s2 = \"yx\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Swap s1[0] and s2[0], s1 = \"yy\", s2 = \"xx\". Swap s1[0] and s2[1], s1 = \"xy\", s2 = \"xy\". Note that you cannot swap s1[0] and s1[1] to make s1 equal to \"yx\", cause we can only swap chars in different strings.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Swap s1[0] and s2[0], s1 = \"yy\", s2 = \"xx\". Swap s1[0] and s2[1], s1 = \"xy\", s2 = \"xy\". Note that you cannot swap s1[0] and s1[1] to make s1 equal to \"yx\", cause we can only swap chars in different strings."
+    },
+    {
+      "input": "</strong> s1 = \"xx\", s2 = \"xy\" <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

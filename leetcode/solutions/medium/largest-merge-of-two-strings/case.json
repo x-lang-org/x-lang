@@ -1,0 +1,23 @@
+{
+  "problemId": "1880",
+  "titleSlug": "largest-merge-of-two-strings",
+  "title": "Largest Merge Of Two Strings",
+  "titleCn": "构造字典序最大的合并字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.570016339869281,
+  "testcases": [
+    {
+      "input": "</strong> word1 = \"cabaa\", word2 = \"bcaaa\" <strong>Output:</strong> \"cbcabaaaaa\" <strong>Explanation:</strong> One way to get the lexicographically largest merge is: - Take from word1: merge = \"c\", word1 = \"abaa\", word2 = \"bcaaa\" - Take from word2: merge = \"cb\", word1 = \"abaa\", word2 = \"caaa\" - Take from word2: merge = \"cbc\", word1 = \"abaa\", word2 = \"aaa\" - Take from word1: merge = \"cbca\", word1 = \"baa\", word2 = \"aaa\" - Take from word1: merge = \"cbcab\", word1 = \"aa\", word2 = \"aaa\" - Append the remaining 5 a's from word1 and word2 at the end of merge.",
+      "expectedOutput": "</strong> \"cbcabaaaaa\" <strong>Explanation:</strong> One way to get the lexicographically largest merge is: - Take from word1: merge = \"c\", word1 = \"abaa\", word2 = \"bcaaa\" - Take from word2: merge = \"cb\", word1 = \"abaa\", word2 = \"caaa\" - Take from word2: merge = \"cbc\", word1 = \"abaa\", word2 = \"aaa\" - Take from word1: merge = \"cbca\", word1 = \"baa\", word2 = \"aaa\" - Take from word1: merge = \"cbcab\", word1 = \"aa\", word2 = \"aaa\" - Append the remaining 5 a's from word1 and word2 at the end of merge."
+    },
+    {
+      "input": "</strong> word1 = \"abcabc\", word2 = \"abdcaba\" <strong>Output:</strong> \"abdcabcabcaba\"",
+      "expectedOutput": "</strong> \"abdcabcabcaba"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "problemId": "3317",
+  "titleSlug": "maximum-palindromes-after-operations",
+  "title": "Maximum Palindromes After Operations",
+  "titleCn": "回文字符串的最大数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "string",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.47395337773549,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abbb\",\"ba\",\"aa\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> In this example, one way to get the maximum number of palindromes is: Choose i = 0, j = 1, x = 0, y = 0, so we swap words[0][0] and words[1][0]. words becomes [\"bbbb\",\"aa\",\"aa\"]. All strings in words are now palindromes. Hence, the maximum number of palindromes achievable is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In this example, one way to get the maximum number of palindromes is: Choose i = 0, j = 1, x = 0, y = 0, so we swap words[0][0] and words[1][0]. words becomes [\"bbbb\",\"aa\",\"aa\"]. All strings in words are now palindromes. Hence, the maximum number of palindromes achievable is 3."
+    },
+    {
+      "input": "</strong> words = [\"abc\",\"ab\"] <strong>Output:</strong> 2 <strong>Explanation: </strong>In this example, one way to get the maximum number of palindromes is: Choose i = 0, j = 1, x = 1, y = 0, so we swap words[0][1] and words[1][0]. words becomes [\"aac\",\"bb\"]. Choose i = 0, j = 0, x = 1, y = 2, so we swap words[0][1] and words[0][2]. words becomes [\"aca\",\"bb\"]. Both strings are now palindromes. Hence, the maximum number of palindromes achievable is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>In this example, one way to get the maximum number of palindromes is: Choose i = 0, j = 1, x = 1, y = 0, so we swap words[0][1] and words[1][0]. words becomes [\"aac\",\"bb\"]. Choose i = 0, j = 0, x = 1, y = 2, so we swap words[0][1] and words[0][2]. words becomes [\"aca\",\"bb\"]. Both strings are now palindromes. Hence, the maximum number of palindromes achievable is 2."
+    },
+    {
+      "input": "</strong> words = [\"cd\",\"ef\",\"a\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> In this example, there is no need to perform any operation. There is one palindrome in words \"a\". It can be shown that it is not possible to get more than one palindrome after any number of operations. Hence, the answer is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In this example, there is no need to perform any operation. There is one palindrome in words \"a\". It can be shown that it is not possible to get more than one palindrome after any number of operations. Hence, the answer is 1."
+    }
+  ]
+}

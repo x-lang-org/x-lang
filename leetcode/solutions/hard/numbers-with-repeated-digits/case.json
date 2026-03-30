@@ -1,0 +1,26 @@
+{
+  "problemId": "1057",
+  "titleSlug": "numbers-with-repeated-digits",
+  "title": "Numbers With Repeated Digits",
+  "titleCn": "至少有 1 位重复的数字",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5524985225556504,
+  "testcases": [
+    {
+      "input": "</strong> n = 20 <strong>Output:</strong> 1 <strong>Explanation:</strong> The only positive number (<= 20) with at least 1 repeated digit is 11.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only positive number (<= 20) with at least 1 repeated digit is 11."
+    },
+    {
+      "input": "</strong> n = 100 <strong>Output:</strong> 10 <strong>Explanation:</strong> The positive numbers (<= 100) with atleast 1 repeated digit are 11, 22, 33, 44, 55, 66, 77, 88, 99, and 100.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The positive numbers (<= 100) with atleast 1 repeated digit are 11, 22, 33, 44, 55, 66, 77, 88, 99, and 100."
+    },
+    {
+      "input": "</strong> n = 1000 <strong>Output:</strong> 262",
+      "expectedOutput": "</strong> 262"
+    }
+  ]
+}

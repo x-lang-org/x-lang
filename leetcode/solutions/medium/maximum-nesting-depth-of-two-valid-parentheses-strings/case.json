@@ -1,0 +1,22 @@
+{
+  "problemId": "1208",
+  "titleSlug": "maximum-nesting-depth-of-two-valid-parentheses-strings",
+  "title": "Maximum Nesting Depth of Two Valid Parentheses Strings",
+  "titleCn": "有效括号的嵌套深度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.7692084311400431,
+  "testcases": [
+    {
+      "input": "</strong> seq = \"(()())\" <strong>Output:</strong> [0,1,1,1,1,0]",
+      "expectedOutput": "</strong> [0,1,1,1,1,0]"
+    },
+    {
+      "input": "</strong> seq = \"()(())()\" <strong>Output:</strong> [0,0,0,1,1,0,1,1]",
+      "expectedOutput": "</strong> [0,0,0,1,1,0,1,1]"
+    }
+  ]
+}

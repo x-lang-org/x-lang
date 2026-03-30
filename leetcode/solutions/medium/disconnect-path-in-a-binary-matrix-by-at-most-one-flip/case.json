@@ -1,0 +1,25 @@
+{
+  "problemId": "2641",
+  "titleSlug": "disconnect-path-in-a-binary-matrix-by-at-most-one-flip",
+  "title": "Disconnect Path in a Binary Matrix by at Most One Flip",
+  "titleCn": "二进制矩阵中翻转最多一次使路径不连通",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.32410013331358317,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,1,1],[1,0,0],[1,1,1]] <strong>Output:</strong> true <strong>Explanation:</strong> We can change the cell shown in the diagram above. There is no path from (0, 0) to (2, 2) in the resulting grid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can change the cell shown in the diagram above. There is no path from (0, 0) to (2, 2) in the resulting grid."
+    },
+    {
+      "input": "</strong> grid = [[1,1,1],[1,0,1],[1,1,1]] <strong>Output:</strong> false <strong>Explanation:</strong> It is not possible to change at most one cell such that there is not path from (0, 0) to (2, 2).",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is not possible to change at most one cell such that there is not path from (0, 0) to (2, 2)."
+    }
+  ]
+}

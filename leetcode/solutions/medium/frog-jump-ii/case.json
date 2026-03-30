@@ -1,0 +1,23 @@
+{
+  "problemId": "2591",
+  "titleSlug": "frog-jump-ii",
+  "title": "Frog Jump II",
+  "titleCn": "青蛙过河 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.6495580875306144,
+  "testcases": [
+    {
+      "input": "</strong> stones = [0,2,5,6,7] <strong>Output:</strong> 5 <strong>Explanation:</strong> The above figure represents one of the optimal paths the frog can take. The cost of this path is 5, which is the maximum length of a jump. Since it is not possible to achieve a cost of less than 5, we return it.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The above figure represents one of the optimal paths the frog can take. The cost of this path is 5, which is the maximum length of a jump. Since it is not possible to achieve a cost of less than 5, we return it."
+    },
+    {
+      "input": "</strong> stones = [0,3,9] <strong>Output:</strong> 9 <strong>Explanation:</strong> The frog can jump directly to the last stone and come back to the first stone. In this case, the length of each jump will be 9. The cost for the path will be max(9, 9) = 9. It can be shown that this is the minimum achievable cost.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> The frog can jump directly to the last stone and come back to the first stone. In this case, the length of each jump will be 9. The cost for the path will be max(9, 9) = 9. It can be shown that this is the minimum achievable cost."
+    }
+  ]
+}

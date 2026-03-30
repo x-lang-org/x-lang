@@ -1,0 +1,27 @@
+{
+  "problemId": "1234",
+  "titleSlug": "number-of-paths-with-max-score",
+  "title": "Number of Paths with Max Score",
+  "titleCn": "最大得分的路径数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.41595973306187084,
+  "testcases": [
+    {
+      "input": "</strong> board = [\"E23\",\"2X2\",\"12S\"]\r <strong>Output:</strong> [7,1]",
+      "expectedOutput": "</strong> [7,1]"
+    },
+    {
+      "input": "</strong> board = [\"E12\",\"1X1\",\"21S\"]\r <strong>Output:</strong> [4,2]",
+      "expectedOutput": "</strong> [4,2]"
+    },
+    {
+      "input": "</strong> board = [\"E11\",\"XXX\",\"11S\"]\r <strong>Output:</strong> [0,0]",
+      "expectedOutput": "</strong> [0,0]"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "925",
+  "titleSlug": "construct-binary-tree-from-preorder-and-postorder-traversal",
+  "title": "Construct Binary Tree from Preorder and Postorder Traversal",
+  "titleCn": "根据前序和后序遍历构造二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "acRate": 0.7079667128478498,
+  "testcases": [
+    {
+      "input": "</strong> preorder = [1,2,4,5,3,6,7], postorder = [4,5,2,6,7,3,1] <strong>Output:</strong> [1,2,3,4,5,6,7]",
+      "expectedOutput": "</strong> [1,2,3,4,5,6,7]"
+    },
+    {
+      "input": "</strong> preorder = [1], postorder = [1] <strong>Output:</strong> [1]",
+      "expectedOutput": "</strong> [1]"
+    }
+  ]
+}

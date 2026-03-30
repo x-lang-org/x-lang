@@ -10,8 +10,8 @@
   "acRate": 0.6174725065641767,
   "testcases": [
     {
-      "input": "1",
-      "expectedOutput": "4"
+      "input": "4",
+      "expectedOutput": "1211"
     }
   ]
 }

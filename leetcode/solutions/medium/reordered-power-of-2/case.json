@@ -1,0 +1,25 @@
+{
+  "problemId": "900",
+  "titleSlug": "reordered-power-of-2",
+  "title": "Reordered Power of 2",
+  "titleCn": "重新排序得到 2 的幂",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "counting",
+    "enumeration",
+    "sorting"
+  ],
+  "acRate": 0.6492513182767884,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

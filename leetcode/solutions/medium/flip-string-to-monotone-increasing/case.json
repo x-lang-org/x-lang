@@ -1,0 +1,26 @@
+{
+  "problemId": "962",
+  "titleSlug": "flip-string-to-monotone-increasing",
+  "title": "Flip String to Monotone Increasing",
+  "titleCn": "将字符串翻转到单调递增",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6403121484814398,
+  "testcases": [
+    {
+      "input": "</strong> s = \"00110\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We flip the last digit to get 00111.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We flip the last digit to get 00111."
+    },
+    {
+      "input": "</strong> s = \"010110\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We flip to get 011111, or alternatively 000111.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We flip to get 011111, or alternatively 000111."
+    },
+    {
+      "input": "</strong> s = \"00011000\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We flip to get 00000000.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We flip to get 00000000."
+    }
+  ]
+}

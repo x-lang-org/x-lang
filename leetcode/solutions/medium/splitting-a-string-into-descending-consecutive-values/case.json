@@ -1,0 +1,27 @@
+{
+  "problemId": "1976",
+  "titleSlug": "splitting-a-string-into-descending-consecutive-values",
+  "title": "Splitting a String Into Descending Consecutive Values",
+  "titleCn": "将字符串拆分为递减的连续值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "backtracking",
+    "enumeration"
+  ],
+  "acRate": 0.35000961476828407,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1234\" <strong>Output:</strong> false <strong>Explanation:</strong> There is no valid way to split s.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no valid way to split s."
+    },
+    {
+      "input": "</strong> s = \"050043\" <strong>Output:</strong> true <strong>Explanation:</strong> s can be split into [\"05\", \"004\", \"3\"] with numerical values [5,4,3]. The values are in descending order with adjacent values differing by 1.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> s can be split into [\"05\", \"004\", \"3\"] with numerical values [5,4,3]. The values are in descending order with adjacent values differing by 1."
+    },
+    {
+      "input": "</strong> s = \"9080701\" <strong>Output:</strong> false <strong>Explanation:</strong> There is no valid way to split s.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no valid way to split s."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2067",
+  "titleSlug": "maximum-number-of-points-with-cost",
+  "title": "Maximum Number of Points with Cost",
+  "titleCn": "扣分后的最大得分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.34502169158509916,
+  "testcases": [
+    {
+      "input": "</strong> points = [[1,2,3],[1,5,1],[3,1,1]] <strong>Output:</strong> 9 <strong>Explanation:</strong> The blue cells denote the optimal cells to pick, which have coordinates (0, 2), (1, 1), and (2, 0). You add 3 + 5 + 3 = 11 to your score. However, you must subtract abs(2 - 1) + abs(1 - 0) = 2 from your score. Your final score is 11 - 2 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> The blue cells denote the optimal cells to pick, which have coordinates (0, 2), (1, 1), and (2, 0). You add 3 + 5 + 3 = 11 to your score. However, you must subtract abs(2 - 1) + abs(1 - 0) = 2 from your score. Your final score is 11 - 2 = 9."
+    },
+    {
+      "input": "</strong> points = [[1,5],[2,3],[4,2]] <strong>Output:</strong> 11 <strong>Explanation:</strong> The blue cells denote the optimal cells to pick, which have coordinates (0, 1), (1, 1), and (2, 0). You add 5 + 3 + 4 = 12 to your score. However, you must subtract abs(1 - 1) + abs(1 - 0) = 1 from your score. Your final score is 12 - 1 = 11.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> The blue cells denote the optimal cells to pick, which have coordinates (0, 1), (1, 1), and (2, 0). You add 5 + 3 + 4 = 12 to your score. However, you must subtract abs(1 - 1) + abs(1 - 0) = 1 from your score. Your final score is 12 - 1 = 11."
+    }
+  ]
+}

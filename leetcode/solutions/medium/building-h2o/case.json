@@ -1,0 +1,21 @@
+{
+  "problemId": "1186",
+  "titleSlug": "building-h2o",
+  "title": "Building H2O",
+  "titleCn": "H2O 生成",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "concurrency"
+  ],
+  "acRate": 0.5655351175790887,
+  "testcases": [
+    {
+      "input": "</strong> water = \"HOH\" <strong>Output:</strong> \"HHO\" <strong>Explanation:</strong> \"HOH\" and \"OHH\" are also valid answers.",
+      "expectedOutput": "</strong> \"HHO\" <strong>Explanation:</strong> \"HOH\" and \"OHH\" are also valid answers."
+    },
+    {
+      "input": "</strong> water = \"OOHHHH\" <strong>Output:</strong> \"HHOHHO\" <strong>Explanation:</strong> \"HOHHHO\", \"OHHHHO\", \"HHOHOH\", \"HOHHOH\", \"OHHHOH\", \"HHOOHH\", \"HOHOHH\" and \"OHHOHH\" are also valid answers.",
+      "expectedOutput": "</strong> \"HHOHHO\" <strong>Explanation:</strong> \"HOHHHO\", \"OHHHHO\", \"HHOHOH\", \"HOHHOH\", \"OHHHOH\", \"HHOOHH\", \"HOHOHH\" and \"OHHOHH\" are also valid answers."
+    }
+  ]
+}

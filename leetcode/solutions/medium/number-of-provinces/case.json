@@ -1,0 +1,24 @@
+{
+  "problemId": "547",
+  "titleSlug": "number-of-provinces",
+  "title": "Number of Provinces",
+  "titleCn": "省份数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.6284338609791345,
+  "testcases": [
+    {
+      "input": "</strong> isConnected = [[1,1,0],[1,1,0],[0,0,1]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> isConnected = [[1,0,0],[0,1,0],[0,0,1]] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

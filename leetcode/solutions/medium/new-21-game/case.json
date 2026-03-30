@@ -1,0 +1,28 @@
+{
+  "problemId": "867",
+  "titleSlug": "new-21-game",
+  "title": "New 21 Game",
+  "titleCn": "新 21 点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "sliding-window",
+    "probability-and-statistics"
+  ],
+  "acRate": 0.42683557083278245,
+  "testcases": [
+    {
+      "input": "</strong> n = 10, k = 1, maxPts = 10 <strong>Output:</strong> 1.00000 <strong>Explanation:</strong> Alice gets a single card, then stops.",
+      "expectedOutput": "</strong> 1.00000 <strong>Explanation:</strong> Alice gets a single card, then stops."
+    },
+    {
+      "input": "</strong> n = 6, k = 1, maxPts = 10 <strong>Output:</strong> 0.60000 <strong>Explanation:</strong> Alice gets a single card, then stops. In 6 out of 10 possibilities, she is at or below 6 points.",
+      "expectedOutput": "</strong> 0.60000 <strong>Explanation:</strong> Alice gets a single card, then stops. In 6 out of 10 possibilities, she is at or below 6 points."
+    },
+    {
+      "input": "</strong> n = 21, k = 17, maxPts = 10 <strong>Output:</strong> 0.73278",
+      "expectedOutput": "</strong> 0.73278"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "1478",
+  "titleSlug": "maximum-number-of-events-that-can-be-attended",
+  "title": "Maximum Number of Events That Can Be Attended",
+  "titleCn": "最多可以参加的会议数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.34914598408618874,
+  "testcases": [
+    {
+      "input": "</strong> events = [[1,2],[2,3],[3,4]] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can attend all the three events. One way to attend them all is as shown. Attend the first event on day 1. Attend the second event on day 2. Attend the third event on day 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can attend all the three events. One way to attend them all is as shown. Attend the first event on day 1. Attend the second event on day 2. Attend the third event on day 3."
+    },
+    {
+      "input": "</strong> events= [[1,2],[2,3],[3,4],[1,2]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

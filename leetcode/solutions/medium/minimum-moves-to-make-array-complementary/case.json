@@ -1,0 +1,27 @@
+{
+  "problemId": "1793",
+  "titleSlug": "minimum-moves-to-make-array-complementary",
+  "title": "Minimum Moves to Make Array Complementary",
+  "titleCn": "使数组互补的最少操作次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.4589830508474576,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,4,3], limit = 4 <strong>Output:</strong> 1 <strong>Explanation:</strong> In 1 move, you can change nums to [1,2,<u>2</u>,3] (underlined elements are changed). nums[0] + nums[3] = 1 + 3 = 4. nums[1] + nums[2] = 2 + 2 = 4. nums[2] + nums[1] = 2 + 2 = 4. nums[3] + nums[0] = 3 + 1 = 4. Therefore, nums[i] + nums[n-1-i] = 4 for every i, so nums is complementary.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In 1 move, you can change nums to [1,2,<u>2</u>,3] (underlined elements are changed). nums[0] + nums[3] = 1 + 3 = 4. nums[1] + nums[2] = 2 + 2 = 4. nums[2] + nums[1] = 2 + 2 = 4. nums[3] + nums[0] = 3 + 1 = 4. Therefore, nums[i] + nums[n-1-i] = 4 for every i, so nums is complementary."
+    },
+    {
+      "input": "</strong> nums = [1,2,2,1], limit = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> In 2 moves, you can change nums to [<u>2</u>,2,2,<u>2</u>]. You cannot change any number to 3 since 3 > limit.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In 2 moves, you can change nums to [<u>2</u>,2,2,<u>2</u>]. You cannot change any number to 3 since 3 > limit."
+    },
+    {
+      "input": "</strong> nums = [1,2,1,2], limit = 2 <strong>Output:</strong> 0 <strong>Explanation:</strong> nums is already complementary.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> nums is already complementary."
+    }
+  ]
+}

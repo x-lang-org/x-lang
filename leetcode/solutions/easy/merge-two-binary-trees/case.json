@@ -1,0 +1,24 @@
+{
+  "problemId": "617",
+  "titleSlug": "merge-two-binary-trees",
+  "title": "Merge Two Binary Trees",
+  "titleCn": "合并二叉树",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.7970187080889779,
+  "testcases": [
+    {
+      "input": "</strong> root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7] <strong>Output:</strong> [3,4,5,5,4,null,7]",
+      "expectedOutput": "</strong> [3,4,5,5,4,null,7]"
+    },
+    {
+      "input": "</strong> root1 = [1], root2 = [1,2] <strong>Output:</strong> [2,2]",
+      "expectedOutput": "</strong> [2,2]"
+    }
+  ]
+}

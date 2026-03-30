@@ -1,0 +1,27 @@
+{
+  "problemId": "1379",
+  "titleSlug": "reconstruct-a-2-row-binary-matrix",
+  "title": "Reconstruct a 2-Row Binary Matrix",
+  "titleCn": "重构 2 行二进制矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.4903152889824233,
+  "testcases": [
+    {
+      "input": "</strong> upper = 2, lower = 1, colsum = [1,1,1] <strong>Output:</strong> [[1,1,0],[0,0,1]] <strong>Explanation: </strong>[[1,0,1],[0,1,0]], and [[0,1,1],[1,0,0]] are also correct answers.",
+      "expectedOutput": "</strong> [[1,1,0],[0,0,1]] <strong>Explanation: </strong>[[1,0,1],[0,1,0]], and [[0,1,1],[1,0,0]] are also correct answers."
+    },
+    {
+      "input": "</strong> upper = 2, lower = 3, colsum = [2,2,1,1] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    },
+    {
+      "input": "</strong> upper = 5, lower = 5, colsum = [2,1,2,0,1,0,1,2,0,1] <strong>Output:</strong> [[1,1,1,0,1,0,0,1,0,0],[1,0,1,0,0,0,1,1,0,1]]",
+      "expectedOutput": "</strong> [[1,1,1,0,1,0,0,1,0,0],[1,0,1,0,0,0,1,1,0,1]]"
+    }
+  ]
+}

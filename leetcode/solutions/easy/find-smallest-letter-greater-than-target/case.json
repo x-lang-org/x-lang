@@ -1,0 +1,26 @@
+{
+  "problemId": "745",
+  "titleSlug": "find-smallest-letter-greater-than-target",
+  "title": "Find Smallest Letter Greater Than Target",
+  "titleCn": "寻找比目标字母大的最小字母",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5261610835148164,
+  "testcases": [
+    {
+      "input": "</strong> letters = [\"c\",\"f\",\"j\"], target = \"a\" <strong>Output:</strong> \"c\" <strong>Explanation:</strong> The smallest character that is lexicographically greater than 'a' in letters is 'c'.",
+      "expectedOutput": "</strong> \"c\" <strong>Explanation:</strong> The smallest character that is lexicographically greater than 'a' in letters is 'c'."
+    },
+    {
+      "input": "</strong> letters = [\"c\",\"f\",\"j\"], target = \"c\" <strong>Output:</strong> \"f\" <strong>Explanation:</strong> The smallest character that is lexicographically greater than 'c' in letters is 'f'.",
+      "expectedOutput": "</strong> \"f\" <strong>Explanation:</strong> The smallest character that is lexicographically greater than 'c' in letters is 'f'."
+    },
+    {
+      "input": "</strong> letters = [\"x\",\"x\",\"y\",\"y\"], target = \"z\" <strong>Output:</strong> \"x\" <strong>Explanation:</strong> There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].",
+      "expectedOutput": "</strong> \"x\" <strong>Explanation:</strong> There are no characters in letters that is lexicographically greater than 'z' so we return letters[0]."
+    }
+  ]
+}

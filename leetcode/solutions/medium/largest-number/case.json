@@ -1,0 +1,24 @@
+{
+  "problemId": "179",
+  "titleSlug": "largest-number",
+  "title": "Largest Number",
+  "titleCn": "最大数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.4194712703680227,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,2] <strong>Output:</strong> \"210\"",
+      "expectedOutput": "</strong> \"210"
+    },
+    {
+      "input": "</strong> nums = [3,30,34,5,9] <strong>Output:</strong> \"9534330\"",
+      "expectedOutput": "</strong> \"9534330"
+    }
+  ]
+}

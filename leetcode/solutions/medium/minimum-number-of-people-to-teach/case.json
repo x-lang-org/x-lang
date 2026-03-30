@@ -1,0 +1,23 @@
+{
+  "problemId": "1834",
+  "titleSlug": "minimum-number-of-people-to-teach",
+  "title": "Minimum Number of People to Teach",
+  "titleCn": "需要教语言的最少人数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.6140390222022875,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, languages = [[1],[2],[1,2]], friendships = [[1,2],[1,3],[2,3]] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can either teach user 1 the second language or user 2 the first language.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can either teach user 1 the second language or user 2 the first language."
+    },
+    {
+      "input": "</strong> n = 3, languages = [[2],[1,3],[1,2],[3]], friendships = [[1,4],[1,2],[3,4],[2,3]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Teach the third language to users 1 and 3, yielding two users to teach.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Teach the third language to users 1 and 3, yielding two users to teach."
+    }
+  ]
+}

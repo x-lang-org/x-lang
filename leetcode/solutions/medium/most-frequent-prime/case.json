@@ -1,0 +1,31 @@
+{
+  "problemId": "3314",
+  "titleSlug": "most-frequent-prime",
+  "title": "Most Frequent Prime",
+  "titleCn": "出现频率最高的质数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting",
+    "enumeration",
+    "matrix",
+    "number-theory"
+  ],
+  "acRate": 0.5653663679493938,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,1],[9,9],[1,1]] <strong>Output:</strong> 19 <strong>Explanation:</strong> From cell (0,0) there are 3 possible directions and the numbers greater than 10 which can be created in those directions are: East: [11], South-East: [19], South: [19,191]. Numbers greater than 10 created from the cell (0,1) in all possible directions are: [19,191,19,11]. Numbers greater than 10 created from the cell (1,0) in all possible directions are: [99,91,91,91,91]. Numbers greater than 10 created from the cell (1,1) in all possible directions are: [91,91,99,91,91]. Numbers greater than 10 created from the cell (2,0) in all possible directions are: [11,19,191,19]. Numbers greater than 10 created from the cell (2,1) in all possible directions are: [11,19,19,191]. The most frequent prime number among all the created numbers is 19.",
+      "expectedOutput": "</strong> 19 <strong>Explanation:</strong> From cell (0,0) there are 3 possible directions and the numbers greater than 10 which can be created in those directions are: East: [11], South-East: [19], South: [19,191]. Numbers greater than 10 created from the cell (0,1) in all possible directions are: [19,191,19,11]. Numbers greater than 10 created from the cell (1,0) in all possible directions are: [99,91,91,91,91]. Numbers greater than 10 created from the cell (1,1) in all possible directions are: [91,91,99,91,91]. Numbers greater than 10 created from the cell (2,0) in all possible directions are: [11,19,191,19]. Numbers greater than 10 created from the cell (2,1) in all possible directions are: [11,19,19,191]. The most frequent prime number among all the created numbers is 19."
+    },
+    {
+      "input": "</strong> mat = [[7]] <strong>Output:</strong> -1 <strong>Explanation:</strong> The only number which can be formed is 7. It is a prime number however it is not greater than 10, so return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The only number which can be formed is 7. It is a prime number however it is not greater than 10, so return -1."
+    },
+    {
+      "input": "</strong> mat = [[9,7,8],[4,6,5],[2,8,6]] <strong>Output:</strong> 97 <strong>Explanation:</strong> Numbers greater than 10 created from the cell (0,0) in all possible directions are: [97,978,96,966,94,942]. Numbers greater than 10 created from the cell (0,1) in all possible directions are: [78,75,76,768,74,79]. Numbers greater than 10 created from the cell (0,2) in all possible directions are: [85,856,86,862,87,879]. Numbers greater than 10 created from the cell (1,0) in all possible directions are: [46,465,48,42,49,47]. Numbers greater than 10 created from the cell (1,1) in all possible directions are: [65,66,68,62,64,69,67,68]. Numbers greater than 10 created from the cell (1,2) in all possible directions are: [56,58,56,564,57,58]. Numbers greater than 10 created from the cell (2,0) in all possible directions are: [28,286,24,249,26,268]. Numbers greater than 10 created from the cell (2,1) in all possible directions are: [86,82,84,86,867,85]. Numbers greater than 10 created from the cell (2,2) in all possible directions are: [68,682,66,669,65,658]. The most frequent prime number among all the created numbers is 97.",
+      "expectedOutput": "</strong> 97 <strong>Explanation:</strong> Numbers greater than 10 created from the cell (0,0) in all possible directions are: [97,978,96,966,94,942]. Numbers greater than 10 created from the cell (0,1) in all possible directions are: [78,75,76,768,74,79]. Numbers greater than 10 created from the cell (0,2) in all possible directions are: [85,856,86,862,87,879]. Numbers greater than 10 created from the cell (1,0) in all possible directions are: [46,465,48,42,49,47]. Numbers greater than 10 created from the cell (1,1) in all possible directions are: [65,66,68,62,64,69,67,68]. Numbers greater than 10 created from the cell (1,2) in all possible directions are: [56,58,56,564,57,58]. Numbers greater than 10 created from the cell (2,0) in all possible directions are: [28,286,24,249,26,268]. Numbers greater than 10 created from the cell (2,1) in all possible directions are: [86,82,84,86,867,85]. Numbers greater than 10 created from the cell (2,2) in all possible directions are: [68,682,66,669,65,658]. The most frequent prime number among all the created numbers is 97."
+    }
+  ]
+}

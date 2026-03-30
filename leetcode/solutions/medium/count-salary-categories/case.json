@@ -1,0 +1,17 @@
+{
+  "problemId": "2057",
+  "titleSlug": "count-salary-categories",
+  "title": "Count Salary Categories",
+  "titleCn": "按分类统计薪水",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6638680270180908,
+  "testcases": [
+    {
+      "input": "</strong> Accounts table: +------------+--------+ | account_id | income | +------------+--------+ | 3     | 108939 | | 2     | 12747 | | 8     | 87709 | | 6     | 91796 | +------------+--------+ <strong>Output:</strong> +----------------+----------------+ | category    | accounts_count | +----------------+----------------+ | Low Salary   | 1       | | Average Salary | 0       | | High Salary  | 3       | +----------------+----------------+ <strong>Explanation:</strong> Low Salary: Account 2. Average Salary: No accounts. High Salary: Accounts 3, 6, and 8.",
+      "expectedOutput": "</strong> +----------------+----------------+ | category    | accounts_count | +----------------+----------------+ | Low Salary   | 1       | | Average Salary | 0       | | High Salary  | 3       | +----------------+----------------+ <strong>Explanation:</strong> Low Salary: Account 2. Average Salary: No accounts. High Salary: Accounts 3, 6, and 8."
+    }
+  ]
+}

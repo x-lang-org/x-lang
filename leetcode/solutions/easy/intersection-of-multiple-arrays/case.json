@@ -1,0 +1,24 @@
+{
+  "problemId": "2331",
+  "titleSlug": "intersection-of-multiple-arrays",
+  "title": "Intersection of Multiple Arrays",
+  "titleCn": "多个数组求交集",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.6685173190216218,
+  "testcases": [
+    {
+      "input": "</strong> nums = [[<u><strong>3</strong></u>,1,2,<u><strong>4</strong></u>,5],[1,2,<u><strong>3</strong></u>,<u><strong>4</strong></u>],[<u><strong>3</strong></u>,<u><strong>4</strong></u>,5,6]] <strong>Output:</strong> [3,4] <strong>Explanation:</strong> The only integers present in each of nums[0] = [<u><strong>3</strong></u>,1,2,<u><strong>4</strong></u>,5], nums[1] = [1,2,<u><strong>3</strong></u>,<u><strong>4</strong></u>], and nums[2] = [<u><strong>3</strong></u>,<u><strong>4</strong></u>,5,6] are 3 and 4, so we return [3,4].",
+      "expectedOutput": "</strong> [3,4] <strong>Explanation:</strong> The only integers present in each of nums[0] = [<u><strong>3</strong></u>,1,2,<u><strong>4</strong></u>,5], nums[1] = [1,2,<u><strong>3</strong></u>,<u><strong>4</strong></u>], and nums[2] = [<u><strong>3</strong></u>,<u><strong>4</strong></u>,5,6] are 3 and 4, so we return [3,4]."
+    },
+    {
+      "input": "</strong> nums = [[1,2,3],[4,5,6]] <strong>Output:</strong> [] <strong>Explanation:</strong> There does not exist any integer present both in nums[0] and nums[1], so we return an empty list [].",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There does not exist any integer present both in nums[0] and nums[1], so we return an empty list []."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "138",
+  "titleSlug": "copy-list-with-random-pointer",
+  "title": "Copy List with Random Pointer",
+  "titleCn": "随机链表的复制",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "linked-list"
+  ],
+  "acRate": 0.7058841945976032,
+  "testcases": [
+    {
+      "input": "</strong> head = [[7,null],[13,0],[11,4],[10,2],[1,0]] <strong>Output:</strong> [[7,null],[13,0],[11,4],[10,2],[1,0]]",
+      "expectedOutput": "</strong> [[7,null],[13,0],[11,4],[10,2],[1,0]]"
+    },
+    {
+      "input": "</strong> head = [[1,1],[2,1]] <strong>Output:</strong> [[1,1],[2,1]]",
+      "expectedOutput": "</strong> [[1,1],[2,1]]"
+    },
+    {
+      "input": "</strong> head = [[3,null],[3,0],[3,null]] <strong>Output:</strong> [[3,null],[3,0],[3,null]]",
+      "expectedOutput": "</strong> [[3,null],[3,0],[3,null]]"
+    }
+  ]
+}

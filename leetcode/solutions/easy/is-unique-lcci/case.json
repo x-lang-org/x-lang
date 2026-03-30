@@ -1,0 +1,24 @@
+{
+  "problemId": "100158",
+  "titleSlug": "is-unique-lcci",
+  "title": "Is Unique LCCI",
+  "titleCn": "判定字符是否唯一",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.7142572852170452,
+  "testcases": [
+    {
+      "input": "</strong><code>s</code> = \"leetcode\"\r <strong>Output: </strong>false",
+      "expectedOutput": "</strong>false"
+    },
+    {
+      "input": "</strong><code>s</code> = \"abc\"\r <strong>Output: </strong>true",
+      "expectedOutput": "</strong>true"
+    }
+  ]
+}

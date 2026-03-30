@@ -1,0 +1,23 @@
+{
+  "problemId": "1744",
+  "titleSlug": "number-of-ways-to-form-a-target-string-given-a-dictionary",
+  "title": "Number of Ways to Form a Target String Given a Dictionary",
+  "titleCn": "通过给定词典构造目标字符串的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.516153978346795,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"acca\",\"bbbb\",\"caca\"], target = \"aba\" <strong>Output:</strong> 6 <strong>Explanation:</strong> There are 6 ways to form target. \"aba\" -> index 0 (\"<u>a</u>cca\"), index 1 (\"b<u>b</u>bb\"), index 3 (\"cac<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"cac<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 1 (\"b<u>b</u>bb\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 1 (\"c<u>a</u>ca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 1 (\"c<u>a</u>ca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"cac<u>a</u>\")",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> There are 6 ways to form target. \"aba\" -> index 0 (\"<u>a</u>cca\"), index 1 (\"b<u>b</u>bb\"), index 3 (\"cac<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"cac<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 1 (\"b<u>b</u>bb\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 0 (\"<u>a</u>cca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 1 (\"c<u>a</u>ca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"acc<u>a</u>\") \"aba\" -> index 1 (\"c<u>a</u>ca\"), index 2 (\"bb<u>b</u>b\"), index 3 (\"cac<u>a</u>\")"
+    },
+    {
+      "input": "</strong> words = [\"abba\",\"baab\"], target = \"bab\" <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 ways to form target. \"bab\" -> index 0 (\"<u>b</u>aab\"), index 1 (\"b<u>a</u>ab\"), index 2 (\"ab<u>b</u>a\") \"bab\" -> index 0 (\"<u>b</u>aab\"), index 1 (\"b<u>a</u>ab\"), index 3 (\"baa<u>b</u>\") \"bab\" -> index 0 (\"<u>b</u>aab\"), index 2 (\"ba<u>a</u>b\"), index 3 (\"baa<u>b</u>\") \"bab\" -> index 1 (\"a<u>b</u>ba\"), index 2 (\"ba<u>a</u>b\"), index 3 (\"baa<u>b</u>\")",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 ways to form target. \"bab\" -> index 0 (\"<u>b</u>aab\"), index 1 (\"b<u>a</u>ab\"), index 2 (\"ab<u>b</u>a\") \"bab\" -> index 0 (\"<u>b</u>aab\"), index 1 (\"b<u>a</u>ab\"), index 3 (\"baa<u>b</u>\") \"bab\" -> index 0 (\"<u>b</u>aab\"), index 2 (\"ba<u>a</u>b\"), index 3 (\"baa<u>b</u>\") \"bab\" -> index 1 (\"a<u>b</u>ba\"), index 2 (\"ba<u>a</u>b\"), index 3 (\"baa<u>b</u>\")"
+    }
+  ]
+}

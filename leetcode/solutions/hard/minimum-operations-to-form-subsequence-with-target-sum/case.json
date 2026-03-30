@@ -1,0 +1,27 @@
+{
+  "problemId": "3025",
+  "titleSlug": "minimum-operations-to-form-subsequence-with-target-sum",
+  "title": "Minimum Operations to Form Subsequence With Target Sum",
+  "titleCn": "使子序列的和等于目标的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.3720529900456553,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,8], target = 7 <strong>Output:</strong> 1 <strong>Explanation:</strong> In the first operation, we choose element nums[2]. The array becomes equal to nums = [1,2,4,4]. At this stage, nums contains the subsequence [1,2,4] which sums up to 7. It can be shown that there is no shorter sequence of operations that results in a subsequnce that sums up to 7.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In the first operation, we choose element nums[2]. The array becomes equal to nums = [1,2,4,4]. At this stage, nums contains the subsequence [1,2,4] which sums up to 7. It can be shown that there is no shorter sequence of operations that results in a subsequnce that sums up to 7."
+    },
+    {
+      "input": "</strong> nums = [1,32,1,2], target = 12 <strong>Output:</strong> 2 <strong>Explanation:</strong> In the first operation, we choose element nums[1]. The array becomes equal to nums = [1,1,2,16,16]. In the second operation, we choose element nums[3]. The array becomes equal to nums = [1,1,2,16,8,8] At this stage, nums contains the subsequence [1,1,2,8] which sums up to 12. It can be shown that there is no shorter sequence of operations that results in a subsequence that sums up to 12.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In the first operation, we choose element nums[1]. The array becomes equal to nums = [1,1,2,16,16]. In the second operation, we choose element nums[3]. The array becomes equal to nums = [1,1,2,16,8,8] At this stage, nums contains the subsequence [1,1,2,8] which sums up to 12. It can be shown that there is no shorter sequence of operations that results in a subsequence that sums up to 12."
+    },
+    {
+      "input": "</strong> nums = [1,32,1], target = 35 <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be shown that no sequence of operations results in a subsequence that sums up to 35.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be shown that no sequence of operations results in a subsequence that sums up to 35."
+    }
+  ]
+}

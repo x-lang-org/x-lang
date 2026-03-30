@@ -1,0 +1,24 @@
+{
+  "problemId": "754",
+  "titleSlug": "cracking-the-safe",
+  "title": "Cracking the Safe",
+  "titleCn": "破解保险箱",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "graph",
+    "string",
+    "eulerian-circuit"
+  ],
+  "acRate": 0.7378826530612245,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, k = 2 <strong>Output:</strong> \"10\" <strong>Explanation:</strong> The password is a single digit, so enter each digit. \"01\" would also unlock the safe.",
+      "expectedOutput": "</strong> \"10\" <strong>Explanation:</strong> The password is a single digit, so enter each digit. \"01\" would also unlock the safe."
+    },
+    {
+      "input": "</strong> n = 2, k = 2 <strong>Output:</strong> \"01100\" <strong>Explanation:</strong> For each possible password: - \"00\" is typed in starting from the 4<sup>th</sup> digit. - \"01\" is typed in starting from the 1<sup>st</sup> digit. - \"10\" is typed in starting from the 3<sup>rd</sup> digit. - \"11\" is typed in starting from the 2<sup>nd</sup> digit. Thus \"01100\" will unlock the safe. \"10011\", and \"11001\" would also unlock the safe.",
+      "expectedOutput": "</strong> \"01100\" <strong>Explanation:</strong> For each possible password: - \"00\" is typed in starting from the 4<sup>th</sup> digit. - \"01\" is typed in starting from the 1<sup>st</sup> digit. - \"10\" is typed in starting from the 3<sup>rd</sup> digit. - \"11\" is typed in starting from the 2<sup>nd</sup> digit. Thus \"01100\" will unlock the safe. \"10011\", and \"11001\" would also unlock the safe."
+    }
+  ]
+}

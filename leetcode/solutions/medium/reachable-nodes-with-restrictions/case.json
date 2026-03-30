@@ -1,0 +1,27 @@
+{
+  "problemId": "2445",
+  "titleSlug": "reachable-nodes-with-restrictions",
+  "title": "Reachable Nodes With Restrictions",
+  "titleCn": "受限条件下可到达节点的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.5813819467122577,
+  "testcases": [
+    {
+      "input": "</strong> n = 7, edges = [[0,1],[1,2],[3,1],[4,0],[0,5],[5,6]], restricted = [4,5] <strong>Output:</strong> 4 <strong>Explanation:</strong> The diagram above shows the tree. We have that [0,1,2,3] are the only nodes that can be reached from node 0 without visiting a restricted node.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The diagram above shows the tree. We have that [0,1,2,3] are the only nodes that can be reached from node 0 without visiting a restricted node."
+    },
+    {
+      "input": "</strong> n = 7, edges = [[0,1],[0,2],[0,5],[0,4],[3,2],[6,5]], restricted = [4,2,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> The diagram above shows the tree. We have that [0,5,6] are the only nodes that can be reached from node 0 without visiting a restricted node.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The diagram above shows the tree. We have that [0,5,6] are the only nodes that can be reached from node 0 without visiting a restricted node."
+    }
+  ]
+}

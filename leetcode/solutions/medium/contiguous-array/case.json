@@ -1,0 +1,27 @@
+{
+  "problemId": "525",
+  "titleSlug": "contiguous-array",
+  "title": "Contiguous Array",
+  "titleCn": "连续数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.5613780301375846,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> [0, 1] is the longest contiguous subarray with an equal number of 0 and 1.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> [0, 1] is the longest contiguous subarray with an equal number of 0 and 1."
+    },
+    {
+      "input": "</strong> nums = [0,1,0] <strong>Output:</strong> 2 <strong>Explanation:</strong> [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1."
+    },
+    {
+      "input": "</strong> nums = [0,1,1,1,1,1,0,0,0] <strong>Output:</strong> 6 <strong>Explanation:</strong> [1,1,1,0,0,0] is the longest contiguous subarray with equal number of 0 and 1.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> [1,1,1,0,0,0] is the longest contiguous subarray with equal number of 0 and 1."
+    }
+  ]
+}

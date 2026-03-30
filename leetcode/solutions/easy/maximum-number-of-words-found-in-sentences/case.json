@@ -1,0 +1,22 @@
+{
+  "problemId": "2219",
+  "titleSlug": "maximum-number-of-words-found-in-sentences",
+  "title": "Maximum Number of Words Found in Sentences",
+  "titleCn": "句子中的最多单词数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8409705122815446,
+  "testcases": [
+    {
+      "input": "</strong> sentences = [\"alice and bob love leetcode\", \"i think so too\", <u>\"this is great thanks very much\"</u>] <strong>Output:</strong> 6 <strong>Explanation:</strong> - The first sentence, \"alice and bob love leetcode\", has 5 words in total. - The second sentence, \"i think so too\", has 4 words in total. - The third sentence, \"this is great thanks very much\", has 6 words in total. Thus, the maximum number of words in a single sentence comes from the third sentence, which has 6 words.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> - The first sentence, \"alice and bob love leetcode\", has 5 words in total. - The second sentence, \"i think so too\", has 4 words in total. - The third sentence, \"this is great thanks very much\", has 6 words in total. Thus, the maximum number of words in a single sentence comes from the third sentence, which has 6 words."
+    },
+    {
+      "input": "</strong> sentences = [\"please wait\", <u>\"continue to fight\"</u>, <u>\"continue to win\"</u>] <strong>Output:</strong> 3 <strong>Explanation:</strong> It is possible that multiple sentences contain the same number of words. In this example, the second and third sentences (underlined) have the same number of words.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> It is possible that multiple sentences contain the same number of words. In this example, the second and third sentences (underlined) have the same number of words."
+    }
+  ]
+}

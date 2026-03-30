@@ -1,0 +1,26 @@
+{
+  "problemId": "1850",
+  "titleSlug": "minimum-length-of-string-after-deleting-similar-ends",
+  "title": "Minimum Length of String After Deleting Similar Ends",
+  "titleCn": "删除字符串两端相同字符后的最短长度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.512719498749563,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ca\" <strong>Output:</strong> 2 <strong>Explanation: </strong>You can't remove any characters, so the string stays as is.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>You can't remove any characters, so the string stays as is."
+    },
+    {
+      "input": "</strong> s = \"cabaabac\" <strong>Output:</strong> 0 <strong>Explanation:</strong> An optimal sequence of operations is: - Take prefix = \"c\" and suffix = \"c\" and remove them, s = \"abaaba\". - Take prefix = \"a\" and suffix = \"a\" and remove them, s = \"baab\". - Take prefix = \"b\" and suffix = \"b\" and remove them, s = \"aa\". - Take prefix = \"a\" and suffix = \"a\" and remove them, s = \"\".",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> An optimal sequence of operations is: - Take prefix = \"c\" and suffix = \"c\" and remove them, s = \"abaaba\". - Take prefix = \"a\" and suffix = \"a\" and remove them, s = \"baab\". - Take prefix = \"b\" and suffix = \"b\" and remove them, s = \"aa\". - Take prefix = \"a\" and suffix = \"a\" and remove them, s = \"\"."
+    },
+    {
+      "input": "</strong> s = \"aabccabba\" <strong>Output:</strong> 3 <strong>Explanation:</strong> An optimal sequence of operations is: - Take prefix = \"aa\" and suffix = \"a\" and remove them, s = \"bccabb\". - Take prefix = \"b\" and suffix = \"bb\" and remove them, s = \"cca\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> An optimal sequence of operations is: - Take prefix = \"aa\" and suffix = \"a\" and remove them, s = \"bccabb\". - Take prefix = \"b\" and suffix = \"bb\" and remove them, s = \"cca\"."
+    }
+  ]
+}

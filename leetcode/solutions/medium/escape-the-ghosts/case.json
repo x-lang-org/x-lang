@@ -1,0 +1,26 @@
+{
+  "problemId": "805",
+  "titleSlug": "escape-the-ghosts",
+  "title": "Escape The Ghosts",
+  "titleCn": "逃脱阻碍者",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.68726392509443,
+  "testcases": [
+    {
+      "input": "</strong> ghosts = [[1,0],[0,3]], target = [0,1] <strong>Output:</strong> true <strong>Explanation:</strong> You can reach the destination (0, 1) after 1 turn, while the ghosts located at (1, 0) and (0, 3) cannot catch up with you.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can reach the destination (0, 1) after 1 turn, while the ghosts located at (1, 0) and (0, 3) cannot catch up with you."
+    },
+    {
+      "input": "</strong> ghosts = [[1,0]], target = [2,0] <strong>Output:</strong> false <strong>Explanation:</strong> You need to reach the destination (2, 0), but the ghost at (1, 0) lies between you and the destination.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> You need to reach the destination (2, 0), but the ghost at (1, 0) lies between you and the destination."
+    },
+    {
+      "input": "</strong> ghosts = [[2,0]], target = [1,0] <strong>Output:</strong> false <strong>Explanation:</strong> The ghost can reach the target at the same time as you.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The ghost can reach the target at the same time as you."
+    }
+  ]
+}

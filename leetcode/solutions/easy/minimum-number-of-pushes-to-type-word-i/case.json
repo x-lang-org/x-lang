@@ -1,0 +1,23 @@
+{
+  "problemId": "3275",
+  "titleSlug": "minimum-number-of-pushes-to-type-word-i",
+  "title": "Minimum Number of Pushes to Type Word I",
+  "titleCn": "输入单词需要的最少按键次数 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6103129810159056,
+  "testcases": [
+    {
+      "input": "</strong> word = \"abcde\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The remapped keypad given in the image provides the minimum cost. \"a\" -> one push on key 2 \"b\" -> one push on key 3 \"c\" -> one push on key 4 \"d\" -> one push on key 5 \"e\" -> one push on key 6 Total cost is 1 + 1 + 1 + 1 + 1 = 5. It can be shown that no other mapping can provide a lower cost.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The remapped keypad given in the image provides the minimum cost. \"a\" -> one push on key 2 \"b\" -> one push on key 3 \"c\" -> one push on key 4 \"d\" -> one push on key 5 \"e\" -> one push on key 6 Total cost is 1 + 1 + 1 + 1 + 1 = 5. It can be shown that no other mapping can provide a lower cost."
+    },
+    {
+      "input": "</strong> word = \"xycdefghij\" <strong>Output:</strong> 12 <strong>Explanation:</strong> The remapped keypad given in the image provides the minimum cost. \"x\" -> one push on key 2 \"y\" -> two pushes on key 2 \"c\" -> one push on key 3 \"d\" -> two pushes on key 3 \"e\" -> one push on key 4 \"f\" -> one push on key 5 \"g\" -> one push on key 6 \"h\" -> one push on key 7 \"i\" -> one push on key 8 \"j\" -> one push on key 9 Total cost is 1 + 2 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 1 = 12. It can be shown that no other mapping can provide a lower cost.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> The remapped keypad given in the image provides the minimum cost. \"x\" -> one push on key 2 \"y\" -> two pushes on key 2 \"c\" -> one push on key 3 \"d\" -> two pushes on key 3 \"e\" -> one push on key 4 \"f\" -> one push on key 5 \"g\" -> one push on key 6 \"h\" -> one push on key 7 \"i\" -> one push on key 8 \"j\" -> one push on key 9 Total cost is 1 + 2 + 1 + 2 + 1 + 1 + 1 + 1 + 1 + 1 = 12. It can be shown that no other mapping can provide a lower cost."
+    }
+  ]
+}

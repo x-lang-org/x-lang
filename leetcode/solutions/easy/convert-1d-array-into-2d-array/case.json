@@ -1,0 +1,27 @@
+{
+  "problemId": "2132",
+  "titleSlug": "convert-1d-array-into-2d-array",
+  "title": "Convert 1D Array Into 2D Array",
+  "titleCn": "将一维数组转变成二维数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.6630710038474992,
+  "testcases": [
+    {
+      "input": "</strong> original = [1,2,3,4], m = 2, n = 2 <strong>Output:</strong> [[1,2],[3,4]] <strong>Explanation:</strong> The constructed 2D array should contain 2 rows and 2 columns. The first group of n=2 elements in original, [1,2], becomes the first row in the constructed 2D array. The second group of n=2 elements in original, [3,4], becomes the second row in the constructed 2D array.",
+      "expectedOutput": "</strong> [[1,2],[3,4]] <strong>Explanation:</strong> The constructed 2D array should contain 2 rows and 2 columns. The first group of n=2 elements in original, [1,2], becomes the first row in the constructed 2D array. The second group of n=2 elements in original, [3,4], becomes the second row in the constructed 2D array."
+    },
+    {
+      "input": "</strong> original = [1,2,3], m = 1, n = 3 <strong>Output:</strong> [[1,2,3]] <strong>Explanation:</strong> The constructed 2D array should contain 1 row and 3 columns. Put all three elements in original into the first row of the constructed 2D array.",
+      "expectedOutput": "</strong> [[1,2,3]] <strong>Explanation:</strong> The constructed 2D array should contain 1 row and 3 columns. Put all three elements in original into the first row of the constructed 2D array."
+    },
+    {
+      "input": "</strong> original = [1,2], m = 1, n = 1 <strong>Output:</strong> [] <strong>Explanation:</strong> There are 2 elements in original. It is impossible to fit 2 elements in a 1x1 2D array, so return an empty 2D array.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There are 2 elements in original. It is impossible to fit 2 elements in a 1x1 2D array, so return an empty 2D array."
+    }
+  ]
+}

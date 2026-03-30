@@ -1,0 +1,22 @@
+{
+  "problemId": "3270",
+  "titleSlug": "minimum-moves-to-capture-the-queen",
+  "title": "Minimum Moves to Capture The Queen",
+  "titleCn": "捕获黑皇后需要的最少移动次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.3155538766644631,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 1, c = 8, d = 8, e = 2, f = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> We can capture the black queen in two moves by moving the white rook to (1, 3) then to (2, 3). It is impossible to capture the black queen in less than two moves since it is not being attacked by any of the pieces at the beginning.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can capture the black queen in two moves by moving the white rook to (1, 3) then to (2, 3). It is impossible to capture the black queen in less than two moves since it is not being attacked by any of the pieces at the beginning."
+    },
+    {
+      "input": "</strong> a = 5, b = 3, c = 3, d = 4, e = 5, f = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> We can capture the black queen in a single move by doing one of the following: - Move the white rook to (5, 2). - Move the white bishop to (5, 2).",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can capture the black queen in a single move by doing one of the following: - Move the white rook to (5, 2). - Move the white bishop to (5, 2)."
+    }
+  ]
+}

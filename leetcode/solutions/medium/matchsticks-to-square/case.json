@@ -1,0 +1,25 @@
+{
+  "problemId": "473",
+  "titleSlug": "matchsticks-to-square",
+  "title": "Matchsticks to Square",
+  "titleCn": "火柴拼正方形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.47099050117413105,
+  "testcases": [
+    {
+      "input": "</strong> matchsticks = [1,1,2,2,2] <strong>Output:</strong> true <strong>Explanation:</strong> You can form a square with length 2, one side of the square came two sticks with length 1.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can form a square with length 2, one side of the square came two sticks with length 1."
+    },
+    {
+      "input": "</strong> matchsticks = [3,3,3,3,4] <strong>Output:</strong> false <strong>Explanation:</strong> You cannot find a way to form a square with all the matchsticks.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> You cannot find a way to form a square with all the matchsticks."
+    }
+  ]
+}

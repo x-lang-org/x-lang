@@ -1,0 +1,22 @@
+{
+  "problemId": "3188",
+  "titleSlug": "find-champion-i",
+  "title": "Find Champion I",
+  "titleCn": "找到冠军 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.8307785550140155,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1],[0,0]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are two teams in this tournament. grid[0][1] == 1 means that team 0 is stronger than team 1. So team 0 will be the champion.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are two teams in this tournament. grid[0][1] == 1 means that team 0 is stronger than team 1. So team 0 will be the champion."
+    },
+    {
+      "input": "</strong> grid = [[0,0,1],[1,0,1],[0,0,0]] <strong>Output:</strong> 1 <strong>Explanation:</strong> There are three teams in this tournament. grid[1][0] == 1 means that team 1 is stronger than team 0. grid[1][2] == 1 means that team 1 is stronger than team 2. So team 1 will be the champion.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There are three teams in this tournament. grid[1][0] == 1 means that team 1 is stronger than team 0. grid[1][2] == 1 means that team 1 is stronger than team 2. So team 1 will be the champion."
+    }
+  ]
+}

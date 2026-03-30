@@ -13,7 +13,7 @@
   "testcases": [
     {
       "input": "[1,8,6,2,5,4,8,3,7]",
-      "expectedOutput": "[1,1]"
+      "expectedOutput": "49"
     }
   ]
 }

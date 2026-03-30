@@ -1,0 +1,23 @@
+{
+  "problemId": "998",
+  "titleSlug": "check-completeness-of-a-binary-tree",
+  "title": "Check Completeness of a Binary Tree",
+  "titleCn": "二叉树的完全性检验",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.5616250198108722,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,2,3,4,5,6] <strong>Output:</strong> true <strong>Explanation:</strong> Every level before the last is full (ie. levels with node-values {1} and {2, 3}), and all nodes in the last level ({4, 5, 6}) are as far left as possible.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Every level before the last is full (ie. levels with node-values {1} and {2, 3}), and all nodes in the last level ({4, 5, 6}) are as far left as possible."
+    },
+    {
+      "input": "</strong> root = [1,2,3,4,5,null,7] <strong>Output:</strong> false <strong>Explanation:</strong> The node with value 7 isn't as far left as possible.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The node with value 7 isn't as far left as possible."
+    }
+  ]
+}

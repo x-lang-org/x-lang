@@ -1,0 +1,27 @@
+{
+  "problemId": "2372",
+  "titleSlug": "rearrange-characters-to-make-target-string",
+  "title": "Rearrange Characters to Make Target String",
+  "titleCn": "重排字符形成目标字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6535319117754818,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ilovecodingonleetcode\", target = \"code\" <strong>Output:</strong> 2 <strong>Explanation:</strong> For the first copy of \"code\", take the letters at indices 4, 5, 6, and 7. For the second copy of \"code\", take the letters at indices 17, 18, 19, and 20. The strings that are formed are \"ecod\" and \"code\" which can both be rearranged into \"code\". We can make at most two copies of \"code\", so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> For the first copy of \"code\", take the letters at indices 4, 5, 6, and 7. For the second copy of \"code\", take the letters at indices 17, 18, 19, and 20. The strings that are formed are \"ecod\" and \"code\" which can both be rearranged into \"code\". We can make at most two copies of \"code\", so we return 2."
+    },
+    {
+      "input": "</strong> s = \"abcba\", target = \"abc\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can make one copy of \"abc\" by taking the letters at indices 0, 1, and 2. We can make at most one copy of \"abc\", so we return 1. Note that while there is an extra 'a' and 'b' at indices 3 and 4, we cannot reuse the letter 'c' at index 2, so we cannot make a second copy of \"abc\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can make one copy of \"abc\" by taking the letters at indices 0, 1, and 2. We can make at most one copy of \"abc\", so we return 1. Note that while there is an extra 'a' and 'b' at indices 3 and 4, we cannot reuse the letter 'c' at index 2, so we cannot make a second copy of \"abc\"."
+    },
+    {
+      "input": "</strong> s = \"abbaccaddaeea\", target = \"aaaaa\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can make one copy of \"aaaaa\" by taking the letters at indices 0, 3, 6, 9, and 12. We can make at most one copy of \"aaaaa\", so we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can make one copy of \"aaaaa\" by taking the letters at indices 0, 3, 6, 9, and 12. We can make at most one copy of \"aaaaa\", so we return 1."
+    }
+  ]
+}

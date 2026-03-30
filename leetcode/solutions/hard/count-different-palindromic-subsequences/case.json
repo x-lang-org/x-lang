@@ -1,0 +1,22 @@
+{
+  "problemId": "730",
+  "titleSlug": "count-different-palindromic-subsequences",
+  "title": "Count Different Palindromic Subsequences",
+  "titleCn": "统计不同回文子序列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6218433462622429,
+  "testcases": [
+    {
+      "input": "</strong> s = \"bccb\" <strong>Output:</strong> 6 <strong>Explanation:</strong> The 6 different non-empty palindromic subsequences are 'b', 'c', 'bb', 'cc', 'bcb', 'bccb'. Note that 'bcb' is counted only once, even though it occurs twice.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The 6 different non-empty palindromic subsequences are 'b', 'c', 'bb', 'cc', 'bcb', 'bccb'. Note that 'bcb' is counted only once, even though it occurs twice."
+    },
+    {
+      "input": "</strong> s = \"abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba\" <strong>Output:</strong> 104860361 <strong>Explanation:</strong> There are 3104860382 different non-empty palindromic subsequences, which is 104860361 modulo 10<sup>9</sup> + 7.",
+      "expectedOutput": "</strong> 104860361 <strong>Explanation:</strong> There are 3104860382 different non-empty palindromic subsequences, which is 104860361 modulo 10<sup>9</sup> + 7."
+    }
+  ]
+}

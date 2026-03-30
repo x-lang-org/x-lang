@@ -1,0 +1,23 @@
+{
+  "problemId": "763",
+  "titleSlug": "special-binary-string",
+  "title": "Special Binary String",
+  "titleCn": "特殊的二进制字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "divide-and-conquer",
+    "sorting"
+  ],
+  "acRate": 0.7650201126307321,
+  "testcases": [
+    {
+      "input": "</strong> s = \"11011000\" <strong>Output:</strong> \"11100100\" <strong>Explanation:</strong> The strings \"10\" [occuring at s[1]] and \"1100\" [at s[3]] are swapped. This is the lexicographically largest string possible after some number of swaps.",
+      "expectedOutput": "</strong> \"11100100\" <strong>Explanation:</strong> The strings \"10\" [occuring at s[1]] and \"1100\" [at s[3]] are swapped. This is the lexicographically largest string possible after some number of swaps."
+    },
+    {
+      "input": "</strong> s = \"10\" <strong>Output:</strong> \"10\"",
+      "expectedOutput": "</strong> \"10"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "572",
+  "titleSlug": "subtree-of-another-tree",
+  "title": "Subtree of Another Tree",
+  "titleCn": "另一棵树的子树",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree",
+    "string-matching",
+    "hash-function"
+  ],
+  "acRate": 0.49349378188009946,
+  "testcases": [
+    {
+      "input": "</strong> root = [3,4,5,1,2], subRoot = [4,1,2] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

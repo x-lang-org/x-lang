@@ -1,0 +1,22 @@
+{
+  "problemId": "278",
+  "titleSlug": "first-bad-version",
+  "title": "First Bad Version",
+  "titleCn": "第一个错误的版本",
+  "difficulty": "EASY",
+  "topicTags": [
+    "binary-search",
+    "interactive"
+  ],
+  "acRate": 0.4612678770806969,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, bad = 4 <strong>Output:</strong> 4 <strong>Explanation:</strong> call isBadVersion(3) -> false call isBadVersion(5) -> true call isBadVersion(4) -> true Then 4 is the first bad version.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> call isBadVersion(3) -> false call isBadVersion(5) -> true call isBadVersion(4) -> true Then 4 is the first bad version."
+    },
+    {
+      "input": "</strong> n = 1, bad = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

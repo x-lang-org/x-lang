@@ -1,0 +1,25 @@
+{
+  "problemId": "893",
+  "titleSlug": "all-nodes-distance-k-in-binary-tree",
+  "title": "All Nodes Distance K in Binary Tree",
+  "titleCn": "二叉树中所有距离为 K 的结点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "acRate": 0.6204371349004679,
+  "testcases": [
+    {
+      "input": "</strong> root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2 <strong>Output:</strong> [7,4,1] Explanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1.",
+      "expectedOutput": "</strong> [7,4,1] Explanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1."
+    },
+    {
+      "input": "</strong> root = [1], target = 1, k = 3 <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

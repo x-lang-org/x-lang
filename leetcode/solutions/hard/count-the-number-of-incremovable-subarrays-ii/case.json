@@ -1,0 +1,27 @@
+{
+  "problemId": "3248",
+  "titleSlug": "count-the-number-of-incremovable-subarrays-ii",
+  "title": "Count the Number of Incremovable Subarrays II",
+  "titleCn": "统计移除递增子数组的数目 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search"
+  ],
+  "acRate": 0.6313828786453434,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 10 <strong>Explanation:</strong> The 10 incremovable subarrays are: [1], [2], [3], [4], [1,2], [2,3], [3,4], [1,2,3], [2,3,4], and [1,2,3,4], because on removing any one of these subarrays nums becomes strictly increasing. Note that you cannot select an empty subarray.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The 10 incremovable subarrays are: [1], [2], [3], [4], [1,2], [2,3], [3,4], [1,2,3], [2,3,4], and [1,2,3,4], because on removing any one of these subarrays nums becomes strictly increasing. Note that you cannot select an empty subarray."
+    },
+    {
+      "input": "</strong> nums = [6,5,7,8] <strong>Output:</strong> 7 <strong>Explanation:</strong> The 7 incremovable subarrays are: [5], [6], [5,7], [6,5], [5,7,8], [6,5,7] and [6,5,7,8]. It can be shown that there are only 7 incremovable subarrays in nums.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The 7 incremovable subarrays are: [5], [6], [5,7], [6,5], [5,7,8], [6,5,7] and [6,5,7,8]. It can be shown that there are only 7 incremovable subarrays in nums."
+    },
+    {
+      "input": "</strong> nums = [8,7,6,6] <strong>Output:</strong> 3 <strong>Explanation:</strong> The 3 incremovable subarrays are: [8,7,6], [7,6,6], and [8,7,6,6]. Note that [8,7] is not an incremovable subarray because after removing [8,7] nums becomes [6,6], which is sorted in ascending order but not strictly increasing.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The 3 incremovable subarrays are: [8,7,6], [7,6,6], and [8,7,6,6]. Note that [8,7] is not an incremovable subarray because after removing [8,7] nums becomes [6,6], which is sorted in ascending order but not strictly increasing."
+    }
+  ]
+}

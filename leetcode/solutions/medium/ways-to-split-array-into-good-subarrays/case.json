@@ -1,0 +1,23 @@
+{
+  "problemId": "2867",
+  "titleSlug": "ways-to-split-array-into-good-subarrays",
+  "title": "Ways to Split Array Into Good Subarrays",
+  "titleCn": "将数组划分成若干好子数组的方式",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4167166167166167,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,0,0,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 ways to split nums into good subarrays: - [0,1] [0,0,1] - [0,1,0] [0,1] - [0,1,0,0] [1]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 ways to split nums into good subarrays: - [0,1] [0,0,1] - [0,1,0] [0,1] - [0,1,0,0] [1]"
+    },
+    {
+      "input": "</strong> nums = [0,1,0] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is 1 way to split nums into good subarrays: - [0,1,0]",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is 1 way to split nums into good subarrays: - [0,1,0]"
+    }
+  ]
+}

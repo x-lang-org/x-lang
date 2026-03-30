@@ -1,0 +1,23 @@
+{
+  "problemId": "3298",
+  "titleSlug": "maximize-consecutive-elements-in-an-array-after-modification",
+  "title": "Maximize Consecutive Elements in an Array After Modification",
+  "titleCn": "修改数组后最大化数组中的连续元素数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.40991715098305925,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,1,5,1,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> We can increase the elements at indices 0 and 3. The resulting array is nums = [3,1,5,2,1]. We select the elements [<u><strong>3</strong></u>,<u><strong>1</strong></u>,5,<u><strong>2</strong></u>,1] and we sort them to obtain [1,2,3], which are consecutive. It can be shown that we cannot select more than 3 consecutive elements.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can increase the elements at indices 0 and 3. The resulting array is nums = [3,1,5,2,1]. We select the elements [<u><strong>3</strong></u>,<u><strong>1</strong></u>,5,<u><strong>2</strong></u>,1] and we sort them to obtain [1,2,3], which are consecutive. It can be shown that we cannot select more than 3 consecutive elements."
+    },
+    {
+      "input": "</strong> nums = [1,4,7,10] <strong>Output:</strong> 1 <strong>Explanation:</strong> The maximum consecutive elements that we can select is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The maximum consecutive elements that we can select is 1."
+    }
+  ]
+}

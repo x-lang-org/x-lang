@@ -1,0 +1,23 @@
+{
+  "problemId": "2626",
+  "titleSlug": "count-the-number-of-good-subarrays",
+  "title": "Count the Number of Good Subarrays",
+  "titleCn": "统计好子数组的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.6411865711409793,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,1,1,1], k = 10 <strong>Output:</strong> 1 <strong>Explanation:</strong> The only good subarray is the array nums itself.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only good subarray is the array nums itself."
+    },
+    {
+      "input": "</strong> nums = [3,1,4,3,2,2,4], k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 different good subarrays: - [3,1,4,3,2,2] that has 2 pairs. - [3,1,4,3,2,2,4] that has 3 pairs. - [1,4,3,2,2,4] that has 2 pairs. - [4,3,2,2,4] that has 2 pairs.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 different good subarrays: - [3,1,4,3,2,2] that has 2 pairs. - [3,1,4,3,2,2,4] that has 3 pairs. - [1,4,3,2,2,4] that has 2 pairs. - [4,3,2,2,4] that has 2 pairs."
+    }
+  ]
+}

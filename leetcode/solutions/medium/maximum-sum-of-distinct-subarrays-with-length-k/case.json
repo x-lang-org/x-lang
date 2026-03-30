@@ -1,0 +1,23 @@
+{
+  "problemId": "2552",
+  "titleSlug": "maximum-sum-of-distinct-subarrays-with-length-k",
+  "title": "Maximum Sum of Distinct Subarrays With Length K",
+  "titleCn": "长度为 K 子数组中的最大和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.47805438912217557,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,5,4,2,9,9,9], k = 3 <strong>Output:</strong> 15 <strong>Explanation:</strong> The subarrays of nums with length 3 are: - [1,5,4] which meets the requirements and has a sum of 10. - [5,4,2] which meets the requirements and has a sum of 11. - [4,2,9] which meets the requirements and has a sum of 15. - [2,9,9] which does not meet the requirements because the element 9 is repeated. - [9,9,9] which does not meet the requirements because the element 9 is repeated. We return 15 because it is the maximum subarray sum of all the subarrays that meet the conditions",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The subarrays of nums with length 3 are: - [1,5,4] which meets the requirements and has a sum of 10. - [5,4,2] which meets the requirements and has a sum of 11. - [4,2,9] which meets the requirements and has a sum of 15. - [2,9,9] which does not meet the requirements because the element 9 is repeated. - [9,9,9] which does not meet the requirements because the element 9 is repeated. We return 15 because it is the maximum subarray sum of all the subarrays that meet the conditions"
+    },
+    {
+      "input": "</strong> nums = [4,4,4], k = 3 <strong>Output:</strong> 0 <strong>Explanation:</strong> The subarrays of nums with length 3 are: - [4,4,4] which does not meet the requirements because the element 4 is repeated. We return 0 because no subarrays meet the conditions.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The subarrays of nums with length 3 are: - [4,4,4] which does not meet the requirements because the element 4 is repeated. We return 0 because no subarrays meet the conditions."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1312",
+  "titleSlug": "count-artifacts-that-can-be-extracted",
+  "title": "Count Artifacts That Can Be Extracted",
+  "titleCn": "统计可以提取的工件",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "simulation"
+  ],
+  "acRate": 0.5099802474269675,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, artifacts = [[0,0,0,0],[0,1,1,1]], dig = [[0,0],[0,1]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The different colors represent different artifacts. Excavated cells are labeled with a 'D' in the grid. There is 1 artifact that can be extracted, namely the red artifact. The blue artifact has one part in cell (1,1) which remains uncovered, so we cannot extract it. Thus, we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The different colors represent different artifacts. Excavated cells are labeled with a 'D' in the grid. There is 1 artifact that can be extracted, namely the red artifact. The blue artifact has one part in cell (1,1) which remains uncovered, so we cannot extract it. Thus, we return 1."
+    },
+    {
+      "input": "</strong> n = 2, artifacts = [[0,0,0,0],[0,1,1,1]], dig = [[0,0],[0,1],[1,1]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Both the red and blue artifacts have all parts uncovered (labeled with a 'D') and can be extracted, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Both the red and blue artifacts have all parts uncovered (labeled with a 'D') and can be extracted, so we return 2."
+    }
+  ]
+}

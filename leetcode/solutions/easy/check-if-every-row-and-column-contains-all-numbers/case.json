@@ -1,0 +1,23 @@
+{
+  "problemId": "2254",
+  "titleSlug": "check-if-every-row-and-column-contains-all-numbers",
+  "title": "Check if Every Row and Column Contains All Numbers",
+  "titleCn": "检查是否每一行每一列都包含全部整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.5762325129049151,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[1,2,3],[3,1,2],[2,3,1]] <strong>Output:</strong> true <strong>Explanation:</strong> In this case, n = 3, and every row and column contains the numbers 1, 2, and 3. Hence, we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> In this case, n = 3, and every row and column contains the numbers 1, 2, and 3. Hence, we return true."
+    },
+    {
+      "input": "</strong> matrix = [[1,1,1],[1,2,3],[1,2,3]] <strong>Output:</strong> false <strong>Explanation:</strong> In this case, n = 3, but the first row and the first column do not contain the numbers 2 or 3. Hence, we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> In this case, n = 3, but the first row and the first column do not contain the numbers 2 or 3. Hence, we return false."
+    }
+  ]
+}

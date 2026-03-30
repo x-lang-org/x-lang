@@ -1,0 +1,24 @@
+{
+  "problemId": "1413",
+  "titleSlug": "maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold",
+  "title": "Maximum Side Length of a Square with Sum Less than or Equal to Threshold",
+  "titleCn": "元素和小于等于阈值的正方形的最大边长",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.5903337697838421,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,1,3,2,4,3,2],[1,1,3,2,4,3,2],[1,1,3,2,4,3,2]], threshold = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> The maximum side length of square with sum less than or equal to 4 is 2 as shown.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The maximum side length of square with sum less than or equal to 4 is 2 as shown."
+    },
+    {
+      "input": "</strong> mat = [[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]], threshold = 1 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

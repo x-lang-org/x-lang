@@ -1,0 +1,27 @@
+{
+  "problemId": "2091",
+  "titleSlug": "number-of-ways-to-separate-numbers",
+  "title": "Number of Ways to Separate Numbers",
+  "titleCn": "划分数字的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "suffix-array"
+  ],
+  "acRate": 0.2436989396836433,
+  "testcases": [
+    {
+      "input": "</strong> num = \"327\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You could have written down the numbers: 3, 27 327",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You could have written down the numbers: 3, 27 327"
+    },
+    {
+      "input": "</strong> num = \"094\" <strong>Output:</strong> 0 <strong>Explanation:</strong> No numbers can have leading zeros and all numbers must be positive.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No numbers can have leading zeros and all numbers must be positive."
+    },
+    {
+      "input": "</strong> num = \"0\" <strong>Output:</strong> 0 <strong>Explanation:</strong> No numbers can have leading zeros and all numbers must be positive.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No numbers can have leading zeros and all numbers must be positive."
+    }
+  ]
+}

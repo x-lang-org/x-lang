@@ -1,0 +1,23 @@
+{
+  "problemId": "289",
+  "titleSlug": "game-of-life",
+  "title": "Game of Life",
+  "titleCn": "生命游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.772543296896941,
+  "testcases": [
+    {
+      "input": "</strong> board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]] <strong>Output:</strong> [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]",
+      "expectedOutput": "</strong> [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]"
+    },
+    {
+      "input": "</strong> board = [[1,1],[1,0]] <strong>Output:</strong> [[1,1],[1,1]]",
+      "expectedOutput": "</strong> [[1,1],[1,1]]"
+    }
+  ]
+}

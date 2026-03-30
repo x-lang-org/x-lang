@@ -1,0 +1,28 @@
+{
+  "problemId": "2039",
+  "titleSlug": "sum-game",
+  "title": "Sum Game",
+  "titleCn": "求和游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string",
+    "game-theory"
+  ],
+  "acRate": 0.4607459303523594,
+  "testcases": [
+    {
+      "input": "</strong> num = \"5023\" <strong>Output:</strong> false <strong>Explanation:</strong> There are no moves to be made. The sum of the first half is equal to the sum of the second half: 5 + 0 = 2 + 3.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There are no moves to be made. The sum of the first half is equal to the sum of the second half: 5 + 0 = 2 + 3."
+    },
+    {
+      "input": "</strong> num = \"25??\" <strong>Output:</strong> true <strong>Explanation: </strong>Alice can replace one of the '?'s with '9' and it will be impossible for Bob to make the sums equal.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>Alice can replace one of the '?'s with '9' and it will be impossible for Bob to make the sums equal."
+    },
+    {
+      "input": "</strong> num = \"?3295???\" <strong>Output:</strong> false <strong>Explanation:</strong> It can be proven that Bob will always win. One possible outcome is: - Alice replaces the first '?' with '9'. num = \"93295???\". - Bob replaces one of the '?' in the right half with '9'. num = \"932959??\". - Alice replaces one of the '?' in the right half with '2'. num = \"9329592?\". - Bob replaces the last '?' in the right half with '7'. num = \"93295927\". Bob wins because 9 + 3 + 2 + 9 = 5 + 9 + 2 + 7.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It can be proven that Bob will always win. One possible outcome is: - Alice replaces the first '?' with '9'. num = \"93295???\". - Bob replaces one of the '?' in the right half with '9'. num = \"932959??\". - Alice replaces one of the '?' in the right half with '2'. num = \"9329592?\". - Bob replaces the last '?' in the right half with '7'. num = \"93295927\". Bob wins because 9 + 3 + 2 + 9 = 5 + 9 + 2 + 7."
+    }
+  ]
+}

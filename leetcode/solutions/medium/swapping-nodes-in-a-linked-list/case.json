@@ -1,0 +1,22 @@
+{
+  "problemId": "528",
+  "titleSlug": "swapping-nodes-in-a-linked-list",
+  "title": "Swapping Nodes in a Linked List",
+  "titleCn": "交换链表中的节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.6523380658355291,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,3,4,5], k = 2 <strong>Output:</strong> [1,4,3,2,5]",
+      "expectedOutput": "</strong> [1,4,3,2,5]"
+    },
+    {
+      "input": "</strong> head = [7,9,6,6,7,8,3,0,9,5], k = 5 <strong>Output:</strong> [7,9,6,6,8,7,3,0,9,5]",
+      "expectedOutput": "</strong> [7,9,6,6,8,7,3,0,9,5]"
+    }
+  ]
+}

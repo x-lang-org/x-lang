@@ -1,0 +1,22 @@
+{
+  "problemId": "2714",
+  "titleSlug": "left-and-right-sum-differences",
+  "title": "Left and Right Sum Differences",
+  "titleCn": "左右元素和的差值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.8365115896761466,
+  "testcases": [
+    {
+      "input": "</strong> nums = [10,4,8,3] <strong>Output:</strong> [15,1,11,22] <strong>Explanation:</strong> The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0]. The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22].",
+      "expectedOutput": "</strong> [15,1,11,22] <strong>Explanation:</strong> The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0]. The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22]."
+    },
+    {
+      "input": "</strong> nums = [1] <strong>Output:</strong> [0] <strong>Explanation:</strong> The array leftSum is [0] and the array rightSum is [0]. The array answer is [|0 - 0|] = [0].",
+      "expectedOutput": "</strong> [0] <strong>Explanation:</strong> The array leftSum is [0] and the array rightSum is [0]. The array answer is [|0 - 0|] = [0]."
+    }
+  ]
+}

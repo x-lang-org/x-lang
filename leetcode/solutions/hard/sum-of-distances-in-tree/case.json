@@ -1,0 +1,28 @@
+{
+  "problemId": "863",
+  "titleSlug": "sum-of-distances-in-tree",
+  "title": "Sum of Distances in Tree",
+  "titleCn": "树中距离之和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "graph",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6206372427944445,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[0,2],[2,3],[2,4],[2,5]] <strong>Output:</strong> [8,12,6,10,10,10] <strong>Explanation:</strong> The tree is shown above. We can see that dist(0,1) + dist(0,2) + dist(0,3) + dist(0,4) + dist(0,5) equals 1 + 1 + 2 + 2 + 2 = 8. Hence, answer[0] = 8, and so on.",
+      "expectedOutput": "</strong> [8,12,6,10,10,10] <strong>Explanation:</strong> The tree is shown above. We can see that dist(0,1) + dist(0,2) + dist(0,3) + dist(0,4) + dist(0,5) equals 1 + 1 + 2 + 2 + 2 = 8. Hence, answer[0] = 8, and so on."
+    },
+    {
+      "input": "</strong> n = 1, edges = [] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    },
+    {
+      "input": "</strong> n = 2, edges = [[1,0]] <strong>Output:</strong> [1,1]",
+      "expectedOutput": "</strong> [1,1]"
+    }
+  ]
+}

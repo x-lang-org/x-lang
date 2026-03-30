@@ -1,0 +1,28 @@
+{
+  "problemId": "2232",
+  "titleSlug": "adding-spaces-to-a-string",
+  "title": "Adding Spaces to a String",
+  "titleCn": "向字符串添加空格",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.7096826457662474,
+  "testcases": [
+    {
+      "input": "</strong> s = \"LeetcodeHelpsMeLearn\", spaces = [8,13,15] <strong>Output:</strong> \"Leetcode Helps Me Learn\" <strong>Explanation:</strong> The indices 8, 13, and 15 correspond to the underlined characters in \"Leetcode<u><strong>H</strong></u>elps<u><strong>M</strong></u>e<u><strong>L</strong></u>earn\". We then place spaces before those characters.",
+      "expectedOutput": "</strong> \"Leetcode Helps Me Learn\" <strong>Explanation:</strong> The indices 8, 13, and 15 correspond to the underlined characters in \"Leetcode<u><strong>H</strong></u>elps<u><strong>M</strong></u>e<u><strong>L</strong></u>earn\". We then place spaces before those characters."
+    },
+    {
+      "input": "</strong> s = \"icodeinpython\", spaces = [1,5,7,9] <strong>Output:</strong> \"i code in py thon\" <strong>Explanation:</strong> The indices 1, 5, 7, and 9 correspond to the underlined characters in \"i<u><strong>c</strong></u>ode<u><strong>i</strong></u>n<u><strong>p</strong></u>y<u><strong>t</strong></u>hon\". We then place spaces before those characters.",
+      "expectedOutput": "</strong> \"i code in py thon\" <strong>Explanation:</strong> The indices 1, 5, 7, and 9 correspond to the underlined characters in \"i<u><strong>c</strong></u>ode<u><strong>i</strong></u>n<u><strong>p</strong></u>y<u><strong>t</strong></u>hon\". We then place spaces before those characters."
+    },
+    {
+      "input": "</strong> s = \"spacing\", spaces = [0,1,2,3,4,5,6] <strong>Output:</strong> \" s p a c i n g\" <strong>Explanation:</strong> We are also able to place spaces before the first character of the string.",
+      "expectedOutput": "</strong> \" s p a c i n g\" <strong>Explanation:</strong> We are also able to place spaces before the first character of the string."
+    }
+  ]
+}

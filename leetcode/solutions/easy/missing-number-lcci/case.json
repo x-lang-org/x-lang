@@ -1,0 +1,25 @@
+{
+  "problemId": "1000032",
+  "titleSlug": "missing-number-lcci",
+  "title": "Missing Number LCCI",
+  "titleCn": "消失的数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math",
+    "sorting"
+  ],
+  "acRate": 0.5807184416507623,
+  "testcases": [
+    {
+      "input": "</strong>[3,0,1]\r <strong>Output: </strong>2",
+      "expectedOutput": "</strong>2"
+    },
+    {
+      "input": "</strong>[9,6,4,2,3,5,7,0,1]\r <strong>Output: </strong>8",
+      "expectedOutput": "</strong>8"
+    }
+  ]
+}

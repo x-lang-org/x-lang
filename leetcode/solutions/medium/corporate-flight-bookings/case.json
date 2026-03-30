@@ -1,0 +1,22 @@
+{
+  "problemId": "1206",
+  "titleSlug": "corporate-flight-bookings",
+  "title": "Corporate Flight Bookings",
+  "titleCn": "航班预订统计",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.6609443400730947,
+  "testcases": [
+    {
+      "input": "</strong> bookings = [[1,2,10],[2,3,20],[2,5,25]], n = 5 <strong>Output:</strong> [10,55,45,25,25] <strong>Explanation:</strong> Flight labels:    1  2  3  4  5 Booking 1 reserved: 10 10 Booking 2 reserved:   20 20 Booking 3 reserved:   25 25 25 25 Total seats:     10 55 45 25 25 Hence, answer = [10,55,45,25,25]",
+      "expectedOutput": "</strong> [10,55,45,25,25] <strong>Explanation:</strong> Flight labels:    1  2  3  4  5 Booking 1 reserved: 10 10 Booking 2 reserved:   20 20 Booking 3 reserved:   25 25 25 25 Total seats:     10 55 45 25 25 Hence, answer = [10,55,45,25,25]"
+    },
+    {
+      "input": "</strong> bookings = [[1,2,10],[2,2,15]], n = 2 <strong>Output:</strong> [10,25] <strong>Explanation:</strong> Flight labels:    1  2 Booking 1 reserved: 10 10 Booking 2 reserved:   15 Total seats:     10 25 Hence, answer = [10,25]",
+      "expectedOutput": "</strong> [10,25] <strong>Explanation:</strong> Flight labels:    1  2 Booking 1 reserved: 10 10 Booking 2 reserved:   15 Total seats:     10 25 Hence, answer = [10,25]"
+    }
+  ]
+}

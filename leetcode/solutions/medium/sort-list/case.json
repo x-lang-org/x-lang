@@ -1,0 +1,29 @@
+{
+  "problemId": "148",
+  "titleSlug": "sort-list",
+  "title": "Sort List",
+  "titleCn": "排序链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "linked-list",
+    "two-pointers",
+    "divide-and-conquer",
+    "sorting",
+    "merge-sort"
+  ],
+  "acRate": 0.676758543908775,
+  "testcases": [
+    {
+      "input": "</strong> head = [4,2,1,3] <strong>Output:</strong> [1,2,3,4]",
+      "expectedOutput": "</strong> [1,2,3,4]"
+    },
+    {
+      "input": "</strong> head = [-1,5,3,4,0] <strong>Output:</strong> [-1,0,3,4,5]",
+      "expectedOutput": "</strong> [-1,0,3,4,5]"
+    },
+    {
+      "input": "</strong> head = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

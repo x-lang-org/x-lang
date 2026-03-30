@@ -1,0 +1,22 @@
+{
+  "problemId": "2398",
+  "titleSlug": "check-if-matrix-is-x-matrix",
+  "title": "Check if Matrix Is X-Matrix",
+  "titleCn": "判断矩阵是否是一个 X 矩阵",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.7569540096238127,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[2,0,0,1],[0,3,1,0],[0,5,2,0],[4,0,0,2]] <strong>Output:</strong> true <strong>Explanation:</strong> Refer to the diagram above. An X-Matrix should have the green elements (diagonals) be non-zero and the red elements be 0. Thus, grid is an X-Matrix.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Refer to the diagram above. An X-Matrix should have the green elements (diagonals) be non-zero and the red elements be 0. Thus, grid is an X-Matrix."
+    },
+    {
+      "input": "</strong> grid = [[5,7,0],[0,3,1],[0,5,0]] <strong>Output:</strong> false <strong>Explanation:</strong> Refer to the diagram above. An X-Matrix should have the green elements (diagonals) be non-zero and the red elements be 0. Thus, grid is not an X-Matrix.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Refer to the diagram above. An X-Matrix should have the green elements (diagonals) be non-zero and the red elements be 0. Thus, grid is not an X-Matrix."
+    }
+  ]
+}

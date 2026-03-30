@@ -1,0 +1,21 @@
+{
+  "problemId": "1212",
+  "titleSlug": "sequential-digits",
+  "title": "Sequential Digits",
+  "titleCn": "顺次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "enumeration"
+  ],
+  "acRate": 0.55939776981603,
+  "testcases": [
+    {
+      "input": "</strong> low = 100, high = 300 <strong>Output:</strong> [123,234]",
+      "expectedOutput": "</strong> [123,234]"
+    },
+    {
+      "input": "</strong> low = 1000, high = 13000 <strong>Output:</strong> [1234,2345,3456,4567,5678,6789,12345]",
+      "expectedOutput": "</strong> [1234,2345,3456,4567,5678,6789,12345]"
+    }
+  ]
+}

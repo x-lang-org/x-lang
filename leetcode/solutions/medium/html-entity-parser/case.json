@@ -1,0 +1,22 @@
+{
+  "problemId": "1526",
+  "titleSlug": "html-entity-parser",
+  "title": "HTML Entity Parser",
+  "titleCn": "HTML 实体解析器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5261574378534789,
+  "testcases": [
+    {
+      "input": "</strong> text = \"&amp; is an HTML entity but &ambassador; is not.\" <strong>Output:</strong> \"& is an HTML entity but &ambassador; is not.\" <strong>Explanation:</strong> The parser will replace the &amp; entity by &",
+      "expectedOutput": "</strong> \"& is an HTML entity but &ambassador; is not.\" <strong>Explanation:</strong> The parser will replace the &amp; entity by &"
+    },
+    {
+      "input": "</strong> text = \"and I quote: &quot;...&quot;\" <strong>Output:</strong> \"and I quote: \\\"...\\\"\"",
+      "expectedOutput": "</strong> \"and I quote: \\\"...\\"
+    }
+  ]
+}

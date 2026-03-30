@@ -1,0 +1,27 @@
+{
+  "problemId": "855",
+  "titleSlug": "count-unique-characters-of-all-substrings-of-a-given-string",
+  "title": "Count Unique Characters of All Substrings of a Given String",
+  "titleCn": "统计子串中的唯一字符",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6845153374233128,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ABC\" <strong>Output:</strong> 10 <strong>Explanation: </strong>All possible substrings are: \"A\",\"B\",\"C\",\"AB\",\"BC\" and \"ABC\". Every substring is composed with only unique letters. Sum of lengths of all substring is 1 + 1 + 1 + 2 + 2 + 3 = 10",
+      "expectedOutput": "</strong> 10 <strong>Explanation: </strong>All possible substrings are: \"A\",\"B\",\"C\",\"AB\",\"BC\" and \"ABC\". Every substring is composed with only unique letters. Sum of lengths of all substring is 1 + 1 + 1 + 2 + 2 + 3 = 10"
+    },
+    {
+      "input": "</strong> s = \"ABA\" <strong>Output:</strong> 8 <strong>Explanation: </strong>The same as example 1, except <code>countUniqueChars</code>(\"ABA\") = 1.",
+      "expectedOutput": "</strong> 8 <strong>Explanation: </strong>The same as example 1, except <code>countUniqueChars</code>(\"ABA\") = 1."
+    },
+    {
+      "input": "</strong> s = \"LEETCODE\" <strong>Output:</strong> 92",
+      "expectedOutput": "</strong> 92"
+    }
+  ]
+}

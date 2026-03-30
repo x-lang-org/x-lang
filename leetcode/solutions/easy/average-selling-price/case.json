@@ -1,0 +1,17 @@
+{
+  "problemId": "1390",
+  "titleSlug": "average-selling-price",
+  "title": "Average Selling Price",
+  "titleCn": "平均售价",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.3735350536271288,
+  "testcases": [
+    {
+      "input": "</strong> Prices table: +------------+------------+------------+--------+ | product_id | start_date | end_date  | price | +------------+------------+------------+--------+ | 1     | 2019-02-17 | 2019-02-28 | 5   | | 1     | 2019-03-01 | 2019-03-22 | 20   | | 2     | 2019-02-01 | 2019-02-20 | 15   | | 2     | 2019-02-21 | 2019-03-31 | 30   | +------------+------------+------------+--------+ UnitsSold table: +------------+---------------+-------+ | product_id | purchase_date | units | +------------+---------------+-------+ | 1     | 2019-02-25  | 100  | | 1     | 2019-03-01  | 15  | | 2     | 2019-02-10  | 200  | | 2     | 2019-03-22  | 30  | +------------+---------------+-------+ <strong>Output:</strong> +------------+---------------+ | product_id | average_price | +------------+---------------+ | 1     | 6.96     | | 2     | 16.96     | +------------+---------------+ <strong>Explanation:</strong> Average selling price = Total Price of Product / Number of products sold. Average selling price for product 1 = ((100 * 5) + (15 * 20)) / 115 = 6.96 Average selling price for product 2 = ((200 * 15) + (30 * 30)) / 230 = 16.96",
+      "expectedOutput": "</strong> +------------+---------------+ | product_id | average_price | +------------+---------------+ | 1     | 6.96     | | 2     | 16.96     | +------------+---------------+ <strong>Explanation:</strong> Average selling price = Total Price of Product / Number of products sold. Average selling price for product 1 = ((100 * 5) + (15 * 20)) / 115 = 6.96 Average selling price for product 2 = ((200 * 15) + (30 * 30)) / 230 = 16.96"
+    }
+  ]
+}

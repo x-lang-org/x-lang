@@ -1,0 +1,24 @@
+{
+  "problemId": "1086",
+  "titleSlug": "divisor-game",
+  "title": "Divisor Game",
+  "titleCn": "除数博弈",
+  "difficulty": "EASY",
+  "topicTags": [
+    "brainteaser",
+    "math",
+    "dynamic-programming",
+    "game-theory"
+  ],
+  "acRate": 0.7106455336419715,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> true <strong>Explanation:</strong> Alice chooses 1, and Bob has no more moves.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Alice chooses 1, and Bob has no more moves."
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> false <strong>Explanation:</strong> Alice chooses 1, Bob chooses 1, and Alice has no more moves.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Alice chooses 1, Bob chooses 1, and Alice has no more moves."
+    }
+  ]
+}

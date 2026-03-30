@@ -1,0 +1,23 @@
+{
+  "problemId": "1752",
+  "titleSlug": "arithmetic-subarrays",
+  "title": "Arithmetic Subarrays",
+  "titleCn": "等差子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.763449433487201,
+  "testcases": [
+    {
+      "input": "</strong> nums = <code>[4,6,5,9,3,7]</code>, l = <code>[0,0,2]</code>, r = <code>[2,3,5]</code> <strong>Output:</strong> <code>[true,false,true]</code> <strong>Explanation:</strong> In the 0<sup>th</sup> query, the subarray is [4,6,5]. This can be rearranged as [6,5,4], which is an arithmetic sequence. In the 1<sup>st</sup> query, the subarray is [4,6,5,9]. This cannot be rearranged as an arithmetic sequence. In the 2<sup>nd</sup> query, the subarray is <code>[5,9,3,7]. This</code> can be rearranged as <code>[3,5,7,9]</code>, which is an arithmetic sequence.",
+      "expectedOutput": "</strong> <code>[true,false,true]</code> <strong>Explanation:</strong> In the 0<sup>th</sup> query, the subarray is [4,6,5]. This can be rearranged as [6,5,4], which is an arithmetic sequence. In the 1<sup>st</sup> query, the subarray is [4,6,5,9]. This cannot be rearranged as an arithmetic sequence. In the 2<sup>nd</sup> query, the subarray is <code>[5,9,3,7]. This</code> can be rearranged as <code>[3,5,7,9]</code>, which is an arithmetic sequence."
+    },
+    {
+      "input": "</strong> nums = [-12,-9,-3,-12,-6,15,20,-25,-20,-15,-10], l = [0,1,6,4,8,7], r = [4,4,9,7,9,10] <strong>Output:</strong> [false,true,false,false,true,true]",
+      "expectedOutput": "</strong> [false,true,false,false,true,true]"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "problemId": "951",
+  "titleSlug": "partition-array-into-disjoint-intervals",
+  "title": "Partition Array into Disjoint Intervals",
+  "titleCn": "分割数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5042159777142109,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,0,3,8,6] <strong>Output:</strong> 3 <strong>Explanation:</strong> left = [5,0,3], right = [8,6]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> left = [5,0,3], right = [8,6]"
+    },
+    {
+      "input": "</strong> nums = [1,1,1,0,6,12] <strong>Output:</strong> 4 <strong>Explanation:</strong> left = [1,1,1,0], right = [6,12]",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> left = [1,1,1,0], right = [6,12]"
+    }
+  ]
+}

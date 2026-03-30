@@ -1,0 +1,28 @@
+{
+  "problemId": "692",
+  "titleSlug": "top-k-frequent-words",
+  "title": "Top K Frequent Words",
+  "titleCn": "前K个高频单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "bucket-sort",
+    "counting",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5656681192457329,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"i\",\"love\",\"leetcode\",\"i\",\"love\",\"coding\"], k = 2 <strong>Output:</strong> [\"i\",\"love\"] <strong>Explanation:</strong> \"i\" and \"love\" are the two most frequent words. Note that \"i\" comes before \"love\" due to a lower alphabetical order.",
+      "expectedOutput": "</strong> [\"i\",\"love\"] <strong>Explanation:</strong> \"i\" and \"love\" are the two most frequent words. Note that \"i\" comes before \"love\" due to a lower alphabetical order."
+    },
+    {
+      "input": "</strong> words = [\"the\",\"day\",\"is\",\"sunny\",\"the\",\"the\",\"the\",\"sunny\",\"is\",\"is\"], k = 4 <strong>Output:</strong> [\"the\",\"is\",\"sunny\",\"day\"] <strong>Explanation:</strong> \"the\", \"is\", \"sunny\" and \"day\" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively.",
+      "expectedOutput": "</strong> [\"the\",\"is\",\"sunny\",\"day\"] <strong>Explanation:</strong> \"the\", \"is\", \"sunny\" and \"day\" are the four most frequent words, with the number of occurrence being 4, 3, 2 and 1 respectively."
+    }
+  ]
+}

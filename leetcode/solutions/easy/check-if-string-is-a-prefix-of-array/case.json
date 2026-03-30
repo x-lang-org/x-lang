@@ -1,0 +1,23 @@
+{
+  "problemId": "2093",
+  "titleSlug": "check-if-string-is-a-prefix-of-array",
+  "title": "Check If String Is a Prefix of Array",
+  "titleCn": "检查字符串是否为数组前缀",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.5329809172499927,
+  "testcases": [
+    {
+      "input": "</strong> s = \"iloveleetcode\", words = [\"i\",\"love\",\"leetcode\",\"apples\"] <strong>Output:</strong> true <strong>Explanation:</strong> s can be made by concatenating \"i\", \"love\", and \"leetcode\" together.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> s can be made by concatenating \"i\", \"love\", and \"leetcode\" together."
+    },
+    {
+      "input": "</strong> s = \"iloveleetcode\", words = [\"apples\",\"i\",\"love\",\"leetcode\"] <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to make s using a prefix of arr.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to make s using a prefix of arr."
+    }
+  ]
+}

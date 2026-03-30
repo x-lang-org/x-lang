@@ -1,0 +1,21 @@
+{
+  "problemId": "1434",
+  "titleSlug": "decrypt-string-from-alphabet-to-integer-mapping",
+  "title": "Decrypt String from Alphabet to Integer Mapping",
+  "titleCn": "解码字母到整数映射",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7692520392644823,
+  "testcases": [
+    {
+      "input": "</strong> s = \"10#11#12\" <strong>Output:</strong> \"jkab\" <strong>Explanation:</strong> \"j\" -> \"10#\" , \"k\" -> \"11#\" , \"a\" -> \"1\" , \"b\" -> \"2\".",
+      "expectedOutput": "</strong> \"jkab\" <strong>Explanation:</strong> \"j\" -> \"10#\" , \"k\" -> \"11#\" , \"a\" -> \"1\" , \"b\" -> \"2\"."
+    },
+    {
+      "input": "</strong> s = \"1326#\" <strong>Output:</strong> \"acz\"",
+      "expectedOutput": "</strong> \"acz"
+    }
+  ]
+}

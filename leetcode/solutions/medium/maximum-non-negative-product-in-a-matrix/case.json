@@ -1,0 +1,27 @@
+{
+  "problemId": "1716",
+  "titleSlug": "maximum-non-negative-product-in-a-matrix",
+  "title": "Maximum Non Negative Product in a Matrix",
+  "titleCn": "矩阵的最大非负积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.45217105022496984,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[-1,-2,-3],[-2,-3,-3],[-3,-3,-2]] <strong>Output:</strong> -1 <strong>Explanation:</strong> It is not possible to get non-negative product in the path from (0, 0) to (2, 2), so return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is not possible to get non-negative product in the path from (0, 0) to (2, 2), so return -1."
+    },
+    {
+      "input": "</strong> grid = [[1,-2,1],[1,-2,1],[3,-4,1]] <strong>Output:</strong> 8 <strong>Explanation:</strong> Maximum non-negative product is shown (1 * 1 * -2 * -4 * 1 = 8).",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Maximum non-negative product is shown (1 * 1 * -2 * -4 * 1 = 8)."
+    },
+    {
+      "input": "</strong> grid = [[1,3],[0,-4]] <strong>Output:</strong> 0 <strong>Explanation:</strong> Maximum non-negative product is shown (1 * 0 * -4 = 0).",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Maximum non-negative product is shown (1 * 0 * -4 = 0)."
+    }
+  ]
+}

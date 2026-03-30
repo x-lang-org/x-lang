@@ -1,0 +1,22 @@
+{
+  "problemId": "309",
+  "titleSlug": "best-time-to-buy-and-sell-stock-with-cooldown",
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "titleCn": "买卖股票的最佳时机含冷冻期",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.655091192517537,
+  "testcases": [
+    {
+      "input": "</strong> prices = [1,2,3,0,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> transactions = [buy, sell, cooldown, buy, sell]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> transactions = [buy, sell, cooldown, buy, sell]"
+    },
+    {
+      "input": "</strong> prices = [1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

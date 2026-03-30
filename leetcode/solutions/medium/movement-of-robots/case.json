@@ -1,0 +1,24 @@
+{
+  "problemId": "2787",
+  "titleSlug": "movement-of-robots",
+  "title": "Movement of Robots",
+  "titleCn": "移动机器人",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "brainteaser",
+    "array",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.3758875049665728,
+  "testcases": [
+    {
+      "input": "</strong> nums = [-2,0,2], s = \"RLL\", d = 3 <strong>Output:</strong> 8 <strong>Explanation:</strong> After 1 second, the positions are [-1,-1,1]. Now, the robot at index 0 will move left, and the robot at index 1 will move right. After 2 seconds, the positions are [-2,0,0]. Now, the robot at index 1 will move left, and the robot at index 2 will move right. After 3 seconds, the positions are [-3,-1,1]. The distance between the robot at index 0 and 1 is abs(-3 - (-1)) = 2. The distance between the robot at index 0 and 2 is abs(-3 - 1) = 4. The distance between the robot at index 1 and 2 is abs(-1 - 1) = 2. The sum of the pairs of all distances = 2 + 4 + 2 = 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> After 1 second, the positions are [-1,-1,1]. Now, the robot at index 0 will move left, and the robot at index 1 will move right. After 2 seconds, the positions are [-2,0,0]. Now, the robot at index 1 will move left, and the robot at index 2 will move right. After 3 seconds, the positions are [-3,-1,1]. The distance between the robot at index 0 and 1 is abs(-3 - (-1)) = 2. The distance between the robot at index 0 and 2 is abs(-3 - 1) = 4. The distance between the robot at index 1 and 2 is abs(-1 - 1) = 2. The sum of the pairs of all distances = 2 + 4 + 2 = 8."
+    },
+    {
+      "input": "</strong> nums = [1,0], s = \"RL\", d = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> After 1 second, the positions are [2,-1]. After 2 seconds, the positions are [3,-2]. The distance between the two robots is abs(-2 - 3) = 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> After 1 second, the positions are [2,-1]. After 2 seconds, the positions are [3,-2]. The distance between the two robots is abs(-2 - 3) = 5."
+    }
+  ]
+}

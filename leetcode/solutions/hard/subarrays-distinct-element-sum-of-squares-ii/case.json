@@ -1,0 +1,24 @@
+{
+  "problemId": "3139",
+  "titleSlug": "subarrays-distinct-element-sum-of-squares-ii",
+  "title": "Subarrays Distinct Element Sum of Squares II",
+  "titleCn": "子数组不同元素数目的平方和 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "binary-indexed-tree",
+    "segment-tree",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.40135268888155723,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,1] <strong>Output:</strong> 15 <strong>Explanation:</strong> Six possible subarrays are: [1]: 1 distinct value [2]: 1 distinct value [1]: 1 distinct value [1,2]: 2 distinct values [2,1]: 2 distinct values [1,2,1]: 2 distinct values The sum of the squares of the distinct counts in all subarrays is equal to 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> + 2<sup>2</sup> + 2<sup>2</sup> + 2<sup>2</sup> = 15.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> Six possible subarrays are: [1]: 1 distinct value [2]: 1 distinct value [1]: 1 distinct value [1,2]: 2 distinct values [2,1]: 2 distinct values [1,2,1]: 2 distinct values The sum of the squares of the distinct counts in all subarrays is equal to 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> + 2<sup>2</sup> + 2<sup>2</sup> + 2<sup>2</sup> = 15."
+    },
+    {
+      "input": "</strong> nums = [2,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> Three possible subarrays are: [2]: 1 distinct value [2]: 1 distinct value [2,2]: 1 distinct value The sum of the squares of the distinct counts in all subarrays is equal to 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Three possible subarrays are: [2]: 1 distinct value [2]: 1 distinct value [2,2]: 1 distinct value The sum of the squares of the distinct counts in all subarrays is equal to 1<sup>2</sup> + 1<sup>2</sup> + 1<sup>2</sup> = 3."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2175",
+  "titleSlug": "count-nodes-with-the-highest-score",
+  "title": "Count Nodes With the Highest Score",
+  "titleCn": "统计最高分的节点数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "array",
+    "binary-tree"
+  ],
+  "acRate": 0.5188344235833829,
+  "testcases": [
+    {
+      "input": "</strong> parents = [-1,2,0,2,0] <strong>Output:</strong> 3 <strong>Explanation:</strong> - The score of node 0 is: 3 * 1 = 3 - The score of node 1 is: 4 = 4 - The score of node 2 is: 1 * 1 * 2 = 2 - The score of node 3 is: 4 = 4 - The score of node 4 is: 4 = 4 The highest score is 4, and three nodes (node 1, node 3, and node 4) have the highest score.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> - The score of node 0 is: 3 * 1 = 3 - The score of node 1 is: 4 = 4 - The score of node 2 is: 1 * 1 * 2 = 2 - The score of node 3 is: 4 = 4 - The score of node 4 is: 4 = 4 The highest score is 4, and three nodes (node 1, node 3, and node 4) have the highest score."
+    },
+    {
+      "input": "</strong> parents = [-1,2,0] <strong>Output:</strong> 2 <strong>Explanation:</strong> - The score of node 0 is: 2 = 2 - The score of node 1 is: 2 = 2 - The score of node 2 is: 1 * 1 = 1 The highest score is 2, and two nodes (node 0 and node 1) have the highest score.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - The score of node 0 is: 2 = 2 - The score of node 1 is: 2 = 2 - The score of node 2 is: 1 * 1 = 1 The highest score is 2, and two nodes (node 0 and node 1) have the highest score."
+    }
+  ]
+}

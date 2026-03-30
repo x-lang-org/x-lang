@@ -1,0 +1,26 @@
+{
+  "problemId": "593",
+  "titleSlug": "valid-square",
+  "title": "Valid Square",
+  "titleCn": "有效的正方形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "acRate": 0.47401028723342775,
+  "testcases": [
+    {
+      "input": "</strong> p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,1] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> p1 = [0,0], p2 = [1,1], p3 = [1,0], p4 = [0,12] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> p1 = [1,0], p2 = [-1,0], p3 = [0,1], p4 = [0,-1] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

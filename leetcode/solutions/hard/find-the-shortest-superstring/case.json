@@ -1,0 +1,25 @@
+{
+  "problemId": "980",
+  "titleSlug": "find-the-shortest-superstring",
+  "title": "Find the Shortest Superstring",
+  "titleCn": "最短超级串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.529841021631483,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"alex\",\"loves\",\"leetcode\"] <strong>Output:</strong> \"alexlovesleetcode\" <strong>Explanation:</strong> All permutations of \"alex\",\"loves\",\"leetcode\" would also be accepted.",
+      "expectedOutput": "</strong> \"alexlovesleetcode\" <strong>Explanation:</strong> All permutations of \"alex\",\"loves\",\"leetcode\" would also be accepted."
+    },
+    {
+      "input": "</strong> words = [\"catg\",\"ctaagt\",\"gcta\",\"ttca\",\"atgcatc\"] <strong>Output:</strong> \"gctaagttcatgcatc\"",
+      "expectedOutput": "</strong> \"gctaagttcatgcatc"
+    }
+  ]
+}

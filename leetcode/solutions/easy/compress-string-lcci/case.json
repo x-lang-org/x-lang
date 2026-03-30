@@ -1,0 +1,22 @@
+{
+  "problemId": "100161",
+  "titleSlug": "compress-string-lcci",
+  "title": "Compress String LCCI",
+  "titleCn": "字符串压缩",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.46072584171403586,
+  "testcases": [
+    {
+      "input": "</strong>\"aabcccccaaa\"\r <strong>Output: </strong>\"a2b1c5a3\"",
+      "expectedOutput": "</strong>\"a2b1c5a3"
+    },
+    {
+      "input": "</strong>\"abbccd\"\r <strong>Output: </strong>\"abbccd\"\r <strong>Explanation: </strong>\r The compressed string is \"a1b2c2d1\", which is longer than the original string.",
+      "expectedOutput": "</strong>\"abbccd\"\r <strong>Explanation: </strong>\r The compressed string is \"a1b2c2d1\", which is longer than the original string."
+    }
+  ]
+}

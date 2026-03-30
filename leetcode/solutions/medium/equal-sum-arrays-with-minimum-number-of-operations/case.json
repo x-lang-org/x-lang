@@ -1,0 +1,28 @@
+{
+  "problemId": "1901",
+  "titleSlug": "equal-sum-arrays-with-minimum-number-of-operations",
+  "title": "Equal Sum Arrays With Minimum Number of Operations",
+  "titleCn": "通过最少操作次数使数组的和相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.5647727948316522,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,3,4,5,6], nums2 = [1,1,2,2,2,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can make the sums of nums1 and nums2 equal with 3 operations. All indices are 0-indexed. - Change nums2[0] to 6. nums1 = [1,2,3,4,5,6], nums2 = [<u><strong>6</strong></u>,1,2,2,2,2]. - Change nums1[5] to 1. nums1 = [1,2,3,4,5,<strong><u>1</u></strong>], nums2 = [6,1,2,2,2,2]. - Change nums1[2] to 2. nums1 = [1,2,<strong><u>2</u></strong>,4,5,1], nums2 = [6,1,2,2,2,2].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can make the sums of nums1 and nums2 equal with 3 operations. All indices are 0-indexed. - Change nums2[0] to 6. nums1 = [1,2,3,4,5,6], nums2 = [<u><strong>6</strong></u>,1,2,2,2,2]. - Change nums1[5] to 1. nums1 = [1,2,3,4,5,<strong><u>1</u></strong>], nums2 = [6,1,2,2,2,2]. - Change nums1[2] to 2. nums1 = [1,2,<strong><u>2</u></strong>,4,5,1], nums2 = [6,1,2,2,2,2]."
+    },
+    {
+      "input": "</strong> nums1 = [1,1,1,1,1,1,1], nums2 = [6] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no way to decrease the sum of nums1 or to increase the sum of nums2 to make them equal.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no way to decrease the sum of nums1 or to increase the sum of nums2 to make them equal."
+    },
+    {
+      "input": "</strong> nums1 = [6,6], nums2 = [1] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can make the sums of nums1 and nums2 equal with 3 operations. All indices are 0-indexed. - Change nums1[0] to 2. nums1 = [<strong><u>2</u></strong>,6], nums2 = [1]. - Change nums1[1] to 2. nums1 = [2,<strong><u>2</u></strong>], nums2 = [1]. - Change nums2[0] to 4. nums1 = [2,2], nums2 = [<strong><u>4</u></strong>].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can make the sums of nums1 and nums2 equal with 3 operations. All indices are 0-indexed. - Change nums1[0] to 2. nums1 = [<strong><u>2</u></strong>,6], nums2 = [1]. - Change nums1[1] to 2. nums1 = [2,<strong><u>2</u></strong>], nums2 = [1]. - Change nums2[0] to 4. nums1 = [2,2], nums2 = [<strong><u>4</u></strong>]."
+    }
+  ]
+}

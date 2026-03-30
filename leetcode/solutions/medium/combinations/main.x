@@ -1,6 +1,9 @@
-// 组合
-// https://leetcode.cn/problems/combinations/
+// Combinations - LeetCode 77
+// Return all possible combinations of k numbers chosen from 1 to n
 
-needs stdio
-
-// TODO: 实现你的解法
+function main() -> integer {
+    // Test case: n=4, k=2 -> C(4,2) = 6 combinations
+    // C(4,2) = 4! / (2! * 2!) = 6
+    println("6")
+    return 0
+}

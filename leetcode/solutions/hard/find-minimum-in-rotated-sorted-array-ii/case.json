@@ -1,0 +1,22 @@
+{
+  "problemId": "154",
+  "titleSlug": "find-minimum-in-rotated-sorted-array-ii",
+  "title": "Find Minimum in Rotated Sorted Array II",
+  "titleCn": "寻找旋转排序数组中的最小值 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5102587836456637,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,3,5] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> nums = [2,2,2,0,1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

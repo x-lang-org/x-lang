@@ -1,0 +1,23 @@
+{
+  "problemId": "299",
+  "titleSlug": "bulls-and-cows",
+  "title": "Bulls and Cows",
+  "titleCn": "猜数字游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6005384159236772,
+  "testcases": [
+    {
+      "input": "</strong> secret = \"1807\", guess = \"7810\" <strong>Output:</strong> \"1A3B\" <strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined: \"1807\"  | \"<u>7</u>8<u>10</u>\"",
+      "expectedOutput": "</strong> \"1A3B\" <strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined: \"1807\"  | \"<u>7</u>8<u>10</u>"
+    },
+    {
+      "input": "</strong> secret = \"1123\", guess = \"0111\" <strong>Output:</strong> \"1A1B\" <strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined: \"1123\"    \"1123\"  |   or   | \"01<u>1</u>1\"    \"011<u>1</u>\" Note that only one of the two unmatched 1s is counted as a cow since the non-bull digits can only be rearranged to allow one 1 to be a bull.",
+      "expectedOutput": "</strong> \"1A1B\" <strong>Explanation:</strong> Bulls are connected with a '|' and cows are underlined: \"1123\"    \"1123\"  |   or   | \"01<u>1</u>1\"    \"011<u>1</u>\" Note that only one of the two unmatched 1s is counted as a cow since the non-bull digits can only be rearranged to allow one 1 to be a bull."
+    }
+  ]
+}

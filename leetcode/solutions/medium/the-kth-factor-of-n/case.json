@@ -1,0 +1,26 @@
+{
+  "problemId": "1585",
+  "titleSlug": "the-kth-factor-of-n",
+  "title": "The kth Factor of n",
+  "titleCn": "n 的第 k 个因子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.6499614309131231,
+  "testcases": [
+    {
+      "input": "</strong> n = 12, k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> Factors list is [1, 2, 3, 4, 6, 12], the 3<sup>rd</sup> factor is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Factors list is [1, 2, 3, 4, 6, 12], the 3<sup>rd</sup> factor is 3."
+    },
+    {
+      "input": "</strong> n = 7, k = 2 <strong>Output:</strong> 7 <strong>Explanation:</strong> Factors list is [1, 7], the 2<sup>nd</sup> factor is 7.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> Factors list is [1, 7], the 2<sup>nd</sup> factor is 7."
+    },
+    {
+      "input": "</strong> n = 4, k = 4 <strong>Output:</strong> -1 <strong>Explanation:</strong> Factors list is [1, 2, 4], there is only 3 factors. We should return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Factors list is [1, 2, 4], there is only 3 factors. We should return -1."
+    }
+  ]
+}

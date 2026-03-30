@@ -1,0 +1,26 @@
+{
+  "problemId": "2154",
+  "titleSlug": "minimum-moves-to-convert-string",
+  "title": "Minimum Moves to Convert String",
+  "titleCn": "转换字符串的最少操作次数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.6689263973436635,
+  "testcases": [
+    {
+      "input": "</strong> s = \"XXX\" <strong>Output:</strong> 1 <strong>Explanation:</strong> <u>XXX</u> -> OOO We select all the 3 characters and convert them in one move.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> <u>XXX</u> -> OOO We select all the 3 characters and convert them in one move."
+    },
+    {
+      "input": "</strong> s = \"XXOX\" <strong>Output:</strong> 2 <strong>Explanation:</strong> <u>XXO</u>X -> O<u>OOX</u> -> OOOO We select the first 3 characters in the first move, and convert them to <code>'O'</code>. Then we select the last 3 characters and convert them so that the final string contains all <code>'O'</code>s.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> <u>XXO</u>X -> O<u>OOX</u> -> OOOO We select the first 3 characters in the first move, and convert them to <code>'O'</code>. Then we select the last 3 characters and convert them so that the final string contains all <code>'O'</code>s."
+    },
+    {
+      "input": "</strong> s = \"OOOO\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no <code>'X's</code> in <code>s</code> to convert.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no <code>'X's</code> in <code>s</code> to convert."
+    }
+  ]
+}

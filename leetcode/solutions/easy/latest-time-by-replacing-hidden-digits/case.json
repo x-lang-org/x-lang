@@ -1,0 +1,26 @@
+{
+  "problemId": "1858",
+  "titleSlug": "latest-time-by-replacing-hidden-digits",
+  "title": "Latest Time by Replacing Hidden Digits",
+  "titleCn": "替换隐藏数字得到的最晚时间",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.44647014994877526,
+  "testcases": [
+    {
+      "input": "</strong> time = \"2?:?0\" <strong>Output:</strong> \"23:50\" <strong>Explanation:</strong> The latest hour beginning with the digit '2' is 23 and the latest minute ending with the digit '0' is 50.",
+      "expectedOutput": "</strong> \"23:50\" <strong>Explanation:</strong> The latest hour beginning with the digit '2' is 23 and the latest minute ending with the digit '0' is 50."
+    },
+    {
+      "input": "</strong> time = \"0?:3?\" <strong>Output:</strong> \"09:39\"",
+      "expectedOutput": "</strong> \"09:39"
+    },
+    {
+      "input": "</strong> time = \"1?:22\" <strong>Output:</strong> \"19:22\"",
+      "expectedOutput": "</strong> \"19:22"
+    }
+  ]
+}

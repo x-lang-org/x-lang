@@ -1,0 +1,22 @@
+{
+  "problemId": "605",
+  "titleSlug": "can-place-flowers",
+  "title": "Can Place Flowers",
+  "titleCn": "种花问题",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.32247310513165395,
+  "testcases": [
+    {
+      "input": "</strong> flowerbed = [1,0,0,0,1], n = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> flowerbed = [1,0,0,0,1], n = 2 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

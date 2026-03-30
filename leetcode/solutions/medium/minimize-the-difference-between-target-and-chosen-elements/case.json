@@ -1,0 +1,27 @@
+{
+  "problemId": "2108",
+  "titleSlug": "minimize-the-difference-between-target-and-chosen-elements",
+  "title": "Minimize the Difference Between Target and Chosen Elements",
+  "titleCn": "最小化目标值与所选元素的差",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.38759509843777223,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,2,3],[4,5,6],[7,8,9]], target = 13 <strong>Output:</strong> 0 <strong>Explanation:</strong> One possible choice is to: - Choose 1 from the first row. - Choose 5 from the second row. - Choose 7 from the third row. The sum of the chosen elements is 13, which equals the target, so the absolute difference is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> One possible choice is to: - Choose 1 from the first row. - Choose 5 from the second row. - Choose 7 from the third row. The sum of the chosen elements is 13, which equals the target, so the absolute difference is 0."
+    },
+    {
+      "input": "</strong> mat = [[1],[2],[3]], target = 100 <strong>Output:</strong> 94 <strong>Explanation:</strong> The best possible choice is to: - Choose 1 from the first row. - Choose 2 from the second row. - Choose 3 from the third row. The sum of the chosen elements is 6, and the absolute difference is 94.",
+      "expectedOutput": "</strong> 94 <strong>Explanation:</strong> The best possible choice is to: - Choose 1 from the first row. - Choose 2 from the second row. - Choose 3 from the third row. The sum of the chosen elements is 6, and the absolute difference is 94."
+    },
+    {
+      "input": "</strong> mat = [[1,2,9,8,7]], target = 6 <strong>Output:</strong> 1 <strong>Explanation:</strong> The best choice is to choose 7 from the first row. The absolute difference is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The best choice is to choose 7 from the first row. The absolute difference is 1."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2661",
+  "titleSlug": "smallest-missing-non-negative-integer-after-operations",
+  "title": "Smallest Missing Non-negative Integer After Operations",
+  "titleCn": "执行操作后的最大 MEX",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.4935351844100274,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,-10,7,13,6,8], value = 5 <strong>Output:</strong> 4 <strong>Explanation:</strong> One can achieve this result by applying the following operations: - Add value to nums[1] twice to make nums = [1,<strong><u>0</u></strong>,7,13,6,8] - Subtract value from nums[2] once to make nums = [1,0,<strong><u>2</u></strong>,13,6,8] - Subtract value from nums[3] twice to make nums = [1,0,2,<strong><u>3</u></strong>,6,8] The MEX of nums is 4. It can be shown that 4 is the maximum MEX we can achieve.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One can achieve this result by applying the following operations: - Add value to nums[1] twice to make nums = [1,<strong><u>0</u></strong>,7,13,6,8] - Subtract value from nums[2] once to make nums = [1,0,<strong><u>2</u></strong>,13,6,8] - Subtract value from nums[3] twice to make nums = [1,0,2,<strong><u>3</u></strong>,6,8] The MEX of nums is 4. It can be shown that 4 is the maximum MEX we can achieve."
+    },
+    {
+      "input": "</strong> nums = [1,-10,7,13,6,8], value = 7 <strong>Output:</strong> 2 <strong>Explanation:</strong> One can achieve this result by applying the following operation: - subtract value from nums[2] once to make nums = [1,-10,<u><strong>0</strong></u>,13,6,8] The MEX of nums is 2. It can be shown that 2 is the maximum MEX we can achieve.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One can achieve this result by applying the following operation: - subtract value from nums[2] once to make nums = [1,-10,<u><strong>0</strong></u>,13,6,8] The MEX of nums is 2. It can be shown that 2 is the maximum MEX we can achieve."
+    }
+  ]
+}

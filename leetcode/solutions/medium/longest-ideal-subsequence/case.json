@@ -1,0 +1,23 @@
+{
+  "problemId": "2444",
+  "titleSlug": "longest-ideal-subsequence",
+  "title": "Longest Ideal Subsequence",
+  "titleCn": "最长理想子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.45089318805129347,
+  "testcases": [
+    {
+      "input": "</strong> s = \"acfgbd\", k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> The longest ideal string is \"acbd\". The length of this string is 4, so 4 is returned. Note that \"acfgbd\" is not ideal because 'c' and 'f' have a difference of 3 in alphabet order.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The longest ideal string is \"acbd\". The length of this string is 4, so 4 is returned. Note that \"acfgbd\" is not ideal because 'c' and 'f' have a difference of 3 in alphabet order."
+    },
+    {
+      "input": "</strong> s = \"abcd\", k = 3 <strong>Output:</strong> 4 <strong>Explanation:</strong> The longest ideal string is \"abcd\". The length of this string is 4, so 4 is returned.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The longest ideal string is \"abcd\". The length of this string is 4, so 4 is returned."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "831",
+  "titleSlug": "largest-sum-of-averages",
+  "title": "Largest Sum of Averages",
+  "titleCn": "最大平均值和的分组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.6341389187253849,
+  "testcases": [
+    {
+      "input": "</strong> nums = [9,1,2,3,9], k = 3 <strong>Output:</strong> 20.00000 <strong>Explanation:</strong> The best choice is to partition nums into [9], [1, 2, 3], [9]. The answer is 9 + (1 + 2 + 3) / 3 + 9 = 20. We could have also partitioned nums into [9, 1], [2], [3, 9], for example. That partition would lead to a score of 5 + 2 + 6 = 13, which is worse.",
+      "expectedOutput": "</strong> 20.00000 <strong>Explanation:</strong> The best choice is to partition nums into [9], [1, 2, 3], [9]. The answer is 9 + (1 + 2 + 3) / 3 + 9 = 20. We could have also partitioned nums into [9, 1], [2], [3, 9], for example. That partition would lead to a score of 5 + 2 + 6 = 13, which is worse."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5,6,7], k = 4 <strong>Output:</strong> 20.50000",
+      "expectedOutput": "</strong> 20.50000"
+    }
+  ]
+}

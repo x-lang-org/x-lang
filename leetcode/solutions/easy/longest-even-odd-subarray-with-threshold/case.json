@@ -1,0 +1,26 @@
+{
+  "problemId": "2866",
+  "titleSlug": "longest-even-odd-subarray-with-threshold",
+  "title": "Longest Even Odd Subarray With Threshold",
+  "titleCn": "最长奇偶子数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "acRate": 0.4621883396863088,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,5,4], threshold = 5 <strong>Output:</strong> 3 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 1 and ends at r = 3 => [2,5,4]. This subarray satisfies the conditions. Hence, the answer is the length of the subarray, 3. We can show that 3 is the maximum possible achievable length.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 1 and ends at r = 3 => [2,5,4]. This subarray satisfies the conditions. Hence, the answer is the length of the subarray, 3. We can show that 3 is the maximum possible achievable length."
+    },
+    {
+      "input": "</strong> nums = [1,2], threshold = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 1 and ends at r = 1 => [2]. It satisfies all the conditions and we can show that 1 is the maximum possible achievable length.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 1 and ends at r = 1 => [2]. It satisfies all the conditions and we can show that 1 is the maximum possible achievable length."
+    },
+    {
+      "input": "</strong> nums = [2,3,4,5], threshold = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 0 and ends at r = 2 => [2,3,4]. It satisfies all the conditions. Hence, the answer is the length of the subarray, 3. We can show that 3 is the maximum possible achievable length.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In this example, we can select the subarray that starts at l = 0 and ends at r = 2 => [2,3,4]. It satisfies all the conditions. Hence, the answer is the length of the subarray, 3. We can show that 3 is the maximum possible achievable length."
+    }
+  ]
+}

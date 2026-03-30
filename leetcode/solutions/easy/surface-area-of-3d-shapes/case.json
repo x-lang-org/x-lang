@@ -1,0 +1,28 @@
+{
+  "problemId": "928",
+  "titleSlug": "surface-area-of-3d-shapes",
+  "title": "Surface Area of 3D Shapes",
+  "titleCn": "三维形体的表面积",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "matrix"
+  ],
+  "acRate": 0.6572131881247203,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,2],[3,4]] <strong>Output:</strong> 34",
+      "expectedOutput": "</strong> 34"
+    },
+    {
+      "input": "</strong> grid = [[1,1,1],[1,0,1],[1,1,1]] <strong>Output:</strong> 32",
+      "expectedOutput": "</strong> 32"
+    },
+    {
+      "input": "</strong> grid = [[2,2,2],[2,1,2],[2,2,2]] <strong>Output:</strong> 46",
+      "expectedOutput": "</strong> 46"
+    }
+  ]
+}

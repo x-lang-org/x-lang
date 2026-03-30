@@ -1,0 +1,25 @@
+{
+  "problemId": "600",
+  "titleSlug": "non-negative-integers-without-consecutive-ones",
+  "title": "Non-negative Integers without Consecutive Ones",
+  "titleCn": "不含连续1的非负整数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.5181745297563984,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 5 <strong>Explanation:</strong> Here are the non-negative integers <= 5 with their corresponding binary representations: 0 : 0 1 : 1 2 : 10 3 : 11 4 : 100 5 : 101 Among them, only integer 3 disobeys the rule (two consecutive ones) and the other 5 satisfy the rule.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Here are the non-negative integers <= 5 with their corresponding binary representations: 0 : 0 1 : 1 2 : 10 3 : 11 4 : 100 5 : 101 Among them, only integer 3 disobeys the rule (two consecutive ones) and the other 5 satisfy the rule."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

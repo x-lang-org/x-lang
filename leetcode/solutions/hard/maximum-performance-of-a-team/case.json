@@ -1,0 +1,28 @@
+{
+  "problemId": "1499",
+  "titleSlug": "maximum-performance-of-a-team",
+  "title": "Maximum Performance of a Team",
+  "titleCn": "最大的团队表现值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.38005209977897064,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 2 <strong>Output:</strong> 60 <strong>Explanation:</strong> We have the maximum performance of the team by selecting engineer 2 (with speed=10 and efficiency=4) and engineer 5 (with speed=5 and efficiency=7). That is, performance = (10 + 5) * min(4, 7) = 60.",
+      "expectedOutput": "</strong> 60 <strong>Explanation:</strong> We have the maximum performance of the team by selecting engineer 2 (with speed=10 and efficiency=4) and engineer 5 (with speed=5 and efficiency=7). That is, performance = (10 + 5) * min(4, 7) = 60."
+    },
+    {
+      "input": "</strong> n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 3 <strong>Output:</strong> 68 <strong>Explanation: </strong>This is the same example as the first but k = 3. We can select engineer 1, engineer 2 and engineer 5 to get the maximum performance of the team. That is, performance = (2 + 10 + 5) * min(5, 4, 7) = 68.",
+      "expectedOutput": "</strong> 68 <strong>Explanation: </strong>This is the same example as the first but k = 3. We can select engineer 1, engineer 2 and engineer 5 to get the maximum performance of the team. That is, performance = (2 + 10 + 5) * min(5, 4, 7) = 68."
+    },
+    {
+      "input": "</strong> n = 6, speed = [2,10,3,1,5,8], efficiency = [5,4,3,9,7,2], k = 4 <strong>Output:</strong> 72",
+      "expectedOutput": "</strong> 72"
+    }
+  ]
+}

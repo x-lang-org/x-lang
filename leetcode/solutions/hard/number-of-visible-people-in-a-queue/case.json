@@ -1,0 +1,23 @@
+{
+  "problemId": "1305",
+  "titleSlug": "number-of-visible-people-in-a-queue",
+  "title": "Number of Visible People in a Queue",
+  "titleCn": "队列中可以看到的人数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "monotonic-stack"
+  ],
+  "acRate": 0.698096399099775,
+  "testcases": [
+    {
+      "input": "</strong> heights = [10,6,8,5,11,9] <strong>Output:</strong> [3,1,2,1,1,0] <strong>Explanation:</strong> Person 0 can see person 1, 2, and 4. Person 1 can see person 2. Person 2 can see person 3 and 4. Person 3 can see person 4. Person 4 can see person 5. Person 5 can see no one since nobody is to the right of them.",
+      "expectedOutput": "</strong> [3,1,2,1,1,0] <strong>Explanation:</strong> Person 0 can see person 1, 2, and 4. Person 1 can see person 2. Person 2 can see person 3 and 4. Person 3 can see person 4. Person 4 can see person 5. Person 5 can see no one since nobody is to the right of them."
+    },
+    {
+      "input": "</strong> heights = [5,1,2,3,10] <strong>Output:</strong> [4,1,1,1,0]",
+      "expectedOutput": "</strong> [4,1,1,1,0]"
+    }
+  ]
+}

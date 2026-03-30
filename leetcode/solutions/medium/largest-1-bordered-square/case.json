@@ -1,0 +1,23 @@
+{
+  "problemId": "1239",
+  "titleSlug": "largest-1-bordered-square",
+  "title": "Largest 1-Bordered Square",
+  "titleCn": "最大的以 1 为边界的正方形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.5620620397232761,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,1,1],[1,0,1],[1,1,1]]\r <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    },
+    {
+      "input": "</strong> grid = [[1,1,0,0]]\r <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

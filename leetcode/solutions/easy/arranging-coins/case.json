@@ -1,0 +1,22 @@
+{
+  "problemId": "441",
+  "titleSlug": "arranging-coins",
+  "title": "Arranging Coins",
+  "titleCn": "排列硬币",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.4503391233906959,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> Because the 3<sup>rd</sup> row is incomplete, we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Because the 3<sup>rd</sup> row is incomplete, we return 2."
+    },
+    {
+      "input": "</strong> n = 8 <strong>Output:</strong> 3 <strong>Explanation:</strong> Because the 4<sup>th</sup> row is incomplete, we return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Because the 4<sup>th</sup> row is incomplete, we return 3."
+    }
+  ]
+}

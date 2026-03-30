@@ -1,0 +1,24 @@
+{
+  "problemId": "2318",
+  "titleSlug": "maximum-points-in-an-archery-competition",
+  "title": "Maximum Points in an Archery Competition",
+  "titleCn": "射箭比赛中的最大得分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "backtracking",
+    "enumeration"
+  ],
+  "acRate": 0.5062106368089573,
+  "testcases": [
+    {
+      "input": "</strong> numArrows = 9, aliceArrows = [1,1,0,1,0,0,2,1,0,1,2,0] <strong>Output:</strong> [0,0,0,0,1,1,0,0,1,2,3,1] <strong>Explanation:</strong> The table above shows how the competition is scored. Bob earns a total point of 4 + 5 + 8 + 9 + 10 + 11 = 47. It can be shown that Bob cannot obtain a score higher than 47 points.",
+      "expectedOutput": "</strong> [0,0,0,0,1,1,0,0,1,2,3,1] <strong>Explanation:</strong> The table above shows how the competition is scored. Bob earns a total point of 4 + 5 + 8 + 9 + 10 + 11 = 47. It can be shown that Bob cannot obtain a score higher than 47 points."
+    },
+    {
+      "input": "</strong> numArrows = 3, aliceArrows = [0,0,1,0,0,0,0,0,0,0,0,2] <strong>Output:</strong> [0,0,0,0,0,0,0,0,1,1,1,0] <strong>Explanation:</strong> The table above shows how the competition is scored. Bob earns a total point of 8 + 9 + 10 = 27. It can be shown that Bob cannot obtain a score higher than 27 points.",
+      "expectedOutput": "</strong> [0,0,0,0,0,0,0,0,1,1,1,0] <strong>Explanation:</strong> The table above shows how the competition is scored. Bob earns a total point of 8 + 9 + 10 = 27. It can be shown that Bob cannot obtain a score higher than 27 points."
+    }
+  ]
+}

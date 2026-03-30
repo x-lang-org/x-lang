@@ -1,0 +1,28 @@
+{
+  "problemId": "736",
+  "titleSlug": "parse-lisp-expression",
+  "title": "Parse Lisp Expression",
+  "titleCn": "Lisp 语法解析",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6450442668969985,
+  "testcases": [
+    {
+      "input": "</strong> expression = \"(let x 2 (mult x (let x 3 y 4 (add x y))))\" <strong>Output:</strong> 14 <strong>Explanation:</strong> In the expression (add x y), when checking for the value of the variable x, we check from the innermost scope to the outermost in the context of the variable we are trying to evaluate. Since x = 3 is found first, the value of x is 3.",
+      "expectedOutput": "</strong> 14 <strong>Explanation:</strong> In the expression (add x y), when checking for the value of the variable x, we check from the innermost scope to the outermost in the context of the variable we are trying to evaluate. Since x = 3 is found first, the value of x is 3."
+    },
+    {
+      "input": "</strong> expression = \"(let x 3 x 2 x)\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Assignment in let statements is processed sequentially.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Assignment in let statements is processed sequentially."
+    },
+    {
+      "input": "</strong> expression = \"(let x 1 y 2 x (add x y) (add x y))\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The first (add x y) evaluates as 3, and is assigned to x. The second (add x y) evaluates as 3+2 = 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The first (add x y) evaluates as 3, and is assigned to x. The second (add x y) evaluates as 3+2 = 5."
+    }
+  ]
+}

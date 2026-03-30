@@ -1,0 +1,22 @@
+{
+  "problemId": "657",
+  "titleSlug": "robot-return-to-origin",
+  "title": "Robot Return to Origin",
+  "titleCn": "机器人能否返回原点",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.7992244196409626,
+  "testcases": [
+    {
+      "input": "</strong> moves = \"UD\" <strong>Output:</strong> true <strong>Explanation</strong>: The robot moves up once, and then down once. All moves have the same magnitude, so it ended up at the origin where it started. Therefore, we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation</strong>: The robot moves up once, and then down once. All moves have the same magnitude, so it ended up at the origin where it started. Therefore, we return true."
+    },
+    {
+      "input": "</strong> moves = \"LL\" <strong>Output:</strong> false <strong>Explanation</strong>: The robot moves left twice. It ends up two \"moves\" to the left of the origin. We return false because it is not at the origin at the end of its moves.",
+      "expectedOutput": "</strong> false <strong>Explanation</strong>: The robot moves left twice. It ends up two \"moves\" to the left of the origin. We return false because it is not at the origin at the end of its moves."
+    }
+  ]
+}

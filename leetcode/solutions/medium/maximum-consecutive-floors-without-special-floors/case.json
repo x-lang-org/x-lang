@@ -1,0 +1,22 @@
+{
+  "problemId": "2355",
+  "titleSlug": "maximum-consecutive-floors-without-special-floors",
+  "title": "Maximum Consecutive Floors Without Special Floors",
+  "titleCn": "不含特殊楼层的最大连续楼层数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6050138092203102,
+  "testcases": [
+    {
+      "input": "</strong> bottom = 2, top = 9, special = [4,6] <strong>Output:</strong> 3 <strong>Explanation:</strong> The following are the ranges (inclusive) of consecutive floors without a special floor: - (2, 3) with a total amount of 2 floors. - (5, 5) with a total amount of 1 floor. - (7, 9) with a total amount of 3 floors. Therefore, we return the maximum number which is 3 floors.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The following are the ranges (inclusive) of consecutive floors without a special floor: - (2, 3) with a total amount of 2 floors. - (5, 5) with a total amount of 1 floor. - (7, 9) with a total amount of 3 floors. Therefore, we return the maximum number which is 3 floors."
+    },
+    {
+      "input": "</strong> bottom = 6, top = 8, special = [7,6,8] <strong>Output:</strong> 0 <strong>Explanation:</strong> Every floor rented is a special floor, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Every floor rented is a special floor, so we return 0."
+    }
+  ]
+}

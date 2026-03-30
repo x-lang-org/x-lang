@@ -1,0 +1,23 @@
+{
+  "problemId": "1813",
+  "titleSlug": "maximum-erasure-value",
+  "title": "Maximum Erasure Value",
+  "titleCn": "删除子数组的最大得分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.6523006519558676,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,2,4,5,6] <strong>Output:</strong> 17 <strong>Explanation:</strong> The optimal subarray here is [2,4,5,6].",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> The optimal subarray here is [2,4,5,6]."
+    },
+    {
+      "input": "</strong> nums = [5,2,1,2,5,2,1,2,5] <strong>Output:</strong> 8 <strong>Explanation:</strong> The optimal subarray here is [5,2,1] or [1,2,5].",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The optimal subarray here is [5,2,1] or [1,2,5]."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2411",
+  "titleSlug": "spiral-matrix-iv",
+  "title": "Spiral Matrix IV",
+  "titleCn": "螺旋矩阵 IV",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "linked-list",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.6782604512435657,
+  "testcases": [
+    {
+      "input": "</strong> m = 3, n = 5, head = [3,0,2,6,8,1,7,9,4,2,5,5,0] <strong>Output:</strong> [[3,0,2,6,8],[5,0,-1,-1,1],[5,2,4,9,7]] <strong>Explanation:</strong> The diagram above shows how the values are printed in the matrix. Note that the remaining spaces in the matrix are filled with -1.",
+      "expectedOutput": "</strong> [[3,0,2,6,8],[5,0,-1,-1,1],[5,2,4,9,7]] <strong>Explanation:</strong> The diagram above shows how the values are printed in the matrix. Note that the remaining spaces in the matrix are filled with -1."
+    },
+    {
+      "input": "</strong> m = 1, n = 4, head = [0,1,2] <strong>Output:</strong> [[0,1,2,-1]] <strong>Explanation:</strong> The diagram above shows how the values are printed from left to right in the matrix. The last space in the matrix is set to -1.",
+      "expectedOutput": "</strong> [[0,1,2,-1]] <strong>Explanation:</strong> The diagram above shows how the values are printed from left to right in the matrix. The last space in the matrix is set to -1."
+    }
+  ]
+}

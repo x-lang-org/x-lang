@@ -1,0 +1,25 @@
+{
+  "problemId": "363",
+  "titleSlug": "max-sum-of-rectangle-no-larger-than-k",
+  "title": "Max Sum of Rectangle No Larger Than K",
+  "titleCn": "矩形区域不超过 K 的最大数值和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "matrix",
+    "ordered-set",
+    "prefix-sum"
+  ],
+  "acRate": 0.49062336512535715,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[1,0,1],[0,-2,3]], k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> Because the sum of the blue rectangle [[0, 1], [-2, 3]] is 2, and 2 is the max number no larger than k (k = 2).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Because the sum of the blue rectangle [[0, 1], [-2, 3]] is 2, and 2 is the max number no larger than k (k = 2)."
+    },
+    {
+      "input": "</strong> matrix = [[2,2,-1]], k = 3 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "854",
+  "titleSlug": "making-a-large-island",
+  "title": "Making A Large Island",
+  "titleCn": "最大人工岛",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.4855257661892659,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0],[0,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> Change one 0 to 1 and connect two 1s, then we get an island with area = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Change one 0 to 1 and connect two 1s, then we get an island with area = 3."
+    },
+    {
+      "input": "</strong> grid = [[1,1],[1,0]] <strong>Output:</strong> 4 <strong>Explanation: </strong>Change the 0 to 1 and make the island bigger, only one island with area = 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>Change the 0 to 1 and make the island bigger, only one island with area = 4."
+    },
+    {
+      "input": "</strong> grid = [[1,1],[1,1]] <strong>Output:</strong> 4 <strong>Explanation:</strong> Can't change any 0 to 1, only one island with area = 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Can't change any 0 to 1, only one island with area = 4."
+    }
+  ]
+}

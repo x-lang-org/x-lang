@@ -1,0 +1,23 @@
+{
+  "problemId": "477",
+  "titleSlug": "total-hamming-distance",
+  "title": "Total Hamming Distance",
+  "titleCn": "汉明距离总和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math"
+  ],
+  "acRate": 0.6147489796373531,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,14,2] <strong>Output:</strong> 6 <strong>Explanation:</strong> In binary representation, the 4 is 0100, 14 is 1110, and 2 is 0010 (just showing the four bits relevant in this case). The answer will be: HammingDistance(4, 14) + HammingDistance(4, 2) + HammingDistance(14, 2) = 2 + 2 + 2 = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> In binary representation, the 4 is 0100, 14 is 1110, and 2 is 0010 (just showing the four bits relevant in this case). The answer will be: HammingDistance(4, 14) + HammingDistance(4, 2) + HammingDistance(14, 2) = 2 + 2 + 2 = 6."
+    },
+    {
+      "input": "</strong> nums = [4,14,4] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "problemId": "620",
+  "titleSlug": "not-boring-movies",
+  "title": "Not Boring Movies",
+  "titleCn": "有趣的电影",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7796240925349097,
+  "testcases": [
+    {
+      "input": "</strong> Cinema table: +----+------------+-------------+--------+ | id | movie   | description | rating | +----+------------+-------------+--------+ | 1 | War    | great 3D  | 8.9  | | 2 | Science  | fiction   | 8.5  | | 3 | irish   | boring   | 6.2  | | 4 | Ice song  | Fantacy   | 8.6  | | 5 | House card | Interesting | 9.1  | +----+------------+-------------+--------+ <strong>Output:</strong> +----+------------+-------------+--------+ | id | movie   | description | rating | +----+------------+-------------+--------+ | 5 | House card | Interesting | 9.1  | | 1 | War    | great 3D  | 8.9  | +----+------------+-------------+--------+ <strong>Explanation:</strong> We have three movies with odd-numbered IDs: 1, 3, and 5. The movie with ID = 3 is boring so we do not include it in the answer.",
+      "expectedOutput": "</strong> +----+------------+-------------+--------+ | id | movie   | description | rating | +----+------------+-------------+--------+ | 5 | House card | Interesting | 9.1  | | 1 | War    | great 3D  | 8.9  | +----+------------+-------------+--------+ <strong>Explanation:</strong> We have three movies with odd-numbered IDs: 1, 3, and 5. The movie with ID = 3 is boring so we do not include it in the answer."
+    }
+  ]
+}

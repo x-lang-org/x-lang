@@ -1,0 +1,28 @@
+{
+  "problemId": "3046",
+  "titleSlug": "minimum-operations-to-make-a-special-number",
+  "title": "Minimum Operations to Make a Special Number",
+  "titleCn": "生成特殊数字的最少操作",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.5253174805116698,
+  "testcases": [
+    {
+      "input": "</strong> num = \"2245047\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Delete digits num[5] and num[6]. The resulting number is \"22450\" which is special since it is divisible by 25. It can be shown that 2 is the minimum number of operations required to get a special number.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Delete digits num[5] and num[6]. The resulting number is \"22450\" which is special since it is divisible by 25. It can be shown that 2 is the minimum number of operations required to get a special number."
+    },
+    {
+      "input": "</strong> num = \"2908305\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Delete digits num[3], num[4], and num[6]. The resulting number is \"2900\" which is special since it is divisible by 25. It can be shown that 3 is the minimum number of operations required to get a special number.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Delete digits num[3], num[4], and num[6]. The resulting number is \"2900\" which is special since it is divisible by 25. It can be shown that 3 is the minimum number of operations required to get a special number."
+    },
+    {
+      "input": "</strong> num = \"10\" <strong>Output:</strong> 1 <strong>Explanation:</strong> Delete digit num[0]. The resulting number is \"0\" which is special since it is divisible by 25. It can be shown that 1 is the minimum number of operations required to get a special number.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Delete digit num[0]. The resulting number is \"0\" which is special since it is divisible by 25. It can be shown that 1 is the minimum number of operations required to get a special number."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "1032",
+  "titleSlug": "satisfiability-of-equality-equations",
+  "title": "Satisfiability of Equality Equations",
+  "titleCn": "等式方程的可满足性",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "union-find",
+    "graph",
+    "array",
+    "string"
+  ],
+  "acRate": 0.5453951715765372,
+  "testcases": [
+    {
+      "input": "</strong> equations = [\"a==b\",\"b!=a\"] <strong>Output:</strong> false <strong>Explanation:</strong> If we assign say, a = 1 and b = 1, then the first equation is satisfied, but not the second. There is no way to assign the variables to satisfy both equations.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> If we assign say, a = 1 and b = 1, then the first equation is satisfied, but not the second. There is no way to assign the variables to satisfy both equations."
+    },
+    {
+      "input": "</strong> equations = [\"b==a\",\"a==b\"] <strong>Output:</strong> true <strong>Explanation:</strong> We could assign a = 1 and b = 1 to satisfy both equations.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We could assign a = 1 and b = 1 to satisfy both equations."
+    }
+  ]
+}

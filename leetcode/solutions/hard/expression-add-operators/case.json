@@ -1,0 +1,27 @@
+{
+  "problemId": "282",
+  "titleSlug": "expression-add-operators",
+  "title": "Expression Add Operators",
+  "titleCn": "给表达式添加运算符",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.46948430846869577,
+  "testcases": [
+    {
+      "input": "</strong> num = \"123\", target = 6 <strong>Output:</strong> [\"1*2*3\",\"1+2+3\"] <strong>Explanation:</strong> Both \"1*2*3\" and \"1+2+3\" evaluate to 6.",
+      "expectedOutput": "</strong> [\"1*2*3\",\"1+2+3\"] <strong>Explanation:</strong> Both \"1*2*3\" and \"1+2+3\" evaluate to 6."
+    },
+    {
+      "input": "</strong> num = \"232\", target = 8 <strong>Output:</strong> [\"2*3+2\",\"2+3*2\"] <strong>Explanation:</strong> Both \"2*3+2\" and \"2+3*2\" evaluate to 8.",
+      "expectedOutput": "</strong> [\"2*3+2\",\"2+3*2\"] <strong>Explanation:</strong> Both \"2*3+2\" and \"2+3*2\" evaluate to 8."
+    },
+    {
+      "input": "</strong> num = \"3456237490\", target = 9191 <strong>Output:</strong> [] <strong>Explanation:</strong> There are no expressions that can be created from \"3456237490\" to evaluate to 9191.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There are no expressions that can be created from \"3456237490\" to evaluate to 9191."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "680",
+  "titleSlug": "valid-palindrome-ii",
+  "title": "Valid Palindrome II",
+  "titleCn": "验证回文串 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.41646641985963795,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aba\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"abca\" <strong>Output:</strong> true <strong>Explanation:</strong> You could delete the character 'c'.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You could delete the character 'c'."
+    },
+    {
+      "input": "</strong> s = \"abc\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

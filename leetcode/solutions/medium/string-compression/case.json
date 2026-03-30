@@ -1,0 +1,26 @@
+{
+  "problemId": "443",
+  "titleSlug": "string-compression",
+  "title": "String Compression",
+  "titleCn": "压缩字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.5072756700966441,
+  "testcases": [
+    {
+      "input": "</strong> chars = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\",\"c\"] <strong>Output:</strong> 6 <strong>Explanation:</strong> The groups are \"aa\", \"bb\", and \"ccc\". This compresses to \"a2b2c3\".",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The groups are \"aa\", \"bb\", and \"ccc\". This compresses to \"a2b2c3\"."
+    },
+    {
+      "input": "</strong> chars = [\"a\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> The only group is \"a\", which remains uncompressed since it's a single character.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The only group is \"a\", which remains uncompressed since it's a single character."
+    },
+    {
+      "input": "</strong> chars = [\"a\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\",\"b\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> The groups are \"a\" and \"bbbbbbbbbbbb\". This compresses to \"ab12\".",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The groups are \"a\" and \"bbbbbbbbbbbb\". This compresses to \"ab12\"."
+    }
+  ]
+}

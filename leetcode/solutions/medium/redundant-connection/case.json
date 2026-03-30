@@ -1,0 +1,24 @@
+{
+  "problemId": "684",
+  "titleSlug": "redundant-connection",
+  "title": "Redundant Connection",
+  "titleCn": "冗余连接",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.6877305570304023,
+  "testcases": [
+    {
+      "input": "</strong> edges = [[1,2],[1,3],[2,3]] <strong>Output:</strong> [2,3]",
+      "expectedOutput": "</strong> [2,3]"
+    },
+    {
+      "input": "</strong> edges = [[1,2],[2,3],[3,4],[1,4],[1,5]] <strong>Output:</strong> [1,4]",
+      "expectedOutput": "</strong> [1,4]"
+    }
+  ]
+}

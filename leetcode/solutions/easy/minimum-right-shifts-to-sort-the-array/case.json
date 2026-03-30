@@ -1,0 +1,25 @@
+{
+  "problemId": "3045",
+  "titleSlug": "minimum-right-shifts-to-sort-the-array",
+  "title": "Minimum Right Shifts to Sort the Array",
+  "titleCn": "使数组成为递增数组的最少右移次数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6018698509673239,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,4,5,1,2] <strong>Output:</strong> 2 <strong>Explanation:</strong> After the first right shift, nums = [2,3,4,5,1]. After the second right shift, nums = [1,2,3,4,5]. Now nums is sorted; therefore the answer is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> After the first right shift, nums = [2,3,4,5,1]. After the second right shift, nums = [1,2,3,4,5]. Now nums is sorted; therefore the answer is 2."
+    },
+    {
+      "input": "</strong> nums = [1,3,5] <strong>Output:</strong> 0 <strong>Explanation:</strong> nums is already sorted therefore, the answer is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> nums is already sorted therefore, the answer is 0."
+    },
+    {
+      "input": "</strong> nums = [2,1,4] <strong>Output:</strong> -1 <strong>Explanation:</strong> It's impossible to sort the array using right shifts.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It's impossible to sort the array using right shifts."
+    }
+  ]
+}

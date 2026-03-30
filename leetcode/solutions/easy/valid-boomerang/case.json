@@ -1,0 +1,23 @@
+{
+  "problemId": "1115",
+  "titleSlug": "valid-boomerang",
+  "title": "Valid Boomerang",
+  "titleCn": "有效的回旋镖",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "acRate": 0.483447465038571,
+  "testcases": [
+    {
+      "input": "</strong> points = [[1,1],[2,3],[3,2]] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> points = [[1,1],[2,2],[3,3]] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

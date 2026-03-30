@@ -1,0 +1,28 @@
+{
+  "problemId": "2055",
+  "titleSlug": "describe-the-painting",
+  "title": "Describe the Painting",
+  "titleCn": "描述绘画结果",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.49987211185949354,
+  "testcases": [
+    {
+      "input": "</strong> segments = [[1,4,5],[4,7,7],[1,7,9]] <strong>Output:</strong> [[1,4,14],[4,7,16]] <strong>Explanation: </strong>The painting can be described as follows: - [1,4) is colored {5,9} (with a sum of 14) from the first and third segments. - [4,7) is colored {7,9} (with a sum of 16) from the second and third segments.",
+      "expectedOutput": "</strong> [[1,4,14],[4,7,16]] <strong>Explanation: </strong>The painting can be described as follows: - [1,4) is colored {5,9} (with a sum of 14) from the first and third segments. - [4,7) is colored {7,9} (with a sum of 16) from the second and third segments."
+    },
+    {
+      "input": "</strong> segments = [[1,7,9],[6,8,15],[8,10,7]] <strong>Output:</strong> [[1,6,9],[6,7,24],[7,8,15],[8,10,7]] <strong>Explanation: </strong>The painting can be described as follows: - [1,6) is colored 9 from the first segment. - [6,7) is colored {9,15} (with a sum of 24) from the first and second segments. - [7,8) is colored 15 from the second segment. - [8,10) is colored 7 from the third segment.",
+      "expectedOutput": "</strong> [[1,6,9],[6,7,24],[7,8,15],[8,10,7]] <strong>Explanation: </strong>The painting can be described as follows: - [1,6) is colored 9 from the first segment. - [6,7) is colored {9,15} (with a sum of 24) from the first and second segments. - [7,8) is colored 15 from the second segment. - [8,10) is colored 7 from the third segment."
+    },
+    {
+      "input": "</strong> segments = [[1,4,5],[1,4,7],[4,7,1],[4,7,11]] <strong>Output:</strong> [[1,4,12],[4,7,12]] <strong>Explanation: </strong>The painting can be described as follows: - [1,4) is colored {5,7} (with a sum of 12) from the first and second segments. - [4,7) is colored {1,11} (with a sum of 12) from the third and fourth segments. Note that returning a single segment [1,7) is incorrect because the mixed color sets are different.",
+      "expectedOutput": "</strong> [[1,4,12],[4,7,12]] <strong>Explanation: </strong>The painting can be described as follows: - [1,4) is colored {5,7} (with a sum of 12) from the first and second segments. - [4,7) is colored {1,11} (with a sum of 12) from the third and fourth segments. Note that returning a single segment [1,7) is incorrect because the mixed color sets are different."
+    }
+  ]
+}

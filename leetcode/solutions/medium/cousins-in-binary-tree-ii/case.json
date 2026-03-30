@@ -1,0 +1,25 @@
+{
+  "problemId": "2677",
+  "titleSlug": "cousins-in-binary-tree-ii",
+  "title": "Cousins in Binary Tree II",
+  "titleCn": "二叉树的堂兄弟节点 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "hash-table",
+    "binary-tree"
+  ],
+  "acRate": 0.7675558519506502,
+  "testcases": [
+    {
+      "input": "</strong> root = [5,4,9,1,10,null,7] <strong>Output:</strong> [0,0,0,7,7,null,11] <strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node. - Node with value 5 does not have any cousins so its sum is 0. - Node with value 4 does not have any cousins so its sum is 0. - Node with value 9 does not have any cousins so its sum is 0. - Node with value 1 has a cousin with value 7 so its sum is 7. - Node with value 10 has a cousin with value 7 so its sum is 7. - Node with value 7 has cousins with values 1 and 10 so its sum is 11.",
+      "expectedOutput": "</strong> [0,0,0,7,7,null,11] <strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node. - Node with value 5 does not have any cousins so its sum is 0. - Node with value 4 does not have any cousins so its sum is 0. - Node with value 9 does not have any cousins so its sum is 0. - Node with value 1 has a cousin with value 7 so its sum is 7. - Node with value 10 has a cousin with value 7 so its sum is 7. - Node with value 7 has cousins with values 1 and 10 so its sum is 11."
+    },
+    {
+      "input": "</strong> root = [3,1,2] <strong>Output:</strong> [0,0,0] <strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node. - Node with value 3 does not have any cousins so its sum is 0. - Node with value 1 does not have any cousins so its sum is 0. - Node with value 2 does not have any cousins so its sum is 0.",
+      "expectedOutput": "</strong> [0,0,0] <strong>Explanation:</strong> The diagram above shows the initial binary tree and the binary tree after changing the value of each node. - Node with value 3 does not have any cousins so its sum is 0. - Node with value 1 does not have any cousins so its sum is 0. - Node with value 2 does not have any cousins so its sum is 0."
+    }
+  ]
+}

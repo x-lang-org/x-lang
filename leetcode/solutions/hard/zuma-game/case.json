@@ -1,0 +1,29 @@
+{
+  "problemId": "488",
+  "titleSlug": "zuma-game",
+  "title": "Zuma Game",
+  "titleCn": "祖玛游戏",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "breadth-first-search",
+    "memoization",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4512187947365325,
+  "testcases": [
+    {
+      "input": "</strong> board = \"WRRBBW\", hand = \"RB\" <strong>Output:</strong> -1 <strong>Explanation:</strong> It is impossible to clear all the balls. The best you can do is: - Insert 'R' so the board becomes WRR<u>R</u>BBW. W<u>RRR</u>BBW -> WBBW. - Insert 'B' so the board becomes WBB<u>B</u>W. W<u>BBB</u>W -> WW. There are still balls remaining on the board, and you are out of balls to insert.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is impossible to clear all the balls. The best you can do is: - Insert 'R' so the board becomes WRR<u>R</u>BBW. W<u>RRR</u>BBW -> WBBW. - Insert 'B' so the board becomes WBB<u>B</u>W. W<u>BBB</u>W -> WW. There are still balls remaining on the board, and you are out of balls to insert."
+    },
+    {
+      "input": "</strong> board = \"WWRRBBWW\", hand = \"WRBRW\" <strong>Output:</strong> 2 <strong>Explanation:</strong> To make the board empty: - Insert 'R' so the board becomes WWRR<u>R</u>BBWW. WW<u>RRR</u>BBWW -> WWBBWW. - Insert 'B' so the board becomes WWBB<u>B</u>WW. WW<u>BBB</u>WW -> <u>WWWW</u> -> empty. 2 balls from your hand were needed to clear the board.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> To make the board empty: - Insert 'R' so the board becomes WWRR<u>R</u>BBWW. WW<u>RRR</u>BBWW -> WWBBWW. - Insert 'B' so the board becomes WWBB<u>B</u>WW. WW<u>BBB</u>WW -> <u>WWWW</u> -> empty. 2 balls from your hand were needed to clear the board."
+    },
+    {
+      "input": "</strong> board = \"G\", hand = \"GGGGG\" <strong>Output:</strong> 2 <strong>Explanation:</strong> To make the board empty: - Insert 'G' so the board becomes G<u>G</u>. - Insert 'G' so the board becomes GG<u>G</u>. <u>GGG</u> -> empty. 2 balls from your hand were needed to clear the board.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> To make the board empty: - Insert 'G' so the board becomes G<u>G</u>. - Insert 'G' so the board becomes GG<u>G</u>. <u>GGG</u> -> empty. 2 balls from your hand were needed to clear the board."
+    }
+  ]
+}

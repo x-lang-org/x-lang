@@ -1,0 +1,21 @@
+{
+  "problemId": "2556",
+  "titleSlug": "convert-the-temperature",
+  "title": "Convert the Temperature",
+  "titleCn": "温度转换",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7457379396935633,
+  "testcases": [
+    {
+      "input": "</strong> celsius = 36.50 <strong>Output:</strong> [309.65000,97.70000] <strong>Explanation:</strong> Temperature at 36.50 Celsius converted in Kelvin is 309.65 and converted in Fahrenheit is 97.70.",
+      "expectedOutput": "</strong> [309.65000,97.70000] <strong>Explanation:</strong> Temperature at 36.50 Celsius converted in Kelvin is 309.65 and converted in Fahrenheit is 97.70."
+    },
+    {
+      "input": "</strong> celsius = 122.11 <strong>Output:</strong> [395.26000,251.79800] <strong>Explanation:</strong> Temperature at 122.11 Celsius converted in Kelvin is 395.26 and converted in Fahrenheit is 251.798.",
+      "expectedOutput": "</strong> [395.26000,251.79800] <strong>Explanation:</strong> Temperature at 122.11 Celsius converted in Kelvin is 395.26 and converted in Fahrenheit is 251.798."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "1145",
+  "titleSlug": "number-of-submatrices-that-sum-to-target",
+  "title": "Number of Submatrices That Sum to Target",
+  "titleCn": "元素和为目标值的子矩阵数量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.6841685899549401,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[0,1,0],[1,1,1],[0,1,0]], target = 0 <strong>Output:</strong> 4 <strong>Explanation:</strong> The four 1x1 submatrices that only contain 0.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The four 1x1 submatrices that only contain 0."
+    },
+    {
+      "input": "</strong> matrix = [[1,-1],[-1,1]], target = 0 <strong>Output:</strong> 5 <strong>Explanation:</strong> The two 1x2 submatrices, plus the two 2x1 submatrices, plus the 2x2 submatrix.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The two 1x2 submatrices, plus the two 2x1 submatrices, plus the 2x2 submatrix."
+    },
+    {
+      "input": "</strong> matrix = [[904]], target = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

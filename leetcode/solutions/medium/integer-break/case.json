@@ -1,0 +1,22 @@
+{
+  "problemId": "343",
+  "titleSlug": "integer-break",
+  "title": "Integer Break",
+  "titleCn": "整数拆分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6502424344728432,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> 2 = 1 + 1, 1 × 1 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 2 = 1 + 1, 1 × 1 = 1."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 36 <strong>Explanation:</strong> 10 = 3 + 3 + 4, 3 × 3 × 4 = 36.",
+      "expectedOutput": "</strong> 36 <strong>Explanation:</strong> 10 = 3 + 3 + 4, 3 × 3 × 4 = 36."
+    }
+  ]
+}

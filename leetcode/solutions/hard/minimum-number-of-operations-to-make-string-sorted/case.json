@@ -1,0 +1,25 @@
+{
+  "problemId": "1941",
+  "titleSlug": "minimum-number-of-operations-to-make-string-sorted",
+  "title": "Minimum Number of Operations to Make String Sorted",
+  "titleCn": "使字符串有序的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "combinatorics",
+    "counting"
+  ],
+  "acRate": 0.5433382862803368,
+  "testcases": [
+    {
+      "input": "</strong> s = \"cba\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The simulation goes as follows: Operation 1: i=2, j=2. Swap s[1] and s[2] to get s=\"cab\", then reverse the suffix starting at 2. Now, s=\"cab\". Operation 2: i=1, j=2. Swap s[0] and s[2] to get s=\"bac\", then reverse the suffix starting at 1. Now, s=\"bca\". Operation 3: i=2, j=2. Swap s[1] and s[2] to get s=\"bac\", then reverse the suffix starting at 2. Now, s=\"bac\". Operation 4: i=1, j=1. Swap s[0] and s[1] to get s=\"abc\", then reverse the suffix starting at 1. Now, s=\"acb\". Operation 5: i=2, j=2. Swap s[1] and s[2] to get s=\"abc\", then reverse the suffix starting at 2. Now, s=\"abc\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The simulation goes as follows: Operation 1: i=2, j=2. Swap s[1] and s[2] to get s=\"cab\", then reverse the suffix starting at 2. Now, s=\"cab\". Operation 2: i=1, j=2. Swap s[0] and s[2] to get s=\"bac\", then reverse the suffix starting at 1. Now, s=\"bca\". Operation 3: i=2, j=2. Swap s[1] and s[2] to get s=\"bac\", then reverse the suffix starting at 2. Now, s=\"bac\". Operation 4: i=1, j=1. Swap s[0] and s[1] to get s=\"abc\", then reverse the suffix starting at 1. Now, s=\"acb\". Operation 5: i=2, j=2. Swap s[1] and s[2] to get s=\"abc\", then reverse the suffix starting at 2. Now, s=\"abc\"."
+    },
+    {
+      "input": "</strong> s = \"aabaa\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The simulation goes as follows: Operation 1: i=3, j=4. Swap s[2] and s[4] to get s=\"aaaab\", then reverse the substring starting at 3. Now, s=\"aaaba\". Operation 2: i=4, j=4. Swap s[3] and s[4] to get s=\"aaaab\", then reverse the substring starting at 4. Now, s=\"aaaab\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The simulation goes as follows: Operation 1: i=3, j=4. Swap s[2] and s[4] to get s=\"aaaab\", then reverse the substring starting at 3. Now, s=\"aaaba\". Operation 2: i=4, j=4. Swap s[3] and s[4] to get s=\"aaaab\", then reverse the substring starting at 4. Now, s=\"aaaab\"."
+    }
+  ]
+}

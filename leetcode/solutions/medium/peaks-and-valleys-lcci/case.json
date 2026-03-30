@@ -1,0 +1,19 @@
+{
+  "problemId": "1000013",
+  "titleSlug": "peaks-and-valleys-lcci",
+  "title": "Peaks and Valleys LCCI",
+  "titleCn": "峰与谷",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6670803825655253,
+  "testcases": [
+    {
+      "input": "</strong>[5, 3, 1, 2, 3]\r <strong>Output:</strong> [5, 1, 3, 2, 3]",
+      "expectedOutput": "</strong> [5, 1, 3, 2, 3]"
+    }
+  ]
+}

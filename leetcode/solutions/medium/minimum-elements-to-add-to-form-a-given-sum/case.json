@@ -1,0 +1,22 @@
+{
+  "problemId": "1911",
+  "titleSlug": "minimum-elements-to-add-to-form-a-given-sum",
+  "title": "Minimum Elements to Add to Form a Given Sum",
+  "titleCn": "构成特定和需要添加的最少元素",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.43929586836851975,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,-1,1], limit = 3, goal = -4 <strong>Output:</strong> 2 <strong>Explanation:</strong> You can add -2 and -3, then the sum of the array will be 1 - 1 + 1 - 2 - 3 = -4.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can add -2 and -3, then the sum of the array will be 1 - 1 + 1 - 2 - 3 = -4."
+    },
+    {
+      "input": "</strong> nums = [1,-10,9,1], limit = 100, goal = 0 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

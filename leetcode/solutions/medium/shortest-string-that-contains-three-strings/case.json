@@ -1,0 +1,23 @@
+{
+  "problemId": "2877",
+  "titleSlug": "shortest-string-that-contains-three-strings",
+  "title": "Shortest String That Contains Three Strings",
+  "titleCn": "包含三个字符串的最短字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.36706202125030885,
+  "testcases": [
+    {
+      "input": "</strong> a = \"abc\", b = \"bca\", c = \"aaa\" <strong>Output:</strong> \"aaabca\" <strong>Explanation:</strong> We show that \"aaabca\" contains all the given strings: a = ans[2...4], b = ans[3..5], c = ans[0..2]. It can be shown that the length of the resulting string would be at least 6 and \"aaabca\" is the lexicographically smallest one.",
+      "expectedOutput": "</strong> \"aaabca\" <strong>Explanation:</strong> We show that \"aaabca\" contains all the given strings: a = ans[2...4], b = ans[3..5], c = ans[0..2]. It can be shown that the length of the resulting string would be at least 6 and \"aaabca\" is the lexicographically smallest one."
+    },
+    {
+      "input": "</strong> a = \"ab\", b = \"ba\", c = \"aba\" <strong>Output:</strong> \"aba\" <strong>Explanation: </strong>We show that the string \"aba\" contains all the given strings: a = ans[0..1], b = ans[1..2], c = ans[0..2]. Since the length of c is 3, the length of the resulting string would be at least 3. It can be shown that \"aba\" is the lexicographically smallest one.",
+      "expectedOutput": "</strong> \"aba\" <strong>Explanation: </strong>We show that the string \"aba\" contains all the given strings: a = ans[0..1], b = ans[1..2], c = ans[0..2]. Since the length of c is 3, the length of the resulting string would be at least 3. It can be shown that \"aba\" is the lexicographically smallest one."
+    }
+  ]
+}

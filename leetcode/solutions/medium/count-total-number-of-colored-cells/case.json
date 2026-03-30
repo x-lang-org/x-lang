@@ -1,0 +1,21 @@
+{
+  "problemId": "2649",
+  "titleSlug": "count-total-number-of-colored-cells",
+  "title": "Count Total Number of Colored Cells",
+  "titleCn": "统计染色格子数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.6483683076677571,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> After 1 minute, there is only 1 blue cell, so we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> After 1 minute, there is only 1 blue cell, so we return 1."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> After 2 minutes, there are 4 colored cells on the boundary and 1 in the center, so we return 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> After 2 minutes, there are 4 colored cells on the boundary and 1 in the center, so we return 5."
+    }
+  ]
+}

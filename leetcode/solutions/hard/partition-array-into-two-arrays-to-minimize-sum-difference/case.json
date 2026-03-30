@@ -1,0 +1,32 @@
+{
+  "problemId": "2162",
+  "titleSlug": "partition-array-into-two-arrays-to-minimize-sum-difference",
+  "title": "Partition Array Into Two Arrays to Minimize Sum Difference",
+  "titleCn": "将数组分成两个数组并最小化数组和的差",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "two-pointers",
+    "binary-search",
+    "dynamic-programming",
+    "bitmask",
+    "ordered-set",
+    "sorting"
+  ],
+  "acRate": 0.3947114223617484,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,9,7,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> One optimal partition is: [3,9] and [7,3]. The absolute difference between the sums of the arrays is abs((3 + 9) - (7 + 3)) = 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One optimal partition is: [3,9] and [7,3]. The absolute difference between the sums of the arrays is abs((3 + 9) - (7 + 3)) = 2."
+    },
+    {
+      "input": "</strong> nums = [-36,36] <strong>Output:</strong> 72 <strong>Explanation:</strong> One optimal partition is: [-36] and [36]. The absolute difference between the sums of the arrays is abs((-36) - (36)) = 72.",
+      "expectedOutput": "</strong> 72 <strong>Explanation:</strong> One optimal partition is: [-36] and [36]. The absolute difference between the sums of the arrays is abs((-36) - (36)) = 72."
+    },
+    {
+      "input": "</strong> nums = [2,-1,0,4,-2,-9] <strong>Output:</strong> 0 <strong>Explanation:</strong> One optimal partition is: [2,4,-9] and [-1,0,-2]. The absolute difference between the sums of the arrays is abs((2 + 4 + -9) - (-1 + 0 + -2)) = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> One optimal partition is: [2,4,-9] and [-1,0,-2]. The absolute difference between the sums of the arrays is abs((2 + 4 + -9) - (-1 + 0 + -2)) = 0."
+    }
+  ]
+}

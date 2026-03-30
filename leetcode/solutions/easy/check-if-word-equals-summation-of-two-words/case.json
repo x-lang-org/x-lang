@@ -1,0 +1,25 @@
+{
+  "problemId": "2010",
+  "titleSlug": "check-if-word-equals-summation-of-two-words",
+  "title": "Check if Word Equals Summation of Two Words",
+  "titleCn": "检查某单词是否等于两单词之和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7646599921986738,
+  "testcases": [
+    {
+      "input": "</strong> firstWord = \"acb\", secondWord = \"cba\", targetWord = \"cdb\" <strong>Output:</strong> true <strong>Explanation:</strong> The numerical value of firstWord is \"acb\" -> \"021\" -> 21. The numerical value of secondWord is \"cba\" -> \"210\" -> 210. The numerical value of targetWord is \"cdb\" -> \"231\" -> 231. We return true because 21 + 210 == 231.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The numerical value of firstWord is \"acb\" -> \"021\" -> 21. The numerical value of secondWord is \"cba\" -> \"210\" -> 210. The numerical value of targetWord is \"cdb\" -> \"231\" -> 231. We return true because 21 + 210 == 231."
+    },
+    {
+      "input": "</strong> firstWord = \"aaa\", secondWord = \"a\", targetWord = \"aab\" <strong>Output:</strong> false <strong>Explanation:</strong> The numerical value of firstWord is \"aaa\" -> \"000\" -> 0. The numerical value of secondWord is \"a\" -> \"0\" -> 0. The numerical value of targetWord is \"aab\" -> \"001\" -> 1. We return false because 0 + 0 != 1.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The numerical value of firstWord is \"aaa\" -> \"000\" -> 0. The numerical value of secondWord is \"a\" -> \"0\" -> 0. The numerical value of targetWord is \"aab\" -> \"001\" -> 1. We return false because 0 + 0 != 1."
+    },
+    {
+      "input": "</strong> firstWord = \"aaa\", secondWord = \"a\", targetWord = \"aaaa\" <strong>Output:</strong> true <strong>Explanation:</strong> The numerical value of firstWord is \"aaa\" -> \"000\" -> 0. The numerical value of secondWord is \"a\" -> \"0\" -> 0. The numerical value of targetWord is \"aaaa\" -> \"0000\" -> 0. We return true because 0 + 0 == 0.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The numerical value of firstWord is \"aaa\" -> \"000\" -> 0. The numerical value of secondWord is \"a\" -> \"0\" -> 0. The numerical value of targetWord is \"aaaa\" -> \"0000\" -> 0. We return true because 0 + 0 == 0."
+    }
+  ]
+}

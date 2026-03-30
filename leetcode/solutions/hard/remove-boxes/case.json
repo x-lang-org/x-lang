@@ -1,0 +1,27 @@
+{
+  "problemId": "546",
+  "titleSlug": "remove-boxes",
+  "title": "Remove Boxes",
+  "titleCn": "移除盒子",
+  "difficulty": "HARD",
+  "topicTags": [
+    "memoization",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6014620421257462,
+  "testcases": [
+    {
+      "input": "</strong> boxes = [1,3,2,2,2,3,4,3,1] <strong>Output:</strong> 23 <strong>Explanation:</strong> [1, 3, 2, 2, 2, 3, 4, 3, 1] ----> [1, 3, 3, 4, 3, 1] (3*3=9 points) ----> [1, 3, 3, 3, 1] (1*1=1 points) ----> [1, 1] (3*3=9 points) ----> [] (2*2=4 points)",
+      "expectedOutput": "</strong> 23 <strong>Explanation:</strong> [1, 3, 2, 2, 2, 3, 4, 3, 1] ----> [1, 3, 3, 4, 3, 1] (3*3=9 points) ----> [1, 3, 3, 3, 1] (1*1=1 points) ----> [1, 1] (3*3=9 points) ----> [] (2*2=4 points)"
+    },
+    {
+      "input": "</strong> boxes = [1,1,1] <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    },
+    {
+      "input": "</strong> boxes = [1] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

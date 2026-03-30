@@ -1,0 +1,26 @@
+{
+  "problemId": "2234",
+  "titleSlug": "minimum-operations-to-make-the-array-k-increasing",
+  "title": "Minimum Operations to Make the Array K-Increasing",
+  "titleCn": "使数组 K 递增的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.44839358368797644,
+  "testcases": [
+    {
+      "input": "</strong> arr = [5,4,3,2,1], k = 1 <strong>Output:</strong> 4 <strong>Explanation: </strong>For k = 1, the resultant array has to be non-decreasing. Some of the K-increasing arrays that can be formed are [5,<u><strong>6</strong></u>,<u><strong>7</strong></u>,<u><strong>8</strong></u>,<u><strong>9</strong></u>], [<u><strong>1</strong></u>,<u><strong>1</strong></u>,<u><strong>1</strong></u>,<u><strong>1</strong></u>,1], [<u><strong>2</strong></u>,<u><strong>2</strong></u>,3,<u><strong>4</strong></u>,<u><strong>4</strong></u>]. All of them require 4 operations. It is suboptimal to change the array to, for example, [<u><strong>6</strong></u>,<u><strong>7</strong></u>,<u><strong>8</strong></u>,<u><strong>9</strong></u>,<u><strong>10</strong></u>] because it would take 5 operations. It can be shown that we cannot make the array K-increasing in less than 4 operations.",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>For k = 1, the resultant array has to be non-decreasing. Some of the K-increasing arrays that can be formed are [5,<u><strong>6</strong></u>,<u><strong>7</strong></u>,<u><strong>8</strong></u>,<u><strong>9</strong></u>], [<u><strong>1</strong></u>,<u><strong>1</strong></u>,<u><strong>1</strong></u>,<u><strong>1</strong></u>,1], [<u><strong>2</strong></u>,<u><strong>2</strong></u>,3,<u><strong>4</strong></u>,<u><strong>4</strong></u>]. All of them require 4 operations. It is suboptimal to change the array to, for example, [<u><strong>6</strong></u>,<u><strong>7</strong></u>,<u><strong>8</strong></u>,<u><strong>9</strong></u>,<u><strong>10</strong></u>] because it would take 5 operations. It can be shown that we cannot make the array K-increasing in less than 4 operations."
+    },
+    {
+      "input": "</strong> arr = [4,1,5,2,6,2], k = 2 <strong>Output:</strong> 0 <strong>Explanation:</strong> This is the same example as the one in the problem description. Here, for every index i where 2 <= i <= 5, arr[i-2] <=<b> </b>arr[i]. Since the given array is already K-increasing, we do not need to perform any operations.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> This is the same example as the one in the problem description. Here, for every index i where 2 <= i <= 5, arr[i-2] <=<b> </b>arr[i]. Since the given array is already K-increasing, we do not need to perform any operations."
+    },
+    {
+      "input": "</strong> arr = [4,1,5,2,6,2], k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> Indices 3 and 5 are the only ones not satisfying arr[i-3] <= arr[i] for 3 <= i <= 5. One of the ways we can make the array K-increasing is by changing arr[3] to 4 and arr[5] to 5. The array will now be [4,1,5,<u><strong>4</strong></u>,6,<u><strong>5</strong></u>]. Note that there can be other ways to make the array K-increasing, but none of them require less than 2 operations.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Indices 3 and 5 are the only ones not satisfying arr[i-3] <= arr[i] for 3 <= i <= 5. One of the ways we can make the array K-increasing is by changing arr[3] to 4 and arr[5] to 5. The array will now be [4,1,5,<u><strong>4</strong></u>,6,<u><strong>5</strong></u>]. Note that there can be other ways to make the array K-increasing, but none of them require less than 2 operations."
+    }
+  ]
+}

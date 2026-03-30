@@ -1,0 +1,27 @@
+{
+  "problemId": "1081",
+  "titleSlug": "video-stitching",
+  "title": "Video Stitching",
+  "titleCn": "视频拼接",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5323462414578588,
+  "testcases": [
+    {
+      "input": "</strong> clips = [[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]], time = 10 <strong>Output:</strong> 3 <strong>Explanation:</strong> We take the clips [0,2], [8,10], [1,9]; a total of 3 clips. Then, we can reconstruct the sporting event as follows: We cut [1,9] into segments [1,2] + [2,8] + [8,9]. Now we have segments [0,2] + [2,8] + [8,10] which cover the sporting event [0, 10].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We take the clips [0,2], [8,10], [1,9]; a total of 3 clips. Then, we can reconstruct the sporting event as follows: We cut [1,9] into segments [1,2] + [2,8] + [8,9]. Now we have segments [0,2] + [2,8] + [8,10] which cover the sporting event [0, 10]."
+    },
+    {
+      "input": "</strong> clips = [[0,1],[1,2]], time = 5 <strong>Output:</strong> -1 <strong>Explanation:</strong> We cannot cover [0,5] with only [0,1] and [1,2].",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We cannot cover [0,5] with only [0,1] and [1,2]."
+    },
+    {
+      "input": "</strong> clips = [[0,1],[6,8],[0,2],[5,6],[0,4],[0,3],[6,7],[1,3],[4,7],[1,4],[2,5],[2,6],[3,4],[4,5],[5,7],[6,9]], time = 9 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can take clips [0,4], [4,7], and [6,9].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can take clips [0,4], [4,7], and [6,9]."
+    }
+  ]
+}

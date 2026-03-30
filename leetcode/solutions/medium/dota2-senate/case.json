@@ -1,0 +1,23 @@
+{
+  "problemId": "649",
+  "titleSlug": "dota2-senate",
+  "title": "Dota2 Senate",
+  "titleCn": "Dota2 参议院",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "queue",
+    "string"
+  ],
+  "acRate": 0.5011448807475147,
+  "testcases": [
+    {
+      "input": "</strong> senate = \"RD\" <strong>Output:</strong> \"Radiant\" <strong>Explanation:</strong> The first senator comes from Radiant and he can just ban the next senator's right in round 1. And the second senator can't exercise any rights anymore since his right has been banned. And in round 2, the first senator can just announce the victory since he is the only guy in the senate who can vote.",
+      "expectedOutput": "</strong> \"Radiant\" <strong>Explanation:</strong> The first senator comes from Radiant and he can just ban the next senator's right in round 1. And the second senator can't exercise any rights anymore since his right has been banned. And in round 2, the first senator can just announce the victory since he is the only guy in the senate who can vote."
+    },
+    {
+      "input": "</strong> senate = \"RDD\" <strong>Output:</strong> \"Dire\" <strong>Explanation:</strong> The first senator comes from Radiant and he can just ban the next senator's right in round 1. And the second senator can't exercise any rights anymore since his right has been banned. And the third senator comes from Dire and he can ban the first senator's right in round 1. And in round 2, the third senator can just announce the victory since he is the only guy in the senate who can vote.",
+      "expectedOutput": "</strong> \"Dire\" <strong>Explanation:</strong> The first senator comes from Radiant and he can just ban the next senator's right in round 1. And the second senator can't exercise any rights anymore since his right has been banned. And the third senator comes from Dire and he can ban the first senator's right in round 1. And in round 2, the third senator can just announce the victory since he is the only guy in the senate who can vote."
+    }
+  ]
+}

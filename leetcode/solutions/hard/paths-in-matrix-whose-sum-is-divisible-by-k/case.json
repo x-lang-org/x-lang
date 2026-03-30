@@ -1,0 +1,27 @@
+{
+  "problemId": "2521",
+  "titleSlug": "paths-in-matrix-whose-sum-is-divisible-by-k",
+  "title": "Paths in Matrix Whose Sum Is Divisible by K",
+  "titleCn": "矩阵中和能被 K 整除的路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.6031266872821872,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[5,2,4],[3,0,5],[0,7,2]], k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> There are two paths where the sum of the elements on the path is divisible by k. The first path highlighted in red has a sum of 5 + 2 + 4 + 5 + 2 = 18 which is divisible by 3. The second path highlighted in blue has a sum of 5 + 3 + 0 + 5 + 2 = 15 which is divisible by 3.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are two paths where the sum of the elements on the path is divisible by k. The first path highlighted in red has a sum of 5 + 2 + 4 + 5 + 2 = 18 which is divisible by 3. The second path highlighted in blue has a sum of 5 + 3 + 0 + 5 + 2 = 15 which is divisible by 3."
+    },
+    {
+      "input": "</strong> grid = [[0,0]], k = 5 <strong>Output:</strong> 1 <strong>Explanation:</strong> The path highlighted in red has a sum of 0 + 0 = 0 which is divisible by 5.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The path highlighted in red has a sum of 0 + 0 = 0 which is divisible by 5."
+    },
+    {
+      "input": "</strong> grid = [[7,3,4,9],[2,3,6,2],[2,3,7,0]], k = 1 <strong>Output:</strong> 10 <strong>Explanation:</strong> Every integer is divisible by 1 so the sum of the elements on every possible path is divisible by k.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> Every integer is divisible by 1 so the sum of the elements on every possible path is divisible by k."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "749",
+  "titleSlug": "shortest-completing-word",
+  "title": "Shortest Completing Word",
+  "titleCn": "最短补全词",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.6684777405457156,
+  "testcases": [
+    {
+      "input": "</strong> licensePlate = \"1s3 PSt\", words = [\"step\",\"steps\",\"stripe\",\"stepple\"] <strong>Output:</strong> \"steps\" <strong>Explanation:</strong> licensePlate contains letters 's', 'p', 's' (ignoring case), and 't'. \"step\" contains 't' and 'p', but only contains 1 's'. \"steps\" contains 't', 'p', and both 's' characters. \"stripe\" is missing an 's'. \"stepple\" is missing an 's'. Since \"steps\" is the only word containing all the letters, that is the answer.",
+      "expectedOutput": "</strong> \"steps\" <strong>Explanation:</strong> licensePlate contains letters 's', 'p', 's' (ignoring case), and 't'. \"step\" contains 't' and 'p', but only contains 1 's'. \"steps\" contains 't', 'p', and both 's' characters. \"stripe\" is missing an 's'. \"stepple\" is missing an 's'. Since \"steps\" is the only word containing all the letters, that is the answer."
+    },
+    {
+      "input": "</strong> licensePlate = \"1s3 456\", words = [\"looks\",\"pest\",\"stew\",\"show\"] <strong>Output:</strong> \"pest\" <strong>Explanation:</strong> licensePlate only contains the letter 's'. All the words contain 's', but among these \"pest\", \"stew\", and \"show\" are shortest. The answer is \"pest\" because it is the word that appears earliest of the 3.",
+      "expectedOutput": "</strong> \"pest\" <strong>Explanation:</strong> licensePlate only contains the letter 's'. All the words contain 's', but among these \"pest\", \"stew\", and \"show\" are shortest. The answer is \"pest\" because it is the word that appears earliest of the 3."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1800",
+  "titleSlug": "concatenation-of-consecutive-binary-numbers",
+  "title": "Concatenation of Consecutive Binary Numbers",
+  "titleCn": "连接连续二进制数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.6291007216057244,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1 <strong>Explanation: </strong>\"1\" in binary corresponds to the decimal value 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong>\"1\" in binary corresponds to the decimal value 1."
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 27 <strong>Explanation: </strong>In binary, 1, 2, and 3 corresponds to \"1\", \"10\", and \"11\". After concatenating them, we have \"11011\", which corresponds to the decimal value 27.",
+      "expectedOutput": "</strong> 27 <strong>Explanation: </strong>In binary, 1, 2, and 3 corresponds to \"1\", \"10\", and \"11\". After concatenating them, we have \"11011\", which corresponds to the decimal value 27."
+    },
+    {
+      "input": "</strong> n = 12 <strong>Output:</strong> 505379714 <strong>Explanation</strong>: The concatenation results in \"1101110010111011110001001101010111100\". The decimal value of that is 118505380540. After modulo 10<sup>9</sup> + 7, the result is 505379714.",
+      "expectedOutput": "</strong> 505379714 <strong>Explanation</strong>: The concatenation results in \"1101110010111011110001001101010111100\". The decimal value of that is 118505380540. After modulo 10<sup>9</sup> + 7, the result is 505379714."
+    }
+  ]
+}

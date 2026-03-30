@@ -1,0 +1,23 @@
+{
+  "problemId": "2800",
+  "titleSlug": "minimum-string-length-after-removing-substrings",
+  "title": "Minimum String Length After Removing Substrings",
+  "titleCn": "删除子串后的字符串最小长度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.7706584506392635,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ABFCACDB\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We can do the following operations: - Remove the substring \"<u>AB</u>FCACDB\", so s = \"FCACDB\". - Remove the substring \"FCA<u>CD</u>B\", so s = \"FCAB\". - Remove the substring \"FC<u>AB</u>\", so s = \"FC\". So the resulting length of the string is 2. It can be shown that it is the minimum length that we can obtain.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can do the following operations: - Remove the substring \"<u>AB</u>FCACDB\", so s = \"FCACDB\". - Remove the substring \"FCA<u>CD</u>B\", so s = \"FCAB\". - Remove the substring \"FC<u>AB</u>\", so s = \"FC\". So the resulting length of the string is 2. It can be shown that it is the minimum length that we can obtain."
+    },
+    {
+      "input": "</strong> s = \"ACBBD\" <strong>Output:</strong> 5 <strong>Explanation:</strong> We cannot do any operations on the string so the length remains the same.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We cannot do any operations on the string so the length remains the same."
+    }
+  ]
+}

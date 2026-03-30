@@ -1,0 +1,23 @@
+{
+  "problemId": "1044",
+  "titleSlug": "find-common-characters",
+  "title": "Find Common Characters",
+  "titleCn": "查找共用字符",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7030444934742476,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"bella\",\"label\",\"roller\"] <strong>Output:</strong> [\"e\",\"l\",\"l\"]",
+      "expectedOutput": "</strong> [\"e\",\"l\",\"l\"]"
+    },
+    {
+      "input": "</strong> words = [\"cool\",\"lock\",\"cook\"] <strong>Output:</strong> [\"c\",\"o\"]",
+      "expectedOutput": "</strong> [\"c\",\"o\"]"
+    }
+  ]
+}

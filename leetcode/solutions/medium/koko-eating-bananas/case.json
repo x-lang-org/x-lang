@@ -1,0 +1,26 @@
+{
+  "problemId": "907",
+  "titleSlug": "koko-eating-bananas",
+  "title": "Koko Eating Bananas",
+  "titleCn": "爱吃香蕉的珂珂",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5039596460420755,
+  "testcases": [
+    {
+      "input": "</strong> piles = [3,6,7,11], h = 8 <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> piles = [30,11,23,4,20], h = 5 <strong>Output:</strong> 30",
+      "expectedOutput": "</strong> 30"
+    },
+    {
+      "input": "</strong> piles = [30,11,23,4,20], h = 6 <strong>Output:</strong> 23",
+      "expectedOutput": "</strong> 23"
+    }
+  ]
+}

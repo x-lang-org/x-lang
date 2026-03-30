@@ -1,0 +1,20 @@
+{
+  "problemId": "1000046",
+  "titleSlug": "max-submatrix-lcci",
+  "title": "Max Submatrix LCCI",
+  "titleCn": "最大子矩阵",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.5393601725377426,
+  "testcases": [
+    {
+      "input": "</strong><code>[\r   [-1,<strong>0</strong>],\r   [0,-1]\r ]</code>\r <strong>Output: </strong>[0,1,0,1]",
+      "expectedOutput": "</strong>[0,1,0,1]"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2356",
+  "titleSlug": "largest-combination-with-bitwise-and-greater-than-zero",
+  "title": "Largest Combination With Bitwise AND Greater Than Zero",
+  "titleCn": "按位与结果大于零的最长组合",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.7353980461442527,
+  "testcases": [
+    {
+      "input": "</strong> candidates = [16,17,71,62,12,24,14] <strong>Output:</strong> 4 <strong>Explanation:</strong> The combination [16,17,62,24] has a bitwise AND of 16 & 17 & 62 & 24 = 16 > 0. The size of the combination is 4. It can be shown that no combination with a size greater than 4 has a bitwise AND greater than 0. Note that more than one combination may have the largest size. For example, the combination [62,12,24,14] has a bitwise AND of 62 & 12 & 24 & 14 = 8 > 0.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The combination [16,17,62,24] has a bitwise AND of 16 & 17 & 62 & 24 = 16 > 0. The size of the combination is 4. It can be shown that no combination with a size greater than 4 has a bitwise AND greater than 0. Note that more than one combination may have the largest size. For example, the combination [62,12,24,14] has a bitwise AND of 62 & 12 & 24 & 14 = 8 > 0."
+    },
+    {
+      "input": "</strong> candidates = [8,8] <strong>Output:</strong> 2 <strong>Explanation:</strong> The largest combination [8,8] has a bitwise AND of 8 & 8 = 8 > 0. The size of the combination is 2, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The largest combination [8,8] has a bitwise AND of 8 & 8 = 8 > 0. The size of the combination is 2, so we return 2."
+    }
+  ]
+}

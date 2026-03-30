@@ -1,0 +1,23 @@
+{
+  "problemId": "1472",
+  "titleSlug": "increasing-decreasing-string",
+  "title": "Increasing Decreasing String",
+  "titleCn": "上升下降字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.790959475803772,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aaaabbbbcccc\" <strong>Output:</strong> \"abccbaabccba\" <strong>Explanation:</strong> After steps 1, 2 and 3 of the first iteration, result = \"abc\" After steps 4, 5 and 6 of the first iteration, result = \"abccba\" First iteration is done. Now s = \"aabbcc\" and we go back to step 1 After steps 1, 2 and 3 of the second iteration, result = \"abccbaabc\" After steps 4, 5 and 6 of the second iteration, result = \"abccbaabccba\"",
+      "expectedOutput": "</strong> \"abccbaabccba\" <strong>Explanation:</strong> After steps 1, 2 and 3 of the first iteration, result = \"abc\" After steps 4, 5 and 6 of the first iteration, result = \"abccba\" First iteration is done. Now s = \"aabbcc\" and we go back to step 1 After steps 1, 2 and 3 of the second iteration, result = \"abccbaabc\" After steps 4, 5 and 6 of the second iteration, result = \"abccbaabccba"
+    },
+    {
+      "input": "</strong> s = \"rat\" <strong>Output:</strong> \"art\" <strong>Explanation:</strong> The word \"rat\" becomes \"art\" after re-ordering it with the mentioned algorithm.",
+      "expectedOutput": "</strong> \"art\" <strong>Explanation:</strong> The word \"rat\" becomes \"art\" after re-ordering it with the mentioned algorithm."
+    }
+  ]
+}

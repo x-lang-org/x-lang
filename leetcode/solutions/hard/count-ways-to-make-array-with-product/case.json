@@ -1,0 +1,25 @@
+{
+  "problemId": "1836",
+  "titleSlug": "count-ways-to-make-array-with-product",
+  "title": "Count Ways to Make Array With Product",
+  "titleCn": "生成乘积数组的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "combinatorics",
+    "number-theory"
+  ],
+  "acRate": 0.5649957519116398,
+  "testcases": [
+    {
+      "input": "</strong> queries = [[2,6],[5,1],[73,660]] <strong>Output:</strong> [4,1,50734910] <strong>Explanation:</strong> Each query is independent. [2,6]: There are 4 ways to fill an array of size 2 that multiply to 6: [1,6], [2,3], [3,2], [6,1]. [5,1]: There is 1 way to fill an array of size 5 that multiply to 1: [1,1,1,1,1]. [73,660]: There are 1050734917 ways to fill an array of size 73 that multiply to 660. 1050734917 modulo 10<sup>9</sup> + 7 = 50734910.",
+      "expectedOutput": "</strong> [4,1,50734910] <strong>Explanation:</strong> Each query is independent. [2,6]: There are 4 ways to fill an array of size 2 that multiply to 6: [1,6], [2,3], [3,2], [6,1]. [5,1]: There is 1 way to fill an array of size 5 that multiply to 1: [1,1,1,1,1]. [73,660]: There are 1050734917 ways to fill an array of size 73 that multiply to 660. 1050734917 modulo 10<sup>9</sup> + 7 = 50734910."
+    },
+    {
+      "input": "</strong> queries = [[1,1],[2,2],[3,3],[4,4],[5,5]] <strong>Output:</strong> [1,2,3,10,5]",
+      "expectedOutput": "</strong> [1,2,3,10,5]"
+    }
+  ]
+}

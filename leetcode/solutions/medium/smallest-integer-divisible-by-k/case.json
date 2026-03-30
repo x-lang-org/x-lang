@@ -1,0 +1,26 @@
+{
+  "problemId": "1064",
+  "titleSlug": "smallest-integer-divisible-by-k",
+  "title": "Smallest Integer Divisible by K",
+  "titleCn": "可被 K 整除的最小整数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.5059194948697711,
+  "testcases": [
+    {
+      "input": "</strong> k = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> The smallest answer is n = 1, which has length 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The smallest answer is n = 1, which has length 1."
+    },
+    {
+      "input": "</strong> k = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no such positive integer n divisible by 2.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no such positive integer n divisible by 2."
+    },
+    {
+      "input": "</strong> k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The smallest answer is n = 111, which has length 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The smallest answer is n = 111, which has length 3."
+    }
+  ]
+}

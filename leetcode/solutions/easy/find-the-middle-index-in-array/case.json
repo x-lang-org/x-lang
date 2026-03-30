@@ -1,0 +1,26 @@
+{
+  "problemId": "2102",
+  "titleSlug": "find-the-middle-index-in-array",
+  "title": "Find the Middle Index in Array",
+  "titleCn": "找到数组的中间位置",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.644205719638205,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,-1,<u>8</u>,4] <strong>Output:</strong> 3 <strong>Explanation:</strong> The sum of the numbers before index 3 is: 2 + 3 + -1 = 4 The sum of the numbers after index 3 is: 4 = 4",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The sum of the numbers before index 3 is: 2 + 3 + -1 = 4 The sum of the numbers after index 3 is: 4 = 4"
+    },
+    {
+      "input": "</strong> nums = [1,-1,<u>4</u>] <strong>Output:</strong> 2 <strong>Explanation:</strong> The sum of the numbers before index 2 is: 1 + -1 = 0 The sum of the numbers after index 2 is: 0",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The sum of the numbers before index 2 is: 1 + -1 = 0 The sum of the numbers after index 2 is: 0"
+    },
+    {
+      "input": "</strong> nums = [2,5] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no valid middleIndex.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no valid middleIndex."
+    }
+  ]
+}

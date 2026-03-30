@@ -1,0 +1,17 @@
+{
+  "problemId": "1509",
+  "titleSlug": "replace-employee-id-with-the-unique-identifier",
+  "title": "Replace Employee ID With The Unique Identifier",
+  "titleCn": "使用唯一标识码替换员工ID",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.798583457305864,
+  "testcases": [
+    {
+      "input": "</strong> Employees table: +----+----------+ | id | name   | +----+----------+ | 1 | Alice  | | 7 | Bob   | | 11 | Meir   | | 90 | Winston | | 3 | Jonathan | +----+----------+ EmployeeUNI table: +----+-----------+ | id | unique_id | +----+-----------+ | 3 | 1     | | 11 | 2     | | 90 | 3     | +----+-----------+ <strong>Output:</strong> +-----------+----------+ | unique_id | name   | +-----------+----------+ | null   | Alice  | | null   | Bob   | | 2     | Meir   | | 3     | Winston | | 1     | Jonathan | +-----------+----------+ <strong>Explanation:</strong> Alice and Bob do not have a unique ID, We will show null instead. The unique ID of Meir is 2. The unique ID of Winston is 3. The unique ID of Jonathan is 1.",
+      "expectedOutput": "</strong> +-----------+----------+ | unique_id | name   | +-----------+----------+ | null   | Alice  | | null   | Bob   | | 2     | Meir   | | 3     | Winston | | 1     | Jonathan | +-----------+----------+ <strong>Explanation:</strong> Alice and Bob do not have a unique ID, We will show null instead. The unique ID of Meir is 2. The unique ID of Winston is 3. The unique ID of Jonathan is 1."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "114",
+  "titleSlug": "flatten-binary-tree-to-linked-list",
+  "title": "Flatten Binary Tree to Linked List",
+  "titleCn": "二叉树展开为链表",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search",
+    "linked-list",
+    "binary-tree"
+  ],
+  "acRate": 0.7618700490839286,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,2,5,3,4,null,6] <strong>Output:</strong> [1,null,2,null,3,null,4,null,5,null,6]",
+      "expectedOutput": "</strong> [1,null,2,null,3,null,4,null,5,null,6]"
+    },
+    {
+      "input": "</strong> root = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    },
+    {
+      "input": "</strong> root = [0] <strong>Output:</strong> [0]",
+      "expectedOutput": "</strong> [0]"
+    }
+  ]
+}

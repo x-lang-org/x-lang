@@ -1,0 +1,27 @@
+{
+  "problemId": "992",
+  "titleSlug": "delete-columns-to-make-sorted-ii",
+  "title": "Delete Columns to Make Sorted II",
+  "titleCn": "删列造序 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "string"
+  ],
+  "acRate": 0.44756456924943666,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"ca\",\"bb\",\"ac\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> After deleting the first column, strs = [\"a\", \"b\", \"c\"]. Now strs is in lexicographic order (ie. strs[0] <= strs[1] <= strs[2]). We require at least 1 deletion since initially strs was not in lexicographic order, so the answer is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> After deleting the first column, strs = [\"a\", \"b\", \"c\"]. Now strs is in lexicographic order (ie. strs[0] <= strs[1] <= strs[2]). We require at least 1 deletion since initially strs was not in lexicographic order, so the answer is 1."
+    },
+    {
+      "input": "</strong> strs = [\"xc\",\"yb\",\"za\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> strs is already in lexicographic order, so we do not need to delete anything. Note that the rows of strs are not necessarily in lexicographic order: i.e., it is NOT necessarily true that (strs[0][0] <= strs[0][1] <= ...)",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> strs is already in lexicographic order, so we do not need to delete anything. Note that the rows of strs are not necessarily in lexicographic order: i.e., it is NOT necessarily true that (strs[0][0] <= strs[0][1] <= ...)"
+    },
+    {
+      "input": "</strong> strs = [\"zyx\",\"wvu\",\"tsr\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> We have to delete every column.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We have to delete every column."
+    }
+  ]
+}

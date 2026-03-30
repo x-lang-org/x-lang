@@ -1,0 +1,17 @@
+{
+  "problemId": "1278",
+  "titleSlug": "product-price-at-a-given-date",
+  "title": "Product Price at a Given Date",
+  "titleCn": "指定日期的产品价格",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5764322101373655,
+  "testcases": [
+    {
+      "input": "</strong> Products table: +------------+-----------+-------------+ | product_id | new_price | change_date | +------------+-----------+-------------+ | 1     | 20    | 2019-08-14 | | 2     | 50    | 2019-08-14 | | 1     | 30    | 2019-08-15 | | 1     | 35    | 2019-08-16 | | 2     | 65    | 2019-08-17 | | 3     | 20    | 2019-08-18 | +------------+-----------+-------------+ <strong>Output:</strong> +------------+-------+ | product_id | price | +------------+-------+ | 2     | 50  | | 1     | 35  | | 3     | 10  | +------------+-------+",
+      "expectedOutput": "</strong> +------------+-------+ | product_id | price | +------------+-------+ | 2     | 50  | | 1     | 35  | | 3     | 10  | +------------+-------+"
+    }
+  ]
+}

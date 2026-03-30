@@ -1,0 +1,26 @@
+{
+  "problemId": "2184",
+  "titleSlug": "check-if-an-original-string-exists-given-two-encoded-strings",
+  "title": "Check if an Original String Exists Given Two Encoded Strings",
+  "titleCn": "同源字符串检测",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4147892441860465,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"internationalization\", s2 = \"i18n\" <strong>Output:</strong> true <strong>Explanation:</strong> It is possible that \"internationalization\" was the original string. - \"internationalization\"  -> Split:    [\"internationalization\"]  -> Do not replace any element  -> Concatenate: \"internationalization\", which is s1. - \"internationalization\"  -> Split:    [\"i\", \"nternationalizatio\", \"n\"]  -> Replace:   [\"i\", \"18\",         \"n\"]  -> Concatenate: \"i18n\", which is s2",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> It is possible that \"internationalization\" was the original string. - \"internationalization\"  -> Split:    [\"internationalization\"]  -> Do not replace any element  -> Concatenate: \"internationalization\", which is s1. - \"internationalization\"  -> Split:    [\"i\", \"nternationalizatio\", \"n\"]  -> Replace:   [\"i\", \"18\",         \"n\"]  -> Concatenate: \"i18n\", which is s2"
+    },
+    {
+      "input": "</strong> s1 = \"l123e\", s2 = \"44\" <strong>Output:</strong> true <strong>Explanation:</strong> It is possible that \"leetcode\" was the original string. - \"leetcode\"  -> Split:   [\"l\", \"e\", \"et\", \"cod\", \"e\"]  -> Replace:  [\"l\", \"1\", \"2\", \"3\",  \"e\"]  -> Concatenate: \"l123e\", which is s1. - \"leetcode\"  -> Split:   [\"leet\", \"code\"]  -> Replace:  [\"4\",  \"4\"]  -> Concatenate: \"44\", which is s2.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> It is possible that \"leetcode\" was the original string. - \"leetcode\"  -> Split:   [\"l\", \"e\", \"et\", \"cod\", \"e\"]  -> Replace:  [\"l\", \"1\", \"2\", \"3\",  \"e\"]  -> Concatenate: \"l123e\", which is s1. - \"leetcode\"  -> Split:   [\"leet\", \"code\"]  -> Replace:  [\"4\",  \"4\"]  -> Concatenate: \"44\", which is s2."
+    },
+    {
+      "input": "</strong> s1 = \"a5b\", s2 = \"c5b\" <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible. - The original string encoded as s1 must start with the letter 'a'. - The original string encoded as s2 must start with the letter 'c'.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible. - The original string encoded as s1 must start with the letter 'a'. - The original string encoded as s2 must start with the letter 'c'."
+    }
+  ]
+}

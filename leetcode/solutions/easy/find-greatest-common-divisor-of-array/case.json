@@ -1,0 +1,27 @@
+{
+  "problemId": "2106",
+  "titleSlug": "find-greatest-common-divisor-of-array",
+  "title": "Find Greatest Common Divisor of Array",
+  "titleCn": "找出数组的最大公约数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.7805594607260012,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,5,6,9,10] <strong>Output:</strong> 2 <strong>Explanation:</strong> The smallest number in nums is 2. The largest number in nums is 10. The greatest common divisor of 2 and 10 is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The smallest number in nums is 2. The largest number in nums is 10. The greatest common divisor of 2 and 10 is 2."
+    },
+    {
+      "input": "</strong> nums = [7,5,6,8,3] <strong>Output:</strong> 1 <strong>Explanation:</strong> The smallest number in nums is 3. The largest number in nums is 8. The greatest common divisor of 3 and 8 is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The smallest number in nums is 3. The largest number in nums is 8. The greatest common divisor of 3 and 8 is 1."
+    },
+    {
+      "input": "</strong> nums = [3,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> The smallest number in nums is 3. The largest number in nums is 3. The greatest common divisor of 3 and 3 is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The smallest number in nums is 3. The largest number in nums is 3. The greatest common divisor of 3 and 3 is 3."
+    }
+  ]
+}

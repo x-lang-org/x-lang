@@ -1,0 +1,25 @@
+{
+  "problemId": "1219",
+  "titleSlug": "longest-well-performing-interval",
+  "title": "Longest Well-Performing Interval",
+  "titleCn": "表现良好的最长时间段",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "hash-table",
+    "prefix-sum",
+    "monotonic-stack"
+  ],
+  "acRate": 0.42045534248881283,
+  "testcases": [
+    {
+      "input": "</strong> hours = [9,9,6,0,6,6,9] <strong>Output:</strong> 3 <strong>Explanation: </strong>The longest well-performing interval is [9,9,6].",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>The longest well-performing interval is [9,9,6]."
+    },
+    {
+      "input": "</strong> hours = [6,6,6] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

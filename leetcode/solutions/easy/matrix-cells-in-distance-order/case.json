@@ -1,0 +1,29 @@
+{
+  "problemId": "1094",
+  "titleSlug": "matrix-cells-in-distance-order",
+  "title": "Matrix Cells in Distance Order",
+  "titleCn": "距离顺序排列矩阵单元格",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "matrix",
+    "sorting"
+  ],
+  "acRate": 0.7108687586133786,
+  "testcases": [
+    {
+      "input": "</strong> rows = 1, cols = 2, rCenter = 0, cCenter = 0 <strong>Output:</strong> [[0,0],[0,1]] <strong>Explanation:</strong> The distances from (0, 0) to other cells are: [0,1]",
+      "expectedOutput": "</strong> [[0,0],[0,1]] <strong>Explanation:</strong> The distances from (0, 0) to other cells are: [0,1]"
+    },
+    {
+      "input": "</strong> rows = 2, cols = 2, rCenter = 0, cCenter = 1 <strong>Output:</strong> [[0,1],[0,0],[1,1],[1,0]] <strong>Explanation:</strong> The distances from (0, 1) to other cells are: [0,1,1,2] The answer [[0,1],[1,1],[0,0],[1,0]] would also be accepted as correct.",
+      "expectedOutput": "</strong> [[0,1],[0,0],[1,1],[1,0]] <strong>Explanation:</strong> The distances from (0, 1) to other cells are: [0,1,1,2] The answer [[0,1],[1,1],[0,0],[1,0]] would also be accepted as correct."
+    },
+    {
+      "input": "</strong> rows = 2, cols = 3, rCenter = 1, cCenter = 2 <strong>Output:</strong> [[1,2],[0,2],[1,1],[0,1],[1,0],[0,0]] <strong>Explanation:</strong> The distances from (1, 2) to other cells are: [0,1,1,2,2,3] There are other answers that would also be accepted as correct, such as [[1,2],[1,1],[0,2],[1,0],[0,1],[0,0]].",
+      "expectedOutput": "</strong> [[1,2],[0,2],[1,1],[0,1],[1,0],[0,0]] <strong>Explanation:</strong> The distances from (1, 2) to other cells are: [0,1,1,2,2,3] There are other answers that would also be accepted as correct, such as [[1,2],[1,1],[0,2],[1,0],[0,1],[0,0]]."
+    }
+  ]
+}

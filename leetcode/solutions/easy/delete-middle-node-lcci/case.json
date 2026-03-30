@@ -1,0 +1,17 @@
+{
+  "problemId": "100187",
+  "titleSlug": "delete-middle-node-lcci",
+  "title": "Delete Middle Node LCCI",
+  "titleCn": "删除中间节点",
+  "difficulty": "EASY",
+  "topicTags": [
+    "linked-list"
+  ],
+  "acRate": 0.8600783530496235,
+  "testcases": [
+    {
+      "input": "</strong>the node c from the linked list a->b->c->d->e->f\r <strong>Output: </strong>nothing is returned, but the new linked list looks like a->b->d->e->f",
+      "expectedOutput": "</strong>nothing is returned, but the new linked list looks like a->b->d->e->f"
+    }
+  ]
+}

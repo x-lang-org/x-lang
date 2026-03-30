@@ -1,0 +1,27 @@
+{
+  "problemId": "2421",
+  "titleSlug": "maximum-number-of-pairs-in-array",
+  "title": "Maximum Number of Pairs in Array",
+  "titleCn": "数组能形成多少数对",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.8043793579504744,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,3,2,1,3,2,2] <strong>Output:</strong> [3,1] <strong>Explanation:</strong> Form a pair with nums[0] and nums[3] and remove them from nums. Now, nums = [3,2,3,2,2]. Form a pair with nums[0] and nums[2] and remove them from nums. Now, nums = [2,2,2]. Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [2]. No more pairs can be formed. A total of 3 pairs have been formed, and there is 1 number leftover in nums.",
+      "expectedOutput": "</strong> [3,1] <strong>Explanation:</strong> Form a pair with nums[0] and nums[3] and remove them from nums. Now, nums = [3,2,3,2,2]. Form a pair with nums[0] and nums[2] and remove them from nums. Now, nums = [2,2,2]. Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [2]. No more pairs can be formed. A total of 3 pairs have been formed, and there is 1 number leftover in nums."
+    },
+    {
+      "input": "</strong> nums = [1,1] <strong>Output:</strong> [1,0] <strong>Explanation:</strong> Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = []. No more pairs can be formed. A total of 1 pair has been formed, and there are 0 numbers leftover in nums.",
+      "expectedOutput": "</strong> [1,0] <strong>Explanation:</strong> Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = []. No more pairs can be formed. A total of 1 pair has been formed, and there are 0 numbers leftover in nums."
+    },
+    {
+      "input": "</strong> nums = [0] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> No pairs can be formed, and there is 1 number leftover in nums.",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> No pairs can be formed, and there is 1 number leftover in nums."
+    }
+  ]
+}

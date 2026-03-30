@@ -1,0 +1,20 @@
+{
+  "problemId": "1000022",
+  "titleSlug": "longest-word-lcci",
+  "title": "Longest Word LCCI",
+  "titleCn": "最长单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4088718220338983,
+  "testcases": [
+    {
+      "input": "</strong> [\"cat\",\"banana\",\"dog\",\"nana\",\"walk\",\"walker\",\"dogwalker\"]\r <strong>Output: </strong> \"dogwalker\"\r <strong>Explanation: </strong> \"dogwalker\" can be made of \"dog\" and \"walker\".",
+      "expectedOutput": "</strong> \"dogwalker\"\r <strong>Explanation: </strong> \"dogwalker\" can be made of \"dog\" and \"walker\"."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "1732",
+  "titleSlug": "minimum-one-bit-operations-to-make-integers-zero",
+  "title": "Minimum One Bit Operations to Make Integers Zero",
+  "titleCn": "使整数变为 0 的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "recursion",
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.7201656578528194,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> The binary representation of 3 is \"11\". \"<u>1</u>1\" -> \"<u>0</u>1\" with the 2<sup>nd</sup> operation since the 0<sup>th</sup> bit is 1. \"0<u>1</u>\" -> \"0<u>0</u>\" with the 1<sup>st</sup> operation.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The binary representation of 3 is \"11\". \"<u>1</u>1\" -> \"<u>0</u>1\" with the 2<sup>nd</sup> operation since the 0<sup>th</sup> bit is 1. \"0<u>1</u>\" -> \"0<u>0</u>\" with the 1<sup>st</sup> operation."
+    },
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> 4 <strong>Explanation:</strong> The binary representation of 6 is \"110\". \"<u>1</u>10\" -> \"<u>0</u>10\" with the 2<sup>nd</sup> operation since the 1<sup>st</sup> bit is 1 and 0<sup>th</sup> through 0<sup>th</sup> bits are 0. \"01<u>0</u>\" -> \"01<u>1</u>\" with the 1<sup>st</sup> operation. \"0<u>1</u>1\" -> \"0<u>0</u>1\" with the 2<sup>nd</sup> operation since the 0<sup>th</sup> bit is 1. \"00<u>1</u>\" -> \"00<u>0</u>\" with the 1<sup>st</sup> operation.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The binary representation of 6 is \"110\". \"<u>1</u>10\" -> \"<u>0</u>10\" with the 2<sup>nd</sup> operation since the 1<sup>st</sup> bit is 1 and 0<sup>th</sup> through 0<sup>th</sup> bits are 0. \"01<u>0</u>\" -> \"01<u>1</u>\" with the 1<sup>st</sup> operation. \"0<u>1</u>1\" -> \"0<u>0</u>1\" with the 2<sup>nd</sup> operation since the 0<sup>th</sup> bit is 1. \"00<u>1</u>\" -> \"00<u>0</u>\" with the 1<sup>st</sup> operation."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "1604",
+  "titleSlug": "least-number-of-unique-integers-after-k-removals",
+  "title": "Least Number of Unique Integers after K Removals",
+  "titleCn": "不同整数的最少数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.4961995333380471,
+  "testcases": [
+    {
+      "input": "</strong>arr = [5,5,4], k = 1\r <strong>Output: </strong>1\r <strong>Explanation</strong>: Remove the single 4, only 5 is left.",
+      "expectedOutput": "</strong>1\r <strong>Explanation</strong>: Remove the single 4, only 5 is left."
+    },
+    {
+      "input": "</strong>arr = [4,3,1,1,3,3,2], k = 3\r <strong>Output: </strong>2\r <strong>Explanation</strong>: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will be left.",
+      "expectedOutput": "</strong>2\r <strong>Explanation</strong>: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will be left."
+    }
+  ]
+}

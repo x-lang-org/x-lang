@@ -1,0 +1,28 @@
+{
+  "problemId": "224",
+  "titleSlug": "basic-calculator",
+  "title": "Basic Calculator",
+  "titleCn": "基本计算器",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "math",
+    "string"
+  ],
+  "acRate": 0.43842272951644645,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1 + 1\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> s = \" 2-1 + 2 \" <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> s = \"(1+(4+5+2)-3)+(6+8)\" <strong>Output:</strong> 23",
+      "expectedOutput": "</strong> 23"
+    }
+  ]
+}

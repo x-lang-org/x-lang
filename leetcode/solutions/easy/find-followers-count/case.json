@@ -1,0 +1,17 @@
+{
+  "problemId": "1877",
+  "titleSlug": "find-followers-count",
+  "title": "Find Followers Count",
+  "titleCn": "求关注者的数量",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5906479528761545,
+  "testcases": [
+    {
+      "input": "</strong> Followers table: +---------+-------------+ | user_id | follower_id | +---------+-------------+ | 0    | 1      | | 1    | 0      | | 2    | 0      | | 2    | 1      | +---------+-------------+ <strong>Output:</strong> +---------+----------------+ | user_id | followers_count| +---------+----------------+ | 0    | 1       | | 1    | 1       | | 2    | 2       | +---------+----------------+ <strong>Explanation:</strong> The followers of 0 are {1} The followers of 1 are {0} The followers of 2 are {0,1}",
+      "expectedOutput": "</strong> +---------+----------------+ | user_id | followers_count| +---------+----------------+ | 0    | 1       | | 1    | 1       | | 2    | 2       | +---------+----------------+ <strong>Explanation:</strong> The followers of 0 are {1} The followers of 1 are {0} The followers of 2 are {0,1}"
+    }
+  ]
+}

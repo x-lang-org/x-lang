@@ -1,0 +1,27 @@
+{
+  "problemId": "166",
+  "titleSlug": "fraction-to-recurring-decimal",
+  "title": "Fraction to Recurring Decimal",
+  "titleCn": "分数到小数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "acRate": 0.34670675047827276,
+  "testcases": [
+    {
+      "input": "</strong> numerator = 1, denominator = 2 <strong>Output:</strong> \"0.5\"",
+      "expectedOutput": "</strong> \"0.5"
+    },
+    {
+      "input": "</strong> numerator = 2, denominator = 1 <strong>Output:</strong> \"2\"",
+      "expectedOutput": "</strong> \"2"
+    },
+    {
+      "input": "</strong> numerator = 4, denominator = 333 <strong>Output:</strong> \"0.(012)\"",
+      "expectedOutput": "</strong> \"0.(012)"
+    }
+  ]
+}

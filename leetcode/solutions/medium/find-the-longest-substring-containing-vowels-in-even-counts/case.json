@@ -1,0 +1,28 @@
+{
+  "problemId": "1473",
+  "titleSlug": "find-the-longest-substring-containing-vowels-in-even-counts",
+  "title": "Find the Longest Substring Containing Vowels in Even Counts",
+  "titleCn": "每个元音包含偶数次的最长子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.6208484460564683,
+  "testcases": [
+    {
+      "input": "</strong> s = \"eleetminicoworoep\" <strong>Output:</strong> 13 <strong>Explanation: </strong>The longest substring is \"leetminicowor\" which contains two each of the vowels: <strong>e</strong>, <strong>i</strong> and <strong>o</strong> and zero of the vowels: <strong>a</strong> and <strong>u</strong>.",
+      "expectedOutput": "</strong> 13 <strong>Explanation: </strong>The longest substring is \"leetminicowor\" which contains two each of the vowels: <strong>e</strong>, <strong>i</strong> and <strong>o</strong> and zero of the vowels: <strong>a</strong> and <strong>u</strong>."
+    },
+    {
+      "input": "</strong> s = \"leetcodeisgreat\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The longest substring is \"leetc\" which contains two e's.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The longest substring is \"leetc\" which contains two e's."
+    },
+    {
+      "input": "</strong> s = \"bcbcbc\" <strong>Output:</strong> 6 <strong>Explanation:</strong> In this case, the given string \"bcbcbc\" is the longest because all vowels: <strong>a</strong>, <strong>e</strong>, <strong>i</strong>, <strong>o</strong> and <strong>u</strong> appear zero times.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> In this case, the given string \"bcbcbc\" is the longest because all vowels: <strong>a</strong>, <strong>e</strong>, <strong>i</strong>, <strong>o</strong> and <strong>u</strong> appear zero times."
+    }
+  ]
+}

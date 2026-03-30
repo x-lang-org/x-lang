@@ -1,0 +1,26 @@
+{
+  "problemId": "2212",
+  "titleSlug": "removing-minimum-and-maximum-from-array",
+  "title": "Removing Minimum and Maximum From Array",
+  "titleCn": "从数组中移除最大值和最小值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.5780575722191197,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,<u><strong>10</strong></u>,7,5,4,<u><strong>1</strong></u>,8,6] <strong>Output:</strong> 5 <strong>Explanation:</strong> The minimum element in the array is nums[5], which is 1. The maximum element in the array is nums[1], which is 10. We can remove both the minimum and maximum by removing 2 elements from the front and 3 elements from the back. This results in 2 + 3 = 5 deletions, which is the minimum number possible.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The minimum element in the array is nums[5], which is 1. The maximum element in the array is nums[1], which is 10. We can remove both the minimum and maximum by removing 2 elements from the front and 3 elements from the back. This results in 2 + 3 = 5 deletions, which is the minimum number possible."
+    },
+    {
+      "input": "</strong> nums = [0,<u><strong>-4</strong></u>,<u><strong>19</strong></u>,1,8,-2,-3,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> The minimum element in the array is nums[1], which is -4. The maximum element in the array is nums[2], which is 19. We can remove both the minimum and maximum by removing 3 elements from the front. This results in only 3 deletions, which is the minimum number possible.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The minimum element in the array is nums[1], which is -4. The maximum element in the array is nums[2], which is 19. We can remove both the minimum and maximum by removing 3 elements from the front. This results in only 3 deletions, which is the minimum number possible."
+    },
+    {
+      "input": "</strong> nums = [<u><strong>101</strong></u>] <strong>Output:</strong> 1 <strong>Explanation:</strong>  There is only one element in the array, which makes it both the minimum and maximum element. We can remove it with 1 deletion.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong>  There is only one element in the array, which makes it both the minimum and maximum element. We can remove it with 1 deletion."
+    }
+  ]
+}

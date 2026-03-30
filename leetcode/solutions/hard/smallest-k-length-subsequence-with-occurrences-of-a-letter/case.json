@@ -1,0 +1,28 @@
+{
+  "problemId": "2157",
+  "titleSlug": "smallest-k-length-subsequence-with-occurrences-of-a-letter",
+  "title": "Smallest K-Length Subsequence With Occurrences of a Letter",
+  "titleCn": "含特定字母的最小子序列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string",
+    "monotonic-stack"
+  ],
+  "acRate": 0.3849336870026525,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leet\", k = 3, letter = \"e\", repetition = 1 <strong>Output:</strong> \"eet\" <strong>Explanation:</strong> There are four subsequences of length 3 that have the letter 'e' appear at least 1 time: - \"lee\" (from \"<strong><u>lee</u></strong>t\") - \"let\" (from \"<strong><u>le</u></strong>e<u><strong>t</strong></u>\") - \"let\" (from \"<u><strong>l</strong></u>e<u><strong>et</strong></u>\") - \"eet\" (from \"l<u><strong>eet</strong></u>\") The lexicographically smallest subsequence among them is \"eet\".",
+      "expectedOutput": "</strong> \"eet\" <strong>Explanation:</strong> There are four subsequences of length 3 that have the letter 'e' appear at least 1 time: - \"lee\" (from \"<strong><u>lee</u></strong>t\") - \"let\" (from \"<strong><u>le</u></strong>e<u><strong>t</strong></u>\") - \"let\" (from \"<u><strong>l</strong></u>e<u><strong>et</strong></u>\") - \"eet\" (from \"l<u><strong>eet</strong></u>\") The lexicographically smallest subsequence among them is \"eet\"."
+    },
+    {
+      "input": "</strong> s = \"leetcode\", k = 4, letter = \"e\", repetition = 2 <strong>Output:</strong> \"ecde\" <strong>Explanation:</strong> \"ecde\" is the lexicographically smallest subsequence of length 4 that has the letter \"e\" appear at least 2 times.",
+      "expectedOutput": "</strong> \"ecde\" <strong>Explanation:</strong> \"ecde\" is the lexicographically smallest subsequence of length 4 that has the letter \"e\" appear at least 2 times."
+    },
+    {
+      "input": "</strong> s = \"bb\", k = 2, letter = \"b\", repetition = 2 <strong>Output:</strong> \"bb\" <strong>Explanation:</strong> \"bb\" is the only subsequence of length 2 that has the letter \"b\" appear at least 2 times.",
+      "expectedOutput": "</strong> \"bb\" <strong>Explanation:</strong> \"bb\" is the only subsequence of length 2 that has the letter \"b\" appear at least 2 times."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "problemId": "3071",
+  "titleSlug": "drop-duplicate-rows",
+  "title": "Drop Duplicate Rows",
+  "titleCn": "删去重复的行",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8086332294323226,
+  "testcases": [
+    {
+      "input": "</strong> +-------------+---------+---------------------+ | customer_id | name  | email        | +-------------+---------+---------------------+ | 1      | Ella  | emily@example.com  | | 2      | David  | michael@example.com | | 3      | Zachary | sarah@example.com  | | 4      | Alice  | john@example.com  | | 5      | Finn  | john@example.com  | | 6      | Violet | alice@example.com  | +-------------+---------+---------------------+ <strong>Output: </strong> +-------------+---------+---------------------+ | customer_id | name  | email        | +-------------+---------+---------------------+ | 1      | Ella  | emily@example.com  | | 2      | David  | michael@example.com | | 3      | Zachary | sarah@example.com  | | 4      | Alice  | john@example.com  | | 6      | Violet | alice@example.com  | +-------------+---------+---------------------+ <strong>Explanation:</strong> Alic (customer_id = 4) and Finn (customer_id = 5) both use john@example.com, so only the first occurrence of this email is retained.",
+      "expectedOutput": "</strong> +-------------+---------+---------------------+ | customer_id | name  | email        | +-------------+---------+---------------------+ | 1      | Ella  | emily@example.com  | | 2      | David  | michael@example.com | | 3      | Zachary | sarah@example.com  | | 4      | Alice  | john@example.com  | | 6      | Violet | alice@example.com  | +-------------+---------+---------------------+ <strong>Explanation:</strong> Alic (customer_id = 4) and Finn (customer_id = 5) both use john@example.com, so only the first occurrence of this email is retained."
+    }
+  ]
+}

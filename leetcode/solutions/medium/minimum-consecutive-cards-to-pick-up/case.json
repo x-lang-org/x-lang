@@ -1,0 +1,23 @@
+{
+  "problemId": "2338",
+  "titleSlug": "minimum-consecutive-cards-to-pick-up",
+  "title": "Minimum Consecutive Cards to Pick Up",
+  "titleCn": "必须拿起的最小连续卡牌数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.5629549433336405,
+  "testcases": [
+    {
+      "input": "</strong> cards = [3,4,2,3,4,7] <strong>Output:</strong> 4 <strong>Explanation:</strong> We can pick up the cards [3,4,2,3] which contain a matching pair of cards with value 3. Note that picking up the cards [4,2,3,4] is also optimal.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can pick up the cards [3,4,2,3] which contain a matching pair of cards with value 3. Note that picking up the cards [4,2,3,4] is also optimal."
+    },
+    {
+      "input": "</strong> cards = [1,0,5,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no way to pick up a set of consecutive cards that contain a pair of matching cards.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no way to pick up a set of consecutive cards that contain a pair of matching cards."
+    }
+  ]
+}

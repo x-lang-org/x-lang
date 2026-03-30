@@ -1,0 +1,32 @@
+{
+  "problemId": "1000004",
+  "titleSlug": "pattern-matching-lcci",
+  "title": "Pattern Matching LCCI",
+  "titleCn": "模式匹配",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string",
+    "backtracking",
+    "enumeration"
+  ],
+  "acRate": 0.34042197478851105,
+  "testcases": [
+    {
+      "input": "</strong> pattern = \"abba\", value = \"dogcatcatdog\"\r <strong>Output: </strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> pattern = \"abba\", value = \"dogcatcatfish\"\r <strong>Output: </strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> pattern = \"aaaa\", value = \"dogcatcatdog\"\r <strong>Output: </strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> pattern = \"abba\", value = \"dogdogdogdog\"\r <strong>Output: </strong> true\r <strong>Explanation: </strong> \"a\"=\"dogdog\",b=\"\"，vice versa.",
+      "expectedOutput": "</strong> true\r <strong>Explanation: </strong> \"a\"=\"dogdog\",b=\"\"，vice versa."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "1122",
+  "titleSlug": "longest-duplicate-substring",
+  "title": "Longest Duplicate Substring",
+  "titleCn": "最长重复子串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "binary-search",
+    "suffix-array",
+    "sliding-window",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.35311725452812204,
+  "testcases": [
+    {
+      "input": "</strong> s = \"banana\" <strong>Output:</strong> \"ana\"",
+      "expectedOutput": "</strong> \"ana"
+    },
+    {
+      "input": "</strong> s = \"abcd\" <strong>Output:</strong> \"\"",
+      "expectedOutput": "</strong> "
+    }
+  ]
+}

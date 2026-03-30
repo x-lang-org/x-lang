@@ -1,0 +1,26 @@
+{
+  "problemId": "1299",
+  "titleSlug": "k-concatenation-maximum-sum",
+  "title": "K-Concatenation Maximum Sum",
+  "titleCn": "K 次串联后最大子数组之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.2883100329504929,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2], k = 3 <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    },
+    {
+      "input": "</strong> arr = [1,-2,1], k = 5 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> arr = [-1,-2], k = 7 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

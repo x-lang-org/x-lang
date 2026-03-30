@@ -1,0 +1,27 @@
+{
+  "problemId": "2228",
+  "titleSlug": "watering-plants-ii",
+  "title": "Watering Plants II",
+  "titleCn": "给植物浇水 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "simulation"
+  ],
+  "acRate": 0.5165340856535011,
+  "testcases": [
+    {
+      "input": "</strong> plants = [2,2,3,3], capacityA = 5, capacityB = 5 <strong>Output:</strong> 1 <strong>Explanation:</strong> - Initially, Alice and Bob have 5 units of water each in their watering cans. - Alice waters plant 0, Bob waters plant 3. - Alice and Bob now have 3 units and 2 units of water respectively. - Alice has enough water for plant 1, so she waters it. Bob does not have enough water for plant 2, so he refills his can then waters it. So, the total number of times they have to refill to water all the plants is 0 + 0 + 1 + 0 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> - Initially, Alice and Bob have 5 units of water each in their watering cans. - Alice waters plant 0, Bob waters plant 3. - Alice and Bob now have 3 units and 2 units of water respectively. - Alice has enough water for plant 1, so she waters it. Bob does not have enough water for plant 2, so he refills his can then waters it. So, the total number of times they have to refill to water all the plants is 0 + 0 + 1 + 0 = 1."
+    },
+    {
+      "input": "</strong> plants = [2,2,3,3], capacityA = 3, capacityB = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> - Initially, Alice and Bob have 3 units and 4 units of water in their watering cans respectively. - Alice waters plant 0, Bob waters plant 3. - Alice and Bob now have 1 unit of water each, and need to water plants 1 and 2 respectively. - Since neither of them have enough water for their current plants, they refill their cans and then water the plants. So, the total number of times they have to refill to water all the plants is 0 + 1 + 1 + 0 = 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - Initially, Alice and Bob have 3 units and 4 units of water in their watering cans respectively. - Alice waters plant 0, Bob waters plant 3. - Alice and Bob now have 1 unit of water each, and need to water plants 1 and 2 respectively. - Since neither of them have enough water for their current plants, they refill their cans and then water the plants. So, the total number of times they have to refill to water all the plants is 0 + 1 + 1 + 0 = 2."
+    },
+    {
+      "input": "</strong> plants = [5], capacityA = 10, capacityB = 8 <strong>Output:</strong> 0 <strong>Explanation:</strong> - There is only one plant. - Alice's watering can has 10 units of water, whereas Bob's can has 8 units. Since Alice has more water in her can, she waters this plant. So, the total number of times they have to refill is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> - There is only one plant. - Alice's watering can has 10 units of water, whereas Bob's can has 8 units. Since Alice has more water in her can, she waters this plant. So, the total number of times they have to refill is 0."
+    }
+  ]
+}

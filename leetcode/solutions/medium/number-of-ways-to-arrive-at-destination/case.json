@@ -1,0 +1,24 @@
+{
+  "problemId": "2090",
+  "titleSlug": "number-of-ways-to-arrive-at-destination",
+  "title": "Number of Ways to Arrive at Destination",
+  "titleCn": "到达目的地的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "graph",
+    "topological-sort",
+    "dynamic-programming",
+    "shortest-path"
+  ],
+  "acRate": 0.45569096581800633,
+  "testcases": [
+    {
+      "input": "</strong> n = 7, roads = [[0,6,7],[0,1,2],[1,2,3],[1,3,3],[6,3,3],[3,5,1],[6,5,1],[2,5,1],[0,4,5],[4,6,2]] <strong>Output:</strong> 4 <strong>Explanation:</strong> The shortest amount of time it takes to go from intersection 0 to intersection 6 is 7 minutes. The four ways to get there in 7 minutes are: - 0 ➝ 6 - 0 ➝ 4 ➝ 6 - 0 ➝ 1 ➝ 2 ➝ 5 ➝ 6 - 0 ➝ 1 ➝ 3 ➝ 5 ➝ 6",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The shortest amount of time it takes to go from intersection 0 to intersection 6 is 7 minutes. The four ways to get there in 7 minutes are: - 0 ➝ 6 - 0 ➝ 4 ➝ 6 - 0 ➝ 1 ➝ 2 ➝ 5 ➝ 6 - 0 ➝ 1 ➝ 3 ➝ 5 ➝ 6"
+    },
+    {
+      "input": "</strong> n = 2, roads = [[1,0,10]] <strong>Output:</strong> 1 <strong>Explanation:</strong> There is only one way to go from intersection 0 to intersection 1, and it takes 10 minutes.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is only one way to go from intersection 0 to intersection 1, and it takes 10 minutes."
+    }
+  ]
+}

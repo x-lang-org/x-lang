@@ -1,0 +1,23 @@
+{
+  "problemId": "498",
+  "titleSlug": "diagonal-traverse",
+  "title": "Diagonal Traverse",
+  "titleCn": "对角线遍历",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.5787624507800957,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,2,3],[4,5,6],[7,8,9]] <strong>Output:</strong> [1,2,4,7,5,3,6,8,9]",
+      "expectedOutput": "</strong> [1,2,4,7,5,3,6,8,9]"
+    },
+    {
+      "input": "</strong> mat = [[1,2],[3,4]] <strong>Output:</strong> [1,2,3,4]",
+      "expectedOutput": "</strong> [1,2,3,4]"
+    }
+  ]
+}

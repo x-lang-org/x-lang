@@ -1,0 +1,26 @@
+{
+  "problemId": "1264",
+  "titleSlug": "maximum-number-of-words-you-can-type",
+  "title": "Maximum Number of Words You Can Type",
+  "titleCn": "可以输入的最大单词数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7795941874889243,
+  "testcases": [
+    {
+      "input": "</strong> text = \"hello world\", brokenLetters = \"ad\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We cannot type \"world\" because the 'd' key is broken.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We cannot type \"world\" because the 'd' key is broken."
+    },
+    {
+      "input": "</strong> text = \"leet code\", brokenLetters = \"lt\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We cannot type \"leet\" because the 'l' and 't' keys are broken.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We cannot type \"leet\" because the 'l' and 't' keys are broken."
+    },
+    {
+      "input": "</strong> text = \"leet code\", brokenLetters = \"e\" <strong>Output:</strong> 0 <strong>Explanation:</strong> We cannot type either word because the 'e' key is broken.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> We cannot type either word because the 'e' key is broken."
+    }
+  ]
+}

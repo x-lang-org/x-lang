@@ -1,0 +1,26 @@
+{
+  "problemId": "1938",
+  "titleSlug": "minimum-operations-to-make-the-array-increasing",
+  "title": "Minimum Operations to Make the Array Increasing",
+  "titleCn": "最少操作使数组递增",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.8139566418631455,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,1]\r <strong>Output:</strong> 3\r <strong>Explanation:</strong> You can do the following operations:\r 1) Increment nums[2], so nums becomes [1,1,<u><strong>2</strong></u>].\r 2) Increment nums[1], so nums becomes [1,<u><strong>2</strong></u>,2].\r 3) Increment nums[2], so nums becomes [1,2,<u><strong>3</strong></u>].",
+      "expectedOutput": "</strong> 3\r <strong>Explanation:</strong> You can do the following operations:\r 1) Increment nums[2], so nums becomes [1,1,<u><strong>2</strong></u>].\r 2) Increment nums[1], so nums becomes [1,<u><strong>2</strong></u>,2].\r 3) Increment nums[2], so nums becomes [1,2,<u><strong>3</strong></u>]."
+    },
+    {
+      "input": "</strong> nums = [1,5,2,4,1]\r <strong>Output:</strong> 14",
+      "expectedOutput": "</strong> 14"
+    },
+    {
+      "input": "</strong> nums = [8]\r <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

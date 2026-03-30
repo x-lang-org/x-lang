@@ -1,0 +1,26 @@
+{
+  "problemId": "3019",
+  "titleSlug": "furthest-point-from-origin",
+  "title": "Furthest Point From Origin",
+  "titleCn": "距离原点最远的点",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "counting"
+  ],
+  "acRate": 0.7932587432270776,
+  "testcases": [
+    {
+      "input": "</strong> moves = \"L_RL__R\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\"."
+    },
+    {
+      "input": "</strong> moves = \"_R__LL_\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\"."
+    },
+    {
+      "input": "</strong> moves = \"_______\" <strong>Output:</strong> 7 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\"."
+    }
+  ]
+}

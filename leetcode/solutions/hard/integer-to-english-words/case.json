@@ -1,0 +1,27 @@
+{
+  "problemId": "273",
+  "titleSlug": "integer-to-english-words",
+  "title": "Integer to English Words",
+  "titleCn": "整数转换英文表示",
+  "difficulty": "HARD",
+  "topicTags": [
+    "recursion",
+    "math",
+    "string"
+  ],
+  "acRate": 0.3714842546245013,
+  "testcases": [
+    {
+      "input": "</strong> num = 123 <strong>Output:</strong> \"One Hundred Twenty Three\"",
+      "expectedOutput": "</strong> \"One Hundred Twenty Three"
+    },
+    {
+      "input": "</strong> num = 12345 <strong>Output:</strong> \"Twelve Thousand Three Hundred Forty Five\"",
+      "expectedOutput": "</strong> \"Twelve Thousand Three Hundred Forty Five"
+    },
+    {
+      "input": "</strong> num = 1234567 <strong>Output:</strong> \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"",
+      "expectedOutput": "</strong> \"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+    }
+  ]
+}

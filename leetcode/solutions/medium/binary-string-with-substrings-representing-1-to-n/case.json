@@ -1,0 +1,24 @@
+{
+  "problemId": "1065",
+  "titleSlug": "binary-string-with-substrings-representing-1-to-n",
+  "title": "Binary String With Substrings Representing 1 To N",
+  "titleCn": "子串能表示从 1 到 N 数字的二进制串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.6348199178148417,
+  "testcases": [
+    {
+      "input": "</strong> s = \"0110\", n = 3 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"0110\", n = 4 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

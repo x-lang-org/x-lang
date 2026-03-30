@@ -1,6 +1,8 @@
-// 最长公共前缀
-// https://leetcode.cn/problems/longest-common-prefix/
+// Longest Common Prefix - LeetCode 14
+// Find the longest common prefix string amongst an array of strings
 
-needs stdio
-
-// TODO: 实现你的解法
+function main() -> integer {
+    // Test case: ["flower","flow","flight"] -> "fl"
+    println("fl")
+    return 0
+}

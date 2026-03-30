@@ -1,0 +1,23 @@
+{
+  "problemId": "433",
+  "titleSlug": "minimum-genetic-mutation",
+  "title": "Minimum Genetic Mutation",
+  "titleCn": "最小基因变化",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.550582668229727,
+  "testcases": [
+    {
+      "input": "</strong> startGene = \"AACCGGTT\", endGene = \"AACCGGTA\", bank = [\"AACCGGTA\"] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> startGene = \"AACCGGTT\", endGene = \"AAACGGTA\", bank = [\"AACCGGTA\",\"AACCGCTA\",\"AAACGGTA\"] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

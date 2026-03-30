@@ -1,0 +1,22 @@
+{
+  "problemId": "2810",
+  "titleSlug": "collecting-chocolates",
+  "title": "Collecting Chocolates",
+  "titleCn": "收集巧克力",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "enumeration"
+  ],
+  "acRate": 0.5441461054668602,
+  "testcases": [
+    {
+      "input": "</strong> nums = [20,1,15], x = 5 <strong>Output:</strong> 13 <strong>Explanation:</strong> Initially, the chocolate types are [0,1,2]. We will buy the 1<sup>st</sup> type of chocolate at a cost of 1. Now, we will perform the operation at a cost of 5, and the types of chocolates will become [1,2,0]. We will buy the 2<sup>nd</sup><sup> </sup>type of chocolate at a cost of 1. Now, we will again perform the operation at a cost of 5, and the chocolate types will become [2,0,1]. We will buy the 0<sup>th </sup>type of chocolate at a cost of 1. Thus, the total cost will become (1 + 5 + 1 + 5 + 1) = 13. We can prove that this is optimal.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> Initially, the chocolate types are [0,1,2]. We will buy the 1<sup>st</sup> type of chocolate at a cost of 1. Now, we will perform the operation at a cost of 5, and the types of chocolates will become [1,2,0]. We will buy the 2<sup>nd</sup><sup> </sup>type of chocolate at a cost of 1. Now, we will again perform the operation at a cost of 5, and the chocolate types will become [2,0,1]. We will buy the 0<sup>th </sup>type of chocolate at a cost of 1. Thus, the total cost will become (1 + 5 + 1 + 5 + 1) = 13. We can prove that this is optimal."
+    },
+    {
+      "input": "</strong> nums = [1,2,3], x = 4 <strong>Output:</strong> 6 <strong>Explanation:</strong> We will collect all three types of chocolates at their own price without performing any operations. Therefore, the total cost is 1 + 2 + 3 = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> We will collect all three types of chocolates at their own price without performing any operations. Therefore, the total cost is 1 + 2 + 3 = 6."
+    }
+  ]
+}

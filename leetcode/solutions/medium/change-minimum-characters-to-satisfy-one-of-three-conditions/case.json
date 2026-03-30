@@ -1,0 +1,24 @@
+{
+  "problemId": "1859",
+  "titleSlug": "change-minimum-characters-to-satisfy-one-of-three-conditions",
+  "title": "Change Minimum Characters to Satisfy One of Three Conditions",
+  "titleCn": "满足三条件之一需改变的最少字符数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "prefix-sum"
+  ],
+  "acRate": 0.3777008600797147,
+  "testcases": [
+    {
+      "input": "</strong> a = \"aba\", b = \"caa\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Consider the best way to make each condition true: 1) Change b to \"ccc\" in 2 operations, then every letter in a is less than every letter in b. 2) Change a to \"bbb\" and b to \"aaa\" in 3 operations, then every letter in b is less than every letter in a. 3) Change a to \"aaa\" and b to \"aaa\" in 2 operations, then a and b consist of one distinct letter. The best way was done in 2 operations (either condition 1 or condition 3).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Consider the best way to make each condition true: 1) Change b to \"ccc\" in 2 operations, then every letter in a is less than every letter in b. 2) Change a to \"bbb\" and b to \"aaa\" in 3 operations, then every letter in b is less than every letter in a. 3) Change a to \"aaa\" and b to \"aaa\" in 2 operations, then a and b consist of one distinct letter. The best way was done in 2 operations (either condition 1 or condition 3)."
+    },
+    {
+      "input": "</strong> a = \"dabadd\", b = \"cda\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The best way is to make condition 1 true by changing b to \"eee\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The best way is to make condition 1 true by changing b to \"eee\"."
+    }
+  ]
+}

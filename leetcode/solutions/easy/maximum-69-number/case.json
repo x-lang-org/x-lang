@@ -1,0 +1,26 @@
+{
+  "problemId": "1448",
+  "titleSlug": "maximum-69-number",
+  "title": "Maximum 69 Number",
+  "titleCn": "6 和 9 组成的最大数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.7748278295573455,
+  "testcases": [
+    {
+      "input": "</strong> num = 9669 <strong>Output:</strong> 9969 <strong>Explanation:</strong> Changing the first digit results in 6669. Changing the second digit results in 9969. Changing the third digit results in 9699. Changing the fourth digit results in 9666. The maximum number is 9969.",
+      "expectedOutput": "</strong> 9969 <strong>Explanation:</strong> Changing the first digit results in 6669. Changing the second digit results in 9969. Changing the third digit results in 9699. Changing the fourth digit results in 9666. The maximum number is 9969."
+    },
+    {
+      "input": "</strong> num = 9996 <strong>Output:</strong> 9999 <strong>Explanation:</strong> Changing the last digit 6 to 9 results in the maximum number.",
+      "expectedOutput": "</strong> 9999 <strong>Explanation:</strong> Changing the last digit 6 to 9 results in the maximum number."
+    },
+    {
+      "input": "</strong> num = 9999 <strong>Output:</strong> 9999 <strong>Explanation:</strong> It is better not to apply any change.",
+      "expectedOutput": "</strong> 9999 <strong>Explanation:</strong> It is better not to apply any change."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "804",
+  "titleSlug": "rotated-digits",
+  "title": "Rotated Digits",
+  "titleCn": "旋转数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6658746234548665,
+  "testcases": [
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 4 <strong>Explanation:</strong> There are four good numbers in the range [1, 10] : 2, 5, 6, 9. Note that 1 and 10 are not good numbers, since they remain unchanged after rotating.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are four good numbers in the range [1, 10] : 2, 5, 6, 9. Note that 1 and 10 are not good numbers, since they remain unchanged after rotating."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2784",
+  "titleSlug": "power-of-heroes",
+  "title": "Power of Heroes",
+  "titleCn": "英雄的力量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.42057535959974984,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,1,4] <strong>Output:</strong> 141 <strong>Explanation:</strong> 1<sup>st</sup> group: [2] has power = 2<sup>2</sup> * 2 = 8. 2<sup>nd</sup> group: [1] has power = 1<sup>2</sup> * 1 = 1. 3<sup>rd</sup> group: [4] has power = 4<sup>2</sup> * 4 = 64. 4<sup>th</sup> group: [2,1] has power = 2<sup>2</sup> * 1 = 4. 5<sup>th</sup> group: [2,4] has power = 4<sup>2</sup> * 2 = 32. 6<sup>th</sup> group: [1,4] has power = 4<sup>2</sup> * 1 = 16. ​​​​​​​7<sup>th</sup> group: [2,1,4] has power = 4<sup>2</sup>​​​​​​​ * 1 = 16. The sum of powers of all groups is 8 + 1 + 64 + 4 + 32 + 16 + 16 = 141.",
+      "expectedOutput": "</strong> 141 <strong>Explanation:</strong> 1<sup>st</sup> group: [2] has power = 2<sup>2</sup> * 2 = 8. 2<sup>nd</sup> group: [1] has power = 1<sup>2</sup> * 1 = 1. 3<sup>rd</sup> group: [4] has power = 4<sup>2</sup> * 4 = 64. 4<sup>th</sup> group: [2,1] has power = 2<sup>2</sup> * 1 = 4. 5<sup>th</sup> group: [2,4] has power = 4<sup>2</sup> * 2 = 32. 6<sup>th</sup> group: [1,4] has power = 4<sup>2</sup> * 1 = 16. ​​​​​​​7<sup>th</sup> group: [2,1,4] has power = 4<sup>2</sup>​​​​​​​ * 1 = 16. The sum of powers of all groups is 8 + 1 + 64 + 4 + 32 + 16 + 16 = 141."
+    },
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> 7 <strong>Explanation:</strong> A total of 7 groups are possible, and the power of each group will be 1. Therefore, the sum of the powers of all groups is 7.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> A total of 7 groups are possible, and the power of each group will be 1. Therefore, the sum of the powers of all groups is 7."
+    }
+  ]
+}

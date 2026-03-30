@@ -1,0 +1,24 @@
+{
+  "problemId": "2475",
+  "titleSlug": "largest-palindromic-number",
+  "title": "Largest Palindromic Number",
+  "titleCn": "最大回文数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.33617349082590225,
+  "testcases": [
+    {
+      "input": "</strong> num = \"444947137\" <strong>Output:</strong> \"7449447\" <strong>Explanation:</strong> Use the digits \"4449477\" from \"<u><strong>44494</strong></u><u><strong>7</strong></u>13<u><strong>7</strong></u>\" to form the palindromic integer \"7449447\". It can be shown that \"7449447\" is the largest palindromic integer that can be formed.",
+      "expectedOutput": "</strong> \"7449447\" <strong>Explanation:</strong> Use the digits \"4449477\" from \"<u><strong>44494</strong></u><u><strong>7</strong></u>13<u><strong>7</strong></u>\" to form the palindromic integer \"7449447\". It can be shown that \"7449447\" is the largest palindromic integer that can be formed."
+    },
+    {
+      "input": "</strong> num = \"00009\" <strong>Output:</strong> \"9\" <strong>Explanation:</strong> It can be shown that \"9\" is the largest palindromic integer that can be formed. Note that the integer returned should not contain leading zeroes.",
+      "expectedOutput": "</strong> \"9\" <strong>Explanation:</strong> It can be shown that \"9\" is the largest palindromic integer that can be formed. Note that the integer returned should not contain leading zeroes."
+    }
+  ]
+}

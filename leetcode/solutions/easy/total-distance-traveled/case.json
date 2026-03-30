@@ -1,0 +1,22 @@
+{
+  "problemId": "2857",
+  "titleSlug": "total-distance-traveled",
+  "title": "Total Distance Traveled",
+  "titleCn": "总行驶距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.5711219847197184,
+  "testcases": [
+    {
+      "input": "</strong> mainTank = 5, additionalTank = 10 <strong>Output:</strong> 60 <strong>Explanation:</strong> After spending 5 litre of fuel, fuel remaining is (5 - 5 + 1) = 1 litre and distance traveled is 50km. After spending another 1 litre of fuel, no fuel gets injected in the main tank and the main tank becomes empty. Total distance traveled is 60km.",
+      "expectedOutput": "</strong> 60 <strong>Explanation:</strong> After spending 5 litre of fuel, fuel remaining is (5 - 5 + 1) = 1 litre and distance traveled is 50km. After spending another 1 litre of fuel, no fuel gets injected in the main tank and the main tank becomes empty. Total distance traveled is 60km."
+    },
+    {
+      "input": "</strong> mainTank = 1, additionalTank = 2 <strong>Output:</strong> 10 <strong>Explanation:</strong> After spending 1 litre of fuel, the main tank becomes empty. Total distance traveled is 10km.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> After spending 1 litre of fuel, the main tank becomes empty. Total distance traveled is 10km."
+    }
+  ]
+}

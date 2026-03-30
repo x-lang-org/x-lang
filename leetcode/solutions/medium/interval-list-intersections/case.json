@@ -1,0 +1,23 @@
+{
+  "problemId": "1028",
+  "titleSlug": "interval-list-intersections",
+  "title": "Interval List Intersections",
+  "titleCn": "区间列表的交集",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "line-sweep"
+  ],
+  "acRate": 0.6903255628466809,
+  "testcases": [
+    {
+      "input": "</strong> firstList = [[0,2],[5,10],[13,23],[24,25]], secondList = [[1,5],[8,12],[15,24],[25,26]] <strong>Output:</strong> [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]",
+      "expectedOutput": "</strong> [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]"
+    },
+    {
+      "input": "</strong> firstList = [[1,3],[5,9]], secondList = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

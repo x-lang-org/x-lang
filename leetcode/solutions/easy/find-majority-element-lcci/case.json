@@ -1,0 +1,26 @@
+{
+  "problemId": "1000038",
+  "titleSlug": "find-majority-element-lcci",
+  "title": "Find Majority Element LCCI",
+  "titleCn": "主要元素",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "counting"
+  ],
+  "acRate": 0.5587447276971642,
+  "testcases": [
+    {
+      "input": "</strong>[1,2,5,9,5,9,5,5,5]\r <strong>Output: </strong>5",
+      "expectedOutput": "</strong>5"
+    },
+    {
+      "input": "</strong>[3,2]\r <strong>Output: </strong>-1",
+      "expectedOutput": "</strong>-1"
+    },
+    {
+      "input": "</strong>[2,2,1,1,1,2,2]\r <strong>Output: </strong>2",
+      "expectedOutput": "</strong>2"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2160",
+  "titleSlug": "minimum-operations-to-make-a-uni-value-grid",
+  "title": "Minimum Operations to Make a Uni-Value Grid",
+  "titleCn": "获取单值网格的最小操作数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "matrix",
+    "sorting"
+  ],
+  "acRate": 0.46875,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[2,4],[6,8]], x = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> We can make every element equal to 4 by doing the following: - Add x to 2 once. - Subtract x from 6 once. - Subtract x from 8 twice. A total of 4 operations were used.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can make every element equal to 4 by doing the following: - Add x to 2 once. - Subtract x from 6 once. - Subtract x from 8 twice. A total of 4 operations were used."
+    },
+    {
+      "input": "</strong> grid = [[1,5],[2,3]], x = 1 <strong>Output:</strong> 5 <strong>Explanation:</strong> We can make every element equal to 3.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We can make every element equal to 3."
+    },
+    {
+      "input": "</strong> grid = [[1,2],[3,4]], x = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> It is impossible to make every element equal.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It is impossible to make every element equal."
+    }
+  ]
+}

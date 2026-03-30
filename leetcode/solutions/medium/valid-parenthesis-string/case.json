@@ -1,0 +1,28 @@
+{
+  "problemId": "678",
+  "titleSlug": "valid-parenthesis-string",
+  "title": "Valid Parenthesis String",
+  "titleCn": "有效的括号字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.40421861487460364,
+  "testcases": [
+    {
+      "input": "</strong> s = \"()\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"(*)\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"(*))\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

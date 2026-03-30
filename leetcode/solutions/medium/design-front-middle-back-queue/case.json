@@ -1,0 +1,22 @@
+{
+  "problemId": "1767",
+  "titleSlug": "design-front-middle-back-queue",
+  "title": "Design Front Middle Back Queue",
+  "titleCn": "设计前中后队列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "design",
+    "queue",
+    "array",
+    "linked-list",
+    "data-stream",
+    "doubly-linked-list"
+  ],
+  "acRate": 0.6023869346733668,
+  "testcases": [
+    {
+      "input": "</strong> [\"FrontMiddleBackQueue\", \"pushFront\", \"pushBack\", \"pushMiddle\", \"pushMiddle\", \"popFront\", \"popMiddle\", \"popMiddle\", \"popBack\", \"popFront\"] [[], [1], [2], [3], [4], [], [], [], [], []] <strong>Output:</strong> [null, null, null, null, null, 1, 3, 4, 2, -1] <strong>Explanation:</strong> FrontMiddleBackQueue q = new FrontMiddleBackQueue(); q.pushFront(1);  // [<u>1</u>] q.pushBack(2);  // [1, <u>2</u>] q.pushMiddle(3); // [1, <u>3</u>, 2] q.pushMiddle(4); // [1, <u>4</u>, 3, 2] q.popFront();   // return 1 -> [4, 3, 2] q.popMiddle();  // return 3 -> [4, 2] q.popMiddle();  // return 4 -> [2] q.popBack();   // return 2 -> [] q.popFront();   // return -1 -> [] (The queue is empty)",
+      "expectedOutput": "</strong> [null, null, null, null, null, 1, 3, 4, 2, -1] <strong>Explanation:</strong> FrontMiddleBackQueue q = new FrontMiddleBackQueue(); q.pushFront(1);  // [<u>1</u>] q.pushBack(2);  // [1, <u>2</u>] q.pushMiddle(3); // [1, <u>3</u>, 2] q.pushMiddle(4); // [1, <u>4</u>, 3, 2] q.popFront();   // return 1 -> [4, 3, 2] q.popMiddle();  // return 3 -> [4, 2] q.popMiddle();  // return 4 -> [2] q.popBack();   // return 2 -> [] q.popFront();   // return -1 -> [] (The queue is empty)"
+    }
+  ]
+}

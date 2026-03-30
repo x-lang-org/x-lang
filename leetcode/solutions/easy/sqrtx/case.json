@@ -12,7 +12,7 @@
   "testcases": [
     {
       "input": "4",
-      "expectedOutput": "8"
+      "expectedOutput": "2"
     }
   ]
 }

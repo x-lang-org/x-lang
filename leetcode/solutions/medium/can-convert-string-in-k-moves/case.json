@@ -1,0 +1,26 @@
+{
+  "problemId": "1647",
+  "titleSlug": "can-convert-string-in-k-moves",
+  "title": "Can Convert String in K Moves",
+  "titleCn": "K 次操作转变字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.3573224132338631,
+  "testcases": [
+    {
+      "input": "</strong> s = \"input\", t = \"ouput\", k = 9 <strong>Output:</strong> true <b>Explanation: </b>In the 6th move, we shift 'i' 6 times to get 'o'. And in the 7th move we shift 'n' to get 'u'.",
+      "expectedOutput": "</strong> true <b>Explanation: </b>In the 6th move, we shift 'i' 6 times to get 'o'. And in the 7th move we shift 'n' to get 'u'."
+    },
+    {
+      "input": "</strong> s = \"abc\", t = \"bcd\", k = 10 <strong>Output:</strong> false <strong>Explanation: </strong>We need to shift each character in s one time to convert it into t. We can shift 'a' to 'b' during the 1st move. However, there is no way to shift the other characters in the remaining moves to obtain t from s.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>We need to shift each character in s one time to convert it into t. We can shift 'a' to 'b' during the 1st move. However, there is no way to shift the other characters in the remaining moves to obtain t from s."
+    },
+    {
+      "input": "</strong> s = \"aab\", t = \"bbb\", k = 27 <strong>Output:</strong> true <b>Explanation: </b>In the 1st move, we shift the first 'a' 1 time to get 'b'. In the 27th move, we shift the second 'a' 27 times to get 'b'.",
+      "expectedOutput": "</strong> true <b>Explanation: </b>In the 1st move, we shift the first 'a' 1 time to get 'b'. In the 27th move, we shift the second 'a' 27 times to get 'b'."
+    }
+  ]
+}

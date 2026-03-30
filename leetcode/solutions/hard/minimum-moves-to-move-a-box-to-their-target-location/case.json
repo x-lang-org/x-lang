@@ -1,0 +1,28 @@
+{
+  "problemId": "1389",
+  "titleSlug": "minimum-moves-to-move-a-box-to-their-target-location",
+  "title": "Minimum Moves to Move a Box to Their Target Location",
+  "titleCn": "推箱子",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.53960029607698,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"],        [\"#\",\"T\",\"#\",\"#\",\"#\",\"#\"],        [\"#\",\".\",\".\",\"B\",\".\",\"#\"],        [\"#\",\".\",\"#\",\"#\",\".\",\"#\"],        [\"#\",\".\",\".\",\".\",\"S\",\"#\"],        [\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"]] <strong>Output:</strong> 3 <strong>Explanation:</strong> We return only the number of times the box is pushed.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We return only the number of times the box is pushed."
+    },
+    {
+      "input": "</strong> grid = [[\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"],        [\"#\",\"T\",\"#\",\"#\",\"#\",\"#\"],        [\"#\",\".\",\".\",\"B\",\".\",\"#\"],        [\"#\",\"#\",\"#\",\"#\",\".\",\"#\"],        [\"#\",\".\",\".\",\".\",\"S\",\"#\"],        [\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"]] <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    },
+    {
+      "input": "</strong> grid = [[\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"],        [\"#\",\"T\",\".\",\".\",\"#\",\"#\"],        [\"#\",\".\",\"#\",\"B\",\".\",\"#\"],        [\"#\",\".\",\".\",\".\",\".\",\"#\"],        [\"#\",\".\",\".\",\".\",\"S\",\"#\"],        [\"#\",\"#\",\"#\",\"#\",\"#\",\"#\"]] <strong>Output:</strong> 5 <strong>Explanation:</strong> push the box down, left, left, up and up.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> push the box down, left, left, up and up."
+    }
+  ]
+}

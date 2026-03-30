@@ -1,0 +1,26 @@
+{
+  "problemId": "2868",
+  "titleSlug": "continuous-subarrays",
+  "title": "Continuous Subarrays",
+  "titleCn": "不间断子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "queue",
+    "array",
+    "ordered-set",
+    "sliding-window",
+    "monotonic-queue",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5762440794734576,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,4,2,4] <strong>Output:</strong> 8 <strong>Explanation:</strong> Continuous subarray of size 1: [5], [4], [2], [4]. Continuous subarray of size 2: [5,4], [4,2], [2,4]. Continuous subarray of size 3: [4,2,4]. There are no subarrys of size 4. Total continuous subarrays = 4 + 3 + 1 = 8. It can be shown that there are no more continuous subarrays.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> Continuous subarray of size 1: [5], [4], [2], [4]. Continuous subarray of size 2: [5,4], [4,2], [2,4]. Continuous subarray of size 3: [4,2,4]. There are no subarrys of size 4. Total continuous subarrays = 4 + 3 + 1 = 8. It can be shown that there are no more continuous subarrays."
+    },
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 6 <strong>Explanation:</strong> Continuous subarray of size 1: [1], [2], [3]. Continuous subarray of size 2: [1,2], [2,3]. Continuous subarray of size 3: [1,2,3]. Total continuous subarrays = 3 + 2 + 1 = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Continuous subarray of size 1: [1], [2], [3]. Continuous subarray of size 2: [1,2], [2,3]. Continuous subarray of size 3: [1,2,3]. Total continuous subarrays = 3 + 2 + 1 = 6."
+    }
+  ]
+}

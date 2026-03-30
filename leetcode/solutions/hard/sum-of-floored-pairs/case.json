@@ -1,0 +1,26 @@
+{
+  "problemId": "1326",
+  "titleSlug": "sum-of-floored-pairs",
+  "title": "Sum of Floored Pairs",
+  "titleCn": "向下取整数对和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "binary-search",
+    "counting",
+    "enumeration",
+    "prefix-sum"
+  ],
+  "acRate": 0.3705133153222694,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,5,9] <strong>Output:</strong> 10 <strong>Explanation:</strong> floor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0 floor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1 floor(5 / 2) = 2 floor(9 / 2) = 4 floor(9 / 5) = 1 We calculate the floor of the division for every pair of indices in the array then sum them up.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> floor(2 / 5) = floor(2 / 9) = floor(5 / 9) = 0 floor(2 / 2) = floor(5 / 5) = floor(9 / 9) = 1 floor(5 / 2) = 2 floor(9 / 2) = 4 floor(9 / 5) = 1 We calculate the floor of the division for every pair of indices in the array then sum them up."
+    },
+    {
+      "input": "</strong> nums = [7,7,7,7,7,7,7] <strong>Output:</strong> 49",
+      "expectedOutput": "</strong> 49"
+    }
+  ]
+}

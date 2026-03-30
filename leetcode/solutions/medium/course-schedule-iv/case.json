@@ -1,0 +1,28 @@
+{
+  "problemId": "1558",
+  "titleSlug": "course-schedule-iv",
+  "title": "Course Schedule IV",
+  "titleCn": "课程表 IV",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "acRate": 0.5232547073618381,
+  "testcases": [
+    {
+      "input": "</strong> numCourses = 2, prerequisites = [[1,0]], queries = [[0,1],[1,0]] <strong>Output:</strong> [false,true] <strong>Explanation:</strong> The pair [1, 0] indicates that you have to take course 1 before you can take course 0. Course 0 is not a prerequisite of course 1, but the opposite is true.",
+      "expectedOutput": "</strong> [false,true] <strong>Explanation:</strong> The pair [1, 0] indicates that you have to take course 1 before you can take course 0. Course 0 is not a prerequisite of course 1, but the opposite is true."
+    },
+    {
+      "input": "</strong> numCourses = 2, prerequisites = [], queries = [[1,0],[0,1]] <strong>Output:</strong> [false,false] <strong>Explanation:</strong> There are no prerequisites, and each course is independent.",
+      "expectedOutput": "</strong> [false,false] <strong>Explanation:</strong> There are no prerequisites, and each course is independent."
+    },
+    {
+      "input": "</strong> numCourses = 3, prerequisites = [[1,2],[1,0],[2,0]], queries = [[1,0],[1,2]] <strong>Output:</strong> [true,true]",
+      "expectedOutput": "</strong> [true,true]"
+    }
+  ]
+}

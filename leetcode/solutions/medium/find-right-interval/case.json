@@ -1,0 +1,27 @@
+{
+  "problemId": "436",
+  "titleSlug": "find-right-interval",
+  "title": "Find Right Interval",
+  "titleCn": "寻找右区间",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.5808511490111298,
+  "testcases": [
+    {
+      "input": "</strong> intervals = [[1,2]] <strong>Output:</strong> [-1] <strong>Explanation:</strong> There is only one interval in the collection, so it outputs -1.",
+      "expectedOutput": "</strong> [-1] <strong>Explanation:</strong> There is only one interval in the collection, so it outputs -1."
+    },
+    {
+      "input": "</strong> intervals = [[3,4],[2,3],[1,2]] <strong>Output:</strong> [-1,0,1] <strong>Explanation:</strong> There is no right interval for [3,4]. The right interval for [2,3] is [3,4] since start<sub>0</sub> = 3 is the smallest start that is >= end<sub>1</sub> = 3. The right interval for [1,2] is [2,3] since start<sub>1</sub> = 2 is the smallest start that is >= end<sub>2</sub> = 2.",
+      "expectedOutput": "</strong> [-1,0,1] <strong>Explanation:</strong> There is no right interval for [3,4]. The right interval for [2,3] is [3,4] since start<sub>0</sub> = 3 is the smallest start that is >= end<sub>1</sub> = 3. The right interval for [1,2] is [2,3] since start<sub>1</sub> = 2 is the smallest start that is >= end<sub>2</sub> = 2."
+    },
+    {
+      "input": "</strong> intervals = [[1,4],[2,3],[3,4]] <strong>Output:</strong> [-1,2,-1] <strong>Explanation:</strong> There is no right interval for [1,4] and [3,4]. The right interval for [2,3] is [3,4] since start<sub>2</sub> = 3 is the smallest start that is >= end<sub>1</sub> = 3.",
+      "expectedOutput": "</strong> [-1,2,-1] <strong>Explanation:</strong> There is no right interval for [1,4] and [3,4]. The right interval for [2,3] is [3,4] since start<sub>2</sub> = 3 is the smallest start that is >= end<sub>1</sub> = 3."
+    }
+  ]
+}

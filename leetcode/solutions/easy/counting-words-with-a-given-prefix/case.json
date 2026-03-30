@@ -1,0 +1,23 @@
+{
+  "problemId": "2292",
+  "titleSlug": "counting-words-with-a-given-prefix",
+  "title": "Counting Words With a Given Prefix",
+  "titleCn": "统计包含给定前缀的字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.8153709747401384,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"pay\",\"<strong><u>at</u></strong>tention\",\"practice\",\"<u><strong>at</strong></u>tend\"], <code>pref </code>= \"at\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The 2 strings that contain \"at\" as a prefix are: \"<u><strong>at</strong></u>tention\" and \"<u><strong>at</strong></u>tend\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The 2 strings that contain \"at\" as a prefix are: \"<u><strong>at</strong></u>tention\" and \"<u><strong>at</strong></u>tend\"."
+    },
+    {
+      "input": "</strong> words = [\"leetcode\",\"win\",\"loops\",\"success\"], <code>pref </code>= \"code\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no strings that contain \"code\" as a prefix.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no strings that contain \"code\" as a prefix."
+    }
+  ]
+}

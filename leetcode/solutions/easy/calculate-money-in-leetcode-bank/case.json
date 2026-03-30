@@ -1,0 +1,25 @@
+{
+  "problemId": "1817",
+  "titleSlug": "calculate-money-in-leetcode-bank",
+  "title": "Calculate Money in Leetcode Bank",
+  "titleCn": "计算力扣银行的钱",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7135146012618521,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 10 <strong>Explanation:</strong> After the 4<sup>th</sup> day, the total is 1 + 2 + 3 + 4 = 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> After the 4<sup>th</sup> day, the total is 1 + 2 + 3 + 4 = 10."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 37 <strong>Explanation:</strong> After the 10<sup>th</sup> day, the total is (1 + 2 + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4) = 37. Notice that on the 2<sup>nd</sup> Monday, Hercy only puts in $2.",
+      "expectedOutput": "</strong> 37 <strong>Explanation:</strong> After the 10<sup>th</sup> day, the total is (1 + 2 + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4) = 37. Notice that on the 2<sup>nd</sup> Monday, Hercy only puts in $2."
+    },
+    {
+      "input": "</strong> n = 20 <strong>Output:</strong> 96 <strong>Explanation:</strong> After the 20<sup>th</sup> day, the total is (1 + 2 + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4 + 5 + 6 + 7 + 8) + (3 + 4 + 5 + 6 + 7 + 8) = 96.",
+      "expectedOutput": "</strong> 96 <strong>Explanation:</strong> After the 20<sup>th</sup> day, the total is (1 + 2 + 3 + 4 + 5 + 6 + 7) + (2 + 3 + 4 + 5 + 6 + 7 + 8) + (3 + 4 + 5 + 6 + 7 + 8) = 96."
+    }
+  ]
+}

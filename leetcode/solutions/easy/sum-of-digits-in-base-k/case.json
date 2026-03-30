@@ -1,0 +1,21 @@
+{
+  "problemId": "1965",
+  "titleSlug": "sum-of-digits-in-base-k",
+  "title": "Sum of Digits in Base K",
+  "titleCn": "K 进制表示下的各位数字总和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7883479251192256,
+  "testcases": [
+    {
+      "input": "</strong> n = 34, k = 6 <strong>Output:</strong> 9 <strong>Explanation: </strong>34 (base 10) expressed in base 6 is 54. 5 + 4 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation: </strong>34 (base 10) expressed in base 6 is 54. 5 + 4 = 9."
+    },
+    {
+      "input": "</strong> n = 10, k = 10 <strong>Output:</strong> 1 <strong>Explanation: </strong>n is already in base 10. 1 + 0 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation: </strong>n is already in base 10. 1 + 0 = 1."
+    }
+  ]
+}

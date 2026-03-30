@@ -1,0 +1,21 @@
+{
+  "problemId": "507",
+  "titleSlug": "perfect-number",
+  "title": "Perfect Number",
+  "titleCn": "完美数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.4949356020788101,
+  "testcases": [
+    {
+      "input": "</strong> num = 28 <strong>Output:</strong> true <strong>Explanation:</strong> 28 = 1 + 2 + 4 + 7 + 14 1, 2, 4, 7, and 14 are all divisors of 28.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 28 = 1 + 2 + 4 + 7 + 14 1, 2, 4, 7, and 14 are all divisors of 28."
+    },
+    {
+      "input": "</strong> num = 7 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "105",
+  "titleSlug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+  "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+  "titleCn": "从前序与中序遍历序列构造二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "array",
+    "hash-table",
+    "divide-and-conquer",
+    "binary-tree"
+  ],
+  "acRate": 0.7329668076199635,
+  "testcases": [
+    {
+      "input": "</strong> preorder = [3,9,20,15,7], inorder = [9,3,15,20,7] <strong>Output:</strong> [3,9,20,null,null,15,7]",
+      "expectedOutput": "</strong> [3,9,20,null,null,15,7]"
+    },
+    {
+      "input": "</strong> preorder = [-1], inorder = [-1] <strong>Output:</strong> [-1]",
+      "expectedOutput": "</strong> [-1]"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2509",
+  "titleSlug": "minimize-xor",
+  "title": "Minimize XOR",
+  "titleCn": "最小异或",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation"
+  ],
+  "acRate": 0.4931071049840933,
+  "testcases": [
+    {
+      "input": "</strong> num1 = 3, num2 = 5 <strong>Output:</strong> 3 <strong>Explanation:</strong> The binary representations of num1 and num2 are 0011 and 0101, respectively. The integer <strong>3</strong> has the same number of set bits as num2, and the value <code>3 XOR 3 = 0</code> is minimal.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The binary representations of num1 and num2 are 0011 and 0101, respectively. The integer <strong>3</strong> has the same number of set bits as num2, and the value <code>3 XOR 3 = 0</code> is minimal."
+    },
+    {
+      "input": "</strong> num1 = 1, num2 = 12 <strong>Output:</strong> 3 <strong>Explanation:</strong> The binary representations of num1 and num2 are 0001 and 1100, respectively. The integer <strong>3</strong> has the same number of set bits as num2, and the value <code>3 XOR 1 = 2</code> is minimal.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The binary representations of num1 and num2 are 0001 and 1100, respectively. The integer <strong>3</strong> has the same number of set bits as num2, and the value <code>3 XOR 1 = 2</code> is minimal."
+    }
+  ]
+}

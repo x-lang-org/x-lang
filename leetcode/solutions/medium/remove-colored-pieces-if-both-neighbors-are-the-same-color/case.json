@@ -1,0 +1,28 @@
+{
+  "problemId": "2149",
+  "titleSlug": "remove-colored-pieces-if-both-neighbors-are-the-same-color",
+  "title": "Remove Colored Pieces if Both Neighbors are the Same Color",
+  "titleCn": "如果相邻两个颜色均相同则删除当前颜色",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string",
+    "game-theory"
+  ],
+  "acRate": 0.6378010024190871,
+  "testcases": [
+    {
+      "input": "</strong> colors = \"AAABABB\" <strong>Output:</strong> true <strong>Explanation:</strong> A<u>A</u>ABABB -> AABABB Alice moves first. She removes the second 'A' from the left since that is the only 'A' whose neighbors are both 'A'. Now it's Bob's turn. Bob cannot make a move on his turn since there are no 'B's whose neighbors are both 'B'. Thus, Alice wins, so return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> A<u>A</u>ABABB -> AABABB Alice moves first. She removes the second 'A' from the left since that is the only 'A' whose neighbors are both 'A'. Now it's Bob's turn. Bob cannot make a move on his turn since there are no 'B's whose neighbors are both 'B'. Thus, Alice wins, so return true."
+    },
+    {
+      "input": "</strong> colors = \"AA\" <strong>Output:</strong> false <strong>Explanation:</strong> Alice has her turn first. There are only two 'A's and both are on the edge of the line, so she cannot move on her turn. Thus, Bob wins, so return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Alice has her turn first. There are only two 'A's and both are on the edge of the line, so she cannot move on her turn. Thus, Bob wins, so return false."
+    },
+    {
+      "input": "</strong> colors = \"ABBBBBBBAAA\" <strong>Output:</strong> false <strong>Explanation:</strong> ABBBBBBBA<u>A</u>A -> ABBBBBBBAA Alice moves first. Her only option is to remove the second to last 'A' from the right. ABBBB<u>B</u>BBAA -> ABBBBBBAA Next is Bob's turn. He has many options for which 'B' piece to remove. He can pick any. On Alice's second turn, she has no more pieces that she can remove. Thus, Bob wins, so return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> ABBBBBBBA<u>A</u>A -> ABBBBBBBAA Alice moves first. Her only option is to remove the second to last 'A' from the right. ABBBB<u>B</u>BBAA -> ABBBBBBAA Next is Bob's turn. He has many options for which 'B' piece to remove. He can pick any. On Alice's second turn, she has no more pieces that she can remove. Thus, Bob wins, so return false."
+    }
+  ]
+}

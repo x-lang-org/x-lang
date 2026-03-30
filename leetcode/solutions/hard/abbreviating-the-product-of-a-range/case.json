@@ -1,0 +1,26 @@
+{
+  "problemId": "2222",
+  "titleSlug": "abbreviating-the-product-of-a-range",
+  "title": "Abbreviating the Product of a Range",
+  "titleCn": "一个区间内所有数乘积的缩写",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.3033678069477592,
+  "testcases": [
+    {
+      "input": "</strong> left = 1, right = 4 <strong>Output:</strong> \"24e0\" <strong>Explanation:</strong> The product is 1 × 2 × 3 × 4 = 24. There are no trailing zeros, so 24 remains the same. The abbreviation will end with \"e0\". Since the number of digits is 2, which is less than 10, we do not have to abbreviate it further. Thus, the final representation is \"24e0\".",
+      "expectedOutput": "</strong> \"24e0\" <strong>Explanation:</strong> The product is 1 × 2 × 3 × 4 = 24. There are no trailing zeros, so 24 remains the same. The abbreviation will end with \"e0\". Since the number of digits is 2, which is less than 10, we do not have to abbreviate it further. Thus, the final representation is \"24e0\"."
+    },
+    {
+      "input": "</strong> left = 2, right = 11 <strong>Output:</strong> \"399168e2\" <strong>Explanation:</strong> The product is 39916800. There are 2 trailing zeros, which we remove to get 399168. The abbreviation will end with \"e2\". The number of digits after removing the trailing zeros is 6, so we do not abbreviate it further. Hence, the abbreviated product is \"399168e2\".",
+      "expectedOutput": "</strong> \"399168e2\" <strong>Explanation:</strong> The product is 39916800. There are 2 trailing zeros, which we remove to get 399168. The abbreviation will end with \"e2\". The number of digits after removing the trailing zeros is 6, so we do not abbreviate it further. Hence, the abbreviated product is \"399168e2\"."
+    },
+    {
+      "input": "</strong> left = 371, right = 375 <strong>Output:</strong> \"7219856259e3\" <strong>Explanation:</strong> The product is 7219856259000.",
+      "expectedOutput": "</strong> \"7219856259e3\" <strong>Explanation:</strong> The product is 7219856259000."
+    }
+  ]
+}

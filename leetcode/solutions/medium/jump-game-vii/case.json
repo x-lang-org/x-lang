@@ -1,0 +1,24 @@
+{
+  "problemId": "2001",
+  "titleSlug": "jump-game-vii",
+  "title": "Jump Game VII",
+  "titleCn": "跳跃游戏 VII",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.3051269500074489,
+  "testcases": [
+    {
+      "input": "</strong> s = \"<u>0</u>11<u>0</u>1<u>0</u>\", minJump = 2, maxJump = 3 <strong>Output:</strong> true <strong>Explanation:</strong> In the first step, move from index 0 to index 3. In the second step, move from index 3 to index 5.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> In the first step, move from index 0 to index 3. In the second step, move from index 3 to index 5."
+    },
+    {
+      "input": "</strong> s = \"01101110\", minJump = 2, maxJump = 3 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

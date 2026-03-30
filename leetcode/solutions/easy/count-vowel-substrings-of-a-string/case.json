@@ -1,0 +1,26 @@
+{
+  "problemId": "2186",
+  "titleSlug": "count-vowel-substrings-of-a-string",
+  "title": "Count Vowel Substrings of a String",
+  "titleCn": "统计字符串中的元音子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.654184804115552,
+  "testcases": [
+    {
+      "input": "</strong> word = \"aeiouu\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The vowel substrings of word are as follows (underlined): - \"<strong><u>aeiou</u></strong>u\" - \"<strong><u>aeiouu</u></strong>\"",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The vowel substrings of word are as follows (underlined): - \"<strong><u>aeiou</u></strong>u\" - \"<strong><u>aeiouu</u></strong>"
+    },
+    {
+      "input": "</strong> word = \"unicornarihan\" <strong>Output:</strong> 0 <strong>Explanation:</strong> Not all 5 vowels are present, so there are no vowel substrings.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Not all 5 vowels are present, so there are no vowel substrings."
+    },
+    {
+      "input": "</strong> word = \"cuaieuouac\" <strong>Output:</strong> 7 <strong>Explanation:</strong> The vowel substrings of word are as follows (underlined): - \"c<strong><u>uaieuo</u></strong>uac\" - \"c<strong><u>uaieuou</u></strong>ac\" - \"c<strong><u>uaieuoua</u></strong>c\" - \"cu<strong><u>aieuo</u></strong>uac\" - \"cu<strong><u>aieuou</u></strong>ac\" - \"cu<strong><u>aieuoua</u></strong>c\" - \"cua<strong><u>ieuoua</u></strong>c\"",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The vowel substrings of word are as follows (underlined): - \"c<strong><u>uaieuo</u></strong>uac\" - \"c<strong><u>uaieuou</u></strong>ac\" - \"c<strong><u>uaieuoua</u></strong>c\" - \"cu<strong><u>aieuo</u></strong>uac\" - \"cu<strong><u>aieuou</u></strong>ac\" - \"cu<strong><u>aieuoua</u></strong>c\" - \"cua<strong><u>ieuoua</u></strong>c"
+    }
+  ]
+}

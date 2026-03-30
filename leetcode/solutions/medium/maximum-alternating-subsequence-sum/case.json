@@ -1,0 +1,26 @@
+{
+  "problemId": "2022",
+  "titleSlug": "maximum-alternating-subsequence-sum",
+  "title": "Maximum Alternating Subsequence Sum",
+  "titleCn": "最大交替子序列和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6845760685874449,
+  "testcases": [
+    {
+      "input": "</strong> nums = [<u>4</u>,<u>2</u>,<u>5</u>,3]\r <strong>Output:</strong> 7\r <strong>Explanation:</strong> It is optimal to choose the subsequence [4,2,5] with alternating sum (4 + 5) - 2 = 7.",
+      "expectedOutput": "</strong> 7\r <strong>Explanation:</strong> It is optimal to choose the subsequence [4,2,5] with alternating sum (4 + 5) - 2 = 7."
+    },
+    {
+      "input": "</strong> nums = [5,6,7,<u>8</u>]\r <strong>Output:</strong> 8\r <strong>Explanation:</strong> It is optimal to choose the subsequence [8] with alternating sum 8.",
+      "expectedOutput": "</strong> 8\r <strong>Explanation:</strong> It is optimal to choose the subsequence [8] with alternating sum 8."
+    },
+    {
+      "input": "</strong> nums = [<u>6</u>,2,<u>1</u>,2,4,<u>5</u>]\r <strong>Output:</strong> 10\r <strong>Explanation:</strong> It is optimal to choose the subsequence [6,1,5] with alternating sum (6 + 5) - 1 = 10.",
+      "expectedOutput": "</strong> 10\r <strong>Explanation:</strong> It is optimal to choose the subsequence [6,1,5] with alternating sum (6 + 5) - 1 = 10."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "884",
+  "titleSlug": "k-similar-strings",
+  "title": "K-Similar Strings",
+  "titleCn": "相似度为 K 的字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.46800179943018044,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"ab\", s2 = \"ba\" <strong>Output:</strong> 1 <strong>Explanation:</strong> The two string are 1-similar because we can use one swap to change s1 to s2: \"ab\" --> \"ba\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The two string are 1-similar because we can use one swap to change s1 to s2: \"ab\" --> \"ba\"."
+    },
+    {
+      "input": "</strong> s1 = \"abc\", s2 = \"bca\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The two strings are 2-similar because we can use two swaps to change s1 to s2: \"abc\" --> \"bac\" --> \"bca\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The two strings are 2-similar because we can use two swaps to change s1 to s2: \"abc\" --> \"bac\" --> \"bca\"."
+    }
+  ]
+}

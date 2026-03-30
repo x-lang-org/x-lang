@@ -1,0 +1,27 @@
+{
+  "problemId": "653",
+  "titleSlug": "two-sum-iv-input-is-a-bst",
+  "title": "Two Sum IV - Input is a BST",
+  "titleCn": "两数之和 IV - 输入二叉搜索树",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-search-tree",
+    "hash-table",
+    "two-pointers",
+    "binary-tree"
+  ],
+  "acRate": 0.6376096175618368,
+  "testcases": [
+    {
+      "input": "</strong> root = [5,3,6,2,4,null,7], k = 9 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> root = [5,3,6,2,4,null,7], k = 28 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "235",
+  "titleSlug": "lowest-common-ancestor-of-a-binary-search-tree",
+  "title": "Lowest Common Ancestor of a Binary Search Tree",
+  "titleCn": "二叉搜索树的最近公共祖先",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.7255267881819133,
+  "testcases": [
+    {
+      "input": "</strong> root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8 <strong>Output:</strong> 6 <strong>Explanation:</strong> The LCA of nodes 2 and 8 is 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The LCA of nodes 2 and 8 is 6."
+    },
+    {
+      "input": "</strong> root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition."
+    },
+    {
+      "input": "</strong> root = [2,1], p = 2, q = 1 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

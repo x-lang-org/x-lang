@@ -1,0 +1,24 @@
+{
+  "problemId": "1808",
+  "titleSlug": "stone-game-vii",
+  "title": "Stone Game VII",
+  "titleCn": "石子游戏 VII",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "game-theory"
+  ],
+  "acRate": 0.65639374425023,
+  "testcases": [
+    {
+      "input": "</strong> stones = [5,3,1,4,2] <strong>Output:</strong> 6 <strong>Explanation:</strong> - Alice removes 2 and gets 5 + 3 + 1 + 4 = 13 points. Alice = 13, Bob = 0, stones = [5,3,1,4]. - Bob removes 5 and gets 3 + 1 + 4 = 8 points. Alice = 13, Bob = 8, stones = [3,1,4]. - Alice removes 3 and gets 1 + 4 = 5 points. Alice = 18, Bob = 8, stones = [1,4]. - Bob removes 1 and gets 4 points. Alice = 18, Bob = 12, stones = [4]. - Alice removes 4 and gets 0 points. Alice = 18, Bob = 12, stones = []. The score difference is 18 - 12 = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> - Alice removes 2 and gets 5 + 3 + 1 + 4 = 13 points. Alice = 13, Bob = 0, stones = [5,3,1,4]. - Bob removes 5 and gets 3 + 1 + 4 = 8 points. Alice = 13, Bob = 8, stones = [3,1,4]. - Alice removes 3 and gets 1 + 4 = 5 points. Alice = 18, Bob = 8, stones = [1,4]. - Bob removes 1 and gets 4 points. Alice = 18, Bob = 12, stones = [4]. - Alice removes 4 and gets 0 points. Alice = 18, Bob = 12, stones = []. The score difference is 18 - 12 = 6."
+    },
+    {
+      "input": "</strong> stones = [7,90,5,1,100,10,10,2] <strong>Output:</strong> 122",
+      "expectedOutput": "</strong> 122"
+    }
+  ]
+}

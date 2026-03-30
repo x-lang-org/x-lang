@@ -1,0 +1,23 @@
+{
+  "problemId": "2408",
+  "titleSlug": "number-of-people-aware-of-a-secret",
+  "title": "Number of People Aware of a Secret",
+  "titleCn": "知道秘密的人数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "queue",
+    "dynamic-programming",
+    "simulation"
+  ],
+  "acRate": 0.5083681274341251,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, delay = 2, forget = 4 <strong>Output:</strong> 5 <strong>Explanation:</strong> Day 1: Suppose the first person is named A. (1 person) Day 2: A is the only person who knows the secret. (1 person) Day 3: A shares the secret with a new person, B. (2 people) Day 4: A shares the secret with a new person, C. (3 people) Day 5: A forgets the secret, and B shares the secret with a new person, D. (3 people) Day 6: B shares the secret with E, and C shares the secret with F. (5 people)",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Day 1: Suppose the first person is named A. (1 person) Day 2: A is the only person who knows the secret. (1 person) Day 3: A shares the secret with a new person, B. (2 people) Day 4: A shares the secret with a new person, C. (3 people) Day 5: A forgets the secret, and B shares the secret with a new person, D. (3 people) Day 6: B shares the secret with E, and C shares the secret with F. (5 people)"
+    },
+    {
+      "input": "</strong> n = 4, delay = 1, forget = 3 <strong>Output:</strong> 6 <strong>Explanation:</strong> Day 1: The first person is named A. (1 person) Day 2: A shares the secret with B. (2 people) Day 3: A and B share the secret with 2 new people, C and D. (4 people) Day 4: A forgets the secret. B, C, and D share the secret with 3 new people. (6 people)",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Day 1: The first person is named A. (1 person) Day 2: A shares the secret with B. (2 people) Day 3: A and B share the secret with 2 new people, C and D. (4 people) Day 4: A forgets the secret. B, C, and D share the secret with 3 new people. (6 people)"
+    }
+  ]
+}

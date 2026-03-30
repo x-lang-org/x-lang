@@ -1,0 +1,18 @@
+{
+  "problemId": "100351",
+  "titleSlug": "living-people-lcci",
+  "title": "Living People LCCI",
+  "titleCn": "生存人数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "counting"
+  ],
+  "acRate": 0.6665659099839797,
+  "testcases": [
+    {
+      "input": "</strong>\r birth = [1900, 1901, 1950]\r death = [1948, 1951, 2000]\r <strong>Output: </strong> 1901",
+      "expectedOutput": "</strong> 1901"
+    }
+  ]
+}

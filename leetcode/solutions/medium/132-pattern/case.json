@@ -1,0 +1,29 @@
+{
+  "problemId": "456",
+  "titleSlug": "132-pattern",
+  "title": "132 Pattern",
+  "titleCn": "132 模式",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "binary-search",
+    "ordered-set",
+    "monotonic-stack"
+  ],
+  "acRate": 0.36936124354273797,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> false <strong>Explanation:</strong> There is no 132 pattern in the sequence.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no 132 pattern in the sequence."
+    },
+    {
+      "input": "</strong> nums = [3,1,4,2] <strong>Output:</strong> true <strong>Explanation:</strong> There is a 132 pattern in the sequence: [1, 4, 2].",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There is a 132 pattern in the sequence: [1, 4, 2]."
+    },
+    {
+      "input": "</strong> nums = [-1,3,2,0] <strong>Output:</strong> true <strong>Explanation:</strong> There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0]."
+    }
+  ]
+}

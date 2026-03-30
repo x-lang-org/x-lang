@@ -1,0 +1,26 @@
+{
+  "problemId": "2115",
+  "titleSlug": "number-of-unique-good-subsequences",
+  "title": "Number of Unique Good Subsequences",
+  "titleCn": "不同的好子序列数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5319581638582219,
+  "testcases": [
+    {
+      "input": "</strong> binary = \"001\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The good subsequences of binary are [\"0\", \"0\", \"1\"]. The unique good subsequences are \"0\" and \"1\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The good subsequences of binary are [\"0\", \"0\", \"1\"]. The unique good subsequences are \"0\" and \"1\"."
+    },
+    {
+      "input": "</strong> binary = \"11\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The good subsequences of binary are [\"1\", \"1\", \"11\"]. The unique good subsequences are \"1\" and \"11\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The good subsequences of binary are [\"1\", \"1\", \"11\"]. The unique good subsequences are \"1\" and \"11\"."
+    },
+    {
+      "input": "</strong> binary = \"101\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The good subsequences of binary are [\"1\", \"0\", \"1\", \"10\", \"11\", \"101\"]. The unique good subsequences are \"0\", \"1\", \"10\", \"11\", and \"101\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The good subsequences of binary are [\"1\", \"0\", \"1\", \"10\", \"11\", \"101\"]. The unique good subsequences are \"0\", \"1\", \"10\", \"11\", and \"101\"."
+    }
+  ]
+}

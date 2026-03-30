@@ -1,0 +1,24 @@
+{
+  "problemId": "1244",
+  "titleSlug": "distinct-echo-substrings",
+  "title": "Distinct Echo Substrings",
+  "titleCn": "不同的循环子字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie",
+    "string",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.5388073515800608,
+  "testcases": [
+    {
+      "input": "</strong> text = \"abcabcabc\" <strong>Output:</strong> 3 <b>Explanation: </b>The 3 substrings are \"abcabc\", \"bcabca\" and \"cabcab\".",
+      "expectedOutput": "</strong> 3 <b>Explanation: </b>The 3 substrings are \"abcabc\", \"bcabca\" and \"cabcab\"."
+    },
+    {
+      "input": "</strong> text = \"leetcodeleetcode\" <strong>Output:</strong> 2 <b>Explanation: </b>The 2 substrings are \"ee\" and \"leetcodeleetcode\".",
+      "expectedOutput": "</strong> 2 <b>Explanation: </b>The 2 substrings are \"ee\" and \"leetcodeleetcode\"."
+    }
+  ]
+}

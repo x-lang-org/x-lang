@@ -1,0 +1,28 @@
+{
+  "problemId": "1629",
+  "titleSlug": "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+  "title": "Minimum Possible Integer After at Most K Adjacent Swaps On Digits",
+  "titleCn": "最多 K 次交换相邻数位后得到的最小整数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "binary-indexed-tree",
+    "segment-tree",
+    "string"
+  ],
+  "acRate": 0.4277456647398844,
+  "testcases": [
+    {
+      "input": "</strong> num = \"4321\", k = 4 <strong>Output:</strong> \"1342\" <strong>Explanation:</strong> The steps to obtain the minimum integer from 4321 with 4 adjacent swaps are shown.",
+      "expectedOutput": "</strong> \"1342\" <strong>Explanation:</strong> The steps to obtain the minimum integer from 4321 with 4 adjacent swaps are shown."
+    },
+    {
+      "input": "</strong> num = \"100\", k = 1 <strong>Output:</strong> \"010\" <strong>Explanation:</strong> It's ok for the output to have leading zeros, but the input is guaranteed not to have any leading zeros.",
+      "expectedOutput": "</strong> \"010\" <strong>Explanation:</strong> It's ok for the output to have leading zeros, but the input is guaranteed not to have any leading zeros."
+    },
+    {
+      "input": "</strong> num = \"36789\", k = 1000 <strong>Output:</strong> \"36789\" <strong>Explanation:</strong> We can keep the number without any swaps.",
+      "expectedOutput": "</strong> \"36789\" <strong>Explanation:</strong> We can keep the number without any swaps."
+    }
+  ]
+}

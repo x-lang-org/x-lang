@@ -1,0 +1,23 @@
+{
+  "problemId": "3223",
+  "titleSlug": "count-complete-substrings",
+  "title": "Count Complete Substrings",
+  "titleCn": "统计完全子字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.3871198889336737,
+  "testcases": [
+    {
+      "input": "</strong> word = \"igigee\", k = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> The complete substrings where each character appears exactly twice and the difference between adjacent characters is at most 2 are: <u><strong>igig</strong></u>ee, igig<u><strong>ee</strong></u>, <u><strong>igigee</strong></u>.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The complete substrings where each character appears exactly twice and the difference between adjacent characters is at most 2 are: <u><strong>igig</strong></u>ee, igig<u><strong>ee</strong></u>, <u><strong>igigee</strong></u>."
+    },
+    {
+      "input": "</strong> word = \"aaabbbccc\", k = 3 <strong>Output:</strong> 6 <strong>Explanation:</strong> The complete substrings where each character appears exactly three times and the difference between adjacent characters is at most 2 are: <strong><u>aaa</u></strong>bbbccc, aaa<u><strong>bbb</strong></u>ccc, aaabbb<u><strong>ccc</strong></u>, <strong><u>aaabbb</u></strong>ccc, aaa<u><strong>bbbccc</strong></u>, <u><strong>aaabbbccc</strong></u>.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The complete substrings where each character appears exactly three times and the difference between adjacent characters is at most 2 are: <strong><u>aaa</u></strong>bbbccc, aaa<u><strong>bbb</strong></u>ccc, aaabbb<u><strong>ccc</strong></u>, <strong><u>aaabbb</u></strong>ccc, aaa<u><strong>bbbccc</strong></u>, <u><strong>aaabbbccc</strong></u>."
+    }
+  ]
+}

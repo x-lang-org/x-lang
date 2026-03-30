@@ -1,0 +1,28 @@
+{
+  "problemId": "2134",
+  "titleSlug": "maximize-the-confusion-of-an-exam",
+  "title": "Maximize the Confusion of an Exam",
+  "titleCn": "考试的最大困扰度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "binary-search",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.6466387531984182,
+  "testcases": [
+    {
+      "input": "</strong> answerKey = \"TTFF\", k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> We can replace both the 'F's with 'T's to make answerKey = \"<u>TTTT</u>\". There are four consecutive 'T's.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> We can replace both the 'F's with 'T's to make answerKey = \"<u>TTTT</u>\". There are four consecutive 'T's."
+    },
+    {
+      "input": "</strong> answerKey = \"TFFT\", k = 1 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can replace the first 'T' with an 'F' to make answerKey = \"<u>FFF</u>T\". Alternatively, we can replace the second 'T' with an 'F' to make answerKey = \"T<u>FFF</u>\". In both cases, there are three consecutive 'F's.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can replace the first 'T' with an 'F' to make answerKey = \"<u>FFF</u>T\". Alternatively, we can replace the second 'T' with an 'F' to make answerKey = \"T<u>FFF</u>\". In both cases, there are three consecutive 'F's."
+    },
+    {
+      "input": "</strong> answerKey = \"TTFTTFTT\", k = 1 <strong>Output:</strong> 5 <strong>Explanation:</strong> We can replace the first 'F' to make answerKey = \"<u>TTTTT</u>FTT\" Alternatively, we can replace the second 'F' to make answerKey = \"TTF<u>TTTTT</u>\". In both cases, there are five consecutive 'T's.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We can replace the first 'F' to make answerKey = \"<u>TTTTT</u>FTT\" Alternatively, we can replace the second 'F' to make answerKey = \"TTF<u>TTTTT</u>\". In both cases, there are five consecutive 'T's."
+    }
+  ]
+}

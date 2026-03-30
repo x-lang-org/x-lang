@@ -1,0 +1,23 @@
+{
+  "problemId": "100159",
+  "titleSlug": "check-permutation-lcci",
+  "title": "Check Permutation LCCI",
+  "titleCn": "判定是否互为字符重排",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6570784741097092,
+  "testcases": [
+    {
+      "input": "</strong><code>s1</code> = \"abc\", <code>s2</code> = \"bca\"\r <strong>Output: </strong>true",
+      "expectedOutput": "</strong>true"
+    },
+    {
+      "input": "</strong><code>s1</code> = \"abc\", <code>s2</code> = \"bad\"\r <strong>Output: </strong>false",
+      "expectedOutput": "</strong>false"
+    }
+  ]
+}

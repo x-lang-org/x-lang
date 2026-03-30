@@ -1,0 +1,26 @@
+{
+  "problemId": "2199",
+  "titleSlug": "two-furthest-houses-with-different-colors",
+  "title": "Two Furthest Houses With Different Colors",
+  "titleCn": "两栋颜色不同且距离最远的房子",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.7163737139820052,
+  "testcases": [
+    {
+      "input": "</strong> colors = [<u><strong>1</strong></u>,1,1,<strong><u>6</u></strong>,1,1,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> In the above image, color 1 is blue, and color 6 is red. The furthest two houses with different colors are house 0 and house 3. House 0 has color 1, and house 3 has color 6. The distance between them is abs(0 - 3) = 3. Note that houses 3 and 6 can also produce the optimal answer.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In the above image, color 1 is blue, and color 6 is red. The furthest two houses with different colors are house 0 and house 3. House 0 has color 1, and house 3 has color 6. The distance between them is abs(0 - 3) = 3. Note that houses 3 and 6 can also produce the optimal answer."
+    },
+    {
+      "input": "</strong> colors = [<u><strong>1</strong></u>,8,3,8,<u><strong>3</strong></u>] <strong>Output:</strong> 4 <strong>Explanation:</strong> In the above image, color 1 is blue, color 8 is yellow, and color 3 is green. The furthest two houses with different colors are house 0 and house 4. House 0 has color 1, and house 4 has color 3. The distance between them is abs(0 - 4) = 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> In the above image, color 1 is blue, color 8 is yellow, and color 3 is green. The furthest two houses with different colors are house 0 and house 4. House 0 has color 1, and house 4 has color 3. The distance between them is abs(0 - 4) = 4."
+    },
+    {
+      "input": "</strong> colors = [<u><strong>0</strong></u>,<strong><u>1</u></strong>] <strong>Output:</strong> 1 <strong>Explanation:</strong> The furthest two houses with different colors are house 0 and house 1. House 0 has color 0, and house 1 has color 1. The distance between them is abs(0 - 1) = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The furthest two houses with different colors are house 0 and house 1. House 0 has color 0, and house 1 has color 1. The distance between them is abs(0 - 1) = 1."
+    }
+  ]
+}

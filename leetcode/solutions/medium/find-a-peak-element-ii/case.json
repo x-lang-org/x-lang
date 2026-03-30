@@ -1,0 +1,23 @@
+{
+  "problemId": "2047",
+  "titleSlug": "find-a-peak-element-ii",
+  "title": "Find a Peak Element II",
+  "titleCn": "寻找峰值 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "matrix"
+  ],
+  "acRate": 0.5783326326564185,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,4],[3,2]] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers."
+    },
+    {
+      "input": "</strong> mat = [[10,20,15],[21,30,14],[7,16,32]] <strong>Output:</strong> [1,1] <strong>Explanation:</strong> Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.",
+      "expectedOutput": "</strong> [1,1] <strong>Explanation:</strong> Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers."
+    }
+  ]
+}

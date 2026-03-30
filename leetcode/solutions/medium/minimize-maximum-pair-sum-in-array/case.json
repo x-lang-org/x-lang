@@ -1,0 +1,24 @@
+{
+  "problemId": "1988",
+  "titleSlug": "minimize-maximum-pair-sum-in-array",
+  "title": "Minimize Maximum Pair Sum in Array",
+  "titleCn": "数组中最大数对和的最小值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "acRate": 0.8159968359244273,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,5,2,3]\r <strong>Output:</strong> 7\r <strong>Explanation:</strong> The elements can be paired up into pairs (3,3) and (5,2).\r The maximum pair sum is max(3+3, 5+2) = max(6, 7) = 7.",
+      "expectedOutput": "</strong> 7\r <strong>Explanation:</strong> The elements can be paired up into pairs (3,3) and (5,2).\r The maximum pair sum is max(3+3, 5+2) = max(6, 7) = 7."
+    },
+    {
+      "input": "</strong> nums = [3,5,4,2,4,6]\r <strong>Output:</strong> 8\r <strong>Explanation:</strong> The elements can be paired up into pairs (3,5), (4,4), and (6,2).\r The maximum pair sum is max(3+5, 4+4, 6+2) = max(8, 8, 8) = 8.",
+      "expectedOutput": "</strong> 8\r <strong>Explanation:</strong> The elements can be paired up into pairs (3,5), (4,4), and (6,2).\r The maximum pair sum is max(3+5, 4+4, 6+2) = max(8, 8, 8) = 8."
+    }
+  ]
+}

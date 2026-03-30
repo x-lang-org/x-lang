@@ -1,0 +1,29 @@
+{
+  "problemId": "3197",
+  "titleSlug": "maximum-strong-pair-xor-ii",
+  "title": "Maximum Strong Pair XOR II",
+  "titleCn": "找出强数对的最大异或值 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.4278006166495375,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> 7 <strong>Explanation:</strong> There are 11 strong pairs in the array <code>nums</code>: (1, 1), (1, 2), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (3, 5), (4, 4), (4, 5) and (5, 5). The maximum XOR possible from these pairs is 3 XOR 4 = 7.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> There are 11 strong pairs in the array <code>nums</code>: (1, 1), (1, 2), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (3, 5), (4, 4), (4, 5) and (5, 5). The maximum XOR possible from these pairs is 3 XOR 4 = 7."
+    },
+    {
+      "input": "</strong> nums = [10,100] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are 2 strong pairs in the array nums: (10, 10) and (100, 100). The maximum XOR possible from these pairs is 10 XOR 10 = 0 since the pair (100, 100) also gives 100 XOR 100 = 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are 2 strong pairs in the array nums: (10, 10) and (100, 100). The maximum XOR possible from these pairs is 10 XOR 10 = 0 since the pair (100, 100) also gives 100 XOR 100 = 0."
+    },
+    {
+      "input": "</strong> nums = [500,520,2500,3000] <strong>Output:</strong> 1020 <strong>Explanation:</strong> There are 6 strong pairs in the array nums: (500, 500), (500, 520), (520, 520), (2500, 2500), (2500, 3000) and (3000, 3000). The maximum XOR possible from these pairs is 500 XOR 520 = 1020 since the only other non-zero XOR value is 2500 XOR 3000 = 636.",
+      "expectedOutput": "</strong> 1020 <strong>Explanation:</strong> There are 6 strong pairs in the array nums: (500, 500), (500, 520), (520, 520), (2500, 2500), (2500, 3000) and (3000, 3000). The maximum XOR possible from these pairs is 500 XOR 520 = 1020 since the only other non-zero XOR value is 2500 XOR 3000 = 636."
+    }
+  ]
+}

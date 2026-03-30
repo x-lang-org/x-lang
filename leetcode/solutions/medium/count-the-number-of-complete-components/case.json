@@ -1,0 +1,24 @@
+{
+  "problemId": "2793",
+  "titleSlug": "count-the-number-of-complete-components",
+  "title": "Count the Number of Complete Components",
+  "titleCn": "统计完全连通分量的数量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.7292313201241346,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[0,2],[1,2],[3,4]] <strong>Output:</strong> 3 <strong>Explanation:</strong> From the picture above, one can see that all of the components of this graph are complete.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> From the picture above, one can see that all of the components of this graph are complete."
+    },
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[0,2],[1,2],[3,4],[3,5]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The component containing vertices 0, 1, and 2 is complete since there is an edge between every pair of two vertices. On the other hand, the component containing vertices 3, 4, and 5 is not complete since there is no edge between vertices 4 and 5. Thus, the number of complete components in this graph is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The component containing vertices 0, 1, and 2 is complete since there is an edge between every pair of two vertices. On the other hand, the component containing vertices 3, 4, and 5 is not complete since there is no edge between vertices 4 and 5. Thus, the number of complete components in this graph is 1."
+    }
+  ]
+}

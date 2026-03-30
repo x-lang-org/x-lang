@@ -1,0 +1,26 @@
+{
+  "problemId": "2436",
+  "titleSlug": "make-array-zero-by-subtracting-equal-amounts",
+  "title": "Make Array Zero by Subtracting Equal Amounts",
+  "titleCn": "使数组中所有元素都等于零",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.7519237760542898,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,5,0,3,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> In the first operation, choose x = 1. Now, nums = [0,4,0,2,4]. In the second operation, choose x = 2. Now, nums = [0,2,0,0,2]. In the third operation, choose x = 2. Now, nums = [0,0,0,0,0].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In the first operation, choose x = 1. Now, nums = [0,4,0,2,4]. In the second operation, choose x = 2. Now, nums = [0,2,0,0,2]. In the third operation, choose x = 2. Now, nums = [0,0,0,0,0]."
+    },
+    {
+      "input": "</strong> nums = [0] <strong>Output:</strong> 0 <strong>Explanation:</strong> Each element in nums is already 0 so no operations are needed.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Each element in nums is already 0 so no operations are needed."
+    }
+  ]
+}

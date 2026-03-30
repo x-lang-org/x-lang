@@ -1,0 +1,23 @@
+{
+  "problemId": "2021",
+  "titleSlug": "remove-all-occurrences-of-a-substring",
+  "title": "Remove All Occurrences of a Substring",
+  "titleCn": "删除一个字符串中所有出现的给定子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.6712319145947464,
+  "testcases": [
+    {
+      "input": "</strong> s = \"daabcbaabcbc\", part = \"abc\" <strong>Output:</strong> \"dab\" <strong>Explanation</strong>: The following operations are done: - s = \"da<strong><u>abc</u></strong>baabcbc\", remove \"abc\" starting at index 2, so s = \"dabaabcbc\". - s = \"daba<strong><u>abc</u></strong>bc\", remove \"abc\" starting at index 4, so s = \"dababc\". - s = \"dab<strong><u>abc</u></strong>\", remove \"abc\" starting at index 3, so s = \"dab\". Now s has no occurrences of \"abc\".",
+      "expectedOutput": "</strong> \"dab\" <strong>Explanation</strong>: The following operations are done: - s = \"da<strong><u>abc</u></strong>baabcbc\", remove \"abc\" starting at index 2, so s = \"dabaabcbc\". - s = \"daba<strong><u>abc</u></strong>bc\", remove \"abc\" starting at index 4, so s = \"dababc\". - s = \"dab<strong><u>abc</u></strong>\", remove \"abc\" starting at index 3, so s = \"dab\". Now s has no occurrences of \"abc\"."
+    },
+    {
+      "input": "</strong> s = \"axxxxyyyyb\", part = \"xy\" <strong>Output:</strong> \"ab\" <strong>Explanation</strong>: The following operations are done: - s = \"axxx<strong><u>xy</u></strong>yyyb\", remove \"xy\" starting at index 4 so s = \"axxxyyyb\". - s = \"axx<strong><u>xy</u></strong>yyb\", remove \"xy\" starting at index 3 so s = \"axxyyb\". - s = \"ax<strong><u>xy</u></strong>yb\", remove \"xy\" starting at index 2 so s = \"axyb\". - s = \"a<strong><u>xy</u></strong>b\", remove \"xy\" starting at index 1 so s = \"ab\". Now s has no occurrences of \"xy\".",
+      "expectedOutput": "</strong> \"ab\" <strong>Explanation</strong>: The following operations are done: - s = \"axxx<strong><u>xy</u></strong>yyyb\", remove \"xy\" starting at index 4 so s = \"axxxyyyb\". - s = \"axx<strong><u>xy</u></strong>yyb\", remove \"xy\" starting at index 3 so s = \"axxyyb\". - s = \"ax<strong><u>xy</u></strong>yb\", remove \"xy\" starting at index 2 so s = \"axyb\". - s = \"a<strong><u>xy</u></strong>b\", remove \"xy\" starting at index 1 so s = \"ab\". Now s has no occurrences of \"xy\"."
+    }
+  ]
+}

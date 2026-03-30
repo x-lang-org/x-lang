@@ -1,0 +1,23 @@
+{
+  "problemId": "1929",
+  "titleSlug": "maximum-value-at-a-given-index-in-a-bounded-array",
+  "title": "Maximum Value at a Given Index in a Bounded Array",
+  "titleCn": "有界数组中指定下标处的最大值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.3772238526077374,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, index = 2, maxSum = 6 <strong>Output:</strong> 2 <strong>Explanation:</strong> nums = [1,2,<u><strong>2</strong></u>,1] is one array that satisfies all the conditions. There are no arrays that satisfy all the conditions and have nums[2] == 3, so 2 is the maximum nums[2].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> nums = [1,2,<u><strong>2</strong></u>,1] is one array that satisfies all the conditions. There are no arrays that satisfy all the conditions and have nums[2] == 3, so 2 is the maximum nums[2]."
+    },
+    {
+      "input": "</strong> n = 6, index = 1, maxSum = 10 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

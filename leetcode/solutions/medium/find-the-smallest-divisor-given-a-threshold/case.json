@@ -1,0 +1,22 @@
+{
+  "problemId": "1408",
+  "titleSlug": "find-the-smallest-divisor-given-a-threshold",
+  "title": "Find the Smallest Divisor Given a Threshold",
+  "titleCn": "使结果不超过阈值的最小除数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5744540634454662,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,5,9], threshold = 6 <strong>Output:</strong> 5 <strong>Explanation:</strong> We can get a sum to 17 (1+2+5+9) if the divisor is 1. If the divisor is 4 we can get a sum of 7 (1+1+2+3) and if the divisor is 5 the sum will be 5 (1+1+1+2).",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We can get a sum to 17 (1+2+5+9) if the divisor is 1. If the divisor is 4 we can get a sum of 7 (1+1+2+3) and if the divisor is 5 the sum will be 5 (1+1+1+2)."
+    },
+    {
+      "input": "</strong> nums = [44,22,33,11,1], threshold = 5 <strong>Output:</strong> 44",
+      "expectedOutput": "</strong> 44"
+    }
+  ]
+}

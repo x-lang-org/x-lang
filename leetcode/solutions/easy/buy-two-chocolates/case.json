@@ -1,0 +1,23 @@
+{
+  "problemId": "2756",
+  "titleSlug": "buy-two-chocolates",
+  "title": "Buy Two Chocolates",
+  "titleCn": "购买两块巧克力",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.7603790819821877,
+  "testcases": [
+    {
+      "input": "</strong> prices = [1,2,2], money = 3 <strong>Output:</strong> 0 <strong>Explanation:</strong> Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0."
+    },
+    {
+      "input": "</strong> prices = [3,2,3], money = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> You cannot buy 2 chocolates without going in debt, so we return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You cannot buy 2 chocolates without going in debt, so we return 3."
+    }
+  ]
+}

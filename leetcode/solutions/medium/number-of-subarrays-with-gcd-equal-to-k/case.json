@@ -1,0 +1,23 @@
+{
+  "problemId": "2546",
+  "titleSlug": "number-of-subarrays-with-gcd-equal-to-k",
+  "title": "Number of Subarrays With GCD Equal to K",
+  "titleCn": "最大公因数等于 K 的子数组数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.46264959059416333,
+  "testcases": [
+    {
+      "input": "</strong> nums = [9,3,1,2,6,3], k = 3 <strong>Output:</strong> 4 <strong>Explanation:</strong> The subarrays of nums where 3 is the greatest common divisor of all the subarray's elements are: - [9,<u><strong>3</strong></u>,1,2,6,3] - [9,3,1,2,6,<u><strong>3</strong></u>] - [<u><strong>9,3</strong></u>,1,2,6,3] - [9,3,1,2,<u><strong>6,3</strong></u>]",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The subarrays of nums where 3 is the greatest common divisor of all the subarray's elements are: - [9,<u><strong>3</strong></u>,1,2,6,3] - [9,3,1,2,6,<u><strong>3</strong></u>] - [<u><strong>9,3</strong></u>,1,2,6,3] - [9,3,1,2,<u><strong>6,3</strong></u>]"
+    },
+    {
+      "input": "</strong> nums = [4], k = 7 <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no subarrays of nums where 7 is the greatest common divisor of all the subarray's elements.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no subarrays of nums where 7 is the greatest common divisor of all the subarray's elements."
+    }
+  ]
+}

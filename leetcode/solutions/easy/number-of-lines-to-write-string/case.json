@@ -1,0 +1,22 @@
+{
+  "problemId": "824",
+  "titleSlug": "number-of-lines-to-write-string",
+  "title": "Number of Lines To Write String",
+  "titleCn": "写字符串需要的行数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.6898960660072024,
+  "testcases": [
+    {
+      "input": "</strong> widths = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10], s = \"abcdefghijklmnopqrstuvwxyz\" <strong>Output:</strong> [3,60] <strong>Explanation:</strong> You can write s as follows: abcdefghij // 100 pixels wide klmnopqrst // 100 pixels wide uvwxyz   // 60 pixels wide There are a total of 3 lines, and the last line is 60 pixels wide.",
+      "expectedOutput": "</strong> [3,60] <strong>Explanation:</strong> You can write s as follows: abcdefghij // 100 pixels wide klmnopqrst // 100 pixels wide uvwxyz   // 60 pixels wide There are a total of 3 lines, and the last line is 60 pixels wide."
+    },
+    {
+      "input": "</strong> widths = [4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10], s = \"bbbcccdddaaa\" <strong>Output:</strong> [2,4] <strong>Explanation:</strong> You can write s as follows: bbbcccdddaa // 98 pixels wide a      // 4 pixels wide There are a total of 2 lines, and the last line is 4 pixels wide.",
+      "expectedOutput": "</strong> [2,4] <strong>Explanation:</strong> You can write s as follows: bbbcccdddaa // 98 pixels wide a      // 4 pixels wide There are a total of 2 lines, and the last line is 4 pixels wide."
+    }
+  ]
+}

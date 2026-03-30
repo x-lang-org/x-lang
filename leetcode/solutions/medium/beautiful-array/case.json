@@ -1,0 +1,23 @@
+{
+  "problemId": "968",
+  "titleSlug": "beautiful-array",
+  "title": "Beautiful Array",
+  "titleCn": "漂亮数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "divide-and-conquer"
+  ],
+  "acRate": 0.6779736500278345,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> [2,1,4,3]",
+      "expectedOutput": "</strong> [2,1,4,3]"
+    },
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> [3,1,2,5,4]",
+      "expectedOutput": "</strong> [3,1,2,5,4]"
+    }
+  ]
+}

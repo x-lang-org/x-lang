@@ -1,0 +1,28 @@
+{
+  "problemId": "852",
+  "titleSlug": "friends-of-appropriate-ages",
+  "title": "Friends Of Appropriate Ages",
+  "titleCn": "适龄的朋友",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.4744020541102846,
+  "testcases": [
+    {
+      "input": "</strong> ages = [16,16] <strong>Output:</strong> 2 <strong>Explanation:</strong> 2 people friend request each other.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 2 people friend request each other."
+    },
+    {
+      "input": "</strong> ages = [16,17,18] <strong>Output:</strong> 2 <strong>Explanation:</strong> Friend requests are made 17 -> 16, 18 -> 17.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Friend requests are made 17 -> 16, 18 -> 17."
+    },
+    {
+      "input": "</strong> ages = [20,30,100,110,120] <strong>Output:</strong> 3 <strong>Explanation:</strong> Friend requests are made 110 -> 100, 120 -> 110, 120 -> 100.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Friend requests are made 110 -> 100, 120 -> 110, 120 -> 100."
+    }
+  ]
+}

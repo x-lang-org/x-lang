@@ -1,0 +1,25 @@
+{
+  "problemId": "1691",
+  "titleSlug": "minimum-number-of-days-to-disconnect-island",
+  "title": "Minimum Number of Days to Disconnect Island",
+  "titleCn": "使陆地分离的最少天数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "matrix",
+    "strongly-connected-component"
+  ],
+  "acRate": 0.45391476709613476,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1,1,0],[0,1,1,0],[0,0,0,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> We need at least 2 days to get a disconnected grid. Change land grid[1][1] and grid[0][2] to water and get 2 disconnected island.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We need at least 2 days to get a disconnected grid. Change land grid[1][1] and grid[0][2] to water and get 2 disconnected island."
+    },
+    {
+      "input": "</strong> grid = [[1,1]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Grid of full water is also disconnected ([[1,1]] -> [[0,0]]), 0 islands.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Grid of full water is also disconnected ([[1,1]] -> [[0,0]]), 0 islands."
+    }
+  ]
+}

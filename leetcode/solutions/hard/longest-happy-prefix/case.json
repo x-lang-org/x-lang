@@ -1,0 +1,24 @@
+{
+  "problemId": "1508",
+  "titleSlug": "longest-happy-prefix",
+  "title": "Longest Happy Prefix",
+  "titleCn": "最长快乐前缀",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.4757499363970673,
+  "testcases": [
+    {
+      "input": "</strong> s = \"level\" <strong>Output:</strong> \"l\" <strong>Explanation:</strong> s contains 4 prefix excluding itself (\"l\", \"le\", \"lev\", \"leve\"), and suffix (\"l\", \"el\", \"vel\", \"evel\"). The largest prefix which is also suffix is given by \"l\".",
+      "expectedOutput": "</strong> \"l\" <strong>Explanation:</strong> s contains 4 prefix excluding itself (\"l\", \"le\", \"lev\", \"leve\"), and suffix (\"l\", \"el\", \"vel\", \"evel\"). The largest prefix which is also suffix is given by \"l\"."
+    },
+    {
+      "input": "</strong> s = \"ababab\" <strong>Output:</strong> \"abab\" <strong>Explanation:</strong> \"abab\" is the largest prefix which is also suffix. They can overlap in the original string.",
+      "expectedOutput": "</strong> \"abab\" <strong>Explanation:</strong> \"abab\" is the largest prefix which is also suffix. They can overlap in the original string."
+    }
+  ]
+}

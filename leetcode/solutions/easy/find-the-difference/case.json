@@ -1,0 +1,24 @@
+{
+  "problemId": "389",
+  "titleSlug": "find-the-difference",
+  "title": "Find the Difference",
+  "titleCn": "找不同",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6252579964650208,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcd\", t = \"abcde\" <strong>Output:</strong> \"e\" <strong>Explanation:</strong> 'e' is the letter that was added.",
+      "expectedOutput": "</strong> \"e\" <strong>Explanation:</strong> 'e' is the letter that was added."
+    },
+    {
+      "input": "</strong> s = \"\", t = \"y\" <strong>Output:</strong> \"y\"",
+      "expectedOutput": "</strong> \"y"
+    }
+  ]
+}

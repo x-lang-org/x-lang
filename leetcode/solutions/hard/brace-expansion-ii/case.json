@@ -1,0 +1,26 @@
+{
+  "problemId": "1188",
+  "titleSlug": "brace-expansion-ii",
+  "title": "Brace Expansion II",
+  "titleCn": "花括号展开 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "breadth-first-search",
+    "hash-table",
+    "string",
+    "backtracking",
+    "sorting"
+  ],
+  "acRate": 0.7227657614179792,
+  "testcases": [
+    {
+      "input": "</strong> expression = \"{a,b}{c,{d,e}}\" <strong>Output:</strong> [\"ac\",\"ad\",\"ae\",\"bc\",\"bd\",\"be\"]",
+      "expectedOutput": "</strong> [\"ac\",\"ad\",\"ae\",\"bc\",\"bd\",\"be\"]"
+    },
+    {
+      "input": "</strong> expression = \"{{a,z},a{b,c},{ab,z}}\" <strong>Output:</strong> [\"a\",\"ab\",\"ac\",\"z\"] <strong>Explanation:</strong> Each distinct word is written only once in the final answer.",
+      "expectedOutput": "</strong> [\"a\",\"ab\",\"ac\",\"z\"] <strong>Explanation:</strong> Each distinct word is written only once in the final answer."
+    }
+  ]
+}

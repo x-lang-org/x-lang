@@ -1,0 +1,27 @@
+{
+  "problemId": "452",
+  "titleSlug": "minimum-number-of-arrows-to-burst-balloons",
+  "title": "Minimum Number of Arrows to Burst Balloons",
+  "titleCn": "用最少数量的箭引爆气球",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.5347653364221377,
+  "testcases": [
+    {
+      "input": "</strong> points = [[10,16],[2,8],[1,6],[7,12]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The balloons can be burst by 2 arrows: - Shoot an arrow at x = 6, bursting the balloons [2,8] and [1,6]. - Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The balloons can be burst by 2 arrows: - Shoot an arrow at x = 6, bursting the balloons [2,8] and [1,6]. - Shoot an arrow at x = 11, bursting the balloons [10,16] and [7,12]."
+    },
+    {
+      "input": "</strong> points = [[1,2],[3,4],[5,6],[7,8]] <strong>Output:</strong> 4 <strong>Explanation:</strong> One arrow needs to be shot for each balloon for a total of 4 arrows.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One arrow needs to be shot for each balloon for a total of 4 arrows."
+    },
+    {
+      "input": "</strong> points = [[1,2],[2,3],[3,4],[4,5]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The balloons can be burst by 2 arrows: - Shoot an arrow at x = 2, bursting the balloons [1,2] and [2,3]. - Shoot an arrow at x = 4, bursting the balloons [3,4] and [4,5].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The balloons can be burst by 2 arrows: - Shoot an arrow at x = 2, bursting the balloons [1,2] and [2,3]. - Shoot an arrow at x = 4, bursting the balloons [3,4] and [4,5]."
+    }
+  ]
+}

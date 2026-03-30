@@ -1,0 +1,23 @@
+{
+  "problemId": "2741",
+  "titleSlug": "function-composition",
+  "title": "Function Composition",
+  "titleCn": "复合函数",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8297182143894645,
+  "testcases": [
+    {
+      "input": "</strong> functions = [x => x + 1, x => x * x, x => 2 * x], x = 4 <strong>Output:</strong> 65 <strong>Explanation:</strong> Evaluating from right to left ... Starting with x = 4. 2 * (4) = 8 (8) * (8) = 64 (64) + 1 = 65",
+      "expectedOutput": "</strong> 65 <strong>Explanation:</strong> Evaluating from right to left ... Starting with x = 4. 2 * (4) = 8 (8) * (8) = 64 (64) + 1 = 65"
+    },
+    {
+      "input": "</strong> functions = [x => 10 * x, x => 10 * x, x => 10 * x], x = 1 <strong>Output:</strong> 1000 <strong>Explanation:</strong> Evaluating from right to left ... 10 * (1) = 10 10 * (10) = 100 10 * (100) = 1000",
+      "expectedOutput": "</strong> 1000 <strong>Explanation:</strong> Evaluating from right to left ... 10 * (1) = 10 10 * (10) = 100 10 * (100) = 1000"
+    },
+    {
+      "input": "</strong> functions = [], x = 42 <strong>Output:</strong> 42 <strong>Explanation:</strong> The composition of zero functions is the identity function",
+      "expectedOutput": "</strong> 42 <strong>Explanation:</strong> The composition of zero functions is the identity function"
+    }
+  ]
+}

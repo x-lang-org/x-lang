@@ -1,0 +1,24 @@
+{
+  "problemId": "2165",
+  "titleSlug": "plates-between-candles",
+  "title": "Plates Between Candles",
+  "titleCn": "蜡烛之间的盘子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "binary-search",
+    "prefix-sum"
+  ],
+  "acRate": 0.45019986491125114,
+  "testcases": [
+    {
+      "input": "</strong> s = \"**|**|***|\", queries = [[2,5],[5,9]] <strong>Output:</strong> [2,3] <strong>Explanation:</strong> - queries[0] has two plates between candles. - queries[1] has three plates between candles.",
+      "expectedOutput": "</strong> [2,3] <strong>Explanation:</strong> - queries[0] has two plates between candles. - queries[1] has three plates between candles."
+    },
+    {
+      "input": "</strong> s = \"***|**|*****|**||**|*\", queries = [[1,17],[4,5],[14,17],[5,11],[15,16]] <strong>Output:</strong> [9,0,0,0,0] <strong>Explanation:</strong> - queries[0] has nine plates between candles. - The other queries have zero plates between candles.",
+      "expectedOutput": "</strong> [9,0,0,0,0] <strong>Explanation:</strong> - queries[0] has nine plates between candles. - The other queries have zero plates between candles."
+    }
+  ]
+}

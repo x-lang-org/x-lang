@@ -1,0 +1,26 @@
+{
+  "problemId": "3190",
+  "titleSlug": "minimum-operations-to-maximize-last-elements-in-arrays",
+  "title": "Minimum Operations to Maximize Last Elements in Arrays",
+  "titleCn": "最大化数组末位元素的最少操作次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "enumeration"
+  ],
+  "acRate": 0.487034417727487,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,7], nums2 = [4,5,3] <strong>Output:</strong> 1 <strong>Explanation:</strong> In this example, an operation can be performed using index i = 2. When nums1[2] and nums2[2] are swapped, nums1 becomes [1,2,3] and nums2 becomes [4,5,7]. Both conditions are now satisfied. It can be shown that the minimum number of operations needed to be performed is 1. So, the answer is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In this example, an operation can be performed using index i = 2. When nums1[2] and nums2[2] are swapped, nums1 becomes [1,2,3] and nums2 becomes [4,5,7]. Both conditions are now satisfied. It can be shown that the minimum number of operations needed to be performed is 1. So, the answer is 1."
+    },
+    {
+      "input": "</strong> nums1 = [2,3,4,5,9], nums2 = [8,8,4,4,4] <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, the following operations can be performed: First operation using index i = 4. When nums1[4] and nums2[4] are swapped, nums1 becomes [2,3,4,5,4], and nums2 becomes [8,8,4,4,9]. Another operation using index i = 3. When nums1[3] and nums2[3] are swapped, nums1 becomes [2,3,4,4,4], and nums2 becomes [8,8,4,5,9]. Both conditions are now satisfied. It can be shown that the minimum number of operations needed to be performed is 2. So, the answer is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, the following operations can be performed: First operation using index i = 4. When nums1[4] and nums2[4] are swapped, nums1 becomes [2,3,4,5,4], and nums2 becomes [8,8,4,4,9]. Another operation using index i = 3. When nums1[3] and nums2[3] are swapped, nums1 becomes [2,3,4,4,4], and nums2 becomes [8,8,4,5,9]. Both conditions are now satisfied. It can be shown that the minimum number of operations needed to be performed is 2. So, the answer is 2."
+    },
+    {
+      "input": "</strong> nums1 = [1,5,4], nums2 = [2,5,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> In this example, it is not possible to satisfy both conditions. So, the answer is -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> In this example, it is not possible to satisfy both conditions. So, the answer is -1."
+    }
+  ]
+}

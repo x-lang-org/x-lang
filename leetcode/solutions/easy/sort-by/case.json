@@ -1,0 +1,23 @@
+{
+  "problemId": "2860",
+  "titleSlug": "sort-by",
+  "title": "Sort By",
+  "titleCn": "排序方式",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.78365636458879,
+  "testcases": [
+    {
+      "input": "</strong> arr = [5, 4, 1, 2, 3], fn = (x) => x <strong>Output:</strong> [1, 2, 3, 4, 5] <strong>Explanation:</strong> fn simply returns the number passed to it so the array is sorted in ascending order.",
+      "expectedOutput": "</strong> [1, 2, 3, 4, 5] <strong>Explanation:</strong> fn simply returns the number passed to it so the array is sorted in ascending order."
+    },
+    {
+      "input": "</strong> arr = [{\"x\": 1}, {\"x\": 0}, {\"x\": -1}], fn = (d) => d.x <strong>Output:</strong> [{\"x\": -1}, {\"x\": 0}, {\"x\": 1}] <strong>Explanation:</strong> fn returns the value for the \"x\" key. So the array is sorted based on that value.",
+      "expectedOutput": "</strong> [{\"x\": -1}, {\"x\": 0}, {\"x\": 1}] <strong>Explanation:</strong> fn returns the value for the \"x\" key. So the array is sorted based on that value."
+    },
+    {
+      "input": "</strong> arr = [[3, 4], [5, 2], [10, 1]], fn = (x) => x[1] <strong>Output:</strong> [[10, 1], [5, 2], [3, 4]] <strong>Explanation:</strong> arr is sorted in ascending order by number at index=1.",
+      "expectedOutput": "</strong> [[10, 1], [5, 2], [3, 4]] <strong>Explanation:</strong> arr is sorted in ascending order by number at index=1."
+    }
+  ]
+}

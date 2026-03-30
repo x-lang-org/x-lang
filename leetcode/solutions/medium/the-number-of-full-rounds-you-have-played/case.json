@@ -1,0 +1,22 @@
+{
+  "problemId": "2033",
+  "titleSlug": "the-number-of-full-rounds-you-have-played",
+  "title": "The Number of Full Rounds You Have Played",
+  "titleCn": "你完成的完整对局数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.3352353129136806,
+  "testcases": [
+    {
+      "input": "</strong> loginTime = \"09:31\", logoutTime = \"10:14\" <strong>Output:</strong> 1 <strong>Explanation:</strong> You played one full round from 09:45 to 10:00. You did not play the full round from 09:30 to 09:45 because you logged in at 09:31 after it began. You did not play the full round from 10:00 to 10:15 because you logged out at 10:14 before it ended.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You played one full round from 09:45 to 10:00. You did not play the full round from 09:30 to 09:45 because you logged in at 09:31 after it began. You did not play the full round from 10:00 to 10:15 because you logged out at 10:14 before it ended."
+    },
+    {
+      "input": "</strong> loginTime = \"21:30\", logoutTime = \"03:00\" <strong>Output:</strong> 22 <strong>Explanation:</strong> You played 10 full rounds from 21:30 to 00:00 and 12 full rounds from 00:00 to 03:00. 10 + 12 = 22.",
+      "expectedOutput": "</strong> 22 <strong>Explanation:</strong> You played 10 full rounds from 21:30 to 00:00 and 12 full rounds from 00:00 to 03:00. 10 + 12 = 22."
+    }
+  ]
+}

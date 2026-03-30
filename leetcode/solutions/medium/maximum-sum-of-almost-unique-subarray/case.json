@@ -1,0 +1,27 @@
+{
+  "problemId": "2954",
+  "titleSlug": "maximum-sum-of-almost-unique-subarray",
+  "title": "Maximum Sum of Almost Unique Subarray",
+  "titleCn": "几乎唯一子数组的最大和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.4535802335834728,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,6,7,3,1,7], m = 3, k = 4 <strong>Output:</strong> 18 <strong>Explanation:</strong> There are 3 almost unique subarrays of size <code>k = 4</code>. These subarrays are [2, 6, 7, 3], [6, 7, 3, 1], and [7, 3, 1, 7]. Among these subarrays, the one with the maximum sum is [2, 6, 7, 3] which has a sum of 18.",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> There are 3 almost unique subarrays of size <code>k = 4</code>. These subarrays are [2, 6, 7, 3], [6, 7, 3, 1], and [7, 3, 1, 7]. Among these subarrays, the one with the maximum sum is [2, 6, 7, 3] which has a sum of 18."
+    },
+    {
+      "input": "</strong> nums = [5,9,9,2,4,5,4], m = 1, k = 3 <strong>Output:</strong> 23 <strong>Explanation:</strong> There are 5 almost unique subarrays of size k. These subarrays are [5, 9, 9], [9, 9, 2], [9, 2, 4], [2, 4, 5], and [4, 5, 4]. Among these subarrays, the one with the maximum sum is [5, 9, 9] which has a sum of 23.",
+      "expectedOutput": "</strong> 23 <strong>Explanation:</strong> There are 5 almost unique subarrays of size k. These subarrays are [5, 9, 9], [9, 9, 2], [9, 2, 4], [2, 4, 5], and [4, 5, 4]. Among these subarrays, the one with the maximum sum is [5, 9, 9] which has a sum of 23."
+    },
+    {
+      "input": "</strong> nums = [1,2,1,2,1,2,1], m = 3, k = 3 <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no subarrays of size <code>k = 3</code> that contain at least <code>m = 3</code> distinct elements in the given array [1,2,1,2,1,2,1]. Therefore, no almost unique subarrays exist, and the maximum sum is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no subarrays of size <code>k = 3</code> that contain at least <code>m = 3</code> distinct elements in the given array [1,2,1,2,1,2,1]. Therefore, no almost unique subarrays exist, and the maximum sum is 0."
+    }
+  ]
+}

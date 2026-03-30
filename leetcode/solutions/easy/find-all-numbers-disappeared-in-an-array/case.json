@@ -1,0 +1,22 @@
+{
+  "problemId": "448",
+  "titleSlug": "find-all-numbers-disappeared-in-an-array",
+  "title": "Find All Numbers Disappeared in an Array",
+  "titleCn": "找到所有数组中消失的数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.6569310290283241,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,3,2,7,8,2,3,1] <strong>Output:</strong> [5,6]",
+      "expectedOutput": "</strong> [5,6]"
+    },
+    {
+      "input": "</strong> nums = [1,1] <strong>Output:</strong> [2]",
+      "expectedOutput": "</strong> [2]"
+    }
+  ]
+}

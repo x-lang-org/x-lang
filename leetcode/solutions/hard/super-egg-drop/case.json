@@ -1,0 +1,27 @@
+{
+  "problemId": "923",
+  "titleSlug": "super-egg-drop",
+  "title": "Super Egg Drop",
+  "titleCn": "鸡蛋掉落",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "binary-search",
+    "dynamic-programming"
+  ],
+  "acRate": 0.33225635660793795,
+  "testcases": [
+    {
+      "input": "</strong> k = 1, n = 2 <strong>Output:</strong> 2 <strong>Explanation: </strong> Drop the egg from floor 1. If it breaks, we know that f = 0. Otherwise, drop the egg from floor 2. If it breaks, we know that f = 1. If it does not break, then we know f = 2. Hence, we need at minimum 2 moves to determine with certainty what the value of f is.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong> Drop the egg from floor 1. If it breaks, we know that f = 0. Otherwise, drop the egg from floor 2. If it breaks, we know that f = 1. If it does not break, then we know f = 2. Hence, we need at minimum 2 moves to determine with certainty what the value of f is."
+    },
+    {
+      "input": "</strong> k = 2, n = 6 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> k = 3, n = 14 <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    }
+  ]
+}

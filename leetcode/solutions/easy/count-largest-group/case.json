@@ -1,0 +1,23 @@
+{
+  "problemId": "1500",
+  "titleSlug": "count-largest-group",
+  "title": "Count Largest Group",
+  "titleCn": "统计最大组的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "counting"
+  ],
+  "acRate": 0.7220238926228036,
+  "testcases": [
+    {
+      "input": "</strong> n = 13 <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 9 groups in total, they are grouped according sum of its digits of numbers from 1 to 13: [1,10], [2,11], [3,12], [4,13], [5], [6], [7], [8], [9]. There are 4 groups with largest size.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 9 groups in total, they are grouped according sum of its digits of numbers from 1 to 13: [1,10], [2,11], [3,12], [4,13], [5], [6], [7], [8], [9]. There are 4 groups with largest size."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 groups [1], [2] of size 1.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 groups [1], [2] of size 1."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2378",
+  "titleSlug": "sender-with-largest-word-count",
+  "title": "Sender With Largest Word Count",
+  "titleCn": "最多单词数的发件人",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.5815146746938497,
+  "testcases": [
+    {
+      "input": "</strong> messages = [\"Hello userTwooo\",\"Hi userThree\",\"Wonderful day Alice\",\"Nice day userThree\"], senders = [\"Alice\",\"userTwo\",\"userThree\",\"Alice\"] <strong>Output:</strong> \"Alice\" <strong>Explanation:</strong> Alice sends a total of 2 + 3 = 5 words. userTwo sends a total of 2 words. userThree sends a total of 3 words. Since Alice has the largest word count, we return \"Alice\".",
+      "expectedOutput": "</strong> \"Alice\" <strong>Explanation:</strong> Alice sends a total of 2 + 3 = 5 words. userTwo sends a total of 2 words. userThree sends a total of 3 words. Since Alice has the largest word count, we return \"Alice\"."
+    },
+    {
+      "input": "</strong> messages = [\"How is leetcode for everyone\",\"Leetcode is useful for practice\"], senders = [\"Bob\",\"Charlie\"] <strong>Output:</strong> \"Charlie\" <strong>Explanation:</strong> Bob sends a total of 5 words. Charlie sends a total of 5 words. Since there is a tie for the largest word count, we return the sender with the lexicographically larger name, Charlie.",
+      "expectedOutput": "</strong> \"Charlie\" <strong>Explanation:</strong> Bob sends a total of 5 words. Charlie sends a total of 5 words. Since there is a tie for the largest word count, we return the sender with the lexicographically larger name, Charlie."
+    }
+  ]
+}

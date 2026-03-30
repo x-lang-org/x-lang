@@ -1,0 +1,26 @@
+{
+  "problemId": "1031",
+  "titleSlug": "add-to-array-form-of-integer",
+  "title": "Add to Array-Form of Integer",
+  "titleCn": "数组形式的整数加法",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.450048668735312,
+  "testcases": [
+    {
+      "input": "</strong> num = [1,2,0,0], k = 34 <strong>Output:</strong> [1,2,3,4] <strong>Explanation:</strong> 1200 + 34 = 1234",
+      "expectedOutput": "</strong> [1,2,3,4] <strong>Explanation:</strong> 1200 + 34 = 1234"
+    },
+    {
+      "input": "</strong> num = [2,7,4], k = 181 <strong>Output:</strong> [4,5,5] <strong>Explanation:</strong> 274 + 181 = 455",
+      "expectedOutput": "</strong> [4,5,5] <strong>Explanation:</strong> 274 + 181 = 455"
+    },
+    {
+      "input": "</strong> num = [2,1,5], k = 806 <strong>Output:</strong> [1,0,2,1] <strong>Explanation:</strong> 215 + 806 = 1021",
+      "expectedOutput": "</strong> [1,0,2,1] <strong>Explanation:</strong> 215 + 806 = 1021"
+    }
+  ]
+}

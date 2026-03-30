@@ -1,0 +1,26 @@
+{
+  "problemId": "2541",
+  "titleSlug": "sum-of-number-and-its-reverse",
+  "title": "Sum of Number and Its Reverse",
+  "titleCn": "反转之后的数字和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.47479141128553914,
+  "testcases": [
+    {
+      "input": "</strong> num = 443 <strong>Output:</strong> true <strong>Explanation:</strong> 172 + 271 = 443 so we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 172 + 271 = 443 so we return true."
+    },
+    {
+      "input": "</strong> num = 63 <strong>Output:</strong> false <strong>Explanation:</strong> 63 cannot be expressed as the sum of a non-negative integer and its reverse so we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> 63 cannot be expressed as the sum of a non-negative integer and its reverse so we return false."
+    },
+    {
+      "input": "</strong> num = 181 <strong>Output:</strong> true <strong>Explanation:</strong> 140 + 041 = 181 so we return true. Note that when a number is reversed, there may be leading zeros.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 140 + 041 = 181 so we return true. Note that when a number is reversed, there may be leading zeros."
+    }
+  ]
+}

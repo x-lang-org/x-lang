@@ -13,11 +13,11 @@
   "testcases": [
     {
       "input": "\"III\"",
-      "expectedOutput": "\"LVIII\""
+      "expectedOutput": "3"
     },
     {
       "input": "\"MCMXCIV\"",
-      "expectedOutput": ""
+      "expectedOutput": "1994"
     }
   ]
 }

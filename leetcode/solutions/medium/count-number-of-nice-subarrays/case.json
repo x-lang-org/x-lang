@@ -1,0 +1,29 @@
+{
+  "problemId": "1370",
+  "titleSlug": "count-number-of-nice-subarrays",
+  "title": "Count Number of Nice Subarrays",
+  "titleCn": "统计「优美子数组」",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.6249574946298093,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,2,1,1], k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The only sub-arrays with 3 odd numbers are [1,1,2,1] and [1,2,1,1]."
+    },
+    {
+      "input": "</strong> nums = [2,4,6], k = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no odd numbers in the array.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no odd numbers in the array."
+    },
+    {
+      "input": "</strong> nums = [2,2,2,1,2,2,1,2,2,2], k = 2 <strong>Output:</strong> 16",
+      "expectedOutput": "</strong> 16"
+    }
+  ]
+}

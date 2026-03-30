@@ -1,0 +1,22 @@
+{
+  "problemId": "755",
+  "titleSlug": "reach-a-number",
+  "title": "Reach a Number",
+  "titleCn": "到达终点数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.5156666454122298,
+  "testcases": [
+    {
+      "input": "</strong> target = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> On the 1<sup>st</sup> move, we step from 0 to 1 (1 step). On the 2<sup>nd</sup> move, we step from 1 to -1 (2 steps). On the 3<sup>rd</sup> move, we step from -1 to 2 (3 steps).",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> On the 1<sup>st</sup> move, we step from 0 to 1 (1 step). On the 2<sup>nd</sup> move, we step from 1 to -1 (2 steps). On the 3<sup>rd</sup> move, we step from -1 to 2 (3 steps)."
+    },
+    {
+      "input": "</strong> target = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> On the 1<sup>st</sup> move, we step from 0 to 1 (1 step). On the 2<sup>nd</sup> move, we step from 1 to 3 (2 steps).",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> On the 1<sup>st</sup> move, we step from 0 to 1 (1 step). On the 2<sup>nd</sup> move, we step from 1 to 3 (2 steps)."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1646",
+  "titleSlug": "kth-missing-positive-number",
+  "title": "Kth Missing Positive Number",
+  "titleCn": "第 k 个缺失的正整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5548436454049919,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,3,4,7,11], k = 5 <strong>Output:</strong> 9 <strong>Explanation: </strong>The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5<sup>th</sup> missing positive integer is 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation: </strong>The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5<sup>th</sup> missing positive integer is 9."
+    },
+    {
+      "input": "</strong> arr = [1,2,3,4], k = 2 <strong>Output:</strong> 6 <strong>Explanation: </strong>The missing positive integers are [5,6,7,...]. The 2<sup>nd</sup> missing positive integer is 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation: </strong>The missing positive integers are [5,6,7,...]. The 2<sup>nd</sup> missing positive integer is 6."
+    }
+  ]
+}

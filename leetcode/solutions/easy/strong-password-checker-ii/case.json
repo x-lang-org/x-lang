@@ -1,0 +1,25 @@
+{
+  "problemId": "2391",
+  "titleSlug": "strong-password-checker-ii",
+  "title": "Strong Password Checker II",
+  "titleCn": "强密码检验器 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6517309303326012,
+  "testcases": [
+    {
+      "input": "</strong> password = \"IloveLe3tcode!\" <strong>Output:</strong> true <strong>Explanation:</strong> The password meets all the requirements. Therefore, we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The password meets all the requirements. Therefore, we return true."
+    },
+    {
+      "input": "</strong> password = \"Me+You--IsMyDream\" <strong>Output:</strong> false <strong>Explanation:</strong> The password does not contain a digit and also contains 2 of the same character in adjacent positions. Therefore, we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The password does not contain a digit and also contains 2 of the same character in adjacent positions. Therefore, we return false."
+    },
+    {
+      "input": "</strong> password = \"1aB!\" <strong>Output:</strong> false <strong>Explanation:</strong> The password does not meet the length requirement. Therefore, we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The password does not meet the length requirement. Therefore, we return false."
+    }
+  ]
+}

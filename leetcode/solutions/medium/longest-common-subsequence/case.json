@@ -1,0 +1,26 @@
+{
+  "problemId": "1250",
+  "titleSlug": "longest-common-subsequence",
+  "title": "Longest Common Subsequence",
+  "titleCn": "最长公共子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6756163723449774,
+  "testcases": [
+    {
+      "input": "</strong> text1 = \"abcde\", text2 = \"ace\" <strong>Output:</strong> 3  <strong>Explanation:</strong> The longest common subsequence is \"ace\" and its length is 3.",
+      "expectedOutput": "</strong> 3  <strong>Explanation:</strong> The longest common subsequence is \"ace\" and its length is 3."
+    },
+    {
+      "input": "</strong> text1 = \"abc\", text2 = \"abc\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The longest common subsequence is \"abc\" and its length is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The longest common subsequence is \"abc\" and its length is 3."
+    },
+    {
+      "input": "</strong> text1 = \"abc\", text2 = \"def\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no such common subsequence, so the result is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no such common subsequence, so the result is 0."
+    }
+  ]
+}

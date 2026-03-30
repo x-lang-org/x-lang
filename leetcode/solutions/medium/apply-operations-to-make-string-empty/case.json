@@ -1,0 +1,24 @@
+{
+  "problemId": "3308",
+  "titleSlug": "apply-operations-to-make-string-empty",
+  "title": "Apply Operations to Make String Empty",
+  "titleCn": "进行操作使字符串为空",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5723638869745004,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabcbbca\" <strong>Output:</strong> \"ba\" <strong>Explanation:</strong> Explained in the statement.",
+      "expectedOutput": "</strong> \"ba\" <strong>Explanation:</strong> Explained in the statement."
+    },
+    {
+      "input": "</strong> s = \"abcd\" <strong>Output:</strong> \"abcd\" <strong>Explanation:</strong> We do the following operation: - Remove the underlined characters s = \"<u><strong>abcd</strong></u>\". The resulting string is s = \"\". The string just before the last operation is \"abcd\".",
+      "expectedOutput": "</strong> \"abcd\" <strong>Explanation:</strong> We do the following operation: - Remove the underlined characters s = \"<u><strong>abcd</strong></u>\". The resulting string is s = \"\". The string just before the last operation is \"abcd\"."
+    }
+  ]
+}

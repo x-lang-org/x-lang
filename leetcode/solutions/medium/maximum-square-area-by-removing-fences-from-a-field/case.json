@@ -1,0 +1,23 @@
+{
+  "problemId": "3250",
+  "titleSlug": "maximum-square-area-by-removing-fences-from-a-field",
+  "title": "Maximum Square Area by Removing Fences From a Field",
+  "titleCn": "移除栅栏得到的正方形田地的最大面积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "enumeration"
+  ],
+  "acRate": 0.43310373617198916,
+  "testcases": [
+    {
+      "input": "</strong> m = 4, n = 3, hFences = [2,3], vFences = [2] <strong>Output:</strong> 4 <strong>Explanation:</strong> Removing the horizontal fence at 2 and the vertical fence at 2 will give a square field of area 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Removing the horizontal fence at 2 and the vertical fence at 2 will give a square field of area 4."
+    },
+    {
+      "input": "</strong> m = 6, n = 7, hFences = [2], vFences = [4] <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be proved that there is no way to create a square field by removing fences.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be proved that there is no way to create a square field by removing fences."
+    }
+  ]
+}

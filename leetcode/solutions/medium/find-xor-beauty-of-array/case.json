@@ -1,0 +1,23 @@
+{
+  "problemId": "2621",
+  "titleSlug": "find-xor-beauty-of-array",
+  "title": "Find Xor-Beauty of Array",
+  "titleCn": "查询数组异或美丽值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "math"
+  ],
+  "acRate": 0.7418214977772711,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,4] <strong>Output:</strong> 5 <strong>Explanation:</strong> The triplets and their corresponding effective values are listed below: - (0,0,0) with effective value ((1 | 1) & 1) = 1 - (0,0,1) with effective value ((1 | 1) & 4) = 0 - (0,1,0) with effective value ((1 | 4) & 1) = 1 - (0,1,1) with effective value ((1 | 4) & 4) = 4 - (1,0,0) with effective value ((4 | 1) & 1) = 1 - (1,0,1) with effective value ((4 | 1) & 4) = 4 - (1,1,0) with effective value ((4 | 4) & 1) = 0 - (1,1,1) with effective value ((4 | 4) & 4) = 4 Xor-beauty of array will be bitwise XOR of all beauties = 1 ^ 0 ^ 1 ^ 4 ^ 1 ^ 4 ^ 0 ^ 4 = 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The triplets and their corresponding effective values are listed below: - (0,0,0) with effective value ((1 | 1) & 1) = 1 - (0,0,1) with effective value ((1 | 1) & 4) = 0 - (0,1,0) with effective value ((1 | 4) & 1) = 1 - (0,1,1) with effective value ((1 | 4) & 4) = 4 - (1,0,0) with effective value ((4 | 1) & 1) = 1 - (1,0,1) with effective value ((4 | 1) & 4) = 4 - (1,1,0) with effective value ((4 | 4) & 1) = 0 - (1,1,1) with effective value ((4 | 4) & 4) = 4 Xor-beauty of array will be bitwise XOR of all beauties = 1 ^ 0 ^ 1 ^ 4 ^ 1 ^ 4 ^ 0 ^ 4 = 5."
+    },
+    {
+      "input": "</strong> nums = [15,45,20,2,34,35,5,44,32,30] <strong>Output:</strong> 34 <strong>Explanation:</strong> <code>The xor-beauty of the given array is 34.</code>",
+      "expectedOutput": "</strong> 34 <strong>Explanation:</strong> <code>The xor-beauty of the given array is 34.</code>"
+    }
+  ]
+}

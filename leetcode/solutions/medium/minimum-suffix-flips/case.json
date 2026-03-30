@@ -1,0 +1,26 @@
+{
+  "problemId": "1652",
+  "titleSlug": "minimum-suffix-flips",
+  "title": "Minimum Suffix Flips",
+  "titleCn": "最少的后缀翻转次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.7228501931606811,
+  "testcases": [
+    {
+      "input": "</strong> target = \"10111\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Initially, s = \"00000\". Choose index i = 2: \"00<u>000</u>\" -> \"00<u>111</u>\" Choose index i = 0: \"<u>00111</u>\" -> \"<u>11000</u>\" Choose index i = 1: \"1<u>1000</u>\" -> \"1<u>0111</u>\" We need at least 3 flip operations to form target.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Initially, s = \"00000\". Choose index i = 2: \"00<u>000</u>\" -> \"00<u>111</u>\" Choose index i = 0: \"<u>00111</u>\" -> \"<u>11000</u>\" Choose index i = 1: \"1<u>1000</u>\" -> \"1<u>0111</u>\" We need at least 3 flip operations to form target."
+    },
+    {
+      "input": "</strong> target = \"101\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Initially, s = \"000\". Choose index i = 0: \"<u>000</u>\" -> \"<u>111</u>\" Choose index i = 1: \"1<u>11</u>\" -> \"1<u>00</u>\" Choose index i = 2: \"10<u>0</u>\" -> \"10<u>1</u>\" We need at least 3 flip operations to form target.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Initially, s = \"000\". Choose index i = 0: \"<u>000</u>\" -> \"<u>111</u>\" Choose index i = 1: \"1<u>11</u>\" -> \"1<u>00</u>\" Choose index i = 2: \"10<u>0</u>\" -> \"10<u>1</u>\" We need at least 3 flip operations to form target."
+    },
+    {
+      "input": "</strong> target = \"00000\" <strong>Output:</strong> 0 <strong>Explanation:</strong> We do not need any operations since the initial s already equals target.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> We do not need any operations since the initial s already equals target."
+    }
+  ]
+}

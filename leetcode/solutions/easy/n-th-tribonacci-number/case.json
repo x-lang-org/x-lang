@@ -1,0 +1,23 @@
+{
+  "problemId": "1236",
+  "titleSlug": "n-th-tribonacci-number",
+  "title": "N-th Tribonacci Number",
+  "titleCn": "第 N 个泰波那契数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6083424088721889,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 4 <strong>Explanation:</strong> T_3 = 0 + 1 + 1 = 2 T_4 = 1 + 1 + 2 = 4",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> T_3 = 0 + 1 + 1 = 2 T_4 = 1 + 1 + 2 = 4"
+    },
+    {
+      "input": "</strong> n = 25 <strong>Output:</strong> 1389537",
+      "expectedOutput": "</strong> 1389537"
+    }
+  ]
+}

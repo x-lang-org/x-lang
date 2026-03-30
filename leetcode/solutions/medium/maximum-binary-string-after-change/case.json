@@ -1,0 +1,22 @@
+{
+  "problemId": "1804",
+  "titleSlug": "maximum-binary-string-after-change",
+  "title": "Maximum Binary String After Change",
+  "titleCn": "修改后的最大二进制字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.5250570314224741,
+  "testcases": [
+    {
+      "input": "</strong> binary = \"000110\" <strong>Output:</strong> \"111011\" <strong>Explanation:</strong> A valid transformation sequence can be: \"0001<u>10</u>\" -> \"0001<u>01</u>\" \"<u>00</u>0101\" -> \"<u>10</u>0101\" \"1<u>00</u>101\" -> \"1<u>10</u>101\" \"110<u>10</u>1\" -> \"110<u>01</u>1\" \"11<u>00</u>11\" -> \"11<u>10</u>11\"",
+      "expectedOutput": "</strong> \"111011\" <strong>Explanation:</strong> A valid transformation sequence can be: \"0001<u>10</u>\" -> \"0001<u>01</u>\" \"<u>00</u>0101\" -> \"<u>10</u>0101\" \"1<u>00</u>101\" -> \"1<u>10</u>101\" \"110<u>10</u>1\" -> \"110<u>01</u>1\" \"11<u>00</u>11\" -> \"11<u>10</u>11"
+    },
+    {
+      "input": "</strong> binary = \"01\" <strong>Output:</strong> \"01\" <strong>Explanation:</strong> \"01\" cannot be transformed any further.",
+      "expectedOutput": "</strong> \"01\" <strong>Explanation:</strong> \"01\" cannot be transformed any further."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2235",
+  "titleSlug": "capitalize-the-title",
+  "title": "Capitalize the Title",
+  "titleCn": "将标题首字母大写",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7090292952112884,
+  "testcases": [
+    {
+      "input": "</strong> title = \"capiTalIze tHe titLe\" <strong>Output:</strong> \"Capitalize The Title\" <strong>Explanation:</strong> Since all the words have a length of at least 3, the first letter of each word is uppercase, and the remaining letters are lowercase.",
+      "expectedOutput": "</strong> \"Capitalize The Title\" <strong>Explanation:</strong> Since all the words have a length of at least 3, the first letter of each word is uppercase, and the remaining letters are lowercase."
+    },
+    {
+      "input": "</strong> title = \"First leTTeR of EACH Word\" <strong>Output:</strong> \"First Letter of Each Word\" <strong>Explanation:</strong> The word \"of\" has length 2, so it is all lowercase. The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase.",
+      "expectedOutput": "</strong> \"First Letter of Each Word\" <strong>Explanation:</strong> The word \"of\" has length 2, so it is all lowercase. The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase."
+    },
+    {
+      "input": "</strong> title = \"i lOve leetcode\" <strong>Output:</strong> \"i Love Leetcode\" <strong>Explanation:</strong> The word \"i\" has length 1, so it is lowercase. The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase.",
+      "expectedOutput": "</strong> \"i Love Leetcode\" <strong>Explanation:</strong> The word \"i\" has length 1, so it is lowercase. The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase."
+    }
+  ]
+}

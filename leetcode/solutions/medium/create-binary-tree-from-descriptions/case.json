@@ -1,0 +1,24 @@
+{
+  "problemId": "2306",
+  "titleSlug": "create-binary-tree-from-descriptions",
+  "title": "Create Binary Tree From Descriptions",
+  "titleCn": "根据描述创建二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "array",
+    "hash-table",
+    "binary-tree"
+  ],
+  "acRate": 0.737291424136593,
+  "testcases": [
+    {
+      "input": "</strong> descriptions = [[20,15,1],[20,17,0],[50,20,1],[50,80,0],[80,19,1]] <strong>Output:</strong> [50,20,80,15,17,19] <strong>Explanation:</strong> The root node is the node with value 50 since it has no parent. The resulting binary tree is shown in the diagram.",
+      "expectedOutput": "</strong> [50,20,80,15,17,19] <strong>Explanation:</strong> The root node is the node with value 50 since it has no parent. The resulting binary tree is shown in the diagram."
+    },
+    {
+      "input": "</strong> descriptions = [[1,2,1],[2,3,0],[3,4,1]] <strong>Output:</strong> [1,2,null,null,3,4] <strong>Explanation:</strong> The root node is the node with value 1 since it has no parent. The resulting binary tree is shown in the diagram.",
+      "expectedOutput": "</strong> [1,2,null,null,3,4] <strong>Explanation:</strong> The root node is the node with value 1 since it has no parent. The resulting binary tree is shown in the diagram."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "problemId": "1135",
+  "titleSlug": "customers-who-bought-all-products",
+  "title": "Customers Who Bought All Products",
+  "titleCn": "买下所有产品的客户",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6005593058101488,
+  "testcases": [
+    {
+      "input": "</strong> Customer table: +-------------+-------------+ | customer_id | product_key | +-------------+-------------+ | 1      | 5      | | 2      | 6      | | 3      | 5      | | 3      | 6      | | 1      | 6      | +-------------+-------------+ Product table: +-------------+ | product_key | +-------------+ | 5      | | 6      | +-------------+ <strong>Output:</strong> +-------------+ | customer_id | +-------------+ | 1      | | 3      | +-------------+ <strong>Explanation:</strong> The customers who bought all the products (5 and 6) are customers with IDs 1 and 3.",
+      "expectedOutput": "</strong> +-------------+ | customer_id | +-------------+ | 1      | | 3      | +-------------+ <strong>Explanation:</strong> The customers who bought all the products (5 and 6) are customers with IDs 1 and 3."
+    }
+  ]
+}

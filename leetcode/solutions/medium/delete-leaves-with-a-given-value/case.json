@@ -1,0 +1,27 @@
+{
+  "problemId": "1450",
+  "titleSlug": "delete-leaves-with-a-given-value",
+  "title": "Delete Leaves With a Given Value",
+  "titleCn": "删除给定值的叶子节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.7441988789823716,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,2,3,2,null,2,4], target = 2 <strong>Output:</strong> [1,null,3,null,4] <strong>Explanation:</strong> Leaf nodes in green with value (target = 2) are removed (Picture in left). After removing, new nodes become leaf nodes with value (target = 2) (Picture in center).",
+      "expectedOutput": "</strong> [1,null,3,null,4] <strong>Explanation:</strong> Leaf nodes in green with value (target = 2) are removed (Picture in left). After removing, new nodes become leaf nodes with value (target = 2) (Picture in center)."
+    },
+    {
+      "input": "</strong> root = [1,3,3,3,2], target = 3 <strong>Output:</strong> [1,3,null,null,2]",
+      "expectedOutput": "</strong> [1,3,null,null,2]"
+    },
+    {
+      "input": "</strong> root = [1,2,null,2,null,2], target = 2 <strong>Output:</strong> [1] <strong>Explanation:</strong> Leaf nodes in green with value (target = 2) are removed at each step.",
+      "expectedOutput": "</strong> [1] <strong>Explanation:</strong> Leaf nodes in green with value (target = 2) are removed at each step."
+    }
+  ]
+}

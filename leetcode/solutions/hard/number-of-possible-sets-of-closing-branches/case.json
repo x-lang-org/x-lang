@@ -1,0 +1,29 @@
+{
+  "problemId": "3217",
+  "titleSlug": "number-of-possible-sets-of-closing-branches",
+  "title": "Number of Possible Sets of Closing Branches",
+  "titleCn": "关闭分部的可行集合数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "graph",
+    "enumeration",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.7206437838725571,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, maxDistance = 5, roads = [[0,1,2],[1,2,10],[0,2,10]] <strong>Output:</strong> 5 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [2], after closing, active branches are [0,1] and they are reachable to each other within distance 2. - The set [0,1], after closing, the active branch is [2]. - The set [1,2], after closing, the active branch is [0]. - The set [0,2], after closing, the active branch is [1]. - The set [0,1,2], after closing, there are no active branches. It can be proven, that there are only 5 possible sets of closing branches.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [2], after closing, active branches are [0,1] and they are reachable to each other within distance 2. - The set [0,1], after closing, the active branch is [2]. - The set [1,2], after closing, the active branch is [0]. - The set [0,2], after closing, the active branch is [1]. - The set [0,1,2], after closing, there are no active branches. It can be proven, that there are only 5 possible sets of closing branches."
+    },
+    {
+      "input": "</strong> n = 3, maxDistance = 5, roads = [[0,1,20],[0,1,10],[1,2,2],[0,2,2]] <strong>Output:</strong> 7 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [], after closing, active branches are [0,1,2] and they are reachable to each other within distance 4. - The set [0], after closing, active branches are [1,2] and they are reachable to each other within distance 2. - The set [1], after closing, active branches are [0,2] and they are reachable to each other within distance 2. - The set [0,1], after closing, the active branch is [2]. - The set [1,2], after closing, the active branch is [0]. - The set [0,2], after closing, the active branch is [1]. - The set [0,1,2], after closing, there are no active branches. It can be proven, that there are only 7 possible sets of closing branches.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [], after closing, active branches are [0,1,2] and they are reachable to each other within distance 4. - The set [0], after closing, active branches are [1,2] and they are reachable to each other within distance 2. - The set [1], after closing, active branches are [0,2] and they are reachable to each other within distance 2. - The set [0,1], after closing, the active branch is [2]. - The set [1,2], after closing, the active branch is [0]. - The set [0,2], after closing, the active branch is [1]. - The set [0,1,2], after closing, there are no active branches. It can be proven, that there are only 7 possible sets of closing branches."
+    },
+    {
+      "input": "</strong> n = 1, maxDistance = 10, roads = [] <strong>Output:</strong> 2 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [], after closing, the active branch is [0]. - The set [0], after closing, there are no active branches. It can be proven, that there are only 2 possible sets of closing branches.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The possible sets of closing branches are: - The set [], after closing, the active branch is [0]. - The set [0], after closing, there are no active branches. It can be proven, that there are only 2 possible sets of closing branches."
+    }
+  ]
+}

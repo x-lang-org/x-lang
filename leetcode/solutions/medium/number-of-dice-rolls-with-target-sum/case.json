@@ -1,0 +1,25 @@
+{
+  "problemId": "1263",
+  "titleSlug": "number-of-dice-rolls-with-target-sum",
+  "title": "Number of Dice Rolls With Target Sum",
+  "titleCn": "掷骰子等于目标和的方法数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.6572321790802568,
+  "testcases": [
+    {
+      "input": "</strong> n = 1, k = 6, target = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> You throw one die with 6 faces. There is only one way to get a sum of 3.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You throw one die with 6 faces. There is only one way to get a sum of 3."
+    },
+    {
+      "input": "</strong> n = 2, k = 6, target = 7 <strong>Output:</strong> 6 <strong>Explanation:</strong> You throw two dice, each with 6 faces. There are 6 ways to get a sum of 7: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> You throw two dice, each with 6 faces. There are 6 ways to get a sum of 7: 1+6, 2+5, 3+4, 4+3, 5+2, 6+1."
+    },
+    {
+      "input": "</strong> n = 30, k = 30, target = 500 <strong>Output:</strong> 222616187 <strong>Explanation:</strong> The answer must be returned modulo 10<sup>9</sup> + 7.",
+      "expectedOutput": "</strong> 222616187 <strong>Explanation:</strong> The answer must be returned modulo 10<sup>9</sup> + 7."
+    }
+  ]
+}

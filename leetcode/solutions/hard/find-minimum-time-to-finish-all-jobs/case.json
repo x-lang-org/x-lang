@@ -1,0 +1,25 @@
+{
+  "problemId": "1825",
+  "titleSlug": "find-minimum-time-to-finish-all-jobs",
+  "title": "Find Minimum Time to Finish All Jobs",
+  "titleCn": "完成所有工作的最短时间",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.51334328317336,
+  "testcases": [
+    {
+      "input": "</strong> jobs = [3,2,3], k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> By assigning each person one job, the maximum time is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> By assigning each person one job, the maximum time is 3."
+    },
+    {
+      "input": "</strong> jobs = [1,2,4,7,8], k = 2 <strong>Output:</strong> 11 <strong>Explanation:</strong> Assign the jobs the following way: Worker 1: 1, 2, 8 (working time = 1 + 2 + 8 = 11) Worker 2: 4, 7 (working time = 4 + 7 = 11) The maximum working time is 11.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> Assign the jobs the following way: Worker 1: 1, 2, 8 (working time = 1 + 2 + 8 = 11) Worker 2: 4, 7 (working time = 4 + 7 = 11) The maximum working time is 11."
+    }
+  ]
+}

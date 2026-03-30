@@ -1,0 +1,31 @@
+{
+  "problemId": "2221",
+  "titleSlug": "check-if-a-parentheses-string-can-be-valid",
+  "title": "Check if a Parentheses String Can Be Valid",
+  "titleCn": "判断一个括号字符串是否有效",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.4527699619322346,
+  "testcases": [
+    {
+      "input": "</strong> s = \"))()))\", locked = \"010100\" <strong>Output:</strong> true <strong>Explanation:</strong> locked[1] == '1' and locked[3] == '1', so we cannot change s[1] or s[3]. We change s[0] and s[4] to '(' while leaving s[2] and s[5] unchanged to make s valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> locked[1] == '1' and locked[3] == '1', so we cannot change s[1] or s[3]. We change s[0] and s[4] to '(' while leaving s[2] and s[5] unchanged to make s valid."
+    },
+    {
+      "input": "</strong> s = \"()()\", locked = \"0000\" <strong>Output:</strong> true <strong>Explanation:</strong> We do not need to make any changes because s is already valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We do not need to make any changes because s is already valid."
+    },
+    {
+      "input": "</strong> s = \")\", locked = \"0\" <strong>Output:</strong> false <strong>Explanation:</strong> locked permits us to change s[0]. Changing s[0] to either '(' or ')' will not make s valid.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> locked permits us to change s[0]. Changing s[0] to either '(' or ')' will not make s valid."
+    },
+    {
+      "input": "</strong> s = \"(((())(((())\", locked = \"111111010111\" <strong>Output:</strong> true <strong>Explanation:</strong> locked permits us to change s[6] and s[8]. We change s[6] and s[8] to ')' to make s valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> locked permits us to change s[6] and s[8]. We change s[6] and s[8] to ')' to make s valid."
+    }
+  ]
+}

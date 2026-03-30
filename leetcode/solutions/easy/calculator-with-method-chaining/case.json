@@ -1,0 +1,23 @@
+{
+  "problemId": "2863",
+  "titleSlug": "calculator-with-method-chaining",
+  "title": "Calculator with Method Chaining",
+  "titleCn": "使用方法链的计算器",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.6872762324428532,
+  "testcases": [
+    {
+      "input": "</strong> actions = [\"Calculator\", \"add\", \"subtract\", \"getResult\"], values = [10, 5, 7] <strong>Output:</strong> 8 <strong>Explanation:</strong> new Calculator(10).add(5).subtract(7).getResult() // 10 + 5 - 7 = 8",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> new Calculator(10).add(5).subtract(7).getResult() // 10 + 5 - 7 = 8"
+    },
+    {
+      "input": "</strong> actions = [\"Calculator\", \"multiply\", \"power\", \"getResult\"], values = [2, 5, 2] <strong>Output:</strong> 100 <strong>Explanation:</strong> new Calculator(2).multiply(5).power(2).getResult() // (2 * 5) ^ 2 = 100",
+      "expectedOutput": "</strong> 100 <strong>Explanation:</strong> new Calculator(2).multiply(5).power(2).getResult() // (2 * 5) ^ 2 = 100"
+    },
+    {
+      "input": "</strong> actions = [\"Calculator\", \"divide\", \"getResult\"], values = [20, 0] <strong>Output:</strong> \"Division by zero is not allowed\" <strong>Explanation:</strong> new Calculator(20).divide(0).getResult() // 20 / 0  The error should be thrown because we cannot divide by zero.",
+      "expectedOutput": "</strong> \"Division by zero is not allowed\" <strong>Explanation:</strong> new Calculator(20).divide(0).getResult() // 20 / 0  The error should be thrown because we cannot divide by zero."
+    }
+  ]
+}

@@ -13,7 +13,7 @@
   "testcases": [
     {
       "input": "[\"flower\",\"flow\",\"flight\"]",
-      "expectedOutput": "[\"dog\",\"racecar\",\"car\"]"
+      "expectedOutput": "fl"
     }
   ]
 }

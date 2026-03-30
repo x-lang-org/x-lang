@@ -1,0 +1,23 @@
+{
+  "problemId": "2864",
+  "titleSlug": "is-object-empty",
+  "title": "Is Object Empty",
+  "titleCn": "判断对象是否为空",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7660256410256411,
+  "testcases": [
+    {
+      "input": "</strong> obj = {\"x\": 5, \"y\": 42} <strong>Output:</strong> false <strong>Explanation:</strong> The object has 2 key-value pairs so it is not empty.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The object has 2 key-value pairs so it is not empty."
+    },
+    {
+      "input": "</strong> obj = {} <strong>Output:</strong> true <strong>Explanation:</strong> The object doesn't have any key-value pairs so it is empty.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The object doesn't have any key-value pairs so it is empty."
+    },
+    {
+      "input": "</strong> obj = [null, false, 0] <strong>Output:</strong> false <strong>Explanation:</strong> The array has 3 elements so it is not empty.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The array has 3 elements so it is not empty."
+    }
+  ]
+}

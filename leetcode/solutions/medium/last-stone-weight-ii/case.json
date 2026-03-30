@@ -1,0 +1,22 @@
+{
+  "problemId": "1130",
+  "titleSlug": "last-stone-weight-ii",
+  "title": "Last Stone Weight II",
+  "titleCn": "最后一块石头的重量 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.7197305630611,
+  "testcases": [
+    {
+      "input": "</strong> stones = [2,7,4,1,8,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> We can combine 2 and 4 to get 2, so the array converts to [2,7,1,8,1] then, we can combine 7 and 8 to get 1, so the array converts to [2,1,1,1] then, we can combine 2 and 1 to get 1, so the array converts to [1,1,1] then, we can combine 1 and 1 to get 0, so the array converts to [1], then that's the optimal value.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can combine 2 and 4 to get 2, so the array converts to [2,7,1,8,1] then, we can combine 7 and 8 to get 1, so the array converts to [2,1,1,1] then, we can combine 2 and 1 to get 1, so the array converts to [1,1,1] then, we can combine 1 and 1 to get 0, so the array converts to [1], then that's the optimal value."
+    },
+    {
+      "input": "</strong> stones = [31,26,33,21,40] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

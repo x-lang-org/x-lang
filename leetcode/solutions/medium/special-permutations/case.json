@@ -1,0 +1,24 @@
+{
+  "problemId": "2848",
+  "titleSlug": "special-permutations",
+  "title": "Special Permutations",
+  "titleCn": "特别的排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.5214059277953895,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,6] <strong>Output:</strong> 2 <strong>Explanation:</strong> [3,6,2] and [2,6,3] are the two special permutations of nums.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> [3,6,2] and [2,6,3] are the two special permutations of nums."
+    },
+    {
+      "input": "</strong> nums = [1,4,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> [3,1,4] and [4,1,3] are the two special permutations of nums.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> [3,1,4] and [4,1,3] are the two special permutations of nums."
+    }
+  ]
+}

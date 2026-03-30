@@ -1,0 +1,22 @@
+{
+  "problemId": "1260",
+  "titleSlug": "day-of-the-year",
+  "title": "Day of the Year",
+  "titleCn": "一年中的第几天",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.6236790576241685,
+  "testcases": [
+    {
+      "input": "</strong> date = \"2019-01-09\" <strong>Output:</strong> 9 <strong>Explanation:</strong> Given date is the 9th day of the year in 2019.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Given date is the 9th day of the year in 2019."
+    },
+    {
+      "input": "</strong> date = \"2019-02-10\" <strong>Output:</strong> 41",
+      "expectedOutput": "</strong> 41"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1016",
+  "titleSlug": "subarray-sums-divisible-by-k",
+  "title": "Subarray Sums Divisible by K",
+  "titleCn": "和可被 K 整除的子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.5044657097288676,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,5,0,-2,-3,1], k = 5 <strong>Output:</strong> 7 <strong>Explanation:</strong> There are 7 subarrays with a sum divisible by k = 5: [4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> There are 7 subarrays with a sum divisible by k = 5: [4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]"
+    },
+    {
+      "input": "</strong> nums = [5], k = 9 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

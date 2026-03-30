@@ -1,0 +1,23 @@
+{
+  "problemId": "556",
+  "titleSlug": "next-greater-element-iii",
+  "title": "Next Greater Element III",
+  "titleCn": "下一个更大元素 III",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.3702019175945526,
+  "testcases": [
+    {
+      "input": "</strong> n = 12 <strong>Output:</strong> 21",
+      "expectedOutput": "</strong> 21"
+    },
+    {
+      "input": "</strong> n = 21 <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

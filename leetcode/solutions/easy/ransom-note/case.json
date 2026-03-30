@@ -1,0 +1,27 @@
+{
+  "problemId": "383",
+  "titleSlug": "ransom-note",
+  "title": "Ransom Note",
+  "titleCn": "赎金信",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6807800986418167,
+  "testcases": [
+    {
+      "input": "</strong> ransomNote = \"a\", magazine = \"b\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> ransomNote = \"aa\", magazine = \"ab\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> ransomNote = \"aa\", magazine = \"aab\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

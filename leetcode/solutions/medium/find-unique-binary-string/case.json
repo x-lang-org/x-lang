@@ -1,0 +1,28 @@
+{
+  "problemId": "2107",
+  "titleSlug": "find-unique-binary-string",
+  "title": "Find Unique Binary String",
+  "titleCn": "找出不同的二进制字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.6984831899921814,
+  "testcases": [
+    {
+      "input": "</strong> nums = [\"01\",\"10\"] <strong>Output:</strong> \"11\" <strong>Explanation:</strong> \"11\" does not appear in nums. \"00\" would also be correct.",
+      "expectedOutput": "</strong> \"11\" <strong>Explanation:</strong> \"11\" does not appear in nums. \"00\" would also be correct."
+    },
+    {
+      "input": "</strong> nums = [\"00\",\"01\"] <strong>Output:</strong> \"11\" <strong>Explanation:</strong> \"11\" does not appear in nums. \"10\" would also be correct.",
+      "expectedOutput": "</strong> \"11\" <strong>Explanation:</strong> \"11\" does not appear in nums. \"10\" would also be correct."
+    },
+    {
+      "input": "</strong> nums = [\"111\",\"011\",\"001\"] <strong>Output:</strong> \"101\" <strong>Explanation:</strong> \"101\" does not appear in nums. \"000\", \"010\", \"100\", and \"110\" would also be correct.",
+      "expectedOutput": "</strong> \"101\" <strong>Explanation:</strong> \"101\" does not appear in nums. \"000\", \"010\", \"100\", and \"110\" would also be correct."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2602",
+  "titleSlug": "maximum-enemy-forts-that-can-be-captured",
+  "title": "Maximum Enemy Forts That Can Be Captured",
+  "titleCn": "最多可以摧毁的敌人城堡数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.5525048446823615,
+  "testcases": [
+    {
+      "input": "</strong> forts = [1,0,0,-1,0,0,0,0,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> - Moving the army from position 0 to position 3 captures 2 enemy forts, at 1 and 2. - Moving the army from position 8 to position 3 captures 4 enemy forts. Since 4 is the maximum number of enemy forts that can be captured, we return 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> - Moving the army from position 0 to position 3 captures 2 enemy forts, at 1 and 2. - Moving the army from position 8 to position 3 captures 4 enemy forts. Since 4 is the maximum number of enemy forts that can be captured, we return 4."
+    },
+    {
+      "input": "</strong> forts = [0,0,1,-1] <strong>Output:</strong> 0 <strong>Explanation:</strong> Since no enemy fort can be captured, 0 is returned.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Since no enemy fort can be captured, 0 is returned."
+    }
+  ]
+}

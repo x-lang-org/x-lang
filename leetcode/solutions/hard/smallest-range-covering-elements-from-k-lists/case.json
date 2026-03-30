@@ -1,0 +1,26 @@
+{
+  "problemId": "632",
+  "titleSlug": "smallest-range-covering-elements-from-k-lists",
+  "title": "Smallest Range Covering Elements from K Lists",
+  "titleCn": "最小区间",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "sorting",
+    "sliding-window",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6444666459652486,
+  "testcases": [
+    {
+      "input": "</strong> nums = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]] <strong>Output:</strong> [20,24] <strong>Explanation: </strong> List 1: [4, 10, 15, 24,26], 24 is in range [20,24]. List 2: [0, 9, 12, 20], 20 is in range [20,24]. List 3: [5, 18, 22, 30], 22 is in range [20,24].",
+      "expectedOutput": "</strong> [20,24] <strong>Explanation: </strong> List 1: [4, 10, 15, 24,26], 24 is in range [20,24]. List 2: [0, 9, 12, 20], 20 is in range [20,24]. List 3: [5, 18, 22, 30], 22 is in range [20,24]."
+    },
+    {
+      "input": "</strong> nums = [[1,2,3],[1,2,3],[1,2,3]] <strong>Output:</strong> [1,1]",
+      "expectedOutput": "</strong> [1,1]"
+    }
+  ]
+}

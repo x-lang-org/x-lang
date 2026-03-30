@@ -1,0 +1,22 @@
+{
+  "problemId": "1619",
+  "titleSlug": "path-crossing",
+  "title": "Path Crossing",
+  "titleCn": "判断路径是否相交",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5534343434343434,
+  "testcases": [
+    {
+      "input": "</strong> path = \"NES\" <strong>Output:</strong> false <strong>Explanation:</strong> Notice that the path doesn't cross any point more than once.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Notice that the path doesn't cross any point more than once."
+    },
+    {
+      "input": "</strong> path = \"NESWW\" <strong>Output:</strong> true <strong>Explanation:</strong> Notice that the path visits the origin twice.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Notice that the path visits the origin twice."
+    }
+  ]
+}

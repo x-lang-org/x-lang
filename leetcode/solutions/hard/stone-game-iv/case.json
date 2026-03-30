@@ -1,0 +1,27 @@
+{
+  "problemId": "1617",
+  "titleSlug": "stone-game-iv",
+  "title": "Stone Game IV",
+  "titleCn": "石子游戏 IV",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "game-theory"
+  ],
+  "acRate": 0.6222514466070489,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true <strong>Explanation: </strong>Alice can remove 1 stone winning the game because Bob doesn't have any moves.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>Alice can remove 1 stone winning the game because Bob doesn't have any moves."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> false <strong>Explanation: </strong>Alice can only remove 1 stone, after that Bob removes the last one winning the game (2 -> 1 -> 0).",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>Alice can only remove 1 stone, after that Bob removes the last one winning the game (2 -> 1 -> 0)."
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> true <strong>Explanation:</strong> n is already a perfect square, Alice can win with one move, removing 4 stones (4 -> 0).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> n is already a perfect square, Alice can win with one move, removing 4 stones (4 -> 0)."
+    }
+  ]
+}

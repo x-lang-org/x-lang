@@ -1,0 +1,22 @@
+{
+  "problemId": "961",
+  "titleSlug": "long-pressed-name",
+  "title": "Long Pressed Name",
+  "titleCn": "长按键入",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.37264321459214383,
+  "testcases": [
+    {
+      "input": "</strong> name = \"alex\", typed = \"aaleex\" <strong>Output:</strong> true <strong>Explanation: </strong>'a' and 'e' in 'alex' were long pressed.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>'a' and 'e' in 'alex' were long pressed."
+    },
+    {
+      "input": "</strong> name = \"saeed\", typed = \"ssaaedd\" <strong>Output:</strong> false <strong>Explanation: </strong>'e' must have been pressed twice, but it was not in the typed output.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>'e' must have been pressed twice, but it was not in the typed output."
+    }
+  ]
+}

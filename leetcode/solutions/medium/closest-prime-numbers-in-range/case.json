@@ -1,0 +1,22 @@
+{
+  "problemId": "2610",
+  "titleSlug": "closest-prime-numbers-in-range",
+  "title": "Closest Prime Numbers in Range",
+  "titleCn": "范围内最接近的两个质数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.44669697342015807,
+  "testcases": [
+    {
+      "input": "</strong> left = 10, right = 19 <strong>Output:</strong> [11,13] <strong>Explanation:</strong> The prime numbers between 10 and 19 are 11, 13, 17, and 19. The closest gap between any pair is 2, which can be achieved by [11,13] or [17,19]. Since 11 is smaller than 17, we return the first pair.",
+      "expectedOutput": "</strong> [11,13] <strong>Explanation:</strong> The prime numbers between 10 and 19 are 11, 13, 17, and 19. The closest gap between any pair is 2, which can be achieved by [11,13] or [17,19]. Since 11 is smaller than 17, we return the first pair."
+    },
+    {
+      "input": "</strong> left = 4, right = 6 <strong>Output:</strong> [-1,-1] <strong>Explanation:</strong> There exists only one prime number in the given range, so the conditions cannot be satisfied.",
+      "expectedOutput": "</strong> [-1,-1] <strong>Explanation:</strong> There exists only one prime number in the given range, so the conditions cannot be satisfied."
+    }
+  ]
+}

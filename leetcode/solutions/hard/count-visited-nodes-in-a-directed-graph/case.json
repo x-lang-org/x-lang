@@ -1,0 +1,25 @@
+{
+  "problemId": "3140",
+  "titleSlug": "count-visited-nodes-in-a-directed-graph",
+  "title": "Count Visited Nodes in a Directed Graph",
+  "titleCn": "有向图访问计数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "graph",
+    "topological-sort",
+    "memoization",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4744166579470545,
+  "testcases": [
+    {
+      "input": "</strong> edges = [1,2,0,0] <strong>Output:</strong> [3,3,3,4] <strong>Explanation:</strong> We perform the process starting from each node in the following way: - Starting from node 0, we visit the nodes 0 -> 1 -> 2 -> 0. The number of different nodes we visit is 3. - Starting from node 1, we visit the nodes 1 -> 2 -> 0 -> 1. The number of different nodes we visit is 3. - Starting from node 2, we visit the nodes 2 -> 0 -> 1 -> 2. The number of different nodes we visit is 3. - Starting from node 3, we visit the nodes 3 -> 0 -> 1 -> 2 -> 0. The number of different nodes we visit is 4.",
+      "expectedOutput": "</strong> [3,3,3,4] <strong>Explanation:</strong> We perform the process starting from each node in the following way: - Starting from node 0, we visit the nodes 0 -> 1 -> 2 -> 0. The number of different nodes we visit is 3. - Starting from node 1, we visit the nodes 1 -> 2 -> 0 -> 1. The number of different nodes we visit is 3. - Starting from node 2, we visit the nodes 2 -> 0 -> 1 -> 2. The number of different nodes we visit is 3. - Starting from node 3, we visit the nodes 3 -> 0 -> 1 -> 2 -> 0. The number of different nodes we visit is 4."
+    },
+    {
+      "input": "</strong> edges = [1,2,3,4,0] <strong>Output:</strong> [5,5,5,5,5] <strong>Explanation:</strong> Starting from any node we can visit every node in the graph in the process.",
+      "expectedOutput": "</strong> [5,5,5,5,5] <strong>Explanation:</strong> Starting from any node we can visit every node in the graph in the process."
+    }
+  ]
+}

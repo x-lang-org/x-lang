@@ -1,0 +1,27 @@
+{
+  "problemId": "2096",
+  "titleSlug": "find-the-longest-valid-obstacle-course-at-each-position",
+  "title": "Find the Longest Valid Obstacle Course at Each Position",
+  "titleCn": "找出到每个位置为止最长的有效障碍赛跑路线",
+  "difficulty": "HARD",
+  "topicTags": [
+    "binary-indexed-tree",
+    "array",
+    "binary-search"
+  ],
+  "acRate": 0.5080435589654746,
+  "testcases": [
+    {
+      "input": "</strong> obstacles = [1,2,3,2] <strong>Output:</strong> [1,2,3,3] <strong>Explanation:</strong> The longest valid obstacle course at each position is: - i = 0: [<u>1</u>], [1] has length 1. - i = 1: [<u>1</u>,<u>2</u>], [1,2] has length 2. - i = 2: [<u>1</u>,<u>2</u>,<u>3</u>], [1,2,3] has length 3. - i = 3: [<u>1</u>,<u>2</u>,3,<u>2</u>], [1,2,2] has length 3.",
+      "expectedOutput": "</strong> [1,2,3,3] <strong>Explanation:</strong> The longest valid obstacle course at each position is: - i = 0: [<u>1</u>], [1] has length 1. - i = 1: [<u>1</u>,<u>2</u>], [1,2] has length 2. - i = 2: [<u>1</u>,<u>2</u>,<u>3</u>], [1,2,3] has length 3. - i = 3: [<u>1</u>,<u>2</u>,3,<u>2</u>], [1,2,2] has length 3."
+    },
+    {
+      "input": "</strong> obstacles = [2,2,1] <strong>Output:</strong> [1,2,1] <strong>Explanation: </strong>The longest valid obstacle course at each position is: - i = 0: [<u>2</u>], [2] has length 1. - i = 1: [<u>2</u>,<u>2</u>], [2,2] has length 2. - i = 2: [2,2,<u>1</u>], [1] has length 1.",
+      "expectedOutput": "</strong> [1,2,1] <strong>Explanation: </strong>The longest valid obstacle course at each position is: - i = 0: [<u>2</u>], [2] has length 1. - i = 1: [<u>2</u>,<u>2</u>], [2,2] has length 2. - i = 2: [2,2,<u>1</u>], [1] has length 1."
+    },
+    {
+      "input": "</strong> obstacles = [3,1,5,6,4,2] <strong>Output:</strong> [1,1,2,3,2,2] <strong>Explanation:</strong> The longest valid obstacle course at each position is: - i = 0: [<u>3</u>], [3] has length 1. - i = 1: [3,<u>1</u>], [1] has length 1. - i = 2: [<u>3</u>,1,<u>5</u>], [3,5] has length 2. [1,5] is also valid. - i = 3: [<u>3</u>,1,<u>5</u>,<u>6</u>], [3,5,6] has length 3. [1,5,6] is also valid. - i = 4: [<u>3</u>,1,5,6,<u>4</u>], [3,4] has length 2. [1,4] is also valid. - i = 5: [3,<u>1</u>,5,6,4,<u>2</u>], [1,2] has length 2.",
+      "expectedOutput": "</strong> [1,1,2,3,2,2] <strong>Explanation:</strong> The longest valid obstacle course at each position is: - i = 0: [<u>3</u>], [3] has length 1. - i = 1: [3,<u>1</u>], [1] has length 1. - i = 2: [<u>3</u>,1,<u>5</u>], [3,5] has length 2. [1,5] is also valid. - i = 3: [<u>3</u>,1,<u>5</u>,<u>6</u>], [3,5,6] has length 3. [1,5,6] is also valid. - i = 4: [<u>3</u>,1,5,6,<u>4</u>], [3,4] has length 2. [1,4] is also valid. - i = 5: [3,<u>1</u>,5,6,4,<u>2</u>], [1,2] has length 2."
+    }
+  ]
+}

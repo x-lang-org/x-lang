@@ -1,0 +1,27 @@
+{
+  "problemId": "1004",
+  "titleSlug": "least-operators-to-express-number",
+  "title": "Least Operators to Express Number",
+  "titleCn": "表示数字的最少运算符",
+  "difficulty": "HARD",
+  "topicTags": [
+    "memoization",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4815242494226328,
+  "testcases": [
+    {
+      "input": "</strong> x = 3, target = 19 <strong>Output:</strong> 5 <strong>Explanation:</strong> 3 * 3 + 3 * 3 + 3 / 3. The expression contains 5 operations.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> 3 * 3 + 3 * 3 + 3 / 3. The expression contains 5 operations."
+    },
+    {
+      "input": "</strong> x = 5, target = 501 <strong>Output:</strong> 8 <strong>Explanation:</strong> 5 * 5 * 5 * 5 - 5 * 5 * 5 + 5 / 5. The expression contains 8 operations.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> 5 * 5 * 5 * 5 - 5 * 5 * 5 + 5 / 5. The expression contains 8 operations."
+    },
+    {
+      "input": "</strong> x = 100, target = 100000000 <strong>Output:</strong> 3 <strong>Explanation:</strong> 100 * 100 * 100 * 100. The expression contains 3 operations.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 100 * 100 * 100 * 100. The expression contains 3 operations."
+    }
+  ]
+}

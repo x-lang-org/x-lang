@@ -1,0 +1,27 @@
+{
+  "problemId": "322",
+  "titleSlug": "coin-change",
+  "title": "Coin Change",
+  "titleCn": "零钱兑换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5272403855219204,
+  "testcases": [
+    {
+      "input": "</strong> coins = [1,2,5], amount = 11 <strong>Output:</strong> 3 <strong>Explanation:</strong> 11 = 5 + 5 + 1",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 11 = 5 + 5 + 1"
+    },
+    {
+      "input": "</strong> coins = [2], amount = 3 <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    },
+    {
+      "input": "</strong> coins = [1], amount = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

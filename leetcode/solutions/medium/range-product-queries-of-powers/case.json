@@ -1,0 +1,23 @@
+{
+  "problemId": "2529",
+  "titleSlug": "range-product-queries-of-powers",
+  "title": "Range Product Queries of Powers",
+  "titleCn": "二的幂数组中查询范围内的乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.5349955304293204,
+  "testcases": [
+    {
+      "input": "</strong> n = 15, queries = [[0,1],[2,2],[0,3]] <strong>Output:</strong> [2,4,64] <strong>Explanation:</strong> For n = 15, powers = [1,2,4,8]. It can be shown that powers cannot be a smaller size. Answer to 1st query: powers[0] * powers[1] = 1 * 2 = 2. Answer to 2nd query: powers[2] = 4. Answer to 3rd query: powers[0] * powers[1] * powers[2] * powers[3] = 1 * 2 * 4 * 8 = 64. Each answer modulo 10<sup>9</sup> + 7 yields the same answer, so [2,4,64] is returned.",
+      "expectedOutput": "</strong> [2,4,64] <strong>Explanation:</strong> For n = 15, powers = [1,2,4,8]. It can be shown that powers cannot be a smaller size. Answer to 1st query: powers[0] * powers[1] = 1 * 2 = 2. Answer to 2nd query: powers[2] = 4. Answer to 3rd query: powers[0] * powers[1] * powers[2] * powers[3] = 1 * 2 * 4 * 8 = 64. Each answer modulo 10<sup>9</sup> + 7 yields the same answer, so [2,4,64] is returned."
+    },
+    {
+      "input": "</strong> n = 2, queries = [[0,0]] <strong>Output:</strong> [2] <strong>Explanation:</strong> For n = 2, powers = [2]. The answer to the only query is powers[0] = 2. The answer modulo 10<sup>9</sup> + 7 is the same, so [2] is returned.",
+      "expectedOutput": "</strong> [2] <strong>Explanation:</strong> For n = 2, powers = [2]. The answer to the only query is powers[0] = 2. The answer modulo 10<sup>9</sup> + 7 is the same, so [2] is returned."
+    }
+  ]
+}

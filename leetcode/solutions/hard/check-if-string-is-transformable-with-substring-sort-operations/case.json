@@ -1,0 +1,27 @@
+{
+  "problemId": "1707",
+  "titleSlug": "check-if-string-is-transformable-with-substring-sort-operations",
+  "title": "Check If String Is Transformable With Substring Sort Operations",
+  "titleCn": "检查字符串是否可以通过排序子字符串得到另一个字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.45874822190611664,
+  "testcases": [
+    {
+      "input": "</strong> s = \"84532\", t = \"34852\" <strong>Output:</strong> true <strong>Explanation:</strong> You can transform s into t using the following sort operations: \"84<u>53</u>2\" (from index 2 to 3) -> \"84<u>35</u>2\" \"<u>843</u>52\" (from index 0 to 2) -> \"<u>348</u>52\"",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can transform s into t using the following sort operations: \"84<u>53</u>2\" (from index 2 to 3) -> \"84<u>35</u>2\" \"<u>843</u>52\" (from index 0 to 2) -> \"<u>348</u>52"
+    },
+    {
+      "input": "</strong> s = \"34521\", t = \"23415\" <strong>Output:</strong> true <strong>Explanation:</strong> You can transform s into t using the following sort operations: \"<u>3452</u>1\" -> \"<u>2345</u>1\" \"234<u>51</u>\" -> \"234<u>15</u>\"",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> You can transform s into t using the following sort operations: \"<u>3452</u>1\" -> \"<u>2345</u>1\" \"234<u>51</u>\" -> \"234<u>15</u>"
+    },
+    {
+      "input": "</strong> s = \"12345\", t = \"12435\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

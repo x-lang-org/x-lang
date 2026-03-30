@@ -1,0 +1,23 @@
+{
+  "problemId": "1876",
+  "titleSlug": "map-of-highest-peak",
+  "title": "Map of Highest Peak",
+  "titleCn": "地图中的最高点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6820127339707417,
+  "testcases": [
+    {
+      "input": "</strong> isWater = [[0,1],[0,0]] <strong>Output:</strong> [[1,0],[2,1]] <strong>Explanation:</strong> The image shows the assigned heights of each cell. The blue cell is the water cell, and the green cells are the land cells.",
+      "expectedOutput": "</strong> [[1,0],[2,1]] <strong>Explanation:</strong> The image shows the assigned heights of each cell. The blue cell is the water cell, and the green cells are the land cells."
+    },
+    {
+      "input": "</strong> isWater = [[0,0,1],[1,0,0],[0,0,0]] <strong>Output:</strong> [[1,1,0],[0,1,1],[1,2,2]] <strong>Explanation:</strong> A height of 2 is the maximum possible height of any assignment. Any height assignment that has a maximum height of 2 while still meeting the rules will also be accepted.",
+      "expectedOutput": "</strong> [[1,1,0],[0,1,1],[1,2,2]] <strong>Explanation:</strong> A height of 2 is the maximum possible height of any assignment. Any height assignment that has a maximum height of 2 while still meeting the rules will also be accepted."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "856",
+  "titleSlug": "consecutive-numbers-sum",
+  "title": "Consecutive Numbers Sum",
+  "titleCn": "连续整数求和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "enumeration"
+  ],
+  "acRate": 0.4604774795742127,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> 5 = 2 + 3",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 5 = 2 + 3"
+    },
+    {
+      "input": "</strong> n = 9 <strong>Output:</strong> 3 <strong>Explanation:</strong> 9 = 4 + 5 = 2 + 3 + 4",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 9 = 4 + 5 = 2 + 3 + 4"
+    },
+    {
+      "input": "</strong> n = 15 <strong>Output:</strong> 4 <strong>Explanation:</strong> 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5"
+    }
+  ]
+}

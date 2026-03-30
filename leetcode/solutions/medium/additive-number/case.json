@@ -1,0 +1,22 @@
+{
+  "problemId": "306",
+  "titleSlug": "additive-number",
+  "title": "Additive Number",
+  "titleCn": "累加数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.3750225591048547,
+  "testcases": [
+    {
+      "input": "</strong> \"112358\" <strong>Output:</strong> true <strong>Explanation:</strong> The digits can form an additive sequence: 1, 1, 2, 3, 5, 8. 1 + 1 = 2, 1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The digits can form an additive sequence: 1, 1, 2, 3, 5, 8. 1 + 1 = 2, 1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8"
+    },
+    {
+      "input": "</strong> \"199100199\" <strong>Output:</strong> true <strong>Explanation:</strong> The additive sequence is: 1, 99, 100, 199.  1 + 99 = 100, 99 + 100 = 199",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The additive sequence is: 1, 99, 100, 199.  1 + 99 = 100, 99 + 100 = 199"
+    }
+  ]
+}

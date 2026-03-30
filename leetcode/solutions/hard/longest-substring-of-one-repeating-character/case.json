@@ -1,0 +1,24 @@
+{
+  "problemId": "2319",
+  "titleSlug": "longest-substring-of-one-repeating-character",
+  "title": "Longest Substring of One Repeating Character",
+  "titleCn": "由单个字符重复的最长子字符串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "segment-tree",
+    "array",
+    "string",
+    "ordered-set"
+  ],
+  "acRate": 0.44301096129595496,
+  "testcases": [
+    {
+      "input": "</strong> s = \"babacc\", queryCharacters = \"bcb\", queryIndices = [1,3,3] <strong>Output:</strong> [3,3,4] <strong>Explanation:</strong> - 1<sup>st</sup> query updates s = \"<u>b<strong>b</strong>b</u>acc\". The longest substring consisting of one repeating character is \"bbb\" with length 3. - 2<sup>nd</sup> query updates s = \"bbb<u><strong>c</strong>cc</u>\".  The longest substring consisting of one repeating character can be \"bbb\" or \"ccc\" with length 3. - 3<sup>rd</sup> query updates s = \"<u>bbb<strong>b</strong></u>cc\". The longest substring consisting of one repeating character is \"bbbb\" with length 4. Thus, we return [3,3,4].",
+      "expectedOutput": "</strong> [3,3,4] <strong>Explanation:</strong> - 1<sup>st</sup> query updates s = \"<u>b<strong>b</strong>b</u>acc\". The longest substring consisting of one repeating character is \"bbb\" with length 3. - 2<sup>nd</sup> query updates s = \"bbb<u><strong>c</strong>cc</u>\".  The longest substring consisting of one repeating character can be \"bbb\" or \"ccc\" with length 3. - 3<sup>rd</sup> query updates s = \"<u>bbb<strong>b</strong></u>cc\". The longest substring consisting of one repeating character is \"bbbb\" with length 4. Thus, we return [3,3,4]."
+    },
+    {
+      "input": "</strong> s = \"abyzz\", queryCharacters = \"aa\", queryIndices = [2,1] <strong>Output:</strong> [2,3] <strong>Explanation:</strong> - 1<sup>st</sup> query updates s = \"ab<strong>a</strong><u>zz</u>\". The longest substring consisting of one repeating character is \"zz\" with length 2. - 2<sup>nd</sup> query updates s = \"<u>a<strong>a</strong>a</u>zz\". The longest substring consisting of one repeating character is \"aaa\" with length 3. Thus, we return [2,3].",
+      "expectedOutput": "</strong> [2,3] <strong>Explanation:</strong> - 1<sup>st</sup> query updates s = \"ab<strong>a</strong><u>zz</u>\". The longest substring consisting of one repeating character is \"zz\" with length 2. - 2<sup>nd</sup> query updates s = \"<u>a<strong>a</strong>a</u>zz\". The longest substring consisting of one repeating character is \"aaa\" with length 3. Thus, we return [2,3]."
+    }
+  ]
+}

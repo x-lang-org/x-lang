@@ -1,0 +1,26 @@
+{
+  "problemId": "953",
+  "titleSlug": "reverse-only-letters",
+  "title": "Reverse Only Letters",
+  "titleCn": "仅仅反转字母",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.59305251710315,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ab-cd\" <strong>Output:</strong> \"dc-ba\"",
+      "expectedOutput": "</strong> \"dc-ba"
+    },
+    {
+      "input": "</strong> s = \"a-bC-dEf-ghIj\" <strong>Output:</strong> \"j-Ih-gfE-dCba\"",
+      "expectedOutput": "</strong> \"j-Ih-gfE-dCba"
+    },
+    {
+      "input": "</strong> s = \"Test1ng-Leet=code-Q!\" <strong>Output:</strong> \"Qedo1ct-eeLg=ntse-T!\"",
+      "expectedOutput": "</strong> \"Qedo1ct-eeLg=ntse-T!"
+    }
+  ]
+}

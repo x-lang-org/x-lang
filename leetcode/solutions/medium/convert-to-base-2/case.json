@@ -1,0 +1,25 @@
+{
+  "problemId": "1070",
+  "titleSlug": "convert-to-base-2",
+  "title": "Convert to Base -2",
+  "titleCn": "负二进制转换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.6617315308390288,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> \"110\" <strong>Explantion:</strong> (-2)<sup>2</sup> + (-2)<sup>1</sup> = 2",
+      "expectedOutput": "</strong> \"110\" <strong>Explantion:</strong> (-2)<sup>2</sup> + (-2)<sup>1</sup> = 2"
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> \"111\" <strong>Explantion:</strong> (-2)<sup>2</sup> + (-2)<sup>1</sup> + (-2)<sup>0</sup> = 3",
+      "expectedOutput": "</strong> \"111\" <strong>Explantion:</strong> (-2)<sup>2</sup> + (-2)<sup>1</sup> + (-2)<sup>0</sup> = 3"
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> \"100\" <strong>Explantion:</strong> (-2)<sup>2</sup> = 4",
+      "expectedOutput": "</strong> \"100\" <strong>Explantion:</strong> (-2)<sup>2</sup> = 4"
+    }
+  ]
+}

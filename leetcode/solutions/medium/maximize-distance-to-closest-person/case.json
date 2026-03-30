@@ -1,0 +1,25 @@
+{
+  "problemId": "879",
+  "titleSlug": "maximize-distance-to-closest-person",
+  "title": "Maximize Distance to Closest Person",
+  "titleCn": "到最近的人的最大距离",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5219905038680365,
+  "testcases": [
+    {
+      "input": "</strong> seats = [1,0,0,0,1,0,1] <strong>Output:</strong> 2 <strong>Explanation: </strong> If Alex sits in the second open seat (i.e. seats[2]), then the closest person has distance 2. If Alex sits in any other open seat, the closest person has distance 1. Thus, the maximum distance to the closest person is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong> If Alex sits in the second open seat (i.e. seats[2]), then the closest person has distance 2. If Alex sits in any other open seat, the closest person has distance 1. Thus, the maximum distance to the closest person is 2."
+    },
+    {
+      "input": "</strong> seats = [1,0,0,0] <strong>Output:</strong> 3 <strong>Explanation: </strong> If Alex sits in the last seat (i.e. seats[3]), the closest person is 3 seats away. This is the maximum distance possible, so the answer is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong> If Alex sits in the last seat (i.e. seats[3]), the closest person is 3 seats away. This is the maximum distance possible, so the answer is 3."
+    },
+    {
+      "input": "</strong> seats = [0,1] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

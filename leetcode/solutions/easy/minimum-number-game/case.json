@@ -1,0 +1,24 @@
+{
+  "problemId": "3226",
+  "titleSlug": "minimum-number-game",
+  "title": "Minimum Number Game",
+  "titleCn": "最小数字游戏",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.8780600237765971,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,4,2,3] <strong>Output:</strong> [3,2,5,4] <strong>Explanation:</strong> In round one, first Alice removes 2 and then Bob removes 3. Then in arr firstly Bob appends 3 and then Alice appends 2. So arr = [3,2]. At the begining of round two, nums = [5,4]. Now, first Alice removes 4 and then Bob removes 5. Then both append in arr which becomes [3,2,5,4].",
+      "expectedOutput": "</strong> [3,2,5,4] <strong>Explanation:</strong> In round one, first Alice removes 2 and then Bob removes 3. Then in arr firstly Bob appends 3 and then Alice appends 2. So arr = [3,2]. At the begining of round two, nums = [5,4]. Now, first Alice removes 4 and then Bob removes 5. Then both append in arr which becomes [3,2,5,4]."
+    },
+    {
+      "input": "</strong> nums = [2,5] <strong>Output:</strong> [5,2] <strong>Explanation:</strong> In round one, first Alice removes 2 and then Bob removes 5. Then in arr firstly Bob appends and then Alice appends. So arr = [5,2].",
+      "expectedOutput": "</strong> [5,2] <strong>Explanation:</strong> In round one, first Alice removes 2 and then Bob removes 5. Then in arr firstly Bob appends and then Alice appends. So arr = [5,2]."
+    }
+  ]
+}

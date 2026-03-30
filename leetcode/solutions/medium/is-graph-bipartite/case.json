@@ -1,0 +1,24 @@
+{
+  "problemId": "801",
+  "titleSlug": "is-graph-bipartite",
+  "title": "Is Graph Bipartite?",
+  "titleCn": "判断二分图",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.562733004530717,
+  "testcases": [
+    {
+      "input": "</strong> graph = [[1,2,3],[0,2],[0,1,3],[0,2]] <strong>Output:</strong> false <strong>Explanation:</strong> There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no way to partition the nodes into two independent sets such that every edge connects a node in one and a node in the other."
+    },
+    {
+      "input": "</strong> graph = [[1,3],[0,2],[1,3],[0,2]] <strong>Output:</strong> true <strong>Explanation:</strong> We can partition the nodes into two sets: {0, 2} and {1, 3}.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can partition the nodes into two sets: {0, 2} and {1, 3}."
+    }
+  ]
+}

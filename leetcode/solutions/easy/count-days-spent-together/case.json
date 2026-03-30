@@ -1,0 +1,22 @@
+{
+  "problemId": "2496",
+  "titleSlug": "count-days-spent-together",
+  "title": "Count Days Spent Together",
+  "titleCn": "统计共同度过的日子数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.560011715317778,
+  "testcases": [
+    {
+      "input": "</strong> arriveAlice = \"08-15\", leaveAlice = \"08-18\", arriveBob = \"08-16\", leaveBob = \"08-19\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Alice will be in Rome from August 15 to August 18. Bob will be in Rome from August 16 to August 19. They are both in Rome together on August 16th, 17th, and 18th, so the answer is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Alice will be in Rome from August 15 to August 18. Bob will be in Rome from August 16 to August 19. They are both in Rome together on August 16th, 17th, and 18th, so the answer is 3."
+    },
+    {
+      "input": "</strong> arriveAlice = \"10-01\", leaveAlice = \"10-31\", arriveBob = \"11-01\", leaveBob = \"12-31\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no day when Alice and Bob are in Rome together, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no day when Alice and Bob are in Rome together, so we return 0."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "993",
+  "titleSlug": "tallest-billboard",
+  "title": "Tallest Billboard",
+  "titleCn": "最高的广告牌",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5010152503564177,
+  "testcases": [
+    {
+      "input": "</strong> rods = [1,2,3,6] <strong>Output:</strong> 6 <strong>Explanation:</strong> We have two disjoint subsets {1,2,3} and {6}, which have the same sum = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> We have two disjoint subsets {1,2,3} and {6}, which have the same sum = 6."
+    },
+    {
+      "input": "</strong> rods = [1,2,3,4,5,6] <strong>Output:</strong> 10 <strong>Explanation:</strong> We have two disjoint subsets {2,3,5} and {4,6}, which have the same sum = 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> We have two disjoint subsets {2,3,5} and {4,6}, which have the same sum = 10."
+    },
+    {
+      "input": "</strong> rods = [1,2] <strong>Output:</strong> 0 <strong>Explanation:</strong> The billboard cannot be supported, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The billboard cannot be supported, so we return 0."
+    }
+  ]
+}

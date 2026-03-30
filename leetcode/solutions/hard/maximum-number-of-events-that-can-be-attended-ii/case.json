@@ -1,0 +1,28 @@
+{
+  "problemId": "1851",
+  "titleSlug": "maximum-number-of-events-that-can-be-attended-ii",
+  "title": "Maximum Number of Events That Can Be Attended II",
+  "titleCn": "最多可以参加的会议数目 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6274390860378122,
+  "testcases": [
+    {
+      "input": "</strong> events = [[1,2,4],[3,4,3],[2,3,1]], k = 2 <strong>Output:</strong> 7 <strong>Explanation: </strong>Choose the green events, 0 and 1 (0-indexed) for a total value of 4 + 3 = 7.",
+      "expectedOutput": "</strong> 7 <strong>Explanation: </strong>Choose the green events, 0 and 1 (0-indexed) for a total value of 4 + 3 = 7."
+    },
+    {
+      "input": "</strong> events = [[1,2,4],[3,4,3],[2,3,10]], k = 2 <strong>Output:</strong> 10 <strong>Explanation:</strong> Choose event 2 for a total value of 10. Notice that you cannot attend any other event as they overlap, and that you do <strong>not</strong> have to attend k events.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> Choose event 2 for a total value of 10. Notice that you cannot attend any other event as they overlap, and that you do <strong>not</strong> have to attend k events."
+    },
+    {
+      "input": "</strong> events = [[1,1,1],[2,2,2],[3,3,3],[4,4,4]], k = 3 <strong>Output:</strong> 9 <strong>Explanation:</strong> Although the events do not overlap, you can only attend 3 events. Pick the highest valued three.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Although the events do not overlap, you can only attend 3 events. Pick the highest valued three."
+    }
+  ]
+}

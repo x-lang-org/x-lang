@@ -1,0 +1,22 @@
+{
+  "problemId": "1626",
+  "titleSlug": "can-make-arithmetic-progression-from-sequence",
+  "title": "Can Make Arithmetic Progression From Sequence",
+  "titleCn": "判断能否形成等差数列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6594890483355134,
+  "testcases": [
+    {
+      "input": "</strong> arr = [3,5,1] <strong>Output:</strong> true <strong>Explanation: </strong>We can reorder the elements as [1,3,5] or [5,3,1] with differences 2 and -2 respectively, between each consecutive elements.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>We can reorder the elements as [1,3,5] or [5,3,1] with differences 2 and -2 respectively, between each consecutive elements."
+    },
+    {
+      "input": "</strong> arr = [1,2,4] <strong>Output:</strong> false <strong>Explanation: </strong>There is no way to reorder the elements to obtain an arithmetic progression.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>There is no way to reorder the elements to obtain an arithmetic progression."
+    }
+  ]
+}

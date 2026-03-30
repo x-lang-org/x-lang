@@ -1,0 +1,22 @@
+{
+  "problemId": "1445",
+  "titleSlug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+  "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+  "titleCn": "大小为 K 且平均值大于等于阈值的子数组数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "sliding-window"
+  ],
+  "acRate": 0.7311144075653625,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,2,2,2,5,5,5,8], k = 3, threshold = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> Sub-arrays [2,5,5],[5,5,5] and [5,5,8] have averages 4, 5 and 6 respectively. All other sub-arrays of size 3 have averages less than 4 (the threshold).",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Sub-arrays [2,5,5],[5,5,5] and [5,5,8] have averages 4, 5 and 6 respectively. All other sub-arrays of size 3 have averages less than 4 (the threshold)."
+    },
+    {
+      "input": "</strong> arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5 <strong>Output:</strong> 6 <strong>Explanation:</strong> The first 6 sub-arrays of size 3 have averages greater than 5. Note that averages are not integers.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The first 6 sub-arrays of size 3 have averages greater than 5. Note that averages are not integers."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "438",
+  "titleSlug": "find-all-anagrams-in-a-string",
+  "title": "Find All Anagrams in a String",
+  "titleCn": "找到字符串中所有字母异位词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.5456423990585714,
+  "testcases": [
+    {
+      "input": "</strong> s = \"cbaebabacd\", p = \"abc\" <strong>Output:</strong> [0,6] <strong>Explanation:</strong> The substring with start index = 0 is \"cba\", which is an anagram of \"abc\". The substring with start index = 6 is \"bac\", which is an anagram of \"abc\".",
+      "expectedOutput": "</strong> [0,6] <strong>Explanation:</strong> The substring with start index = 0 is \"cba\", which is an anagram of \"abc\". The substring with start index = 6 is \"bac\", which is an anagram of \"abc\"."
+    },
+    {
+      "input": "</strong> s = \"abab\", p = \"ab\" <strong>Output:</strong> [0,1,2] <strong>Explanation:</strong> The substring with start index = 0 is \"ab\", which is an anagram of \"ab\". The substring with start index = 1 is \"ba\", which is an anagram of \"ab\". The substring with start index = 2 is \"ab\", which is an anagram of \"ab\".",
+      "expectedOutput": "</strong> [0,1,2] <strong>Explanation:</strong> The substring with start index = 0 is \"ab\", which is an anagram of \"ab\". The substring with start index = 1 is \"ba\", which is an anagram of \"ab\". The substring with start index = 2 is \"ab\", which is an anagram of \"ab\"."
+    }
+  ]
+}

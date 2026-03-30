@@ -1,0 +1,27 @@
+{
+  "problemId": "3192",
+  "titleSlug": "maximum-xor-product",
+  "title": "Maximum Xor Product",
+  "titleCn": "最大异或乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.3357669407428409,
+  "testcases": [
+    {
+      "input": "</strong> a = 12, b = 5, n = 4 <strong>Output:</strong> 98 <strong>Explanation:</strong> For x = 2, (a XOR x) = 14 and (b XOR x) = 7. Hence, (a XOR x) * (b XOR x) = 98. It can be shown that 98 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup><span style=\"font-size: 10.8333px;\">.</span>",
+      "expectedOutput": "</strong> 98 <strong>Explanation:</strong> For x = 2, (a XOR x) = 14 and (b XOR x) = 7. Hence, (a XOR x) * (b XOR x) = 98. It can be shown that 98 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup><span style=\"font-size: 10.8333px;\">.</span>"
+    },
+    {
+      "input": "</strong> a = 6, b = 7 , n = 5 <strong>Output:</strong> 930 <strong>Explanation:</strong> For x = 25, (a XOR x) = 31 and (b XOR x) = 30. Hence, (a XOR x) * (b XOR x) = 930. It can be shown that 930 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup>.",
+      "expectedOutput": "</strong> 930 <strong>Explanation:</strong> For x = 25, (a XOR x) = 31 and (b XOR x) = 30. Hence, (a XOR x) * (b XOR x) = 930. It can be shown that 930 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup>."
+    },
+    {
+      "input": "</strong> a = 1, b = 6, n = 3 <strong>Output:</strong> 12 <strong>Explanation:</strong> For x = 5, (a XOR x) = 4 and (b XOR x) = 3. Hence, (a XOR x) * (b XOR x) = 12. It can be shown that 12 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup>.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> For x = 5, (a XOR x) = 4 and (b XOR x) = 3. Hence, (a XOR x) * (b XOR x) = 12. It can be shown that 12 is the maximum value of (a XOR x) * (b XOR x) for all 0 <= x < 2<sup>n</sup>."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "2744",
+  "titleSlug": "memoize-ii",
+  "title": "Memoize II",
+  "titleCn": "记忆函数 II",
+  "difficulty": "HARD",
+  "topicTags": [],
+  "acRate": 0.40728891361802755,
+  "testcases": [
+    {
+      "input": "</strong> getInputs = () => [[2,2],[2,2],[1,2]] fn = function (a, b) { return a + b; } <strong>Output:</strong> [{\"val\":4,\"calls\":1},{\"val\":4,\"calls\":1},{\"val\":3,\"calls\":2}] <strong>Explanation:</strong> const inputs = getInputs(); const memoized = memoize(fn); for (const arr of inputs) {  memoized(...arr); } For the inputs of (2, 2): 2 + 2 = 4, and it required a call to fn(). For the inputs of (2, 2): 2 + 2 = 4, but those inputs were seen before so no call to fn() was required. For the inputs of (1, 2): 1 + 2 = 3, and it required another call to fn() for a total of 2.",
+      "expectedOutput": "</strong> [{\"val\":4,\"calls\":1},{\"val\":4,\"calls\":1},{\"val\":3,\"calls\":2}] <strong>Explanation:</strong> const inputs = getInputs(); const memoized = memoize(fn); for (const arr of inputs) {  memoized(...arr); } For the inputs of (2, 2): 2 + 2 = 4, and it required a call to fn(). For the inputs of (2, 2): 2 + 2 = 4, but those inputs were seen before so no call to fn() was required. For the inputs of (1, 2): 1 + 2 = 3, and it required another call to fn() for a total of 2."
+    },
+    {
+      "input": "</strong> getInputs = () => [[{},{}],[{},{}],[{},{}]] fn = function (a, b) { return ({...a, ...b}); } <strong>Output:</strong> [{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":2},{\"val\":{},\"calls\":3}] <strong>Explanation:</strong> Merging two empty objects will always result in an empty object. It may seem like there should only be 1 call to fn() because of cache-hits, however none of those objects are === to each other.",
+      "expectedOutput": "</strong> [{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":2},{\"val\":{},\"calls\":3}] <strong>Explanation:</strong> Merging two empty objects will always result in an empty object. It may seem like there should only be 1 call to fn() because of cache-hits, however none of those objects are === to each other."
+    },
+    {
+      "input": "</strong> getInputs = () => { const o = {}; return [[o,o],[o,o],[o,o]]; } fn = function (a, b) { return ({...a, ...b}); } <strong>Output:</strong> [{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":1}] <strong>Explanation:</strong> Merging two empty objects will always result in an empty object. The 2nd and 3rd third function calls result in a cache-hit. This is because every object passed in is identical.",
+      "expectedOutput": "</strong> [{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":1},{\"val\":{},\"calls\":1}] <strong>Explanation:</strong> Merging two empty objects will always result in an empty object. The 2nd and 3rd third function calls result in a cache-hit. This is because every object passed in is identical."
+    }
+  ]
+}

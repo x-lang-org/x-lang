@@ -1,0 +1,21 @@
+{
+  "problemId": "2619",
+  "titleSlug": "categorize-box-according-to-criteria",
+  "title": "Categorize Box According to Criteria",
+  "titleCn": "根据规则将箱子分类",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.47860827189013005,
+  "testcases": [
+    {
+      "input": "</strong> length = 1000, width = 35, height = 700, mass = 300 <strong>Output:</strong> \"Heavy\" <strong>Explanation:</strong> None of the dimensions of the box is greater or equal to 10<sup>4</sup>. Its volume = 24500000 <= 10<sup>9</sup>. So it cannot be categorized as \"Bulky\". However mass >= 100, so the box is \"Heavy\". Since the box is not \"Bulky\" but \"Heavy\", we return \"Heavy\".",
+      "expectedOutput": "</strong> \"Heavy\" <strong>Explanation:</strong> None of the dimensions of the box is greater or equal to 10<sup>4</sup>. Its volume = 24500000 <= 10<sup>9</sup>. So it cannot be categorized as \"Bulky\". However mass >= 100, so the box is \"Heavy\". Since the box is not \"Bulky\" but \"Heavy\", we return \"Heavy\"."
+    },
+    {
+      "input": "</strong> length = 200, width = 50, height = 800, mass = 50 <strong>Output:</strong> \"Neither\" <strong>Explanation:</strong> None of the dimensions of the box is greater or equal to 10<sup>4</sup>. Its volume = 8 * 10<sup>6</sup> <= 10<sup>9</sup>. So it cannot be categorized as \"Bulky\". Its mass is also less than 100, so it cannot be categorized as \"Heavy\" either. Since its neither of the two above categories, we return \"Neither\".",
+      "expectedOutput": "</strong> \"Neither\" <strong>Explanation:</strong> None of the dimensions of the box is greater or equal to 10<sup>4</sup>. Its volume = 8 * 10<sup>6</sup> <= 10<sup>9</sup>. So it cannot be categorized as \"Bulky\". Its mass is also less than 100, so it cannot be categorized as \"Heavy\" either. Since its neither of the two above categories, we return \"Neither\"."
+    }
+  ]
+}

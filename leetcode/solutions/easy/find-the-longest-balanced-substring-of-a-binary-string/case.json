@@ -1,0 +1,25 @@
+{
+  "problemId": "2723",
+  "titleSlug": "find-the-longest-balanced-substring-of-a-binary-string",
+  "title": "Find the Longest Balanced Substring of a Binary String",
+  "titleCn": "最长平衡子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5761455208055167,
+  "testcases": [
+    {
+      "input": "</strong> s = \"01000111\" <strong>Output:</strong> 6 <strong>Explanation:</strong> The longest balanced substring is \"000111\", which has length 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The longest balanced substring is \"000111\", which has length 6."
+    },
+    {
+      "input": "</strong> s = \"00111\" <strong>Output:</strong> 4 <strong>Explanation:</strong> The longest balanced substring is \"0011\", which has length 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The longest balanced substring is \"0011\", which has length 4."
+    },
+    {
+      "input": "</strong> s = \"111\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no balanced substring except the empty substring, so the answer is 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no balanced substring except the empty substring, so the answer is 0."
+    }
+  ]
+}

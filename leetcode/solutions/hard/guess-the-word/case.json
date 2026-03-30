@@ -1,0 +1,25 @@
+{
+  "problemId": "873",
+  "titleSlug": "guess-the-word",
+  "title": "Guess the Word",
+  "titleCn": "猜猜这个单词",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "string",
+    "game-theory",
+    "interactive"
+  ],
+  "acRate": 0.3701536210680322,
+  "testcases": [
+    {
+      "input": "</strong> secret = \"acckzz\", words = [\"acckzz\",\"ccbazz\",\"eiowzz\",\"abcczz\"], allowedGuesses = 10 <strong>Output:</strong> You guessed the secret word correctly. <strong>Explanation:</strong> master.guess(\"aaaaaa\") returns -1, because \"aaaaaa\" is not in words. master.guess(\"acckzz\") returns 6, because \"acckzz\" is secret and has all 6 matches. master.guess(\"ccbazz\") returns 3, because \"ccbazz\" has 3 matches. master.guess(\"eiowzz\") returns 2, because \"eiowzz\" has 2 matches. master.guess(\"abcczz\") returns 4, because \"abcczz\" has 4 matches. We made 5 calls to master.guess, and one of them was the secret, so we pass the test case.",
+      "expectedOutput": "</strong> You guessed the secret word correctly. <strong>Explanation:</strong> master.guess(\"aaaaaa\") returns -1, because \"aaaaaa\" is not in words. master.guess(\"acckzz\") returns 6, because \"acckzz\" is secret and has all 6 matches. master.guess(\"ccbazz\") returns 3, because \"ccbazz\" has 3 matches. master.guess(\"eiowzz\") returns 2, because \"eiowzz\" has 2 matches. master.guess(\"abcczz\") returns 4, because \"abcczz\" has 4 matches. We made 5 calls to master.guess, and one of them was the secret, so we pass the test case."
+    },
+    {
+      "input": "</strong> secret = \"hamada\", words = [\"hamada\",\"khaled\"], allowedGuesses = 10 <strong>Output:</strong> You guessed the secret word correctly. <strong>Explanation:</strong> Since there are two words, you can guess both.",
+      "expectedOutput": "</strong> You guessed the secret word correctly. <strong>Explanation:</strong> Since there are two words, you can guess both."
+    }
+  ]
+}

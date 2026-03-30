@@ -1,0 +1,21 @@
+{
+  "problemId": "1910",
+  "titleSlug": "check-if-binary-string-has-at-most-one-segment-of-ones",
+  "title": "Check if Binary String Has at Most One Segment of Ones",
+  "titleCn": "检查二进制字符串字段",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6198096456497524,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1001\" <strong>Output:</strong> false <strong>Explanation: </strong>The string has two segments of size 1.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>The string has two segments of size 1."
+    },
+    {
+      "input": "</strong> s = \"110\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1000045",
+  "titleSlug": "max-black-square-lcci",
+  "title": "Max Black Square LCCI",
+  "titleCn": "最大黑方阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.3873247171676491,
+  "testcases": [
+    {
+      "input": "</strong>[\r   [1,0,1],\r   [<strong>0,0</strong>,1],\r   [<strong>0,0</strong>,1]\r ]\r <strong>Output: </strong>[1,0,2]\r <strong>Explanation:</strong> 0 represents black, and 1 represents white, bold elements in the input is the answer.",
+      "expectedOutput": "</strong>[1,0,2]\r <strong>Explanation:</strong> 0 represents black, and 1 represents white, bold elements in the input is the answer."
+    },
+    {
+      "input": "</strong>[\r   [<strong>0</strong>,1,1],\r   [1,0,1],\r   [1,1,0]\r ]\r <strong>Output: </strong>[0,0,1]",
+      "expectedOutput": "</strong>[0,0,1]"
+    }
+  ]
+}

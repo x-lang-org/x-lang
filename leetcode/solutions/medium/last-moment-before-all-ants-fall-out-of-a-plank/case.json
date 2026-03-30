@@ -1,0 +1,27 @@
+{
+  "problemId": "1627",
+  "titleSlug": "last-moment-before-all-ants-fall-out-of-a-plank",
+  "title": "Last Moment Before All Ants Fall Out of a Plank",
+  "titleCn": "所有蚂蚁掉下来前的最后一刻",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "brainteaser",
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.5729824692557844,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, left = [4,3], right = [0,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> In the image above: -The ant at index 0 is named A and going to the right. -The ant at index 1 is named B and going to the right. -The ant at index 3 is named C and going to the left. -The ant at index 4 is named D and going to the left. The last moment when an ant was on the plank is t = 4 seconds. After that, it falls immediately out of the plank. (i.e., We can say that at t = 4.0000000001, there are no ants on the plank).",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> In the image above: -The ant at index 0 is named A and going to the right. -The ant at index 1 is named B and going to the right. -The ant at index 3 is named C and going to the left. -The ant at index 4 is named D and going to the left. The last moment when an ant was on the plank is t = 4 seconds. After that, it falls immediately out of the plank. (i.e., We can say that at t = 4.0000000001, there are no ants on the plank)."
+    },
+    {
+      "input": "</strong> n = 7, left = [], right = [0,1,2,3,4,5,6,7] <strong>Output:</strong> 7 <strong>Explanation:</strong> All ants are going to the right, the ant at index 0 needs 7 seconds to fall.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> All ants are going to the right, the ant at index 0 needs 7 seconds to fall."
+    },
+    {
+      "input": "</strong> n = 7, left = [0,1,2,3,4,5,6,7], right = [] <strong>Output:</strong> 7 <strong>Explanation:</strong> All ants are going to the left, the ant at index 7 needs 7 seconds to fall.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> All ants are going to the left, the ant at index 7 needs 7 seconds to fall."
+    }
+  ]
+}

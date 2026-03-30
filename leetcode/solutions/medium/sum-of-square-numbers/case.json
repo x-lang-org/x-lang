@@ -1,0 +1,23 @@
+{
+  "problemId": "633",
+  "titleSlug": "sum-of-square-numbers",
+  "title": "Sum of Square Numbers",
+  "titleCn": "平方数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "two-pointers",
+    "binary-search"
+  ],
+  "acRate": 0.3857701808247857,
+  "testcases": [
+    {
+      "input": "</strong> c = 5 <strong>Output:</strong> true <strong>Explanation:</strong> 1 * 1 + 2 * 2 = 5",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 1 * 1 + 2 * 2 = 5"
+    },
+    {
+      "input": "</strong> c = 3 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

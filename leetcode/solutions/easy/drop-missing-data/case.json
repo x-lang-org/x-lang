@@ -1,0 +1,15 @@
+{
+  "problemId": "3075",
+  "titleSlug": "drop-missing-data",
+  "title": "Drop Missing Data",
+  "titleCn": "删去丢失的数据",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.6507769504694075,
+  "testcases": [
+    {
+      "input": "</strong>+------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 32     | Piper  | 5  | | 217    | None  | 19 | | 779    | Georgia | 20 | | 849    | Willow | 14 | +------------+---------+-----+ <strong>Output: </strong>+------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 32     | Piper  | 5  | | 779    | Georgia | 20 | | 849    | Willow | 14 | +------------+---------+-----+ <strong>Explanation:</strong> Student with id 217 havs empty value in the name column, so it will be removed.",
+      "expectedOutput": "</strong>+------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 32     | Piper  | 5  | | 779    | Georgia | 20 | | 849    | Willow | 14 | +------------+---------+-----+ <strong>Explanation:</strong> Student with id 217 havs empty value in the name column, so it will be removed."
+    }
+  ]
+}

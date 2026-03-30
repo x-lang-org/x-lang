@@ -1,0 +1,21 @@
+{
+  "problemId": "520",
+  "titleSlug": "detect-capital",
+  "title": "Detect Capital",
+  "titleCn": "检测大写字母",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5734749825604386,
+  "testcases": [
+    {
+      "input": "</strong> word = \"USA\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> word = \"FlaG\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2586",
+  "titleSlug": "longest-square-streak-in-an-array",
+  "title": "Longest Square Streak in an Array",
+  "titleCn": "数组中最长的方波",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.44425442107561314,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,3,6,16,8,2] <strong>Output:</strong> 3 <strong>Explanation:</strong> Choose the subsequence [4,16,2]. After sorting it, it becomes [2,4,16]. - 4 = 2 * 2. - 16 = 4 * 4. Therefore, [4,16,2] is a square streak. It can be shown that every subsequence of length 4 is not a square streak.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Choose the subsequence [4,16,2]. After sorting it, it becomes [2,4,16]. - 4 = 2 * 2. - 16 = 4 * 4. Therefore, [4,16,2] is a square streak. It can be shown that every subsequence of length 4 is not a square streak."
+    },
+    {
+      "input": "</strong> nums = [2,3,5,6,7] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no square streak in nums so return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no square streak in nums so return -1."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "3057",
+  "titleSlug": "count-k-subsequences-of-a-string-with-maximum-beauty",
+  "title": "Count K-Subsequences of a String With Maximum Beauty",
+  "titleCn": "统计一个字符串的 k 子序列美丽值最大的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "math",
+    "string",
+    "combinatorics",
+    "sorting"
+  ],
+  "acRate": 0.3204141226440138,
+  "testcases": [
+    {
+      "input": "</strong> s = \"bcca\", k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> <span style=\"white-space: normal\">From s we have f('a') = 1, f('b') = 1, and f('c') = 2.</span> The k-subsequences of s are: <strong><u>bc</u></strong>ca having a beauty of f('b') + f('c') = 3 <strong><u>b</u></strong>c<u><strong>c</strong></u>a having a beauty of f('b') + f('c') = 3 <strong><u>b</u></strong>cc<strong><u>a</u></strong> having a beauty of f('b') + f('a') = 2 b<strong><u>c</u></strong>c<u><strong>a</strong></u><strong> </strong>having a beauty of f('c') + f('a') = 3 bc<strong><u>ca</u></strong> having a beauty of f('c') + f('a') = 3 There are 4 k-subsequences that have the maximum beauty, 3. Hence, the answer is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> <span style=\"white-space: normal\">From s we have f('a') = 1, f('b') = 1, and f('c') = 2.</span> The k-subsequences of s are: <strong><u>bc</u></strong>ca having a beauty of f('b') + f('c') = 3 <strong><u>b</u></strong>c<u><strong>c</strong></u>a having a beauty of f('b') + f('c') = 3 <strong><u>b</u></strong>cc<strong><u>a</u></strong> having a beauty of f('b') + f('a') = 2 b<strong><u>c</u></strong>c<u><strong>a</strong></u><strong> </strong>having a beauty of f('c') + f('a') = 3 bc<strong><u>ca</u></strong> having a beauty of f('c') + f('a') = 3 There are 4 k-subsequences that have the maximum beauty, 3. Hence, the answer is 4."
+    },
+    {
+      "input": "</strong> s = \"abbcd\", k = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> From s we have f('a') = 1, f('b') = 2, f('c') = 1, and f('d') = 1. The k-subsequences of s are: <u><strong>ab</strong></u>b<strong><u>cd</u></strong> having a beauty of f('a') + f('b') + f('c') + f('d') = 5 <u style=\"white-space: normal;\"><strong>a</strong></u>b<u><strong>bcd</strong></u> having a beauty of f('a') + f('b') + f('c') + f('d') = 5 There are 2 k-subsequences that have the maximum beauty, 5. Hence, the answer is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> From s we have f('a') = 1, f('b') = 2, f('c') = 1, and f('d') = 1. The k-subsequences of s are: <u><strong>ab</strong></u>b<strong><u>cd</u></strong> having a beauty of f('a') + f('b') + f('c') + f('d') = 5 <u style=\"white-space: normal;\"><strong>a</strong></u>b<u><strong>bcd</strong></u> having a beauty of f('a') + f('b') + f('c') + f('d') = 5 There are 2 k-subsequences that have the maximum beauty, 5. Hence, the answer is 2."
+    }
+  ]
+}

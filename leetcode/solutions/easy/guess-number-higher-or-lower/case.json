@@ -1,0 +1,26 @@
+{
+  "problemId": "374",
+  "titleSlug": "guess-number-higher-or-lower",
+  "title": "Guess Number Higher or Lower",
+  "titleCn": "猜数字大小",
+  "difficulty": "EASY",
+  "topicTags": [
+    "binary-search",
+    "interactive"
+  ],
+  "acRate": 0.5314781532308938,
+  "testcases": [
+    {
+      "input": "</strong> n = 10, pick = 6 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> n = 1, pick = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> n = 2, pick = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

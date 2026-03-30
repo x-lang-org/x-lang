@@ -1,0 +1,21 @@
+{
+  "problemId": "688",
+  "titleSlug": "knight-probability-in-chessboard",
+  "title": "Knight Probability in Chessboard",
+  "titleCn": "骑士在棋盘上的概率",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.5998083788623636,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, k = 2, row = 0, column = 0 <strong>Output:</strong> 0.06250 <strong>Explanation:</strong> There are two moves (to (1,2), (2,1)) that will keep the knight on the board. From each of those positions, there are also two moves that will keep the knight on the board. The total probability the knight stays on the board is 0.0625.",
+      "expectedOutput": "</strong> 0.06250 <strong>Explanation:</strong> There are two moves (to (1,2), (2,1)) that will keep the knight on the board. From each of those positions, there are also two moves that will keep the knight on the board. The total probability the knight stays on the board is 0.0625."
+    },
+    {
+      "input": "</strong> n = 1, k = 0, row = 0, column = 0 <strong>Output:</strong> 1.00000",
+      "expectedOutput": "</strong> 1.00000"
+    }
+  ]
+}

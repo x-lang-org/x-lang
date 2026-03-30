@@ -1,0 +1,19 @@
+{
+  "problemId": "100355",
+  "titleSlug": "master-mind-lcci",
+  "title": "Master Mind LCCI",
+  "titleCn": "珠玑妙算",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.45326414248190144,
+  "testcases": [
+    {
+      "input": "</strong> solution=\"RGBY\",guess=\"GGRR\"\r <strong>Output: </strong> [1,1]\r <strong>Explanation: </strong> hit once, pseudo-hit once.",
+      "expectedOutput": "</strong> [1,1]\r <strong>Explanation: </strong> hit once, pseudo-hit once."
+    }
+  ]
+}

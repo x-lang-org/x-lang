@@ -1,0 +1,23 @@
+{
+  "problemId": "1255",
+  "titleSlug": "reverse-subarray-to-maximize-array-value",
+  "title": "Reverse Subarray To Maximize Array Value",
+  "titleCn": "翻转子数组得到最大的数组值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math"
+  ],
+  "acRate": 0.569144296927997,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,1,5,4] <strong>Output:</strong> 10 <b>Explanation: </b>By reversing the subarray [3,1,5] the array becomes [2,5,1,3,4] whose value is 10.",
+      "expectedOutput": "</strong> 10 <b>Explanation: </b>By reversing the subarray [3,1,5] the array becomes [2,5,1,3,4] whose value is 10."
+    },
+    {
+      "input": "</strong> nums = [2,4,9,24,2,1,10] <strong>Output:</strong> 68",
+      "expectedOutput": "</strong> 68"
+    }
+  ]
+}

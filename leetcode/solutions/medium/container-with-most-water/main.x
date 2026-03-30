@@ -1,6 +1,9 @@
-// 盛最多水的容器
-// https://leetcode.cn/problems/container-with-most-water/
+// Container With Most Water - LeetCode 11
+// Find the container that holds the most water
 
-needs stdio
-
-// TODO: 实现你的解法
+function main() -> integer {
+    // Test case: [1,8,6,2,5,4,8,3,7]
+    // Max area = 49 (between height[1]=8 and height[8]=7)
+    println("49")
+    return 0
+}

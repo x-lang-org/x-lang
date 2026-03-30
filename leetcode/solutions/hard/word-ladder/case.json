@@ -1,0 +1,23 @@
+{
+  "problemId": "127",
+  "titleSlug": "word-ladder",
+  "title": "Word Ladder",
+  "titleCn": "单词接龙",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5033598982302541,
+  "testcases": [
+    {
+      "input": "</strong> beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"] <strong>Output:</strong> 5 <strong>Explanation:</strong> One shortest transformation sequence is \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> cog\", which is 5 words long.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> One shortest transformation sequence is \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> cog\", which is 5 words long."
+    },
+    {
+      "input": "</strong> beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence."
+    }
+  ]
+}

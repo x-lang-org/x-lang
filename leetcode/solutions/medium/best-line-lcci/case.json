@@ -1,0 +1,20 @@
+{
+  "problemId": "100354",
+  "titleSlug": "best-line-lcci",
+  "title": "Best Line LCCI",
+  "titleCn": "最佳直线",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.5534280420012353,
+  "testcases": [
+    {
+      "input": "</strong> [[0,0],[1,1],[1,0],[2,0]]\r <strong>Output: </strong> [0,2]\r <strong>Explanation: </strong> The numbers of points passed by the line are [0,2,3].",
+      "expectedOutput": "</strong> [0,2]\r <strong>Explanation: </strong> The numbers of points passed by the line are [0,2,3]."
+    }
+  ]
+}

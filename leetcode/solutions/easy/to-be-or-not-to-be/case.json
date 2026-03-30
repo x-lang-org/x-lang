@@ -1,0 +1,23 @@
+{
+  "problemId": "2813",
+  "titleSlug": "to-be-or-not-to-be",
+  "title": "To Be Or Not To Be",
+  "titleCn": "相等还是不相等",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.5963896303669185,
+  "testcases": [
+    {
+      "input": "</strong> func = () => expect(5).toBe(5) <strong>Output:</strong> {\"value\": true} <strong>Explanation:</strong> 5 === 5 so this expression returns true.",
+      "expectedOutput": "</strong> {\"value\": true} <strong>Explanation:</strong> 5 === 5 so this expression returns true."
+    },
+    {
+      "input": "</strong> func = () => expect(5).toBe(null) <strong>Output:</strong> {\"error\": \"Not Equal\"} <strong>Explanation:</strong> 5 !== null so this expression throw the error \"Not Equal\".",
+      "expectedOutput": "</strong> {\"error\": \"Not Equal\"} <strong>Explanation:</strong> 5 !== null so this expression throw the error \"Not Equal\"."
+    },
+    {
+      "input": "</strong> func = () => expect(5).notToBe(null) <strong>Output:</strong> {\"value\": true} <strong>Explanation:</strong> 5 !== null so this expression returns true.",
+      "expectedOutput": "</strong> {\"value\": true} <strong>Explanation:</strong> 5 !== null so this expression returns true."
+    }
+  ]
+}

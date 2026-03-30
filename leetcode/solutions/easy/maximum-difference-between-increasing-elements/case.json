@@ -1,0 +1,25 @@
+{
+  "problemId": "2144",
+  "titleSlug": "maximum-difference-between-increasing-elements",
+  "title": "Maximum Difference Between Increasing Elements",
+  "titleCn": "增量元素之间的最大差值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6210382911636435,
+  "testcases": [
+    {
+      "input": "</strong> nums = [7,<strong><u>1</u></strong>,<strong><u>5</u></strong>,4] <strong>Output:</strong> 4 <strong>Explanation:</strong> The maximum difference occurs with i = 1 and j = 2, nums[j] - nums[i] = 5 - 1 = 4. Note that with i = 1 and j = 0, the difference nums[j] - nums[i] = 7 - 1 = 6, but i > j, so it is not valid.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The maximum difference occurs with i = 1 and j = 2, nums[j] - nums[i] = 5 - 1 = 4. Note that with i = 1 and j = 0, the difference nums[j] - nums[i] = 7 - 1 = 6, but i > j, so it is not valid."
+    },
+    {
+      "input": "</strong> nums = [9,4,3,2] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no i and j such that i < j and nums[i] < nums[j].",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no i and j such that i < j and nums[i] < nums[j]."
+    },
+    {
+      "input": "</strong> nums = [<strong><u>1</u></strong>,5,2,<strong><u>10</u></strong>] <strong>Output:</strong> 9 <strong>Explanation:</strong> The maximum difference occurs with i = 0 and j = 3, nums[j] - nums[i] = 10 - 1 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> The maximum difference occurs with i = 0 and j = 3, nums[j] - nums[i] = 10 - 1 = 9."
+    }
+  ]
+}

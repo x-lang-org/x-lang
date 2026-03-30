@@ -1,0 +1,22 @@
+{
+  "problemId": "1823",
+  "titleSlug": "determine-if-string-halves-are-alike",
+  "title": "Determine if String Halves Are Alike",
+  "titleCn": "判断字符串的两半是否相似",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "counting"
+  ],
+  "acRate": 0.7816420009188745,
+  "testcases": [
+    {
+      "input": "</strong> s = \"book\" <strong>Output:</strong> true <strong>Explanation:</strong> a = \"b<u>o</u>\" and b = \"<u>o</u>k\". a has 1 vowel and b has 1 vowel. Therefore, they are alike.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> a = \"b<u>o</u>\" and b = \"<u>o</u>k\". a has 1 vowel and b has 1 vowel. Therefore, they are alike."
+    },
+    {
+      "input": "</strong> s = \"textbook\" <strong>Output:</strong> false <strong>Explanation:</strong> a = \"t<u>e</u>xt\" and b = \"b<u>oo</u>k\". a has 1 vowel whereas b has 2. Therefore, they are not alike. Notice that the vowel o is counted twice.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> a = \"t<u>e</u>xt\" and b = \"b<u>oo</u>k\". a has 1 vowel whereas b has 2. Therefore, they are not alike. Notice that the vowel o is counted twice."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "219",
+  "titleSlug": "contains-duplicate-ii",
+  "title": "Contains Duplicate II",
+  "titleCn": "存在重复元素 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "acRate": 0.508431452619161,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,1], k = 3 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> nums = [1,0,1,1], k = 1 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> nums = [1,2,3,1,2,3], k = 2 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

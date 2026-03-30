@@ -1,0 +1,17 @@
+{
+  "problemId": "196",
+  "titleSlug": "delete-duplicate-emails",
+  "title": "Delete Duplicate Emails",
+  "titleCn": "删除重复的电子邮箱",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6722788346527246,
+  "testcases": [
+    {
+      "input": "</strong> Person table: +----+------------------+ | id | email      | +----+------------------+ | 1 | john@example.com | | 2 | bob@example.com | | 3 | john@example.com | +----+------------------+ <strong>Output:</strong> +----+------------------+ | id | email      | +----+------------------+ | 1 | john@example.com | | 2 | bob@example.com | +----+------------------+ <strong>Explanation:</strong> john@example.com is repeated two times. We keep the row with the smallest Id = 1.",
+      "expectedOutput": "</strong> +----+------------------+ | id | email      | +----+------------------+ | 1 | john@example.com | | 2 | bob@example.com | +----+------------------+ <strong>Explanation:</strong> john@example.com is repeated two times. We keep the row with the smallest Id = 1."
+    }
+  ]
+}

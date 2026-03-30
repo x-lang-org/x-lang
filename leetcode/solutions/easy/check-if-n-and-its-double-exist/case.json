@@ -1,0 +1,25 @@
+{
+  "problemId": "1468",
+  "titleSlug": "check-if-n-and-its-double-exist",
+  "title": "Check If N and Its Double Exist",
+  "titleCn": "检查整数及其两倍数是否存在",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.4219506845308816,
+  "testcases": [
+    {
+      "input": "</strong> arr = [10,2,5,3] <strong>Output:</strong> true <strong>Explanation:</strong> For i = 0 and j = 2, arr[i] == 10 == 2 * 5 == 2 * arr[j]",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> For i = 0 and j = 2, arr[i] == 10 == 2 * 5 == 2 * arr[j]"
+    },
+    {
+      "input": "</strong> arr = [3,1,7,11] <strong>Output:</strong> false <strong>Explanation:</strong> There is no i and j that satisfy the conditions.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no i and j that satisfy the conditions."
+    }
+  ]
+}

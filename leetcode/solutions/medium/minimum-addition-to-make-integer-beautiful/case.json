@@ -1,0 +1,26 @@
+{
+  "problemId": "2544",
+  "titleSlug": "minimum-addition-to-make-integer-beautiful",
+  "title": "Minimum Addition to Make Integer Beautiful",
+  "titleCn": "美丽整数的最小增量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.4051383399209486,
+  "testcases": [
+    {
+      "input": "</strong> n = 16, target = 6 <strong>Output:</strong> 4 <strong>Explanation:</strong> Initially n is 16 and its digit sum is 1 + 6 = 7. After adding 4, n becomes 20 and digit sum becomes 2 + 0 = 2. It can be shown that we can not make n beautiful with adding non-negative integer less than 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Initially n is 16 and its digit sum is 1 + 6 = 7. After adding 4, n becomes 20 and digit sum becomes 2 + 0 = 2. It can be shown that we can not make n beautiful with adding non-negative integer less than 4."
+    },
+    {
+      "input": "</strong> n = 467, target = 6 <strong>Output:</strong> 33 <strong>Explanation:</strong> Initially n is 467 and its digit sum is 4 + 6 + 7 = 17. After adding 33, n becomes 500 and digit sum becomes 5 + 0 + 0 = 5. It can be shown that we can not make n beautiful with adding non-negative integer less than 33.",
+      "expectedOutput": "</strong> 33 <strong>Explanation:</strong> Initially n is 467 and its digit sum is 4 + 6 + 7 = 17. After adding 33, n becomes 500 and digit sum becomes 5 + 0 + 0 = 5. It can be shown that we can not make n beautiful with adding non-negative integer less than 33."
+    },
+    {
+      "input": "</strong> n = 1, target = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> Initially n is 1 and its digit sum is 1, which is already smaller than or equal to target.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Initially n is 1 and its digit sum is 1, which is already smaller than or equal to target."
+    }
+  ]
+}

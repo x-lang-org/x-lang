@@ -1,0 +1,24 @@
+{
+  "problemId": "2609",
+  "titleSlug": "distinct-prime-factors-of-product-of-array",
+  "title": "Distinct Prime Factors of Product of Array",
+  "titleCn": "数组乘积中的不同质因数数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.6605398244742507,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,4,3,7,10,6] <strong>Output:</strong> 4 <strong>Explanation:</strong> The product of all the elements in nums is: 2 * 4 * 3 * 7 * 10 * 6 = 10080 = 2<sup>5</sup> * 3<sup>2</sup> * 5 * 7. There are 4 distinct prime factors so we return 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The product of all the elements in nums is: 2 * 4 * 3 * 7 * 10 * 6 = 10080 = 2<sup>5</sup> * 3<sup>2</sup> * 5 * 7. There are 4 distinct prime factors so we return 4."
+    },
+    {
+      "input": "</strong> nums = [2,4,8,16] <strong>Output:</strong> 1 <strong>Explanation:</strong> The product of all the elements in nums is: 2 * 4 * 8 * 16 = 1024 = 2<sup>10</sup>. There is 1 distinct prime factor so we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The product of all the elements in nums is: 2 * 4 * 8 * 16 = 1024 = 2<sup>10</sup>. There is 1 distinct prime factor so we return 1."
+    }
+  ]
+}

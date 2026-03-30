@@ -1,0 +1,26 @@
+{
+  "problemId": "778",
+  "titleSlug": "reorganize-string",
+  "title": "Reorganize String",
+  "titleCn": "重构字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string",
+    "counting",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.497061792345793,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aab\" <strong>Output:</strong> \"aba\"",
+      "expectedOutput": "</strong> \"aba"
+    },
+    {
+      "input": "</strong> s = \"aaab\" <strong>Output:</strong> \"\"",
+      "expectedOutput": "</strong> "
+    }
+  ]
+}

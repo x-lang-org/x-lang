@@ -1,0 +1,22 @@
+{
+  "problemId": "769",
+  "titleSlug": "largest-plus-sign",
+  "title": "Largest Plus Sign",
+  "titleCn": "最大加号标志",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5436571103031116,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, mines = [[4,2]] <strong>Output:</strong> 2 <strong>Explanation:</strong> In the above grid, the largest plus sign can only be of order 2. One of them is shown.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In the above grid, the largest plus sign can only be of order 2. One of them is shown."
+    },
+    {
+      "input": "</strong> n = 1, mines = [[0,0]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no plus sign, so return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no plus sign, so return 0."
+    }
+  ]
+}

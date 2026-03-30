@@ -1,0 +1,23 @@
+{
+  "problemId": "2083",
+  "titleSlug": "three-divisors",
+  "title": "Three Divisors",
+  "titleCn": "三除数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "acRate": 0.564964020290197,
+  "testcases": [
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> false <strong>Explantion:</strong> 2 has only two divisors: 1 and 2.",
+      "expectedOutput": "</strong> false <strong>Explantion:</strong> 2 has only two divisors: 1 and 2."
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> true <strong>Explantion:</strong> 4 has three divisors: 1, 2, and 4.",
+      "expectedOutput": "</strong> true <strong>Explantion:</strong> 4 has three divisors: 1, 2, and 4."
+    }
+  ]
+}

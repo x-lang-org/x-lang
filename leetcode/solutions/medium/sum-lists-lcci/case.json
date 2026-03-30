@@ -1,0 +1,23 @@
+{
+  "problemId": "100188",
+  "titleSlug": "sum-lists-lcci",
+  "title": "Sum Lists LCCI",
+  "titleCn": "链表求和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "linked-list",
+    "math"
+  ],
+  "acRate": 0.4709837225760793,
+  "testcases": [
+    {
+      "input": "</strong>(7 -> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.\r <strong>Output: </strong>2 -> 1 -> 9. That is, 912.",
+      "expectedOutput": "</strong>2 -> 1 -> 9. That is, 912."
+    },
+    {
+      "input": "</strong>(6 -> 1 -> 7) + (2 -> 9 -> 5). That is, 617 + 295.\r <strong>Output: </strong>9 -> 1 -> 2. That is, 912.",
+      "expectedOutput": "</strong>9 -> 1 -> 2. That is, 912."
+    }
+  ]
+}

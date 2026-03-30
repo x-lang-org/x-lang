@@ -1,0 +1,29 @@
+{
+  "problemId": "2594",
+  "titleSlug": "count-pairs-of-similar-strings",
+  "title": "Count Pairs Of Similar Strings",
+  "titleCn": "统计相似字符串对的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.8390152928011936,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"aba\",\"aabb\",\"abcd\",\"bac\",\"aabc\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 2 pairs that satisfy the conditions: - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'. - i = 3 and j = 4 : both words[3] and words[4] only consist of characters 'a', 'b', and 'c'.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 2 pairs that satisfy the conditions: - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'. - i = 3 and j = 4 : both words[3] and words[4] only consist of characters 'a', 'b', and 'c'."
+    },
+    {
+      "input": "</strong> words = [\"aabb\",\"ab\",\"ba\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 pairs that satisfy the conditions: - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'. - i = 0 and j = 2 : both words[0] and words[2] only consist of characters 'a' and 'b'. - i = 1 and j = 2 : both words[1] and words[2] only consist of characters 'a' and 'b'.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 pairs that satisfy the conditions: - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'. - i = 0 and j = 2 : both words[0] and words[2] only consist of characters 'a' and 'b'. - i = 1 and j = 2 : both words[1] and words[2] only consist of characters 'a' and 'b'."
+    },
+    {
+      "input": "</strong> words = [\"nba\",\"cba\",\"dba\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> Since there does not exist any pair that satisfies the conditions, we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Since there does not exist any pair that satisfies the conditions, we return 0."
+    }
+  ]
+}

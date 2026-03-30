@@ -1,0 +1,27 @@
+{
+  "problemId": "318",
+  "titleSlug": "maximum-product-of-word-lengths",
+  "title": "Maximum Product of Word Lengths",
+  "titleCn": "最大单词长度乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "string"
+  ],
+  "acRate": 0.7176676711752751,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abcw\",\"baz\",\"foo\",\"bar\",\"xtfn\",\"abcdef\"] <strong>Output:</strong> 16 <strong>Explanation:</strong> The two words can be \"abcw\", \"xtfn\".",
+      "expectedOutput": "</strong> 16 <strong>Explanation:</strong> The two words can be \"abcw\", \"xtfn\"."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"ab\",\"abc\",\"d\",\"cd\",\"bcd\",\"abcd\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> The two words can be \"ab\", \"cd\".",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The two words can be \"ab\", \"cd\"."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"aa\",\"aaa\",\"aaaa\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> No such pair of words.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> No such pair of words."
+    }
+  ]
+}

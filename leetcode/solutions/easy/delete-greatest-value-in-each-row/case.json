@@ -1,0 +1,25 @@
+{
+  "problemId": "2585",
+  "titleSlug": "delete-greatest-value-in-each-row",
+  "title": "Delete Greatest Value in Each Row",
+  "titleCn": "删除每行中的最大值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.8272170253592377,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,2,4],[3,3,1]] <strong>Output:</strong> 8 <strong>Explanation:</strong> The diagram above shows the removed values in each step. - In the first operation, we remove 4 from the first row and 3 from the second row (notice that, there are two cells with value 3 and we can remove any of them). We add 4 to the answer. - In the second operation, we remove 2 from the first row and 3 from the second row. We add 3 to the answer. - In the third operation, we remove 1 from the first row and 1 from the second row. We add 1 to the answer. The final answer = 4 + 3 + 1 = 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The diagram above shows the removed values in each step. - In the first operation, we remove 4 from the first row and 3 from the second row (notice that, there are two cells with value 3 and we can remove any of them). We add 4 to the answer. - In the second operation, we remove 2 from the first row and 3 from the second row. We add 3 to the answer. - In the third operation, we remove 1 from the first row and 1 from the second row. We add 1 to the answer. The final answer = 4 + 3 + 1 = 8."
+    },
+    {
+      "input": "</strong> grid = [[10]] <strong>Output:</strong> 10 <strong>Explanation:</strong> The diagram above shows the removed values in each step. - In the first operation, we remove 10 from the first row. We add 10 to the answer. The final answer = 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The diagram above shows the removed values in each step. - In the first operation, we remove 10 from the first row. We add 10 to the answer. The final answer = 10."
+    }
+  ]
+}

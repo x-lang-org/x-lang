@@ -1,0 +1,25 @@
+{
+  "problemId": "2608",
+  "titleSlug": "count-the-digits-that-divide-a-number",
+  "title": "Count the Digits That Divide a Number",
+  "titleCn": "统计能整除数字的位数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.8339501832044117,
+  "testcases": [
+    {
+      "input": "</strong> num = 7 <strong>Output:</strong> 1 <strong>Explanation:</strong> 7 divides itself, hence the answer is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 7 divides itself, hence the answer is 1."
+    },
+    {
+      "input": "</strong> num = 121 <strong>Output:</strong> 2 <strong>Explanation:</strong> 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2."
+    },
+    {
+      "input": "</strong> num = 1248 <strong>Output:</strong> 4 <strong>Explanation:</strong> 1248 is divisible by all of its digits, hence the answer is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> 1248 is divisible by all of its digits, hence the answer is 4."
+    }
+  ]
+}

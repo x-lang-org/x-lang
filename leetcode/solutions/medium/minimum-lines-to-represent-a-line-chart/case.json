@@ -1,0 +1,25 @@
+{
+  "problemId": "2367",
+  "titleSlug": "minimum-lines-to-represent-a-line-chart",
+  "title": "Minimum Lines to Represent a Line Chart",
+  "titleCn": "表示一个折线图的最少线段数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math",
+    "number-theory",
+    "sorting"
+  ],
+  "acRate": 0.24785986049461,
+  "testcases": [
+    {
+      "input": "</strong> stockPrices = [[1,7],[2,6],[3,5],[4,4],[5,4],[6,3],[7,2],[8,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The diagram above represents the input, with the X-axis representing the day and Y-axis representing the price. The following 3 lines can be drawn to represent the line chart: - Line 1 (in red) from (1,7) to (4,4) passing through (1,7), (2,6), (3,5), and (4,4). - Line 2 (in blue) from (4,4) to (5,4). - Line 3 (in green) from (5,4) to (8,1) passing through (5,4), (6,3), (7,2), and (8,1). It can be shown that it is not possible to represent the line chart using less than 3 lines.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The diagram above represents the input, with the X-axis representing the day and Y-axis representing the price. The following 3 lines can be drawn to represent the line chart: - Line 1 (in red) from (1,7) to (4,4) passing through (1,7), (2,6), (3,5), and (4,4). - Line 2 (in blue) from (4,4) to (5,4). - Line 3 (in green) from (5,4) to (8,1) passing through (5,4), (6,3), (7,2), and (8,1). It can be shown that it is not possible to represent the line chart using less than 3 lines."
+    },
+    {
+      "input": "</strong> stockPrices = [[3,4],[1,2],[7,8],[2,3]] <strong>Output:</strong> 1 <strong>Explanation:</strong> As shown in the diagram above, the line chart can be represented with a single line.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> As shown in the diagram above, the line chart can be represented with a single line."
+    }
+  ]
+}

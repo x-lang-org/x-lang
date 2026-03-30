@@ -1,0 +1,23 @@
+{
+  "problemId": "822",
+  "titleSlug": "unique-morse-code-words",
+  "title": "Unique Morse Code Words",
+  "titleCn": "唯一摩尔斯密码词",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.822227738246272,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"gin\",\"zen\",\"gig\",\"msg\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> The transformation of each word is: \"gin\" -> \"--...-.\" \"zen\" -> \"--...-.\" \"gig\" -> \"--...--.\" \"msg\" -> \"--...--.\" There are 2 different transformations: \"--...-.\" and \"--...--.\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The transformation of each word is: \"gin\" -> \"--...-.\" \"zen\" -> \"--...-.\" \"gig\" -> \"--...--.\" \"msg\" -> \"--...--.\" There are 2 different transformations: \"--...-.\" and \"--...--.\"."
+    },
+    {
+      "input": "</strong> words = [\"a\"] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

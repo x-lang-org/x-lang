@@ -1,0 +1,26 @@
+{
+  "problemId": "1944",
+  "titleSlug": "truncate-sentence",
+  "title": "Truncate Sentence",
+  "titleCn": "截断句子",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.7300590439010196,
+  "testcases": [
+    {
+      "input": "</strong> s = \"Hello how are you Contestant\", k = 4 <strong>Output:</strong> \"Hello how are you\" <strong>Explanation:</strong> The words in s are [\"Hello\", \"how\" \"are\", \"you\", \"Contestant\"]. The first 4 words are [\"Hello\", \"how\", \"are\", \"you\"]. Hence, you should return \"Hello how are you\".",
+      "expectedOutput": "</strong> \"Hello how are you\" <strong>Explanation:</strong> The words in s are [\"Hello\", \"how\" \"are\", \"you\", \"Contestant\"]. The first 4 words are [\"Hello\", \"how\", \"are\", \"you\"]. Hence, you should return \"Hello how are you\"."
+    },
+    {
+      "input": "</strong> s = \"What is the solution to this problem\", k = 4 <strong>Output:</strong> \"What is the solution\" <strong>Explanation:</strong> The words in s are [\"What\", \"is\" \"the\", \"solution\", \"to\", \"this\", \"problem\"]. The first 4 words are [\"What\", \"is\", \"the\", \"solution\"]. Hence, you should return \"What is the solution\".",
+      "expectedOutput": "</strong> \"What is the solution\" <strong>Explanation:</strong> The words in s are [\"What\", \"is\" \"the\", \"solution\", \"to\", \"this\", \"problem\"]. The first 4 words are [\"What\", \"is\", \"the\", \"solution\"]. Hence, you should return \"What is the solution\"."
+    },
+    {
+      "input": "</strong> s = \"chopper is not a tanuki\", k = 5 <strong>Output:</strong> \"chopper is not a tanuki\"",
+      "expectedOutput": "</strong> \"chopper is not a tanuki"
+    }
+  ]
+}

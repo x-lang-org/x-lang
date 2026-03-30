@@ -1,0 +1,27 @@
+{
+  "problemId": "1986",
+  "titleSlug": "largest-color-value-in-a-directed-graph",
+  "title": "Largest Color Value in a Directed Graph",
+  "titleCn": "有向图中最大颜色值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "topological-sort",
+    "memoization",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "counting"
+  ],
+  "acRate": 0.590891244601492,
+  "testcases": [
+    {
+      "input": "</strong> colors = \"abaca\", edges = [[0,1],[0,2],[2,3],[3,4]] <strong>Output:</strong> 3 <strong>Explanation:</strong> The path 0 -> 2 -> 3 -> 4 contains 3 nodes that are colored <code>\"a\" (red in the above image)</code>.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The path 0 -> 2 -> 3 -> 4 contains 3 nodes that are colored <code>\"a\" (red in the above image)</code>."
+    },
+    {
+      "input": "</strong> colors = \"a\", edges = [[0,0]] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is a cycle from 0 to 0.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is a cycle from 0 to 0."
+    }
+  ]
+}

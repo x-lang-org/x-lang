@@ -1,0 +1,23 @@
+{
+  "problemId": "647",
+  "titleSlug": "palindromic-substrings",
+  "title": "Palindromic Substrings",
+  "titleCn": "回文子串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6820402238364976,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abc\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Three palindromic strings: \"a\", \"b\", \"c\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Three palindromic strings: \"a\", \"b\", \"c\"."
+    },
+    {
+      "input": "</strong> s = \"aaa\" <strong>Output:</strong> 6 <strong>Explanation:</strong> Six palindromic strings: \"a\", \"a\", \"a\", \"aa\", \"aa\", \"aaa\".",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Six palindromic strings: \"a\", \"a\", \"a\", \"aa\", \"aa\", \"aaa\"."
+    }
+  ]
+}

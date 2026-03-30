@@ -1,0 +1,26 @@
+{
+  "problemId": "1103",
+  "titleSlug": "moving-stones-until-consecutive",
+  "title": "Moving Stones Until Consecutive",
+  "titleCn": "移动石子直到连续",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "brainteaser",
+    "math"
+  ],
+  "acRate": 0.5091596865711969,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 2, c = 5 <strong>Output:</strong> [1,2] <strong>Explanation:</strong> Move the stone from 5 to 3, or move the stone from 5 to 4 to 3.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> Move the stone from 5 to 3, or move the stone from 5 to 4 to 3."
+    },
+    {
+      "input": "</strong> a = 4, b = 3, c = 2 <strong>Output:</strong> [0,0] <strong>Explanation:</strong> We cannot make any moves.",
+      "expectedOutput": "</strong> [0,0] <strong>Explanation:</strong> We cannot make any moves."
+    },
+    {
+      "input": "</strong> a = 3, b = 5, c = 1 <strong>Output:</strong> [1,2] <strong>Explanation:</strong> Move the stone from 1 to 4; or move the stone from 1 to 2 to 4.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> Move the stone from 1 to 4; or move the stone from 1 to 2 to 4."
+    }
+  ]
+}

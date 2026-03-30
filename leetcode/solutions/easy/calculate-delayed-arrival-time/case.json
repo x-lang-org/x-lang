@@ -1,0 +1,21 @@
+{
+  "problemId": "2748",
+  "titleSlug": "calculate-delayed-arrival-time",
+  "title": "Calculate Delayed Arrival Time",
+  "titleCn": "计算列车到站时间",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.8502059836563788,
+  "testcases": [
+    {
+      "input": "</strong> arrivalTime = 15, delayedTime = 5 <strong>Output:</strong> 20 <strong>Explanation:</strong> Arrival time of the train was 15:00 hours. It is delayed by 5 hours. Now it will reach at 15+5 = 20 (20:00 hours).",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> Arrival time of the train was 15:00 hours. It is delayed by 5 hours. Now it will reach at 15+5 = 20 (20:00 hours)."
+    },
+    {
+      "input": "</strong> arrivalTime = 13, delayedTime = 11 <strong>Output:</strong> 0 <strong>Explanation:</strong> Arrival time of the train was 13:00 hours. It is delayed by 11 hours. Now it will reach at 13+11=24 (Which is denoted by 00:00 in 24 hours format so return 0).",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Arrival time of the train was 13:00 hours. It is delayed by 11 hours. Now it will reach at 13+11=24 (Which is denoted by 00:00 in 24 hours format so return 0)."
+    }
+  ]
+}

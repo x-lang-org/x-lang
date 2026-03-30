@@ -1,0 +1,23 @@
+{
+  "problemId": "2487",
+  "titleSlug": "optimal-partition-of-string",
+  "title": "Optimal Partition of String",
+  "titleCn": "子字符串的最优划分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7554026086537998,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abacaba\" <strong>Output:</strong> 4 <strong>Explanation:</strong> Two possible partitions are (\"a\",\"ba\",\"cab\",\"a\") and (\"ab\",\"a\",\"ca\",\"ba\"). It can be shown that 4 is the minimum number of substrings needed.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Two possible partitions are (\"a\",\"ba\",\"cab\",\"a\") and (\"ab\",\"a\",\"ca\",\"ba\"). It can be shown that 4 is the minimum number of substrings needed."
+    },
+    {
+      "input": "</strong> s = \"ssssss\" <strong>Output:</strong> 6 <strong>Explanation: </strong>The only valid partition is (\"s\",\"s\",\"s\",\"s\",\"s\",\"s\").",
+      "expectedOutput": "</strong> 6 <strong>Explanation: </strong>The only valid partition is (\"s\",\"s\",\"s\",\"s\",\"s\",\"s\")."
+    }
+  ]
+}

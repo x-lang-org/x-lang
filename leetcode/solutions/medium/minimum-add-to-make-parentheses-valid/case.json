@@ -1,0 +1,23 @@
+{
+  "problemId": "957",
+  "titleSlug": "minimum-add-to-make-parentheses-valid",
+  "title": "Minimum Add to Make Parentheses Valid",
+  "titleCn": "使括号有效的最少添加",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.7333397500962514,
+  "testcases": [
+    {
+      "input": "</strong> s = \"())\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> s = \"(((\" <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

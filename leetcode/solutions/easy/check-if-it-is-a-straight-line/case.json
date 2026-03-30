@@ -1,0 +1,23 @@
+{
+  "problemId": "1349",
+  "titleSlug": "check-if-it-is-a-straight-line",
+  "title": "Check If It Is a Straight Line",
+  "titleCn": "缀点成线",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "acRate": 0.4313883845791041,
+  "testcases": [
+    {
+      "input": "</strong> coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> coordinates = [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

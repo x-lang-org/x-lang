@@ -1,0 +1,26 @@
+{
+  "problemId": "977",
+  "titleSlug": "distinct-subsequences-ii",
+  "title": "Distinct Subsequences II",
+  "titleCn": "不同的子序列 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5262581903385574,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abc\" <strong>Output:</strong> 7 <strong>Explanation:</strong> The 7 distinct subsequences are \"a\", \"b\", \"c\", \"ab\", \"ac\", \"bc\", and \"abc\".",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The 7 distinct subsequences are \"a\", \"b\", \"c\", \"ab\", \"ac\", \"bc\", and \"abc\"."
+    },
+    {
+      "input": "</strong> s = \"aba\" <strong>Output:</strong> 6 <strong>Explanation:</strong> The 6 distinct subsequences are \"a\", \"b\", \"ab\", \"aa\", \"ba\", and \"aba\".",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The 6 distinct subsequences are \"a\", \"b\", \"ab\", \"aa\", \"ba\", and \"aba\"."
+    },
+    {
+      "input": "</strong> s = \"aaa\" <strong>Output:</strong> 3 <strong>Explanation:</strong> The 3 distinct subsequences are \"a\", \"aa\" and \"aaa\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The 3 distinct subsequences are \"a\", \"aa\" and \"aaa\"."
+    }
+  ]
+}

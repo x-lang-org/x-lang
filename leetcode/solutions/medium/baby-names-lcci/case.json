@@ -1,0 +1,23 @@
+{
+  "problemId": "1000035",
+  "titleSlug": "baby-names-lcci",
+  "title": "Baby Names LCCI",
+  "titleCn": "婴儿名字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.4277043018237505,
+  "testcases": [
+    {
+      "input": "</strong>names = [\"John(15)\",\"Jon(12)\",\"Chris(13)\",\"Kris(4)\",\"Christopher(19)\"], synonyms = [\"(Jon,John)\",\"(John,Johnny)\",\"(Chris,Kris)\",\"(Chris,Christopher)\"]\r <strong>Output: </strong>[\"John(27)\",\"Chris(36)\"]",
+      "expectedOutput": "</strong>[\"John(27)\",\"Chris(36)\"]"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "1058",
+  "titleSlug": "lexicographically-smallest-equivalent-string",
+  "title": "Lexicographically Smallest Equivalent String",
+  "titleCn": "按字典序排列最小的等效字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "union-find",
+    "string"
+  ],
+  "acRate": 0.741128724548198,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"parker\", s2 = \"morris\", baseStr = \"parser\" <strong>Output:</strong> \"makkek\" <strong>Explanation:</strong> Based on the equivalency information in s1 and s2, we can group their characters as [m,p], [a,o], [k,r,s], [e,i]. The characters in each group are equivalent and sorted in lexicographical order. So the answer is \"makkek\".",
+      "expectedOutput": "</strong> \"makkek\" <strong>Explanation:</strong> Based on the equivalency information in s1 and s2, we can group their characters as [m,p], [a,o], [k,r,s], [e,i]. The characters in each group are equivalent and sorted in lexicographical order. So the answer is \"makkek\"."
+    },
+    {
+      "input": "</strong> s1 = \"hello\", s2 = \"world\", baseStr = \"hold\" <strong>Output:</strong> \"hdld\" <strong>Explanation: </strong>Based on the equivalency information in s1 and s2, we can group their characters as [h,w], [d,e,o], [l,r]. So only the second letter 'o' in baseStr is changed to 'd', the answer is \"hdld\".",
+      "expectedOutput": "</strong> \"hdld\" <strong>Explanation: </strong>Based on the equivalency information in s1 and s2, we can group their characters as [h,w], [d,e,o], [l,r]. So only the second letter 'o' in baseStr is changed to 'd', the answer is \"hdld\"."
+    },
+    {
+      "input": "</strong> s1 = \"leetcode\", s2 = \"programs\", baseStr = \"sourcecode\" <strong>Output:</strong> \"aauaaaaada\" <strong>Explanation:</strong> We group the equivalent characters in s1 and s2 as [a,o,e,r,s,c], [l,p], [g,t] and [d,m], thus all letters in baseStr except 'u' and 'd' are transformed to 'a', the answer is \"aauaaaaada\".",
+      "expectedOutput": "</strong> \"aauaaaaada\" <strong>Explanation:</strong> We group the equivalent characters in s1 and s2 as [a,o,e,r,s,c], [l,p], [g,t] and [d,m], thus all letters in baseStr except 'u' and 'd' are transformed to 'a', the answer is \"aauaaaaada\"."
+    }
+  ]
+}

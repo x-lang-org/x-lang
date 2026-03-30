@@ -1,0 +1,26 @@
+{
+  "problemId": "809",
+  "titleSlug": "preimage-size-of-factorial-zeroes-function",
+  "title": "Preimage Size of Factorial Zeroes Function",
+  "titleCn": "阶乘函数后 K 个零",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.4905238201081722,
+  "testcases": [
+    {
+      "input": "</strong> k = 0 <strong>Output:</strong> 5 <strong>Explanation:</strong> 0!, 1!, 2!, 3!, and 4! end with k = 0 zeroes.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> 0!, 1!, 2!, 3!, and 4! end with k = 0 zeroes."
+    },
+    {
+      "input": "</strong> k = 5 <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no x such that x! ends in k = 5 zeroes.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no x such that x! ends in k = 5 zeroes."
+    },
+    {
+      "input": "</strong> k = 3 <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

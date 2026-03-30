@@ -1,0 +1,28 @@
+{
+  "problemId": "3262",
+  "titleSlug": "find-polygon-with-the-largest-perimeter",
+  "title": "Find Polygon With the Largest Perimeter",
+  "titleCn": "找到最大周长的多边形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.6998731501057083,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,5,5] <strong>Output:</strong> 15 <strong>Explanation:</strong> The only possible polygon that can be made from nums has 3 sides: 5, 5, and 5. The perimeter is 5 + 5 + 5 = 15.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The only possible polygon that can be made from nums has 3 sides: 5, 5, and 5. The perimeter is 5 + 5 + 5 = 15."
+    },
+    {
+      "input": "</strong> nums = [1,12,1,2,5,50,3] <strong>Output:</strong> 12 <strong>Explanation:</strong> The polygon with the largest perimeter which can be made from nums has 5 sides: 1, 1, 2, 3, and 5. The perimeter is 1 + 1 + 2 + 3 + 5 = 12. We cannot have a polygon with either 12 or 50 as the longest side because it is not possible to include 2 or more smaller sides that have a greater sum than either of them. It can be shown that the largest possible perimeter is 12.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> The polygon with the largest perimeter which can be made from nums has 5 sides: 1, 1, 2, 3, and 5. The perimeter is 1 + 1 + 2 + 3 + 5 = 12. We cannot have a polygon with either 12 or 50 as the longest side because it is not possible to include 2 or more smaller sides that have a greater sum than either of them. It can be shown that the largest possible perimeter is 12."
+    },
+    {
+      "input": "</strong> nums = [5,5,50] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is no possible way to form a polygon from nums, as a polygon has at least 3 sides and 50 > 5 + 5.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is no possible way to form a polygon from nums, as a polygon has at least 3 sides and 50 > 5 + 5."
+    }
+  ]
+}

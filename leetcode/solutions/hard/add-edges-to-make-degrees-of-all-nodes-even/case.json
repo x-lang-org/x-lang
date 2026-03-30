@@ -1,0 +1,26 @@
+{
+  "problemId": "2596",
+  "titleSlug": "add-edges-to-make-degrees-of-all-nodes-even",
+  "title": "Add Edges to Make Degrees of All Nodes Even",
+  "titleCn": "添加边使所有节点度数都为偶数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "hash-table"
+  ],
+  "acRate": 0.32521809697707443,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, edges = [[1,2],[2,3],[3,4],[4,2],[1,4],[2,5]] <strong>Output:</strong> true <strong>Explanation:</strong> The above diagram shows a valid way of adding an edge. Every node in the resulting graph is connected to an even number of edges.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The above diagram shows a valid way of adding an edge. Every node in the resulting graph is connected to an even number of edges."
+    },
+    {
+      "input": "</strong> n = 4, edges = [[1,2],[3,4]] <strong>Output:</strong> true <strong>Explanation:</strong> The above diagram shows a valid way of adding two edges.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The above diagram shows a valid way of adding two edges."
+    },
+    {
+      "input": "</strong> n = 4, edges = [[1,2],[1,3],[1,4]] <strong>Output:</strong> false <strong>Explanation:</strong> It is not possible to obtain a valid graph with adding at most 2 edges.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is not possible to obtain a valid graph with adding at most 2 edges."
+    }
+  ]
+}

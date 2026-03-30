@@ -1,0 +1,27 @@
+{
+  "problemId": "1367",
+  "titleSlug": "maximum-height-by-stacking-cuboids",
+  "title": "Maximum Height by Stacking Cuboids ",
+  "titleCn": "堆叠长方体的最大高度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6557870196284876,
+  "testcases": [
+    {
+      "input": "</strong> cuboids = [[50,45,20],[95,37,53],[45,23,12]] <strong>Output:</strong> 190 <strong>Explanation:</strong> Cuboid 1 is placed on the bottom with the 53x37 side facing down with height 95. Cuboid 0 is placed next with the 45x20 side facing down with height 50. Cuboid 2 is placed next with the 23x12 side facing down with height 45. The total height is 95 + 50 + 45 = 190.",
+      "expectedOutput": "</strong> 190 <strong>Explanation:</strong> Cuboid 1 is placed on the bottom with the 53x37 side facing down with height 95. Cuboid 0 is placed next with the 45x20 side facing down with height 50. Cuboid 2 is placed next with the 23x12 side facing down with height 45. The total height is 95 + 50 + 45 = 190."
+    },
+    {
+      "input": "</strong> cuboids = [[38,25,45],[76,35,3]] <strong>Output:</strong> 76 <strong>Explanation:</strong> You can't place any of the cuboids on the other. We choose cuboid 1 and rotate it so that the 35x3 side is facing down and its height is 76.",
+      "expectedOutput": "</strong> 76 <strong>Explanation:</strong> You can't place any of the cuboids on the other. We choose cuboid 1 and rotate it so that the 35x3 side is facing down and its height is 76."
+    },
+    {
+      "input": "</strong> cuboids = [[7,11,17],[7,17,11],[11,7,17],[11,17,7],[17,7,11],[17,11,7]] <strong>Output:</strong> 102 <strong>Explanation:</strong> After rearranging the cuboids, you can see that all cuboids have the same dimension. You can place the 11x7 side down on all cuboids so their heights are 17. The maximum height of stacked cuboids is 6 * 17 = 102.",
+      "expectedOutput": "</strong> 102 <strong>Explanation:</strong> After rearranging the cuboids, you can see that all cuboids have the same dimension. You can place the 11x7 side down on all cuboids so their heights are 17. The maximum height of stacked cuboids is 6 * 17 = 102."
+    }
+  ]
+}

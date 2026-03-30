@@ -1,0 +1,29 @@
+{
+  "problemId": "1555",
+  "titleSlug": "number-of-ways-of-cutting-a-pizza",
+  "title": "Number of Ways of Cutting a Pizza",
+  "titleCn": "切披萨的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "memoization",
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.6159723861222564,
+  "testcases": [
+    {
+      "input": "</strong> pizza = [\"A..\",\"AAA\",\"...\"], k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The figure above shows the three ways to cut the pizza. Note that pieces must contain at least one apple.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The figure above shows the three ways to cut the pizza. Note that pieces must contain at least one apple."
+    },
+    {
+      "input": "</strong> pizza = [\"A..\",\"AA.\",\"...\"], k = 3 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> pizza = [\"A..\",\"A..\",\"...\"], k = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

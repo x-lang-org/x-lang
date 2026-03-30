@@ -1,0 +1,26 @@
+{
+  "problemId": "598",
+  "titleSlug": "range-addition-ii",
+  "title": "Range Addition II",
+  "titleCn": "区间加法 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.6131354202643725,
+  "testcases": [
+    {
+      "input": "</strong> m = 3, n = 3, ops = [[2,2],[3,3]] <strong>Output:</strong> 4 <strong>Explanation:</strong> The maximum integer in M is 2, and there are four of it in M. So return 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The maximum integer in M is 2, and there are four of it in M. So return 4."
+    },
+    {
+      "input": "</strong> m = 3, n = 3, ops = [[2,2],[3,3],[3,3],[3,3],[2,2],[3,3],[3,3],[3,3],[2,2],[3,3],[3,3],[3,3]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> m = 3, n = 3, ops = [] <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    }
+  ]
+}

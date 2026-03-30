@@ -1,0 +1,22 @@
+{
+  "problemId": "1904",
+  "titleSlug": "second-largest-digit-in-a-string",
+  "title": "Second Largest Digit in a String",
+  "titleCn": "字符串中第二大的数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5503673327799596,
+  "testcases": [
+    {
+      "input": "</strong> s = \"dfa12321afd\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The digits that appear in s are [1, 2, 3]. The second largest digit is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The digits that appear in s are [1, 2, 3]. The second largest digit is 2."
+    },
+    {
+      "input": "</strong> s = \"abc1111\" <strong>Output:</strong> -1 <strong>Explanation:</strong> The digits that appear in s are [1]. There is no second largest digit.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The digits that appear in s are [1]. There is no second largest digit."
+    }
+  ]
+}

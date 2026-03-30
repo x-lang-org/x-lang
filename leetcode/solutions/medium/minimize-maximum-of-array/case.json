@@ -1,0 +1,25 @@
+{
+  "problemId": "2530",
+  "titleSlug": "minimize-maximum-of-array",
+  "title": "Minimize Maximum of Array",
+  "titleCn": "最小化数组中的最大值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "binary-search",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.4665210713257176,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,7,1,6] <strong>Output:</strong> 5 <strong>Explanation:</strong> One set of optimal operations is as follows: 1. Choose i = 1, and nums becomes [4,6,1,6]. 2. Choose i = 3, and nums becomes [4,6,2,5]. 3. Choose i = 1, and nums becomes [5,5,2,5]. The maximum integer of nums is 5. It can be shown that the maximum number cannot be less than 5. Therefore, we return 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> One set of optimal operations is as follows: 1. Choose i = 1, and nums becomes [4,6,1,6]. 2. Choose i = 3, and nums becomes [4,6,2,5]. 3. Choose i = 1, and nums becomes [5,5,2,5]. The maximum integer of nums is 5. It can be shown that the maximum number cannot be less than 5. Therefore, we return 5."
+    },
+    {
+      "input": "</strong> nums = [10,1] <strong>Output:</strong> 10 <strong>Explanation:</strong> It is optimal to leave nums as is, and since 10 is the maximum value, we return 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> It is optimal to leave nums as is, and since 10 is the maximum value, we return 10."
+    }
+  ]
+}

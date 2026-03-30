@@ -1,0 +1,25 @@
+{
+  "problemId": "1902",
+  "titleSlug": "car-fleet-ii",
+  "title": "Car Fleet II",
+  "titleCn": "车队 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "array",
+    "math",
+    "monotonic-stack",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5291898123886385,
+  "testcases": [
+    {
+      "input": "</strong> cars = [[1,2],[2,1],[4,3],[7,2]] <strong>Output:</strong> [1.00000,-1.00000,3.00000,-1.00000] <strong>Explanation:</strong> After exactly one second, the first car will collide with the second car, and form a car fleet with speed 1 m/s. After exactly 3 seconds, the third car will collide with the fourth car, and form a car fleet with speed 2 m/s.",
+      "expectedOutput": "</strong> [1.00000,-1.00000,3.00000,-1.00000] <strong>Explanation:</strong> After exactly one second, the first car will collide with the second car, and form a car fleet with speed 1 m/s. After exactly 3 seconds, the third car will collide with the fourth car, and form a car fleet with speed 2 m/s."
+    },
+    {
+      "input": "</strong> cars = [[3,4],[5,4],[6,3],[9,1]] <strong>Output:</strong> [2.00000,1.00000,1.50000,-1.00000]",
+      "expectedOutput": "</strong> [2.00000,1.00000,1.50000,-1.00000]"
+    }
+  ]
+}

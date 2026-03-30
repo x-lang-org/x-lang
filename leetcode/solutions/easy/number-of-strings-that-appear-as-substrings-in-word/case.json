@@ -1,0 +1,26 @@
+{
+  "problemId": "2099",
+  "titleSlug": "number-of-strings-that-appear-as-substrings-in-word",
+  "title": "Number of Strings That Appear as Substrings in Word",
+  "titleCn": "作为子字符串出现在单词中的字符串数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8025013279250567,
+  "testcases": [
+    {
+      "input": "</strong> patterns = [\"a\",\"abc\",\"bc\",\"d\"], word = \"abc\" <strong>Output:</strong> 3 <strong>Explanation:</strong> - \"a\" appears as a substring in \"<u>a</u>bc\". - \"abc\" appears as a substring in \"<u>abc</u>\". - \"bc\" appears as a substring in \"a<u>bc</u>\". - \"d\" does not appear as a substring in \"abc\". 3 of the strings in patterns appear as a substring in word.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> - \"a\" appears as a substring in \"<u>a</u>bc\". - \"abc\" appears as a substring in \"<u>abc</u>\". - \"bc\" appears as a substring in \"a<u>bc</u>\". - \"d\" does not appear as a substring in \"abc\". 3 of the strings in patterns appear as a substring in word."
+    },
+    {
+      "input": "</strong> patterns = [\"a\",\"b\",\"c\"], word = \"aaaaabbbbb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> - \"a\" appears as a substring in \"a<u>a</u>aaabbbbb\". - \"b\" appears as a substring in \"aaaaabbbb<u>b</u>\". - \"c\" does not appear as a substring in \"aaaaabbbbb\". 2 of the strings in patterns appear as a substring in word.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - \"a\" appears as a substring in \"a<u>a</u>aaabbbbb\". - \"b\" appears as a substring in \"aaaaabbbb<u>b</u>\". - \"c\" does not appear as a substring in \"aaaaabbbbb\". 2 of the strings in patterns appear as a substring in word."
+    },
+    {
+      "input": "</strong> patterns = [\"a\",\"a\",\"a\"], word = \"ab\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Each of the patterns appears as a substring in word \"<u>a</u>b\".",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Each of the patterns appears as a substring in word \"<u>a</u>b\"."
+    }
+  ]
+}

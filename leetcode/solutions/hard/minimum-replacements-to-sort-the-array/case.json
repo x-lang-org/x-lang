@@ -1,0 +1,23 @@
+{
+  "problemId": "2450",
+  "titleSlug": "minimum-replacements-to-sort-the-array",
+  "title": "Minimum Replacements to Sort the Array",
+  "titleCn": "将数组排序的最少替换次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "math"
+  ],
+  "acRate": 0.4628794709948903,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,9,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> Here are the steps to sort the array in non-decreasing order: - From [3,9,3], replace the 9 with 3 and 6 so the array becomes [3,3,6,3] - From [3,3,6,3], replace the 6 with 3 and 3 so the array becomes [3,3,3,3,3] There are 2 steps to sort the array in non-decreasing order. Therefore, we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Here are the steps to sort the array in non-decreasing order: - From [3,9,3], replace the 9 with 3 and 6 so the array becomes [3,3,6,3] - From [3,3,6,3], replace the 6 with 3 and 3 so the array becomes [3,3,3,3,3] There are 2 steps to sort the array in non-decreasing order. Therefore, we return 2."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> 0 <strong>Explanation:</strong> The array is already in non-decreasing order. Therefore, we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The array is already in non-decreasing order. Therefore, we return 0."
+    }
+  ]
+}

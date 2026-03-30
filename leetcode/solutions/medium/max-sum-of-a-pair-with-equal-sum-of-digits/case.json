@@ -1,0 +1,24 @@
+{
+  "problemId": "2473",
+  "titleSlug": "max-sum-of-a-pair-with-equal-sum-of-digits",
+  "title": "Max Sum of a Pair With Equal Sum of Digits",
+  "titleCn": "数位和相等数对的最大和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6434579708474967,
+  "testcases": [
+    {
+      "input": "</strong> nums = [18,43,36,13,7] <strong>Output:</strong> 54 <strong>Explanation:</strong> The pairs (i, j) that satisfy the conditions are: - (0, 2), both numbers have a sum of digits equal to 9, and their sum is 18 + 36 = 54. - (1, 4), both numbers have a sum of digits equal to 7, and their sum is 43 + 7 = 50. So the maximum sum that we can obtain is 54.",
+      "expectedOutput": "</strong> 54 <strong>Explanation:</strong> The pairs (i, j) that satisfy the conditions are: - (0, 2), both numbers have a sum of digits equal to 9, and their sum is 18 + 36 = 54. - (1, 4), both numbers have a sum of digits equal to 7, and their sum is 43 + 7 = 50. So the maximum sum that we can obtain is 54."
+    },
+    {
+      "input": "</strong> nums = [10,12,19,14] <strong>Output:</strong> -1 <strong>Explanation:</strong> There are no two numbers that satisfy the conditions, so we return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are no two numbers that satisfy the conditions, so we return -1."
+    }
+  ]
+}

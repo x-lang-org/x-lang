@@ -1,0 +1,24 @@
+{
+  "problemId": "2873",
+  "titleSlug": "prime-pairs-with-target-sum",
+  "title": "Prime Pairs With Target Sum",
+  "titleCn": "和等于目标值的质数对",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "acRate": 0.3896568160152526,
+  "testcases": [
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> [[3,7],[5,5]] <strong>Explanation:</strong> In this example, there are two prime pairs that satisfy the criteria. These pairs are [3,7] and [5,5], and we return them in the sorted order as described in the problem statement.",
+      "expectedOutput": "</strong> [[3,7],[5,5]] <strong>Explanation:</strong> In this example, there are two prime pairs that satisfy the criteria. These pairs are [3,7] and [5,5], and we return them in the sorted order as described in the problem statement."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> [] <strong>Explanation:</strong> We can show that there is no prime number pair that gives a sum of 2, so we return an empty array.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> We can show that there is no prime number pair that gives a sum of 2, so we return an empty array."
+    }
+  ]
+}

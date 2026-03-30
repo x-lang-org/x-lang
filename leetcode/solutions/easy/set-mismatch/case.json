@@ -1,0 +1,24 @@
+{
+  "problemId": "645",
+  "titleSlug": "set-mismatch",
+  "title": "Set Mismatch",
+  "titleCn": "错误的集合",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.381658163643278,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,2,4] <strong>Output:</strong> [2,3]",
+      "expectedOutput": "</strong> [2,3]"
+    },
+    {
+      "input": "</strong> nums = [1,1] <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    }
+  ]
+}

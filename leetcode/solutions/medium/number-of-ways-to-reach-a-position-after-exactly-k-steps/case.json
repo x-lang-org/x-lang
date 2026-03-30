@@ -1,0 +1,23 @@
+{
+  "problemId": "2477",
+  "titleSlug": "number-of-ways-to-reach-a-position-after-exactly-k-steps",
+  "title": "Number of Ways to Reach a Position After Exactly k Steps",
+  "titleCn": "恰好移动 k 步到达某一位置的方法数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.3585956964892412,
+  "testcases": [
+    {
+      "input": "</strong> startPos = 1, endPos = 2, k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can reach position 2 from 1 in exactly 3 steps in three ways: - 1 -> 2 -> 3 -> 2. - 1 -> 2 -> 1 -> 2. - 1 -> 0 -> 1 -> 2. It can be proven that no other way is possible, so we return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can reach position 2 from 1 in exactly 3 steps in three ways: - 1 -> 2 -> 3 -> 2. - 1 -> 2 -> 1 -> 2. - 1 -> 0 -> 1 -> 2. It can be proven that no other way is possible, so we return 3."
+    },
+    {
+      "input": "</strong> startPos = 2, endPos = 5, k = 10 <strong>Output:</strong> 0 <strong>Explanation:</strong> It is impossible to reach position 5 from position 2 in exactly 10 steps.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> It is impossible to reach position 5 from position 2 in exactly 10 steps."
+    }
+  ]
+}

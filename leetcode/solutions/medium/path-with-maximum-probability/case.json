@@ -1,0 +1,28 @@
+{
+  "problemId": "1325",
+  "titleSlug": "path-with-maximum-probability",
+  "title": "Path with Maximum Probability",
+  "titleCn": "概率最大的路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "graph",
+    "array",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.4437940575337514,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.2], start = 0, end = 2 <strong>Output:</strong> 0.25000 <strong>Explanation:</strong> There are two paths from start to end, one having a probability of success = 0.2 and the other has 0.5 * 0.5 = 0.25.",
+      "expectedOutput": "</strong> 0.25000 <strong>Explanation:</strong> There are two paths from start to end, one having a probability of success = 0.2 and the other has 0.5 * 0.5 = 0.25."
+    },
+    {
+      "input": "</strong> n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.3], start = 0, end = 2 <strong>Output:</strong> 0.30000",
+      "expectedOutput": "</strong> 0.30000"
+    },
+    {
+      "input": "</strong> n = 3, edges = [[0,1]], succProb = [0.5], start = 0, end = 2 <strong>Output:</strong> 0.00000 <strong>Explanation:</strong> There is no path between 0 and 2.",
+      "expectedOutput": "</strong> 0.00000 <strong>Explanation:</strong> There is no path between 0 and 2."
+    }
+  ]
+}

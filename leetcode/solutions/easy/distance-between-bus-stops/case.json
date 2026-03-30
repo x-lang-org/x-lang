@@ -1,0 +1,25 @@
+{
+  "problemId": "1287",
+  "titleSlug": "distance-between-bus-stops",
+  "title": "Distance Between Bus Stops",
+  "titleCn": "公交站间的距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6330666933306669,
+  "testcases": [
+    {
+      "input": "</strong> distance = [1,2,3,4], start = 0, destination = 1\r <strong>Output:</strong> 1\r <strong>Explanation:</strong> Distance between 0 and 1 is 1 or 9, minimum is 1.",
+      "expectedOutput": "</strong> 1\r <strong>Explanation:</strong> Distance between 0 and 1 is 1 or 9, minimum is 1."
+    },
+    {
+      "input": "</strong> distance = [1,2,3,4], start = 0, destination = 2\r <strong>Output:</strong> 3\r <strong>Explanation:</strong> Distance between 0 and 2 is 3 or 7, minimum is 3.",
+      "expectedOutput": "</strong> 3\r <strong>Explanation:</strong> Distance between 0 and 2 is 3 or 7, minimum is 3."
+    },
+    {
+      "input": "</strong> distance = [1,2,3,4], start = 0, destination = 3\r <strong>Output:</strong> 4\r <strong>Explanation:</strong> Distance between 0 and 3 is 6 or 4, minimum is 4.",
+      "expectedOutput": "</strong> 4\r <strong>Explanation:</strong> Distance between 0 and 3 is 6 or 4, minimum is 4."
+    }
+  ]
+}

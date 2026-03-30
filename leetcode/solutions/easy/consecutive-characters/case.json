@@ -1,0 +1,21 @@
+{
+  "problemId": "1542",
+  "titleSlug": "consecutive-characters",
+  "title": "Consecutive Characters",
+  "titleCn": "连续字符",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6057205807136956,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leetcode\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The substring \"ee\" is of length 2 with the character 'e' only.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The substring \"ee\" is of length 2 with the character 'e' only."
+    },
+    {
+      "input": "</strong> s = \"abbcccddddeeeeedcba\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The substring \"eeeee\" is of length 5 with the character 'e' only.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The substring \"eeeee\" is of length 5 with the character 'e' only."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "567",
+  "titleSlug": "permutation-in-string",
+  "title": "Permutation in String",
+  "titleCn": "字符串的排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "two-pointers",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.4643355586209875,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"ab\", s2 = \"eidbaooo\" <strong>Output:</strong> true <strong>Explanation:</strong> s2 contains one permutation of s1 (\"ba\").",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> s2 contains one permutation of s1 (\"ba\")."
+    },
+    {
+      "input": "</strong> s1 = \"ab\", s2 = \"eidboaoo\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

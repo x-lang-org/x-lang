@@ -1,0 +1,22 @@
+{
+  "problemId": "344",
+  "titleSlug": "reverse-string",
+  "title": "Reverse String",
+  "titleCn": "反转字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.8091590226302274,
+  "testcases": [
+    {
+      "input": "</strong> s = [\"h\",\"e\",\"l\",\"l\",\"o\"] <strong>Output:</strong> [\"o\",\"l\",\"l\",\"e\",\"h\"]",
+      "expectedOutput": "</strong> [\"o\",\"l\",\"l\",\"e\",\"h\"]"
+    },
+    {
+      "input": "</strong> s = [\"H\",\"a\",\"n\",\"n\",\"a\",\"h\"] <strong>Output:</strong> [\"h\",\"a\",\"n\",\"n\",\"a\",\"H\"]",
+      "expectedOutput": "</strong> [\"h\",\"a\",\"n\",\"n\",\"a\",\"H\"]"
+    }
+  ]
+}

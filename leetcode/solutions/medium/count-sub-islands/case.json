@@ -1,0 +1,25 @@
+{
+  "problemId": "2035",
+  "titleSlug": "count-sub-islands",
+  "title": "Count Sub Islands",
+  "titleCn": "统计子岛屿",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6890587157164365,
+  "testcases": [
+    {
+      "input": "</strong> grid1 = [[1,1,1,0,0],[0,1,1,1,1],[0,0,0,0,0],[1,0,0,0,0],[1,1,0,1,1]], grid2 = [[1,1,1,0,0],[0,0,1,1,1],[0,1,0,0,0],[1,0,1,1,0],[0,1,0,1,0]] <strong>Output:</strong> 3 <strong>Explanation: </strong>In the picture above, the grid on the left is grid1 and the grid on the right is grid2. The 1s colored red in grid2 are those considered to be part of a sub-island. There are three sub-islands.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>In the picture above, the grid on the left is grid1 and the grid on the right is grid2. The 1s colored red in grid2 are those considered to be part of a sub-island. There are three sub-islands."
+    },
+    {
+      "input": "</strong> grid1 = [[1,0,1,0,1],[1,1,1,1,1],[0,0,0,0,0],[1,1,1,1,1],[1,0,1,0,1]], grid2 = [[0,0,0,0,0],[1,1,1,1,1],[0,1,0,1,0],[0,1,0,1,0],[1,0,0,0,1]] <strong>Output:</strong> 2 <strong>Explanation: </strong>In the picture above, the grid on the left is grid1 and the grid on the right is grid2. The 1s colored red in grid2 are those considered to be part of a sub-island. There are two sub-islands.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>In the picture above, the grid on the left is grid1 and the grid on the right is grid2. The 1s colored red in grid2 are those considered to be part of a sub-island. There are two sub-islands."
+    }
+  ]
+}

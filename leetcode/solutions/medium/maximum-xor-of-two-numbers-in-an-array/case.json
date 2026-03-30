@@ -1,0 +1,24 @@
+{
+  "problemId": "421",
+  "titleSlug": "maximum-xor-of-two-numbers-in-an-array",
+  "title": "Maximum XOR of Two Numbers in an Array",
+  "titleCn": "数组中两个数的最大异或值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "trie",
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.5910193589846574,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,10,5,25,2,8] <strong>Output:</strong> 28 <strong>Explanation:</strong> The maximum result is 5 XOR 25 = 28.",
+      "expectedOutput": "</strong> 28 <strong>Explanation:</strong> The maximum result is 5 XOR 25 = 28."
+    },
+    {
+      "input": "</strong> nums = [14,70,53,83,49,91,36,80,92,51,66,70] <strong>Output:</strong> 127",
+      "expectedOutput": "</strong> 127"
+    }
+  ]
+}

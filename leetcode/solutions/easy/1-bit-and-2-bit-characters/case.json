@@ -1,0 +1,21 @@
+{
+  "problemId": "717",
+  "titleSlug": "1-bit-and-2-bit-characters",
+  "title": "1-bit and 2-bit Characters",
+  "titleCn": "1 比特与 2 比特字符",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5637204048935895,
+  "testcases": [
+    {
+      "input": "</strong> bits = [1,0,0] <strong>Output:</strong> true <strong>Explanation:</strong> The only way to decode it is two-bit character and one-bit character. So the last character is one-bit character.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The only way to decode it is two-bit character and one-bit character. So the last character is one-bit character."
+    },
+    {
+      "input": "</strong> bits = [1,1,1,0] <strong>Output:</strong> false <strong>Explanation:</strong> The only way to decode it is two-bit character and two-bit character. So the last character is not one-bit character.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The only way to decode it is two-bit character and two-bit character. So the last character is not one-bit character."
+    }
+  ]
+}

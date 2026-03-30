@@ -1,0 +1,24 @@
+{
+  "problemId": "104",
+  "titleSlug": "maximum-depth-of-binary-tree",
+  "title": "Maximum Depth of Binary Tree",
+  "titleCn": "二叉树的最大深度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.7898099218236516,
+  "testcases": [
+    {
+      "input": "</strong> root = [3,9,20,null,null,15,7] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> root = [1,null,2] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

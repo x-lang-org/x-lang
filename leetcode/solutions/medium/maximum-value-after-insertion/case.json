@@ -1,0 +1,22 @@
+{
+  "problemId": "2011",
+  "titleSlug": "maximum-value-after-insertion",
+  "title": "Maximum Value after Insertion",
+  "titleCn": "插入后的最大值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.3991934182932731,
+  "testcases": [
+    {
+      "input": "</strong> n = \"99\", x = 9 <strong>Output:</strong> \"999\" <strong>Explanation:</strong> The result is the same regardless of where you insert 9.",
+      "expectedOutput": "</strong> \"999\" <strong>Explanation:</strong> The result is the same regardless of where you insert 9."
+    },
+    {
+      "input": "</strong> n = \"-13\", x = 2 <strong>Output:</strong> \"-123\" <strong>Explanation:</strong> You can make n one of {-213, -123, -132}, and the largest of those three is -123.",
+      "expectedOutput": "</strong> \"-123\" <strong>Explanation:</strong> You can make n one of {-213, -123, -132}, and the largest of those three is -123."
+    }
+  ]
+}

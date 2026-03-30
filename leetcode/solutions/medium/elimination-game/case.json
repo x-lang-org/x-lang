@@ -1,0 +1,22 @@
+{
+  "problemId": "390",
+  "titleSlug": "elimination-game",
+  "title": "Elimination Game",
+  "titleCn": "消除游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.5858201561447312,
+  "testcases": [
+    {
+      "input": "</strong> n = 9 <strong>Output:</strong> 6 <strong>Explanation:</strong> arr = [<u>1</u>, 2, <u>3</u>, 4, <u>5</u>, 6, <u>7</u>, 8, <u>9</u>] arr = [2, <u>4</u>, 6, <u>8</u>] arr = [<u>2</u>, 6] arr = [6]",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> arr = [<u>1</u>, 2, <u>3</u>, 4, <u>5</u>, 6, <u>7</u>, 8, <u>9</u>] arr = [2, <u>4</u>, 6, <u>8</u>] arr = [<u>2</u>, 6] arr = [6]"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

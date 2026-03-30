@@ -1,0 +1,25 @@
+{
+  "problemId": "1888",
+  "titleSlug": "find-nearest-point-that-has-the-same-x-or-y-coordinate",
+  "title": "Find Nearest Point That Has the Same X or Y Coordinate",
+  "titleCn": "找到最近的有相同 X 或 Y 坐标的点",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.6931859419925746,
+  "testcases": [
+    {
+      "input": "</strong> x = 3, y = 4, points = [[1,2],[3,1],[2,4],[2,3],[4,4]] <strong>Output:</strong> 2 <strong>Explanation:</strong> Of all the points, only [3,1], [2,4] and [4,4] are valid. Of the valid points, [2,4] and [4,4] have the smallest Manhattan distance from your current location, with a distance of 1. [2,4] has the smallest index, so return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Of all the points, only [3,1], [2,4] and [4,4] are valid. Of the valid points, [2,4] and [4,4] have the smallest Manhattan distance from your current location, with a distance of 1. [2,4] has the smallest index, so return 2."
+    },
+    {
+      "input": "</strong> x = 3, y = 4, points = [[3,4]] <strong>Output:</strong> 0 <strong>Explanation:</strong> The answer is allowed to be on the same location as your current location.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The answer is allowed to be on the same location as your current location."
+    },
+    {
+      "input": "</strong> x = 3, y = 4, points = [[2,3]] <strong>Output:</strong> -1 <strong>Explanation:</strong> There are no valid points.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are no valid points."
+    }
+  ]
+}

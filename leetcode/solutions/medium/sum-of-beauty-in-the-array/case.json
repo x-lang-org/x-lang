@@ -1,0 +1,25 @@
+{
+  "problemId": "2138",
+  "titleSlug": "sum-of-beauty-in-the-array",
+  "title": "Sum of Beauty in the Array",
+  "titleCn": "数组美丽值求和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array"
+  ],
+  "acRate": 0.5435774361635424,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 1: - The beauty of nums[1] equals 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 1: - The beauty of nums[1] equals 2."
+    },
+    {
+      "input": "</strong> nums = [2,4,6,4] <strong>Output:</strong> 1 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 2: - The beauty of nums[1] equals 1. - The beauty of nums[2] equals 0.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 2: - The beauty of nums[1] equals 1. - The beauty of nums[2] equals 0."
+    },
+    {
+      "input": "</strong> nums = [3,2,1] <strong>Output:</strong> 0 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 1: - The beauty of nums[1] equals 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> For each index i in the range 1 <= i <= 1: - The beauty of nums[1] equals 0."
+    }
+  ]
+}

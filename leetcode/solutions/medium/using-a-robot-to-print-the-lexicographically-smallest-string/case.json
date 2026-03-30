@@ -1,0 +1,28 @@
+{
+  "problemId": "2520",
+  "titleSlug": "using-a-robot-to-print-the-lexicographically-smallest-string",
+  "title": "Using a Robot to Print the Lexicographically Smallest String",
+  "titleCn": "使用机器人打印字典序最小的字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.558483273705377,
+  "testcases": [
+    {
+      "input": "</strong> s = \"zza\" <strong>Output:</strong> \"azz\" <strong>Explanation:</strong> Let p denote the written string. Initially p=\"\", s=\"zza\", t=\"\". Perform first operation three times p=\"\", s=\"\", t=\"zza\". Perform second operation three times p=\"azz\", s=\"\", t=\"\".",
+      "expectedOutput": "</strong> \"azz\" <strong>Explanation:</strong> Let p denote the written string. Initially p=\"\", s=\"zza\", t=\"\". Perform first operation three times p=\"\", s=\"\", t=\"zza\". Perform second operation three times p=\"azz\", s=\"\", t=\"\"."
+    },
+    {
+      "input": "</strong> s = \"bac\" <strong>Output:</strong> \"abc\" <strong>Explanation:</strong> Let p denote the written string. Perform first operation twice p=\"\", s=\"c\", t=\"ba\". Perform second operation twice p=\"ab\", s=\"c\", t=\"\". Perform first operation p=\"ab\", s=\"\", t=\"c\". Perform second operation p=\"abc\", s=\"\", t=\"\".",
+      "expectedOutput": "</strong> \"abc\" <strong>Explanation:</strong> Let p denote the written string. Perform first operation twice p=\"\", s=\"c\", t=\"ba\". Perform second operation twice p=\"ab\", s=\"c\", t=\"\". Perform first operation p=\"ab\", s=\"\", t=\"c\". Perform second operation p=\"abc\", s=\"\", t=\"\"."
+    },
+    {
+      "input": "</strong> s = \"bdda\" <strong>Output:</strong> \"addb\" <strong>Explanation:</strong> Let p denote the written string. Initially p=\"\", s=\"bdda\", t=\"\". Perform first operation four times p=\"\", s=\"\", t=\"bdda\". Perform second operation four times p=\"addb\", s=\"\", t=\"\".",
+      "expectedOutput": "</strong> \"addb\" <strong>Explanation:</strong> Let p denote the written string. Initially p=\"\", s=\"bdda\", t=\"\". Perform first operation four times p=\"\", s=\"\", t=\"bdda\". Perform second operation four times p=\"addb\", s=\"\", t=\"\"."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "2384",
+  "titleSlug": "root-equals-sum-of-children",
+  "title": "Root Equals Sum of Children",
+  "titleCn": "判断根结点是否等于子结点之和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "binary-tree"
+  ],
+  "acRate": 0.7947686499087776,
+  "testcases": [
+    {
+      "input": "</strong> root = [10,4,6] <strong>Output:</strong> true <strong>Explanation:</strong> The values of the root, its left child, and its right child are 10, 4, and 6, respectively. 10 is equal to 4 + 6, so we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The values of the root, its left child, and its right child are 10, 4, and 6, respectively. 10 is equal to 4 + 6, so we return true."
+    },
+    {
+      "input": "</strong> root = [5,3,1] <strong>Output:</strong> false <strong>Explanation:</strong> The values of the root, its left child, and its right child are 5, 3, and 1, respectively. 5 is not equal to 3 + 1, so we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The values of the root, its left child, and its right child are 5, 3, and 1, respectively. 5 is not equal to 3 + 1, so we return false."
+    }
+  ]
+}

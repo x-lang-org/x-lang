@@ -1,0 +1,23 @@
+{
+  "problemId": "830",
+  "titleSlug": "largest-triangle-area",
+  "title": "Largest Triangle Area",
+  "titleCn": "最大三角形面积",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "array",
+    "math"
+  ],
+  "acRate": 0.7009759847803708,
+  "testcases": [
+    {
+      "input": "</strong> points = [[0,0],[0,1],[1,0],[0,2],[2,0]] <strong>Output:</strong> 2.00000 <strong>Explanation:</strong> The five points are shown in the above figure. The red triangle is the largest.",
+      "expectedOutput": "</strong> 2.00000 <strong>Explanation:</strong> The five points are shown in the above figure. The red triangle is the largest."
+    },
+    {
+      "input": "</strong> points = [[1,0],[0,0],[0,1]] <strong>Output:</strong> 0.50000",
+      "expectedOutput": "</strong> 0.50000"
+    }
+  ]
+}

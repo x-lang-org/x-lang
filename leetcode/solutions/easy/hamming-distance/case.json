@@ -1,0 +1,21 @@
+{
+  "problemId": "461",
+  "titleSlug": "hamming-distance",
+  "title": "Hamming Distance",
+  "titleCn": "汉明距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.8211009174311926,
+  "testcases": [
+    {
+      "input": "</strong> x = 1, y = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> 1  (0 0 0 1) 4  (0 1 0 0)    ↑  ↑ The above arrows point to positions where the corresponding bits are different.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> 1  (0 0 0 1) 4  (0 1 0 0)    ↑  ↑ The above arrows point to positions where the corresponding bits are different."
+    },
+    {
+      "input": "</strong> x = 3, y = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

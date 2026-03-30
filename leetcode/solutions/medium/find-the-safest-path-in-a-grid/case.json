@@ -1,0 +1,30 @@
+{
+  "problemId": "2914",
+  "titleSlug": "find-the-safest-path-in-a-grid",
+  "title": "Find the Safest Path in a Grid",
+  "titleCn": "找出最安全路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "binary-search",
+    "matrix",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.3388790820829656,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0,0],[0,0,0],[0,0,1]] <strong>Output:</strong> 0 <strong>Explanation:</strong> All paths from (0, 0) to (n - 1, n - 1) go through the thieves in cells (0, 0) and (n - 1, n - 1).",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All paths from (0, 0) to (n - 1, n - 1) go through the thieves in cells (0, 0) and (n - 1, n - 1)."
+    },
+    {
+      "input": "</strong> grid = [[0,0,1],[0,0,0],[0,0,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The path depicted in the picture above has a safeness factor of 2 since: - The closest cell of the path to the thief at cell (0, 2) is cell (0, 0). The distance between them is | 0 - 0 | + | 0 - 2 | = 2. It can be shown that there are no other paths with a higher safeness factor.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The path depicted in the picture above has a safeness factor of 2 since: - The closest cell of the path to the thief at cell (0, 2) is cell (0, 0). The distance between them is | 0 - 0 | + | 0 - 2 | = 2. It can be shown that there are no other paths with a higher safeness factor."
+    },
+    {
+      "input": "</strong> grid = [[0,0,0,1],[0,0,0,0],[0,0,0,0],[1,0,0,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The path depicted in the picture above has a safeness factor of 2 since: - The closest cell of the path to the thief at cell (0, 3) is cell (1, 2). The distance between them is | 0 - 1 | + | 3 - 2 | = 2. - The closest cell of the path to the thief at cell (3, 0) is cell (3, 2). The distance between them is | 3 - 3 | + | 0 - 2 | = 2. It can be shown that there are no other paths with a higher safeness factor.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The path depicted in the picture above has a safeness factor of 2 since: - The closest cell of the path to the thief at cell (0, 3) is cell (1, 2). The distance between them is | 0 - 1 | + | 3 - 2 | = 2. - The closest cell of the path to the thief at cell (3, 0) is cell (3, 2). The distance between them is | 3 - 3 | + | 0 - 2 | = 2. It can be shown that there are no other paths with a higher safeness factor."
+    }
+  ]
+}

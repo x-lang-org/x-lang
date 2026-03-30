@@ -1,0 +1,24 @@
+{
+  "problemId": "214",
+  "titleSlug": "shortest-palindrome",
+  "title": "Shortest Palindrome",
+  "titleCn": "最短回文串",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.4103166324573505,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aacecaaa\" <strong>Output:</strong> \"aaacecaaa\"",
+      "expectedOutput": "</strong> \"aaacecaaa"
+    },
+    {
+      "input": "</strong> s = \"abcd\" <strong>Output:</strong> \"dcbabcd\"",
+      "expectedOutput": "</strong> \"dcbabcd"
+    }
+  ]
+}

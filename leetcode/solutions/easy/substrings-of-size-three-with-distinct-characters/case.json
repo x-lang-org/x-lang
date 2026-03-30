@@ -1,0 +1,24 @@
+{
+  "problemId": "1987",
+  "titleSlug": "substrings-of-size-three-with-distinct-characters",
+  "title": "Substrings of Size Three with Distinct Characters",
+  "titleCn": "长度为三且各字符不同的子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting",
+    "sliding-window"
+  ],
+  "acRate": 0.7024963780229577,
+  "testcases": [
+    {
+      "input": "</strong> s = \"xyzzaz\" <strong>Output:</strong> 1 <strong>Explanation:</strong> There are 4 substrings of size 3: \"xyz\", \"yzz\", \"zza\", and \"zaz\". The only good substring of length 3 is \"xyz\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There are 4 substrings of size 3: \"xyz\", \"yzz\", \"zza\", and \"zaz\". The only good substring of length 3 is \"xyz\"."
+    },
+    {
+      "input": "</strong> s = \"aababcabc\" <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 7 substrings of size 3: \"aab\", \"aba\", \"bab\", \"abc\", \"bca\", \"cab\", and \"abc\". The good substrings are \"abc\", \"bca\", \"cab\", and \"abc\".",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 7 substrings of size 3: \"aab\", \"aba\", \"bab\", \"abc\", \"bca\", \"cab\", and \"abc\". The good substrings are \"abc\", \"bca\", \"cab\", and \"abc\"."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "971",
+  "titleSlug": "shortest-bridge",
+  "title": "Shortest Bridge",
+  "titleCn": "最短的桥",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.5360873514495497,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1],[1,0]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> grid = [[0,1,0],[0,0,0],[0,0,1]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> grid = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

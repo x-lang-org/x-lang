@@ -1,0 +1,25 @@
+{
+  "problemId": "2390",
+  "titleSlug": "naming-a-company",
+  "title": "Naming a Company",
+  "titleCn": "公司命名",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.5405149401532765,
+  "testcases": [
+    {
+      "input": "</strong> ideas = [\"coffee\",\"donuts\",\"time\",\"toffee\"] <strong>Output:</strong> 6 <strong>Explanation:</strong> The following selections are valid: - (\"coffee\", \"donuts\"): The company name created is \"doffee conuts\". - (\"donuts\", \"coffee\"): The company name created is \"conuts doffee\". - (\"donuts\", \"time\"): The company name created is \"tonuts dime\". - (\"donuts\", \"toffee\"): The company name created is \"tonuts doffee\". - (\"time\", \"donuts\"): The company name created is \"dime tonuts\". - (\"toffee\", \"donuts\"): The company name created is \"doffee tonuts\". Therefore, there are a total of 6 distinct company names. The following are some examples of invalid selections: - (\"coffee\", \"time\"): The name \"toffee\" formed after swapping already exists in the original array. - (\"time\", \"toffee\"): Both names are still the same after swapping and exist in the original array. - (\"coffee\", \"toffee\"): Both names formed after swapping already exist in the original array.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The following selections are valid: - (\"coffee\", \"donuts\"): The company name created is \"doffee conuts\". - (\"donuts\", \"coffee\"): The company name created is \"conuts doffee\". - (\"donuts\", \"time\"): The company name created is \"tonuts dime\". - (\"donuts\", \"toffee\"): The company name created is \"tonuts doffee\". - (\"time\", \"donuts\"): The company name created is \"dime tonuts\". - (\"toffee\", \"donuts\"): The company name created is \"doffee tonuts\". Therefore, there are a total of 6 distinct company names. The following are some examples of invalid selections: - (\"coffee\", \"time\"): The name \"toffee\" formed after swapping already exists in the original array. - (\"time\", \"toffee\"): Both names are still the same after swapping and exist in the original array. - (\"coffee\", \"toffee\"): Both names formed after swapping already exist in the original array."
+    },
+    {
+      "input": "</strong> ideas = [\"lack\",\"back\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no valid selections. Therefore, 0 is returned.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no valid selections. Therefore, 0 is returned."
+    }
+  ]
+}

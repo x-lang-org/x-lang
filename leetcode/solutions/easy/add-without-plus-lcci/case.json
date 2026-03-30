@@ -1,0 +1,18 @@
+{
+  "problemId": "1000025",
+  "titleSlug": "add-without-plus-lcci",
+  "title": "Add Without Plus LCCI",
+  "titleCn": "不用加号的加法",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.6461178225823162,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 1\r <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

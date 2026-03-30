@@ -1,0 +1,27 @@
+{
+  "problemId": "1000",
+  "titleSlug": "delete-columns-to-make-sorted-iii",
+  "title": "Delete Columns to Make Sorted III",
+  "titleCn": "删列造序 III",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6982171981328384,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"babca\",\"bbazb\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> After deleting columns 0, 1, and 4, the final array is strs = [\"bc\", \"az\"]. Both these rows are individually in lexicographic order (ie. strs[0][0] <= strs[0][1] and strs[1][0] <= strs[1][1]). Note that strs[0] > strs[1] - the array strs is not necessarily in lexicographic order.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> After deleting columns 0, 1, and 4, the final array is strs = [\"bc\", \"az\"]. Both these rows are individually in lexicographic order (ie. strs[0][0] <= strs[0][1] and strs[1][0] <= strs[1][1]). Note that strs[0] > strs[1] - the array strs is not necessarily in lexicographic order."
+    },
+    {
+      "input": "</strong> strs = [\"edcba\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> If we delete less than 4 columns, the only row will not be lexicographically sorted.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> If we delete less than 4 columns, the only row will not be lexicographically sorted."
+    },
+    {
+      "input": "</strong> strs = [\"ghi\",\"def\",\"abc\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> All rows are already lexicographically sorted.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All rows are already lexicographically sorted."
+    }
+  ]
+}

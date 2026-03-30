@@ -1,0 +1,27 @@
+{
+  "problemId": "3243",
+  "titleSlug": "count-the-number-of-powerful-integers",
+  "title": "Count the Number of Powerful Integers",
+  "titleCn": "统计强大整数的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4522611390675509,
+  "testcases": [
+    {
+      "input": "</strong> start = 1, finish = 6000, limit = 4, s = \"124\" <strong>Output:</strong> 5 <strong>Explanation:</strong> The powerful integers in the range [1..6000] are 124, 1124, 2124, 3124, and, 4124. All these integers have each digit <= 4, and \"124\" as a suffix. Note that 5124 is not a powerful integer because the first digit is 5 which is greater than 4. It can be shown that there are only 5 powerful integers in this range.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The powerful integers in the range [1..6000] are 124, 1124, 2124, 3124, and, 4124. All these integers have each digit <= 4, and \"124\" as a suffix. Note that 5124 is not a powerful integer because the first digit is 5 which is greater than 4. It can be shown that there are only 5 powerful integers in this range."
+    },
+    {
+      "input": "</strong> start = 15, finish = 215, limit = 6, s = \"10\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The powerful integers in the range [15..215] are 110 and 210. All these integers have each digit <= 6, and \"10\" as a suffix. It can be shown that there are only 2 powerful integers in this range.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The powerful integers in the range [15..215] are 110 and 210. All these integers have each digit <= 6, and \"10\" as a suffix. It can be shown that there are only 2 powerful integers in this range."
+    },
+    {
+      "input": "</strong> start = 1000, finish = 2000, limit = 4, s = \"3000\" <strong>Output:</strong> 0 <strong>Explanation:</strong> All integers in the range [1000..2000] are smaller than 3000, hence \"3000\" cannot be a suffix of any integer in this range.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All integers in the range [1000..2000] are smaller than 3000, hence \"3000\" cannot be a suffix of any integer in this range."
+    }
+  ]
+}

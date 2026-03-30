@@ -1,0 +1,26 @@
+{
+  "problemId": "1298",
+  "titleSlug": "reverse-substrings-between-each-pair-of-parentheses",
+  "title": "Reverse Substrings Between Each Pair of Parentheses",
+  "titleCn": "反转每对括号间的子串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string"
+  ],
+  "acRate": 0.6581815011768808,
+  "testcases": [
+    {
+      "input": "</strong> s = \"(abcd)\" <strong>Output:</strong> \"dcba\"",
+      "expectedOutput": "</strong> \"dcba"
+    },
+    {
+      "input": "</strong> s = \"(u(love)i)\" <strong>Output:</strong> \"iloveu\" <strong>Explanation:</strong> The substring \"love\" is reversed first, then the whole string is reversed.",
+      "expectedOutput": "</strong> \"iloveu\" <strong>Explanation:</strong> The substring \"love\" is reversed first, then the whole string is reversed."
+    },
+    {
+      "input": "</strong> s = \"(ed(et(oc))el)\" <strong>Output:</strong> \"leetcode\" <strong>Explanation:</strong> First, we reverse the substring \"oc\", then \"etco\", and finally, the whole string.",
+      "expectedOutput": "</strong> \"leetcode\" <strong>Explanation:</strong> First, we reverse the substring \"oc\", then \"etco\", and finally, the whole string."
+    }
+  ]
+}

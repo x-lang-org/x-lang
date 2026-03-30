@@ -1,0 +1,24 @@
+{
+  "problemId": "3329",
+  "titleSlug": "find-the-length-of-the-longest-common-prefix",
+  "title": "Find the Length of the Longest Common Prefix",
+  "titleCn": "最长公共前缀的长度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.4096313117819931,
+  "testcases": [
+    {
+      "input": "</strong> arr1 = [1,10,100], arr2 = [1000] <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 pairs (arr1[i], arr2[j]): - The longest common prefix of (1, 1000) is 1. - The longest common prefix of (10, 1000) is 10. - The longest common prefix of (100, 1000) is 100. The longest common prefix is 100 with a length of 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 pairs (arr1[i], arr2[j]): - The longest common prefix of (1, 1000) is 1. - The longest common prefix of (10, 1000) is 10. - The longest common prefix of (100, 1000) is 100. The longest common prefix is 100 with a length of 3."
+    },
+    {
+      "input": "</strong> arr1 = [1,2,3], arr2 = [4,4,4] <strong>Output:</strong> 0 <strong>Explanation:</strong> There exists no common prefix for any pair (arr1[i], arr2[j]), hence we return 0. Note that common prefixes between elements of the same array do not count.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There exists no common prefix for any pair (arr1[i], arr2[j]), hence we return 0. Note that common prefixes between elements of the same array do not count."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "385",
+  "titleSlug": "mini-parser",
+  "title": "Mini Parser",
+  "titleCn": "迷你语法分析器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "depth-first-search",
+    "string"
+  ],
+  "acRate": 0.5517104216388226,
+  "testcases": [
+    {
+      "input": "</strong> s = \"324\" <strong>Output:</strong> 324 <strong>Explanation:</strong> You should return a NestedInteger object which contains a single integer 324.",
+      "expectedOutput": "</strong> 324 <strong>Explanation:</strong> You should return a NestedInteger object which contains a single integer 324."
+    },
+    {
+      "input": "</strong> s = \"[123,[456,[789]]]\" <strong>Output:</strong> [123,[456,[789]]] <strong>Explanation:</strong> Return a NestedInteger object containing a nested list with 2 elements: 1. An integer containing value 123. 2. A nested list containing two elements:   i. An integer containing value 456.   ii. A nested list with one element:     a. An integer containing value 789",
+      "expectedOutput": "</strong> [123,[456,[789]]] <strong>Explanation:</strong> Return a NestedInteger object containing a nested list with 2 elements: 1. An integer containing value 123. 2. A nested list containing two elements:   i. An integer containing value 456.   ii. A nested list with one element:     a. An integer containing value 789"
+    }
+  ]
+}

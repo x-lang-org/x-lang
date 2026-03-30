@@ -1,0 +1,22 @@
+{
+  "problemId": "564",
+  "titleSlug": "find-the-closest-palindrome",
+  "title": "Find the Closest Palindrome",
+  "titleCn": "寻找最近的回文数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.3045721499533454,
+  "testcases": [
+    {
+      "input": "</strong> n = \"123\" <strong>Output:</strong> \"121\"",
+      "expectedOutput": "</strong> \"121"
+    },
+    {
+      "input": "</strong> n = \"1\" <strong>Output:</strong> \"0\" <strong>Explanation:</strong> 0 and 2 are the closest palindromes but we return the smallest which is 0.",
+      "expectedOutput": "</strong> \"0\" <strong>Explanation:</strong> 0 and 2 are the closest palindromes but we return the smallest which is 0."
+    }
+  ]
+}

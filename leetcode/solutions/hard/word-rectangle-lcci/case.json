@@ -1,0 +1,24 @@
+{
+  "problemId": "1000049",
+  "titleSlug": "word-rectangle-lcci",
+  "title": "Word Rectangle LCCI",
+  "titleCn": "单词矩阵",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie",
+    "array",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.5074217857958438,
+  "testcases": [
+    {
+      "input": "</strong> <code>[\"this\", \"real\", \"hard\", \"trh\", \"hea\", \"iar\", \"sld\"]</code>\r <strong>Output:\r </strong><code>[\r   \"this\",\r   \"real\",\r   \"hard\"</code>\r ]",
+      "expectedOutput": "</strong><code>[\r   \"this\",\r   \"real\",\r   \"hard\"</code>\r ]"
+    },
+    {
+      "input": "</strong> <code>[\"aa\"]</code>\r <strong>Output: </strong>[\"aa\",\"aa\"]",
+      "expectedOutput": "</strong>[\"aa\",\"aa\"]"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1171",
+  "titleSlug": "shortest-path-in-binary-matrix",
+  "title": "Shortest Path in Binary Matrix",
+  "titleCn": "二进制矩阵中的最短路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.4188050007571806,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1],[1,0]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> grid = [[0,0,0],[1,1,0],[1,1,0]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> grid = [[1,0,0],[1,1,0],[1,1,0]] <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}

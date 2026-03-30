@@ -1,0 +1,27 @@
+{
+  "problemId": "420",
+  "titleSlug": "strong-password-checker",
+  "title": "Strong Password Checker",
+  "titleCn": "强密码检验器",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "string",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.3831515128833667,
+  "testcases": [
+    {
+      "input": "</strong> password = \"a\" <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    },
+    {
+      "input": "</strong> password = \"aA1\" <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> password = \"1337C0d3\" <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

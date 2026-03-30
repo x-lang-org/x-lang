@@ -1,0 +1,23 @@
+{
+  "problemId": "1000047",
+  "titleSlug": "t9-lcci",
+  "title": "T9 LCCI",
+  "titleCn": "T9键盘",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.7080782380535899,
+  "testcases": [
+    {
+      "input": "</strong> num = \"8733\", words = [\"tree\", \"used\"]\r <strong>Output:</strong> [\"tree\", \"used\"]",
+      "expectedOutput": "</strong> [\"tree\", \"used\"]"
+    },
+    {
+      "input": "</strong> num = \"2\", words = [\"a\", \"b\", \"c\", \"d\"]\r <strong>Output:</strong> [\"a\", \"b\", \"c\"]",
+      "expectedOutput": "</strong> [\"a\", \"b\", \"c\"]"
+    }
+  ]
+}

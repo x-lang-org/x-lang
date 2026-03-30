@@ -1,0 +1,23 @@
+{
+  "problemId": "2532",
+  "titleSlug": "remove-letter-to-equalize-frequency",
+  "title": "Remove Letter To Equalize Frequency",
+  "titleCn": "删除字符使频率相同",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.24734294745160015,
+  "testcases": [
+    {
+      "input": "</strong> word = \"abcc\" <strong>Output:</strong> true <strong>Explanation:</strong> Select index 3 and delete it: word becomes \"abc\" and each character has a frequency of 1.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Select index 3 and delete it: word becomes \"abc\" and each character has a frequency of 1."
+    },
+    {
+      "input": "</strong> word = \"aazz\" <strong>Output:</strong> false <strong>Explanation:</strong> We must delete a character, so either the frequency of \"a\" is 1 and the frequency of \"z\" is 2, or vice versa. It is impossible to make all present letters have equal frequency.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> We must delete a character, so either the frequency of \"a\" is 1 and the frequency of \"z\" is 2, or vice versa. It is impossible to make all present letters have equal frequency."
+    }
+  ]
+}

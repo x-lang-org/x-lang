@@ -1,0 +1,22 @@
+{
+  "problemId": "2443",
+  "titleSlug": "check-if-there-is-a-valid-partition-for-the-array",
+  "title": "Check if There is a Valid Partition For The Array",
+  "titleCn": "检查数组是否存在有效划分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4940233360910621,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,4,4,5,6] <strong>Output:</strong> true <strong>Explanation:</strong> The array can be partitioned into the subarrays [4,4] and [4,5,6]. This partition is valid, so we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The array can be partitioned into the subarrays [4,4] and [4,5,6]. This partition is valid, so we return true."
+    },
+    {
+      "input": "</strong> nums = [1,1,1,2] <strong>Output:</strong> false <strong>Explanation:</strong> There is no valid partition for this array.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no valid partition for this array."
+    }
+  ]
+}

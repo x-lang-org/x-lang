@@ -1,0 +1,24 @@
+{
+  "problemId": "2725",
+  "titleSlug": "mice-and-cheese",
+  "title": "Mice and Cheese",
+  "titleCn": "老鼠和奶酪",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5841869860049055,
+  "testcases": [
+    {
+      "input": "</strong> reward1 = [1,1,3,4], reward2 = [4,4,1,1], k = 2 <strong>Output:</strong> 15 <strong>Explanation:</strong> In this example, the first mouse eats the 2<sup>nd</sup> (0-indexed) and the 3<sup>rd</sup> types of cheese, and the second mouse eats the 0<sup>th</sup> and the 1<sup>st</sup> types of cheese. The total points are 4 + 4 + 3 + 4 = 15. It can be proven that 15 is the maximum total points that the mice can achieve.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> In this example, the first mouse eats the 2<sup>nd</sup> (0-indexed) and the 3<sup>rd</sup> types of cheese, and the second mouse eats the 0<sup>th</sup> and the 1<sup>st</sup> types of cheese. The total points are 4 + 4 + 3 + 4 = 15. It can be proven that 15 is the maximum total points that the mice can achieve."
+    },
+    {
+      "input": "</strong> reward1 = [1,1], reward2 = [1,1], k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, the first mouse eats the 0<sup>th</sup> (0-indexed) and 1<sup>st</sup> types of cheese, and the second mouse does not eat any cheese. The total points are 1 + 1 = 2. It can be proven that 2 is the maximum total points that the mice can achieve.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, the first mouse eats the 0<sup>th</sup> (0-indexed) and 1<sup>st</sup> types of cheese, and the second mouse does not eat any cheese. The total points are 1 + 1 = 2. It can be proven that 2 is the maximum total points that the mice can achieve."
+    }
+  ]
+}

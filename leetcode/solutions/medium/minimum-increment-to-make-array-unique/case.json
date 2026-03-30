@@ -1,0 +1,24 @@
+{
+  "problemId": "982",
+  "titleSlug": "minimum-increment-to-make-array-unique",
+  "title": "Minimum Increment to Make Array Unique",
+  "titleCn": "使数组唯一的最小增量",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.4928210429588789,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,2] <strong>Output:</strong> 1 <strong>Explanation:</strong> After 1 move, the array could be [1, 2, 3].",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> After 1 move, the array could be [1, 2, 3]."
+    },
+    {
+      "input": "</strong> nums = [3,2,1,2,1,7] <strong>Output:</strong> 6 <strong>Explanation:</strong> After 6 moves, the array could be [3, 4, 1, 2, 5, 7]. It can be shown that it is impossible for the array to have all unique values with 5 or less moves.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> After 6 moves, the array could be [3, 4, 1, 2, 5, 7]. It can be shown that it is impossible for the array to have all unique values with 5 or less moves."
+    }
+  ]
+}

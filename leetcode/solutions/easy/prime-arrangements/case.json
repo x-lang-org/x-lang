@@ -1,0 +1,21 @@
+{
+  "problemId": "1279",
+  "titleSlug": "prime-arrangements",
+  "title": "Prime Arrangements",
+  "titleCn": "质数排列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5747943042778638,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 12 <strong>Explanation:</strong> For example [1,2,5,4,3] is a valid permutation, but [5,2,3,4,1] is not because the prime number 5 is at index 1.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> For example [1,2,5,4,3] is a valid permutation, but [5,2,3,4,1] is not because the prime number 5 is at index 1."
+    },
+    {
+      "input": "</strong> n = 100 <strong>Output:</strong> 682289015",
+      "expectedOutput": "</strong> 682289015"
+    }
+  ]
+}

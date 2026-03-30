@@ -1,0 +1,22 @@
+{
+  "problemId": "624",
+  "titleSlug": "maximum-distance-in-arrays",
+  "title": "Maximum Distance in Arrays",
+  "titleCn": "数组列表中的最大距离",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.4534676771156275,
+  "testcases": [
+    {
+      "input": "</strong> arrays = [[1,2,3],[4,5],[1,2,3]] <strong>Output:</strong> 4 <strong>Explanation:</strong> One way to reach the maximum distance 4 is to pick 1 in the first or third array and pick 5 in the second array.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One way to reach the maximum distance 4 is to pick 1 in the first or third array and pick 5 in the second array."
+    },
+    {
+      "input": "</strong> arrays = [[1],[1]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "326",
+  "titleSlug": "power-of-three",
+  "title": "Power of Three",
+  "titleCn": "3 的幂",
+  "difficulty": "EASY",
+  "topicTags": [
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.5395654710988217,
+  "testcases": [
+    {
+      "input": "</strong> n = 27 <strong>Output:</strong> true <strong>Explanation:</strong> 27 = 3<sup>3</sup>",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> 27 = 3<sup>3</sup>"
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> false <strong>Explanation:</strong> There is no x where 3<sup>x</sup> = 0.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no x where 3<sup>x</sup> = 0."
+    },
+    {
+      "input": "</strong> n = -1 <strong>Output:</strong> false <strong>Explanation:</strong> There is no x where 3<sup>x</sup> = (-1).",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no x where 3<sup>x</sup> = (-1)."
+    }
+  ]
+}

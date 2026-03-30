@@ -1,0 +1,26 @@
+{
+  "problemId": "2571",
+  "titleSlug": "find-the-pivot-integer",
+  "title": "Find the Pivot Integer",
+  "titleCn": "找出中枢整数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "prefix-sum"
+  ],
+  "acRate": 0.7810694439333161,
+  "testcases": [
+    {
+      "input": "</strong> n = 8 <strong>Output:</strong> 6 <strong>Explanation:</strong> 6 is the pivot integer since: 1 + 2 + 3 + 4 + 5 + 6 = 6 + 7 + 8 = 21.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> 6 is the pivot integer since: 1 + 2 + 3 + 4 + 5 + 6 = 6 + 7 + 8 = 21."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> 1 is the pivot integer since: 1 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 1 is the pivot integer since: 1 = 1."
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be proved that no such integer exist.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be proved that no such integer exist."
+    }
+  ]
+}

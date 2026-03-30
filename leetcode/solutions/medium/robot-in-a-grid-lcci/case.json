@@ -1,0 +1,20 @@
+{
+  "problemId": "1000011",
+  "titleSlug": "robot-in-a-grid-lcci",
+  "title": "Robot in a Grid LCCI",
+  "titleCn": "迷路的机器人",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "backtracking",
+    "matrix"
+  ],
+  "acRate": 0.3560095200317334,
+  "testcases": [
+    {
+      "input": "</strong>[\r   [<strong>0</strong>,<strong>0</strong>,<strong>0</strong>],\r   [0,1,<strong>0</strong>],\r   [0,0,<strong>0</strong>]\r ]\r <strong>Output:</strong> [[0,0],[0,1],[0,2],[1,2],[2,2]]",
+      "expectedOutput": "</strong> [[0,0],[0,1],[0,2],[1,2],[2,2]]"
+    }
+  ]
+}

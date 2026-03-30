@@ -1,0 +1,26 @@
+{
+  "problemId": "2536",
+  "titleSlug": "determine-if-two-events-have-conflict",
+  "title": "Determine if Two Events Have Conflict",
+  "titleCn": "判断两个事件是否存在冲突",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.6370519562865988,
+  "testcases": [
+    {
+      "input": "</strong> event1 = [\"01:15\",\"02:00\"], event2 = [\"02:00\",\"03:00\"] <strong>Output:</strong> true <strong>Explanation:</strong> The two events intersect at time 2:00.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The two events intersect at time 2:00."
+    },
+    {
+      "input": "</strong> event1 = [\"01:00\",\"02:00\"], event2 = [\"01:20\",\"03:00\"] <strong>Output:</strong> true <strong>Explanation:</strong> The two events intersect starting from 01:20 to 02:00.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The two events intersect starting from 01:20 to 02:00."
+    },
+    {
+      "input": "</strong> event1 = [\"10:00\",\"11:00\"], event2 = [\"14:00\",\"15:00\"] <strong>Output:</strong> false <strong>Explanation:</strong> The two events do not intersect.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The two events do not intersect."
+    }
+  ]
+}

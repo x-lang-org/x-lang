@@ -1,0 +1,23 @@
+{
+  "problemId": "3318",
+  "titleSlug": "maximum-number-of-operations-with-the-same-score-ii",
+  "title": "Maximum Number of Operations With the Same Score II",
+  "titleCn": "相同分数的最大操作数目 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "memoization",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.453,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,1,2,3,4] <strong>Output:</strong> 3 <strong>Explanation:</strong> We perform the following operations: - Delete the first two elements, with score 3 + 2 = 5, nums = [1,2,3,4]. - Delete the first and the last elements, with score 1 + 4 = 5, nums = [2,3]. - Delete the first and the last elements, with score 2 + 3 = 5, nums = []. We are unable to perform any more operations as nums is empty.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We perform the following operations: - Delete the first two elements, with score 3 + 2 = 5, nums = [1,2,3,4]. - Delete the first and the last elements, with score 1 + 4 = 5, nums = [2,3]. - Delete the first and the last elements, with score 2 + 3 = 5, nums = []. We are unable to perform any more operations as nums is empty."
+    },
+    {
+      "input": "</strong> nums = [3,2,6,1,4] <strong>Output:</strong> 2 <strong>Explanation:</strong> We perform the following operations: - Delete the first two elements, with score 3 + 2 = 5, nums = [6,1,4]. - Delete the last two elements, with score 1 + 4 = 5, nums = [6]. It can be proven that we can perform at most 2 operations.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We perform the following operations: - Delete the first two elements, with score 3 + 2 = 5, nums = [6,1,4]. - Delete the last two elements, with score 1 + 4 = 5, nums = [6]. It can be proven that we can perform at most 2 operations."
+    }
+  ]
+}

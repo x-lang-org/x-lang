@@ -1,0 +1,27 @@
+{
+  "problemId": "1038",
+  "titleSlug": "number-of-squareful-arrays",
+  "title": "Number of Squareful Arrays",
+  "titleCn": "平方数组的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask"
+  ],
+  "acRate": 0.5460431319577065,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,17,8] <strong>Output:</strong> 2 <strong>Explanation:</strong> [1,8,17] and [17,8,1] are the valid permutations.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> [1,8,17] and [17,8,1] are the valid permutations."
+    },
+    {
+      "input": "</strong> nums = [2,2,2] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

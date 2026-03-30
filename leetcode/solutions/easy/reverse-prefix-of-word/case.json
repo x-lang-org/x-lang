@@ -1,0 +1,27 @@
+{
+  "problemId": "2128",
+  "titleSlug": "reverse-prefix-of-word",
+  "title": "Reverse Prefix of Word",
+  "titleCn": "反转单词前缀",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7712379421221865,
+  "testcases": [
+    {
+      "input": "</strong> word = \"<u>abcd</u>efd\", ch = \"d\" <strong>Output:</strong> \"<u>dcba</u>efd\" <strong>Explanation:</strong> The first occurrence of \"d\" is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string is \"dcbaefd\".",
+      "expectedOutput": "</strong> \"<u>dcba</u>efd\" <strong>Explanation:</strong> The first occurrence of \"d\" is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string is \"dcbaefd\"."
+    },
+    {
+      "input": "</strong> word = \"<u>xyxz</u>xe\", ch = \"z\" <strong>Output:</strong> \"<u>zxyx</u>xe\" <strong>Explanation:</strong> The first and only occurrence of \"z\" is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string is \"zxyxxe\".",
+      "expectedOutput": "</strong> \"<u>zxyx</u>xe\" <strong>Explanation:</strong> The first and only occurrence of \"z\" is at index 3. Reverse the part of word from 0 to 3 (inclusive), the resulting string is \"zxyxxe\"."
+    },
+    {
+      "input": "</strong> word = \"abcd\", ch = \"z\" <strong>Output:</strong> \"abcd\" <strong>Explanation:</strong> \"z\" does not exist in word. You should not do any reverse operation, the resulting string is \"abcd\".",
+      "expectedOutput": "</strong> \"abcd\" <strong>Explanation:</strong> \"z\" does not exist in word. You should not do any reverse operation, the resulting string is \"abcd\"."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "757",
+  "titleSlug": "pyramid-transition-matrix",
+  "title": "Pyramid Transition Matrix",
+  "titleCn": "金字塔转换矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.5776948352314416,
+  "testcases": [
+    {
+      "input": "</strong> bottom = \"BCD\", allowed = [\"BCC\",\"CDE\",\"CEA\",\"FFF\"] <strong>Output:</strong> true <strong>Explanation:</strong> The allowed triangular patterns are shown on the right. Starting from the bottom (level 3), we can build \"CE\" on level 2 and then build \"A\" on level 1. There are three triangular patterns in the pyramid, which are \"BCC\", \"CDE\", and \"CEA\". All are allowed.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The allowed triangular patterns are shown on the right. Starting from the bottom (level 3), we can build \"CE\" on level 2 and then build \"A\" on level 1. There are three triangular patterns in the pyramid, which are \"BCC\", \"CDE\", and \"CEA\". All are allowed."
+    },
+    {
+      "input": "</strong> bottom = \"AAAA\", allowed = [\"AAB\",\"AAC\",\"BCD\",\"BBE\",\"DEF\"] <strong>Output:</strong> false <strong>Explanation:</strong> The allowed triangular patterns are shown on the right. Starting from the bottom (level 4), there are multiple ways to build level 3, but trying all the possibilites, you will get always stuck before building level 1.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The allowed triangular patterns are shown on the right. Starting from the bottom (level 4), there are multiple ways to build level 3, but trying all the possibilites, you will get always stuck before building level 1."
+    }
+  ]
+}

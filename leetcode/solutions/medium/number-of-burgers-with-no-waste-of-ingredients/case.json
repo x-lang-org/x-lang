@@ -1,0 +1,25 @@
+{
+  "problemId": "1401",
+  "titleSlug": "number-of-burgers-with-no-waste-of-ingredients",
+  "title": "Number of Burgers with No Waste of Ingredients",
+  "titleCn": "不浪费原料的汉堡制作方案",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5810317568754514,
+  "testcases": [
+    {
+      "input": "</strong> tomatoSlices = 16, cheeseSlices = 7 <strong>Output:</strong> [1,6] <strong>Explantion:</strong> To make one jumbo burger and 6 small burgers we need 4*1 + 2*6 = 16 tomato and 1 + 6 = 7 cheese. There will be no remaining ingredients.",
+      "expectedOutput": "</strong> [1,6] <strong>Explantion:</strong> To make one jumbo burger and 6 small burgers we need 4*1 + 2*6 = 16 tomato and 1 + 6 = 7 cheese. There will be no remaining ingredients."
+    },
+    {
+      "input": "</strong> tomatoSlices = 17, cheeseSlices = 4 <strong>Output:</strong> [] <strong>Explantion:</strong> There will be no way to use all ingredients to make small and jumbo burgers.",
+      "expectedOutput": "</strong> [] <strong>Explantion:</strong> There will be no way to use all ingredients to make small and jumbo burgers."
+    },
+    {
+      "input": "</strong> tomatoSlices = 4, cheeseSlices = 17 <strong>Output:</strong> [] <strong>Explantion:</strong> Making 1 jumbo burger there will be 16 cheese remaining and making 2 small burgers there will be 15 cheese remaining.",
+      "expectedOutput": "</strong> [] <strong>Explantion:</strong> Making 1 jumbo burger there will be 16 cheese remaining and making 2 small burgers there will be 15 cheese remaining."
+    }
+  ]
+}

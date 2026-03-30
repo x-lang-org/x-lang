@@ -1,0 +1,21 @@
+{
+  "problemId": "476",
+  "titleSlug": "number-complement",
+  "title": "Number Complement",
+  "titleCn": "数字的补数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.688489793759216,
+  "testcases": [
+    {
+      "input": "</strong> num = 5 <strong>Output:</strong> 2 <strong>Explanation:</strong> The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2."
+    },
+    {
+      "input": "</strong> num = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0."
+    }
+  ]
+}

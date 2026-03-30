@@ -1,0 +1,21 @@
+{
+  "problemId": "1674",
+  "titleSlug": "minimum-operations-to-make-array-equal",
+  "title": "Minimum Operations to Make Array Equal",
+  "titleCn": "使数组中所有元素相等的最小操作数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.825750541627979,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> arr = [1, 3, 5] First operation choose x = 2 and y = 0, this leads arr to be [2, 3, 4] In the second operation choose x = 2 and y = 0 again, thus arr = [3, 3, 3].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> arr = [1, 3, 5] First operation choose x = 2 and y = 0, this leads arr to be [2, 3, 4] In the second operation choose x = 2 and y = 0 again, thus arr = [3, 3, 3]."
+    },
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    }
+  ]
+}

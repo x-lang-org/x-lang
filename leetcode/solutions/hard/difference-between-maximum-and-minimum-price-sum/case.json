@@ -1,0 +1,24 @@
+{
+  "problemId": "2627",
+  "titleSlug": "difference-between-maximum-and-minimum-price-sum",
+  "title": "Difference Between Maximum and Minimum Price Sum",
+  "titleCn": "最大价值和与最小价值和的差值",
+  "difficulty": "HARD",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.4904622157006603,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[1,2],[1,3],[3,4],[3,5]], price = [9,8,7,6,10,5] <strong>Output:</strong> 24 <strong>Explanation:</strong> The diagram above denotes the tree after rooting it at node 2. The first part (colored in red) shows the path with the maximum price sum. The second part (colored in blue) shows the path with the minimum price sum. - The first path contains nodes [2,1,3,4]: the prices are [7,8,6,10], and the sum of the prices is 31. - The second path contains the node [2] with the price [7]. The difference between the maximum and minimum price sum is 24. It can be proved that 24 is the maximum cost.",
+      "expectedOutput": "</strong> 24 <strong>Explanation:</strong> The diagram above denotes the tree after rooting it at node 2. The first part (colored in red) shows the path with the maximum price sum. The second part (colored in blue) shows the path with the minimum price sum. - The first path contains nodes [2,1,3,4]: the prices are [7,8,6,10], and the sum of the prices is 31. - The second path contains the node [2] with the price [7]. The difference between the maximum and minimum price sum is 24. It can be proved that 24 is the maximum cost."
+    },
+    {
+      "input": "</strong> n = 3, edges = [[0,1],[1,2]], price = [1,1,1] <strong>Output:</strong> 2 <strong>Explanation:</strong> The diagram above denotes the tree after rooting it at node 0. The first part (colored in red) shows the path with the maximum price sum. The second part (colored in blue) shows the path with the minimum price sum. - The first path contains nodes [0,1,2]: the prices are [1,1,1], and the sum of the prices is 3. - The second path contains node [0] with a price [1]. The difference between the maximum and minimum price sum is 2. It can be proved that 2 is the maximum cost.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The diagram above denotes the tree after rooting it at node 0. The first part (colored in red) shows the path with the maximum price sum. The second part (colored in blue) shows the path with the minimum price sum. - The first path contains nodes [0,1,2]: the prices are [1,1,1], and the sum of the prices is 3. - The second path contains node [0] with a price [1]. The difference between the maximum and minimum price sum is 2. It can be proved that 2 is the maximum cost."
+    }
+  ]
+}

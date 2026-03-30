@@ -1,0 +1,23 @@
+{
+  "problemId": "609",
+  "titleSlug": "find-duplicate-file-in-system",
+  "title": "Find Duplicate File in System",
+  "titleCn": "在系统中查找重复文件",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5577319587628866,
+  "testcases": [
+    {
+      "input": "</strong> paths = [\"root/a 1.txt(abcd) 2.txt(efgh)\",\"root/c 3.txt(abcd)\",\"root/c/d 4.txt(efgh)\",\"root 4.txt(efgh)\"] <strong>Output:</strong> [[\"root/a/2.txt\",\"root/c/d/4.txt\",\"root/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]",
+      "expectedOutput": "</strong> [[\"root/a/2.txt\",\"root/c/d/4.txt\",\"root/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]"
+    },
+    {
+      "input": "</strong> paths = [\"root/a 1.txt(abcd) 2.txt(efgh)\",\"root/c 3.txt(abcd)\",\"root/c/d 4.txt(efgh)\"] <strong>Output:</strong> [[\"root/a/2.txt\",\"root/c/d/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]",
+      "expectedOutput": "</strong> [[\"root/a/2.txt\",\"root/c/d/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]"
+    }
+  ]
+}

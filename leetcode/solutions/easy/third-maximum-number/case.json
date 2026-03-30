@@ -1,0 +1,26 @@
+{
+  "problemId": "414",
+  "titleSlug": "third-maximum-number",
+  "title": "Third Maximum Number",
+  "titleCn": "第三大的数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.4131977941888926,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> The first distinct maximum is 3. The second distinct maximum is 2. The third distinct maximum is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The first distinct maximum is 3. The second distinct maximum is 2. The third distinct maximum is 1."
+    },
+    {
+      "input": "</strong> nums = [1,2] <strong>Output:</strong> 2 <strong>Explanation:</strong> The first distinct maximum is 2. The second distinct maximum is 1. The third distinct maximum does not exist, so the maximum (2) is returned instead.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The first distinct maximum is 2. The second distinct maximum is 1. The third distinct maximum does not exist, so the maximum (2) is returned instead."
+    },
+    {
+      "input": "</strong> nums = [2,2,3,1] <strong>Output:</strong> 1 <strong>Explanation:</strong> The first distinct maximum is 3. The second distinct maximum is 2 (both 2's are counted together since they have the same value). The third distinct maximum is 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The first distinct maximum is 3. The second distinct maximum is 2 (both 2's are counted together since they have the same value). The third distinct maximum is 1."
+    }
+  ]
+}

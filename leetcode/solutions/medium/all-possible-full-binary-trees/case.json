@@ -1,0 +1,25 @@
+{
+  "problemId": "930",
+  "titleSlug": "all-possible-full-binary-trees",
+  "title": "All Possible Full Binary Trees",
+  "titleCn": "所有可能的真二叉树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "recursion",
+    "memoization",
+    "dynamic-programming",
+    "binary-tree"
+  ],
+  "acRate": 0.8042920099635945,
+  "testcases": [
+    {
+      "input": "</strong> n = 7 <strong>Output:</strong> [[0,0,0,null,null,0,0,null,null,0,0],[0,0,0,null,null,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,null,null,null,null,0,0],[0,0,0,0,0,null,null,0,0]]",
+      "expectedOutput": "</strong> [[0,0,0,null,null,0,0,null,null,0,0],[0,0,0,null,null,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,null,null,null,null,0,0],[0,0,0,0,0,null,null,0,0]]"
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> [[0,0,0]]",
+      "expectedOutput": "</strong> [[0,0,0]]"
+    }
+  ]
+}

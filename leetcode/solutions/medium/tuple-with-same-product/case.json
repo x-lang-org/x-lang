@@ -1,0 +1,23 @@
+{
+  "problemId": "1364",
+  "titleSlug": "tuple-with-same-product",
+  "title": "Tuple with Same Product",
+  "titleCn": "同积元组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.6468495640237418,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,3,4,6] <strong>Output:</strong> 8 <strong>Explanation:</strong> There are 8 valid tuples: (2,6,3,4) , (2,6,4,3) , (6,2,3,4) , (6,2,4,3) (3,4,2,6) , (4,3,2,6) , (3,4,6,2) , (4,3,6,2)",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> There are 8 valid tuples: (2,6,3,4) , (2,6,4,3) , (6,2,3,4) , (6,2,4,3) (3,4,2,6) , (4,3,2,6) , (3,4,6,2) , (4,3,6,2)"
+    },
+    {
+      "input": "</strong> nums = [1,2,4,5,10] <strong>Output:</strong> 16 <strong>Explanation:</strong> There are 16 valid tuples: (1,10,2,5) , (1,10,5,2) , (10,1,2,5) , (10,1,5,2) (2,5,1,10) , (2,5,10,1) , (5,2,1,10) , (5,2,10,1) (2,10,4,5) , (2,10,5,4) , (10,2,4,5) , (10,2,5,4) (4,5,2,10) , (4,5,10,2) , (5,4,2,10) , (5,4,10,2)",
+      "expectedOutput": "</strong> 16 <strong>Explanation:</strong> There are 16 valid tuples: (1,10,2,5) , (1,10,5,2) , (10,1,2,5) , (10,1,5,2) (2,5,1,10) , (2,5,10,1) , (5,2,1,10) , (5,2,10,1) (2,10,4,5) , (2,10,5,4) , (10,2,4,5) , (10,2,5,4) (4,5,2,10) , (4,5,10,2) , (5,4,2,10) , (5,4,10,2)"
+    }
+  ]
+}

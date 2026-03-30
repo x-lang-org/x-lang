@@ -1,0 +1,28 @@
+{
+  "problemId": "1313",
+  "titleSlug": "count-ways-to-build-rooms-in-an-ant-colony",
+  "title": "Count Ways to Build Rooms in an Ant Colony",
+  "titleCn": "统计为蚁群构筑房间的不同顺序",
+  "difficulty": "HARD",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "graph",
+    "topological-sort",
+    "array",
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.5810034469551896,
+  "testcases": [
+    {
+      "input": "</strong> prevRoom = [-1,0,1]\r <strong>Output:</strong> 1\r <strong>Explanation:</strong> There is only one way to build the additional rooms: 0 → 1 → 2",
+      "expectedOutput": "</strong> 1\r <strong>Explanation:</strong> There is only one way to build the additional rooms: 0 → 1 → 2"
+    },
+    {
+      "input": "</strong> prevRoom = [-1,0,0,1,2]\r <strong>Output:</strong> 6\r <strong>Explanation:\r </strong>The 6 ways are:\r 0 → 1 → 3 → 2 → 4\r 0 → 2 → 4 → 1 → 3\r 0 → 1 → 2 → 3 → 4\r 0 → 1 → 2 → 4 → 3\r 0 → 2 → 1 → 3 → 4\r 0 → 2 → 1 → 4 → 3",
+      "expectedOutput": "</strong> 6\r <strong>Explanation:\r </strong>The 6 ways are:\r 0 → 1 → 3 → 2 → 4\r 0 → 2 → 4 → 1 → 3\r 0 → 1 → 2 → 3 → 4\r 0 → 1 → 2 → 4 → 3\r 0 → 2 → 1 → 3 → 4\r 0 → 2 → 1 → 4 → 3"
+    }
+  ]
+}

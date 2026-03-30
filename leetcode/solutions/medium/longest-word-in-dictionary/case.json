@@ -1,0 +1,25 @@
+{
+  "problemId": "720",
+  "titleSlug": "longest-word-in-dictionary",
+  "title": "Longest Word in Dictionary",
+  "titleCn": "词典中最长的单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5275718030305154,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"w\",\"wo\",\"wor\",\"worl\",\"world\"] <strong>Output:</strong> \"world\" <strong>Explanation:</strong> The word \"world\" can be built one character at a time by \"w\", \"wo\", \"wor\", and \"worl\".",
+      "expectedOutput": "</strong> \"world\" <strong>Explanation:</strong> The word \"world\" can be built one character at a time by \"w\", \"wo\", \"wor\", and \"worl\"."
+    },
+    {
+      "input": "</strong> words = [\"a\",\"banana\",\"app\",\"appl\",\"ap\",\"apply\",\"apple\"] <strong>Output:</strong> \"apple\" <strong>Explanation:</strong> Both \"apply\" and \"apple\" can be built from other words in the dictionary. However, \"apple\" is lexicographically smaller than \"apply\".",
+      "expectedOutput": "</strong> \"apple\" <strong>Explanation:</strong> Both \"apply\" and \"apple\" can be built from other words in the dictionary. However, \"apple\" is lexicographically smaller than \"apply\"."
+    }
+  ]
+}

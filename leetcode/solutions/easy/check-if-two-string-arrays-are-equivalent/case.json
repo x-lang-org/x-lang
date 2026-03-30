@@ -1,0 +1,26 @@
+{
+  "problemId": "1781",
+  "titleSlug": "check-if-two-string-arrays-are-equivalent",
+  "title": "Check If Two String Arrays are Equivalent",
+  "titleCn": "检查两个字符串数组是否相等",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8069820150678895,
+  "testcases": [
+    {
+      "input": "</strong> word1 = [\"ab\", \"c\"], word2 = [\"a\", \"bc\"] <strong>Output:</strong> true <strong>Explanation:</strong> word1 represents string \"ab\" + \"c\" -> \"abc\" word2 represents string \"a\" + \"bc\" -> \"abc\" The strings are the same, so return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> word1 represents string \"ab\" + \"c\" -> \"abc\" word2 represents string \"a\" + \"bc\" -> \"abc\" The strings are the same, so return true."
+    },
+    {
+      "input": "</strong> word1 = [\"a\", \"cb\"], word2 = [\"ab\", \"c\"] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> word1 = [\"abc\", \"d\", \"defg\"], word2 = [\"abcddefg\"] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

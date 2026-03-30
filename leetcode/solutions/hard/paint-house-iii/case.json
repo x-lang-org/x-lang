@@ -1,0 +1,26 @@
+{
+  "problemId": "1583",
+  "titleSlug": "paint-house-iii",
+  "title": "Paint House III",
+  "titleCn": "粉刷房子 III",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6571656304798342,
+  "testcases": [
+    {
+      "input": "</strong> houses = [0,0,0,0,0], cost = [[1,10],[10,1],[10,1],[1,10],[5,1]], m = 5, n = 2, target = 3 <strong>Output:</strong> 9 <strong>Explanation:</strong> Paint houses of this way [1,2,2,1,1] This array contains target = 3 neighborhoods, [{1}, {2,2}, {1,1}]. Cost of paint all houses (1 + 1 + 1 + 1 + 5) = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Paint houses of this way [1,2,2,1,1] This array contains target = 3 neighborhoods, [{1}, {2,2}, {1,1}]. Cost of paint all houses (1 + 1 + 1 + 1 + 5) = 9."
+    },
+    {
+      "input": "</strong> houses = [0,2,1,2,0], cost = [[1,10],[10,1],[10,1],[1,10],[5,1]], m = 5, n = 2, target = 3 <strong>Output:</strong> 11 <strong>Explanation:</strong> Some houses are already painted, Paint the houses of this way [2,2,1,2,2] This array contains target = 3 neighborhoods, [{2,2}, {1}, {2,2}]. Cost of paint the first and last house (10 + 1) = 11.",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> Some houses are already painted, Paint the houses of this way [2,2,1,2,2] This array contains target = 3 neighborhoods, [{2,2}, {1}, {2,2}]. Cost of paint the first and last house (10 + 1) = 11."
+    },
+    {
+      "input": "</strong> houses = [3,1,2,3], cost = [[1,1,1],[1,1,1],[1,1,1],[1,1,1]], m = 4, n = 3, target = 3 <strong>Output:</strong> -1 <strong>Explanation:</strong> Houses are already painted with a total of 4 neighborhoods [{3},{1},{2},{3}] different of target = 3.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> Houses are already painted with a total of 4 neighborhoods [{3},{1},{2},{3}] different of target = 3."
+    }
+  ]
+}

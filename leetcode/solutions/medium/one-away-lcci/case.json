@@ -1,0 +1,22 @@
+{
+  "problemId": "1000006",
+  "titleSlug": "one-away-lcci",
+  "title": "One Away LCCI",
+  "titleCn": "一次编辑",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.34614240736752505,
+  "testcases": [
+    {
+      "input": "</strong> \r first = \"pale\"\r second = \"ple\"\r <strong>Output:</strong> True",
+      "expectedOutput": "</strong> True"
+    },
+    {
+      "input": "</strong> \r first = \"pales\"\r second = \"pal\"\r <strong>Output:</strong> False",
+      "expectedOutput": "</strong> False"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2103",
+  "titleSlug": "find-all-groups-of-farmland",
+  "title": "Find All Groups of Farmland",
+  "titleCn": "找到所有的农场组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6329564323554994,
+  "testcases": [
+    {
+      "input": "</strong> land = [[1,0,0],[0,1,1],[0,1,1]] <strong>Output:</strong> [[0,0,0,0],[1,1,2,2]] <strong>Explanation:</strong> The first group has a top left corner at land[0][0] and a bottom right corner at land[0][0]. The second group has a top left corner at land[1][1] and a bottom right corner at land[2][2].",
+      "expectedOutput": "</strong> [[0,0,0,0],[1,1,2,2]] <strong>Explanation:</strong> The first group has a top left corner at land[0][0] and a bottom right corner at land[0][0]. The second group has a top left corner at land[1][1] and a bottom right corner at land[2][2]."
+    },
+    {
+      "input": "</strong> land = [[1,1],[1,1]] <strong>Output:</strong> [[0,0,1,1]] <strong>Explanation:</strong> The first group has a top left corner at land[0][0] and a bottom right corner at land[1][1].",
+      "expectedOutput": "</strong> [[0,0,1,1]] <strong>Explanation:</strong> The first group has a top left corner at land[0][0] and a bottom right corner at land[1][1]."
+    },
+    {
+      "input": "</strong> land = [[0]] <strong>Output:</strong> [] <strong>Explanation:</strong> There are no groups of farmland.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There are no groups of farmland."
+    }
+  ]
+}

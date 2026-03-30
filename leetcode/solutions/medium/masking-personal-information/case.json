@@ -1,0 +1,25 @@
+{
+  "problemId": "858",
+  "titleSlug": "masking-personal-information",
+  "title": "Masking Personal Information",
+  "titleCn": "隐藏个人信息",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5469945170243011,
+  "testcases": [
+    {
+      "input": "</strong> s = \"LeetCode@LeetCode.com\" <strong>Output:</strong> \"l*****e@leetcode.com\" <strong>Explanation:</strong> s is an email address. The name and domain are converted to lowercase, and the middle of the name is replaced by 5 asterisks.",
+      "expectedOutput": "</strong> \"l*****e@leetcode.com\" <strong>Explanation:</strong> s is an email address. The name and domain are converted to lowercase, and the middle of the name is replaced by 5 asterisks."
+    },
+    {
+      "input": "</strong> s = \"AB@qq.com\" <strong>Output:</strong> \"a*****b@qq.com\" <strong>Explanation:</strong> s is an email address. The name and domain are converted to lowercase, and the middle of the name is replaced by 5 asterisks. Note that even though \"ab\" is 2 characters, it still must have 5 asterisks in the middle.",
+      "expectedOutput": "</strong> \"a*****b@qq.com\" <strong>Explanation:</strong> s is an email address. The name and domain are converted to lowercase, and the middle of the name is replaced by 5 asterisks. Note that even though \"ab\" is 2 characters, it still must have 5 asterisks in the middle."
+    },
+    {
+      "input": "</strong> s = \"1(234)567-890\" <strong>Output:</strong> \"***-***-7890\" <strong>Explanation:</strong> s is a phone number. There are 10 digits, so the local number is 10 digits and the country code is 0 digits. Thus, the resulting masked number is \"***-***-7890\".",
+      "expectedOutput": "</strong> \"***-***-7890\" <strong>Explanation:</strong> s is a phone number. There are 10 digits, so the local number is 10 digits and the country code is 0 digits. Thus, the resulting masked number is \"***-***-7890\"."
+    }
+  ]
+}

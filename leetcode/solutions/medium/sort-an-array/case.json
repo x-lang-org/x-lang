@@ -1,0 +1,28 @@
+{
+  "problemId": "948",
+  "titleSlug": "sort-an-array",
+  "title": "Sort an Array",
+  "titleCn": "排序数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "divide-and-conquer",
+    "bucket-sort",
+    "counting-sort",
+    "radix-sort",
+    "sorting",
+    "heap-priority-queue",
+    "merge-sort"
+  ],
+  "acRate": 0.4774019384599665,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,2,3,1] <strong>Output:</strong> [1,2,3,5] <strong>Explanation:</strong> After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).",
+      "expectedOutput": "</strong> [1,2,3,5] <strong>Explanation:</strong> After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5)."
+    },
+    {
+      "input": "</strong> nums = [5,1,1,2,0,0] <strong>Output:</strong> [0,0,1,1,2,5] <strong>Explanation:</strong> Note that the values of nums are not necessarily unique.",
+      "expectedOutput": "</strong> [0,0,1,1,2,5] <strong>Explanation:</strong> Note that the values of nums are not necessarily unique."
+    }
+  ]
+}

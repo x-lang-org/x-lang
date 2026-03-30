@@ -1,0 +1,27 @@
+{
+  "problemId": "100168",
+  "titleSlug": "linked-list-cycle-lcci",
+  "title": "Linked List Cycle LCCI",
+  "titleCn": "环路检测",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.5699361514751211,
+  "testcases": [
+    {
+      "input": "</strong>head = [3,2,0,-4], pos = 1\r <strong>Output: </strong>tail connects to node index 1",
+      "expectedOutput": "</strong>tail connects to node index 1"
+    },
+    {
+      "input": "</strong>head = [1,2], pos = 0\r <strong>Output: </strong>tail connects to node index 0",
+      "expectedOutput": "</strong>tail connects to node index 0"
+    },
+    {
+      "input": "</strong>head = [1], pos = -1\r <strong>Output: </strong>no cycle",
+      "expectedOutput": "</strong>no cycle"
+    }
+  ]
+}

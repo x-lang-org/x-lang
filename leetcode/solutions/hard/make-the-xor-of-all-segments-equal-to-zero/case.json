@@ -1,0 +1,29 @@
+{
+  "problemId": "1913",
+  "titleSlug": "make-the-xor-of-all-segments-equal-to-zero",
+  "title": "Make the XOR of All Segments Equal to Zero",
+  "titleCn": "使所有区间的异或结果为零",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "dynamic-programming",
+    "counting"
+  ],
+  "acRate": 0.6366450886574726,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,0,3,0], k = 1 <strong>Output:</strong> 3 <strong>Explanation: </strong>Modify the array from [<u><strong>1</strong></u>,<u><strong>2</strong></u>,0,<u><strong>3</strong></u>,0] to from [<u><strong>0</strong></u>,<u><strong>0</strong></u>,0,<u><strong>0</strong></u>,0].",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>Modify the array from [<u><strong>1</strong></u>,<u><strong>2</strong></u>,0,<u><strong>3</strong></u>,0] to from [<u><strong>0</strong></u>,<u><strong>0</strong></u>,0,<u><strong>0</strong></u>,0]."
+    },
+    {
+      "input": "</strong> nums = [3,4,5,2,1,7,3,4,7], k = 3 <strong>Output:</strong> 3 <strong>Explanation: </strong>Modify the array from [3,4,<strong><u>5</u></strong>,<strong><u>2</u></strong>,<strong><u>1</u></strong>,7,3,4,7] to [3,4,<strong><u>7</u></strong>,<strong><u>3</u></strong>,<strong><u>4</u></strong>,7,3,4,7].",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>Modify the array from [3,4,<strong><u>5</u></strong>,<strong><u>2</u></strong>,<strong><u>1</u></strong>,7,3,4,7] to [3,4,<strong><u>7</u></strong>,<strong><u>3</u></strong>,<strong><u>4</u></strong>,7,3,4,7]."
+    },
+    {
+      "input": "</strong> nums = [1,2,4,1,2,5,1,2,6], k = 3 <strong>Output:</strong> 3 <strong>Explanation: </strong>Modify the array from [1,2,<strong><u>4,</u></strong>1,2,<strong><u>5</u></strong>,1,2,<strong><u>6</u></strong>] to [1,2,<strong><u>3</u></strong>,1,2,<strong><u>3</u></strong>,1,2,<strong><u>3</u></strong>].",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>Modify the array from [1,2,<strong><u>4,</u></strong>1,2,<strong><u>5</u></strong>,1,2,<strong><u>6</u></strong>] to [1,2,<strong><u>3</u></strong>,1,2,<strong><u>3</u></strong>,1,2,<strong><u>3</u></strong>]."
+    }
+  ]
+}

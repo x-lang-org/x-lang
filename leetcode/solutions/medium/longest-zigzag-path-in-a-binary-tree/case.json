@@ -1,0 +1,28 @@
+{
+  "problemId": "1474",
+  "titleSlug": "longest-zigzag-path-in-a-binary-tree",
+  "title": "Longest ZigZag Path in a Binary Tree",
+  "titleCn": "二叉树中的最长交错路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "dynamic-programming",
+    "binary-tree"
+  ],
+  "acRate": 0.6079819296886285,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,null,1,1,1,null,null,1,1,null,1,null,null,null,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> Longest ZigZag path in blue nodes (right -> left -> right).",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Longest ZigZag path in blue nodes (right -> left -> right)."
+    },
+    {
+      "input": "</strong> root = [1,1,1,null,1,null,null,1,1,null,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> Longest ZigZag path in blue nodes (left -> right -> left -> right).",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Longest ZigZag path in blue nodes (left -> right -> left -> right)."
+    },
+    {
+      "input": "</strong> root = [1] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

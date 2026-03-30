@@ -1,0 +1,15 @@
+{
+  "problemId": "3064",
+  "titleSlug": "reshape-data-concatenate",
+  "title": "Reshape Data: Concatenate",
+  "titleCn": "重塑数据：连结",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8748338502436863,
+  "testcases": [
+    {
+      "input": "df1</strong> +------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 1     | Mason  | 8  | | 2     | Ava   | 6  | | 3     | Taylor | 15 | | 4     | Georgia | 17 | +------------+---------+-----+ <strong>df2 </strong>+------------+------+-----+ | student_id | name | age | +------------+------+-----+ | 5     | Leo | 7  | | 6     | Alex | 7  | +------------+------+-----+ <strong>Output:</strong> +------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 1     | Mason  | 8  | | 2     | Ava   | 6  | | 3     | Taylor | 15 | | 4     | Georgia | 17 | | 5     | Leo   | 7  | | 6     | Alex  | 7  | +------------+---------+-----+ <strong>Explanation: </strong>The two DataFramess are stacked vertically, and their rows are combined.",
+      "expectedOutput": "</strong> +------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 1     | Mason  | 8  | | 2     | Ava   | 6  | | 3     | Taylor | 15 | | 4     | Georgia | 17 | | 5     | Leo   | 7  | | 6     | Alex  | 7  | +------------+---------+-----+ <strong>Explanation: </strong>The two DataFramess are stacked vertically, and their rows are combined."
+    }
+  ]
+}

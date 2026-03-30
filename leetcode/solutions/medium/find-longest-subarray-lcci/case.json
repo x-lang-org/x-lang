@@ -1,0 +1,23 @@
+{
+  "problemId": "1000033",
+  "titleSlug": "find-longest-subarray-lcci",
+  "title": "Find Longest Subarray LCCI",
+  "titleCn": " 字母与数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.4829358448529039,
+  "testcases": [
+    {
+      "input": "</strong>[\"A\",\"1\",\"B\",\"C\",\"D\",\"2\",\"3\",\"4\",\"E\",\"5\",\"F\",\"G\",\"6\",\"7\",\"H\",\"I\",\"J\",\"K\",\"L\",\"M\"]\r \r <strong>Output: </strong>[\"A\",\"1\",\"B\",\"C\",\"D\",\"2\",\"3\",\"4\",\"E\",\"5\",\"F\",\"G\",\"6\",\"7\"]",
+      "expectedOutput": "</strong>[\"A\",\"1\",\"B\",\"C\",\"D\",\"2\",\"3\",\"4\",\"E\",\"5\",\"F\",\"G\",\"6\",\"7\"]"
+    },
+    {
+      "input": "</strong>[\"A\",\"A\"]\r \r <strong>Output: </strong>[]",
+      "expectedOutput": "</strong>[]"
+    }
+  ]
+}

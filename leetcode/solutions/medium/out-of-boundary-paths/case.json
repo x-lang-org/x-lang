@@ -1,0 +1,21 @@
+{
+  "problemId": "576",
+  "titleSlug": "out-of-boundary-paths",
+  "title": "Out of Boundary Paths",
+  "titleCn": "出界的路径数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.4747603833865815,
+  "testcases": [
+    {
+      "input": "</strong> m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0 <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> m = 1, n = 3, maxMove = 3, startRow = 0, startColumn = 1 <strong>Output:</strong> 12",
+      "expectedOutput": "</strong> 12"
+    }
+  ]
+}

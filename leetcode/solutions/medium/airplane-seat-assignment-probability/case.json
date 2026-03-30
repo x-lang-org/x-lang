@@ -1,0 +1,24 @@
+{
+  "problemId": "1362",
+  "titleSlug": "airplane-seat-assignment-probability",
+  "title": "Airplane Seat Assignment Probability",
+  "titleCn": "飞机座位分配概率",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "brainteaser",
+    "math",
+    "dynamic-programming",
+    "probability-and-statistics"
+  ],
+  "acRate": 0.7053109417631009,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1.00000 <strong>Explanation: </strong>The first person can only get the first seat.",
+      "expectedOutput": "</strong> 1.00000 <strong>Explanation: </strong>The first person can only get the first seat."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 0.50000 <strong>Explanation: </strong>The second person has a probability of 0.5 to get the second seat (when first person gets the first seat).",
+      "expectedOutput": "</strong> 0.50000 <strong>Explanation: </strong>The second person has a probability of 0.5 to get the second seat (when first person gets the first seat)."
+    }
+  ]
+}

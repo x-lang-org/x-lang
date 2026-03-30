@@ -1,0 +1,29 @@
+{
+  "problemId": "781",
+  "titleSlug": "basic-calculator-iv",
+  "title": "Basic Calculator IV",
+  "titleCn": "基本计算器 IV",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "acRate": 0.5564605701592003,
+  "testcases": [
+    {
+      "input": "</strong> expression = \"e + 8 - a + 5\", evalvars = [\"e\"], evalints = [1] <strong>Output:</strong> [\"-1*a\",\"14\"]",
+      "expectedOutput": "</strong> [\"-1*a\",\"14\"]"
+    },
+    {
+      "input": "</strong> expression = \"e - 8 + temperature - pressure\", evalvars = [\"e\", \"temperature\"], evalints = [1, 12] <strong>Output:</strong> [\"-1*pressure\",\"5\"]",
+      "expectedOutput": "</strong> [\"-1*pressure\",\"5\"]"
+    },
+    {
+      "input": "</strong> expression = \"(e + 8) * (e - 8)\", evalvars = [], evalints = [] <strong>Output:</strong> [\"1*e*e\",\"-64\"]",
+      "expectedOutput": "</strong> [\"1*e*e\",\"-64\"]"
+    }
+  ]
+}

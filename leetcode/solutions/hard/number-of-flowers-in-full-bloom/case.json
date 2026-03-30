@@ -1,0 +1,26 @@
+{
+  "problemId": "2334",
+  "titleSlug": "number-of-flowers-in-full-bloom",
+  "title": "Number of Flowers in Full Bloom",
+  "titleCn": "花期内花的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "ordered-set",
+    "prefix-sum",
+    "sorting"
+  ],
+  "acRate": 0.5286468362746652,
+  "testcases": [
+    {
+      "input": "</strong> flowers = [[1,6],[3,7],[9,12],[4,13]], people = [2,3,7,11] <strong>Output:</strong> [1,2,2,2] <strong>Explanation: </strong>The figure above shows the times when the flowers are in full bloom and when the people arrive. For each person, we return the number of flowers in full bloom during their arrival.",
+      "expectedOutput": "</strong> [1,2,2,2] <strong>Explanation: </strong>The figure above shows the times when the flowers are in full bloom and when the people arrive. For each person, we return the number of flowers in full bloom during their arrival."
+    },
+    {
+      "input": "</strong> flowers = [[1,10],[3,3]], people = [3,3,2] <strong>Output:</strong> [2,2,1] <strong>Explanation:</strong> The figure above shows the times when the flowers are in full bloom and when the people arrive. For each person, we return the number of flowers in full bloom during their arrival.",
+      "expectedOutput": "</strong> [2,2,1] <strong>Explanation:</strong> The figure above shows the times when the flowers are in full bloom and when the people arrive. For each person, we return the number of flowers in full bloom during their arrival."
+    }
+  ]
+}

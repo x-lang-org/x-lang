@@ -1,0 +1,17 @@
+{
+  "problemId": "1664",
+  "titleSlug": "find-users-with-valid-e-mails",
+  "title": "Find Users With Valid E-Mails",
+  "titleCn": "查找拥有有效邮箱的用户",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.45370036692438737,
+  "testcases": [
+    {
+      "input": "</strong> Users table: +---------+-----------+-------------------------+ | user_id | name   | mail          | +---------+-----------+-------------------------+ | 1    | Winston  | winston@leetcode.com  | | 2    | Jonathan | jonathanisgreat     | | 3    | Annabelle | bella-@leetcode.com   | | 4    | Sally   | sally.come@leetcode.com | | 5    | Marwan  | quarz#2020@leetcode.com | | 6    | David   | david69@gmail.com    | | 7    | Shapiro  | .shapo@leetcode.com   | +---------+-----------+-------------------------+ <strong>Output:</strong> +---------+-----------+-------------------------+ | user_id | name   | mail          | +---------+-----------+-------------------------+ | 1    | Winston  | winston@leetcode.com  | | 3    | Annabelle | bella-@leetcode.com   | | 4    | Sally   | sally.come@leetcode.com | +---------+-----------+-------------------------+ <strong>Explanation:</strong> The mail of user 2 does not have a domain. The mail of user 5 has the # sign which is not allowed. The mail of user 6 does not have the leetcode domain. The mail of user 7 starts with a period.",
+      "expectedOutput": "</strong> +---------+-----------+-------------------------+ | user_id | name   | mail          | +---------+-----------+-------------------------+ | 1    | Winston  | winston@leetcode.com  | | 3    | Annabelle | bella-@leetcode.com   | | 4    | Sally   | sally.come@leetcode.com | +---------+-----------+-------------------------+ <strong>Explanation:</strong> The mail of user 2 does not have a domain. The mail of user 5 has the # sign which is not allowed. The mail of user 6 does not have the leetcode domain. The mail of user 7 starts with a period."
+    }
+  ]
+}

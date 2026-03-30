@@ -1,0 +1,26 @@
+{
+  "problemId": "1343",
+  "titleSlug": "dice-roll-simulation",
+  "title": "Dice Roll Simulation",
+  "titleCn": "掷骰子模拟",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6196007147698565,
+  "testcases": [
+    {
+      "input": "</strong> n = 2, rollMax = [1,1,2,2,2,3] <strong>Output:</strong> 34 <strong>Explanation:</strong> There will be 2 rolls of die, if there are no constraints on the die, there are 6 * 6 = 36 possible combinations. In this case, looking at rollMax array, the numbers 1 and 2 appear at most once consecutively, therefore sequences (1,1) and (2,2) cannot occur, so the final answer is 36-2 = 34.",
+      "expectedOutput": "</strong> 34 <strong>Explanation:</strong> There will be 2 rolls of die, if there are no constraints on the die, there are 6 * 6 = 36 possible combinations. In this case, looking at rollMax array, the numbers 1 and 2 appear at most once consecutively, therefore sequences (1,1) and (2,2) cannot occur, so the final answer is 36-2 = 34."
+    },
+    {
+      "input": "</strong> n = 2, rollMax = [1,1,1,1,1,1] <strong>Output:</strong> 30",
+      "expectedOutput": "</strong> 30"
+    },
+    {
+      "input": "</strong> n = 3, rollMax = [1,1,1,2,2,3] <strong>Output:</strong> 181",
+      "expectedOutput": "</strong> 181"
+    }
+  ]
+}

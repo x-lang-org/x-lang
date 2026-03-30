@@ -1,0 +1,26 @@
+{
+  "problemId": "2737",
+  "titleSlug": "row-with-maximum-ones",
+  "title": "Row With Maximum Ones",
+  "titleCn": "一最多的行",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.833025579753435,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[0,1],[1,0]] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> Both rows have the same number of 1's. So we return the index of the smaller row, 0, and the maximum count of ones (1<code>)</code>. So, the answer is [0,1].",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> Both rows have the same number of 1's. So we return the index of the smaller row, 0, and the maximum count of ones (1<code>)</code>. So, the answer is [0,1]."
+    },
+    {
+      "input": "</strong> mat = [[0,0,0],[0,1,1]] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> The row indexed 1 has the maximum count of ones <code>(2)</code>. So we return its index, <code>1</code>, and the count. So, the answer is [1,2].",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> The row indexed 1 has the maximum count of ones <code>(2)</code>. So we return its index, <code>1</code>, and the count. So, the answer is [1,2]."
+    },
+    {
+      "input": "</strong> mat = [[0,0],[1,1],[0,0]] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> The row indexed 1 has the maximum count of ones (2). So the answer is [1,2].",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> The row indexed 1 has the maximum count of ones (2). So the answer is [1,2]."
+    }
+  ]
+}

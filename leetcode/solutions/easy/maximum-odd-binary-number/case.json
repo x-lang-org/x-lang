@@ -1,0 +1,23 @@
+{
+  "problemId": "3055",
+  "titleSlug": "maximum-odd-binary-number",
+  "title": "Maximum Odd Binary Number",
+  "titleCn": "最大二进制奇数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string"
+  ],
+  "acRate": 0.8402715818336126,
+  "testcases": [
+    {
+      "input": "</strong> s = \"010\" <strong>Output:</strong> \"001\" <strong>Explanation:</strong> Because there is just one '1', it must be in the last position. So the answer is \"001\".",
+      "expectedOutput": "</strong> \"001\" <strong>Explanation:</strong> Because there is just one '1', it must be in the last position. So the answer is \"001\"."
+    },
+    {
+      "input": "</strong> s = \"0101\" <strong>Output:</strong> \"1001\" <strong>Explanation: </strong>One of the '1's must be in the last position. The maximum number that can be made with the remaining digits is \"100\". So the answer is \"1001\".",
+      "expectedOutput": "</strong> \"1001\" <strong>Explanation: </strong>One of the '1's must be in the last position. The maximum number that can be made with the remaining digits is \"100\". So the answer is \"1001\"."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "1036",
+  "titleSlug": "rotting-oranges",
+  "title": "Rotting Oranges",
+  "titleCn": "腐烂的橘子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.554772655997022,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[2,1,1],[1,1,0],[0,1,1]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> grid = [[2,1,1],[0,1,1],[1,0,1]] <strong>Output:</strong> -1 <strong>Explanation:</strong> The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally."
+    },
+    {
+      "input": "</strong> grid = [[0,2]] <strong>Output:</strong> 0 <strong>Explanation:</strong> Since there are already no fresh oranges at minute 0, the answer is just 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Since there are already no fresh oranges at minute 0, the answer is just 0."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "405",
+  "titleSlug": "convert-a-number-to-hexadecimal",
+  "title": "Convert a Number to Hexadecimal",
+  "titleCn": "数字转换为十六进制数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "math",
+    "string"
+  ],
+  "acRate": 0.5504670574075043,
+  "testcases": [
+    {
+      "input": "</strong> num = 26 <strong>Output:</strong> \"1a\"",
+      "expectedOutput": "</strong> \"1a"
+    },
+    {
+      "input": "</strong> num = -1 <strong>Output:</strong> \"ffffffff\"",
+      "expectedOutput": "</strong> \"ffffffff"
+    }
+  ]
+}

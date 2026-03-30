@@ -1,0 +1,24 @@
+{
+  "problemId": "1336",
+  "titleSlug": "maximum-product-of-the-length-of-two-palindromic-substrings",
+  "title": "Maximum Product of the Length of Two Palindromic Substrings",
+  "titleCn": "两个回文子字符串长度的最大乘积",
+  "difficulty": "HARD",
+  "topicTags": [
+    "two-pointers",
+    "string",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.34071613141380586,
+  "testcases": [
+    {
+      "input": "</strong> s = \"ababbb\" <strong>Output:</strong> 9 <strong>Explanation:</strong> Substrings \"aba\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Substrings \"aba\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9."
+    },
+    {
+      "input": "</strong> s = \"zaaaxbbby\" <strong>Output:</strong> 9 <strong>Explanation:</strong> Substrings \"aaa\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> Substrings \"aaa\" and \"bbb\" are palindromes with odd length. product = 3 * 3 = 9."
+    }
+  ]
+}

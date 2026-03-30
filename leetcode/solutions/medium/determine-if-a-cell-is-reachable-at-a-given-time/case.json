@@ -1,0 +1,21 @@
+{
+  "problemId": "3056",
+  "titleSlug": "determine-if-a-cell-is-reachable-at-a-given-time",
+  "title": "Determine if a Cell Is Reachable at a Given Time",
+  "titleCn": "判断能否在给定时间到达单元格",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.2683729821580289,
+  "testcases": [
+    {
+      "input": "</strong> sx = 2, sy = 4, fx = 7, fy = 7, t = 6 <strong>Output:</strong> true <strong>Explanation:</strong> Starting at cell (2, 4), we can reach cell (7, 7) in exactly 6 seconds by going through the cells depicted in the picture above.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Starting at cell (2, 4), we can reach cell (7, 7) in exactly 6 seconds by going through the cells depicted in the picture above."
+    },
+    {
+      "input": "</strong> sx = 3, sy = 1, fx = 7, fy = 3, t = 3 <strong>Output:</strong> false <strong>Explanation:</strong> Starting at cell (3, 1), it takes at least 4 seconds to reach cell (7, 3) by going through the cells depicted in the picture above. Hence, we cannot reach cell (7, 3) at the third second.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> Starting at cell (3, 1), it takes at least 4 seconds to reach cell (7, 3) by going through the cells depicted in the picture above. Hence, we cannot reach cell (7, 3) at the third second."
+    }
+  ]
+}

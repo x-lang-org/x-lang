@@ -1,0 +1,28 @@
+{
+  "problemId": "2044",
+  "titleSlug": "number-of-wonderful-substrings",
+  "title": "Number of Wonderful Substrings",
+  "titleCn": "最美子字符串的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "prefix-sum"
+  ],
+  "acRate": 0.5139183366390808,
+  "testcases": [
+    {
+      "input": "</strong> word = \"aba\"\r <strong>Output:</strong> 4\r <strong>Explanation:</strong> The four wonderful substrings are underlined below:\r - \"<u><strong>a</strong></u>ba\" -> \"a\"\r - \"a<u><strong>b</strong></u>a\" -> \"b\"\r - \"ab<u><strong>a</strong></u>\" -> \"a\"\r - \"<u><strong>aba</strong></u>\" -> \"aba\"",
+      "expectedOutput": "</strong> 4\r <strong>Explanation:</strong> The four wonderful substrings are underlined below:\r - \"<u><strong>a</strong></u>ba\" -> \"a\"\r - \"a<u><strong>b</strong></u>a\" -> \"b\"\r - \"ab<u><strong>a</strong></u>\" -> \"a\"\r - \"<u><strong>aba</strong></u>\" -> \"aba"
+    },
+    {
+      "input": "</strong> word = \"aabb\"\r <strong>Output:</strong> 9\r <strong>Explanation:</strong> The nine wonderful substrings are underlined below:\r - \"<strong><u>a</u></strong>abb\" -> \"a\"\r - \"<u><strong>aa</strong></u>bb\" -> \"aa\"\r - \"<u><strong>aab</strong></u>b\" -> \"aab\"\r - \"<u><strong>aabb</strong></u>\" -> \"aabb\"\r - \"a<u><strong>a</strong></u>bb\" -> \"a\"\r - \"a<u><strong>abb</strong></u>\" -> \"abb\"\r - \"aa<u><strong>b</strong></u>b\" -> \"b\"\r - \"aa<u><strong>bb</strong></u>\" -> \"bb\"\r - \"aab<u><strong>b</strong></u>\" -> \"b\"",
+      "expectedOutput": "</strong> 9\r <strong>Explanation:</strong> The nine wonderful substrings are underlined below:\r - \"<strong><u>a</u></strong>abb\" -> \"a\"\r - \"<u><strong>aa</strong></u>bb\" -> \"aa\"\r - \"<u><strong>aab</strong></u>b\" -> \"aab\"\r - \"<u><strong>aabb</strong></u>\" -> \"aabb\"\r - \"a<u><strong>a</strong></u>bb\" -> \"a\"\r - \"a<u><strong>abb</strong></u>\" -> \"abb\"\r - \"aa<u><strong>b</strong></u>b\" -> \"b\"\r - \"aa<u><strong>bb</strong></u>\" -> \"bb\"\r - \"aab<u><strong>b</strong></u>\" -> \"b"
+    },
+    {
+      "input": "</strong> word = \"he\"\r <strong>Output:</strong> 2\r <strong>Explanation:</strong> The two wonderful substrings are underlined below:\r - \"<b><u>h</u></b>e\" -> \"h\"\r - \"h<strong><u>e</u></strong>\" -> \"e\"",
+      "expectedOutput": "</strong> 2\r <strong>Explanation:</strong> The two wonderful substrings are underlined below:\r - \"<b><u>h</u></b>e\" -> \"h\"\r - \"h<strong><u>e</u></strong>\" -> \"e"
+    }
+  ]
+}

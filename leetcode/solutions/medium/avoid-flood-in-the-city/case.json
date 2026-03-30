@@ -1,0 +1,29 @@
+{
+  "problemId": "1612",
+  "titleSlug": "avoid-flood-in-the-city",
+  "title": "Avoid Flood in The City",
+  "titleCn": "避免洪水泛滥",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "binary-search",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.33097229180315235,
+  "testcases": [
+    {
+      "input": "</strong> rains = [1,2,3,4] <strong>Output:</strong> [-1,-1,-1,-1] <strong>Explanation:</strong> After the first day full lakes are [1] After the second day full lakes are [1,2] After the third day full lakes are [1,2,3] After the fourth day full lakes are [1,2,3,4] There's no day to dry any lake and there is no flood in any lake.",
+      "expectedOutput": "</strong> [-1,-1,-1,-1] <strong>Explanation:</strong> After the first day full lakes are [1] After the second day full lakes are [1,2] After the third day full lakes are [1,2,3] After the fourth day full lakes are [1,2,3,4] There's no day to dry any lake and there is no flood in any lake."
+    },
+    {
+      "input": "</strong> rains = [1,2,0,0,2,1] <strong>Output:</strong> [-1,-1,2,1,-1,-1] <strong>Explanation:</strong> After the first day full lakes are [1] After the second day full lakes are [1,2] After the third day, we dry lake 2. Full lakes are [1] After the fourth day, we dry lake 1. There is no full lakes. After the fifth day, full lakes are [2]. After the sixth day, full lakes are [1,2]. It is easy that this scenario is flood-free. [-1,-1,1,2,-1,-1] is another acceptable scenario.",
+      "expectedOutput": "</strong> [-1,-1,2,1,-1,-1] <strong>Explanation:</strong> After the first day full lakes are [1] After the second day full lakes are [1,2] After the third day, we dry lake 2. Full lakes are [1] After the fourth day, we dry lake 1. There is no full lakes. After the fifth day, full lakes are [2]. After the sixth day, full lakes are [1,2]. It is easy that this scenario is flood-free. [-1,-1,1,2,-1,-1] is another acceptable scenario."
+    },
+    {
+      "input": "</strong> rains = [1,2,0,1,2] <strong>Output:</strong> [] <strong>Explanation:</strong> After the second day, full lakes are [1,2]. We have to dry one lake in the third day. After that, it will rain over lakes [1,2]. It's easy to prove that no matter which lake you choose to dry in the 3rd day, the other one will flood.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> After the second day, full lakes are [1,2]. We have to dry one lake in the third day. After that, it will rain over lakes [1,2]. It's easy to prove that no matter which lake you choose to dry in the 3rd day, the other one will flood."
+    }
+  ]
+}

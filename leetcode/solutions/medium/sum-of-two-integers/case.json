@@ -1,0 +1,22 @@
+{
+  "problemId": "371",
+  "titleSlug": "sum-of-two-integers",
+  "title": "Sum of Two Integers",
+  "titleCn": "两整数之和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.633894900241976,
+  "testcases": [
+    {
+      "input": "</strong> a = 1, b = 2 <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> a = 2, b = 3 <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

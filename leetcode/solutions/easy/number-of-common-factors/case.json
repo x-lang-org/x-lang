@@ -1,0 +1,23 @@
+{
+  "problemId": "2507",
+  "titleSlug": "number-of-common-factors",
+  "title": "Number of Common Factors",
+  "titleCn": "公因子的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "acRate": 0.7920629053395611,
+  "testcases": [
+    {
+      "input": "</strong> a = 12, b = 6 <strong>Output:</strong> 4 <strong>Explanation:</strong> The common factors of 12 and 6 are 1, 2, 3, 6.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The common factors of 12 and 6 are 1, 2, 3, 6."
+    },
+    {
+      "input": "</strong> a = 25, b = 30 <strong>Output:</strong> 2 <strong>Explanation:</strong> The common factors of 25 and 30 are 1, 5.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The common factors of 25 and 30 are 1, 5."
+    }
+  ]
+}

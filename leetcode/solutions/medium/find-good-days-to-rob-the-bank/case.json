@@ -1,0 +1,27 @@
+{
+  "problemId": "2205",
+  "titleSlug": "find-good-days-to-rob-the-bank",
+  "title": "Find Good Days to Rob the Bank",
+  "titleCn": "适合野炊的日子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.4897393233499723,
+  "testcases": [
+    {
+      "input": "</strong> security = [5,3,3,3,5,6,2], time = 2 <strong>Output:</strong> [2,3] <strong>Explanation:</strong> On day 2, we have security[0] >= security[1] >= security[2] <= security[3] <= security[4]. On day 3, we have security[1] >= security[2] >= security[3] <= security[4] <= security[5]. No other days satisfy this condition, so days 2 and 3 are the only good days to rob the bank.",
+      "expectedOutput": "</strong> [2,3] <strong>Explanation:</strong> On day 2, we have security[0] >= security[1] >= security[2] <= security[3] <= security[4]. On day 3, we have security[1] >= security[2] >= security[3] <= security[4] <= security[5]. No other days satisfy this condition, so days 2 and 3 are the only good days to rob the bank."
+    },
+    {
+      "input": "</strong> security = [1,1,1,1,1], time = 0 <strong>Output:</strong> [0,1,2,3,4] <strong>Explanation:</strong> Since time equals 0, every day is a good day to rob the bank, so return every day.",
+      "expectedOutput": "</strong> [0,1,2,3,4] <strong>Explanation:</strong> Since time equals 0, every day is a good day to rob the bank, so return every day."
+    },
+    {
+      "input": "</strong> security = [1,2,3,4,5,6], time = 2 <strong>Output:</strong> [] <strong>Explanation:</strong> No day has 2 days before it that have a non-increasing number of guards. Thus, no day is a good day to rob the bank, so return an empty list.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> No day has 2 days before it that have a non-increasing number of guards. Thus, no day is a good day to rob the bank, so return an empty list."
+    }
+  ]
+}

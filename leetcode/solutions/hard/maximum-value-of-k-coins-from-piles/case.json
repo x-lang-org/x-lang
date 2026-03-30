@@ -1,0 +1,23 @@
+{
+  "problemId": "1393",
+  "titleSlug": "maximum-value-of-k-coins-from-piles",
+  "title": "Maximum Value of K Coins From Piles",
+  "titleCn": "从栈中取出 K 个硬币的最大面值和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.6685238275544978,
+  "testcases": [
+    {
+      "input": "</strong> piles = [[1,100,3],[7,8,9]], k = 2 <strong>Output:</strong> 101 <strong>Explanation:</strong> The above diagram shows the different ways we can choose k coins. The maximum total we can obtain is 101.",
+      "expectedOutput": "</strong> 101 <strong>Explanation:</strong> The above diagram shows the different ways we can choose k coins. The maximum total we can obtain is 101."
+    },
+    {
+      "input": "</strong> piles = [[100],[100],[100],[100],[100],[100],[1,1,1,1,1,1,700]], k = 7 <strong>Output:</strong> 706 <strong>Explanation: </strong>The maximum total can be obtained if we choose all coins from the last pile.",
+      "expectedOutput": "</strong> 706 <strong>Explanation: </strong>The maximum total can be obtained if we choose all coins from the last pile."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "116",
+  "titleSlug": "populating-next-right-pointers-in-each-node",
+  "title": "Populating Next Right Pointers in Each Node",
+  "titleCn": "填充每个节点的下一个右侧节点指针",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "linked-list",
+    "binary-tree"
+  ],
+  "acRate": 0.7477281829241569,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,2,3,4,5,6,7] <strong>Output:</strong> [1,#,2,3,#,4,5,6,7,#] <strong>Explanation: </strong>Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.",
+      "expectedOutput": "</strong> [1,#,2,3,#,4,5,6,7,#] <strong>Explanation: </strong>Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level."
+    },
+    {
+      "input": "</strong> root = [] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

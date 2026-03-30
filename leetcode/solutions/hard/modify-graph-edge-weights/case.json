@@ -1,0 +1,27 @@
+{
+  "problemId": "2803",
+  "titleSlug": "modify-graph-edge-weights",
+  "title": "Modify Graph Edge Weights",
+  "titleCn": "修改图中的边权",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "shortest-path",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.5135868225082606,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, edges = [[4,1,-1],[2,0,-1],[0,3,-1],[4,3,-1]], source = 0, destination = 1, target = 5 <strong>Output:</strong> [[4,1,1],[2,0,1],[0,3,3],[4,3,1]] <strong>Explanation:</strong> The graph above shows a possible modification to the edges, making the distance from 0 to 1 equal to 5.",
+      "expectedOutput": "</strong> [[4,1,1],[2,0,1],[0,3,3],[4,3,1]] <strong>Explanation:</strong> The graph above shows a possible modification to the edges, making the distance from 0 to 1 equal to 5."
+    },
+    {
+      "input": "</strong> n = 3, edges = [[0,1,-1],[0,2,5]], source = 0, destination = 2, target = 6 <strong>Output:</strong> [] <strong>Explanation:</strong> The graph above contains the initial edges. It is not possible to make the distance from 0 to 2 equal to 6 by modifying the edge with weight -1. So, an empty array is returned.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> The graph above contains the initial edges. It is not possible to make the distance from 0 to 2 equal to 6 by modifying the edge with weight -1. So, an empty array is returned."
+    },
+    {
+      "input": "</strong> n = 4, edges = [[1,0,4],[1,2,3],[2,3,5],[0,3,-1]], source = 0, destination = 2, target = 6 <strong>Output:</strong> [[1,0,4],[1,2,3],[2,3,5],[0,3,1]] <strong>Explanation:</strong> The graph above shows a modified graph having the shortest distance from 0 to 2 as 6.",
+      "expectedOutput": "</strong> [[1,0,4],[1,2,3],[2,3,5],[0,3,1]] <strong>Explanation:</strong> The graph above shows a modified graph having the shortest distance from 0 to 2 as 6."
+    }
+  ]
+}

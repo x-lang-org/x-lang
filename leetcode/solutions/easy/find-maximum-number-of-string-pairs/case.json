@@ -1,0 +1,28 @@
+{
+  "problemId": "2847",
+  "titleSlug": "find-maximum-number-of-string-pairs",
+  "title": "Find Maximum Number of String Pairs",
+  "titleCn": "最大字符串配对数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "simulation"
+  ],
+  "acRate": 0.8552991050400377,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, we can form 2 pair of strings in the following way: - We pair the 0<sup>th</sup> string with the 2<sup>nd</sup> string, as the reversed string of word[0] is \"dc\" and is equal to words[2]. - We pair the 1<sup>st</sup> string with the 3<sup>rd</sup> string, as the reversed string of word[1] is \"ca\" and is equal to words[3]. It can be proven that 2 is the maximum number of pairs that can be formed.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, we can form 2 pair of strings in the following way: - We pair the 0<sup>th</sup> string with the 2<sup>nd</sup> string, as the reversed string of word[0] is \"dc\" and is equal to words[2]. - We pair the 1<sup>st</sup> string with the 3<sup>rd</sup> string, as the reversed string of word[1] is \"ca\" and is equal to words[3]. It can be proven that 2 is the maximum number of pairs that can be formed."
+    },
+    {
+      "input": "</strong> words = [\"ab\",\"ba\",\"cc\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> In this example, we can form 1 pair of strings in the following way: - We pair the 0<sup>th</sup> string with the 1<sup>st</sup> string, as the reversed string of words[1] is \"ab\" and is equal to words[0]. It can be proven that 1 is the maximum number of pairs that can be formed.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In this example, we can form 1 pair of strings in the following way: - We pair the 0<sup>th</sup> string with the 1<sup>st</sup> string, as the reversed string of words[1] is \"ab\" and is equal to words[0]. It can be proven that 1 is the maximum number of pairs that can be formed."
+    },
+    {
+      "input": "</strong> words = [\"aa\",\"ab\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> In this example, we are unable to form any pair of strings.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> In this example, we are unable to form any pair of strings."
+    }
+  ]
+}

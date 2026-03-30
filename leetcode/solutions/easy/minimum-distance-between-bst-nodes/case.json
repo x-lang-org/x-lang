@@ -1,0 +1,25 @@
+{
+  "problemId": "799",
+  "titleSlug": "minimum-distance-between-bst-nodes",
+  "title": "Minimum Distance Between BST Nodes",
+  "titleCn": "二叉搜索树节点最小距离",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.6088093139192023,
+  "testcases": [
+    {
+      "input": "</strong> root = [4,2,6,1,3] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> root = [1,0,48,null,null,12,49] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

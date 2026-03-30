@@ -1,0 +1,27 @@
+{
+  "problemId": "1466",
+  "titleSlug": "jump-game-v",
+  "title": "Jump Game V",
+  "titleCn": "跳跃游戏 V",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6182631938832598,
+  "testcases": [
+    {
+      "input": "</strong> arr = [6,4,14,6,8,13,9,7,10,6,12], d = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> You can start at index 10. You can jump 10 --> 8 --> 6 --> 7 as shown. Note that if you start at index 6 you can only jump to index 7. You cannot jump to index 5 because 13 > 9. You cannot jump to index 4 because index 5 is between index 4 and 6 and 13 > 9. Similarly You cannot jump from index 3 to index 2 or index 1.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> You can start at index 10. You can jump 10 --> 8 --> 6 --> 7 as shown. Note that if you start at index 6 you can only jump to index 7. You cannot jump to index 5 because 13 > 9. You cannot jump to index 4 because index 5 is between index 4 and 6 and 13 > 9. Similarly You cannot jump from index 3 to index 2 or index 1."
+    },
+    {
+      "input": "</strong> arr = [3,3,3,3,3], d = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> You can start at any index. You always cannot jump to any index.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can start at any index. You always cannot jump to any index."
+    },
+    {
+      "input": "</strong> arr = [7,6,5,4,3,2,1], d = 1 <strong>Output:</strong> 7 <strong>Explanation:</strong> Start at index 0. You can visit all the indicies.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> Start at index 0. You can visit all the indicies."
+    }
+  ]
+}

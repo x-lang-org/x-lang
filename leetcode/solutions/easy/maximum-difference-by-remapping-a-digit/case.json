@@ -1,0 +1,22 @@
+{
+  "problemId": "2704",
+  "titleSlug": "maximum-difference-by-remapping-a-digit",
+  "title": "Maximum Difference by Remapping a Digit",
+  "titleCn": "替换一个数字后的最大差值",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.6979942494890359,
+  "testcases": [
+    {
+      "input": "</strong> num = 11891 <strong>Output:</strong> 99009 <strong>Explanation:</strong> To achieve the maximum value, Bob can remap the digit 1 to the digit 9 to yield 99899. To achieve the minimum value, Bob can remap the digit 1 to the digit 0, yielding 890. The difference between these two numbers is 99009.",
+      "expectedOutput": "</strong> 99009 <strong>Explanation:</strong> To achieve the maximum value, Bob can remap the digit 1 to the digit 9 to yield 99899. To achieve the minimum value, Bob can remap the digit 1 to the digit 0, yielding 890. The difference between these two numbers is 99009."
+    },
+    {
+      "input": "</strong> num = 90 <strong>Output:</strong> 99 <strong>Explanation:</strong> The maximum value that can be returned by the function is 99 (if 0 is replaced by 9) and the minimum value that can be returned by the function is 0 (if 9 is replaced by 0). Thus, we return 99.",
+      "expectedOutput": "</strong> 99 <strong>Explanation:</strong> The maximum value that can be returned by the function is 99 (if 0 is replaced by 9) and the minimum value that can be returned by the function is 0 (if 9 is replaced by 0). Thus, we return 99."
+    }
+  ]
+}

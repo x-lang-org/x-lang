@@ -1,0 +1,30 @@
+{
+  "problemId": "1396",
+  "titleSlug": "count-servers-that-communicate",
+  "title": "Count Servers that Communicate",
+  "titleCn": "统计参与通信的服务器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "counting",
+    "matrix"
+  ],
+  "acRate": 0.6975018002548053,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0],[0,1]] <strong>Output:</strong> 0 <b>Explanation:</b> No servers can communicate with others.",
+      "expectedOutput": "</strong> 0 <b>Explanation:</b> No servers can communicate with others."
+    },
+    {
+      "input": "</strong> grid = [[1,0],[1,1]] <strong>Output:</strong> 3 <b>Explanation:</b> All three servers can communicate with at least one other server.",
+      "expectedOutput": "</strong> 3 <b>Explanation:</b> All three servers can communicate with at least one other server."
+    },
+    {
+      "input": "</strong> grid = [[1,1,0,0],[0,0,1,0],[0,0,1,0],[0,0,0,1]] <strong>Output:</strong> 4 <b>Explanation:</b> The two servers in the first row can communicate with each other. The two servers in the third column can communicate with each other. The server at right bottom corner can't communicate with any other server.",
+      "expectedOutput": "</strong> 4 <b>Explanation:</b> The two servers in the first row can communicate with each other. The two servers in the third column can communicate with each other. The server at right bottom corner can't communicate with any other server."
+    }
+  ]
+}

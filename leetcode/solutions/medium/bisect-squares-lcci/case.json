@@ -1,0 +1,18 @@
+{
+  "problemId": "100353",
+  "titleSlug": "bisect-squares-lcci",
+  "title": "Bisect Squares LCCI",
+  "titleCn": "平分正方形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "acRate": 0.4505173786150172,
+  "testcases": [
+    {
+      "input": "</strong>\r square1 = {-1, -1, 2}\r square2 = {0, -1, 2}\r <strong>Output:</strong> {-1,0,2,0}\r <strong>Explanation:</strong> y = 0 is the line that can cut these two squares in half.",
+      "expectedOutput": "</strong> {-1,0,2,0}\r <strong>Explanation:</strong> y = 0 is the line that can cut these two squares in half."
+    }
+  ]
+}

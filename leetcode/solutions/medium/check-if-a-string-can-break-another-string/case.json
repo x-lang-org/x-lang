@@ -1,0 +1,27 @@
+{
+  "problemId": "1530",
+  "titleSlug": "check-if-a-string-can-break-another-string",
+  "title": "Check If a String Can Break Another String",
+  "titleCn": "检查一个字符串是否可以打破另一个字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.6727253569358832,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"abc\", s2 = \"xya\" <strong>Output:</strong> true <strong>Explanation:</strong> \"ayx\" is a permutation of s2=\"xya\" which can break to string \"abc\" which is a permutation of s1=\"abc\".",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> \"ayx\" is a permutation of s2=\"xya\" which can break to string \"abc\" which is a permutation of s1=\"abc\"."
+    },
+    {
+      "input": "</strong> s1 = \"abe\", s2 = \"acd\" <strong>Output:</strong> false <strong>Explanation:</strong> All permutations for s1=\"abe\" are: \"abe\", \"aeb\", \"bae\", \"bea\", \"eab\" and \"eba\" and all permutation for s2=\"acd\" are: \"acd\", \"adc\", \"cad\", \"cda\", \"dac\" and \"dca\". However, there is not any permutation from s1 which can break some permutation from s2 and vice-versa.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> All permutations for s1=\"abe\" are: \"abe\", \"aeb\", \"bae\", \"bea\", \"eab\" and \"eba\" and all permutation for s2=\"acd\" are: \"acd\", \"adc\", \"cad\", \"cda\", \"dac\" and \"dca\". However, there is not any permutation from s1 which can break some permutation from s2 and vice-versa."
+    },
+    {
+      "input": "</strong> s1 = \"leetcodee\", s2 = \"interview\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    }
+  ]
+}

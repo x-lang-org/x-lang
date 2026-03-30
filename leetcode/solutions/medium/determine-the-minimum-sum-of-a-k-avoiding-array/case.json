@@ -1,0 +1,22 @@
+{
+  "problemId": "2811",
+  "titleSlug": "determine-the-minimum-sum-of-a-k-avoiding-array",
+  "title": "Determine the Minimum Sum of a k-avoiding Array",
+  "titleCn": "k-avoiding 数组的最小总和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.678753598303116,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, k = 4 <strong>Output:</strong> 18 <strong>Explanation:</strong> Consider the k-avoiding array [1,2,4,5,6], which has a sum of 18. It can be proven that there is no k-avoiding array with a sum less than 18.",
+      "expectedOutput": "</strong> 18 <strong>Explanation:</strong> Consider the k-avoiding array [1,2,4,5,6], which has a sum of 18. It can be proven that there is no k-avoiding array with a sum less than 18."
+    },
+    {
+      "input": "</strong> n = 2, k = 6 <strong>Output:</strong> 3 <strong>Explanation:</strong> We can construct the array [1,2], which has a sum of 3. It can be proven that there is no k-avoiding array with a sum less than 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can construct the array [1,2], which has a sum of 3. It can be proven that there is no k-avoiding array with a sum less than 3."
+    }
+  ]
+}

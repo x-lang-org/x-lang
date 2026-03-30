@@ -1,0 +1,19 @@
+{
+  "problemId": "2783",
+  "titleSlug": "nested-array-generator",
+  "title": "Nested Array Generator",
+  "titleCn": "嵌套数组生成器",
+  "difficulty": "MEDIUM",
+  "topicTags": [],
+  "acRate": 0.7796990792724007,
+  "testcases": [
+    {
+      "input": "</strong> arr = [[[6]],[1,3],[]] <strong>Output:</strong> [6,1,3] <strong>Explanation:</strong> const generator = inorderTraversal(arr); generator.next().value; // 6 generator.next().value; // 1 generator.next().value; // 3 generator.next().done; // true",
+      "expectedOutput": "</strong> [6,1,3] <strong>Explanation:</strong> const generator = inorderTraversal(arr); generator.next().value; // 6 generator.next().value; // 1 generator.next().value; // 3 generator.next().done; // true"
+    },
+    {
+      "input": "</strong> arr = [] <strong>Output:</strong> [] <strong>Explanation:</strong> There are no integers so the generator doesn't yield anything.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> There are no integers so the generator doesn't yield anything."
+    }
+  ]
+}

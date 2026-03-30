@@ -1,0 +1,17 @@
+{
+  "problemId": "586",
+  "titleSlug": "customer-placing-the-largest-number-of-orders",
+  "title": "Customer Placing the Largest Number of Orders",
+  "titleCn": "订单最多的客户",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.6634483588945692,
+  "testcases": [
+    {
+      "input": "</strong> Orders table: +--------------+-----------------+ | order_number | customer_number | +--------------+-----------------+ | 1      | 1        | | 2      | 2        | | 3      | 3        | | 4      | 3        | +--------------+-----------------+ <strong>Output:</strong> +-----------------+ | customer_number | +-----------------+ | 3        | +-----------------+ <strong>Explanation:</strong> The customer with number 3 has two orders, which is greater than either customer 1 or 2 because each of them only has one order. So the result is customer_number 3.",
+      "expectedOutput": "</strong> +-----------------+ | customer_number | +-----------------+ | 3        | +-----------------+ <strong>Explanation:</strong> The customer with number 3 has two orders, which is greater than either customer 1 or 2 because each of them only has one order. So the result is customer_number 3."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "319",
+  "titleSlug": "bulb-switcher",
+  "title": "Bulb Switcher",
+  "titleCn": "灯泡开关",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "brainteaser",
+    "math"
+  ],
+  "acRate": 0.5802865419243717,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> At first, the three bulbs are [off, off, off]. After the first round, the three bulbs are [on, on, on]. After the second round, the three bulbs are [on, off, on]. After the third round, the three bulbs are [on, off, off]. So you should return 1 because there is only one bulb is on.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> At first, the three bulbs are [off, off, off]. After the first round, the three bulbs are [on, on, on]. After the second round, the three bulbs are [on, off, on]. After the third round, the three bulbs are [on, off, off]. So you should return 1 because there is only one bulb is on."
+    },
+    {
+      "input": "</strong> n = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

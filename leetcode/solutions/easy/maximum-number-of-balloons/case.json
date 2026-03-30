@@ -1,0 +1,27 @@
+{
+  "problemId": "1297",
+  "titleSlug": "maximum-number-of-balloons",
+  "title": "Maximum Number of Balloons",
+  "titleCn": "“气球” 的最大数量",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.6825037023604437,
+  "testcases": [
+    {
+      "input": "</strong> text = \"nlaebolko\" <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> text = \"loonbalxballpoon\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> text = \"leetcode\" <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "1114",
+  "titleSlug": "binary-search-tree-to-greater-sum-tree",
+  "title": "Binary Search Tree to Greater Sum Tree",
+  "titleCn": "从二叉搜索树到更大和树",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.838946507153756,
+  "testcases": [
+    {
+      "input": "</strong> root = [4,1,6,0,2,5,7,null,null,null,3,null,null,null,8] <strong>Output:</strong> [30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]",
+      "expectedOutput": "</strong> [30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]"
+    },
+    {
+      "input": "</strong> root = [0,null,1] <strong>Output:</strong> [1,null,1]",
+      "expectedOutput": "</strong> [1,null,1]"
+    }
+  ]
+}

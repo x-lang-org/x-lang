@@ -1,0 +1,22 @@
+{
+  "problemId": "1229",
+  "titleSlug": "shortest-path-with-alternating-colors",
+  "title": "Shortest Path with Alternating Colors",
+  "titleCn": "颜色交替的最短路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "graph"
+  ],
+  "acRate": 0.47601016330356705,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, redEdges = [[0,1],[1,2]], blueEdges = [] <strong>Output:</strong> [0,1,-1]",
+      "expectedOutput": "</strong> [0,1,-1]"
+    },
+    {
+      "input": "</strong> n = 3, redEdges = [[0,1]], blueEdges = [[2,1]] <strong>Output:</strong> [0,1,-1]",
+      "expectedOutput": "</strong> [0,1,-1]"
+    }
+  ]
+}

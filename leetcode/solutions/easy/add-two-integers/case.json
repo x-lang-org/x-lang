@@ -1,0 +1,21 @@
+{
+  "problemId": "2383",
+  "titleSlug": "add-two-integers",
+  "title": "Add Two Integers",
+  "titleCn": "两整数相加",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.7406455581905319,
+  "testcases": [
+    {
+      "input": "</strong> num1 = 12, num2 = 5 <strong>Output:</strong> 17 <strong>Explanation:</strong> num1 is 12, num2 is 5, and their sum is 12 + 5 = 17, so 17 is returned.",
+      "expectedOutput": "</strong> 17 <strong>Explanation:</strong> num1 is 12, num2 is 5, and their sum is 12 + 5 = 17, so 17 is returned."
+    },
+    {
+      "input": "</strong> num1 = -10, num2 = 4 <strong>Output:</strong> -6 <strong>Explanation:</strong> num1 + num2 = -6, so -6 is returned.",
+      "expectedOutput": "</strong> -6 <strong>Explanation:</strong> num1 + num2 = -6, so -6 is returned."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2728",
+  "titleSlug": "sum-in-a-matrix",
+  "title": "Sum in a Matrix",
+  "titleCn": "矩阵中的和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix",
+    "sorting",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.7746539909536578,
+  "testcases": [
+    {
+      "input": "</strong> nums = [[7,2,1],[6,4,2],[6,5,3],[3,2,1]] <strong>Output:</strong> 15 <strong>Explanation:</strong> In the first operation, we remove 7, 6, 6, and 3. We then add 7 to our score. Next, we remove 2, 4, 5, and 2. We add 5 to our score. Lastly, we remove 1, 2, 3, and 1. We add 3 to our score. Thus, our final score is 7 + 5 + 3 = 15.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> In the first operation, we remove 7, 6, 6, and 3. We then add 7 to our score. Next, we remove 2, 4, 5, and 2. We add 5 to our score. Lastly, we remove 1, 2, 3, and 1. We add 3 to our score. Thus, our final score is 7 + 5 + 3 = 15."
+    },
+    {
+      "input": "</strong> nums = [[1]] <strong>Output:</strong> 1 <strong>Explanation:</strong> We remove 1 and add it to the answer. We return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We remove 1 and add it to the answer. We return 1."
+    }
+  ]
+}

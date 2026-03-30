@@ -1,0 +1,27 @@
+{
+  "problemId": "394",
+  "titleSlug": "decode-string",
+  "title": "Decode String",
+  "titleCn": "字符串解码",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "string"
+  ],
+  "acRate": 0.6141879454191663,
+  "testcases": [
+    {
+      "input": "</strong> s = \"3[a]2[bc]\" <strong>Output:</strong> \"aaabcbc\"",
+      "expectedOutput": "</strong> \"aaabcbc"
+    },
+    {
+      "input": "</strong> s = \"3[a2[c]]\" <strong>Output:</strong> \"accaccacc\"",
+      "expectedOutput": "</strong> \"accaccacc"
+    },
+    {
+      "input": "</strong> s = \"2[abc]3[cd]ef\" <strong>Output:</strong> \"abcabccdcdcdef\"",
+      "expectedOutput": "</strong> \"abcabccdcdcdef"
+    }
+  ]
+}

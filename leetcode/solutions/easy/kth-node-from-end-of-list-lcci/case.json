@@ -1,0 +1,18 @@
+{
+  "problemId": "1000007",
+  "titleSlug": "kth-node-from-end-of-list-lcci",
+  "title": "Kth Node From End of List LCCI",
+  "titleCn": "返回倒数第 k 个节点",
+  "difficulty": "EASY",
+  "topicTags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.764946720696383,
+  "testcases": [
+    {
+      "input": "</strong> 1->2->3->4->5 和 <em>k</em> = 2\r <strong>Output: </strong>4",
+      "expectedOutput": "</strong>4"
+    }
+  ]
+}

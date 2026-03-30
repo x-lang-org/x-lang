@@ -1,0 +1,28 @@
+{
+  "problemId": "1442",
+  "titleSlug": "number-of-operations-to-make-network-connected",
+  "title": "Number of Operations to Make Network Connected",
+  "titleCn": "连通网络的操作次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.6361667869635222,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, connections = [[0,1],[0,2],[1,2]] <strong>Output:</strong> 1 <strong>Explanation:</strong> Remove cable between computer 1 and 2 and place between computers 1 and 3.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Remove cable between computer 1 and 2 and place between computers 1 and 3."
+    },
+    {
+      "input": "</strong> n = 6, connections = [[0,1],[0,2],[0,3],[1,2],[1,3]] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> n = 6, connections = [[0,1],[0,2],[0,3],[1,2]] <strong>Output:</strong> -1 <strong>Explanation:</strong> There are not enough cables.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are not enough cables."
+    }
+  ]
+}

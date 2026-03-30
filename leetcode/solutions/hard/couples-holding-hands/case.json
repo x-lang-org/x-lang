@@ -1,0 +1,25 @@
+{
+  "problemId": "770",
+  "titleSlug": "couples-holding-hands",
+  "title": "Couples Holding Hands",
+  "titleCn": "情侣牵手",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "graph"
+  ],
+  "acRate": 0.6703111217589215,
+  "testcases": [
+    {
+      "input": "</strong> row = [0,2,1,3] <strong>Output:</strong> 1 <strong>Explanation:</strong> We only need to swap the second (row[1]) and third (row[2]) person.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We only need to swap the second (row[1]) and third (row[2]) person."
+    },
+    {
+      "input": "</strong> row = [3,2,0,1] <strong>Output:</strong> 0 <strong>Explanation:</strong> All couples are already seated side by side.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> All couples are already seated side by side."
+    }
+  ]
+}

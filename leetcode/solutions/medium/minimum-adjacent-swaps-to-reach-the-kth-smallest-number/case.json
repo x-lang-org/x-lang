@@ -1,0 +1,27 @@
+{
+  "problemId": "1978",
+  "titleSlug": "minimum-adjacent-swaps-to-reach-the-kth-smallest-number",
+  "title": "Minimum Adjacent Swaps to Reach the Kth Smallest Number",
+  "titleCn": "邻位交换的最小次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.6512349844783372,
+  "testcases": [
+    {
+      "input": "</strong> num = \"5489355142\", k = 4 <strong>Output:</strong> 2 <strong>Explanation:</strong> The 4<sup>th</sup> smallest wonderful number is \"5489355421\". To get this number: - Swap index 7 with index 8: \"5489355<u>14</u>2\" -> \"5489355<u>41</u>2\" - Swap index 8 with index 9: \"54893554<u>12</u>\" -> \"54893554<u>21</u>\"",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The 4<sup>th</sup> smallest wonderful number is \"5489355421\". To get this number: - Swap index 7 with index 8: \"5489355<u>14</u>2\" -> \"5489355<u>41</u>2\" - Swap index 8 with index 9: \"54893554<u>12</u>\" -> \"54893554<u>21</u>"
+    },
+    {
+      "input": "</strong> num = \"11112\", k = 4 <strong>Output:</strong> 4 <strong>Explanation:</strong> The 4<sup>th</sup> smallest wonderful number is \"21111\". To get this number: - Swap index 3 with index 4: \"111<u>12</u>\" -> \"111<u>21</u>\" - Swap index 2 with index 3: \"11<u>12</u>1\" -> \"11<u>21</u>1\" - Swap index 1 with index 2: \"1<u>12</u>11\" -> \"1<u>21</u>11\" - Swap index 0 with index 1: \"<u>12</u>111\" -> \"<u>21</u>111\"",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The 4<sup>th</sup> smallest wonderful number is \"21111\". To get this number: - Swap index 3 with index 4: \"111<u>12</u>\" -> \"111<u>21</u>\" - Swap index 2 with index 3: \"11<u>12</u>1\" -> \"11<u>21</u>1\" - Swap index 1 with index 2: \"1<u>12</u>11\" -> \"1<u>21</u>11\" - Swap index 0 with index 1: \"<u>12</u>111\" -> \"<u>21</u>111"
+    },
+    {
+      "input": "</strong> num = \"00123\", k = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> The 1<sup>st</sup> smallest wonderful number is \"00132\". To get this number: - Swap index 3 with index 4: \"001<u>23</u>\" -> \"001<u>32</u>\"",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The 1<sup>st</sup> smallest wonderful number is \"00132\". To get this number: - Swap index 3 with index 4: \"001<u>23</u>\" -> \"001<u>32</u>"
+    }
+  ]
+}

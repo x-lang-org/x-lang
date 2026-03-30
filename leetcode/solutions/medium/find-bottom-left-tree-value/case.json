@@ -1,0 +1,24 @@
+{
+  "problemId": "513",
+  "titleSlug": "find-bottom-left-tree-value",
+  "title": "Find Bottom Left Tree Value",
+  "titleCn": "找树左下角的值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search",
+    "binary-tree"
+  ],
+  "acRate": 0.7385673842209284,
+  "testcases": [
+    {
+      "input": "</strong> root = [2,1,3] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> root = [1,2,3,4,null,5,6,null,null,7] <strong>Output:</strong> 7",
+      "expectedOutput": "</strong> 7"
+    }
+  ]
+}

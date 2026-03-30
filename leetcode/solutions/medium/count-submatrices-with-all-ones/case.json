@@ -1,0 +1,25 @@
+{
+  "problemId": "1628",
+  "titleSlug": "count-submatrices-with-all-ones",
+  "title": "Count Submatrices With All Ones",
+  "titleCn": "统计全 1 子矩形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "dynamic-programming",
+    "matrix",
+    "monotonic-stack"
+  ],
+  "acRate": 0.6979586136263123,
+  "testcases": [
+    {
+      "input": "</strong> mat = [[1,0,1],[1,1,0],[1,1,0]] <strong>Output:</strong> 13 <strong>Explanation:</strong> There are 6 rectangles of side 1x1. There are 2 rectangles of side 1x2. There are 3 rectangles of side 2x1. There is 1 rectangle of side 2x2. There is 1 rectangle of side 3x1. Total number of rectangles = 6 + 2 + 3 + 1 + 1 = 13.",
+      "expectedOutput": "</strong> 13 <strong>Explanation:</strong> There are 6 rectangles of side 1x1. There are 2 rectangles of side 1x2. There are 3 rectangles of side 2x1. There is 1 rectangle of side 2x2. There is 1 rectangle of side 3x1. Total number of rectangles = 6 + 2 + 3 + 1 + 1 = 13."
+    },
+    {
+      "input": "</strong> mat = [[0,1,1,0],[0,1,1,1],[1,1,1,0]] <strong>Output:</strong> 24 <strong>Explanation:</strong> There are 8 rectangles of side 1x1. There are 5 rectangles of side 1x2. There are 2 rectangles of side 1x3. There are 4 rectangles of side 2x1. There are 2 rectangles of side 2x2. There are 2 rectangles of side 3x1. There is 1 rectangle of side 3x2. Total number of rectangles = 8 + 5 + 2 + 4 + 2 + 2 + 1 = 24.",
+      "expectedOutput": "</strong> 24 <strong>Explanation:</strong> There are 8 rectangles of side 1x1. There are 5 rectangles of side 1x2. There are 2 rectangles of side 1x3. There are 4 rectangles of side 2x1. There are 2 rectangles of side 2x2. There are 2 rectangles of side 3x1. There is 1 rectangle of side 3x2. Total number of rectangles = 8 + 5 + 2 + 4 + 2 + 2 + 1 = 24."
+    }
+  ]
+}

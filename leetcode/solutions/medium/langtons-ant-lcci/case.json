@@ -1,0 +1,29 @@
+{
+  "problemId": "1000050",
+  "titleSlug": "langtons-ant-lcci",
+  "title": "Langtons Ant LCCI",
+  "titleCn": "兰顿蚂蚁",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.5829803257083687,
+  "testcases": [
+    {
+      "input": "</strong> 0\r <strong>Output: </strong>[\"R\"]",
+      "expectedOutput": "</strong>[\"R\"]"
+    },
+    {
+      "input": "</strong> 2\r <strong>Output:\r </strong>[\r   \"_X\",\r   \"LX\"\r ]",
+      "expectedOutput": "</strong>[\r   \"_X\",\r   \"LX\"\r ]"
+    },
+    {
+      "input": "</strong> 5\r <strong>Output:\r </strong>[\r   \"_U\",\r   \"X_\",\r   \"XX\"\r ]",
+      "expectedOutput": "</strong>[\r   \"_U\",\r   \"X_\",\r   \"XX\"\r ]"
+    }
+  ]
+}

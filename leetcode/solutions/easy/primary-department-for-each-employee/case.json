@@ -1,0 +1,17 @@
+{
+  "problemId": "1942",
+  "titleSlug": "primary-department-for-each-employee",
+  "title": "Primary Department for Each Employee",
+  "titleCn": "员工的直属部门",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7235788176541168,
+  "testcases": [
+    {
+      "input": "</strong> Employee table: +-------------+---------------+--------------+ | employee_id | department_id | primary_flag | +-------------+---------------+--------------+ | 1      | 1       | N      | | 2      | 1       | Y      | | 2      | 2       | N      | | 3      | 3       | N      | | 4      | 2       | N      | | 4      | 3       | Y      | | 4      | 4       | N      | +-------------+---------------+--------------+ <strong>Output:</strong> +-------------+---------------+ | employee_id | department_id | +-------------+---------------+ | 1      | 1       | | 2      | 1       | | 3      | 3       | | 4      | 3       | +-------------+---------------+ <strong>Explanation:</strong> - The Primary department for employee 1 is 1. - The Primary department for employee 2 is 1. - The Primary department for employee 3 is 3. - The Primary department for employee 4 is 3.",
+      "expectedOutput": "</strong> +-------------+---------------+ | employee_id | department_id | +-------------+---------------+ | 1      | 1       | | 2      | 1       | | 3      | 3       | | 4      | 3       | +-------------+---------------+ <strong>Explanation:</strong> - The Primary department for employee 1 is 1. - The Primary department for employee 2 is 1. - The Primary department for employee 3 is 3. - The Primary department for employee 4 is 3."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2119",
+  "titleSlug": "minimum-number-of-operations-to-make-array-continuous",
+  "title": "Minimum Number of Operations to Make Array Continuous",
+  "titleCn": "使数组连续的最少操作数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "binary-search",
+    "sliding-window"
+  ],
+  "acRate": 0.5227337177426978,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,2,5,3] <strong>Output:</strong> 0 <strong>Explanation:</strong> nums is already continuous.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> nums is already continuous."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,5,6] <strong>Output:</strong> 1 <strong>Explanation:</strong> One possible solution is to change the last element to 4. The resulting array is [1,2,3,5,4], which is continuous.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> One possible solution is to change the last element to 4. The resulting array is [1,2,3,5,4], which is continuous."
+    },
+    {
+      "input": "</strong> nums = [1,10,100,1000] <strong>Output:</strong> 3 <strong>Explanation:</strong> One possible solution is to: - Change the second element to 2. - Change the third element to 3. - Change the fourth element to 4. The resulting array is [1,2,3,4], which is continuous.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> One possible solution is to: - Change the second element to 2. - Change the third element to 3. - Change the fourth element to 4. The resulting array is [1,2,3,4], which is continuous."
+    }
+  ]
+}

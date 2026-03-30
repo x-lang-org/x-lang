@@ -1,0 +1,32 @@
+{
+  "problemId": "1381",
+  "titleSlug": "maximum-score-words-formed-by-letters",
+  "title": "Maximum Score Words Formed by Letters",
+  "titleCn": "得分最高的单词集合",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "backtracking",
+    "bitmask",
+    "counting"
+  ],
+  "acRate": 0.7930905555970986,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"dog\",\"cat\",\"dad\",\"good\"], letters = [\"a\",\"a\",\"c\",\"d\",\"d\",\"d\",\"g\",\"o\",\"o\"], score = [1,0,9,5,0,0,3,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0] <strong>Output:</strong> 23 <strong>Explanation:</strong> Score a=1, c=9, d=5, g=3, o=2 Given letters, we can form the words \"dad\" (5+1+5) and \"good\" (3+2+2+5) with a score of 23. Words \"dad\" and \"dog\" only get a score of 21.",
+      "expectedOutput": "</strong> 23 <strong>Explanation:</strong> Score a=1, c=9, d=5, g=3, o=2 Given letters, we can form the words \"dad\" (5+1+5) and \"good\" (3+2+2+5) with a score of 23. Words \"dad\" and \"dog\" only get a score of 21."
+    },
+    {
+      "input": "</strong> words = [\"xxxz\",\"ax\",\"bx\",\"cx\"], letters = [\"z\",\"a\",\"b\",\"c\",\"x\",\"x\",\"x\"], score = [4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,10] <strong>Output:</strong> 27 <strong>Explanation:</strong> Score a=4, b=4, c=4, x=5, z=10 Given letters, we can form the words \"ax\" (4+5), \"bx\" (4+5) and \"cx\" (4+5) with a score of 27. Word \"xxxz\" only get a score of 25.",
+      "expectedOutput": "</strong> 27 <strong>Explanation:</strong> Score a=4, b=4, c=4, x=5, z=10 Given letters, we can form the words \"ax\" (4+5), \"bx\" (4+5) and \"cx\" (4+5) with a score of 27. Word \"xxxz\" only get a score of 25."
+    },
+    {
+      "input": "</strong> words = [\"leetcode\"], letters = [\"l\",\"e\",\"t\",\"c\",\"o\",\"d\"], score = [0,0,1,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0] <strong>Output:</strong> 0 <strong>Explanation:</strong> Letter \"e\" can only be used once.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> Letter \"e\" can only be used once."
+    }
+  ]
+}

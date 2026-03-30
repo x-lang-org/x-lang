@@ -1,0 +1,22 @@
+{
+  "problemId": "911",
+  "titleSlug": "profitable-schemes",
+  "title": "Profitable Schemes",
+  "titleCn": "盈利计划",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5445925098414724,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, minProfit = 3, group = [2,2], profit = [2,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> To make a profit of at least 3, the group could either commit crimes 0 and 1, or just crime 1. In total, there are 2 schemes.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> To make a profit of at least 3, the group could either commit crimes 0 and 1, or just crime 1. In total, there are 2 schemes."
+    },
+    {
+      "input": "</strong> n = 10, minProfit = 5, group = [2,3,5], profit = [6,7,8] <strong>Output:</strong> 7 <strong>Explanation:</strong> To make a profit of at least 5, the group could commit any crimes, as long as they commit one. There are 7 possible schemes: (0), (1), (2), (0,1), (0,2), (1,2), and (0,1,2).",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> To make a profit of at least 5, the group could commit any crimes, as long as they commit one. There are 7 possible schemes: (0), (1), (2), (0,1), (0,2), (1,2), and (0,1,2)."
+    }
+  ]
+}

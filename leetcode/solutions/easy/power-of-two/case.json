@@ -1,0 +1,27 @@
+{
+  "problemId": "231",
+  "titleSlug": "power-of-two",
+  "title": "Power of Two",
+  "titleCn": "2 的幂",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.49886390876157616,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> true <strong>Explanation: </strong>2<sup>0</sup> = 1",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>2<sup>0</sup> = 1"
+    },
+    {
+      "input": "</strong> n = 16 <strong>Output:</strong> true <strong>Explanation: </strong>2<sup>4</sup> = 16",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>2<sup>4</sup> = 16"
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

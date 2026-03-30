@@ -1,0 +1,24 @@
+{
+  "problemId": "234",
+  "titleSlug": "palindrome-linked-list",
+  "title": "Palindrome Linked List",
+  "titleCn": "回文链表",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "recursion",
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.5809595771628172,
+  "testcases": [
+    {
+      "input": "</strong> head = [1,2,2,1] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> head = [1,2] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

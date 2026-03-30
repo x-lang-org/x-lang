@@ -1,0 +1,17 @@
+{
+  "problemId": "197",
+  "titleSlug": "rising-temperature",
+  "title": "Rising Temperature",
+  "titleCn": "上升的温度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5382093518188192,
+  "testcases": [
+    {
+      "input": "</strong> Weather table: +----+------------+-------------+ | id | recordDate | temperature | +----+------------+-------------+ | 1 | 2015-01-01 | 10     | | 2 | 2015-01-02 | 25     | | 3 | 2015-01-03 | 20     | | 4 | 2015-01-04 | 30     | +----+------------+-------------+ <strong>Output:</strong> +----+ | id | +----+ | 2 | | 4 | +----+ <strong>Explanation:</strong> In 2015-01-02, the temperature was higher than the previous day (10 -> 25). In 2015-01-04, the temperature was higher than the previous day (20 -> 30).",
+      "expectedOutput": "</strong> +----+ | id | +----+ | 2 | | 4 | +----+ <strong>Explanation:</strong> In 2015-01-02, the temperature was higher than the previous day (10 -> 25). In 2015-01-04, the temperature was higher than the previous day (20 -> 30)."
+    }
+  ]
+}

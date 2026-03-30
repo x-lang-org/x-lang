@@ -1,0 +1,27 @@
+{
+  "problemId": "1147",
+  "titleSlug": "flip-columns-for-maximum-number-of-equal-rows",
+  "title": "Flip Columns For Maximum Number of Equal Rows",
+  "titleCn": "按列翻转得到最大值等行数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.7134202033733179,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[0,1],[1,1]] <strong>Output:</strong> 1 <strong>Explanation:</strong> After flipping no values, 1 row has all values equal.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> After flipping no values, 1 row has all values equal."
+    },
+    {
+      "input": "</strong> matrix = [[0,1],[1,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> After flipping values in the first column, both rows have equal values.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> After flipping values in the first column, both rows have equal values."
+    },
+    {
+      "input": "</strong> matrix = [[0,0,0],[0,0,1],[1,1,0]] <strong>Output:</strong> 2 <strong>Explanation:</strong> After flipping values in the first two columns, the last two rows have equal values.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> After flipping values in the first two columns, the last two rows have equal values."
+    }
+  ]
+}

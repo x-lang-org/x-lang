@@ -1,0 +1,25 @@
+{
+  "problemId": "2580",
+  "titleSlug": "circular-sentence",
+  "title": "Circular Sentence",
+  "titleCn": "回环句",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7276098252243741,
+  "testcases": [
+    {
+      "input": "</strong> sentence = \"leetcode exercises sound delightful\" <strong>Output:</strong> true <strong>Explanation:</strong> The words in sentence are [\"leetcode\", \"exercises\", \"sound\", \"delightful\"]. - leetcod<u>e</u>'s last character is equal to <u>e</u>xercises's first character. - exercise<u>s</u>'s last character is equal to <u>s</u>ound's first character. - soun<u>d</u>'s last character is equal to <u>d</u>elightful's first character. - delightfu<u>l</u>'s last character is equal to <u>l</u>eetcode's first character. The sentence is circular.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The words in sentence are [\"leetcode\", \"exercises\", \"sound\", \"delightful\"]. - leetcod<u>e</u>'s last character is equal to <u>e</u>xercises's first character. - exercise<u>s</u>'s last character is equal to <u>s</u>ound's first character. - soun<u>d</u>'s last character is equal to <u>d</u>elightful's first character. - delightfu<u>l</u>'s last character is equal to <u>l</u>eetcode's first character. The sentence is circular."
+    },
+    {
+      "input": "</strong> sentence = \"eetcode\" <strong>Output:</strong> true <strong>Explanation:</strong> The words in sentence are [\"eetcode\"]. - eetcod<u>e</u>'s last character is equal to <u>e</u>etcode's first character. The sentence is circular.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The words in sentence are [\"eetcode\"]. - eetcod<u>e</u>'s last character is equal to <u>e</u>etcode's first character. The sentence is circular."
+    },
+    {
+      "input": "</strong> sentence = \"Leetcode is cool\" <strong>Output:</strong> false <strong>Explanation:</strong> The words in sentence are [\"Leetcode\", \"is\", \"cool\"]. - Leetcod<u>e</u>'s last character is <strong>not</strong> equal to <u>i</u>s's first character. The sentence is <strong>not</strong> circular.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The words in sentence are [\"Leetcode\", \"is\", \"cool\"]. - Leetcod<u>e</u>'s last character is <strong>not</strong> equal to <u>i</u>s's first character. The sentence is <strong>not</strong> circular."
+    }
+  ]
+}

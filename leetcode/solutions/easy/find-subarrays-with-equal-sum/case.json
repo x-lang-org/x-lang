@@ -1,0 +1,26 @@
+{
+  "problemId": "2480",
+  "titleSlug": "find-subarrays-with-equal-sum",
+  "title": "Find Subarrays With Equal Sum",
+  "titleCn": "和相等的子数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.760386629449353,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,2,4] <strong>Output:</strong> true <strong>Explanation:</strong> The subarrays with elements [4,2] and [2,4] have the same sum of 6.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The subarrays with elements [4,2] and [2,4] have the same sum of 6."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> false <strong>Explanation:</strong> No two subarrays of size 2 have the same sum.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> No two subarrays of size 2 have the same sum."
+    },
+    {
+      "input": "</strong> nums = [0,0,0] <strong>Output:</strong> true <strong>Explanation:</strong> The subarrays [nums[0],nums[1]] and [nums[1],nums[2]] have the same sum of 0. Note that even though the subarrays have the same content, the two subarrays are considered different because they are in different positions in the original array.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The subarrays [nums[0],nums[1]] and [nums[1],nums[2]] have the same sum of 0. Note that even though the subarrays have the same content, the two subarrays are considered different because they are in different positions in the original array."
+    }
+  ]
+}

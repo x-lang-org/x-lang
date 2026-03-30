@@ -1,0 +1,23 @@
+{
+  "problemId": "1456",
+  "titleSlug": "find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
+  "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
+  "titleCn": "阈值距离内邻居最少的城市",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "graph",
+    "dynamic-programming",
+    "shortest-path"
+  ],
+  "acRate": 0.6400780352732022,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, edges = [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], distanceThreshold = 4 <strong>Output:</strong> 3 <strong>Explanation: </strong>The figure above describes the graph.  The neighboring cities at a distanceThreshold = 4 for each city are: City 0 -> [City 1, City 2]  City 1 -> [City 0, City 2, City 3]  City 2 -> [City 0, City 1, City 3]  City 3 -> [City 1, City 2]  Cities 0 and 3 have 2 neighboring cities at a distanceThreshold = 4, but we have to return city 3 since it has the greatest number.",
+      "expectedOutput": "</strong> 3 <strong>Explanation: </strong>The figure above describes the graph.  The neighboring cities at a distanceThreshold = 4 for each city are: City 0 -> [City 1, City 2]  City 1 -> [City 0, City 2, City 3]  City 2 -> [City 0, City 1, City 3]  City 3 -> [City 1, City 2]  Cities 0 and 3 have 2 neighboring cities at a distanceThreshold = 4, but we have to return city 3 since it has the greatest number."
+    },
+    {
+      "input": "</strong> n = 5, edges = [[0,1,2],[0,4,8],[1,2,3],[1,4,2],[2,3,1],[3,4,1]], distanceThreshold = 2 <strong>Output:</strong> 0 <strong>Explanation: </strong>The figure above describes the graph.  The neighboring cities at a distanceThreshold = 2 for each city are: City 0 -> [City 1]  City 1 -> [City 0, City 4]  City 2 -> [City 3, City 4]  City 3 -> [City 2, City 4] City 4 -> [City 1, City 2, City 3]  The city 0 has 1 neighboring city at a distanceThreshold = 2.",
+      "expectedOutput": "</strong> 0 <strong>Explanation: </strong>The figure above describes the graph.  The neighboring cities at a distanceThreshold = 2 for each city are: City 0 -> [City 1]  City 1 -> [City 0, City 4]  City 2 -> [City 3, City 4]  City 3 -> [City 2, City 4] City 4 -> [City 1, City 2, City 3]  The city 0 has 1 neighboring city at a distanceThreshold = 2."
+    }
+  ]
+}

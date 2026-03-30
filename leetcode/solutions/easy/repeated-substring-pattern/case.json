@@ -1,0 +1,26 @@
+{
+  "problemId": "459",
+  "titleSlug": "repeated-substring-pattern",
+  "title": "Repeated Substring Pattern",
+  "titleCn": "重复的子字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.5242472087515507,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abab\" <strong>Output:</strong> true <strong>Explanation:</strong> It is the substring \"ab\" twice.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> It is the substring \"ab\" twice."
+    },
+    {
+      "input": "</strong> s = \"aba\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> s = \"abcabcabcabc\" <strong>Output:</strong> true <strong>Explanation:</strong> It is the substring \"abc\" four times or the substring \"abcabc\" twice.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> It is the substring \"abc\" four times or the substring \"abcabc\" twice."
+    }
+  ]
+}

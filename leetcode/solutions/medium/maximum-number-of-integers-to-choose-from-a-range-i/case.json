@@ -1,0 +1,29 @@
+{
+  "problemId": "2640",
+  "titleSlug": "maximum-number-of-integers-to-choose-from-a-range-i",
+  "title": "Maximum Number of Integers to Choose From a Range I",
+  "titleCn": "从一个范围内选择最多整数 I",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.5978177528752581,
+  "testcases": [
+    {
+      "input": "</strong> banned = [1,6,5], n = 5, maxSum = 6 <strong>Output:</strong> 2 <strong>Explanation:</strong> You can choose the integers 2 and 4. 2 and 4 are from the range [1, 5], both did not appear in banned, and their sum is 6, which did not exceed maxSum.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can choose the integers 2 and 4. 2 and 4 are from the range [1, 5], both did not appear in banned, and their sum is 6, which did not exceed maxSum."
+    },
+    {
+      "input": "</strong> banned = [1,2,3,4,5,6,7], n = 8, maxSum = 1 <strong>Output:</strong> 0 <strong>Explanation:</strong> You cannot choose any integer while following the mentioned conditions.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> You cannot choose any integer while following the mentioned conditions."
+    },
+    {
+      "input": "</strong> banned = [11], n = 7, maxSum = 50 <strong>Output:</strong> 7 <strong>Explanation:</strong> You can choose the integers 1, 2, 3, 4, 5, 6, and 7. They are from the range [1, 7], all did not appear in banned, and their sum is 28, which did not exceed maxSum.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> You can choose the integers 1, 2, 3, 4, 5, 6, and 7. They are from the range [1, 7], all did not appear in banned, and their sum is 28, which did not exceed maxSum."
+    }
+  ]
+}

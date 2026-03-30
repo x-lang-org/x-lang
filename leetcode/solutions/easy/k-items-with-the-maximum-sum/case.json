@@ -1,0 +1,22 @@
+{
+  "problemId": "2715",
+  "titleSlug": "k-items-with-the-maximum-sum",
+  "title": "K Items With the Maximum Sum",
+  "titleCn": "K 件物品的最大和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.6774975924670971,
+  "testcases": [
+    {
+      "input": "</strong> numOnes = 3, numZeros = 2, numNegOnes = 0, k = 2 <strong>Output:</strong> 2 <strong>Explanation:</strong> We have a bag of items with numbers written on them {1, 1, 1, 0, 0}. We take 2 items with 1 written on them and get a sum in a total of 2. It can be proven that 2 is the maximum possible sum.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We have a bag of items with numbers written on them {1, 1, 1, 0, 0}. We take 2 items with 1 written on them and get a sum in a total of 2. It can be proven that 2 is the maximum possible sum."
+    },
+    {
+      "input": "</strong> numOnes = 3, numZeros = 2, numNegOnes = 0, k = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> We have a bag of items with numbers written on them {1, 1, 1, 0, 0}. We take 3 items with 1 written on them, and 1 item with 0 written on it, and get a sum in a total of 3. It can be proven that 3 is the maximum possible sum.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We have a bag of items with numbers written on them {1, 1, 1, 0, 0}. We take 3 items with 1 written on them, and 1 item with 0 written on it, and get a sum in a total of 3. It can be proven that 3 is the maximum possible sum."
+    }
+  ]
+}

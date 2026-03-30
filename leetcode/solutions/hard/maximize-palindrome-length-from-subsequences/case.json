@@ -1,0 +1,26 @@
+{
+  "problemId": "1897",
+  "titleSlug": "maximize-palindrome-length-from-subsequences",
+  "title": "Maximize Palindrome Length From Subsequences",
+  "titleCn": "由子序列构造的最长回文串的长度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.44008129015340236,
+  "testcases": [
+    {
+      "input": "</strong> word1 = \"cacb\", word2 = \"cbba\" <strong>Output:</strong> 5 <strong>Explanation:</strong> Choose \"ab\" from word1 and \"cba\" from word2 to make \"abcba\", which is a palindrome.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Choose \"ab\" from word1 and \"cba\" from word2 to make \"abcba\", which is a palindrome."
+    },
+    {
+      "input": "</strong> word1 = \"ab\", word2 = \"ab\" <strong>Output:</strong> 3 <strong>Explanation:</strong> Choose \"ab\" from word1 and \"a\" from word2 to make \"aba\", which is a palindrome.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Choose \"ab\" from word1 and \"a\" from word2 to make \"aba\", which is a palindrome."
+    },
+    {
+      "input": "</strong> word1 = \"aa\", word2 = \"bb\" <strong>Output:</strong> 0 <strong>Explanation:</strong> You cannot construct a palindrome from the described method, so return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> You cannot construct a palindrome from the described method, so return 0."
+    }
+  ]
+}

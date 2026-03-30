@@ -1,0 +1,24 @@
+{
+  "problemId": "2348",
+  "titleSlug": "count-number-of-texts",
+  "title": "Count Number of Texts",
+  "titleCn": "统计打字方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "math",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5225634361534779,
+  "testcases": [
+    {
+      "input": "</strong> pressedKeys = \"22233\" <strong>Output:</strong> 8 <strong>Explanation:</strong> The possible text messages Alice could have sent are: \"aaadd\", \"abdd\", \"badd\", \"cdd\", \"aaae\", \"abe\", \"bae\", and \"ce\". Since there are 8 possible messages, we return 8.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> The possible text messages Alice could have sent are: \"aaadd\", \"abdd\", \"badd\", \"cdd\", \"aaae\", \"abe\", \"bae\", and \"ce\". Since there are 8 possible messages, we return 8."
+    },
+    {
+      "input": "</strong> pressedKeys = \"222222222222222222222222222222222222\" <strong>Output:</strong> 82876089 <strong>Explanation:</strong> There are 2082876103 possible text messages Alice could have sent. Since we need to return the answer modulo 10<sup>9</sup> + 7, we return 2082876103 % (10<sup>9</sup> + 7) = 82876089.",
+      "expectedOutput": "</strong> 82876089 <strong>Explanation:</strong> There are 2082876103 possible text messages Alice could have sent. Since we need to return the answer modulo 10<sup>9</sup> + 7, we return 2082876103 % (10<sup>9</sup> + 7) = 82876089."
+    }
+  ]
+}

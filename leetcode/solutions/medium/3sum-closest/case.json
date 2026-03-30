@@ -12,12 +12,12 @@
   "acRate": 0.44849448406337966,
   "testcases": [
     {
-      "input": "[-1,2,1,-4]",
-      "expectedOutput": "1"
+      "input": [-1,2,1,-4],
+      "expectedOutput": "2"
     },
     {
-      "input": "[0,0,0]",
-      "expectedOutput": "1"
+      "input": [0,0,0],
+      "expectedOutput": "0"
     }
   ]
 }

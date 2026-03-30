@@ -1,0 +1,24 @@
+{
+  "problemId": "2362",
+  "titleSlug": "minimum-rounds-to-complete-all-tasks",
+  "title": "Minimum Rounds to Complete All Tasks",
+  "titleCn": "完成所有任务需要的最少轮数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.6557224581476152,
+  "testcases": [
+    {
+      "input": "</strong> tasks = [2,2,3,3,2,4,4,4,4,4] <strong>Output:</strong> 4 <strong>Explanation:</strong> To complete all the tasks, a possible plan is: - In the first round, you complete 3 tasks of difficulty level 2. - In the second round, you complete 2 tasks of difficulty level 3. - In the third round, you complete 3 tasks of difficulty level 4. - In the fourth round, you complete 2 tasks of difficulty level 4.  It can be shown that all the tasks cannot be completed in fewer than 4 rounds, so the answer is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> To complete all the tasks, a possible plan is: - In the first round, you complete 3 tasks of difficulty level 2. - In the second round, you complete 2 tasks of difficulty level 3. - In the third round, you complete 3 tasks of difficulty level 4. - In the fourth round, you complete 2 tasks of difficulty level 4.  It can be shown that all the tasks cannot be completed in fewer than 4 rounds, so the answer is 4."
+    },
+    {
+      "input": "</strong> tasks = [2,3,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There is only 1 task of difficulty level 2, but in each round, you can only complete either 2 or 3 tasks of the same difficulty level. Hence, you cannot complete all the tasks, and the answer is -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There is only 1 task of difficulty level 2, but in each round, you can only complete either 2 or 3 tasks of the same difficulty level. Hence, you cannot complete all the tasks, and the answer is -1."
+    }
+  ]
+}

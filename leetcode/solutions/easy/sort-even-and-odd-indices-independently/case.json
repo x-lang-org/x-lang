@@ -1,0 +1,22 @@
+{
+  "problemId": "2283",
+  "titleSlug": "sort-even-and-odd-indices-independently",
+  "title": "Sort Even and Odd Indices Independently",
+  "titleCn": "对奇偶下标分别排序",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6716449305847707,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,1,2,3] <strong>Output:</strong> [2,3,4,1] <strong>Explanation:</strong> First, we sort the values present at odd indices (1 and 3) in non-increasing order. So, nums changes from [4,<strong><u>1</u></strong>,2,<strong><u>3</u></strong>] to [4,<u><strong>3</strong></u>,2,<strong><u>1</u></strong>]. Next, we sort the values present at even indices (0 and 2) in non-decreasing order. So, nums changes from [<u><strong>4</strong></u>,1,<strong><u>2</u></strong>,3] to [<u><strong>2</strong></u>,3,<u><strong>4</strong></u>,1]. Thus, the array formed after rearranging the values is [2,3,4,1].",
+      "expectedOutput": "</strong> [2,3,4,1] <strong>Explanation:</strong> First, we sort the values present at odd indices (1 and 3) in non-increasing order. So, nums changes from [4,<strong><u>1</u></strong>,2,<strong><u>3</u></strong>] to [4,<u><strong>3</strong></u>,2,<strong><u>1</u></strong>]. Next, we sort the values present at even indices (0 and 2) in non-decreasing order. So, nums changes from [<u><strong>4</strong></u>,1,<strong><u>2</u></strong>,3] to [<u><strong>2</strong></u>,3,<u><strong>4</strong></u>,1]. Thus, the array formed after rearranging the values is [2,3,4,1]."
+    },
+    {
+      "input": "</strong> nums = [2,1] <strong>Output:</strong> [2,1] <strong>Explanation:</strong> Since there is exactly one odd index and one even index, no rearrangement of values takes place. The resultant array formed is [2,1], which is the same as the initial array.",
+      "expectedOutput": "</strong> [2,1] <strong>Explanation:</strong> Since there is exactly one odd index and one even index, no rearrangement of values takes place. The resultant array formed is [2,1], which is the same as the initial array."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "problemId": "2492",
+  "titleSlug": "length-of-the-longest-alphabetical-continuous-substring",
+  "title": "Length of the Longest Alphabetical Continuous Substring",
+  "titleCn": "最长的字母序连续子字符串的长度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.6924308833445718,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abacaba\" <strong>Output:</strong> 2 <strong>Explanation:</strong> There are 4 distinct continuous substrings: \"a\", \"b\", \"c\" and \"ab\". \"ab\" is the longest continuous substring.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> There are 4 distinct continuous substrings: \"a\", \"b\", \"c\" and \"ab\". \"ab\" is the longest continuous substring."
+    },
+    {
+      "input": "</strong> s = \"abcde\" <strong>Output:</strong> 5 <strong>Explanation:</strong> \"abcde\" is the longest continuous substring.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> \"abcde\" is the longest continuous substring."
+    }
+  ]
+}

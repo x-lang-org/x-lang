@@ -1,0 +1,23 @@
+{
+  "problemId": "2692",
+  "titleSlug": "take-gifts-from-the-richest-pile",
+  "title": "Take Gifts From the Richest Pile",
+  "titleCn": "从数量最多的堆取走礼物",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "simulation",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.7180945609669392,
+  "testcases": [
+    {
+      "input": "</strong> gifts = [25,64,9,4,100], k = 4 <strong>Output:</strong> 29 <strong>Explanation:</strong> The gifts are taken in the following way: - In the first second, the last pile is chosen and 10 gifts are left behind. - Then the second pile is chosen and 8 gifts are left behind. - After that the first pile is chosen and 5 gifts are left behind. - Finally, the last pile is chosen again and 3 gifts are left behind. The final remaining gifts are [5,8,9,4,3], so the total number of gifts remaining is 29.",
+      "expectedOutput": "</strong> 29 <strong>Explanation:</strong> The gifts are taken in the following way: - In the first second, the last pile is chosen and 10 gifts are left behind. - Then the second pile is chosen and 8 gifts are left behind. - After that the first pile is chosen and 5 gifts are left behind. - Finally, the last pile is chosen again and 3 gifts are left behind. The final remaining gifts are [5,8,9,4,3], so the total number of gifts remaining is 29."
+    },
+    {
+      "input": "</strong> gifts = [1,1,1,1], k = 4 <strong>Output:</strong> 4 <strong>Explanation:</strong> In this case, regardless which pile you choose, you have to leave behind 1 gift in each pile. That is, you can't take any pile with you. So, the total gifts remaining are 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> In this case, regardless which pile you choose, you have to leave behind 1 gift in each pile. That is, you can't take any pile with you. So, the total gifts remaining are 4."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1782",
+  "titleSlug": "smallest-string-with-a-given-numeric-value",
+  "title": "Smallest String With A Given Numeric Value",
+  "titleCn": "具有给定数值的最小字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.6580153011297927,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, k = 27 <strong>Output:</strong> \"aay\" <strong>Explanation:</strong> The numeric value of the string is 1 + 1 + 25 = 27, and it is the smallest string with such a value and length equal to 3.",
+      "expectedOutput": "</strong> \"aay\" <strong>Explanation:</strong> The numeric value of the string is 1 + 1 + 25 = 27, and it is the smallest string with such a value and length equal to 3."
+    },
+    {
+      "input": "</strong> n = 5, k = 73 <strong>Output:</strong> \"aaszz\"",
+      "expectedOutput": "</strong> \"aaszz"
+    }
+  ]
+}

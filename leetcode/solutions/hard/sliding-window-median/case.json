@@ -1,0 +1,24 @@
+{
+  "problemId": "480",
+  "titleSlug": "sliding-window-median",
+  "title": "Sliding Window Median",
+  "titleCn": "滑动窗口中位数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sliding-window",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.40851444345087673,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,3,-1,-3,5,3,6,7], k = 3 <strong>Output:</strong> [1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000] <strong>Explanation:</strong> Window position        Median ---------------        ----- [<strong>1 3 -1</strong>] -3 5 3 6 7    1 1 [<strong>3 -1 -3</strong>] 5 3 6 7    -1 1 3 [<strong>-1 -3 5</strong>] 3 6 7    -1 1 3 -1 [<strong>-3 5 3</strong>] 6 7    3 1 3 -1 -3 [<strong>5 3 6</strong>] 7    5 1 3 -1 -3 5 [<strong>3 6 7</strong>]    6",
+      "expectedOutput": "</strong> [1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000] <strong>Explanation:</strong> Window position        Median ---------------        ----- [<strong>1 3 -1</strong>] -3 5 3 6 7    1 1 [<strong>3 -1 -3</strong>] 5 3 6 7    -1 1 3 [<strong>-1 -3 5</strong>] 3 6 7    -1 1 3 -1 [<strong>-3 5 3</strong>] 6 7    3 1 3 -1 -3 [<strong>5 3 6</strong>] 7    5 1 3 -1 -3 5 [<strong>3 6 7</strong>]    6"
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,2,3,1,4,2], k = 3 <strong>Output:</strong> [2.00000,3.00000,3.00000,3.00000,2.00000,3.00000,2.00000]",
+      "expectedOutput": "</strong> [2.00000,3.00000,3.00000,3.00000,2.00000,3.00000,2.00000]"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "problemId": "177",
+  "titleSlug": "nth-highest-salary",
+  "title": "Nth Highest Salary",
+  "titleCn": "第N高的薪水",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.4574682360128679,
+  "testcases": [
+    {
+      "input": "</strong> Employee table: +----+--------+ | id | salary | +----+--------+ | 1 | 100  | | 2 | 200  | | 3 | 300  | +----+--------+ n = 2 <strong>Output:</strong> +------------------------+ | getNthHighestSalary(2) | +------------------------+ | 200          | +------------------------+",
+      "expectedOutput": "</strong> +------------------------+ | getNthHighestSalary(2) | +------------------------+ | 200          | +------------------------+"
+    },
+    {
+      "input": "</strong> Employee table: +----+--------+ | id | salary | +----+--------+ | 1 | 100  | +----+--------+ n = 2 <strong>Output:</strong> +------------------------+ | getNthHighestSalary(2) | +------------------------+ | null          | +------------------------+",
+      "expectedOutput": "</strong> +------------------------+ | getNthHighestSalary(2) | +------------------------+ | null          | +------------------------+"
+    }
+  ]
+}

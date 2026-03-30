@@ -1,0 +1,27 @@
+{
+  "problemId": "1261",
+  "titleSlug": "swap-for-longest-repeated-character-substring",
+  "title": "Swap For Longest Repeated Character Substring",
+  "titleCn": "单字符重复子串的最大长度",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.5145820439243046,
+  "testcases": [
+    {
+      "input": "</strong> text = \"ababa\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We can swap the first 'b' with the last 'a', or the last 'b' with the first 'a'. Then, the longest repeated character substring is \"aaa\" with length 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We can swap the first 'b' with the last 'a', or the last 'b' with the first 'a'. Then, the longest repeated character substring is \"aaa\" with length 3."
+    },
+    {
+      "input": "</strong> text = \"aaabaaa\" <strong>Output:</strong> 6 <strong>Explanation:</strong> Swap 'b' with the last 'a' (or the first 'a'), and we get longest repeated character substring \"aaaaaa\" with length 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Swap 'b' with the last 'a' (or the first 'a'), and we get longest repeated character substring \"aaaaaa\" with length 6."
+    },
+    {
+      "input": "</strong> text = \"aaaaa\" <strong>Output:</strong> 5 <strong>Explanation:</strong> No need to swap, longest repeated character substring is \"aaaaa\" with length is 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> No need to swap, longest repeated character substring is \"aaaaa\" with length is 5."
+    }
+  ]
+}

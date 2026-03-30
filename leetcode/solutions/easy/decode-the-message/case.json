@@ -1,0 +1,22 @@
+{
+  "problemId": "2406",
+  "titleSlug": "decode-the-message",
+  "title": "Decode the Message",
+  "titleCn": "解密消息",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.8434038613216283,
+  "testcases": [
+    {
+      "input": "</strong> key = \"the quick brown fox jumps over the lazy dog\", message = \"vkbs bs t suepuv\" <strong>Output:</strong> \"this is a secret\" <strong>Explanation:</strong> The diagram above shows the substitution table. It is obtained by taking the first appearance of each letter in \"<u><strong>the</strong></u> <u><strong>quick</strong></u> <u><strong>brown</strong></u> <u><strong>f</strong></u>o<u><strong>x</strong></u> <u><strong>j</strong></u>u<u><strong>mps</strong></u> o<u><strong>v</strong></u>er the <u><strong>lazy</strong></u> <u><strong>d</strong></u>o<u><strong>g</strong></u>\".",
+      "expectedOutput": "</strong> \"this is a secret\" <strong>Explanation:</strong> The diagram above shows the substitution table. It is obtained by taking the first appearance of each letter in \"<u><strong>the</strong></u> <u><strong>quick</strong></u> <u><strong>brown</strong></u> <u><strong>f</strong></u>o<u><strong>x</strong></u> <u><strong>j</strong></u>u<u><strong>mps</strong></u> o<u><strong>v</strong></u>er the <u><strong>lazy</strong></u> <u><strong>d</strong></u>o<u><strong>g</strong></u>\"."
+    },
+    {
+      "input": "</strong> key = \"eljuxhpwnyrdgtqkviszcfmabo\", message = \"zwx hnfx lqantp mnoeius ycgk vcnjrdb\" <strong>Output:</strong> \"the five boxing wizards jump quickly\" <strong>Explanation:</strong> The diagram above shows the substitution table. It is obtained by taking the first appearance of each letter in \"<u><strong>eljuxhpwnyrdgtqkviszcfmabo</strong></u>\".",
+      "expectedOutput": "</strong> \"the five boxing wizards jump quickly\" <strong>Explanation:</strong> The diagram above shows the substitution table. It is obtained by taking the first appearance of each letter in \"<u><strong>eljuxhpwnyrdgtqkviszcfmabo</strong></u>\"."
+    }
+  ]
+}

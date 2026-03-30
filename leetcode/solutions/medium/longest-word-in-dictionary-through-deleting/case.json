@@ -1,0 +1,24 @@
+{
+  "problemId": "524",
+  "titleSlug": "longest-word-in-dictionary-through-deleting",
+  "title": "Longest Word in Dictionary through Deleting",
+  "titleCn": "通过删除字母匹配到字典里最长单词",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5094915938809512,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abpcplea\", dictionary = [\"ale\",\"apple\",\"monkey\",\"plea\"] <strong>Output:</strong> \"apple\"",
+      "expectedOutput": "</strong> \"apple"
+    },
+    {
+      "input": "</strong> s = \"abpcplea\", dictionary = [\"a\",\"b\",\"c\"] <strong>Output:</strong> \"a\"",
+      "expectedOutput": "</strong> \"a"
+    }
+  ]
+}

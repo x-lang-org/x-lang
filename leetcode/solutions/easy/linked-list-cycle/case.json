@@ -1,0 +1,27 @@
+{
+  "problemId": "141",
+  "titleSlug": "linked-list-cycle",
+  "title": "Linked List Cycle",
+  "titleCn": "环形链表",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "linked-list",
+    "two-pointers"
+  ],
+  "acRate": 0.5461959658357622,
+  "testcases": [
+    {
+      "input": "</strong> head = [3,2,0,-4], pos = 1 <strong>Output:</strong> true <strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed)."
+    },
+    {
+      "input": "</strong> head = [1,2], pos = 0 <strong>Output:</strong> true <strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 0th node.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> There is a cycle in the linked list, where the tail connects to the 0th node."
+    },
+    {
+      "input": "</strong> head = [1], pos = -1 <strong>Output:</strong> false <strong>Explanation:</strong> There is no cycle in the linked list.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no cycle in the linked list."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "1786",
+  "titleSlug": "count-the-number-of-consistent-strings",
+  "title": "Count the Number of Consistent Strings",
+  "titleCn": "统计一致字符串的数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.8515524200707851,
+  "testcases": [
+    {
+      "input": "</strong> allowed = \"ab\", words = [\"ad\",\"bd\",\"aaab\",\"baa\",\"badab\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> Strings \"aaab\" and \"baa\" are consistent since they only contain characters 'a' and 'b'.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Strings \"aaab\" and \"baa\" are consistent since they only contain characters 'a' and 'b'."
+    },
+    {
+      "input": "</strong> allowed = \"abc\", words = [\"a\",\"b\",\"c\",\"ab\",\"ac\",\"bc\",\"abc\"] <strong>Output:</strong> 7 <strong>Explanation:</strong> All strings are consistent.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> All strings are consistent."
+    },
+    {
+      "input": "</strong> allowed = \"cad\", words = [\"cc\",\"acd\",\"b\",\"ba\",\"bac\",\"bad\",\"ac\",\"d\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> Strings \"cc\", \"acd\", \"ac\", and \"d\" are consistent.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Strings \"cc\", \"acd\", \"ac\", and \"d\" are consistent."
+    }
+  ]
+}

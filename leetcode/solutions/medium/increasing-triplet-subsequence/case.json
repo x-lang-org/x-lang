@@ -1,0 +1,26 @@
+{
+  "problemId": "334",
+  "titleSlug": "increasing-triplet-subsequence",
+  "title": "Increasing Triplet Subsequence",
+  "titleCn": "递增的三元子序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.4301567925668709,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> true <strong>Explanation:</strong> Any triplet where i < j < k is valid.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Any triplet where i < j < k is valid."
+    },
+    {
+      "input": "</strong> nums = [5,4,3,2,1] <strong>Output:</strong> false <strong>Explanation:</strong> No triplet exists.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> No triplet exists."
+    },
+    {
+      "input": "</strong> nums = [2,1,5,0,4,6] <strong>Output:</strong> true <strong>Explanation:</strong> One of the valid triplet is (1, 4, 5), because nums[1] == 1 < nums[4] == 4 < nums[5] == 6.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> One of the valid triplet is (1, 4, 5), because nums[1] == 1 < nums[4] == 4 < nums[5] == 6."
+    }
+  ]
+}

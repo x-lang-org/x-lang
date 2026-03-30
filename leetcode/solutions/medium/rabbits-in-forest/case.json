@@ -1,0 +1,24 @@
+{
+  "problemId": "797",
+  "titleSlug": "rabbits-in-forest",
+  "title": "Rabbits in Forest",
+  "titleCn": "森林中的兔子",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "acRate": 0.5795360549296908,
+  "testcases": [
+    {
+      "input": "</strong> answers = [1,1,2] <strong>Output:</strong> 5 <strong>Explanation:</strong> The two rabbits that answered \"1\" could both be the same color, say red. The rabbit that answered \"2\" can't be red or the answers would be inconsistent. Say the rabbit that answered \"2\" was blue. Then there should be 2 other blue rabbits in the forest that didn't answer into the array. The smallest possible number of rabbits in the forest is therefore 5: 3 that answered plus 2 that didn't.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The two rabbits that answered \"1\" could both be the same color, say red. The rabbit that answered \"2\" can't be red or the answers would be inconsistent. Say the rabbit that answered \"2\" was blue. Then there should be 2 other blue rabbits in the forest that didn't answer into the array. The smallest possible number of rabbits in the forest is therefore 5: 3 that answered plus 2 that didn't."
+    },
+    {
+      "input": "</strong> answers = [10,10,10] <strong>Output:</strong> 11",
+      "expectedOutput": "</strong> 11"
+    }
+  ]
+}

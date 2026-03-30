@@ -1,0 +1,25 @@
+{
+  "problemId": "972",
+  "titleSlug": "knight-dialer",
+  "title": "Knight Dialer",
+  "titleCn": "骑士拨号器",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.684782079376674,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 10 <strong>Explanation:</strong> We need to dial a number of length 1, so placing the knight over any numeric cell of the 10 cells is sufficient.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> We need to dial a number of length 1, so placing the knight over any numeric cell of the 10 cells is sufficient."
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 20 <strong>Explanation:</strong> All the valid number we can dial are [04, 06, 16, 18, 27, 29, 34, 38, 40, 43, 49, 60, 61, 67, 72, 76, 81, 83, 92, 94]",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> All the valid number we can dial are [04, 06, 16, 18, 27, 29, 34, 38, 40, 43, 49, 60, 61, 67, 72, 76, 81, 83, 92, 94]"
+    },
+    {
+      "input": "</strong> n = 3131 <strong>Output:</strong> 136006598 <strong>Explanation:</strong> Please take care of the mod.",
+      "expectedOutput": "</strong> 136006598 <strong>Explanation:</strong> Please take care of the mod."
+    }
+  ]
+}

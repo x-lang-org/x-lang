@@ -1,0 +1,28 @@
+{
+  "problemId": "753",
+  "titleSlug": "open-the-lock",
+  "title": "Open the Lock",
+  "titleCn": "打开转盘锁",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5325135138031933,
+  "testcases": [
+    {
+      "input": "</strong> deadends = [\"0201\",\"0101\",\"0102\",\"1212\",\"2002\"], target = \"0202\" <strong>Output:</strong> 6 <strong>Explanation:</strong> A sequence of valid moves would be \"0000\" -> \"1000\" -> \"1100\" -> \"1200\" -> \"1201\" -> \"1202\" -> \"0202\". Note that a sequence like \"0000\" -> \"0001\" -> \"0002\" -> \"0102\" -> \"0202\" would be invalid, because the wheels of the lock become stuck after the display becomes the dead end \"0102\".",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> A sequence of valid moves would be \"0000\" -> \"1000\" -> \"1100\" -> \"1200\" -> \"1201\" -> \"1202\" -> \"0202\". Note that a sequence like \"0000\" -> \"0001\" -> \"0002\" -> \"0102\" -> \"0202\" would be invalid, because the wheels of the lock become stuck after the display becomes the dead end \"0102\"."
+    },
+    {
+      "input": "</strong> deadends = [\"8888\"], target = \"0009\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can turn the last wheel in reverse to move from \"0000\" -> \"0009\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can turn the last wheel in reverse to move from \"0000\" -> \"0009\"."
+    },
+    {
+      "input": "</strong> deadends = [\"8887\",\"8889\",\"8878\",\"8898\",\"8788\",\"8988\",\"7888\",\"9888\"], target = \"8888\" <strong>Output:</strong> -1 <strong>Explanation:</strong> We cannot reach the target without getting stuck.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We cannot reach the target without getting stuck."
+    }
+  ]
+}

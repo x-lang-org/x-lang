@@ -1,0 +1,26 @@
+{
+  "problemId": "1783",
+  "titleSlug": "ways-to-make-a-fair-array",
+  "title": "Ways to Make a Fair Array",
+  "titleCn": "生成平衡数组的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.6709521324541012,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,1,6,4] <strong>Output:</strong> 1 <strong>Explanation:</strong> Remove index 0: [1,6,4] -> Even sum: 1 + 4 = 5. Odd sum: 6. Not fair. Remove index 1: [2,6,4] -> Even sum: 2 + 4 = 6. Odd sum: 6. Fair. Remove index 2: [2,1,4] -> Even sum: 2 + 4 = 6. Odd sum: 1. Not fair. Remove index 3: [2,1,6] -> Even sum: 2 + 6 = 8. Odd sum: 1. Not fair. There is 1 index that you can remove to make nums fair.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Remove index 0: [1,6,4] -> Even sum: 1 + 4 = 5. Odd sum: 6. Not fair. Remove index 1: [2,6,4] -> Even sum: 2 + 4 = 6. Odd sum: 6. Fair. Remove index 2: [2,1,4] -> Even sum: 2 + 4 = 6. Odd sum: 1. Not fair. Remove index 3: [2,1,6] -> Even sum: 2 + 6 = 8. Odd sum: 1. Not fair. There is 1 index that you can remove to make nums fair."
+    },
+    {
+      "input": "</strong> nums = [1,1,1] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can remove any index and the remaining array is fair.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can remove any index and the remaining array is fair."
+    },
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 0 <strong>Explanation:</strong> You cannot make a fair array after removing any index.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> You cannot make a fair array after removing any index."
+    }
+  ]
+}

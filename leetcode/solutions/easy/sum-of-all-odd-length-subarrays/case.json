@@ -1,0 +1,27 @@
+{
+  "problemId": "1693",
+  "titleSlug": "sum-of-all-odd-length-subarrays",
+  "title": "Sum of All Odd Length Subarrays",
+  "titleCn": "所有奇数长度子数组的和",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math",
+    "prefix-sum"
+  ],
+  "acRate": 0.8214512787907378,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,4,2,5,3] <strong>Output:</strong> 58 <strong>Explanation: </strong>The odd-length subarrays of arr and their sums are: [1] = 1 [4] = 4 [2] = 2 [5] = 5 [3] = 3 [1,4,2] = 7 [4,2,5] = 11 [2,5,3] = 10 [1,4,2,5,3] = 15 If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58",
+      "expectedOutput": "</strong> 58 <strong>Explanation: </strong>The odd-length subarrays of arr and their sums are: [1] = 1 [4] = 4 [2] = 2 [5] = 5 [3] = 3 [1,4,2] = 7 [4,2,5] = 11 [2,5,3] = 10 [1,4,2,5,3] = 15 If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58"
+    },
+    {
+      "input": "</strong> arr = [1,2] <strong>Output:</strong> 3 <b>Explanation: </b>There are only 2 subarrays of odd length, [1] and [2]. Their sum is 3.",
+      "expectedOutput": "</strong> 3 <b>Explanation: </b>There are only 2 subarrays of odd length, [1] and [2]. Their sum is 3."
+    },
+    {
+      "input": "</strong> arr = [10,11,12] <strong>Output:</strong> 66",
+      "expectedOutput": "</strong> 66"
+    }
+  ]
+}

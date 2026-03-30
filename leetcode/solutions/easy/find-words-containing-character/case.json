@@ -1,0 +1,26 @@
+{
+  "problemId": "3194",
+  "titleSlug": "find-words-containing-character",
+  "title": "Find Words Containing Character",
+  "titleCn": "查找包含给定字符的单词",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.8814262023217247,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"leet\",\"code\"], x = \"e\" <strong>Output:</strong> [0,1] <strong>Explanation:</strong> \"e\" occurs in both words: \"l<strong><u>ee</u></strong>t\", and \"cod<u><strong>e</strong></u>\". Hence, we return indices 0 and 1.",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> \"e\" occurs in both words: \"l<strong><u>ee</u></strong>t\", and \"cod<u><strong>e</strong></u>\". Hence, we return indices 0 and 1."
+    },
+    {
+      "input": "</strong> words = [\"abc\",\"bcd\",\"aaaa\",\"cbc\"], x = \"a\" <strong>Output:</strong> [0,2] <strong>Explanation:</strong> \"a\" occurs in \"<strong><u>a</u></strong>bc\", and \"<u><strong>aaaa</strong></u>\". Hence, we return indices 0 and 2.",
+      "expectedOutput": "</strong> [0,2] <strong>Explanation:</strong> \"a\" occurs in \"<strong><u>a</u></strong>bc\", and \"<u><strong>aaaa</strong></u>\". Hence, we return indices 0 and 2."
+    },
+    {
+      "input": "</strong> words = [\"abc\",\"bcd\",\"aaaa\",\"cbc\"], x = \"z\" <strong>Output:</strong> [] <strong>Explanation:</strong> \"z\" does not occur in any of the words. Hence, we return an empty array.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> \"z\" does not occur in any of the words. Hence, we return an empty array."
+    }
+  ]
+}

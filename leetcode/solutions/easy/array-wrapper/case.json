@@ -1,0 +1,23 @@
+{
+  "problemId": "2805",
+  "titleSlug": "array-wrapper",
+  "title": "Array Wrapper",
+  "titleCn": "包装数组",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8313725490196079,
+  "testcases": [
+    {
+      "input": "</strong> nums = [[1,2],[3,4]], operation = \"Add\" <strong>Output:</strong> 10 <strong>Explanation:</strong> const obj1 = new ArrayWrapper([1,2]); const obj2 = new ArrayWrapper([3,4]); obj1 + obj2; // 10",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> const obj1 = new ArrayWrapper([1,2]); const obj2 = new ArrayWrapper([3,4]); obj1 + obj2; // 10"
+    },
+    {
+      "input": "</strong> nums = [[23,98,42,70]], operation = \"String\" <strong>Output:</strong> \"[23,98,42,70]\" <strong>Explanation:</strong> const obj = new ArrayWrapper([23,98,42,70]); String(obj); // \"[23,98,42,70]\"",
+      "expectedOutput": "</strong> \"[23,98,42,70]\" <strong>Explanation:</strong> const obj = new ArrayWrapper([23,98,42,70]); String(obj); // \"[23,98,42,70]"
+    },
+    {
+      "input": "</strong> nums = [[],[]], operation = \"Add\" <strong>Output:</strong> 0 <strong>Explanation:</strong> const obj1 = new ArrayWrapper([]); const obj2 = new ArrayWrapper([]); obj1 + obj2; // 0",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> const obj1 = new ArrayWrapper([]); const obj2 = new ArrayWrapper([]); obj1 + obj2; // 0"
+    }
+  ]
+}

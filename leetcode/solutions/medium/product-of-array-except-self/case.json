@@ -1,0 +1,22 @@
+{
+  "problemId": "238",
+  "titleSlug": "product-of-array-except-self",
+  "title": "Product of Array Except Self",
+  "titleCn": "除了自身以外数组的乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "prefix-sum"
+  ],
+  "acRate": 0.7785093719376899,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> [24,12,8,6]",
+      "expectedOutput": "</strong> [24,12,8,6]"
+    },
+    {
+      "input": "</strong> nums = [-1,1,0,-3,3] <strong>Output:</strong> [0,0,9,0,0]",
+      "expectedOutput": "</strong> [0,0,9,0,0]"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "1273",
+  "titleSlug": "compare-strings-by-frequency-of-the-smallest-character",
+  "title": "Compare Strings by Frequency of the Smallest Character",
+  "titleCn": "比较字符串最小字母出现频次",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.6712196818686538,
+  "testcases": [
+    {
+      "input": "</strong> queries = [\"cbd\"], words = [\"zaaaz\"] <strong>Output:</strong> [1] <strong>Explanation:</strong> On the first query we have f(\"cbd\") = 1, f(\"zaaaz\") = 3 so f(\"cbd\") < f(\"zaaaz\").",
+      "expectedOutput": "</strong> [1] <strong>Explanation:</strong> On the first query we have f(\"cbd\") = 1, f(\"zaaaz\") = 3 so f(\"cbd\") < f(\"zaaaz\")."
+    },
+    {
+      "input": "</strong> queries = [\"bbb\",\"cc\"], words = [\"a\",\"aa\",\"aaa\",\"aaaa\"] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> On the first query only f(\"bbb\") < f(\"aaaa\"). On the second query both f(\"aaa\") and f(\"aaaa\") are both > f(\"cc\").",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> On the first query only f(\"bbb\") < f(\"aaaa\"). On the second query both f(\"aaa\") and f(\"aaaa\") are both > f(\"cc\")."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "problemId": "3170",
+  "titleSlug": "find-indices-with-index-and-value-difference-ii",
+  "title": "Find Indices With Index and Value Difference II",
+  "titleCn": "找出满足差值条件的下标 II",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "two-pointers"
+  ],
+  "acRate": 0.4557782549908534,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,1,4,1], indexDifference = 2, valueDifference = 4 <strong>Output:</strong> [0,3] <strong>Explanation:</strong> In this example, i = 0 and j = 3 can be selected. abs(0 - 3) >= 2 and abs(nums[0] - nums[3]) >= 4. Hence, a valid answer is [0,3]. [3,0] is also a valid answer.",
+      "expectedOutput": "</strong> [0,3] <strong>Explanation:</strong> In this example, i = 0 and j = 3 can be selected. abs(0 - 3) >= 2 and abs(nums[0] - nums[3]) >= 4. Hence, a valid answer is [0,3]. [3,0] is also a valid answer."
+    },
+    {
+      "input": "</strong> nums = [2,1], indexDifference = 0, valueDifference = 0 <strong>Output:</strong> [0,0] <strong>Explanation:</strong> In this example, i = 0 and j = 0 can be selected. abs(0 - 0) >= 0 and abs(nums[0] - nums[0]) >= 0. Hence, a valid answer is [0,0]. Other valid answers are [0,1], [1,0], and [1,1].",
+      "expectedOutput": "</strong> [0,0] <strong>Explanation:</strong> In this example, i = 0 and j = 0 can be selected. abs(0 - 0) >= 0 and abs(nums[0] - nums[0]) >= 0. Hence, a valid answer is [0,0]. Other valid answers are [0,1], [1,0], and [1,1]."
+    },
+    {
+      "input": "</strong> nums = [1,2,3], indexDifference = 2, valueDifference = 4 <strong>Output:</strong> [-1,-1] <strong>Explanation:</strong> In this example, it can be shown that it is impossible to find two indices that satisfy both conditions. Hence, [-1,-1] is returned.",
+      "expectedOutput": "</strong> [-1,-1] <strong>Explanation:</strong> In this example, it can be shown that it is impossible to find two indices that satisfy both conditions. Hence, [-1,-1] is returned."
+    }
+  ]
+}

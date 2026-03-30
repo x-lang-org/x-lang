@@ -1,0 +1,23 @@
+{
+  "problemId": "2574",
+  "titleSlug": "count-subarrays-with-median-k",
+  "title": "Count Subarrays With Median K",
+  "titleCn": "统计中位数为 K 的子数组",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.5141890995889139,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,2,1,4,5], k = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> The subarrays that have a median equal to 4 are: [4], [4,5] and [1,4,5].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The subarrays that have a median equal to 4 are: [4], [4,5] and [1,4,5]."
+    },
+    {
+      "input": "</strong> nums = [2,3,1], k = 3 <strong>Output:</strong> 1 <strong>Explanation:</strong> [3] is the only subarray that has a median equal to 3.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> [3] is the only subarray that has a median equal to 3."
+    }
+  ]
+}

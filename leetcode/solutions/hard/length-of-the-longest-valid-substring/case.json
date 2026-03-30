@@ -1,0 +1,24 @@
+{
+  "problemId": "2884",
+  "titleSlug": "length-of-the-longest-valid-substring",
+  "title": "Length of the Longest Valid Substring",
+  "titleCn": "最长合法子字符串的长度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.43705004389815627,
+  "testcases": [
+    {
+      "input": "</strong> word = \"cbaaaabc\", forbidden = [\"aaa\",\"cb\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 11 valid substrings in word: \"c\", \"b\", \"a\", \"ba\", \"aa\", \"bc\", \"baa\", \"aab\", \"ab\", \"abc\" and \"aabc\". The length of the longest valid substring is 4. It can be shown that all other substrings contain either \"aaa\" or \"cb\" as a substring.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 11 valid substrings in word: \"c\", \"b\", \"a\", \"ba\", \"aa\", \"bc\", \"baa\", \"aab\", \"ab\", \"abc\" and \"aabc\". The length of the longest valid substring is 4. It can be shown that all other substrings contain either \"aaa\" or \"cb\" as a substring."
+    },
+    {
+      "input": "</strong> word = \"leetcode\", forbidden = [\"de\",\"le\",\"e\"] <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 11 valid substrings in word: \"l\", \"t\", \"c\", \"o\", \"d\", \"tc\", \"co\", \"od\", \"tco\", \"cod\", and \"tcod\". The length of the longest valid substring is 4. It can be shown that all other substrings contain either \"de\", \"le\", or \"e\" as a substring.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 11 valid substrings in word: \"l\", \"t\", \"c\", \"o\", \"d\", \"tc\", \"co\", \"od\", \"tco\", \"cod\", and \"tcod\". The length of the longest valid substring is 4. It can be shown that all other substrings contain either \"de\", \"le\", or \"e\" as a substring."
+    }
+  ]
+}

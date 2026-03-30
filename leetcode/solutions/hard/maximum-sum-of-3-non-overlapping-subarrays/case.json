@@ -1,0 +1,24 @@
+{
+  "problemId": "689",
+  "titleSlug": "maximum-sum-of-3-non-overlapping-subarrays",
+  "title": "Maximum Sum of 3 Non-Overlapping Subarrays",
+  "titleCn": "三个无重叠子数组的最大和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.5852995876121937,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,1,2,6,7,5,1], k = 2 <strong>Output:</strong> [0,3,5] <strong>Explanation:</strong> Subarrays [1, 2], [2, 6], [7, 5] correspond to the starting indices [0, 3, 5]. We could have also taken [2, 1], but an answer of [1, 3, 5] would be lexicographically larger.",
+      "expectedOutput": "</strong> [0,3,5] <strong>Explanation:</strong> Subarrays [1, 2], [2, 6], [7, 5] correspond to the starting indices [0, 3, 5]. We could have also taken [2, 1], but an answer of [1, 3, 5] would be lexicographically larger."
+    },
+    {
+      "input": "</strong> nums = [1,2,1,2,1,2,1,2,1], k = 2 <strong>Output:</strong> [0,2,4]",
+      "expectedOutput": "</strong> [0,2,4]"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "2248",
+  "titleSlug": "minimum-cost-of-buying-candies-with-discount",
+  "title": "Minimum Cost of Buying Candies With Discount",
+  "titleCn": "打折购买糖果的最小开销",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.6815597957927514,
+  "testcases": [
+    {
+      "input": "</strong> cost = [1,2,3] <strong>Output:</strong> 5 <strong>Explanation:</strong> We buy the candies with costs 2 and 3, and take the candy with cost 1 for free. The total cost of buying all candies is 2 + 3 = 5. This is the <strong>only</strong> way we can buy the candies. Note that we cannot buy candies with costs 1 and 3, and then take the candy with cost 2 for free. The cost of the free candy has to be less than or equal to the minimum cost of the purchased candies.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> We buy the candies with costs 2 and 3, and take the candy with cost 1 for free. The total cost of buying all candies is 2 + 3 = 5. This is the <strong>only</strong> way we can buy the candies. Note that we cannot buy candies with costs 1 and 3, and then take the candy with cost 2 for free. The cost of the free candy has to be less than or equal to the minimum cost of the purchased candies."
+    },
+    {
+      "input": "</strong> cost = [6,5,7,9,2,2] <strong>Output:</strong> 23 <strong>Explanation:</strong> The way in which we can get the minimum cost is described below: - Buy candies with costs 9 and 7 - Take the candy with cost 6 for free - We buy candies with costs 5 and 2 - Take the last remaining candy with cost 2 for free Hence, the minimum cost to buy all candies is 9 + 7 + 5 + 2 = 23.",
+      "expectedOutput": "</strong> 23 <strong>Explanation:</strong> The way in which we can get the minimum cost is described below: - Buy candies with costs 9 and 7 - Take the candy with cost 6 for free - We buy candies with costs 5 and 2 - Take the last remaining candy with cost 2 for free Hence, the minimum cost to buy all candies is 9 + 7 + 5 + 2 = 23."
+    },
+    {
+      "input": "</strong> cost = [5,5] <strong>Output:</strong> 10 <strong>Explanation:</strong> Since there are only 2 candies, we buy both of them. There is not a third candy we can take for free. Hence, the minimum cost to buy all candies is 5 + 5 = 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> Since there are only 2 candies, we buy both of them. There is not a third candy we can take for free. Hence, the minimum cost to buy all candies is 5 + 5 = 10."
+    }
+  ]
+}

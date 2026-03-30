@@ -1,0 +1,15 @@
+{
+  "problemId": "3074",
+  "titleSlug": "select-data",
+  "title": "Select Data",
+  "titleCn": "数据选取",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.7471385542168675,
+  "testcases": [
+    {
+      "input": "</strong> +------------+---------+-----+ | student_id | name  | age | +------------+---------+-----+ | 101    | Ulysses | 13 | | 53     | William | 10 | | 128    | Henry  | 6  | | 3     | Henry  | 11 | +------------+---------+-----+ <strong>Output:</strong> +---------+-----+ | name  | age | +---------+-----+ | Ulysses | 13 | +---------+-----+ <strong>Explanation: </strong>Student Ulysses has student_id = 101, we select the name and age.",
+      "expectedOutput": "</strong> +---------+-----+ | name  | age | +---------+-----+ | Ulysses | 13 | +---------+-----+ <strong>Explanation: </strong>Student Ulysses has student_id = 101, we select the name and age."
+    }
+  ]
+}

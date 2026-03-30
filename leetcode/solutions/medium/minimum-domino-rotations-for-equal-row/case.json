@@ -1,0 +1,22 @@
+{
+  "problemId": "1049",
+  "titleSlug": "minimum-domino-rotations-for-equal-row",
+  "title": "Minimum Domino Rotations For Equal Row",
+  "titleCn": "行相等的最少多米诺旋转",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array"
+  ],
+  "acRate": 0.5551141019592263,
+  "testcases": [
+    {
+      "input": "</strong> tops = [2,1,2,4,2,2], bottoms = [5,2,6,2,3,2] <strong>Output:</strong> 2 <strong>Explanation:</strong> The first figure represents the dominoes as given by tops and bottoms: before we do any rotations. If we rotate the second and fourth dominoes, we can make every value in the top row equal to 2, as indicated by the second figure.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The first figure represents the dominoes as given by tops and bottoms: before we do any rotations. If we rotate the second and fourth dominoes, we can make every value in the top row equal to 2, as indicated by the second figure."
+    },
+    {
+      "input": "</strong> tops = [3,5,1,2,3], bottoms = [3,6,3,3,4] <strong>Output:</strong> -1 <strong>Explanation:</strong> In this case, it is not possible to rotate the dominoes to make one row of values equal.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> In this case, it is not possible to rotate the dominoes to make one row of values equal."
+    }
+  ]
+}

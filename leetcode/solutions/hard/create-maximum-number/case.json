@@ -1,0 +1,29 @@
+{
+  "problemId": "321",
+  "titleSlug": "create-maximum-number",
+  "title": "Create Maximum Number",
+  "titleCn": "拼接最大数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "array",
+    "two-pointers",
+    "monotonic-stack"
+  ],
+  "acRate": 0.4310058405903543,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [3,4,6,5], nums2 = [9,1,2,5,8,3], k = 5 <strong>Output:</strong> [9,8,6,5,3]",
+      "expectedOutput": "</strong> [9,8,6,5,3]"
+    },
+    {
+      "input": "</strong> nums1 = [6,7], nums2 = [6,0,4], k = 5 <strong>Output:</strong> [6,7,6,0,4]",
+      "expectedOutput": "</strong> [6,7,6,0,4]"
+    },
+    {
+      "input": "</strong> nums1 = [3,9], nums2 = [8,9], k = 3 <strong>Output:</strong> [9,8,9]",
+      "expectedOutput": "</strong> [9,8,9]"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2412",
+  "titleSlug": "minimum-amount-of-time-to-fill-cups",
+  "title": "Minimum Amount of Time to Fill Cups",
+  "titleCn": "装满杯子需要的最短总时长",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.6492163727382783,
+  "testcases": [
+    {
+      "input": "</strong> amount = [1,4,2] <strong>Output:</strong> 4 <strong>Explanation:</strong> One way to fill up the cups is: Second 1: Fill up a cold cup and a warm cup. Second 2: Fill up a warm cup and a hot cup. Second 3: Fill up a warm cup and a hot cup. Second 4: Fill up a warm cup. It can be proven that 4 is the minimum number of seconds needed.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> One way to fill up the cups is: Second 1: Fill up a cold cup and a warm cup. Second 2: Fill up a warm cup and a hot cup. Second 3: Fill up a warm cup and a hot cup. Second 4: Fill up a warm cup. It can be proven that 4 is the minimum number of seconds needed."
+    },
+    {
+      "input": "</strong> amount = [5,4,4] <strong>Output:</strong> 7 <strong>Explanation:</strong> One way to fill up the cups is: Second 1: Fill up a cold cup, and a hot cup. Second 2: Fill up a cold cup, and a warm cup. Second 3: Fill up a cold cup, and a warm cup. Second 4: Fill up a warm cup, and a hot cup. Second 5: Fill up a cold cup, and a hot cup. Second 6: Fill up a cold cup, and a warm cup. Second 7: Fill up a hot cup.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> One way to fill up the cups is: Second 1: Fill up a cold cup, and a hot cup. Second 2: Fill up a cold cup, and a warm cup. Second 3: Fill up a cold cup, and a warm cup. Second 4: Fill up a warm cup, and a hot cup. Second 5: Fill up a cold cup, and a hot cup. Second 6: Fill up a cold cup, and a warm cup. Second 7: Fill up a hot cup."
+    },
+    {
+      "input": "</strong> amount = [5,0,0] <strong>Output:</strong> 5 <strong>Explanation:</strong> Every second, we fill up a cold cup.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> Every second, we fill up a cold cup."
+    }
+  ]
+}

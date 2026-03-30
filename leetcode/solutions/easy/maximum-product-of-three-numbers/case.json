@@ -1,0 +1,27 @@
+{
+  "problemId": "628",
+  "titleSlug": "maximum-product-of-three-numbers",
+  "title": "Maximum Product of Three Numbers",
+  "titleCn": "三个数的最大乘积",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "math",
+    "sorting"
+  ],
+  "acRate": 0.5183952853690782,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3] <strong>Output:</strong> 6",
+      "expectedOutput": "</strong> 6"
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 24",
+      "expectedOutput": "</strong> 24"
+    },
+    {
+      "input": "</strong> nums = [-1,-2,-3] <strong>Output:</strong> -6",
+      "expectedOutput": "</strong> -6"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "1356",
+  "titleSlug": "minimum-number-of-moves-to-make-palindrome",
+  "title": "Minimum Number of Moves to Make Palindrome",
+  "titleCn": "得到回文串的最少操作次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "binary-indexed-tree",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.5176707562717451,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aabb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> We can obtain two palindromes from s, \"abba\" and \"baab\". - We can obtain \"abba\" from s in 2 moves: \"a<u><strong>ab</strong></u>b\" -> \"ab<u><strong>ab</strong></u>\" -> \"abba\". - We can obtain \"baab\" from s in 2 moves: \"a<u><strong>ab</strong></u>b\" -> \"<u><strong>ab</strong></u>ab\" -> \"baab\". Thus, the minimum number of moves needed to make s a palindrome is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We can obtain two palindromes from s, \"abba\" and \"baab\". - We can obtain \"abba\" from s in 2 moves: \"a<u><strong>ab</strong></u>b\" -> \"ab<u><strong>ab</strong></u>\" -> \"abba\". - We can obtain \"baab\" from s in 2 moves: \"a<u><strong>ab</strong></u>b\" -> \"<u><strong>ab</strong></u>ab\" -> \"baab\". Thus, the minimum number of moves needed to make s a palindrome is 2."
+    },
+    {
+      "input": "</strong> s = \"letelt\" <strong>Output:</strong> 2 <strong>Explanation:</strong> One of the palindromes we can obtain from s in 2 moves is \"lettel\". One of the ways we can obtain it is \"lete<u><strong>lt</strong></u>\" -> \"let<u><strong>et</strong></u>l\" -> \"lettel\". Other palindromes such as \"tleelt\" can also be obtained in 2 moves. It can be shown that it is not possible to obtain a palindrome in less than 2 moves.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One of the palindromes we can obtain from s in 2 moves is \"lettel\". One of the ways we can obtain it is \"lete<u><strong>lt</strong></u>\" -> \"let<u><strong>et</strong></u>l\" -> \"lettel\". Other palindromes such as \"tleelt\" can also be obtained in 2 moves. It can be shown that it is not possible to obtain a palindrome in less than 2 moves."
+    }
+  ]
+}

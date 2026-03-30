@@ -1,0 +1,26 @@
+{
+  "problemId": "2648",
+  "titleSlug": "number-of-ways-to-earn-points",
+  "title": "Number of Ways to Earn Points",
+  "titleCn": "获得分数的方法数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.687493057869599,
+  "testcases": [
+    {
+      "input": "</strong> target = 6, types = [[6,1],[3,2],[2,3]] <strong>Output:</strong> 7 <strong>Explanation:</strong> You can earn 6 points in one of the seven ways: - Solve 6 questions of the 0<sup>th</sup> type: 1 + 1 + 1 + 1 + 1 + 1 = 6 - Solve 4 questions of the 0<sup>th</sup> type and 1 question of the 1<sup>st</sup> type: 1 + 1 + 1 + 1 + 2 = 6 - Solve 2 questions of the 0<sup>th</sup> type and 2 questions of the 1<sup>st</sup> type: 1 + 1 + 2 + 2 = 6 - Solve 3 questions of the 0<sup>th</sup> type and 1 question of the 2<sup>nd</sup> type: 1 + 1 + 1 + 3 = 6 - Solve 1 question of the 0<sup>th</sup> type, 1 question of the 1<sup>st</sup> type and 1 question of the 2<sup>nd</sup> type: 1 + 2 + 3 = 6 - Solve 3 questions of the 1<sup>st</sup> type: 2 + 2 + 2 = 6 - Solve 2 questions of the 2<sup>nd</sup> type: 3 + 3 = 6",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> You can earn 6 points in one of the seven ways: - Solve 6 questions of the 0<sup>th</sup> type: 1 + 1 + 1 + 1 + 1 + 1 = 6 - Solve 4 questions of the 0<sup>th</sup> type and 1 question of the 1<sup>st</sup> type: 1 + 1 + 1 + 1 + 2 = 6 - Solve 2 questions of the 0<sup>th</sup> type and 2 questions of the 1<sup>st</sup> type: 1 + 1 + 2 + 2 = 6 - Solve 3 questions of the 0<sup>th</sup> type and 1 question of the 2<sup>nd</sup> type: 1 + 1 + 1 + 3 = 6 - Solve 1 question of the 0<sup>th</sup> type, 1 question of the 1<sup>st</sup> type and 1 question of the 2<sup>nd</sup> type: 1 + 2 + 3 = 6 - Solve 3 questions of the 1<sup>st</sup> type: 2 + 2 + 2 = 6 - Solve 2 questions of the 2<sup>nd</sup> type: 3 + 3 = 6"
+    },
+    {
+      "input": "</strong> target = 5, types = [[50,1],[50,2],[50,5]] <strong>Output:</strong> 4 <strong>Explanation:</strong> You can earn 5 points in one of the four ways: - Solve 5 questions of the 0<sup>th</sup> type: 1 + 1 + 1 + 1 + 1 = 5 - Solve 3 questions of the 0<sup>th</sup> type and 1 question of the 1<sup>st</sup> type: 1 + 1 + 1 + 2 = 5 - Solve 1 questions of the 0<sup>th</sup> type and 2 questions of the 1<sup>st</sup> type: 1 + 2 + 2 = 5 - Solve 1 question of the 2<sup>nd</sup> type: 5",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> You can earn 5 points in one of the four ways: - Solve 5 questions of the 0<sup>th</sup> type: 1 + 1 + 1 + 1 + 1 = 5 - Solve 3 questions of the 0<sup>th</sup> type and 1 question of the 1<sup>st</sup> type: 1 + 1 + 1 + 2 = 5 - Solve 1 questions of the 0<sup>th</sup> type and 2 questions of the 1<sup>st</sup> type: 1 + 2 + 2 = 5 - Solve 1 question of the 2<sup>nd</sup> type: 5"
+    },
+    {
+      "input": "</strong> target = 18, types = [[6,1],[3,2],[2,3]] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can only earn 18 points by answering all questions.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can only earn 18 points by answering all questions."
+    }
+  ]
+}

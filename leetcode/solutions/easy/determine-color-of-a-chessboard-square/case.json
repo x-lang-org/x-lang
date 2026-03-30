@@ -1,0 +1,26 @@
+{
+  "problemId": "1920",
+  "titleSlug": "determine-color-of-a-chessboard-square",
+  "title": "Determine Color of a Chessboard Square",
+  "titleCn": "判断国际象棋棋盘中一个格子的颜色",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math",
+    "string"
+  ],
+  "acRate": 0.8275325128307339,
+  "testcases": [
+    {
+      "input": "</strong> coordinates = \"a1\" <strong>Output:</strong> false <strong>Explanation:</strong> From the chessboard above, the square with coordinates \"a1\" is black, so return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> From the chessboard above, the square with coordinates \"a1\" is black, so return false."
+    },
+    {
+      "input": "</strong> coordinates = \"h3\" <strong>Output:</strong> true <strong>Explanation:</strong> From the chessboard above, the square with coordinates \"h3\" is white, so return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> From the chessboard above, the square with coordinates \"h3\" is white, so return true."
+    },
+    {
+      "input": "</strong> coordinates = \"c7\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

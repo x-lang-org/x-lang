@@ -1,0 +1,19 @@
+{
+  "problemId": "100184",
+  "titleSlug": "palindrome-permutation-lcci",
+  "title": "Palindrome Permutation LCCI",
+  "titleCn": "回文排列",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5314400339173959,
+  "testcases": [
+    {
+      "input": "\"</strong>tactcoa\"\r <strong>Output: </strong>true（permutations: \"tacocat\"、\"atcocta\", etc.）",
+      "expectedOutput": "</strong>true（permutations: \"tacocat\"、\"atcocta\", etc.）"
+    }
+  ]
+}

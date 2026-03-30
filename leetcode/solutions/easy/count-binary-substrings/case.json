@@ -1,0 +1,22 @@
+{
+  "problemId": "696",
+  "titleSlug": "count-binary-substrings",
+  "title": "Count Binary Substrings",
+  "titleCn": "计数二进制子串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.6482025380037812,
+  "testcases": [
+    {
+      "input": "</strong> s = \"00110011\" <strong>Output:</strong> 6 <strong>Explanation:</strong> There are 6 substrings that have equal number of consecutive 1's and 0's: \"0011\", \"01\", \"1100\", \"10\", \"0011\", and \"01\". Notice that some of these substrings repeat and are counted the number of times they occur. Also, \"00110011\" is not a valid substring because all the 0's (and 1's) are not grouped together.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> There are 6 substrings that have equal number of consecutive 1's and 0's: \"0011\", \"01\", \"1100\", \"10\", \"0011\", and \"01\". Notice that some of these substrings repeat and are counted the number of times they occur. Also, \"00110011\" is not a valid substring because all the 0's (and 1's) are not grouped together."
+    },
+    {
+      "input": "</strong> s = \"10101\" <strong>Output:</strong> 4 <strong>Explanation:</strong> There are 4 substrings: \"10\", \"01\", \"10\", \"01\" that have equal number of consecutive 1's and 0's.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> There are 4 substrings: \"10\", \"01\", \"10\", \"01\" that have equal number of consecutive 1's and 0's."
+    }
+  ]
+}

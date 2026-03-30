@@ -1,0 +1,23 @@
+{
+  "problemId": "776",
+  "titleSlug": "n-ary-tree-postorder-traversal",
+  "title": "N-ary Tree Postorder Traversal",
+  "titleCn": "N 叉树的后序遍历",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "tree",
+    "depth-first-search"
+  ],
+  "acRate": 0.7997406836116514,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,null,3,2,4,null,5,6] <strong>Output:</strong> [5,6,3,2,4,1]",
+      "expectedOutput": "</strong> [5,6,3,2,4,1]"
+    },
+    {
+      "input": "</strong> root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14] <strong>Output:</strong> [2,6,14,11,7,3,12,8,4,13,9,10,5,1]",
+      "expectedOutput": "</strong> [2,6,14,11,7,3,12,8,4,13,9,10,5,1]"
+    }
+  ]
+}

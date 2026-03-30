@@ -1,0 +1,23 @@
+{
+  "problemId": "2668",
+  "titleSlug": "form-smallest-number-from-two-digit-arrays",
+  "title": "Form Smallest Number From Two Digit Arrays",
+  "titleCn": "从两个数字数组里生成最小数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "enumeration"
+  ],
+  "acRate": 0.6662733188720174,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [4,1,3], nums2 = [5,7] <strong>Output:</strong> 15 <strong>Explanation:</strong> The number 15 contains the digit 1 from nums1 and the digit 5 from nums2. It can be proven that 15 is the smallest number we can have.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The number 15 contains the digit 1 from nums1 and the digit 5 from nums2. It can be proven that 15 is the smallest number we can have."
+    },
+    {
+      "input": "</strong> nums1 = [3,5,2,6], nums2 = [3,1,7] <strong>Output:</strong> 3 <strong>Explanation:</strong> The number 3 contains the digit 3 which exists in both arrays.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The number 3 contains the digit 3 which exists in both arrays."
+    }
+  ]
+}

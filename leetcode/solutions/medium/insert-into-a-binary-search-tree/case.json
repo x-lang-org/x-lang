@@ -1,0 +1,27 @@
+{
+  "problemId": "784",
+  "titleSlug": "insert-into-a-binary-search-tree",
+  "title": "Insert into a Binary Search Tree",
+  "titleCn": "二叉搜索树中的插入操作",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.6957526440605577,
+  "testcases": [
+    {
+      "input": "</strong> root = [4,2,7,1,3], val = 5 <strong>Output:</strong> [4,2,7,1,3,5] <strong>Explanation:</strong> Another accepted tree is: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/10/05/bst.jpg\" style=\"width: 352px; height: 301px;\" />",
+      "expectedOutput": "</strong> [4,2,7,1,3,5] <strong>Explanation:</strong> Another accepted tree is: <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/10/05/bst.jpg\" style=\"width: 352px; height: 301px;\" />"
+    },
+    {
+      "input": "</strong> root = [40,20,60,10,30,50,70], val = 25 <strong>Output:</strong> [40,20,60,10,30,50,70,null,null,25]",
+      "expectedOutput": "</strong> [40,20,60,10,30,50,70,null,null,25]"
+    },
+    {
+      "input": "</strong> root = [4,2,7,1,3,null,null,null,null,null,null], val = 5 <strong>Output:</strong> [4,2,7,1,3,5]",
+      "expectedOutput": "</strong> [4,2,7,1,3,5]"
+    }
+  ]
+}

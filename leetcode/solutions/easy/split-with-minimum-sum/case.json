@@ -1,0 +1,23 @@
+{
+  "problemId": "2650",
+  "titleSlug": "split-with-minimum-sum",
+  "title": "Split With Minimum Sum",
+  "titleCn": "最小和分割",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math",
+    "sorting"
+  ],
+  "acRate": 0.8081527676620539,
+  "testcases": [
+    {
+      "input": "</strong> num = 4325 <strong>Output:</strong> 59 <strong>Explanation:</strong> We can split 4325 so that <code>num1</code> is 24 and <code>num2</code> is 35, giving a sum of 59. We can prove that 59 is indeed the minimal possible sum.",
+      "expectedOutput": "</strong> 59 <strong>Explanation:</strong> We can split 4325 so that <code>num1</code> is 24 and <code>num2</code> is 35, giving a sum of 59. We can prove that 59 is indeed the minimal possible sum."
+    },
+    {
+      "input": "</strong> num = 687 <strong>Output:</strong> 75 <strong>Explanation:</strong> We can split 687 so that <code>num1</code> is 68 and <code>num2</code> is 7, which would give an optimal sum of 75.",
+      "expectedOutput": "</strong> 75 <strong>Explanation:</strong> We can split 687 so that <code>num1</code> is 68 and <code>num2</code> is 7, which would give an optimal sum of 75."
+    }
+  ]
+}

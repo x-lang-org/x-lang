@@ -1,0 +1,22 @@
+{
+  "problemId": "767",
+  "titleSlug": "prime-number-of-set-bits-in-binary-representation",
+  "title": "Prime Number of Set Bits in Binary Representation",
+  "titleCn": "二进制表示中质数个计算置位",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "math"
+  ],
+  "acRate": 0.768143741901254,
+  "testcases": [
+    {
+      "input": "</strong> left = 6, right = 10 <strong>Output:</strong> 4 <strong>Explanation:</strong> 6 -> 110 (2 set bits, 2 is prime) 7 -> 111 (3 set bits, 3 is prime) 8 -> 1000 (1 set bit, 1 is not prime) 9 -> 1001 (2 set bits, 2 is prime) 10 -> 1010 (2 set bits, 2 is prime) 4 numbers have a prime number of set bits.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> 6 -> 110 (2 set bits, 2 is prime) 7 -> 111 (3 set bits, 3 is prime) 8 -> 1000 (1 set bit, 1 is not prime) 9 -> 1001 (2 set bits, 2 is prime) 10 -> 1010 (2 set bits, 2 is prime) 4 numbers have a prime number of set bits."
+    },
+    {
+      "input": "</strong> left = 10, right = 15 <strong>Output:</strong> 5 <strong>Explanation:</strong> 10 -> 1010 (2 set bits, 2 is prime) 11 -> 1011 (3 set bits, 3 is prime) 12 -> 1100 (2 set bits, 2 is prime) 13 -> 1101 (3 set bits, 3 is prime) 14 -> 1110 (3 set bits, 3 is prime) 15 -> 1111 (4 set bits, 4 is not prime) 5 numbers have a prime number of set bits.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> 10 -> 1010 (2 set bits, 2 is prime) 11 -> 1011 (3 set bits, 3 is prime) 12 -> 1100 (2 set bits, 2 is prime) 13 -> 1101 (3 set bits, 3 is prime) 14 -> 1110 (3 set bits, 3 is prime) 15 -> 1111 (4 set bits, 4 is not prime) 5 numbers have a prime number of set bits."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2891",
+  "titleSlug": "maximum-beauty-of-an-array-after-applying-operation",
+  "title": "Maximum Beauty of an Array After Applying Operation",
+  "titleCn": "数组的最大美丽值",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "sorting",
+    "sliding-window"
+  ],
+  "acRate": 0.587785157377996,
+  "testcases": [
+    {
+      "input": "</strong> nums = [4,6,1,2], k = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> In this example, we apply the following operations: - Choose index 1, replace it with 4 (from range [4,8]), nums = [4,4,1,2]. - Choose index 3, replace it with 4 (from range [0,4]), nums = [4,4,1,4]. After the applied operations, the beauty of the array nums is 3 (subsequence consisting of indices 0, 1, and 3). It can be proven that 3 is the maximum possible length we can achieve.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> In this example, we apply the following operations: - Choose index 1, replace it with 4 (from range [4,8]), nums = [4,4,1,2]. - Choose index 3, replace it with 4 (from range [0,4]), nums = [4,4,1,4]. After the applied operations, the beauty of the array nums is 3 (subsequence consisting of indices 0, 1, and 3). It can be proven that 3 is the maximum possible length we can achieve."
+    },
+    {
+      "input": "</strong> nums = [1,1,1,1], k = 10 <strong>Output:</strong> 4 <strong>Explanation:</strong> In this example we don't have to apply any operations. The beauty of the array nums is 4 (whole array).",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> In this example we don't have to apply any operations. The beauty of the array nums is 4 (whole array)."
+    }
+  ]
+}

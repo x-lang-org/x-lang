@@ -1,0 +1,27 @@
+{
+  "problemId": "1761",
+  "titleSlug": "count-sorted-vowel-strings",
+  "title": "Count Sorted Vowel Strings",
+  "titleCn": "统计字典序元音字符串的数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.8269891595314488,
+  "testcases": [
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 5 <strong>Explanation:</strong> The 5 sorted strings that consist of vowels only are <code>[\"a\",\"e\",\"i\",\"o\",\"u\"].</code>",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The 5 sorted strings that consist of vowels only are <code>[\"a\",\"e\",\"i\",\"o\",\"u\"].</code>"
+    },
+    {
+      "input": "</strong> n = 2 <strong>Output:</strong> 15 <strong>Explanation:</strong> The 15 sorted strings that consist of vowels only are [\"aa\",\"ae\",\"ai\",\"ao\",\"au\",\"ee\",\"ei\",\"eo\",\"eu\",\"ii\",\"io\",\"iu\",\"oo\",\"ou\",\"uu\"]. Note that \"ea\" is not a valid string since 'e' comes after 'a' in the alphabet.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The 15 sorted strings that consist of vowels only are [\"aa\",\"ae\",\"ai\",\"ao\",\"au\",\"ee\",\"ei\",\"eo\",\"eu\",\"ii\",\"io\",\"iu\",\"oo\",\"ou\",\"uu\"]. Note that \"ea\" is not a valid string since 'e' comes after 'a' in the alphabet."
+    },
+    {
+      "input": "</strong> n = 33 <strong>Output:</strong> 66045",
+      "expectedOutput": "</strong> 66045"
+    }
+  ]
+}

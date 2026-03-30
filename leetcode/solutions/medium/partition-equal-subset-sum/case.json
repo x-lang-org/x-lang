@@ -1,0 +1,22 @@
+{
+  "problemId": "416",
+  "titleSlug": "partition-equal-subset-sum",
+  "title": "Partition Equal Subset Sum",
+  "titleCn": "分割等和子集",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5405876663852816,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,5,11,5] <strong>Output:</strong> true <strong>Explanation:</strong> The array can be partitioned as [1, 5, 5] and [11].",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The array can be partitioned as [1, 5, 5] and [11]."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,5] <strong>Output:</strong> false <strong>Explanation:</strong> The array cannot be partitioned into equal sum subsets.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The array cannot be partitioned into equal sum subsets."
+    }
+  ]
+}

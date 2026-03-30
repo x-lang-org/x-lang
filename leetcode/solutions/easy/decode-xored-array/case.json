@@ -1,0 +1,22 @@
+{
+  "problemId": "1839",
+  "titleSlug": "decode-xored-array",
+  "title": "Decode XORed Array",
+  "titleCn": "解码异或后的数组",
+  "difficulty": "EASY",
+  "topicTags": [
+    "bit-manipulation",
+    "array"
+  ],
+  "acRate": 0.8574425108763207,
+  "testcases": [
+    {
+      "input": "</strong> encoded = [1,2,3], first = 1 <strong>Output:</strong> [1,0,2,1] <strong>Explanation:</strong> If arr = [1,0,2,1], then first = 1 and encoded = [1 XOR 0, 0 XOR 2, 2 XOR 1] = [1,2,3]",
+      "expectedOutput": "</strong> [1,0,2,1] <strong>Explanation:</strong> If arr = [1,0,2,1], then first = 1 and encoded = [1 XOR 0, 0 XOR 2, 2 XOR 1] = [1,2,3]"
+    },
+    {
+      "input": "</strong> encoded = [6,2,7,3], first = 4 <strong>Output:</strong> [4,2,0,7,4]",
+      "expectedOutput": "</strong> [4,2,0,7,4]"
+    }
+  ]
+}

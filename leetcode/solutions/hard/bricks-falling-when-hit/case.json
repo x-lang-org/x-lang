@@ -1,0 +1,23 @@
+{
+  "problemId": "821",
+  "titleSlug": "bricks-falling-when-hit",
+  "title": "Bricks Falling When Hit",
+  "titleCn": "打砖块",
+  "difficulty": "HARD",
+  "topicTags": [
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.4705446556304925,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0,0,0],[1,1,1,0]], hits = [[1,0]] <strong>Output:</strong> [2] <strong>Explanation: </strong>Starting with the grid: [[1,0,0,0], [<u>1</u>,1,1,0]] We erase the underlined brick at (1,0), resulting in the grid: [[1,0,0,0], [0,<u>1</u>,<u>1</u>,0]] The two underlined bricks are no longer stable as they are no longer connected to the top nor adjacent to another stable brick, so they will fall. The resulting grid is: [[1,0,0,0], [0,0,0,0]] Hence the result is [2].",
+      "expectedOutput": "</strong> [2] <strong>Explanation: </strong>Starting with the grid: [[1,0,0,0], [<u>1</u>,1,1,0]] We erase the underlined brick at (1,0), resulting in the grid: [[1,0,0,0], [0,<u>1</u>,<u>1</u>,0]] The two underlined bricks are no longer stable as they are no longer connected to the top nor adjacent to another stable brick, so they will fall. The resulting grid is: [[1,0,0,0], [0,0,0,0]] Hence the result is [2]."
+    },
+    {
+      "input": "</strong> grid = [[1,0,0,0],[1,1,0,0]], hits = [[1,1],[1,0]] <strong>Output:</strong> [0,0] <strong>Explanation: </strong>Starting with the grid: [[1,0,0,0], [1,<u>1</u>,0,0]] We erase the underlined brick at (1,1), resulting in the grid: [[1,0,0,0], [1,0,0,0]] All remaining bricks are still stable, so no bricks fall. The grid remains the same: [[1,0,0,0], [<u>1</u>,0,0,0]] Next, we erase the underlined brick at (1,0), resulting in the grid: [[1,0,0,0], [0,0,0,0]] Once again, all remaining bricks are still stable, so no bricks fall. Hence the result is [0,0].",
+      "expectedOutput": "</strong> [0,0] <strong>Explanation: </strong>Starting with the grid: [[1,0,0,0], [1,<u>1</u>,0,0]] We erase the underlined brick at (1,1), resulting in the grid: [[1,0,0,0], [1,0,0,0]] All remaining bricks are still stable, so no bricks fall. The grid remains the same: [[1,0,0,0], [<u>1</u>,0,0,0]] Next, we erase the underlined brick at (1,0), resulting in the grid: [[1,0,0,0], [0,0,0,0]] Once again, all remaining bricks are still stable, so no bricks fall. Hence the result is [0,0]."
+    }
+  ]
+}

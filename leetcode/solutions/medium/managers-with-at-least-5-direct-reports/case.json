@@ -1,0 +1,17 @@
+{
+  "problemId": "570",
+  "titleSlug": "managers-with-at-least-5-direct-reports",
+  "title": "Managers with at Least 5 Direct Reports",
+  "titleCn": "至少有5名直接下属的经理",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5206840025430385,
+  "testcases": [
+    {
+      "input": "</strong> Employee table: +-----+-------+------------+-----------+ | id | name | department | managerId | +-----+-------+------------+-----------+ | 101 | John | A     | null   | | 102 | Dan  | A     | 101    | | 103 | James | A     | 101    | | 104 | Amy  | A     | 101    | | 105 | Anne | A     | 101    | | 106 | Ron  | B     | 101    | +-----+-------+------------+-----------+ <strong>Output:</strong> +------+ | name | +------+ | John | +------+",
+      "expectedOutput": "</strong> +------+ | name | +------+ | John | +------+"
+    }
+  ]
+}

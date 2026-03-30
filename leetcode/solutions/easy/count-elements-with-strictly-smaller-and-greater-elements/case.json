@@ -1,0 +1,23 @@
+{
+  "problemId": "2269",
+  "titleSlug": "count-elements-with-strictly-smaller-and-greater-elements",
+  "title": "Count Elements With Strictly Smaller and Greater Elements ",
+  "titleCn": "元素计数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5735674727965937,
+  "testcases": [
+    {
+      "input": "</strong> nums = [11,7,2,15] <strong>Output:</strong> 2 <strong>Explanation:</strong> The element 7 has the element 2 strictly smaller than it and the element 11 strictly greater than it. Element 11 has element 7 strictly smaller than it and element 15 strictly greater than it. In total there are 2 elements having both a strictly smaller and a strictly greater element appear in <code>nums</code>.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The element 7 has the element 2 strictly smaller than it and the element 11 strictly greater than it. Element 11 has element 7 strictly smaller than it and element 15 strictly greater than it. In total there are 2 elements having both a strictly smaller and a strictly greater element appear in <code>nums</code>."
+    },
+    {
+      "input": "</strong> nums = [-3,3,3,90] <strong>Output:</strong> 2 <strong>Explanation:</strong> The element 3 has the element -3 strictly smaller than it and the element 90 strictly greater than it. Since there are two elements with the value 3, in total there are 2 elements having both a strictly smaller and a strictly greater element appear in <code>nums</code>.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The element 3 has the element -3 strictly smaller than it and the element 90 strictly greater than it. Since there are two elements with the value 3, in total there are 2 elements having both a strictly smaller and a strictly greater element appear in <code>nums</code>."
+    }
+  ]
+}

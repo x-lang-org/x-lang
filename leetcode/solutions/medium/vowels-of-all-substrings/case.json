@@ -1,0 +1,28 @@
+{
+  "problemId": "2187",
+  "titleSlug": "vowels-of-all-substrings",
+  "title": "Vowels of All Substrings",
+  "titleCn": "所有子字符串中的元音",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "string",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.5443294329432943,
+  "testcases": [
+    {
+      "input": "</strong> word = \"aba\" <strong>Output:</strong> 6 <strong>Explanation:</strong> All possible substrings are: \"a\", \"ab\", \"aba\", \"b\", \"ba\", and \"a\". - \"b\" has 0 vowels in it - \"a\", \"ab\", \"ba\", and \"a\" have 1 vowel each - \"aba\" has 2 vowels in it Hence, the total sum of vowels = 0 + 1 + 1 + 1 + 1 + 2 = 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> All possible substrings are: \"a\", \"ab\", \"aba\", \"b\", \"ba\", and \"a\". - \"b\" has 0 vowels in it - \"a\", \"ab\", \"ba\", and \"a\" have 1 vowel each - \"aba\" has 2 vowels in it Hence, the total sum of vowels = 0 + 1 + 1 + 1 + 1 + 2 = 6."
+    },
+    {
+      "input": "</strong> word = \"abc\" <strong>Output:</strong> 3 <strong>Explanation:</strong> All possible substrings are: \"a\", \"ab\", \"abc\", \"b\", \"bc\", and \"c\". - \"a\", \"ab\", and \"abc\" have 1 vowel each - \"b\", \"bc\", and \"c\" have 0 vowels each Hence, the total sum of vowels = 1 + 1 + 1 + 0 + 0 + 0 = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> All possible substrings are: \"a\", \"ab\", \"abc\", \"b\", \"bc\", and \"c\". - \"a\", \"ab\", and \"abc\" have 1 vowel each - \"b\", \"bc\", and \"c\" have 0 vowels each Hence, the total sum of vowels = 1 + 1 + 1 + 0 + 0 + 0 = 3."
+    },
+    {
+      "input": "</strong> word = \"ltcd\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no vowels in any substring of \"ltcd\".",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no vowels in any substring of \"ltcd\"."
+    }
+  ]
+}

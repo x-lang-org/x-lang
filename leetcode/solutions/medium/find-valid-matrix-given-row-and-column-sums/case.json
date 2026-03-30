@@ -1,0 +1,23 @@
+{
+  "problemId": "1711",
+  "titleSlug": "find-valid-matrix-given-row-and-column-sums",
+  "title": "Find Valid Matrix Given Row and Column Sums",
+  "titleCn": "给定行和列的和求可行矩阵",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.8095454060399103,
+  "testcases": [
+    {
+      "input": "</strong> rowSum = [3,8], colSum = [4,7] <strong>Output:</strong> [[3,0],     [1,7]] <strong>Explanation:</strong> 0<sup>th</sup> row: 3 + 0 = 3 == rowSum[0] 1<sup>st</sup> row: 1 + 7 = 8 == rowSum[1] 0<sup>th</sup> column: 3 + 1 = 4 == colSum[0] 1<sup>st</sup> column: 0 + 7 = 7 == colSum[1] The row and column sums match, and all matrix elements are non-negative. Another possible matrix is: [[1,2],               [3,5]]",
+      "expectedOutput": "</strong> [[3,0],     [1,7]] <strong>Explanation:</strong> 0<sup>th</sup> row: 3 + 0 = 3 == rowSum[0] 1<sup>st</sup> row: 1 + 7 = 8 == rowSum[1] 0<sup>th</sup> column: 3 + 1 = 4 == colSum[0] 1<sup>st</sup> column: 0 + 7 = 7 == colSum[1] The row and column sums match, and all matrix elements are non-negative. Another possible matrix is: [[1,2],               [3,5]]"
+    },
+    {
+      "input": "</strong> rowSum = [5,7,10], colSum = [8,6,8] <strong>Output:</strong> [[0,5,0],     [6,1,0],     [2,0,8]]",
+      "expectedOutput": "</strong> [[0,5,0],     [6,1,0],     [2,0,8]]"
+    }
+  ]
+}

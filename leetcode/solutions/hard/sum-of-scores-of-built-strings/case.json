@@ -1,0 +1,26 @@
+{
+  "problemId": "2326",
+  "titleSlug": "sum-of-scores-of-built-strings",
+  "title": "Sum of Scores of Built Strings",
+  "titleCn": "构造字符串的总得分和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "binary-search",
+    "string-matching",
+    "suffix-array",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.45803472987872107,
+  "testcases": [
+    {
+      "input": "</strong> s = \"babab\" <strong>Output:</strong> 9 <strong>Explanation:</strong> For s<sub>1</sub> == \"b\", the longest common prefix is \"b\" which has a score of 1. For s<sub>2</sub> == \"ab\", there is no common prefix so the score is 0. For s<sub>3</sub> == \"bab\", the longest common prefix is \"bab\" which has a score of 3. For s<sub>4</sub> == \"abab\", there is no common prefix so the score is 0. For s<sub>5</sub> == \"babab\", the longest common prefix is \"babab\" which has a score of 5. The sum of the scores is 1 + 0 + 3 + 0 + 5 = 9, so we return 9.",
+      "expectedOutput": "</strong> 9 <strong>Explanation:</strong> For s<sub>1</sub> == \"b\", the longest common prefix is \"b\" which has a score of 1. For s<sub>2</sub> == \"ab\", there is no common prefix so the score is 0. For s<sub>3</sub> == \"bab\", the longest common prefix is \"bab\" which has a score of 3. For s<sub>4</sub> == \"abab\", there is no common prefix so the score is 0. For s<sub>5</sub> == \"babab\", the longest common prefix is \"babab\" which has a score of 5. The sum of the scores is 1 + 0 + 3 + 0 + 5 = 9, so we return 9."
+    },
+    {
+      "input": "</strong> s = \"azbazbzaz\" <strong>Output:</strong> 14 <strong>Explanation:</strong> For s<sub>2</sub> == \"az\", the longest common prefix is \"az\" which has a score of 2. For s<sub>6</sub> == \"azbzaz\", the longest common prefix is \"azb\" which has a score of 3. For s<sub>9</sub> == \"azbazbzaz\", the longest common prefix is \"azbazbzaz\" which has a score of 9. For all other s<sub>i</sub>, the score is 0. The sum of the scores is 2 + 3 + 9 = 14, so we return 14.",
+      "expectedOutput": "</strong> 14 <strong>Explanation:</strong> For s<sub>2</sub> == \"az\", the longest common prefix is \"az\" which has a score of 2. For s<sub>6</sub> == \"azbzaz\", the longest common prefix is \"azb\" which has a score of 3. For s<sub>9</sub> == \"azbazbzaz\", the longest common prefix is \"azbazbzaz\" which has a score of 9. For all other s<sub>i</sub>, the score is 0. The sum of the scores is 2 + 3 + 9 = 14, so we return 14."
+    }
+  ]
+}

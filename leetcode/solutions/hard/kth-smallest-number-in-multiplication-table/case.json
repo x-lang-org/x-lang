@@ -1,0 +1,22 @@
+{
+  "problemId": "668",
+  "titleSlug": "kth-smallest-number-in-multiplication-table",
+  "title": "Kth Smallest Number in Multiplication Table",
+  "titleCn": "乘法表中第k小的数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.5986868781385484,
+  "testcases": [
+    {
+      "input": "</strong> m = 3, n = 3, k = 5 <strong>Output:</strong> 3 <strong>Explanation:</strong> The 5<sup>th</sup> smallest number is 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The 5<sup>th</sup> smallest number is 3."
+    },
+    {
+      "input": "</strong> m = 2, n = 3, k = 6 <strong>Output:</strong> 6 <strong>Explanation:</strong> The 6<sup>th</sup> smallest number is 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The 6<sup>th</sup> smallest number is 6."
+    }
+  ]
+}

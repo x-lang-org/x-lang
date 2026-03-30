@@ -1,0 +1,23 @@
+{
+  "problemId": "2807",
+  "titleSlug": "execute-asynchronous-functions-in-parallel",
+  "title": "Execute Asynchronous Functions in Parallel",
+  "titleCn": "并行执行异步函数",
+  "difficulty": "MEDIUM",
+  "topicTags": [],
+  "acRate": 0.6804765773084214,
+  "testcases": [
+    {
+      "input": "</strong> functions = [   () => new Promise(resolve => setTimeout(() => resolve(5), 200)) ] <strong>Output:</strong> {\"t\": 200, \"resolved\": [5]} <strong>Explanation:</strong> promiseAll(functions).then(console.log); // [5] The single function was resolved at 200ms with a value of 5.",
+      "expectedOutput": "</strong> {\"t\": 200, \"resolved\": [5]} <strong>Explanation:</strong> promiseAll(functions).then(console.log); // [5] The single function was resolved at 200ms with a value of 5."
+    },
+    {
+      "input": "</strong> functions = [   () => new Promise(resolve => setTimeout(() => resolve(1), 200)),   () => new Promise((resolve, reject) => setTimeout(() => reject(\"Error\"), 100)) ] <strong>Output:</strong> {\"t\": 100, \"rejected\": \"Error\"} <strong>Explanation:</strong> Since one of the promises rejected, the returned promise also rejected with the same error at the same time.",
+      "expectedOutput": "</strong> {\"t\": 100, \"rejected\": \"Error\"} <strong>Explanation:</strong> Since one of the promises rejected, the returned promise also rejected with the same error at the same time."
+    },
+    {
+      "input": "</strong> functions = [   () => new Promise(resolve => setTimeout(() => resolve(4), 50)),   () => new Promise(resolve => setTimeout(() => resolve(10), 150)),   () => new Promise(resolve => setTimeout(() => resolve(16), 100)) ] <strong>Output:</strong> {\"t\": 150, \"resolved\": [4, 10, 16]} <strong>Explanation:</strong> All the promises resolved with a value. The returned promise resolved when the last promise resolved.",
+      "expectedOutput": "</strong> {\"t\": 150, \"resolved\": [4, 10, 16]} <strong>Explanation:</strong> All the promises resolved with a value. The returned promise resolved when the last promise resolved."
+    }
+  ]
+}

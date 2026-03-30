@@ -1,0 +1,30 @@
+{
+  "problemId": "999",
+  "titleSlug": "regions-cut-by-slashes",
+  "title": "Regions Cut By Slashes",
+  "titleCn": "由斜杠划分区域",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.7432269544254391,
+  "testcases": [
+    {
+      "input": "</strong> grid = [\" /\",\"/ \"] <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> grid = [\" /\",\" \"] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> grid = [\"/\\\\\",\"\\\\/\"] <strong>Output:</strong> 5 <strong>Explanation: </strong>Recall that because \\ characters are escaped, \"\\\\/\" refers to \\/, and \"/\\\\\" refers to /\\.",
+      "expectedOutput": "</strong> 5 <strong>Explanation: </strong>Recall that because \\ characters are escaped, \"\\\\/\" refers to \\/, and \"/\\\\\" refers to /\\."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "3297",
+  "titleSlug": "minimum-time-to-revert-word-to-initial-state-i",
+  "title": "Minimum Time to Revert Word to Initial State I",
+  "titleCn": "将单词恢复初始状态所需的最短时间 I",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.43714502082544493,
+  "testcases": [
+    {
+      "input": "</strong> word = \"abacaba\", k = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> At the 1st second, we remove characters \"aba\" from the prefix of word, and add characters \"bac\" to the end of word. Thus, word becomes equal to \"cababac\". At the 2nd second, we remove characters \"cab\" from the prefix of word, and add \"aba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state. It can be shown that 2 seconds is the minimum time greater than zero required for word to revert to its initial state.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> At the 1st second, we remove characters \"aba\" from the prefix of word, and add characters \"bac\" to the end of word. Thus, word becomes equal to \"cababac\". At the 2nd second, we remove characters \"cab\" from the prefix of word, and add \"aba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state. It can be shown that 2 seconds is the minimum time greater than zero required for word to revert to its initial state."
+    },
+    {
+      "input": "</strong> word = \"abacaba\", k = 4 <strong>Output:</strong> 1 <strong>Explanation:</strong> At the 1st second, we remove characters \"abac\" from the prefix of word, and add characters \"caba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state. It can be shown that 1 second is the minimum time greater than zero required for word to revert to its initial state.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> At the 1st second, we remove characters \"abac\" from the prefix of word, and add characters \"caba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state. It can be shown that 1 second is the minimum time greater than zero required for word to revert to its initial state."
+    },
+    {
+      "input": "</strong> word = \"abcbabcd\", k = 2 <strong>Output:</strong> 4 <strong>Explanation:</strong> At every second, we will remove the first 2 characters of word, and add the same characters to the end of word. After 4 seconds, word becomes equal to \"abcbabcd\" and reverts to its initial state. It can be shown that 4 seconds is the minimum time greater than zero required for word to revert to its initial state.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> At every second, we will remove the first 2 characters of word, and add the same characters to the end of word. After 4 seconds, word becomes equal to \"abcbabcd\" and reverts to its initial state. It can be shown that 4 seconds is the minimum time greater than zero required for word to revert to its initial state."
+    }
+  ]
+}

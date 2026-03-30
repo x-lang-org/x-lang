@@ -1,0 +1,27 @@
+{
+  "problemId": "1996",
+  "titleSlug": "number-of-ways-to-rearrange-sticks-with-k-sticks-visible",
+  "title": "Number of Ways to Rearrange Sticks With K Sticks Visible",
+  "titleCn": "恰有 K 根木棍可以看到的排列数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "acRate": 0.6465228923999539,
+  "testcases": [
+    {
+      "input": "</strong> n = 3, k = 2 <strong>Output:</strong> 3 <strong>Explanation:</strong> [<u>1</u>,<u>3</u>,2], [<u>2</u>,<u>3</u>,1], and [<u>2</u>,1,<u>3</u>] are the only arrangements such that exactly 2 sticks are visible. The visible sticks are underlined.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> [<u>1</u>,<u>3</u>,2], [<u>2</u>,<u>3</u>,1], and [<u>2</u>,1,<u>3</u>] are the only arrangements such that exactly 2 sticks are visible. The visible sticks are underlined."
+    },
+    {
+      "input": "</strong> n = 5, k = 5 <strong>Output:</strong> 1 <strong>Explanation:</strong> [<u>1</u>,<u>2</u>,<u>3</u>,<u>4</u>,<u>5</u>] is the only arrangement such that all 5 sticks are visible. The visible sticks are underlined.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> [<u>1</u>,<u>2</u>,<u>3</u>,<u>4</u>,<u>5</u>] is the only arrangement such that all 5 sticks are visible. The visible sticks are underlined."
+    },
+    {
+      "input": "</strong> n = 20, k = 11 <strong>Output:</strong> 647427950 <strong>Explanation:</strong> There are 647427950 (mod 10<sup>9 </sup>+ 7) ways to rearrange the sticks such that exactly 11 sticks are visible.",
+      "expectedOutput": "</strong> 647427950 <strong>Explanation:</strong> There are 647427950 (mod 10<sup>9 </sup>+ 7) ways to rearrange the sticks such that exactly 11 sticks are visible."
+    }
+  ]
+}

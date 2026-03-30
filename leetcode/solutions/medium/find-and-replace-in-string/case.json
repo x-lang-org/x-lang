@@ -1,0 +1,24 @@
+{
+  "problemId": "862",
+  "titleSlug": "find-and-replace-in-string",
+  "title": "Find And Replace in String",
+  "titleCn": "字符串中的查找与替换",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5089428723972237,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcd\", indices = [0, 2], sources = [\"a\", \"cd\"], targets = [\"eee\", \"ffff\"] <strong>Output:</strong> \"eeebffff\" <strong>Explanation:</strong> \"a\" occurs at index 0 in s, so we replace it with \"eee\". \"cd\" occurs at index 2 in s, so we replace it with \"ffff\".",
+      "expectedOutput": "</strong> \"eeebffff\" <strong>Explanation:</strong> \"a\" occurs at index 0 in s, so we replace it with \"eee\". \"cd\" occurs at index 2 in s, so we replace it with \"ffff\"."
+    },
+    {
+      "input": "</strong> s = \"abcd\", indices = [0, 2], sources = [\"ab\",\"ec\"], targets = [\"eee\",\"ffff\"] <strong>Output:</strong> \"eeecd\" <strong>Explanation:</strong> \"ab\" occurs at index 0 in s, so we replace it with \"eee\". \"ec\" does not occur at index 2 in s, so we do nothing.",
+      "expectedOutput": "</strong> \"eeecd\" <strong>Explanation:</strong> \"ab\" occurs at index 0 in s, so we replace it with \"eee\". \"ec\" does not occur at index 2 in s, so we do nothing."
+    }
+  ]
+}

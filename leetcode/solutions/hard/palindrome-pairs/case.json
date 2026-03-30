@@ -1,0 +1,28 @@
+{
+  "problemId": "336",
+  "titleSlug": "palindrome-pairs",
+  "title": "Palindrome Pairs",
+  "titleCn": "回文对",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.38250576332732117,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"abcd\",\"dcba\",\"lls\",\"s\",\"sssll\"] <strong>Output:</strong> [[0,1],[1,0],[3,2],[2,4]] <strong>Explanation:</strong> The palindromes are [\"abcddcba\",\"dcbaabcd\",\"slls\",\"llssssll\"]",
+      "expectedOutput": "</strong> [[0,1],[1,0],[3,2],[2,4]] <strong>Explanation:</strong> The palindromes are [\"abcddcba\",\"dcbaabcd\",\"slls\",\"llssssll\"]"
+    },
+    {
+      "input": "</strong> words = [\"bat\",\"tab\",\"cat\"] <strong>Output:</strong> [[0,1],[1,0]] <strong>Explanation:</strong> The palindromes are [\"battab\",\"tabbat\"]",
+      "expectedOutput": "</strong> [[0,1],[1,0]] <strong>Explanation:</strong> The palindromes are [\"battab\",\"tabbat\"]"
+    },
+    {
+      "input": "</strong> words = [\"a\",\"\"] <strong>Output:</strong> [[0,1],[1,0]] <strong>Explanation:</strong> The palindromes are [\"a\",\"a\"]",
+      "expectedOutput": "</strong> [[0,1],[1,0]] <strong>Explanation:</strong> The palindromes are [\"a\",\"a\"]"
+    }
+  ]
+}

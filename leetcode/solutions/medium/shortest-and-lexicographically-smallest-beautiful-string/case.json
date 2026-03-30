@@ -1,0 +1,26 @@
+{
+  "problemId": "3150",
+  "titleSlug": "shortest-and-lexicographically-smallest-beautiful-string",
+  "title": "Shortest and Lexicographically Smallest Beautiful String",
+  "titleCn": "最短且字典序最小的美丽子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.4710357274544431,
+  "testcases": [
+    {
+      "input": "</strong> s = \"100011001\", k = 3 <strong>Output:</strong> \"11001\" <strong>Explanation:</strong> There are 7 beautiful substrings in this example: 1. The substring \"<u>100011</u>001\". 2. The substring \"<u>1000110</u>01\". 3. The substring \"<u>10001100</u>1\". 4. The substring \"1<u>00011001</u>\". 5. The substring \"10<u>0011001</u>\". 6. The substring \"100<u>011001</u>\". 7. The substring \"1000<u>11001</u>\". The length of the shortest beautiful substring is 5. The lexicographically smallest beautiful substring with length 5 is the substring \"11001\".",
+      "expectedOutput": "</strong> \"11001\" <strong>Explanation:</strong> There are 7 beautiful substrings in this example: 1. The substring \"<u>100011</u>001\". 2. The substring \"<u>1000110</u>01\". 3. The substring \"<u>10001100</u>1\". 4. The substring \"1<u>00011001</u>\". 5. The substring \"10<u>0011001</u>\". 6. The substring \"100<u>011001</u>\". 7. The substring \"1000<u>11001</u>\". The length of the shortest beautiful substring is 5. The lexicographically smallest beautiful substring with length 5 is the substring \"11001\"."
+    },
+    {
+      "input": "</strong> s = \"1011\", k = 2 <strong>Output:</strong> \"11\" <strong>Explanation:</strong> There are 3 beautiful substrings in this example: 1. The substring \"<u>101</u>1\". 2. The substring \"1<u>011</u>\". 3. The substring \"10<u>11</u>\". The length of the shortest beautiful substring is 2. The lexicographically smallest beautiful substring with length 2 is the substring \"11\".",
+      "expectedOutput": "</strong> \"11\" <strong>Explanation:</strong> There are 3 beautiful substrings in this example: 1. The substring \"<u>101</u>1\". 2. The substring \"1<u>011</u>\". 3. The substring \"10<u>11</u>\". The length of the shortest beautiful substring is 2. The lexicographically smallest beautiful substring with length 2 is the substring \"11\"."
+    },
+    {
+      "input": "</strong> s = \"000\", k = 1 <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are no beautiful substrings in this example.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are no beautiful substrings in this example."
+    }
+  ]
+}

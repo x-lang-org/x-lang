@@ -1,0 +1,21 @@
+{
+  "problemId": "440",
+  "titleSlug": "k-th-smallest-in-lexicographical-order",
+  "title": "K-th Smallest in Lexicographical Order",
+  "titleCn": "字典序的第K小数字",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie"
+  ],
+  "acRate": 0.43070739549839226,
+  "testcases": [
+    {
+      "input": "</strong> n = 13, k = 2 <strong>Output:</strong> 10 <strong>Explanation:</strong> The lexicographical order is [1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9], so the second smallest number is 10.",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> The lexicographical order is [1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9], so the second smallest number is 10."
+    },
+    {
+      "input": "</strong> n = 1, k = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

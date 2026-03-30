@@ -1,0 +1,26 @@
+{
+  "problemId": "1121",
+  "titleSlug": "partition-array-for-maximum-sum",
+  "title": "Partition Array for Maximum Sum",
+  "titleCn": "分隔数组以得到最大和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.755408950910681,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,15,7,9,2,5,10], k = 3 <strong>Output:</strong> 84 <strong>Explanation:</strong> arr becomes [15,15,15,9,10,10,10]",
+      "expectedOutput": "</strong> 84 <strong>Explanation:</strong> arr becomes [15,15,15,9,10,10,10]"
+    },
+    {
+      "input": "</strong> arr = [1,4,1,5,7,3,6,1,9,9,3], k = 4 <strong>Output:</strong> 83",
+      "expectedOutput": "</strong> 83"
+    },
+    {
+      "input": "</strong> arr = [1], k = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

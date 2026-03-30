@@ -1,0 +1,25 @@
+{
+  "problemId": "1000042",
+  "titleSlug": "pairs-with-sum-lcci",
+  "title": "Pairs With Sum LCCI",
+  "titleCn": "数对和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "counting",
+    "sorting"
+  ],
+  "acRate": 0.5030086917762425,
+  "testcases": [
+    {
+      "input": "</strong> nums = [5,6,5], target = 11\r <strong>Output: </strong>[[5,6]]",
+      "expectedOutput": "</strong>[[5,6]]"
+    },
+    {
+      "input": "</strong> nums = [5,6,5,6], target = 11\r <strong>Output: </strong>[[5,6],[5,6]]",
+      "expectedOutput": "</strong>[[5,6],[5,6]]"
+    }
+  ]
+}

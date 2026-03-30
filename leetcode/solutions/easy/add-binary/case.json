@@ -13,10 +13,6 @@
   "acRate": 0.5435717523946579,
   "testcases": [
     {
-      "input": "\"11\"",
-      "expectedOutput": "\"1\""
-    },
-    {
       "input": "\"1010\"",
       "expectedOutput": "\"1011\""
     }

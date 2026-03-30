@@ -1,0 +1,27 @@
+{
+  "problemId": "1042",
+  "titleSlug": "minimum-cost-to-merge-stones",
+  "title": "Minimum Cost to Merge Stones",
+  "titleCn": "合并石头的最低成本",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "prefix-sum"
+  ],
+  "acRate": 0.5516961781206171,
+  "testcases": [
+    {
+      "input": "</strong> stones = [3,2,4,1], k = 2 <strong>Output:</strong> 20 <strong>Explanation:</strong> We start with [3, 2, 4, 1]. We merge [3, 2] for a cost of 5, and we are left with [5, 4, 1]. We merge [4, 1] for a cost of 5, and we are left with [5, 5]. We merge [5, 5] for a cost of 10, and we are left with [10]. The total cost was 20, and this is the minimum possible.",
+      "expectedOutput": "</strong> 20 <strong>Explanation:</strong> We start with [3, 2, 4, 1]. We merge [3, 2] for a cost of 5, and we are left with [5, 4, 1]. We merge [4, 1] for a cost of 5, and we are left with [5, 5]. We merge [5, 5] for a cost of 10, and we are left with [10]. The total cost was 20, and this is the minimum possible."
+    },
+    {
+      "input": "</strong> stones = [3,2,4,1], k = 3 <strong>Output:</strong> -1 <strong>Explanation:</strong> After any merge operation, there are 2 piles left, and we can't merge anymore. So the task is impossible.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> After any merge operation, there are 2 piles left, and we can't merge anymore. So the task is impossible."
+    },
+    {
+      "input": "</strong> stones = [3,5,1,2,6], k = 3 <strong>Output:</strong> 25 <strong>Explanation:</strong> We start with [3, 5, 1, 2, 6]. We merge [5, 1, 2] for a cost of 8, and we are left with [3, 8, 6]. We merge [3, 8, 6] for a cost of 17, and we are left with [17]. The total cost was 25, and this is the minimum possible.",
+      "expectedOutput": "</strong> 25 <strong>Explanation:</strong> We start with [3, 5, 1, 2, 6]. We merge [5, 1, 2] for a cost of 8, and we are left with [3, 8, 6]. We merge [3, 8, 6] for a cost of 17, and we are left with [17]. The total cost was 25, and this is the minimum possible."
+    }
+  ]
+}

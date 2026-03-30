@@ -1,0 +1,27 @@
+{
+  "problemId": "2100",
+  "titleSlug": "minimum-non-zero-product-of-the-array-elements",
+  "title": "Minimum Non-Zero Product of the Array Elements",
+  "titleCn": "数组元素的最小非零乘积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "recursion",
+    "math"
+  ],
+  "acRate": 0.4328528072837633,
+  "testcases": [
+    {
+      "input": "</strong> p = 1 <strong>Output:</strong> 1 <strong>Explanation:</strong> nums = [1]. There is only one element, so the product equals that element.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> nums = [1]. There is only one element, so the product equals that element."
+    },
+    {
+      "input": "</strong> p = 2 <strong>Output:</strong> 6 <strong>Explanation:</strong> nums = [01, 10, 11]. Any swap would either make the product 0 or stay the same. Thus, the array product of 1 * 2 * 3 = 6 is already minimized.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> nums = [01, 10, 11]. Any swap would either make the product 0 or stay the same. Thus, the array product of 1 * 2 * 3 = 6 is already minimized."
+    },
+    {
+      "input": "</strong> p = 3 <strong>Output:</strong> 1512 <strong>Explanation:</strong> nums = [001, 010, 011, 100, 101, 110, 111] - In the first operation we can swap the leftmost bit of the second and fifth elements.   - The resulting array is [001, <u>1</u>10, 011, 100, <u>0</u>01, 110, 111]. - In the second operation we can swap the middle bit of the third and fourth elements.   - The resulting array is [001, 110, 0<u>0</u>1, 1<u>1</u>0, 001, 110, 111]. The array product is 1 * 6 * 1 * 6 * 1 * 6 * 7 = 1512, which is the minimum possible product.",
+      "expectedOutput": "</strong> 1512 <strong>Explanation:</strong> nums = [001, 010, 011, 100, 101, 110, 111] - In the first operation we can swap the leftmost bit of the second and fifth elements.   - The resulting array is [001, <u>1</u>10, 011, 100, <u>0</u>01, 110, 111]. - In the second operation we can swap the middle bit of the third and fourth elements.   - The resulting array is [001, 110, 0<u>0</u>1, 1<u>1</u>0, 001, 110, 111]. The array product is 1 * 6 * 1 * 6 * 1 * 6 * 7 = 1512, which is the minimum possible product."
+    }
+  ]
+}

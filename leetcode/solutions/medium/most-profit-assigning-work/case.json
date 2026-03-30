@@ -1,0 +1,25 @@
+{
+  "problemId": "853",
+  "titleSlug": "most-profit-assigning-work",
+  "title": "Most Profit Assigning Work",
+  "titleCn": "安排工作以达到最大收益",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "acRate": 0.5173539623560943,
+  "testcases": [
+    {
+      "input": "</strong> difficulty = [2,4,6,8,10], profit = [10,20,30,40,50], worker = [4,5,6,7] <strong>Output:</strong> 100 <strong>Explanation:</strong> Workers are assigned jobs of difficulty [4,4,6,6] and they get a profit of [20,20,30,30] separately.",
+      "expectedOutput": "</strong> 100 <strong>Explanation:</strong> Workers are assigned jobs of difficulty [4,4,6,6] and they get a profit of [20,20,30,30] separately."
+    },
+    {
+      "input": "</strong> difficulty = [85,47,57], profit = [24,66,99], worker = [40,25,25] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "541",
+  "titleSlug": "reverse-string-ii",
+  "title": "Reverse String II",
+  "titleCn": "反转字符串 II",
+  "difficulty": "EASY",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.5793965478916131,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcdefg\", k = 2 <strong>Output:</strong> \"bacdfeg\"",
+      "expectedOutput": "</strong> \"bacdfeg"
+    },
+    {
+      "input": "</strong> s = \"abcd\", k = 2 <strong>Output:</strong> \"bacd\"",
+      "expectedOutput": "</strong> \"bacd"
+    }
+  ]
+}

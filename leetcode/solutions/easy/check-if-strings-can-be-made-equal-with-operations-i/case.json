@@ -1,0 +1,21 @@
+{
+  "problemId": "2999",
+  "titleSlug": "check-if-strings-can-be-made-equal-with-operations-i",
+  "title": "Check if Strings Can be Made Equal With Operations I",
+  "titleCn": "判断通过操作能否让字符串相等 I",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7021130480718436,
+  "testcases": [
+    {
+      "input": "</strong> s1 = \"abcd\", s2 = \"cdab\" <strong>Output:</strong> true <strong>Explanation:</strong> We can do the following operations on s1: - Choose the indices i = 0, j = 2. The resulting string is s1 = \"cbad\". - Choose the indices i = 1, j = 3. The resulting string is s1 = \"cdab\" = s2.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can do the following operations on s1: - Choose the indices i = 0, j = 2. The resulting string is s1 = \"cbad\". - Choose the indices i = 1, j = 3. The resulting string is s1 = \"cdab\" = s2."
+    },
+    {
+      "input": "</strong> s1 = \"abcd\", s2 = \"dacb\" <strong>Output:</strong> false <strong>Explanation:</strong> It is not possible to make the two strings equal.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is not possible to make the two strings equal."
+    }
+  ]
+}

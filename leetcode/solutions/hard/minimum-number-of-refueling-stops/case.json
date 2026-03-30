@@ -1,0 +1,28 @@
+{
+  "problemId": "902",
+  "titleSlug": "minimum-number-of-refueling-stops",
+  "title": "Minimum Number of Refueling Stops",
+  "titleCn": "最低加油次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "dynamic-programming",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.46970585403849013,
+  "testcases": [
+    {
+      "input": "</strong> target = 1, startFuel = 1, stations = [] <strong>Output:</strong> 0 <strong>Explanation:</strong> We can reach the target without refueling.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> We can reach the target without refueling."
+    },
+    {
+      "input": "</strong> target = 100, startFuel = 1, stations = [[10,100]] <strong>Output:</strong> -1 <strong>Explanation:</strong> We can not reach the target (or even the first gas station).",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We can not reach the target (or even the first gas station)."
+    },
+    {
+      "input": "</strong> target = 100, startFuel = 10, stations = [[10,60],[20,30],[30,30],[60,40]] <strong>Output:</strong> 2 <strong>Explanation:</strong> We start with 10 liters of fuel. We drive to position 10, expending 10 liters of fuel. We refuel from 0 liters to 60 liters of gas. Then, we drive from position 10 to position 60 (expending 50 liters of fuel), and refuel from 10 liters to 50 liters of gas. We then drive to and reach the target. We made 2 refueling stops along the way, so we return 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> We start with 10 liters of fuel. We drive to position 10, expending 10 liters of fuel. We refuel from 0 liters to 60 liters of gas. Then, we drive from position 10 to position 60 (expending 50 liters of fuel), and refuel from 10 liters to 50 liters of gas. We then drive to and reach the target. We made 2 refueling stops along the way, so we return 2."
+    }
+  ]
+}

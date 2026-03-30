@@ -1,0 +1,22 @@
+{
+  "problemId": "1252",
+  "titleSlug": "break-a-palindrome",
+  "title": "Break a Palindrome",
+  "titleCn": "破坏回文串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.49171613360503236,
+  "testcases": [
+    {
+      "input": "</strong> palindrome = \"abccba\" <strong>Output:</strong> \"aaccba\" <strong>Explanation:</strong> There are many ways to make \"abccba\" not a palindrome, such as \"<u>z</u>bccba\", \"a<u>a</u>ccba\", and \"ab<u>a</u>cba\". Of all the ways, \"aaccba\" is the lexicographically smallest.",
+      "expectedOutput": "</strong> \"aaccba\" <strong>Explanation:</strong> There are many ways to make \"abccba\" not a palindrome, such as \"<u>z</u>bccba\", \"a<u>a</u>ccba\", and \"ab<u>a</u>cba\". Of all the ways, \"aaccba\" is the lexicographically smallest."
+    },
+    {
+      "input": "</strong> palindrome = \"a\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> There is no way to replace a single character to make \"a\" not a palindrome, so return an empty string.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There is no way to replace a single character to make \"a\" not a palindrome, so return an empty string."
+    }
+  ]
+}

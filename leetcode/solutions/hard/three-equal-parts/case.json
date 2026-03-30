@@ -1,0 +1,26 @@
+{
+  "problemId": "963",
+  "titleSlug": "three-equal-parts",
+  "title": "Three Equal Parts",
+  "titleCn": "三等分",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math"
+  ],
+  "acRate": 0.44244474592570965,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,0,1,0,1] <strong>Output:</strong> [0,3]",
+      "expectedOutput": "</strong> [0,3]"
+    },
+    {
+      "input": "</strong> arr = [1,1,0,1,1] <strong>Output:</strong> [-1,-1]",
+      "expectedOutput": "</strong> [-1,-1]"
+    },
+    {
+      "input": "</strong> arr = [1,1,0,0,1] <strong>Output:</strong> [0,2]",
+      "expectedOutput": "</strong> [0,2]"
+    }
+  ]
+}

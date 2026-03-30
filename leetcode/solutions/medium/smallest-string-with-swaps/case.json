@@ -1,0 +1,31 @@
+{
+  "problemId": "1308",
+  "titleSlug": "smallest-string-with-swaps",
+  "title": "Smallest String With Swaps",
+  "titleCn": "交换字符串中的元素",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "hash-table",
+    "string",
+    "sorting"
+  ],
+  "acRate": 0.5322128851540616,
+  "testcases": [
+    {
+      "input": "</strong> s = \"dcab\", pairs = [[0,3],[1,2]] <strong>Output:</strong> \"bacd\" <strong>Explaination:</strong> Swap s[0] and s[3], s = \"bcad\" Swap s[1] and s[2], s = \"bacd\"",
+      "expectedOutput": "</strong> \"bacd\" <strong>Explaination:</strong> Swap s[0] and s[3], s = \"bcad\" Swap s[1] and s[2], s = \"bacd"
+    },
+    {
+      "input": "</strong> s = \"dcab\", pairs = [[0,3],[1,2],[0,2]] <strong>Output:</strong> \"abcd\" <strong>Explaination: </strong> Swap s[0] and s[3], s = \"bcad\" Swap s[0] and s[2], s = \"acbd\" Swap s[1] and s[2], s = \"abcd\"",
+      "expectedOutput": "</strong> \"abcd\" <strong>Explaination: </strong> Swap s[0] and s[3], s = \"bcad\" Swap s[0] and s[2], s = \"acbd\" Swap s[1] and s[2], s = \"abcd"
+    },
+    {
+      "input": "</strong> s = \"cba\", pairs = [[0,1],[1,2]] <strong>Output:</strong> \"abc\" <strong>Explaination: </strong> Swap s[0] and s[1], s = \"bca\" Swap s[1] and s[2], s = \"bac\" Swap s[0] and s[1], s = \"abc\"",
+      "expectedOutput": "</strong> \"abc\" <strong>Explaination: </strong> Swap s[0] and s[1], s = \"bca\" Swap s[1] and s[2], s = \"bac\" Swap s[0] and s[1], s = \"abc"
+    }
+  ]
+}

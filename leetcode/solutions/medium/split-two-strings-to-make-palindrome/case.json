@@ -1,0 +1,26 @@
+{
+  "problemId": "1739",
+  "titleSlug": "split-two-strings-to-make-palindrome",
+  "title": "Split Two Strings to Make Palindrome",
+  "titleCn": "分割两个字符串得到回文串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.3872081165180556,
+  "testcases": [
+    {
+      "input": "</strong> a = \"x\", b = \"y\" <strong>Output:</strong> true <strong>Explaination:</strong> If either a or b are palindromes the answer is true since you can split in the following way: a<sub>prefix</sub> = \"\", a<sub>suffix</sub> = \"x\" b<sub>prefix</sub> = \"\", b<sub>suffix</sub> = \"y\" Then, a<sub>prefix</sub> + b<sub>suffix</sub> = \"\" + \"y\" = \"y\", which is a palindrome.",
+      "expectedOutput": "</strong> true <strong>Explaination:</strong> If either a or b are palindromes the answer is true since you can split in the following way: a<sub>prefix</sub> = \"\", a<sub>suffix</sub> = \"x\" b<sub>prefix</sub> = \"\", b<sub>suffix</sub> = \"y\" Then, a<sub>prefix</sub> + b<sub>suffix</sub> = \"\" + \"y\" = \"y\", which is a palindrome."
+    },
+    {
+      "input": "</strong> a = \"xbdef\", b = \"xecab\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> a = \"ulacfd\", b = \"jizalu\" <strong>Output:</strong> true <strong>Explaination:</strong> Split them at index 3: a<sub>prefix</sub> = \"ula\", a<sub>suffix</sub> = \"cfd\" b<sub>prefix</sub> = \"jiz\", b<sub>suffix</sub> = \"alu\" Then, a<sub>prefix</sub> + b<sub>suffix</sub> = \"ula\" + \"alu\" = \"ulaalu\", which is a palindrome.",
+      "expectedOutput": "</strong> true <strong>Explaination:</strong> Split them at index 3: a<sub>prefix</sub> = \"ula\", a<sub>suffix</sub> = \"cfd\" b<sub>prefix</sub> = \"jiz\", b<sub>suffix</sub> = \"alu\" Then, a<sub>prefix</sub> + b<sub>suffix</sub> = \"ula\" + \"alu\" = \"ulaalu\", which is a palindrome."
+    }
+  ]
+}

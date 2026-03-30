@@ -1,0 +1,17 @@
+{
+  "problemId": "585",
+  "titleSlug": "investments-in-2016",
+  "title": "Investments in 2016",
+  "titleCn": "2016年的投资",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.4836765413891242,
+  "testcases": [
+    {
+      "input": "</strong> Insurance table: +-----+----------+----------+-----+-----+ | pid | tiv_2015 | tiv_2016 | lat | lon | +-----+----------+----------+-----+-----+ | 1  | 10    | 5    | 10 | 10 | | 2  | 20    | 20    | 20 | 20 | | 3  | 10    | 30    | 20 | 20 | | 4  | 10    | 40    | 40 | 40 | +-----+----------+----------+-----+-----+ <strong>Output:</strong> +----------+ | tiv_2016 | +----------+ | 45.00  | +----------+ <strong>Explanation:</strong> The first record in the table, like the last record, meets both of the two criteria. The tiv_2015 value 10 is the same as the third and fourth records, and its location is unique. The second record does not meet any of the two criteria. Its tiv_2015 is not like any other policyholders and its location is the same as the third record, which makes the third record fail, too. So, the result is the sum of tiv_2016 of the first and last record, which is 45.",
+      "expectedOutput": "</strong> +----------+ | tiv_2016 | +----------+ | 45.00  | +----------+ <strong>Explanation:</strong> The first record in the table, like the last record, meets both of the two criteria. The tiv_2015 value 10 is the same as the third and fourth records, and its location is unique. The second record does not meet any of the two criteria. Its tiv_2015 is not like any other policyholders and its location is the same as the third record, which makes the third record fail, too. So, the result is the sum of tiv_2016 of the first and last record, which is 45."
+    }
+  ]
+}

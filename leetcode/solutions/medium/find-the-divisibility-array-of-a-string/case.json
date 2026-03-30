@@ -1,0 +1,23 @@
+{
+  "problemId": "2713",
+  "titleSlug": "find-the-divisibility-array-of-a-string",
+  "title": "Find the Divisibility Array of a String",
+  "titleCn": "找出字符串的可整除数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "string"
+  ],
+  "acRate": 0.4340784020653577,
+  "testcases": [
+    {
+      "input": "</strong> word = \"998244353\", m = 3 <strong>Output:</strong> [1,1,0,0,0,1,1,0,0] <strong>Explanation:</strong> There are only 4 prefixes that are divisible by 3: \"9\", \"99\", \"998244\", and \"9982443\".",
+      "expectedOutput": "</strong> [1,1,0,0,0,1,1,0,0] <strong>Explanation:</strong> There are only 4 prefixes that are divisible by 3: \"9\", \"99\", \"998244\", and \"9982443\"."
+    },
+    {
+      "input": "</strong> word = \"1010\", m = 10 <strong>Output:</strong> [0,1,0,1] <strong>Explanation:</strong> There are only 2 prefixes that are divisible by 10: \"10\", and \"1010\".",
+      "expectedOutput": "</strong> [0,1,0,1] <strong>Explanation:</strong> There are only 2 prefixes that are divisible by 10: \"10\", and \"1010\"."
+    }
+  ]
+}

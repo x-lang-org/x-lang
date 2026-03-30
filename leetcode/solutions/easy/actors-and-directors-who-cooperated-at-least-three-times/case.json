@@ -1,0 +1,17 @@
+{
+  "problemId": "1136",
+  "titleSlug": "actors-and-directors-who-cooperated-at-least-three-times",
+  "title": "Actors and Directors Who Cooperated At Least Three Times",
+  "titleCn": "合作过至少三次的演员和导演",
+  "difficulty": "EASY",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.7608059102198875,
+  "testcases": [
+    {
+      "input": "</strong> ActorDirector table: +-------------+-------------+-------------+ | actor_id  | director_id | timestamp  | +-------------+-------------+-------------+ | 1      | 1      | 0      | | 1      | 1      | 1      | | 1      | 1      | 2      | | 1      | 2      | 3      | | 1      | 2      | 4      | | 2      | 1      | 5      | | 2      | 1      | 6      | +-------------+-------------+-------------+ <strong>Output:</strong> +-------------+-------------+ | actor_id  | director_id | +-------------+-------------+ | 1      | 1      | +-------------+-------------+ <strong>Explanation:</strong> The only pair is (1, 1) where they cooperated exactly 3 times.",
+      "expectedOutput": "</strong> +-------------+-------------+ | actor_id  | director_id | +-------------+-------------+ | 1      | 1      | +-------------+-------------+ <strong>Explanation:</strong> The only pair is (1, 1) where they cooperated exactly 3 times."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "742",
+  "titleSlug": "to-lower-case",
+  "title": "To Lower Case",
+  "titleCn": "转换成小写字母",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7577195901567563,
+  "testcases": [
+    {
+      "input": "</strong> s = \"Hello\" <strong>Output:</strong> \"hello\"",
+      "expectedOutput": "</strong> \"hello"
+    },
+    {
+      "input": "</strong> s = \"here\" <strong>Output:</strong> \"here\"",
+      "expectedOutput": "</strong> \"here"
+    },
+    {
+      "input": "</strong> s = \"LOVELY\" <strong>Output:</strong> \"lovely\"",
+      "expectedOutput": "</strong> \"lovely"
+    }
+  ]
+}

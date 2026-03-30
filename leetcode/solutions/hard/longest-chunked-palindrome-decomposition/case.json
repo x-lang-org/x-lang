@@ -1,0 +1,30 @@
+{
+  "problemId": "1251",
+  "titleSlug": "longest-chunked-palindrome-decomposition",
+  "title": "Longest Chunked Palindrome Decomposition",
+  "titleCn": "段式回文",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "two-pointers",
+    "string",
+    "dynamic-programming",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.5842352092352092,
+  "testcases": [
+    {
+      "input": "</strong> text = \"ghiabcdefhelloadamhelloabcdefghi\" <strong>Output:</strong> 7 <strong>Explanation:</strong> We can split the string on \"(ghi)(abcdef)(hello)(adam)(hello)(abcdef)(ghi)\".",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> We can split the string on \"(ghi)(abcdef)(hello)(adam)(hello)(abcdef)(ghi)\"."
+    },
+    {
+      "input": "</strong> text = \"merchant\" <strong>Output:</strong> 1 <strong>Explanation:</strong> We can split the string on \"(merchant)\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> We can split the string on \"(merchant)\"."
+    },
+    {
+      "input": "</strong> text = \"antaprezatepzapreanta\" <strong>Output:</strong> 11 <strong>Explanation:</strong> We can split the string on \"(a)(nt)(a)(pre)(za)(tep)(za)(pre)(a)(nt)(a)\".",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> We can split the string on \"(a)(nt)(a)(pre)(za)(tep)(za)(pre)(a)(nt)(a)\"."
+    }
+  ]
+}

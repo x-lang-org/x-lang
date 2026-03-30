@@ -1,0 +1,26 @@
+{
+  "problemId": "1967",
+  "titleSlug": "longest-substring-of-all-vowels-in-order",
+  "title": "Longest Substring Of All Vowels in Order",
+  "titleCn": "所有元音按顺序排布的最长子字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "sliding-window"
+  ],
+  "acRate": 0.49553515281096716,
+  "testcases": [
+    {
+      "input": "</strong> word = \"aeiaaio<u>aaaaeiiiiouuu</u>ooaauuaeiu\" <strong>Output:</strong> 13 <b>Explanation:</b> The longest beautiful substring in word is \"aaaaeiiiiouuu\" of length 13.",
+      "expectedOutput": "</strong> 13 <b>Explanation:</b> The longest beautiful substring in word is \"aaaaeiiiiouuu\" of length 13."
+    },
+    {
+      "input": "</strong> word = \"aeeeiiiioooauuu<u>aeiou</u>\" <strong>Output:</strong> 5 <b>Explanation:</b> The longest beautiful substring in word is \"aeiou\" of length 5.",
+      "expectedOutput": "</strong> 5 <b>Explanation:</b> The longest beautiful substring in word is \"aeiou\" of length 5."
+    },
+    {
+      "input": "</strong> word = \"a\" <strong>Output:</strong> 0 <b>Explanation:</b> There is no beautiful substring, so return 0.",
+      "expectedOutput": "</strong> 0 <b>Explanation:</b> There is no beautiful substring, so return 0."
+    }
+  ]
+}

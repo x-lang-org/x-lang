@@ -1,0 +1,27 @@
+{
+  "problemId": "1363",
+  "titleSlug": "greatest-english-letter-in-upper-and-lower-case",
+  "title": "Greatest English Letter in Upper and Lower Case",
+  "titleCn": "兼具大小写的最好英文字母",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string",
+    "enumeration"
+  ],
+  "acRate": 0.7207702006710406,
+  "testcases": [
+    {
+      "input": "</strong> s = \"l<strong><u>Ee</u></strong>TcOd<u><strong>E</strong></u>\" <strong>Output:</strong> \"E\" <strong>Explanation:</strong> The letter 'E' is the only letter to appear in both lower and upper case.",
+      "expectedOutput": "</strong> \"E\" <strong>Explanation:</strong> The letter 'E' is the only letter to appear in both lower and upper case."
+    },
+    {
+      "input": "</strong> s = \"a<strong><u>rR</u></strong>AzFif\" <strong>Output:</strong> \"R\" <strong>Explanation:</strong> The letter 'R' is the greatest letter to appear in both lower and upper case. Note that 'A' and 'F' also appear in both lower and upper case, but 'R' is greater than 'F' or 'A'.",
+      "expectedOutput": "</strong> \"R\" <strong>Explanation:</strong> The letter 'R' is the greatest letter to appear in both lower and upper case. Note that 'A' and 'F' also appear in both lower and upper case, but 'R' is greater than 'F' or 'A'."
+    },
+    {
+      "input": "</strong> s = \"AbCdEfGhIjK\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> There is no letter that appears in both lower and upper case.",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There is no letter that appears in both lower and upper case."
+    }
+  ]
+}

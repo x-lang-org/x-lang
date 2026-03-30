@@ -1,0 +1,22 @@
+{
+  "problemId": "446",
+  "titleSlug": "arithmetic-slices-ii-subsequence",
+  "title": "Arithmetic Slices II - Subsequence",
+  "titleCn": "等差数列划分 II - 子序列",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5373592630501536,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,4,6,8,10] <strong>Output:</strong> 7 <strong>Explanation:</strong> All arithmetic subsequence slices are: [2,4,6] [4,6,8] [6,8,10] [2,4,6,8] [4,6,8,10] [2,4,6,8,10] [2,6,10]",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> All arithmetic subsequence slices are: [2,4,6] [4,6,8] [6,8,10] [2,4,6,8] [4,6,8,10] [2,4,6,8,10] [2,6,10]"
+    },
+    {
+      "input": "</strong> nums = [7,7,7,7,7] <strong>Output:</strong> 16 <strong>Explanation:</strong> Any subsequence of this array is arithmetic.",
+      "expectedOutput": "</strong> 16 <strong>Explanation:</strong> Any subsequence of this array is arithmetic."
+    }
+  ]
+}

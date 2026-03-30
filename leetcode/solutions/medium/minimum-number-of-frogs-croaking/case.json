@@ -1,0 +1,26 @@
+{
+  "problemId": "1534",
+  "titleSlug": "minimum-number-of-frogs-croaking",
+  "title": "Minimum Number of Frogs Croaking",
+  "titleCn": "数青蛙",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "counting"
+  ],
+  "acRate": 0.5031110246937585,
+  "testcases": [
+    {
+      "input": "</strong> croakOfFrogs = \"croakcroak\" <strong>Output:</strong> 1 <strong>Explanation:</strong> One frog yelling \"croak<strong>\"</strong> twice.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> One frog yelling \"croak<strong>\"</strong> twice."
+    },
+    {
+      "input": "</strong> croakOfFrogs = \"crcoakroak\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The minimum number of frogs is two. The first frog could yell \"<strong>cr</strong>c<strong>oak</strong>roak\". The second frog could yell later \"cr<strong>c</strong>oak<strong>roak</strong>\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The minimum number of frogs is two. The first frog could yell \"<strong>cr</strong>c<strong>oak</strong>roak\". The second frog could yell later \"cr<strong>c</strong>oak<strong>roak</strong>\"."
+    },
+    {
+      "input": "</strong> croakOfFrogs = \"croakcrook\" <strong>Output:</strong> -1 <strong>Explanation:</strong> The given string is an invalid combination of \"croak<strong>\"</strong> from different frogs.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> The given string is an invalid combination of \"croak<strong>\"</strong> from different frogs."
+    }
+  ]
+}

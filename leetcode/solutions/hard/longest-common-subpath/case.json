@@ -1,0 +1,29 @@
+{
+  "problemId": "2051",
+  "titleSlug": "longest-common-subpath",
+  "title": "Longest Common Subpath",
+  "titleCn": "最长公共子路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "binary-search",
+    "suffix-array",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.28854143062164817,
+  "testcases": [
+    {
+      "input": "</strong> n = 5, paths = [[0,1,<u>2,3</u>,4],            [<u>2,3</u>,4],            [4,0,1,<u>2,3</u>]] <strong>Output:</strong> 2 <strong>Explanation:</strong> The longest common subpath is [2,3].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The longest common subpath is [2,3]."
+    },
+    {
+      "input": "</strong> n = 3, paths = [[0],[1],[2]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no common subpath shared by the three paths.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no common subpath shared by the three paths."
+    },
+    {
+      "input": "</strong> n = 5, paths = [[<u>0</u>,1,2,3,4],            [4,3,2,1,<u>0</u>]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The possible longest common subpaths are [0], [1], [2], [3], and [4]. All have a length of 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The possible longest common subpaths are [0], [1], [2], [3], and [4]. All have a length of 1."
+    }
+  ]
+}

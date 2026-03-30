@@ -1,0 +1,15 @@
+{
+  "problemId": "3068",
+  "titleSlug": "rename-columns",
+  "title": "Rename Columns",
+  "titleCn": "重命名列",
+  "difficulty": "EASY",
+  "topicTags": [],
+  "acRate": 0.8010801997350453,
+  "testcases": [
+    {
+      "input": "</strong>+----+---------+----------+-----+ | id | first  | last   | age | +----+---------+----------+-----+ | 1 | Mason  | King   | 6  | | 2 | Ava   | Wright  | 7  | | 3 | Taylor | Hall   | 16 | | 4 | Georgia | Thompson | 18 | | 5 | Thomas | Moore  | 10 | +----+---------+----------+-----+ <strong>Output:</strong> +------------+------------+-----------+--------------+ | student_id | first_name | last_name | age_in_years | +------------+------------+-----------+--------------+ | 1     | Mason   | King   | 6      | | 2     | Ava    | Wright  | 7      | | 3     | Taylor   | Hall   | 16      | | 4     | Georgia  | Thompson | 18      | | 5     | Thomas   | Moore   | 10      | +------------+------------+-----------+--------------+ <strong>Explanation:</strong> The column names are changed accordingly.",
+      "expectedOutput": "</strong> +------------+------------+-----------+--------------+ | student_id | first_name | last_name | age_in_years | +------------+------------+-----------+--------------+ | 1     | Mason   | King   | 6      | | 2     | Ava    | Wright  | 7      | | 3     | Taylor   | Hall   | 16      | | 4     | Georgia  | Thompson | 18      | | 5     | Thomas   | Moore   | 10      | +------------+------------+-----------+--------------+ <strong>Explanation:</strong> The column names are changed accordingly."
+    }
+  ]
+}

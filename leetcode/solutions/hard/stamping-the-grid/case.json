@@ -1,0 +1,24 @@
+{
+  "problemId": "2200",
+  "titleSlug": "stamping-the-grid",
+  "title": "Stamping the Grid",
+  "titleCn": "用邮票贴满网格图",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "matrix",
+    "prefix-sum"
+  ],
+  "acRate": 0.5171406127258444,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]], stampHeight = 4, stampWidth = 3 <strong>Output:</strong> true <strong>Explanation:</strong> We have two overlapping stamps (labeled 1 and 2 in the image) that are able to cover all the empty cells.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We have two overlapping stamps (labeled 1 and 2 in the image) that are able to cover all the empty cells."
+    },
+    {
+      "input": "</strong> grid = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]], stampHeight = 2, stampWidth = 2 <strong>Output:</strong> false <strong>Explanation:</strong> There is no way to fit the stamps onto all the empty cells without the stamps going outside the grid.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> There is no way to fit the stamps onto all the empty cells without the stamps going outside the grid."
+    }
+  ]
+}

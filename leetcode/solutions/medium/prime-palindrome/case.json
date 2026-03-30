@@ -1,0 +1,26 @@
+{
+  "problemId": "897",
+  "titleSlug": "prime-palindrome",
+  "title": "Prime Palindrome",
+  "titleCn": "回文质数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math",
+    "number-theory"
+  ],
+  "acRate": 0.2611485558195542,
+  "testcases": [
+    {
+      "input": "</strong> n = 6 <strong>Output:</strong> 7",
+      "expectedOutput": "</strong> 7"
+    },
+    {
+      "input": "</strong> n = 8 <strong>Output:</strong> 11",
+      "expectedOutput": "</strong> 11"
+    },
+    {
+      "input": "</strong> n = 13 <strong>Output:</strong> 101",
+      "expectedOutput": "</strong> 101"
+    }
+  ]
+}

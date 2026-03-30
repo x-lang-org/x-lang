@@ -1,0 +1,23 @@
+{
+  "problemId": "2349",
+  "titleSlug": "check-if-there-is-a-valid-parentheses-string-path",
+  "title": " Check if There Is a Valid Parentheses String Path",
+  "titleCn": "检查是否有合法括号字符串路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.42732308909846334,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[\"(\",\"(\",\"(\"],[\")\",\"(\",\")\"],[\"(\",\"(\",\")\"],[\"(\",\"(\",\")\"]] <strong>Output:</strong> true <strong>Explanation:</strong> The above diagram shows two possible paths that form valid parentheses strings. The first path shown results in the valid parentheses string \"()(())\". The second path shown results in the valid parentheses string \"((()))\". Note that there may be other valid parentheses string paths.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The above diagram shows two possible paths that form valid parentheses strings. The first path shown results in the valid parentheses string \"()(())\". The second path shown results in the valid parentheses string \"((()))\". Note that there may be other valid parentheses string paths."
+    },
+    {
+      "input": "</strong> grid = [[\")\",\")\"],[\"(\",\"(\"]] <strong>Output:</strong> false <strong>Explanation:</strong> The two possible paths form the parentheses strings \"))(\" and \")((\". Since neither of them are valid parentheses strings, we return false.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The two possible paths form the parentheses strings \"))(\" and \")((\". Since neither of them are valid parentheses strings, we return false."
+    }
+  ]
+}

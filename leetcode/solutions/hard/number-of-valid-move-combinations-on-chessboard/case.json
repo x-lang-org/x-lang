@@ -1,0 +1,28 @@
+{
+  "problemId": "2166",
+  "titleSlug": "number-of-valid-move-combinations-on-chessboard",
+  "title": "Number of Valid Move Combinations On Chessboard",
+  "titleCn": "棋盘上有效移动组合的数目",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "string",
+    "backtracking",
+    "simulation"
+  ],
+  "acRate": 0.6897470039946738,
+  "testcases": [
+    {
+      "input": "</strong> pieces = [\"rook\"], positions = [[1,1]] <strong>Output:</strong> 15 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to.",
+      "expectedOutput": "</strong> 15 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to."
+    },
+    {
+      "input": "</strong> pieces = [\"queen\"], positions = [[1,1]] <strong>Output:</strong> 22 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to.",
+      "expectedOutput": "</strong> 22 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to."
+    },
+    {
+      "input": "</strong> pieces = [\"bishop\"], positions = [[4,3]] <strong>Output:</strong> 12 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to.",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> The image above shows the possible squares the piece can move to."
+    }
+  ]
+}

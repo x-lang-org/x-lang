@@ -1,0 +1,24 @@
+{
+  "problemId": "126",
+  "titleSlug": "word-ladder-ii",
+  "title": "Word Ladder II",
+  "titleCn": "单词接龙 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.3661239221761418,
+  "testcases": [
+    {
+      "input": "</strong> beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"] <strong>Output:</strong> [[\"hit\",\"hot\",\"dot\",\"dog\",\"cog\"],[\"hit\",\"hot\",\"lot\",\"log\",\"cog\"]] <strong>Explanation:</strong> There are 2 shortest transformation sequences: \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> \"cog\" \"hit\" -> \"hot\" -> \"lot\" -> \"log\" -> \"cog\"",
+      "expectedOutput": "</strong> [[\"hit\",\"hot\",\"dot\",\"dog\",\"cog\"],[\"hit\",\"hot\",\"lot\",\"log\",\"cog\"]] <strong>Explanation:</strong> There are 2 shortest transformation sequences: \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> \"cog\" \"hit\" -> \"hot\" -> \"lot\" -> \"log\" -> \"cog"
+    },
+    {
+      "input": "</strong> beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"] <strong>Output:</strong> [] <strong>Explanation:</strong> The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence."
+    }
+  ]
+}

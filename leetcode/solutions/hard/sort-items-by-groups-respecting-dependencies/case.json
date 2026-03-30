@@ -1,0 +1,24 @@
+{
+  "problemId": "1309",
+  "titleSlug": "sort-items-by-groups-respecting-dependencies",
+  "title": "Sort Items by Groups Respecting Dependencies",
+  "titleCn": "项目管理",
+  "difficulty": "HARD",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "graph",
+    "topological-sort"
+  ],
+  "acRate": 0.6022834019799118,
+  "testcases": [
+    {
+      "input": "</strong> n = 8, m = 2, group = [-1,-1,1,0,0,1,0,-1], beforeItems = [[],[6],[5],[6],[3,6],[],[],[]] <strong>Output:</strong> [6,3,4,1,5,2,0,7]",
+      "expectedOutput": "</strong> [6,3,4,1,5,2,0,7]"
+    },
+    {
+      "input": "</strong> n = 8, m = 2, group = [-1,-1,1,0,0,1,0,-1], beforeItems = [[],[6],[5],[6],[3],[],[4],[]] <strong>Output:</strong> [] <strong>Explanation:</strong> This is the same as example 1 except that 4 needs to be before 6 in the sorted list.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> This is the same as example 1 except that 4 needs to be before 6 in the sorted list."
+    }
+  ]
+}

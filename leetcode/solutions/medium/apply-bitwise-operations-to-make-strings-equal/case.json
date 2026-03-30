@@ -1,0 +1,22 @@
+{
+  "problemId": "2632",
+  "titleSlug": "apply-bitwise-operations-to-make-strings-equal",
+  "title": "Apply Bitwise Operations to Make Strings Equal",
+  "titleCn": "执行逐位运算使字符串相等",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "string"
+  ],
+  "acRate": 0.47302158273381295,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1010\", target = \"0110\" <strong>Output:</strong> true <strong>Explanation:</strong> We can do the following operations: - Choose i = 2 and j = 0. We have now s = \"<strong><u>0</u></strong>0<strong><u>1</u></strong>0\". - Choose i = 2 and j = 1. We have now s = \"0<strong><u>11</u></strong>0\". Since we can make s equal to target, we return true.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> We can do the following operations: - Choose i = 2 and j = 0. We have now s = \"<strong><u>0</u></strong>0<strong><u>1</u></strong>0\". - Choose i = 2 and j = 1. We have now s = \"0<strong><u>11</u></strong>0\". Since we can make s equal to target, we return true."
+    },
+    {
+      "input": "</strong> s = \"11\", target = \"00\" <strong>Output:</strong> false <strong>Explanation:</strong> It is not possible to make s equal to target with any number of operations.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is not possible to make s equal to target with any number of operations."
+    }
+  ]
+}

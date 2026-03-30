@@ -1,0 +1,25 @@
+{
+  "problemId": "695",
+  "titleSlug": "max-area-of-island",
+  "title": "Max Area of Island",
+  "titleCn": "岛屿的最大面积",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.6878585255754583,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]] <strong>Output:</strong> 6 <strong>Explanation:</strong> The answer is not 11, because the island must be connected 4-directionally.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The answer is not 11, because the island must be connected 4-directionally."
+    },
+    {
+      "input": "</strong> grid = [[0,0,0,0,0,0,0,0]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

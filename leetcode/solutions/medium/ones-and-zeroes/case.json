@@ -1,0 +1,23 @@
+{
+  "problemId": "474",
+  "titleSlug": "ones-and-zeroes",
+  "title": "Ones and Zeroes",
+  "titleCn": "一和零",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6777690463681996,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"10\",\"0001\",\"111001\",\"1\",\"0\"], m = 5, n = 3 <strong>Output:</strong> 4 <strong>Explanation:</strong> The largest subset with at most 5 0's and 3 1's is {\"10\", \"0001\", \"1\", \"0\"}, so the answer is 4. Other valid but smaller subsets include {\"0001\", \"1\"} and {\"10\", \"1\", \"0\"}. {\"111001\"} is an invalid subset because it contains 4 1's, greater than the maximum of 3.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The largest subset with at most 5 0's and 3 1's is {\"10\", \"0001\", \"1\", \"0\"}, so the answer is 4. Other valid but smaller subsets include {\"0001\", \"1\"} and {\"10\", \"1\", \"0\"}. {\"111001\"} is an invalid subset because it contains 4 1's, greater than the maximum of 3."
+    },
+    {
+      "input": "</strong> strs = [\"10\",\"0\",\"1\"], m = 1, n = 1 <strong>Output:</strong> 2 <b>Explanation:</b> The largest subset is {\"0\", \"1\"}, so the answer is 2.",
+      "expectedOutput": "</strong> 2 <b>Explanation:</b> The largest subset is {\"0\", \"1\"}, so the answer is 2."
+    }
+  ]
+}

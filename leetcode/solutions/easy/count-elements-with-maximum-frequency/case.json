@@ -1,0 +1,23 @@
+{
+  "problemId": "3242",
+  "titleSlug": "count-elements-with-maximum-frequency",
+  "title": "Count Elements With Maximum Frequency",
+  "titleCn": "最大频率元素计数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.7591811309001331,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,2,3,1,4] <strong>Output:</strong> 4 <strong>Explanation:</strong> The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array. So the number of elements in the array with maximum frequency is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array. So the number of elements in the array with maximum frequency is 4."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> 5 <strong>Explanation:</strong> All elements of the array have a frequency of 1 which is the maximum. So the number of elements in the array with maximum frequency is 5.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> All elements of the array have a frequency of 1 which is the maximum. So the number of elements in the array with maximum frequency is 5."
+    }
+  ]
+}

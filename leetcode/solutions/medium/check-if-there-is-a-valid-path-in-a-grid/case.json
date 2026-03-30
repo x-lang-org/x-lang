@@ -1,0 +1,29 @@
+{
+  "problemId": "1507",
+  "titleSlug": "check-if-there-is-a-valid-path-in-a-grid",
+  "title": "Check if There is a Valid Path in a Grid",
+  "titleCn": "检查网格中是否存在有效路径",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.4609254152935638,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[2,4,3],[6,5,2]] <strong>Output:</strong> true <strong>Explanation:</strong> As shown you can start at cell (0, 0) and visit all the cells of the grid to reach (m - 1, n - 1).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> As shown you can start at cell (0, 0) and visit all the cells of the grid to reach (m - 1, n - 1)."
+    },
+    {
+      "input": "</strong> grid = [[1,2,1],[1,2,1]] <strong>Output:</strong> false <strong>Explanation:</strong> As shown you the street at cell (0, 0) is not connected with any street of any other cell and you will get stuck at cell (0, 0)",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> As shown you the street at cell (0, 0) is not connected with any street of any other cell and you will get stuck at cell (0, 0)"
+    },
+    {
+      "input": "</strong> grid = [[1,1,2]] <strong>Output:</strong> false <strong>Explanation:</strong> You will get stuck at cell (0, 1) and you cannot reach cell (0, 2).",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> You will get stuck at cell (0, 1) and you cannot reach cell (0, 2)."
+    }
+  ]
+}

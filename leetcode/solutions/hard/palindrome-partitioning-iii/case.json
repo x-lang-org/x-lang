@@ -1,0 +1,26 @@
+{
+  "problemId": "1403",
+  "titleSlug": "palindrome-partitioning-iii",
+  "title": "Palindrome Partitioning III",
+  "titleCn": "分割回文串 III",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.7119718772586898,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abc\", k = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> You can split the string into \"ab\" and \"c\", and change 1 character in \"ab\" to make it palindrome.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can split the string into \"ab\" and \"c\", and change 1 character in \"ab\" to make it palindrome."
+    },
+    {
+      "input": "</strong> s = \"aabbc\", k = 3 <strong>Output:</strong> 0 <strong>Explanation:</strong> You can split the string into \"aa\", \"bb\" and \"c\", all of them are palindrome.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> You can split the string into \"aa\", \"bb\" and \"c\", all of them are palindrome."
+    },
+    {
+      "input": "</strong> s = \"leetcode\", k = 8 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "2032",
+  "titleSlug": "largest-odd-number-in-string",
+  "title": "Largest Odd Number in String",
+  "titleCn": "字符串中的最大奇数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "greedy",
+    "math",
+    "string"
+  ],
+  "acRate": 0.6311880540809122,
+  "testcases": [
+    {
+      "input": "</strong> num = \"52\" <strong>Output:</strong> \"5\" <strong>Explanation:</strong> The only non-empty substrings are \"5\", \"2\", and \"52\". \"5\" is the only odd number.",
+      "expectedOutput": "</strong> \"5\" <strong>Explanation:</strong> The only non-empty substrings are \"5\", \"2\", and \"52\". \"5\" is the only odd number."
+    },
+    {
+      "input": "</strong> num = \"4206\" <strong>Output:</strong> \"\" <strong>Explanation:</strong> There are no odd numbers in \"4206\".",
+      "expectedOutput": "</strong> \"\" <strong>Explanation:</strong> There are no odd numbers in \"4206\"."
+    },
+    {
+      "input": "</strong> num = \"35427\" <strong>Output:</strong> \"35427\" <strong>Explanation:</strong> \"35427\" is already an odd number.",
+      "expectedOutput": "</strong> \"35427\" <strong>Explanation:</strong> \"35427\" is already an odd number."
+    }
+  ]
+}

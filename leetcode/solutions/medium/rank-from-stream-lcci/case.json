@@ -1,0 +1,20 @@
+{
+  "problemId": "1000041",
+  "titleSlug": "rank-from-stream-lcci",
+  "title": "Rank from Stream LCCI",
+  "titleCn": "数字流的秩",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "design",
+    "binary-indexed-tree",
+    "binary-search",
+    "data-stream"
+  ],
+  "acRate": 0.6279603131076432,
+  "testcases": [
+    {
+      "input": "</strong>\r [\"StreamRank\", \"getRankOfNumber\", \"track\", \"getRankOfNumber\"]\r [[], [1], [0], [0]]\r <strong>Output:\r </strong>[null,0,null,1]",
+      "expectedOutput": "</strong>[null,0,null,1]"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "problemId": "100160",
+  "titleSlug": "string-to-url-lcci",
+  "title": "String to URL LCCI",
+  "titleCn": "URL化",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.5801188977653701,
+  "testcases": [
+    {
+      "input": "</strong>\"Mr John Smith \", 13\r <strong>Output: </strong>\"Mr%20John%20Smith\"",
+      "expectedOutput": "</strong>\"Mr%20John%20Smith"
+    },
+    {
+      "input": "</strong>\"        \", 5\r <strong>Output: </strong>\"%20%20%20%20%20\"",
+      "expectedOutput": "</strong>\"%20%20%20%20%20"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "1756",
+  "titleSlug": "minimum-deletions-to-make-string-balanced",
+  "title": "Minimum Deletions to Make String Balanced",
+  "titleCn": "使字符串平衡的最少删除次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6268019986692933,
+  "testcases": [
+    {
+      "input": "</strong> s = \"aababbab\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You can either: Delete the characters at 0-indexed positions 2 and 6 (\"aa<u>b</u>abb<u>a</u>b\" -> \"aaabbb\"), or Delete the characters at 0-indexed positions 3 and 6 (\"aab<u>a</u>bb<u>a</u>b\" -> \"aabbbb\").",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can either: Delete the characters at 0-indexed positions 2 and 6 (\"aa<u>b</u>abb<u>a</u>b\" -> \"aaabbb\"), or Delete the characters at 0-indexed positions 3 and 6 (\"aab<u>a</u>bb<u>a</u>b\" -> \"aabbbb\")."
+    },
+    {
+      "input": "</strong> s = \"bbaaaaabb\" <strong>Output:</strong> 2 <strong>Explanation:</strong> The only solution is to delete the first two characters.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The only solution is to delete the first two characters."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "problemId": "2679",
+  "titleSlug": "count-distinct-numbers-on-board",
+  "title": "Count Distinct Numbers on Board",
+  "titleCn": "统计桌面上的不同数字",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.6820676184718412,
+  "testcases": [
+    {
+      "input": "</strong> n = 5 <strong>Output:</strong> 4 <strong>Explanation:</strong> Initially, 5 is present on the board. The next day, 2 and 4 will be added since 5 % 2 == 1 and 5 % 4 == 1. After that day, 3 will be added to the board because 4 % 3 == 1. At the end of a billion days, the distinct numbers on the board will be 2, 3, 4, and 5.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Initially, 5 is present on the board. The next day, 2 and 4 will be added since 5 % 2 == 1 and 5 % 4 == 1. After that day, 3 will be added to the board because 4 % 3 == 1. At the end of a billion days, the distinct numbers on the board will be 2, 3, 4, and 5."
+    },
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 2 <strong>Explanation:</strong> Since 3 % 2 == 1, 2 will be added to the board. After a billion days, the only two distinct numbers on the board are 2 and 3.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Since 3 % 2 == 1, 2 will be added to the board. After a billion days, the only two distinct numbers on the board are 2 and 3."
+    }
+  ]
+}

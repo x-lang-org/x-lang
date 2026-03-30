@@ -1,0 +1,23 @@
+{
+  "problemId": "560",
+  "titleSlug": "subarray-sum-equals-k",
+  "title": "Subarray Sum Equals K",
+  "titleCn": "和为 K 的子数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "acRate": 0.46304737795101514,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,1,1], k = 2 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    },
+    {
+      "input": "</strong> nums = [1,2,3], k = 3 <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

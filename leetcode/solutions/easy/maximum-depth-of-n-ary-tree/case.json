@@ -1,0 +1,23 @@
+{
+  "problemId": "774",
+  "titleSlug": "maximum-depth-of-n-ary-tree",
+  "title": "Maximum Depth of N-ary Tree",
+  "titleCn": "N 叉树的最大深度",
+  "difficulty": "EASY",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "breadth-first-search"
+  ],
+  "acRate": 0.7564233775293906,
+  "testcases": [
+    {
+      "input": "</strong> root = [1,null,3,2,4,null,5,6] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14] <strong>Output:</strong> 5",
+      "expectedOutput": "</strong> 5"
+    }
+  ]
+}

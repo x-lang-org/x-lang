@@ -1,0 +1,26 @@
+{
+  "problemId": "187",
+  "titleSlug": "repeated-dna-sequences",
+  "title": "Repeated DNA Sequences",
+  "titleCn": "重复的DNA序列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "hash-table",
+    "string",
+    "sliding-window",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.5554255441538363,
+  "testcases": [
+    {
+      "input": "</strong> s = \"AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT\" <strong>Output:</strong> [\"AAAAACCCCC\",\"CCCCCAAAAA\"]",
+      "expectedOutput": "</strong> [\"AAAAACCCCC\",\"CCCCCAAAAA\"]"
+    },
+    {
+      "input": "</strong> s = \"AAAAAAAAAAAAA\" <strong>Output:</strong> [\"AAAAAAAAAA\"]",
+      "expectedOutput": "</strong> [\"AAAAAAAAAA\"]"
+    }
+  ]
+}

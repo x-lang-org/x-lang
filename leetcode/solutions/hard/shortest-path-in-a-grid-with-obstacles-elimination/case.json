@@ -1,0 +1,23 @@
+{
+  "problemId": "1414",
+  "titleSlug": "shortest-path-in-a-grid-with-obstacles-elimination",
+  "title": "Shortest Path in a Grid with Obstacles Elimination",
+  "titleCn": "网格中的最短路径",
+  "difficulty": "HARD",
+  "topicTags": [
+    "breadth-first-search",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.40635201755197525,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]], k = 1 <strong>Output:</strong> 6 <strong>Explanation:</strong> The shortest path without eliminating any obstacle is 10. The shortest path with one obstacle elimination at position (3,2) is 6. Such path is (0,0) -> (0,1) -> (0,2) -> (1,2) -> (2,2) -> <strong>(3,2)</strong> -> (4,2).",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The shortest path without eliminating any obstacle is 10. The shortest path with one obstacle elimination at position (3,2) is 6. Such path is (0,0) -> (0,1) -> (0,2) -> (1,2) -> (2,2) -> <strong>(3,2)</strong> -> (4,2)."
+    },
+    {
+      "input": "</strong> grid = [[0,1,1],[1,1,1],[1,0,0]], k = 1 <strong>Output:</strong> -1 <strong>Explanation:</strong> We need to eliminate at least two obstacles to find such a walk.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> We need to eliminate at least two obstacles to find such a walk."
+    }
+  ]
+}

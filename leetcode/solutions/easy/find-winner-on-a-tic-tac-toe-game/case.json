@@ -1,0 +1,28 @@
+{
+  "problemId": "1400",
+  "titleSlug": "find-winner-on-a-tic-tac-toe-game",
+  "title": "Find Winner on a Tic Tac Toe Game",
+  "titleCn": "找出井字棋的获胜者",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "matrix",
+    "simulation"
+  ],
+  "acRate": 0.5380912948970086,
+  "testcases": [
+    {
+      "input": "</strong> moves = [[0,0],[2,0],[1,1],[2,1],[2,2]] <strong>Output:</strong> \"A\" <strong>Explanation:</strong> A wins, they always play first.",
+      "expectedOutput": "</strong> \"A\" <strong>Explanation:</strong> A wins, they always play first."
+    },
+    {
+      "input": "</strong> moves = [[0,0],[1,1],[0,1],[0,2],[1,0],[2,0]] <strong>Output:</strong> \"B\" <strong>Explanation:</strong> B wins.",
+      "expectedOutput": "</strong> \"B\" <strong>Explanation:</strong> B wins."
+    },
+    {
+      "input": "</strong> moves = [[0,0],[1,1],[2,0],[1,0],[1,2],[2,1],[0,1],[0,2],[2,2]] <strong>Output:</strong> \"Draw\" <strong>Explanation:</strong> The game ends in a draw since there are no moves to make.",
+      "expectedOutput": "</strong> \"Draw\" <strong>Explanation:</strong> The game ends in a draw since there are no moves to make."
+    }
+  ]
+}

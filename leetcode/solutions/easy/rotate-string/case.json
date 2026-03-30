@@ -1,0 +1,22 @@
+{
+  "problemId": "812",
+  "titleSlug": "rotate-string",
+  "title": "Rotate String",
+  "titleCn": "旋转字符串",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.6393771424403764,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcde\", goal = \"cdeab\" <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> s = \"abcde\", goal = \"abced\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

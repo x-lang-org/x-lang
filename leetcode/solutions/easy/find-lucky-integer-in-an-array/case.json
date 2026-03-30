@@ -1,0 +1,27 @@
+{
+  "problemId": "1510",
+  "titleSlug": "find-lucky-integer-in-an-array",
+  "title": "Find Lucky Integer in an Array",
+  "titleCn": "找出数组中的幸运数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "acRate": 0.7135860956505311,
+  "testcases": [
+    {
+      "input": "</strong> arr = [2,2,3,4] <strong>Output:</strong> 2 <strong>Explanation:</strong> The only lucky number in the array is 2 because frequency[2] == 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> The only lucky number in the array is 2 because frequency[2] == 2."
+    },
+    {
+      "input": "</strong> arr = [1,2,2,3,3,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> 1, 2 and 3 are all lucky numbers, return the largest of them.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> 1, 2 and 3 are all lucky numbers, return the largest of them."
+    },
+    {
+      "input": "</strong> arr = [2,2,2,3,3] <strong>Output:</strong> -1 <strong>Explanation:</strong> There are no lucky numbers in the array.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> There are no lucky numbers in the array."
+    }
+  ]
+}

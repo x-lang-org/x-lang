@@ -1,0 +1,25 @@
+{
+  "problemId": "2129",
+  "titleSlug": "number-of-pairs-of-interchangeable-rectangles",
+  "title": "Number of Pairs of Interchangeable Rectangles",
+  "titleCn": "可互换矩形的组数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "math",
+    "counting",
+    "number-theory"
+  ],
+  "acRate": 0.5166854407209237,
+  "testcases": [
+    {
+      "input": "</strong> rectangles = [[4,8],[3,6],[10,20],[15,30]] <strong>Output:</strong> 6 <strong>Explanation:</strong> The following are the interchangeable pairs of rectangles by index (0-indexed): - Rectangle 0 with rectangle 1: 4/8 == 3/6. - Rectangle 0 with rectangle 2: 4/8 == 10/20. - Rectangle 0 with rectangle 3: 4/8 == 15/30. - Rectangle 1 with rectangle 2: 3/6 == 10/20. - Rectangle 1 with rectangle 3: 3/6 == 15/30. - Rectangle 2 with rectangle 3: 10/20 == 15/30.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The following are the interchangeable pairs of rectangles by index (0-indexed): - Rectangle 0 with rectangle 1: 4/8 == 3/6. - Rectangle 0 with rectangle 2: 4/8 == 10/20. - Rectangle 0 with rectangle 3: 4/8 == 15/30. - Rectangle 1 with rectangle 2: 3/6 == 10/20. - Rectangle 1 with rectangle 3: 3/6 == 15/30. - Rectangle 2 with rectangle 3: 10/20 == 15/30."
+    },
+    {
+      "input": "</strong> rectangles = [[4,5],[7,8]] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no interchangeable pairs of rectangles.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no interchangeable pairs of rectangles."
+    }
+  ]
+}

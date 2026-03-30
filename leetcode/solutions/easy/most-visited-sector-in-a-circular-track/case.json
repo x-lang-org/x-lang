@@ -1,0 +1,26 @@
+{
+  "problemId": "1682",
+  "titleSlug": "most-visited-sector-in-a-circular-track",
+  "title": "Most Visited Sector in  a Circular Track",
+  "titleCn": "圆形赛道上经过次数最多的扇区",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.5875193798449613,
+  "testcases": [
+    {
+      "input": "</strong> n = 4, rounds = [1,3,1,2] <strong>Output:</strong> [1,2] <strong>Explanation:</strong> The marathon starts at sector 1. The order of the visited sectors is as follows: 1 --> 2 --> 3 (end of round 1) --> 4 --> 1 (end of round 2) --> 2 (end of round 3 and the marathon) We can see that both sectors 1 and 2 are visited twice and they are the most visited sectors. Sectors 3 and 4 are visited only once.",
+      "expectedOutput": "</strong> [1,2] <strong>Explanation:</strong> The marathon starts at sector 1. The order of the visited sectors is as follows: 1 --> 2 --> 3 (end of round 1) --> 4 --> 1 (end of round 2) --> 2 (end of round 3 and the marathon) We can see that both sectors 1 and 2 are visited twice and they are the most visited sectors. Sectors 3 and 4 are visited only once."
+    },
+    {
+      "input": "</strong> n = 2, rounds = [2,1,2,1,2,1,2,1,2] <strong>Output:</strong> [2]",
+      "expectedOutput": "</strong> [2]"
+    },
+    {
+      "input": "</strong> n = 7, rounds = [1,3,5,7] <strong>Output:</strong> [1,2,3,4,5,6,7]",
+      "expectedOutput": "</strong> [1,2,3,4,5,6,7]"
+    }
+  ]
+}

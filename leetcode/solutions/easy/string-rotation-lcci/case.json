@@ -1,0 +1,22 @@
+{
+  "problemId": "100162",
+  "titleSlug": "string-rotation-lcci",
+  "title": "String Rotation LCCI",
+  "titleCn": "字符串轮转",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.5354905657302119,
+  "testcases": [
+    {
+      "input": "</strong>s1 = <span id=\"example-input-1-1\">\"waterbottle\"</span>, s2 = <span id=\"example-input-1-2\">\"</span>erbottlewat<span>\"</span>\r <strong>Output: </strong><span id=\"example-output-1\">True</span>",
+      "expectedOutput": "</strong><span id=\"example-output-1\">True</span>"
+    },
+    {
+      "input": "</strong>s1 = \"aa\", s2 = \"aba\"\r <strong>Output: </strong>False",
+      "expectedOutput": "</strong>False"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "927",
+  "titleSlug": "sum-of-subsequence-widths",
+  "title": "Sum of Subsequence Widths",
+  "titleCn": "子序列宽度之和",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "math",
+    "sorting"
+  ],
+  "acRate": 0.473789656311963,
+  "testcases": [
+    {
+      "input": "</strong> nums = [2,1,3] <strong>Output:</strong> 6 Explanation: The subsequences are [1], [2], [3], [2,1], [2,3], [1,3], [2,1,3]. The corresponding widths are 0, 0, 0, 1, 1, 2, 2. The sum of these widths is 6.",
+      "expectedOutput": "</strong> 6 Explanation: The subsequences are [1], [2], [3], [2,1], [2,3], [1,3], [2,1,3]. The corresponding widths are 0, 0, 0, 1, 1, 2, 2. The sum of these widths is 6."
+    },
+    {
+      "input": "</strong> nums = [2] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

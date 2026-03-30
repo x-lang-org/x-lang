@@ -1,0 +1,29 @@
+{
+  "problemId": "2237",
+  "titleSlug": "longest-palindrome-by-concatenating-two-letter-words",
+  "title": "Longest Palindrome by Concatenating Two Letter Words",
+  "titleCn": "连接两字母单词得到的最长回文串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "acRate": 0.5136948131024376,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"lc\",\"cl\",\"gg\"] <strong>Output:</strong> 6 <strong>Explanation:</strong> One longest palindrome is \"lc\" + \"gg\" + \"cl\" = \"lcggcl\", of length 6. Note that \"clgglc\" is another longest palindrome that can be created.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> One longest palindrome is \"lc\" + \"gg\" + \"cl\" = \"lcggcl\", of length 6. Note that \"clgglc\" is another longest palindrome that can be created."
+    },
+    {
+      "input": "</strong> words = [\"ab\",\"ty\",\"yt\",\"lc\",\"cl\",\"ab\"] <strong>Output:</strong> 8 <strong>Explanation:</strong> One longest palindrome is \"ty\" + \"lc\" + \"cl\" + \"yt\" = \"tylcclyt\", of length 8. Note that \"lcyttycl\" is another longest palindrome that can be created.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> One longest palindrome is \"ty\" + \"lc\" + \"cl\" + \"yt\" = \"tylcclyt\", of length 8. Note that \"lcyttycl\" is another longest palindrome that can be created."
+    },
+    {
+      "input": "</strong> words = [\"cc\",\"ll\",\"xx\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> One longest palindrome is \"cc\", of length 2. Note that \"ll\" is another longest palindrome that can be created, and so is \"xx\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> One longest palindrome is \"cc\", of length 2. Note that \"ll\" is another longest palindrome that can be created, and so is \"xx\"."
+    }
+  ]
+}

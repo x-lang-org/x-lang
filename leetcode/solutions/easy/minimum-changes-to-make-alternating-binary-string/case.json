@@ -1,0 +1,25 @@
+{
+  "problemId": "1884",
+  "titleSlug": "minimum-changes-to-make-alternating-binary-string",
+  "title": "Minimum Changes To Make Alternating Binary String",
+  "titleCn": "生成交替二进制字符串的最少操作数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7134710295460259,
+  "testcases": [
+    {
+      "input": "</strong> s = \"0100\" <strong>Output:</strong> 1 <strong>Explanation:</strong> If you change the last character to '1', s will be \"0101\", which is alternating.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> If you change the last character to '1', s will be \"0101\", which is alternating."
+    },
+    {
+      "input": "</strong> s = \"10\" <strong>Output:</strong> 0 <strong>Explanation:</strong> s is already alternating.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> s is already alternating."
+    },
+    {
+      "input": "</strong> s = \"1111\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You need two operations to reach \"0101\" or \"1010\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You need two operations to reach \"0101\" or \"1010\"."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "120",
+  "titleSlug": "triangle",
+  "title": "Triangle",
+  "titleCn": "三角形最小路径和",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6969782170968333,
+  "testcases": [
+    {
+      "input": "</strong> triangle = [[2],[3,4],[6,5,7],[4,1,8,3]] <strong>Output:</strong> 11 <strong>Explanation:</strong> The triangle looks like:  <u>2</u>  <u>3</u> 4 6 <u>5</u> 7 4 <u>1</u> 8 3 The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).",
+      "expectedOutput": "</strong> 11 <strong>Explanation:</strong> The triangle looks like:  <u>2</u>  <u>3</u> 4 6 <u>5</u> 7 4 <u>1</u> 8 3 The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above)."
+    },
+    {
+      "input": "</strong> triangle = [[-10]] <strong>Output:</strong> -10",
+      "expectedOutput": "</strong> -10"
+    }
+  ]
+}

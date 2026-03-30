@@ -1,0 +1,29 @@
+{
+  "problemId": "1037",
+  "titleSlug": "minimum-number-of-k-consecutive-bit-flips",
+  "title": "Minimum Number of K Consecutive Bit Flips",
+  "titleCn": "K 连续位的最小翻转次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "queue",
+    "array",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.5563418332665191,
+  "testcases": [
+    {
+      "input": "</strong> nums = [0,1,0], k = 1 <strong>Output:</strong> 2 <strong>Explanation:</strong> Flip nums[0], then flip nums[2].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Flip nums[0], then flip nums[2]."
+    },
+    {
+      "input": "</strong> nums = [1,1,0], k = 2 <strong>Output:</strong> -1 <strong>Explanation:</strong> No matter how we flip subarrays of size 2, we cannot make the array become [1,1,1].",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> No matter how we flip subarrays of size 2, we cannot make the array become [1,1,1]."
+    },
+    {
+      "input": "</strong> nums = [0,0,0,1,0,1,1,0], k = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> Flip nums[0],nums[1],nums[2]: nums becomes [1,1,1,1,0,1,1,0] Flip nums[4],nums[5],nums[6]: nums becomes [1,1,1,1,1,0,0,0] Flip nums[5],nums[6],nums[7]: nums becomes [1,1,1,1,1,1,1,1]",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> Flip nums[0],nums[1],nums[2]: nums becomes [1,1,1,1,0,1,1,0] Flip nums[4],nums[5],nums[6]: nums becomes [1,1,1,1,1,0,0,0] Flip nums[5],nums[6],nums[7]: nums becomes [1,1,1,1,1,1,1,1]"
+    }
+  ]
+}

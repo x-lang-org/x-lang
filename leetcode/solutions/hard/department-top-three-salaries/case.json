@@ -1,0 +1,17 @@
+{
+  "problemId": "185",
+  "titleSlug": "department-top-three-salaries",
+  "title": "Department Top Three Salaries",
+  "titleCn": "部门工资前三高的所有员工",
+  "difficulty": "HARD",
+  "topicTags": [
+    "database"
+  ],
+  "acRate": 0.5704094552309984,
+  "testcases": [
+    {
+      "input": "</strong> Employee table: +----+-------+--------+--------------+ | id | name | salary | departmentId | +----+-------+--------+--------------+ | 1 | Joe  | 85000 | 1      | | 2 | Henry | 80000 | 2      | | 3 | Sam  | 60000 | 2      | | 4 | Max  | 90000 | 1      | | 5 | Janet | 69000 | 1      | | 6 | Randy | 85000 | 1      | | 7 | Will | 70000 | 1      | +----+-------+--------+--------------+ Department table: +----+-------+ | id | name | +----+-------+ | 1 | IT  | | 2 | Sales | +----+-------+ <strong>Output:</strong> +------------+----------+--------+ | Department | Employee | Salary | +------------+----------+--------+ | IT     | Max   | 90000 | | IT     | Joe   | 85000 | | IT     | Randy  | 85000 | | IT     | Will   | 70000 | | Sales   | Henry  | 80000 | | Sales   | Sam   | 60000 | +------------+----------+--------+ <strong>Explanation:</strong> In the IT department: - Max earns the highest unique salary - Both Randy and Joe earn the second-highest unique salary - Will earns the third-highest unique salary In the Sales department: - Henry earns the highest salary - Sam earns the second-highest salary - There is no third-highest salary as there are only two employees",
+      "expectedOutput": "</strong> +------------+----------+--------+ | Department | Employee | Salary | +------------+----------+--------+ | IT     | Max   | 90000 | | IT     | Joe   | 85000 | | IT     | Randy  | 85000 | | IT     | Will   | 70000 | | Sales   | Henry  | 80000 | | Sales   | Sam   | 60000 | +------------+----------+--------+ <strong>Explanation:</strong> In the IT department: - Max earns the highest unique salary - Both Randy and Joe earn the second-highest unique salary - Will earns the third-highest unique salary In the Sales department: - Henry earns the highest salary - Sam earns the second-highest salary - There is no third-highest salary as there are only two employees"
+    }
+  ]
+}

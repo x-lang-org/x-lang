@@ -1,0 +1,21 @@
+{
+  "problemId": "1661",
+  "titleSlug": "minimum-number-of-vertices-to-reach-all-nodes",
+  "title": "Minimum Number of Vertices to Reach All Nodes",
+  "titleCn": "可以到达所有点的最少点数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "graph"
+  ],
+  "acRate": 0.8295795585224245,
+  "testcases": [
+    {
+      "input": "</strong> n = 6, edges = [[0,1],[0,2],[2,5],[3,4],[4,2]] <strong>Output:</strong> [0,3] <b>Explanation: </b>It's not possible to reach all the nodes from a single vertex. From 0 we can reach [0,1,2,5]. From 3 we can reach [3,4,2,5]. So we output [0,3].",
+      "expectedOutput": "</strong> [0,3] <b>Explanation: </b>It's not possible to reach all the nodes from a single vertex. From 0 we can reach [0,1,2,5]. From 3 we can reach [3,4,2,5]. So we output [0,3]."
+    },
+    {
+      "input": "</strong> n = 5, edges = [[0,1],[2,1],[3,1],[1,4],[2,4]] <strong>Output:</strong> [0,2,3] <strong>Explanation: </strong>Notice that vertices 0, 3 and 2 are not reachable from any other node, so we must include them. Also any of these vertices can reach nodes 1 and 4.",
+      "expectedOutput": "</strong> [0,2,3] <strong>Explanation: </strong>Notice that vertices 0, 3 and 2 are not reachable from any other node, so we must include them. Also any of these vertices can reach nodes 1 and 4."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "problemId": "800",
+  "titleSlug": "letter-case-permutation",
+  "title": "Letter Case Permutation",
+  "titleCn": "字母大小写全排列",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation",
+    "string",
+    "backtracking"
+  ],
+  "acRate": 0.7301254074360533,
+  "testcases": [
+    {
+      "input": "</strong> s = \"a1b2\" <strong>Output:</strong> [\"a1b2\",\"a1B2\",\"A1b2\",\"A1B2\"]",
+      "expectedOutput": "</strong> [\"a1b2\",\"a1B2\",\"A1b2\",\"A1B2\"]"
+    },
+    {
+      "input": "</strong> s = \"3z4\" <strong>Output:</strong> [\"3z4\",\"3Z4\"]",
+      "expectedOutput": "</strong> [\"3z4\",\"3Z4\"]"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "problemId": "2736",
+  "titleSlug": "minimum-additions-to-make-valid-string",
+  "title": "Minimum Additions to Make Valid String",
+  "titleCn": "构造有效字符串的最少插入数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6717064044552732,
+  "testcases": [
+    {
+      "input": "</strong> word = \"b\" <strong>Output:</strong> 2 <strong>Explanation:</strong> Insert the letter \"a\" right before \"b\", and the letter \"c\" right next to \"b\" to obtain the valid string \"<strong>a</strong>b<strong>c</strong>\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> Insert the letter \"a\" right before \"b\", and the letter \"c\" right next to \"b\" to obtain the valid string \"<strong>a</strong>b<strong>c</strong>\"."
+    },
+    {
+      "input": "</strong> word = \"aaa\" <strong>Output:</strong> 6 <strong>Explanation:</strong> Insert letters \"b\" and \"c\" next to each \"a\" to obtain the valid string \"a<strong>bc</strong>a<strong>bc</strong>a<strong>bc</strong>\".",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> Insert letters \"b\" and \"c\" next to each \"a\" to obtain the valid string \"a<strong>bc</strong>a<strong>bc</strong>a<strong>bc</strong>\"."
+    },
+    {
+      "input": "</strong> word = \"abc\" <strong>Output:</strong> 0 <strong>Explanation:</strong> word is already valid. No modifications are needed.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> word is already valid. No modifications are needed."
+    }
+  ]
+}

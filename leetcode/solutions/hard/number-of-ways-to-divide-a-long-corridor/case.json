@@ -1,0 +1,27 @@
+{
+  "problemId": "2251",
+  "titleSlug": "number-of-ways-to-divide-a-long-corridor",
+  "title": "Number of Ways to Divide a Long Corridor",
+  "titleCn": "分隔长廊的方案数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "math",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.5210777922642329,
+  "testcases": [
+    {
+      "input": "</strong> corridor = \"SSPPSPS\" <strong>Output:</strong> 3 <strong>Explanation:</strong> There are 3 different ways to divide the corridor. The black bars in the above image indicate the two room dividers already installed. Note that in each of the ways, <strong>each</strong> section has exactly <strong>two</strong> seats.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> There are 3 different ways to divide the corridor. The black bars in the above image indicate the two room dividers already installed. Note that in each of the ways, <strong>each</strong> section has exactly <strong>two</strong> seats."
+    },
+    {
+      "input": "</strong> corridor = \"PPSPSP\" <strong>Output:</strong> 1 <strong>Explanation:</strong> There is only 1 way to divide the corridor, by not installing any additional dividers. Installing any would create some section that does not have exactly two seats.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> There is only 1 way to divide the corridor, by not installing any additional dividers. Installing any would create some section that does not have exactly two seats."
+    },
+    {
+      "input": "</strong> corridor = \"S\" <strong>Output:</strong> 0 <strong>Explanation:</strong> There is no way to divide the corridor because there will always be a section that does not have exactly two seats.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There is no way to divide the corridor because there will always be a section that does not have exactly two seats."
+    }
+  ]
+}

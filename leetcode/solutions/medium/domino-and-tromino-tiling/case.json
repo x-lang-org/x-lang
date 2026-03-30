@@ -1,0 +1,21 @@
+{
+  "problemId": "806",
+  "titleSlug": "domino-and-tromino-tiling",
+  "title": "Domino and Tromino Tiling",
+  "titleCn": "多米诺和托米诺平铺",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.5184416297041474,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 5 <strong>Explanation:</strong> The five different ways are shown above.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The five different ways are shown above."
+    },
+    {
+      "input": "</strong> n = 1 <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "problemId": "2155",
+  "titleSlug": "find-missing-observations",
+  "title": "Find Missing Observations",
+  "titleCn": "找出缺失的观测数据",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.5312403759110804,
+  "testcases": [
+    {
+      "input": "</strong> rolls = [3,2,4,3], mean = 4, n = 2 <strong>Output:</strong> [6,6] <strong>Explanation:</strong> The mean of all n + m rolls is (3 + 2 + 4 + 3 + 6 + 6) / 6 = 4.",
+      "expectedOutput": "</strong> [6,6] <strong>Explanation:</strong> The mean of all n + m rolls is (3 + 2 + 4 + 3 + 6 + 6) / 6 = 4."
+    },
+    {
+      "input": "</strong> rolls = [1,5,6], mean = 3, n = 4 <strong>Output:</strong> [2,3,2,2] <strong>Explanation:</strong> The mean of all n + m rolls is (1 + 5 + 6 + 2 + 3 + 2 + 2) / 7 = 3.",
+      "expectedOutput": "</strong> [2,3,2,2] <strong>Explanation:</strong> The mean of all n + m rolls is (1 + 5 + 6 + 2 + 3 + 2 + 2) / 7 = 3."
+    },
+    {
+      "input": "</strong> rolls = [1,2,3,4], mean = 6, n = 4 <strong>Output:</strong> [] <strong>Explanation:</strong> It is impossible for the mean to be 6 no matter what the 4 missing rolls are.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> It is impossible for the mean to be 6 no matter what the 4 missing rolls are."
+    }
+  ]
+}

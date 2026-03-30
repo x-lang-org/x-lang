@@ -1,0 +1,28 @@
+{
+  "problemId": "2826",
+  "titleSlug": "find-a-good-subset-of-the-matrix",
+  "title": "Find a Good Subset of the Matrix",
+  "titleCn": "找到矩阵中的好子集",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "acRate": 0.7114603250478011,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,1,1,0],[0,0,0,1],[1,1,1,1]] <strong>Output:</strong> [0,1] <strong>Explanation:</strong> We can choose the 0<sup>th</sup> and 1<sup>st</sup> rows to create a good subset of rows. The length of the chosen subset is 2. - The sum of the 0<sup>th</sup> column is 0 + 0 = 0, which is at most half of the length of the subset. - The sum of the 1<sup>st</sup> column is 1 + 0 = 1, which is at most half of the length of the subset. - The sum of the 2<sup>nd</sup> column is 1 + 0 = 1, which is at most half of the length of the subset. - The sum of the 3<sup>rd</sup> column is 0 + 1 = 1, which is at most half of the length of the subset.",
+      "expectedOutput": "</strong> [0,1] <strong>Explanation:</strong> We can choose the 0<sup>th</sup> and 1<sup>st</sup> rows to create a good subset of rows. The length of the chosen subset is 2. - The sum of the 0<sup>th</sup> column is 0 + 0 = 0, which is at most half of the length of the subset. - The sum of the 1<sup>st</sup> column is 1 + 0 = 1, which is at most half of the length of the subset. - The sum of the 2<sup>nd</sup> column is 1 + 0 = 1, which is at most half of the length of the subset. - The sum of the 3<sup>rd</sup> column is 0 + 1 = 1, which is at most half of the length of the subset."
+    },
+    {
+      "input": "</strong> grid = [[0]] <strong>Output:</strong> [0] <strong>Explanation:</strong> We can choose the 0<sup>th</sup> row to create a good subset of rows. The length of the chosen subset is 1. - The sum of the 0<sup>th</sup> column is 0, which is at most half of the length of the subset.",
+      "expectedOutput": "</strong> [0] <strong>Explanation:</strong> We can choose the 0<sup>th</sup> row to create a good subset of rows. The length of the chosen subset is 1. - The sum of the 0<sup>th</sup> column is 0, which is at most half of the length of the subset."
+    },
+    {
+      "input": "</strong> grid = [[1,1,1],[1,1,1]] <strong>Output:</strong> [] <strong>Explanation:</strong> It is impossible to choose any subset of rows to create a good subset.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> It is impossible to choose any subset of rows to create a good subset."
+    }
+  ]
+}

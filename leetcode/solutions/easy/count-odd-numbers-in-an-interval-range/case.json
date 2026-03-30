@@ -1,0 +1,21 @@
+{
+  "problemId": "1630",
+  "titleSlug": "count-odd-numbers-in-an-interval-range",
+  "title": "Count Odd Numbers in an Interval Range",
+  "titleCn": "在区间范围内统计奇数数目",
+  "difficulty": "EASY",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5269172154009835,
+  "testcases": [
+    {
+      "input": "</strong> low = 3, high = 7\r <strong>Output:</strong> 3\r <b>Explanation: </b>The odd numbers between 3 and 7 are [3,5,7].",
+      "expectedOutput": "</strong> 3\r <b>Explanation: </b>The odd numbers between 3 and 7 are [3,5,7]."
+    },
+    {
+      "input": "</strong> low = 8, high = 10\r <strong>Output:</strong> 1\r <b>Explanation: </b>The odd numbers between 8 and 10 are [9].",
+      "expectedOutput": "</strong> 1\r <b>Explanation: </b>The odd numbers between 8 and 10 are [9]."
+    }
+  ]
+}

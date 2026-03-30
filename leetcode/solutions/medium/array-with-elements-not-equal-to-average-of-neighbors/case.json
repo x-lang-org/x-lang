@@ -1,0 +1,23 @@
+{
+  "problemId": "2085",
+  "titleSlug": "array-with-elements-not-equal-to-average-of-neighbors",
+  "title": "Array With Elements Not Equal to Average of Neighbors",
+  "titleCn": "构造元素不等于两相邻元素平均值的数组",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.4300637567435017,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4,5] <strong>Output:</strong> [1,2,4,5,3] <strong>Explanation:</strong> When i=1, nums[i] = 2, and the average of its neighbors is (1+4) / 2 = 2.5. When i=2, nums[i] = 4, and the average of its neighbors is (2+5) / 2 = 3.5. When i=3, nums[i] = 5, and the average of its neighbors is (4+3) / 2 = 3.5.",
+      "expectedOutput": "</strong> [1,2,4,5,3] <strong>Explanation:</strong> When i=1, nums[i] = 2, and the average of its neighbors is (1+4) / 2 = 2.5. When i=2, nums[i] = 4, and the average of its neighbors is (2+5) / 2 = 3.5. When i=3, nums[i] = 5, and the average of its neighbors is (4+3) / 2 = 3.5."
+    },
+    {
+      "input": "</strong> nums = [6,2,0,9,7] <strong>Output:</strong> [9,7,6,2,0] <strong>Explanation:</strong> When i=1, nums[i] = 7, and the average of its neighbors is (9+6) / 2 = 7.5. When i=2, nums[i] = 6, and the average of its neighbors is (7+2) / 2 = 4.5. When i=3, nums[i] = 2, and the average of its neighbors is (6+0) / 2 = 3. Note that the original array [6,2,0,9,7] also satisfies the conditions.",
+      "expectedOutput": "</strong> [9,7,6,2,0] <strong>Explanation:</strong> When i=1, nums[i] = 7, and the average of its neighbors is (9+6) / 2 = 7.5. When i=2, nums[i] = 6, and the average of its neighbors is (7+2) / 2 = 4.5. When i=3, nums[i] = 2, and the average of its neighbors is (6+0) / 2 = 3. Note that the original array [6,2,0,9,7] also satisfies the conditions."
+    }
+  ]
+}

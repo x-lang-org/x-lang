@@ -1,0 +1,27 @@
+{
+  "problemId": "990",
+  "titleSlug": "verifying-an-alien-dictionary",
+  "title": "Verifying an Alien Dictionary",
+  "titleCn": "验证外星语词典",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5777450659688147,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"hello\",\"leetcode\"], order = \"hlabcdefgijkmnopqrstuvwxyz\" <strong>Output:</strong> true <strong>Explanation: </strong>As 'h' comes before 'l' in this language, then the sequence is sorted.",
+      "expectedOutput": "</strong> true <strong>Explanation: </strong>As 'h' comes before 'l' in this language, then the sequence is sorted."
+    },
+    {
+      "input": "</strong> words = [\"word\",\"world\",\"row\"], order = \"worldabcefghijkmnpqstuvxyz\" <strong>Output:</strong> false <strong>Explanation: </strong>As 'd' comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted.",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>As 'd' comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted."
+    },
+    {
+      "input": "</strong> words = [\"apple\",\"app\"], order = \"abcdefghijklmnopqrstuvwxyz\" <strong>Output:</strong> false <strong>Explanation: </strong>The first three characters \"app\" match, and the second string is shorter (in size.) According to lexicographical rules \"apple\" > \"app\", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character (<a href=\"https://en.wikipedia.org/wiki/Lexicographical_order\" target=\"_blank\">More info</a>).",
+      "expectedOutput": "</strong> false <strong>Explanation: </strong>The first three characters \"app\" match, and the second string is shorter (in size.) According to lexicographical rules \"apple\" > \"app\", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character (<a href=\"https://en.wikipedia.org/wiki/Lexicographical_order\" target=\"_blank\">More info</a>)."
+    }
+  ]
+}

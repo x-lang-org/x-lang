@@ -1,0 +1,32 @@
+{
+  "problemId": "1727",
+  "titleSlug": "cat-and-mouse-ii",
+  "title": "Cat and Mouse II",
+  "titleCn": "猫和老鼠 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "graph",
+    "topological-sort",
+    "memoization",
+    "array",
+    "math",
+    "dynamic-programming",
+    "game-theory",
+    "matrix"
+  ],
+  "acRate": 0.6576124896871232,
+  "testcases": [
+    {
+      "input": "</strong> grid = [\"####F\",\"#C...\",\"M....\"], catJump = 1, mouseJump = 2 <strong>Output:</strong> true <strong>Explanation:</strong> Cat cannot catch Mouse on its turn nor can it get the food before Mouse.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Cat cannot catch Mouse on its turn nor can it get the food before Mouse."
+    },
+    {
+      "input": "</strong> grid = [\"M.C...F\"], catJump = 1, mouseJump = 4 <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> grid = [\"M.C...F\"], catJump = 1, mouseJump = 3 <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

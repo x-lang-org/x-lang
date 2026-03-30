@@ -1,0 +1,27 @@
+{
+  "problemId": "1861",
+  "titleSlug": "building-boxes",
+  "title": "Building Boxes",
+  "titleCn": "放置盒子",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "math",
+    "binary-search"
+  ],
+  "acRate": 0.630162142793156,
+  "testcases": [
+    {
+      "input": "</strong> n = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The figure above is for the placement of the three boxes. These boxes are placed in the corner of the room, where the corner is on the left side.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The figure above is for the placement of the three boxes. These boxes are placed in the corner of the room, where the corner is on the left side."
+    },
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> The figure above is for the placement of the four boxes. These boxes are placed in the corner of the room, where the corner is on the left side.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The figure above is for the placement of the four boxes. These boxes are placed in the corner of the room, where the corner is on the left side."
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 6 <strong>Explanation:</strong> The figure above is for the placement of the ten boxes. These boxes are placed in the corner of the room, where the corner is on the back side.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> The figure above is for the placement of the ten boxes. These boxes are placed in the corner of the room, where the corner is on the back side."
+    }
+  ]
+}

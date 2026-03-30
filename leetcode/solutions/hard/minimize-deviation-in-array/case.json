@@ -1,0 +1,28 @@
+{
+  "problemId": "1794",
+  "titleSlug": "minimize-deviation-in-array",
+  "title": "Minimize Deviation in Array",
+  "titleCn": "数组的最小偏移量",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "ordered-set",
+    "heap-priority-queue"
+  ],
+  "acRate": 0.47152815013404825,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> 1 <strong>Explanation:</strong> You can transform the array to [1,2,3,<u>2</u>], then to [<u>2</u>,2,3,2], then the deviation will be 3 - 2 = 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can transform the array to [1,2,3,<u>2</u>], then to [<u>2</u>,2,3,2], then the deviation will be 3 - 2 = 1."
+    },
+    {
+      "input": "</strong> nums = [4,1,5,20,3] <strong>Output:</strong> 3 <strong>Explanation:</strong> You can transform the array after two operations to [4,<u>2</u>,5,<u>5</u>,3], then the deviation will be 5 - 2 = 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> You can transform the array after two operations to [4,<u>2</u>,5,<u>5</u>,3], then the deviation will be 5 - 2 = 3."
+    },
+    {
+      "input": "</strong> nums = [2,10,8] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    }
+  ]
+}

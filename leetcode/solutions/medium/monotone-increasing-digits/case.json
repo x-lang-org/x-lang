@@ -1,0 +1,26 @@
+{
+  "problemId": "738",
+  "titleSlug": "monotone-increasing-digits",
+  "title": "Monotone Increasing Digits",
+  "titleCn": "单调递增的数字",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "math"
+  ],
+  "acRate": 0.5171752616078702,
+  "testcases": [
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 9",
+      "expectedOutput": "</strong> 9"
+    },
+    {
+      "input": "</strong> n = 1234 <strong>Output:</strong> 1234",
+      "expectedOutput": "</strong> 1234"
+    },
+    {
+      "input": "</strong> n = 332 <strong>Output:</strong> 299",
+      "expectedOutput": "</strong> 299"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "problemId": "2764",
+  "titleSlug": "maximum-number-of-fish-in-a-grid",
+  "title": "Maximum Number of Fish in a Grid",
+  "titleCn": "网格图中鱼的最大数目",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "depth-first-search",
+    "breadth-first-search",
+    "union-find",
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.7109123062519505,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,2,1,0],[4,0,0,3],[1,0,0,4],[0,3,2,0]] <strong>Output:</strong> 7 <strong>Explanation:</strong> The fisher can start at cell <code>(1,3)</code> and collect 3 fish, then move to cell <code>(2,3)</code> and collect 4 fish.",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> The fisher can start at cell <code>(1,3)</code> and collect 3 fish, then move to cell <code>(2,3)</code> and collect 4 fish."
+    },
+    {
+      "input": "</strong> grid = [[1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,1]] <strong>Output:</strong> 1 <strong>Explanation:</strong> The fisher can start at cells (0,0) or (3,3) and collect a single fish.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The fisher can start at cells (0,0) or (3,3) and collect a single fish."
+    }
+  ]
+}

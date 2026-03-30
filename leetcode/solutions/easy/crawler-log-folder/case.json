@@ -1,0 +1,27 @@
+{
+  "problemId": "1720",
+  "titleSlug": "crawler-log-folder",
+  "title": "Crawler Log Folder",
+  "titleCn": "文件夹操作日志搜集器",
+  "difficulty": "EASY",
+  "topicTags": [
+    "stack",
+    "array",
+    "string"
+  ],
+  "acRate": 0.6980975080034412,
+  "testcases": [
+    {
+      "input": "</strong> logs = [\"d1/\",\"d2/\",\"../\",\"d21/\",\"./\"] <strong>Output:</strong> 2 <strong>Explanation: </strong>Use this change folder operation \"../\" 2 times and go back to the main folder.",
+      "expectedOutput": "</strong> 2 <strong>Explanation: </strong>Use this change folder operation \"../\" 2 times and go back to the main folder."
+    },
+    {
+      "input": "</strong> logs = [\"d1/\",\"d2/\",\"./\",\"d3/\",\"../\",\"d31/\"] <strong>Output:</strong> 3",
+      "expectedOutput": "</strong> 3"
+    },
+    {
+      "input": "</strong> logs = [\"d1/\",\"../\",\"../\",\"../\"] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

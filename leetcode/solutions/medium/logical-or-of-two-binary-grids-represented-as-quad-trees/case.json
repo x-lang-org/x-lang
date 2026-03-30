@@ -1,0 +1,22 @@
+{
+  "problemId": "773",
+  "titleSlug": "logical-or-of-two-binary-grids-represented-as-quad-trees",
+  "title": "Logical OR of Two Binary Grids Represented as Quad-Trees",
+  "titleCn": "四叉树交集",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "divide-and-conquer"
+  ],
+  "acRate": 0.6253783977779859,
+  "testcases": [
+    {
+      "input": "</strong> quadTree1 = [[0,1],[1,1],[1,1],[1,0],[1,0]] , quadTree2 = [[0,1],[1,1],[0,1],[1,1],[1,0],null,null,null,null,[1,0],[1,0],[1,1],[1,1]] <strong>Output:</strong> [[0,0],[1,1],[1,1],[1,1],[1,0]] <strong>Explanation:</strong> quadTree1 and quadTree2 are shown above. You can see the binary matrix which is represented by each Quad-Tree. If we apply logical bitwise OR on the two binary matrices we get the binary matrix below which is represented by the result Quad-Tree. Notice that the binary matrices shown are only for illustration, you don't have to construct the binary matrix to get the result tree. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/11/qtr.png\" style=\"width: 777px; height: 222px;\" />",
+      "expectedOutput": "</strong> [[0,0],[1,1],[1,1],[1,1],[1,0]] <strong>Explanation:</strong> quadTree1 and quadTree2 are shown above. You can see the binary matrix which is represented by each Quad-Tree. If we apply logical bitwise OR on the two binary matrices we get the binary matrix below which is represented by the result Quad-Tree. Notice that the binary matrices shown are only for illustration, you don't have to construct the binary matrix to get the result tree. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/02/11/qtr.png\" style=\"width: 777px; height: 222px;\" />"
+    },
+    {
+      "input": "</strong> quadTree1 = [[1,0]], quadTree2 = [[1,0]] <strong>Output:</strong> [[1,0]] <strong>Explanation:</strong> Each tree represents a binary matrix of size 1*1. Each matrix contains only zero. The resulting matrix is of size 1*1 with also zero.",
+      "expectedOutput": "</strong> [[1,0]] <strong>Explanation:</strong> Each tree represents a binary matrix of size 1*1. Each matrix contains only zero. The resulting matrix is of size 1*1 with also zero."
+    }
+  ]
+}

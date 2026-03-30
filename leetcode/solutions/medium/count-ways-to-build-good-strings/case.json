@@ -1,0 +1,21 @@
+{
+  "problemId": "2562",
+  "titleSlug": "count-ways-to-build-good-strings",
+  "title": "Count Ways To Build Good Strings",
+  "titleCn": "统计构造好字符串的方案数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "dynamic-programming"
+  ],
+  "acRate": 0.49288633602120846,
+  "testcases": [
+    {
+      "input": "</strong> low = 3, high = 3, zero = 1, one = 1 <strong>Output:</strong> 8 <strong>Explanation:</strong> One possible valid good string is \"011\". It can be constructed as follows: \"\" -> \"0\" -> \"01\" -> \"011\". All binary strings from \"000\" to \"111\" are good strings in this example.",
+      "expectedOutput": "</strong> 8 <strong>Explanation:</strong> One possible valid good string is \"011\". It can be constructed as follows: \"\" -> \"0\" -> \"01\" -> \"011\". All binary strings from \"000\" to \"111\" are good strings in this example."
+    },
+    {
+      "input": "</strong> low = 2, high = 3, zero = 1, one = 2 <strong>Output:</strong> 5 <strong>Explanation:</strong> The good strings are \"00\", \"11\", \"000\", \"110\", and \"011\".",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> The good strings are \"00\", \"11\", \"000\", \"110\", and \"011\"."
+    }
+  ]
+}

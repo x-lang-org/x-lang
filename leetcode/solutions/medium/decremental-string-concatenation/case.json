@@ -1,0 +1,27 @@
+{
+  "problemId": "2854",
+  "titleSlug": "decremental-string-concatenation",
+  "title": "Decremental String Concatenation",
+  "titleCn": "字符串连接删减字母",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.41510566762728146,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"aa\",\"ab\",\"bc\"] <strong>Output:</strong> 4 <strong>Explanation: </strong>In this example, we can perform join operations in the following order to minimize the length of str<sub>2</sub>: str<sub>0</sub> = \"aa\" str<sub>1</sub> = join(str<sub>0</sub>, \"ab\") = \"aab\" str<sub>2</sub> = join(str<sub>1</sub>, \"bc\") = \"aabc\" It can be shown that the minimum possible length of str<sub>2</sub> is 4.",
+      "expectedOutput": "</strong> 4 <strong>Explanation: </strong>In this example, we can perform join operations in the following order to minimize the length of str<sub>2</sub>: str<sub>0</sub> = \"aa\" str<sub>1</sub> = join(str<sub>0</sub>, \"ab\") = \"aab\" str<sub>2</sub> = join(str<sub>1</sub>, \"bc\") = \"aabc\" It can be shown that the minimum possible length of str<sub>2</sub> is 4."
+    },
+    {
+      "input": "</strong> words = [\"ab\",\"b\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> In this example, str<sub>0</sub> = \"ab\", there are two ways to get str<sub>1</sub>: join(str<sub>0</sub>, \"b\") = \"ab\" or join(\"b\", str<sub>0</sub>) = \"bab\". The first string, \"ab\", has the minimum length. Hence, the answer is 2.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> In this example, str<sub>0</sub> = \"ab\", there are two ways to get str<sub>1</sub>: join(str<sub>0</sub>, \"b\") = \"ab\" or join(\"b\", str<sub>0</sub>) = \"bab\". The first string, \"ab\", has the minimum length. Hence, the answer is 2."
+    },
+    {
+      "input": "</strong> words = [\"aaa\",\"c\",\"aba\"] <strong>Output:</strong> 6 <strong>Explanation:</strong> In this example, we can perform join operations in the following order to minimize the length of str<sub>2</sub>: str<sub>0</sub> = \"aaa\" str<sub>1</sub> = join(str<sub>0</sub>, \"c\") = \"aaac\" str<sub>2</sub> = join(\"aba\", str<sub>1</sub>) = \"abaaac\" It can be shown that the minimum possible length of str<sub>2</sub> is 6.",
+      "expectedOutput": "</strong> 6 <strong>Explanation:</strong> In this example, we can perform join operations in the following order to minimize the length of str<sub>2</sub>: str<sub>0</sub> = \"aaa\" str<sub>1</sub> = join(str<sub>0</sub>, \"c\") = \"aaac\" str<sub>2</sub> = join(\"aba\", str<sub>1</sub>) = \"abaaac\" It can be shown that the minimum possible length of str<sub>2</sub> is 6."
+    }
+  ]
+}

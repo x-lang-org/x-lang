@@ -1,0 +1,24 @@
+{
+  "problemId": "839",
+  "titleSlug": "short-encoding-of-words",
+  "title": "Short Encoding of Words",
+  "titleCn": "单词的压缩编码",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.5286515517182773,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"time\", \"me\", \"bell\"] <strong>Output:</strong> 10 <strong>Explanation:</strong> A valid encoding would be s = <code>\"time#bell#\" and indices = [0, 2, 5</code>]. words[0] = \"time\", the substring of s starting from indices[0] = 0 to the next '#' is underlined in \"<u>time</u>#bell#\" words[1] = \"me\", the substring of s starting from indices[1] = 2 to the next '#' is underlined in \"ti<u>me</u>#bell#\" words[2] = \"bell\", the substring of s starting from indices[2] = 5 to the next '#' is underlined in \"time#<u>bell</u>#\"",
+      "expectedOutput": "</strong> 10 <strong>Explanation:</strong> A valid encoding would be s = <code>\"time#bell#\" and indices = [0, 2, 5</code>]. words[0] = \"time\", the substring of s starting from indices[0] = 0 to the next '#' is underlined in \"<u>time</u>#bell#\" words[1] = \"me\", the substring of s starting from indices[1] = 2 to the next '#' is underlined in \"ti<u>me</u>#bell#\" words[2] = \"bell\", the substring of s starting from indices[2] = 5 to the next '#' is underlined in \"time#<u>bell</u>#"
+    },
+    {
+      "input": "</strong> words = [\"t\"] <strong>Output:</strong> 2 <strong>Explanation:</strong> A valid encoding would be s = \"t#\" and indices = [0].",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> A valid encoding would be s = \"t#\" and indices = [0]."
+    }
+  ]
+}

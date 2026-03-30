@@ -1,0 +1,25 @@
+{
+  "problemId": "2168",
+  "titleSlug": "check-if-numbers-are-ascending-in-a-sentence",
+  "title": "Check if Numbers Are Ascending in a Sentence",
+  "titleCn": "检查句子中的数字是否递增",
+  "difficulty": "EASY",
+  "topicTags": [
+    "string"
+  ],
+  "acRate": 0.7209646107539138,
+  "testcases": [
+    {
+      "input": "</strong> s = \"1 box has 3 blue 4 red 6 green and 12 yellow marbles\" <strong>Output:</strong> true <strong>Explanation:</strong> The numbers in s are: 1, 3, 4, 6, 12. They are strictly increasing from left to right: 1 < 3 < 4 < 6 < 12.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The numbers in s are: 1, 3, 4, 6, 12. They are strictly increasing from left to right: 1 < 3 < 4 < 6 < 12."
+    },
+    {
+      "input": "</strong> s = \"hello world 5 x 5\" <strong>Output:</strong> false <strong>Explanation:</strong> The numbers in s are: <u><strong>5</strong></u>, <strong><u>5</u></strong>. They are not strictly increasing.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The numbers in s are: <u><strong>5</strong></u>, <strong><u>5</u></strong>. They are not strictly increasing."
+    },
+    {
+      "input": "</strong> s = \"sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s\" <strong>Output:</strong> false <strong>Explanation:</strong> The numbers in s are: 7, <u><strong>51</strong></u>, <u><strong>50</strong></u>, 60. They are not strictly increasing.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> The numbers in s are: 7, <u><strong>51</strong></u>, <u><strong>50</strong></u>, 60. They are not strictly increasing."
+    }
+  ]
+}

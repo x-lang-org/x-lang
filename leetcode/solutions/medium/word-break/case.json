@@ -1,0 +1,30 @@
+{
+  "problemId": "139",
+  "titleSlug": "word-break",
+  "title": "Word Break",
+  "titleCn": "单词拆分",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "memoization",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming"
+  ],
+  "acRate": 0.600337142965718,
+  "testcases": [
+    {
+      "input": "</strong> s = \"leetcode\", wordDict = [\"leet\",\"code\"] <strong>Output:</strong> true <strong>Explanation:</strong> Return true because \"leetcode\" can be segmented as \"leet code\".",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Return true because \"leetcode\" can be segmented as \"leet code\"."
+    },
+    {
+      "input": "</strong> s = \"applepenapple\", wordDict = [\"apple\",\"pen\"] <strong>Output:</strong> true <strong>Explanation:</strong> Return true because \"applepenapple\" can be segmented as \"apple pen apple\". Note that you are allowed to reuse a dictionary word.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> Return true because \"applepenapple\" can be segmented as \"apple pen apple\". Note that you are allowed to reuse a dictionary word."
+    },
+    {
+      "input": "</strong> s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

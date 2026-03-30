@@ -1,0 +1,26 @@
+{
+  "problemId": "1457",
+  "titleSlug": "minimum-difficulty-of-a-job-schedule",
+  "title": "Minimum Difficulty of a Job Schedule",
+  "titleCn": "工作计划的最低难度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "acRate": 0.6750644059672878,
+  "testcases": [
+    {
+      "input": "</strong> jobDifficulty = [6,5,4,3,2,1], d = 2 <strong>Output:</strong> 7 <strong>Explanation:</strong> First day you can finish the first 5 jobs, total difficulty = 6. Second day you can finish the last job, total difficulty = 1. The difficulty of the schedule = 6 + 1 = 7",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> First day you can finish the first 5 jobs, total difficulty = 6. Second day you can finish the last job, total difficulty = 1. The difficulty of the schedule = 6 + 1 = 7"
+    },
+    {
+      "input": "</strong> jobDifficulty = [9,9,9], d = 4 <strong>Output:</strong> -1 <strong>Explanation:</strong> If you finish a job per day you will still have a free day. you cannot find a schedule for the given jobs.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> If you finish a job per day you will still have a free day. you cannot find a schedule for the given jobs."
+    },
+    {
+      "input": "</strong> jobDifficulty = [1,1,1], d = 3 <strong>Output:</strong> 3 <strong>Explanation:</strong> The schedule is one job per day. total difficulty will be 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The schedule is one job per day. total difficulty will be 3."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "problemId": "1000024",
+  "titleSlug": "multi-search-lcci",
+  "title": "Multi Search LCCI",
+  "titleCn": "多次搜索",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "trie",
+    "array",
+    "hash-table",
+    "string",
+    "string-matching",
+    "sliding-window"
+  ],
+  "acRate": 0.4489487054753797,
+  "testcases": [
+    {
+      "input": "</strong>\r big = \"mississippi\"\r smalls = [\"is\",\"ppi\",\"hi\",\"sis\",\"i\",\"ssippi\"]\r <strong>Output: </strong> [[1,4],[8],[],[3],[1,4,7,10],[5]]",
+      "expectedOutput": "</strong> [[1,4],[8],[],[3],[1,4,7,10],[5]]"
+    }
+  ]
+}

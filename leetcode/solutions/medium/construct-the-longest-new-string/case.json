@@ -1,0 +1,24 @@
+{
+  "problemId": "2850",
+  "titleSlug": "construct-the-longest-new-string",
+  "title": "Construct the Longest New String",
+  "titleCn": "构造最长的新字符串",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "brainteaser",
+    "math",
+    "dynamic-programming"
+  ],
+  "acRate": 0.603874362244898,
+  "testcases": [
+    {
+      "input": "</strong> x = 2, y = 5, z = 1 <strong>Output:</strong> 12 <strong>Explanation: </strong>We can concatenate the strings \"BB\", \"AA\", \"BB\", \"AA\", \"BB\", and \"AB\" in that order. Then, our new string is \"BBAABBAABBAB\". That string has length 12, and we can show that it is impossible to construct a string of longer length.",
+      "expectedOutput": "</strong> 12 <strong>Explanation: </strong>We can concatenate the strings \"BB\", \"AA\", \"BB\", \"AA\", \"BB\", and \"AB\" in that order. Then, our new string is \"BBAABBAABBAB\". That string has length 12, and we can show that it is impossible to construct a string of longer length."
+    },
+    {
+      "input": "</strong> x = 3, y = 2, z = 2 <strong>Output:</strong> 14 <strong>Explanation:</strong> We can concatenate the strings \"AB\", \"AB\", \"AA\", \"BB\", \"AA\", \"BB\", and \"AA\" in that order. Then, our new string is \"ABABAABBAABBAA\". That string has length 14, and we can show that it is impossible to construct a string of longer length.",
+      "expectedOutput": "</strong> 14 <strong>Explanation:</strong> We can concatenate the strings \"AB\", \"AB\", \"AA\", \"BB\", \"AA\", \"BB\", and \"AA\" in that order. Then, our new string is \"ABABAABBAABBAA\". That string has length 14, and we can show that it is impossible to construct a string of longer length."
+    }
+  ]
+}

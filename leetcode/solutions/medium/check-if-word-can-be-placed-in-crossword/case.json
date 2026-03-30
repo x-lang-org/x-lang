@@ -1,0 +1,27 @@
+{
+  "problemId": "2146",
+  "titleSlug": "check-if-word-can-be-placed-in-crossword",
+  "title": "Check if Word Can Be Placed In Crossword",
+  "titleCn": "判断单词是否能放入填字游戏内",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "enumeration",
+    "matrix"
+  ],
+  "acRate": 0.4413730255164034,
+  "testcases": [
+    {
+      "input": "</strong> board = [[\"#\", \" \", \"#\"], [\" \", \" \", \"#\"], [\"#\", \"c\", \" \"]], word = \"abc\" <strong>Output:</strong> true <strong>Explanation:</strong> The word \"abc\" can be placed as shown above (top to bottom).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The word \"abc\" can be placed as shown above (top to bottom)."
+    },
+    {
+      "input": "</strong> board = [[\" \", \"#\", \"a\"], [\" \", \"#\", \"c\"], [\" \", \"#\", \"a\"]], word = \"ac\" <strong>Output:</strong> false <strong>Explanation:</strong> It is impossible to place the word because there will always be a space/letter above or below it.",
+      "expectedOutput": "</strong> false <strong>Explanation:</strong> It is impossible to place the word because there will always be a space/letter above or below it."
+    },
+    {
+      "input": "</strong> board = [[\"#\", \" \", \"#\"], [\" \", \" \", \"#\"], [\"#\", \" \", \"c\"]], word = \"ca\" <strong>Output:</strong> true <strong>Explanation:</strong> The word \"ca\" can be placed as shown above (right to left).",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> The word \"ca\" can be placed as shown above (right to left)."
+    }
+  ]
+}

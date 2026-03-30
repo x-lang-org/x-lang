@@ -1,0 +1,23 @@
+{
+  "problemId": "2952",
+  "titleSlug": "minimum-time-to-make-array-sum-at-most-x",
+  "title": "Minimum Time to Make Array Sum At Most x",
+  "titleCn": "使数组和小于等于 x 的最少时间",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.6070452318324824,
+  "testcases": [
+    {
+      "input": "</strong> nums1 = [1,2,3], nums2 = [1,2,3], x = 4 <strong>Output:</strong> 3 <strong>Explanation:</strong> For the 1st second, we apply the operation on i = 0. Therefore nums1 = [0,2+2,3+3] = [0,4,6]. For the 2nd second, we apply the operation on i = 1. Therefore nums1 = [0+1,0,6+3] = [1,0,9]. For the 3rd second, we apply the operation on i = 2. Therefore nums1 = [1+1,0+2,0] = [2,2,0]. Now sum of nums1 = 4. It can be shown that these operations are optimal, so we return 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> For the 1st second, we apply the operation on i = 0. Therefore nums1 = [0,2+2,3+3] = [0,4,6]. For the 2nd second, we apply the operation on i = 1. Therefore nums1 = [0+1,0,6+3] = [1,0,9]. For the 3rd second, we apply the operation on i = 2. Therefore nums1 = [1+1,0+2,0] = [2,2,0]. Now sum of nums1 = 4. It can be shown that these operations are optimal, so we return 3."
+    },
+    {
+      "input": "</strong> nums1 = [1,2,3], nums2 = [3,3,3], x = 4 <strong>Output:</strong> -1 <strong>Explanation:</strong> It can be shown that the sum of nums1 will always be greater than x, no matter which operations are performed.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> It can be shown that the sum of nums1 will always be greater than x, no matter which operations are performed."
+    }
+  ]
+}

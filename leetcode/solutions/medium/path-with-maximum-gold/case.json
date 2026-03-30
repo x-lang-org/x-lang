@@ -1,0 +1,23 @@
+{
+  "problemId": "1331",
+  "titleSlug": "path-with-maximum-gold",
+  "title": "Path with Maximum Gold",
+  "titleCn": "黄金矿工",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "backtracking",
+    "matrix"
+  ],
+  "acRate": 0.6855213682125096,
+  "testcases": [
+    {
+      "input": "</strong> grid = [[0,6,0],[5,8,7],[0,9,0]] <strong>Output:</strong> 24 <strong>Explanation:</strong> [[0,6,0], [5,8,7], [0,9,0]] Path to get the maximum gold, 9 -> 8 -> 7.",
+      "expectedOutput": "</strong> 24 <strong>Explanation:</strong> [[0,6,0], [5,8,7], [0,9,0]] Path to get the maximum gold, 9 -> 8 -> 7."
+    },
+    {
+      "input": "</strong> grid = [[1,0,7],[2,0,6],[3,4,5],[0,3,0],[9,0,20]] <strong>Output:</strong> 28 <strong>Explanation:</strong> [[1,0,7], [2,0,6], [3,4,5], [0,3,0], [9,0,20]] Path to get the maximum gold, 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7.",
+      "expectedOutput": "</strong> 28 <strong>Explanation:</strong> [[1,0,7], [2,0,6], [3,4,5], [0,3,0], [9,0,20]] Path to get the maximum gold, 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "problemId": "2510",
+  "titleSlug": "maximum-deletions-on-a-string",
+  "title": "Maximum Deletions on a String",
+  "titleCn": "对字母串可执行的最大删除数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "string",
+    "dynamic-programming",
+    "string-matching",
+    "hash-function",
+    "rolling-hash"
+  ],
+  "acRate": 0.5032755096693046,
+  "testcases": [
+    {
+      "input": "</strong> s = \"abcabcdabc\" <strong>Output:</strong> 2 <strong>Explanation:</strong> - Delete the first 3 letters (\"abc\") since the next 3 letters are equal. Now, s = \"abcdabc\". - Delete all the letters. We used 2 operations so return 2. It can be proven that 2 is the maximum number of operations needed. Note that in the second operation we cannot delete \"abc\" again because the next occurrence of \"abc\" does not happen in the next 3 letters.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> - Delete the first 3 letters (\"abc\") since the next 3 letters are equal. Now, s = \"abcdabc\". - Delete all the letters. We used 2 operations so return 2. It can be proven that 2 is the maximum number of operations needed. Note that in the second operation we cannot delete \"abc\" again because the next occurrence of \"abc\" does not happen in the next 3 letters."
+    },
+    {
+      "input": "</strong> s = \"aaabaab\" <strong>Output:</strong> 4 <strong>Explanation:</strong> - Delete the first letter (\"a\") since the next letter is equal. Now, s = \"aabaab\". - Delete the first 3 letters (\"aab\") since the next 3 letters are equal. Now, s = \"aab\". - Delete the first letter (\"a\") since the next letter is equal. Now, s = \"ab\". - Delete all the letters. We used 4 operations so return 4. It can be proven that 4 is the maximum number of operations needed.",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> - Delete the first letter (\"a\") since the next letter is equal. Now, s = \"aabaab\". - Delete the first 3 letters (\"aab\") since the next 3 letters are equal. Now, s = \"aab\". - Delete the first letter (\"a\") since the next letter is equal. Now, s = \"ab\". - Delete all the letters. We used 4 operations so return 4. It can be proven that 4 is the maximum number of operations needed."
+    },
+    {
+      "input": "</strong> s = \"aaaaa\" <strong>Output:</strong> 5 <strong>Explanation:</strong> In each operation, we can delete the first letter of s.",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> In each operation, we can delete the first letter of s."
+    }
+  ]
+}

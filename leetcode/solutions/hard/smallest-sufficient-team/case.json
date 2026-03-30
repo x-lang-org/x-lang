@@ -1,0 +1,24 @@
+{
+  "problemId": "1220",
+  "titleSlug": "smallest-sufficient-team",
+  "title": "Smallest Sufficient Team",
+  "titleCn": "最小的必要团队",
+  "difficulty": "HARD",
+  "topicTags": [
+    "bit-manipulation",
+    "array",
+    "dynamic-programming",
+    "bitmask"
+  ],
+  "acRate": 0.605259063326591,
+  "testcases": [
+    {
+      "input": "</strong> req_skills = [\"java\",\"nodejs\",\"reactjs\"], people = [[\"java\"],[\"nodejs\"],[\"nodejs\",\"reactjs\"]] <strong>Output:</strong> [0,2]",
+      "expectedOutput": "</strong> [0,2]"
+    },
+    {
+      "input": "</strong> req_skills = [\"algorithms\",\"math\",\"java\",\"reactjs\",\"csharp\",\"aws\"], people = [[\"algorithms\",\"math\",\"java\"],[\"algorithms\",\"math\",\"reactjs\"],[\"java\",\"csharp\",\"aws\"],[\"reactjs\",\"csharp\"],[\"csharp\",\"math\"],[\"aws\",\"java\"]] <strong>Output:</strong> [1,2]",
+      "expectedOutput": "</strong> [1,2]"
+    }
+  ]
+}

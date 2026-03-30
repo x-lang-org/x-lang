@@ -1,0 +1,28 @@
+{
+  "problemId": "1093",
+  "titleSlug": "recover-a-tree-from-preorder-traversal",
+  "title": "Recover a Tree From Preorder Traversal",
+  "titleCn": "从先序遍历还原二叉树",
+  "difficulty": "HARD",
+  "topicTags": [
+    "tree",
+    "depth-first-search",
+    "string",
+    "binary-tree"
+  ],
+  "acRate": 0.7313339815022561,
+  "testcases": [
+    {
+      "input": "</strong> traversal = \"1-2--3--4-5--6--7\" <strong>Output:</strong> [1,2,5,3,4,6,7]",
+      "expectedOutput": "</strong> [1,2,5,3,4,6,7]"
+    },
+    {
+      "input": "</strong> traversal = \"1-2--3---4-5--6---7\" <strong>Output:</strong> [1,2,5,3,null,6,null,4,null,7]",
+      "expectedOutput": "</strong> [1,2,5,3,null,6,null,4,null,7]"
+    },
+    {
+      "input": "</strong> traversal = \"1-401--349---90--88\" <strong>Output:</strong> [1,401,null,349,88,90]",
+      "expectedOutput": "</strong> [1,401,null,349,88,90]"
+    }
+  ]
+}

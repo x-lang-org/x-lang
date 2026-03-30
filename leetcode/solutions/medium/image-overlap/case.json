@@ -1,0 +1,26 @@
+{
+  "problemId": "864",
+  "titleSlug": "image-overlap",
+  "title": "Image Overlap",
+  "titleCn": "图像重叠",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "matrix"
+  ],
+  "acRate": 0.5973084886128365,
+  "testcases": [
+    {
+      "input": "</strong> img1 = [[1,1,0],[0,1,0],[0,1,0]], img2 = [[0,0,0],[0,1,1],[0,0,1]] <strong>Output:</strong> 3 <strong>Explanation:</strong> We translate img1 to right by 1 unit and down by 1 unit. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/09/overlap_step1.jpg\" style=\"width: 450px; height: 105px;\" /> The number of positions that have a 1 in both images is 3 (shown in red). <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/09/overlap_step2.jpg\" style=\"width: 450px; height: 231px;\" />",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We translate img1 to right by 1 unit and down by 1 unit. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/09/overlap_step1.jpg\" style=\"width: 450px; height: 105px;\" /> The number of positions that have a 1 in both images is 3 (shown in red). <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/09/overlap_step2.jpg\" style=\"width: 450px; height: 231px;\" />"
+    },
+    {
+      "input": "</strong> img1 = [[1]], img2 = [[1]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> img1 = [[0]], img2 = [[0]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

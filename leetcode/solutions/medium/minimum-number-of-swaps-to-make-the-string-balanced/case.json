@@ -1,0 +1,28 @@
+{
+  "problemId": "2095",
+  "titleSlug": "minimum-number-of-swaps-to-make-the-string-balanced",
+  "title": "Minimum Number of Swaps to Make the String Balanced",
+  "titleCn": "使字符串平衡的最小交换次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "greedy",
+    "two-pointers",
+    "string"
+  ],
+  "acRate": 0.7561623846995674,
+  "testcases": [
+    {
+      "input": "</strong> s = \"][][\" <strong>Output:</strong> 1 <strong>Explanation:</strong> You can make the string balanced by swapping index 0 with index 3. The resulting string is \"[[]]\".",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> You can make the string balanced by swapping index 0 with index 3. The resulting string is \"[[]]\"."
+    },
+    {
+      "input": "</strong> s = \"]]][[[\" <strong>Output:</strong> 2 <strong>Explanation:</strong> You can do the following to make the string balanced: - Swap index 0 with index 4. s = \"[]][][\". - Swap index 1 with index 5. s = \"[[][]]\". The resulting string is \"[[][]]\".",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> You can do the following to make the string balanced: - Swap index 0 with index 4. s = \"[]][][\". - Swap index 1 with index 5. s = \"[[][]]\". The resulting string is \"[[][]]\"."
+    },
+    {
+      "input": "</strong> s = \"[]\" <strong>Output:</strong> 0 <strong>Explanation:</strong> The string is already balanced.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The string is already balanced."
+    }
+  ]
+}

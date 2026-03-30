@@ -1,0 +1,28 @@
+{
+  "problemId": "1805",
+  "titleSlug": "minimum-adjacent-swaps-for-k-consecutive-ones",
+  "title": "Minimum Adjacent Swaps for K Consecutive Ones",
+  "titleCn": "得到连续 K 个 1 的最少相邻交换次数",
+  "difficulty": "HARD",
+  "topicTags": [
+    "greedy",
+    "array",
+    "prefix-sum",
+    "sliding-window"
+  ],
+  "acRate": 0.5551013527750853,
+  "testcases": [
+    {
+      "input": "</strong> nums = [1,0,0,1,0,1], k = 2 <strong>Output:</strong> 1 <strong>Explanation:</strong> In 1 move, nums could be [1,0,0,0,<u>1</u>,<u>1</u>] and have 2 consecutive 1's.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> In 1 move, nums could be [1,0,0,0,<u>1</u>,<u>1</u>] and have 2 consecutive 1's."
+    },
+    {
+      "input": "</strong> nums = [1,0,0,0,0,0,1,1], k = 3 <strong>Output:</strong> 5 <strong>Explanation:</strong> In 5 moves, the leftmost 1 can be shifted right until nums = [0,0,0,0,0,<u>1</u>,<u>1</u>,<u>1</u>].",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> In 5 moves, the leftmost 1 can be shifted right until nums = [0,0,0,0,0,<u>1</u>,<u>1</u>,<u>1</u>]."
+    },
+    {
+      "input": "</strong> nums = [1,1,0,1], k = 2 <strong>Output:</strong> 0 <strong>Explanation:</strong> nums already has 2 consecutive 1's.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> nums already has 2 consecutive 1's."
+    }
+  ]
+}

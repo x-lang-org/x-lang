@@ -1,0 +1,25 @@
+{
+  "problemId": "1276",
+  "titleSlug": "closest-divisors",
+  "title": "Closest Divisors",
+  "titleCn": "最接近的因数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "math"
+  ],
+  "acRate": 0.5796610169491525,
+  "testcases": [
+    {
+      "input": "</strong> num = 8 <strong>Output:</strong> [3,3] <strong>Explanation:</strong> For num + 1 = 9, the closest divisors are 3 & 3, for num + 2 = 10, the closest divisors are 2 & 5, hence 3 & 3 is chosen.",
+      "expectedOutput": "</strong> [3,3] <strong>Explanation:</strong> For num + 1 = 9, the closest divisors are 3 & 3, for num + 2 = 10, the closest divisors are 2 & 5, hence 3 & 3 is chosen."
+    },
+    {
+      "input": "</strong> num = 123 <strong>Output:</strong> [5,25]",
+      "expectedOutput": "</strong> [5,25]"
+    },
+    {
+      "input": "</strong> num = 999 <strong>Output:</strong> [40,25]",
+      "expectedOutput": "</strong> [40,25]"
+    }
+  ]
+}

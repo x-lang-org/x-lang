@@ -1,0 +1,22 @@
+{
+  "problemId": "686",
+  "titleSlug": "repeated-string-match",
+  "title": "Repeated String Match",
+  "titleCn": "重复叠加字符串匹配",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "string",
+    "string-matching"
+  ],
+  "acRate": 0.397984739560354,
+  "testcases": [
+    {
+      "input": "</strong> a = \"abcd\", b = \"cdabcdab\" <strong>Output:</strong> 3 <strong>Explanation:</strong> We return 3 because by repeating a three times \"ab<strong>cdabcdab</strong>cd\", b is a substring of it.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> We return 3 because by repeating a three times \"ab<strong>cdabcdab</strong>cd\", b is a substring of it."
+    },
+    {
+      "input": "</strong> a = \"a\", b = \"aa\" <strong>Output:</strong> 2",
+      "expectedOutput": "</strong> 2"
+    }
+  ]
+}

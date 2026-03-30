@@ -1,0 +1,29 @@
+{
+  "problemId": "1679",
+  "titleSlug": "shortest-subarray-to-be-removed-to-make-array-sorted",
+  "title": "Shortest Subarray to be Removed to Make Array Sorted",
+  "titleCn": "删除最短的子数组使剩余数组有序",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "two-pointers",
+    "binary-search",
+    "monotonic-stack"
+  ],
+  "acRate": 0.44407533129582877,
+  "testcases": [
+    {
+      "input": "</strong> arr = [1,2,3,10,4,2,3,5] <strong>Output:</strong> 3 <strong>Explanation:</strong> The shortest subarray we can remove is [10,4,2] of length 3. The remaining elements after that will be [1,2,3,3,5] which are sorted. Another correct solution is to remove the subarray [3,10,4].",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The shortest subarray we can remove is [10,4,2] of length 3. The remaining elements after that will be [1,2,3,3,5] which are sorted. Another correct solution is to remove the subarray [3,10,4]."
+    },
+    {
+      "input": "</strong> arr = [5,4,3,2,1] <strong>Output:</strong> 4 <strong>Explanation:</strong> Since the array is strictly decreasing, we can only keep a single element. Therefore we need to remove a subarray of length 4, either [5,4,3,2] or [4,3,2,1].",
+      "expectedOutput": "</strong> 4 <strong>Explanation:</strong> Since the array is strictly decreasing, we can only keep a single element. Therefore we need to remove a subarray of length 4, either [5,4,3,2] or [4,3,2,1]."
+    },
+    {
+      "input": "</strong> arr = [1,2,3] <strong>Output:</strong> 0 <strong>Explanation:</strong> The array is already non-decreasing. We do not need to remove any elements.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The array is already non-decreasing. We do not need to remove any elements."
+    }
+  ]
+}

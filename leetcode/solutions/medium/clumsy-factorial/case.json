@@ -1,0 +1,23 @@
+{
+  "problemId": "1048",
+  "titleSlug": "clumsy-factorial",
+  "title": "Clumsy Factorial",
+  "titleCn": "笨阶乘",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "math",
+    "simulation"
+  ],
+  "acRate": 0.6394484974231979,
+  "testcases": [
+    {
+      "input": "</strong> n = 4 <strong>Output:</strong> 7 <strong>Explanation:</strong> 7 = 4 * 3 / 2 + 1",
+      "expectedOutput": "</strong> 7 <strong>Explanation:</strong> 7 = 4 * 3 / 2 + 1"
+    },
+    {
+      "input": "</strong> n = 10 <strong>Output:</strong> 12 <strong>Explanation:</strong> 12 = 10 * 9 / 8 + 7 - 6 * 5 / 4 + 3 - 2 * 1",
+      "expectedOutput": "</strong> 12 <strong>Explanation:</strong> 12 = 10 * 9 / 8 + 7 - 6 * 5 / 4 + 3 - 2 * 1"
+    }
+  ]
+}

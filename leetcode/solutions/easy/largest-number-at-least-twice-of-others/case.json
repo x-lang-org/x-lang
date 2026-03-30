@@ -1,0 +1,22 @@
+{
+  "problemId": "748",
+  "titleSlug": "largest-number-at-least-twice-of-others",
+  "title": "Largest Number At Least Twice of Others",
+  "titleCn": "至少是其他数字两倍的最大数",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "sorting"
+  ],
+  "acRate": 0.476681733119711,
+  "testcases": [
+    {
+      "input": "</strong> nums = [3,6,1,0] <strong>Output:</strong> 1 <strong>Explanation:</strong> 6 is the largest integer. For every other number in the array x, 6 is at least twice as big as x. The index of value 6 is 1, so we return 1.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> 6 is the largest integer. For every other number in the array x, 6 is at least twice as big as x. The index of value 6 is 1, so we return 1."
+    },
+    {
+      "input": "</strong> nums = [1,2,3,4] <strong>Output:</strong> -1 <strong>Explanation:</strong> 4 is less than twice the value of 3, so we return -1.",
+      "expectedOutput": "</strong> -1 <strong>Explanation:</strong> 4 is less than twice the value of 3, so we return -1."
+    }
+  ]
+}

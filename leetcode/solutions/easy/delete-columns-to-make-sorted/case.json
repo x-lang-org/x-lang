@@ -1,0 +1,26 @@
+{
+  "problemId": "981",
+  "titleSlug": "delete-columns-to-make-sorted",
+  "title": "Delete Columns to Make Sorted",
+  "titleCn": "删列造序",
+  "difficulty": "EASY",
+  "topicTags": [
+    "array",
+    "string"
+  ],
+  "acRate": 0.7061556219959884,
+  "testcases": [
+    {
+      "input": "</strong> strs = [\"cba\",\"daf\",\"ghi\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> The grid looks as follows:  cba  daf  ghi Columns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The grid looks as follows:  cba  daf  ghi Columns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column."
+    },
+    {
+      "input": "</strong> strs = [\"a\",\"b\"] <strong>Output:</strong> 0 <strong>Explanation:</strong> The grid looks as follows:  a  b Column 0 is the only column and is sorted, so you will not delete any columns.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The grid looks as follows:  a  b Column 0 is the only column and is sorted, so you will not delete any columns."
+    },
+    {
+      "input": "</strong> strs = [\"zyx\",\"wvu\",\"tsr\"] <strong>Output:</strong> 3 <strong>Explanation:</strong> The grid looks as follows:  zyx  wvu  tsr All 3 columns are not sorted, so you will delete all 3.",
+      "expectedOutput": "</strong> 3 <strong>Explanation:</strong> The grid looks as follows:  zyx  wvu  tsr All 3 columns are not sorted, so you will delete all 3."
+    }
+  ]
+}

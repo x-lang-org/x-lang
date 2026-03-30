@@ -1,0 +1,31 @@
+{
+  "problemId": "140",
+  "titleSlug": "word-break-ii",
+  "title": "Word Break II",
+  "titleCn": "单词拆分 II",
+  "difficulty": "HARD",
+  "topicTags": [
+    "trie",
+    "memoization",
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "acRate": 0.6124439233012098,
+  "testcases": [
+    {
+      "input": "</strong> s = \"catsanddog\", wordDict = [\"cat\",\"cats\",\"and\",\"sand\",\"dog\"] <strong>Output:</strong> [\"cats and dog\",\"cat sand dog\"]",
+      "expectedOutput": "</strong> [\"cats and dog\",\"cat sand dog\"]"
+    },
+    {
+      "input": "</strong> s = \"pineapplepenapple\", wordDict = [\"apple\",\"pen\",\"applepen\",\"pine\",\"pineapple\"] <strong>Output:</strong> [\"pine apple pen apple\",\"pineapple pen apple\",\"pine applepen apple\"] <strong>Explanation:</strong> Note that you are allowed to reuse a dictionary word.",
+      "expectedOutput": "</strong> [\"pine apple pen apple\",\"pineapple pen apple\",\"pine applepen apple\"] <strong>Explanation:</strong> Note that you are allowed to reuse a dictionary word."
+    },
+    {
+      "input": "</strong> s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"] <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

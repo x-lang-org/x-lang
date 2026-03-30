@@ -1,0 +1,26 @@
+{
+  "problemId": "866",
+  "titleSlug": "rectangle-overlap",
+  "title": "Rectangle Overlap",
+  "titleCn": "矩形重叠",
+  "difficulty": "EASY",
+  "topicTags": [
+    "geometry",
+    "math"
+  ],
+  "acRate": 0.5015471045808124,
+  "testcases": [
+    {
+      "input": "</strong> rec1 = [0,0,2,2], rec2 = [1,1,3,3] <strong>Output:</strong> true",
+      "expectedOutput": "</strong> true"
+    },
+    {
+      "input": "</strong> rec1 = [0,0,1,1], rec2 = [1,0,2,1] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    },
+    {
+      "input": "</strong> rec1 = [0,0,1,1], rec2 = [2,2,3,3] <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

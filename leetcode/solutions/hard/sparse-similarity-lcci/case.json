@@ -1,0 +1,19 @@
+{
+  "problemId": "1000051",
+  "titleSlug": "sparse-similarity-lcci",
+  "title": "Sparse Similarity LCCI",
+  "titleCn": "稀疏相似度",
+  "difficulty": "HARD",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "sorting"
+  ],
+  "acRate": 0.3506268914829226,
+  "testcases": [
+    {
+      "input": "</strong> \r <code>[\r   [14, 15, 100, 9, 3],\r   [32, 1, 9, 3, 5],\r   [15, 29, 2, 6, 8, 7],\r   [7, 10]\r ]</code>\r <strong>Output:</strong>\r [\r   \"0,1: 0.2500\",\r   \"0,2: 0.1000\",\r   \"2,3: 0.1429\"\r ]",
+      "expectedOutput": "</strong>\r [\r   \"0,1: 0.2500\",\r   \"0,2: 0.1000\",\r   \"2,3: 0.1429\"\r ]"
+    }
+  ]
+}

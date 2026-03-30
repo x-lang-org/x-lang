@@ -1,0 +1,27 @@
+{
+  "problemId": "221",
+  "titleSlug": "maximal-square",
+  "title": "Maximal Square",
+  "titleCn": "最大正方形",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "acRate": 0.5190987853021912,
+  "testcases": [
+    {
+      "input": "</strong> matrix = [[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]] <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> matrix = [[\"0\",\"1\"],[\"1\",\"0\"]] <strong>Output:</strong> 1",
+      "expectedOutput": "</strong> 1"
+    },
+    {
+      "input": "</strong> matrix = [[\"0\"]] <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

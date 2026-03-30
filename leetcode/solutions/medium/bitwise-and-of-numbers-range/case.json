@@ -1,0 +1,25 @@
+{
+  "problemId": "201",
+  "titleSlug": "bitwise-and-of-numbers-range",
+  "title": "Bitwise AND of Numbers Range",
+  "titleCn": "数字范围按位与",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "bit-manipulation"
+  ],
+  "acRate": 0.5621794105801701,
+  "testcases": [
+    {
+      "input": "</strong> left = 5, right = 7 <strong>Output:</strong> 4",
+      "expectedOutput": "</strong> 4"
+    },
+    {
+      "input": "</strong> left = 0, right = 0 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    },
+    {
+      "input": "</strong> left = 1, right = 2147483647 <strong>Output:</strong> 0",
+      "expectedOutput": "</strong> 0"
+    }
+  ]
+}

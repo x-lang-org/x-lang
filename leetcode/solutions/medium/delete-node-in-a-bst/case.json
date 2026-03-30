@@ -1,0 +1,27 @@
+{
+  "problemId": "450",
+  "titleSlug": "delete-node-in-a-bst",
+  "title": "Delete Node in a BST",
+  "titleCn": "删除二叉搜索树中的节点",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "tree",
+    "binary-search-tree",
+    "binary-tree"
+  ],
+  "acRate": 0.5312573955858534,
+  "testcases": [
+    {
+      "input": "</strong> root = [5,3,6,2,4,null,7], key = 3 <strong>Output:</strong> [5,4,6,2,null,null,7] <strong>Explanation:</strong> Given key to delete is 3. So we find the node with value 3 and delete it. One valid answer is [5,4,6,2,null,null,7], shown in the above BST. Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/04/del_node_supp.jpg\" style=\"width: 350px; height: 255px;\" />",
+      "expectedOutput": "</strong> [5,4,6,2,null,null,7] <strong>Explanation:</strong> Given key to delete is 3. So we find the node with value 3 and delete it. One valid answer is [5,4,6,2,null,null,7], shown in the above BST. Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted. <img alt=\"\" src=\"https://assets.leetcode.com/uploads/2020/09/04/del_node_supp.jpg\" style=\"width: 350px; height: 255px;\" />"
+    },
+    {
+      "input": "</strong> root = [5,3,6,2,4,null,7], key = 0 <strong>Output:</strong> [5,3,6,2,4,null,7] <strong>Explanation:</strong> The tree does not contain a node with value = 0.",
+      "expectedOutput": "</strong> [5,3,6,2,4,null,7] <strong>Explanation:</strong> The tree does not contain a node with value = 0."
+    },
+    {
+      "input": "</strong> root = [], key = 0 <strong>Output:</strong> []",
+      "expectedOutput": "</strong> []"
+    }
+  ]
+}

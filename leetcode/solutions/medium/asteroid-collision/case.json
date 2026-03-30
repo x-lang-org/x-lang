@@ -1,0 +1,31 @@
+{
+  "problemId": "735",
+  "titleSlug": "asteroid-collision",
+  "title": "Asteroid Collision",
+  "titleCn": "小行星碰撞",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "stack",
+    "array",
+    "simulation"
+  ],
+  "acRate": 0.4320912976852972,
+  "testcases": [
+    {
+      "input": "</strong> asteroids = [5,10,-5] <strong>Output:</strong> [5,10] <strong>Explanation:</strong> The 10 and -5 collide resulting in 10. The 5 and 10 never collide.",
+      "expectedOutput": "</strong> [5,10] <strong>Explanation:</strong> The 10 and -5 collide resulting in 10. The 5 and 10 never collide."
+    },
+    {
+      "input": "</strong> asteroids = [8,-8] <strong>Output:</strong> [] <strong>Explanation:</strong> The 8 and -8 collide exploding each other.",
+      "expectedOutput": "</strong> [] <strong>Explanation:</strong> The 8 and -8 collide exploding each other."
+    },
+    {
+      "input": "</strong> asteroids = [10,2,-5] <strong>Output:</strong> [10] <strong>Explanation:</strong> The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10.",
+      "expectedOutput": "</strong> [10] <strong>Explanation:</strong> The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10."
+    },
+    {
+      "input": "</strong> asteroids = [3,5,-6,2,-1,4]​​​​​​​ <strong>Output:</strong> [-6,2,4] <strong>Explanation:</strong> The asteroid -6 makes the asteroid 3 and 5 explode, and then continues going left. On the other side, the asteroid 2 makes the asteroid -1 explode and then continues going right, without reaching asteroid 4.",
+      "expectedOutput": "</strong> [-6,2,4] <strong>Explanation:</strong> The asteroid -6 makes the asteroid 3 and 5 explode, and then continues going left. On the other side, the asteroid 2 makes the asteroid -1 explode and then continues going right, without reaching asteroid 4."
+    }
+  ]
+}

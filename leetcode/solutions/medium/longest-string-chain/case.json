@@ -1,0 +1,30 @@
+{
+  "problemId": "1129",
+  "titleSlug": "longest-string-chain",
+  "title": "Longest String Chain",
+  "titleCn": "最长字符串链",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "string",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "acRate": 0.5757255077536734,
+  "testcases": [
+    {
+      "input": "</strong> words = [\"a\",\"b\",\"ba\",\"bca\",\"bda\",\"bdca\"] <strong>Output:</strong> 4 <strong>Explanation</strong>: One of the longest word chains is [\"a\",\"<u>b</u>a\",\"b<u>d</u>a\",\"bd<u>c</u>a\"].",
+      "expectedOutput": "</strong> 4 <strong>Explanation</strong>: One of the longest word chains is [\"a\",\"<u>b</u>a\",\"b<u>d</u>a\",\"bd<u>c</u>a\"]."
+    },
+    {
+      "input": "</strong> words = [\"xbc\",\"pcxbcf\",\"xb\",\"cxbc\",\"pcxbc\"] <strong>Output:</strong> 5 <strong>Explanation:</strong> All the words can be put in a word chain [\"xb\", \"xb<u>c</u>\", \"<u>c</u>xbc\", \"<u>p</u>cxbc\", \"pcxbc<u>f</u>\"].",
+      "expectedOutput": "</strong> 5 <strong>Explanation:</strong> All the words can be put in a word chain [\"xb\", \"xb<u>c</u>\", \"<u>c</u>xbc\", \"<u>p</u>cxbc\", \"pcxbc<u>f</u>\"]."
+    },
+    {
+      "input": "</strong> words = [\"abcd\",\"dbqca\"] <strong>Output:</strong> 1 <strong>Explanation:</strong> The trivial word chain [\"abcd\"] is one of the longest word chains. [\"abcd\",\"dbqca\"] is not a valid word chain because the ordering of the letters is changed.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> The trivial word chain [\"abcd\"] is one of the longest word chains. [\"abcd\",\"dbqca\"] is not a valid word chain because the ordering of the letters is changed."
+    }
+  ]
+}

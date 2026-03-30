@@ -1,0 +1,22 @@
+{
+  "problemId": "1960",
+  "titleSlug": "check-if-the-sentence-is-pangram",
+  "title": "Check if the Sentence Is Pangram",
+  "titleCn": "判断句子是否为全字母句",
+  "difficulty": "EASY",
+  "topicTags": [
+    "hash-table",
+    "string"
+  ],
+  "acRate": 0.8413834145261293,
+  "testcases": [
+    {
+      "input": "</strong> sentence = \"thequickbrownfoxjumpsoverthelazydog\" <strong>Output:</strong> true <strong>Explanation:</strong> sentence contains at least one of every letter of the English alphabet.",
+      "expectedOutput": "</strong> true <strong>Explanation:</strong> sentence contains at least one of every letter of the English alphabet."
+    },
+    {
+      "input": "</strong> sentence = \"leetcode\" <strong>Output:</strong> false",
+      "expectedOutput": "</strong> false"
+    }
+  ]
+}

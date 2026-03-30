@@ -1,0 +1,22 @@
+{
+  "problemId": "842",
+  "titleSlug": "card-flipping-game",
+  "title": "Card Flipping Game",
+  "titleCn": "翻转卡片游戏",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "array",
+    "hash-table"
+  ],
+  "acRate": 0.5957063041661168,
+  "testcases": [
+    {
+      "input": "</strong> fronts = [1,2,4,4,7], backs = [1,3,4,1,3] <strong>Output:</strong> 2 <strong>Explanation:</strong> If we flip the second card, the face up numbers are [1,3,4,4,7] and the face down are [1,2,4,1,3]. 2 is the minimum good integer as it appears facing down but not facing up. It can be shown that 2 is the minimum possible good integer obtainable after flipping some cards.",
+      "expectedOutput": "</strong> 2 <strong>Explanation:</strong> If we flip the second card, the face up numbers are [1,3,4,4,7] and the face down are [1,2,4,1,3]. 2 is the minimum good integer as it appears facing down but not facing up. It can be shown that 2 is the minimum possible good integer obtainable after flipping some cards."
+    },
+    {
+      "input": "</strong> fronts = [1], backs = [1] <strong>Output:</strong> 0 <strong>Explanation:</strong> There are no good integers no matter how we flip the cards, so we return 0.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> There are no good integers no matter how we flip the cards, so we return 0."
+    }
+  ]
+}

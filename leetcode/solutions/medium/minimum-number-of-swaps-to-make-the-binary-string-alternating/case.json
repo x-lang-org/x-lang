@@ -1,0 +1,26 @@
+{
+  "problemId": "1994",
+  "titleSlug": "minimum-number-of-swaps-to-make-the-binary-string-alternating",
+  "title": "Minimum Number of Swaps to Make the Binary String Alternating",
+  "titleCn": "构成交替字符串需要的最小交换次数",
+  "difficulty": "MEDIUM",
+  "topicTags": [
+    "greedy",
+    "string"
+  ],
+  "acRate": 0.4280666532824734,
+  "testcases": [
+    {
+      "input": "</strong> s = \"111000\" <strong>Output:</strong> 1 <strong>Explanation:</strong> Swap positions 1 and 4: \"1<u>1</u>10<u>0</u>0\" -> \"1<u>0</u>10<u>1</u>0\" The string is now alternating.",
+      "expectedOutput": "</strong> 1 <strong>Explanation:</strong> Swap positions 1 and 4: \"1<u>1</u>10<u>0</u>0\" -> \"1<u>0</u>10<u>1</u>0\" The string is now alternating."
+    },
+    {
+      "input": "</strong> s = \"010\" <strong>Output:</strong> 0 <strong>Explanation:</strong> The string is already alternating, no swaps are needed.",
+      "expectedOutput": "</strong> 0 <strong>Explanation:</strong> The string is already alternating, no swaps are needed."
+    },
+    {
+      "input": "</strong> s = \"1110\" <strong>Output:</strong> -1",
+      "expectedOutput": "</strong> -1"
+    }
+  ]
+}
