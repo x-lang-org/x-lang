@@ -381,7 +381,8 @@ impl XParser {
     }
 
     fn eat_mut(&self, ti: &mut TokenIterator) -> bool {
-        if matches!(ti.peek(), Some(Ok((Token::Mut, _)))) {
+        if matches!(ti.peek(), Some(Ok((Token::Mut, _))))
+            || matches!(ti.peek(), Some(Ok((Token::Mutable, _)))) {
             ti.next();
             true
         } else {
@@ -2651,7 +2652,8 @@ impl XParser {
     /// 解析字段声明
     /// name: Type [= value]
     fn parse_field_with_visibility(&self, ti: &mut TokenIterator, visibility: Visibility) -> Result<VariableDecl, ParseError> {
-        let is_mutable = if matches!(ti.peek(), Some(Ok((Token::Mut, _)))) {
+        let is_mutable = if matches!(ti.peek(), Some(Ok((Token::Mut, _))))
+            || matches!(ti.peek(), Some(Ok((Token::Mutable, _)))) {
             ti.next();
             true
         } else {
@@ -2841,7 +2843,7 @@ impl XParser {
                     let method = self.parse_function(ti, false, MethodModifiers::default())?;
                     methods.push(method);
                 }
-                Ok((Token::Mut, _)) => {
+                Ok((Token::Mut, _)) | Ok((Token::Mutable, _)) => {
                     // mutable method
                     ti.next();
                     match ti.peek() {

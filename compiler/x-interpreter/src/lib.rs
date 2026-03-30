@@ -2103,15 +2103,22 @@ impl Interpreter {
                     arg_vals.len()
                 )));
             }
-            // 保存当前变量状态
-            let saved = self.variables.clone();
-            // 添加函数参数，覆盖同名全局变量
+            // 只保存函数参数覆盖的外部变量值
+            let mut saved_params: std::collections::HashMap<_, _> = std::collections::HashMap::new();
+            for p in &func.parameters {
+                if let Some(val) = self.variables.get(&p.name) {
+                    saved_params.insert(p.name.clone(), val.clone());
+                }
+            }
+            // 添加函数参数
             for (p, v) in func.parameters.iter().zip(arg_vals) {
                 self.variables.insert(p.name.clone(), v);
             }
             let result = self.execute_block_expr(&func.body)?;
-            // 恢复变量状态
-            self.variables = saved;
+            // 只恢复函数参数覆盖的外部变量值，保留对其他变量的修改
+            for (name, val) in saved_params {
+                self.variables.insert(name, val);
+            }
             match result {
                 ControlFlow::Return(v) => Ok(v),
                 _ => Ok(Value::Unit),
