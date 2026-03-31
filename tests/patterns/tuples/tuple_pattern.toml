@@ -1,7 +1,8 @@
 # 元组模式测试
-# Note: Tuple pattern matching not fully implemented
+# Note: Tuple literals (a, b) not yet implemented in expressions
+# Pattern matching for tuples is implemented but requires tuple literals first
 name = "tuple_pattern"
-description = "测试元组解构模式"
+description = "测试元组解构模式（占位测试）"
 category = "patterns/tuples"
 spec = ["spec/docs/09-patterns.md"]
 

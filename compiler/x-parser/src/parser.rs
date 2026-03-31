@@ -1083,7 +1083,7 @@ impl XParser {
     }
 
     fn parse_pattern(&self, ti: &mut TokenIterator) -> Result<Pattern, ParseError> {
-        // 支持通配符/变量/字面量/枚举构造器/或模式
+        // 支持通配符/变量/字面量/枚举构造器/元组/或模式
         let mut pat = match self.expect_token(ti, "pattern")? {
             Token::Ident(name) if name == "_" => Pattern::Wildcard,
             Token::Ident(name) => {
@@ -1130,6 +1130,35 @@ impl XParser {
             Token::CharContent(s) => {
                 let c = s.chars().next().unwrap_or('\0');
                 Pattern::Literal(Literal::Char(c))
+            }
+            Token::LeftParen => {
+                // 元组模式: (pattern, pattern, ...)
+                let mut patterns = Vec::new();
+                // 处理空元组 ()
+                if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
+                    ti.next();
+                    return Ok(Pattern::Tuple(patterns));
+                }
+                loop {
+                    let p = self.parse_pattern(ti)?;
+                    patterns.push(p);
+                    match ti.peek() {
+                        Some(Ok((Token::Comma, _))) => {
+                            ti.next();
+                            // 检查是否是尾随逗号
+                            if matches!(ti.peek(), Some(Ok((Token::RightParen, _)))) {
+                                ti.next();
+                                break;
+                            }
+                        }
+                        Some(Ok((Token::RightParen, _))) => {
+                            ti.next();
+                            break;
+                        }
+                        _ => return Err(self.err("期望 ',' 或 ')' 在元组模式中", ti)),
+                    }
+                }
+                Pattern::Tuple(patterns)
             }
             t => return Err(self.err(format!("不支持的 pattern 起始标记: {:?}", t), ti)),
         };
