@@ -1,0 +1,9 @@
+name = "string interpolation with nested expression"
+source = '''
+let x = 10;
+let y = 20;
+let sum_str = "Sum: ${x + y}";
+sum_str
+'''
+expected_output = "Sum: 30"
+exit_code = 0

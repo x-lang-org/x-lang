@@ -1,0 +1,31 @@
+# 字符字面量测试 (SPEC.md 规范语法)
+name = "char_literals"
+description = "测试字符字面量: 'A', '中', 转义字符"
+category = "lexical/literals"
+spec = ["spec/docs/01-lexical.md"]
+
+# SPEC.md 规范: 字符使用单引号 'A', '中', 支持转义
+source = """
+// 基本字符
+let a = 'A'
+let b = '中'
+
+// 转义字符 - 在 println 中打印
+let newline = '\\n'
+let tab = '\\t'
+
+println(a)
+println(b)
+println(newline == '\\n')
+println(tab == '\\t')
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "A\n中\ntrue\ntrue\n"
+
+[expect.tokens]
+contains = ["CharContent"]

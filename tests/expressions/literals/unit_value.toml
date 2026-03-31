@@ -1,0 +1,25 @@
+# 单元值测试 (SPEC.md 规范)
+name = "unit_value"
+description = "测试单元值 ()"
+category = "expressions/literals"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: 单元值 - 空圆括号
+source = """
+let nothing = ()
+println(nothing)
+
+function do_nothing() -> () {
+    ()
+}
+
+let result = do_nothing()
+println(result)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "()\n()\n"

@@ -3565,9 +3565,15 @@ fn check_statement(stmt: &Statement, env: &mut TypeEnv) -> Result<(), TypeError>
         }
         StatementKind::For(for_stmt) => {
             // 先检查 iterator 表达式
-            infer_expression_type(&for_stmt.iterator, env)?;
+            let iterator_type = infer_expression_type(&for_stmt.iterator, env)?;
 
-            // for body 新作用域：将 pattern 中的变量绑定到某个类型（目前无法推断元素类型，先用 Unit 占位）
+            // 推断元素类型：从数组类型中提取元素类型
+            let element_type = match &iterator_type {
+                Type::Array(elem_ty) => (**elem_ty).clone(),
+                _ => Type::Unit, // 如果不是数组类型，使用 Unit 作为回退
+            };
+
+            // for body 新作用域：将 pattern 中的变量绑定到推断出的元素类型
             env.push_scope();
             if let x_parser::ast::Pattern::Variable(name) = &for_stmt.pattern {
                 if env.current_scope_contains(name) {
@@ -3577,7 +3583,7 @@ fn check_statement(stmt: &Statement, env: &mut TypeEnv) -> Result<(), TypeError>
                         span,
                     });
                 }
-                env.add_variable(name, Type::Unit);
+                env.add_variable(name, element_type);
             }
 
             let r = check_block(&for_stmt.body, env);
@@ -3607,6 +3613,11 @@ fn check_statement(stmt: &Statement, env: &mut TypeEnv) -> Result<(), TypeError>
             let mut patterns = Vec::new();
             for case in &match_stmt.cases {
                 patterns.push(case.pattern.clone());
+                // 先将模式变量绑定到作用域，然后再检查 guard
+                env.push_scope();
+                // 检查模式并添加正确类型的绑定变量
+                check_pattern(&case.pattern, &discriminant_ty, env)?;
+                // 在模式变量已绑定后再检查 guard
                 if let Some(guard) = &case.guard {
                     let gt = infer_expression_type(guard, env)?;
                     if !types_equal(&gt, &Type::Bool) {
@@ -3617,9 +3628,6 @@ fn check_statement(stmt: &Statement, env: &mut TypeEnv) -> Result<(), TypeError>
                         });
                     }
                 }
-                env.push_scope();
-                // 检查模式并添加正确类型的绑定变量
-                check_pattern(&case.pattern, &discriminant_ty, env)?;
                 check_block(&case.body, env)?;
                 env.pop_scope();
             }
@@ -4882,6 +4890,12 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             }
 
             for case in cases {
+                // 先将模式变量绑定到作用域，然后再检查 guard
+                env.push_scope();
+                // 检查模式并添加正确类型的绑定变量
+                check_pattern(&case.pattern, &dt, env)?;
+
+                // 在模式变量已绑定后再检查 guard
                 if let Some(guard) = &case.guard {
                     let gt = infer_expression_type(guard, env)?;
                     if !types_equal(&gt, &Type::Bool) {
@@ -4892,9 +4906,6 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                         });
                     }
                 }
-                env.push_scope();
-                // 检查模式并添加正确类型的绑定变量
-                check_pattern(&case.pattern, &dt, env)?;
 
                 // 找到分支最后的表达式作为返回值（如果是表达式语句）
                 // 对于match表达式，每个分支必须有一个表达式结果

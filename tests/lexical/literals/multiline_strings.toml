@@ -1,0 +1,22 @@
+# 多行字符串测试 (SPEC.md 规范)
+name = "multiline_strings"
+description = "测试多行字符串字面量"
+category = "lexical/literals"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: 多行字符串使用三引号
+source = """
+let text = \"\"\"
+Line 1
+Line 2
+Line 3
+\"\"\"
+println(text)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "Line 1\nLine 2\nLine 3\n"

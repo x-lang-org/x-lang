@@ -1,16 +1,34 @@
-# 逻辑表达式测试
+# 逻辑表达式测试 (SPEC.md 规范语法)
 name = "basic_logical"
-description = "测试逻辑表达式: &&, ||, !"
+description = "测试逻辑表达式: and/or/not 关键字和符号形式"
 category = "expressions/logical"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: 支持 and/or/not 关键字和 &&/||/! 符号两种形式
+# 也支持 eq/ne 关键字作为 == 和 != 的替代
 source = """
-let a: Bool = true && false
-let b: Bool = true || false
-let c: Bool = !true
+// 关键字形式 (推荐)
+let a: Bool = true and false
+let b: Bool = true or false
+let c: Bool = not true
+
+// 符号形式
+let d: Bool = true && false
+let e: Bool = true || false
+let f: Bool = !true
+
+// eq/ne 关键字形式
+let g: Bool = 5 eq 5
+let h: Bool = 5 ne 6
+
 println(a)
 println(b)
 println(c)
+println(d)
+println(e)
+println(f)
+println(g)
+println(h)
 """
 
 [expect]
@@ -18,4 +36,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "false\ntrue\nfalse\n"
+output = "false\ntrue\nfalse\nfalse\ntrue\nfalse\ntrue\ntrue\n"

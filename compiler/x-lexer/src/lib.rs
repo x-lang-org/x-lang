@@ -9,7 +9,7 @@ use span::Span;
 use token::Token;
 
 /// 词法分析器状态
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum LexerState {
     Normal,
     String,
@@ -24,7 +24,7 @@ pub struct Lexer<'a> {
     pub input: &'a str,
     pub chars: std::iter::Peekable<std::str::Chars<'a>>,
     pub position: usize,
-    pub state: LexerState,
+    pub state_stack: Vec<LexerState>,
     /// 错误恢复模式：跳过无效字符而不是返回错误
     pub recovery_mode: bool,
     /// 收集的无效字符位置（用于错误报告）
@@ -50,7 +50,7 @@ impl<'a> Lexer<'a> {
             input,
             chars: input.chars().peekable(),
             position: 0,
-            state: LexerState::Normal,
+            state_stack: vec![LexerState::Normal],
             recovery_mode: false,
             skipped_positions: Vec::new(),
         }
@@ -83,6 +83,26 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Get the current lexer state from the top of the stack
+    fn current_state(&self) -> LexerState {
+        *self.state_stack.last().expect("state stack is empty")
+    }
+
+    /// Set the current lexer state (replaces the top of the stack)
+    fn set_current_state(&mut self, state: LexerState) {
+        *self.state_stack.last_mut().expect("state stack is empty") = state;
+    }
+
+    /// Push a new state onto the stack
+    fn push_state(&mut self, state: LexerState) {
+        self.state_stack.push(state);
+    }
+
+    /// Pop the current state, returning to the previous state
+    fn pop_state(&mut self) -> LexerState {
+        self.state_stack.pop().expect("state stack is empty")
+    }
+
     /// 跳过空白字符
     fn skip_whitespace(&mut self) {
         while let Some(ch) = self.current_char() {
@@ -113,17 +133,19 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// 跳过多行注释 /** ... */，返回 true 如果跳过了注释
+    /// 跳过多行注释 /* ... */ 或 /** ... */，返回 true 如果跳过了注释
     fn skip_block_comment(&mut self) -> bool {
         let a = self.current_char();
         let b = self.chars.clone().nth(1);
-        let c = self.chars.clone().nth(2);
-        if a != Some('/') || b != Some('*') || c != Some('*') {
+        // 支持 /* ... */ 和 /** ... */ 两种形式
+        if a != Some('/') || b != Some('*') {
             return false;
         }
+        // 跳过 /*
         self.next_char();
         self.next_char();
-        self.next_char();
+        // 如果是 /** 形式，检查是否有额外的 *
+        // 但无论有没有额外的 *，都按块注释处理
         let mut depth = 1usize;
         while depth > 0 {
             match self.current_char() {
@@ -222,6 +244,8 @@ impl<'a> Lexer<'a> {
             "and" => Ok(Token::And),
             "or" => Ok(Token::Or),
             "not" => Ok(Token::Not),
+            "eq" => Ok(Token::Eq),
+            "ne" => Ok(Token::Ne),
             "true" => Ok(Token::True),
             "false" => Ok(Token::False),
             "null" => Ok(Token::Null),
@@ -289,12 +313,30 @@ impl<'a> Lexer<'a> {
                         self.next_char();
                         return Ok(Token::LessThanEquals);
                     }
+                    if next == Some('<') {
+                        self.next_char();
+                        // Check for <<=
+                        if self.current_char() == Some('=') {
+                            self.next_char();
+                            return Ok(Token::LeftShiftEquals);
+                        }
+                        return Ok(Token::LeftShift);
+                    }
                     Ok(Token::LessThan)
                 }
                 '>' => {
                     if next == Some('=') {
                         self.next_char();
                         return Ok(Token::GreaterThanEquals);
+                    }
+                    if next == Some('>') {
+                        self.next_char();
+                        // Check for >>=
+                        if self.current_char() == Some('=') {
+                            self.next_char();
+                            return Ok(Token::RightShiftEquals);
+                        }
+                        return Ok(Token::RightShift);
                     }
                     Ok(Token::GreaterThan)
                 }
@@ -379,12 +421,20 @@ impl<'a> Lexer<'a> {
                         self.next_char();
                         return Ok(Token::Pipe);
                     }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::PipeEquals);
+                    }
                     Ok(Token::VerticalBar)
                 }
                 '&' => {
                     if next == Some('&') {
                         self.next_char();
                         return Ok(Token::AndAnd);
+                    }
+                    if next == Some('=') {
+                        self.next_char();
+                        return Ok(Token::AmpersandEquals);
                     }
                     Ok(Token::Ampersand)
                 }
@@ -412,7 +462,7 @@ impl<'a> Lexer<'a> {
     /// 获取下一个标记及其在源码中的 Span
     pub fn next_token(&mut self) -> Result<(Token, Span), LexError> {
         loop {
-            match self.state {
+            match self.current_state() {
                 LexerState::Normal => {
                     self.skip_whitespace();
 
@@ -445,8 +495,13 @@ impl<'a> Lexer<'a> {
                             if self.skip_block_comment() {
                                 continue;
                             }
-                            // 处理 '/' 作为操作符的情况
+                            // 处理 '/' 或 '/='
                             self.next_char();
+                            if self.current_char() == Some('=') {
+                                self.next_char();
+                                let end = self.position;
+                                return Ok((Token::SlashEquals, Span::new(original_pos, end)));
+                            }
                             let end = self.position;
                             return Ok((Token::Slash, Span::new(original_pos, end)));
                         }
@@ -480,7 +535,27 @@ impl<'a> Lexer<'a> {
                             let end = self.position;
                             return result.map(|t| (t, Span::new(start, end)));
                         }
-                        Some(ch) if "~!@#$%^&*()_+{}[]|;:,.<>?\\-=".contains(ch) => {
+                        Some('}') => {
+                            // Check if this } is closing a string interpolation
+                            if self.state_stack.len() >= 2
+                                && matches!(self.state_stack[self.state_stack.len() - 2], LexerState::StringInterpolate)
+                            {
+                                // This } closes an interpolation - pop Normal (current) and StringInterpolate
+                                // This returns us to the string state where we started
+                                let start = self.position;
+                                self.pop_state(); // pop Normal
+                                self.pop_state(); // pop StringInterpolate
+                                self.next_char(); // consume }
+                                let end = self.position;
+                                return Ok((Token::InterpolateEnd, Span::new(start, end)));
+                            }
+                            // Otherwise it's a normal }
+                            let start = self.position;
+                            let result = self.parse_operator();
+                            let end = self.position;
+                            return result.map(|t| (t, Span::new(start, end)));
+                        }
+                        Some(ch) if "~!@#$%^&*()_+{[]|;:,.<>?\\-=".contains(ch) => {
                             let start = self.position;
                             let result = self.parse_operator();
                             let end = self.position;
@@ -490,7 +565,7 @@ impl<'a> Lexer<'a> {
                             let start = self.position;
                             let ch = _ch;
                             self.next_char();
-                            let end = self.position;
+                            let _end = self.position;
                             // 错误恢复模式：跳过无效字符并记录位置
                             if self.recovery_mode {
                                 self.skipped_positions.push((start, ch));
@@ -527,7 +602,7 @@ impl<'a> Lexer<'a> {
                     // Interpolation means we go back to normal lexing until we hit }
                     let start = self.position;
                     // We already emitted InterpolateStart, so just start normal parsing
-                    self.state = LexerState::Normal;
+                    self.push_state(LexerState::Normal);
                     let end = self.position;
                     return Ok((Token::InterpolateStart, Span::new(start, end)));
                 }
@@ -703,7 +778,7 @@ impl<'a> Lexer<'a> {
             if self.current_char() == Some('"') {
                 self.next_char();
                 // 进入多行字符串模式
-                self.state = LexerState::MultilineString;
+                self.push_state(LexerState::MultilineString);
                 return self.parse_multiline_string();
             }
             // 空字符串 "" 或两个引号相邻的情况
@@ -725,7 +800,7 @@ impl<'a> Lexer<'a> {
                     // 然后我们会在下次调用输出 InterpolateStart
                     self.next_char(); // consume $
                     self.next_char(); // consume {
-                    self.state = LexerState::StringInterpolate;
+                    self.push_state(LexerState::StringInterpolate);
                     return Ok(Token::StringContent(content));
                 } else {
                     // 普通 $ 字符
@@ -821,7 +896,7 @@ impl<'a> Lexer<'a> {
                     self.next_char();
                     self.next_char();
                     self.next_char();
-                    self.state = LexerState::Normal;
+                    self.pop_state();
                     return Ok(Token::StringContent(content));
                 }
                 // 不是三引号，是普通字符
@@ -834,7 +909,7 @@ impl<'a> Lexer<'a> {
                     // 字符串插值开始，先返回已收集的内容
                     self.next_char(); // consume $
                     self.next_char(); // consume {
-                    self.state = LexerState::StringInterpolate;
+                    self.push_state(LexerState::StringInterpolate);
                     return Ok(Token::StringContent(content));
                 } else {
                     // 普通 $ 字符
@@ -914,7 +989,7 @@ impl<'a> Lexer<'a> {
             }
         }
         // 多行字符串未闭合
-        self.state = LexerState::Normal;
+        self.pop_state();
         Err(LexError::UnclosedString)
     }
 
@@ -923,7 +998,7 @@ impl<'a> Lexer<'a> {
         self.next_char(); // 跳过开头的 `
 
         // 进入原始字符串状态
-        self.state = LexerState::RawString;
+        self.push_state(LexerState::RawString);
         Ok(Token::RawStringQuote)
     }
 
@@ -934,7 +1009,7 @@ impl<'a> Lexer<'a> {
             if ch == '`' {
                 // 找到闭合的反引号
                 self.next_char();
-                self.state = LexerState::Normal;
+                self.pop_state();
                 return Ok(Token::StringContent(content));
             }
             // 原始字符串不处理转义，所有字符原封不动
@@ -942,7 +1017,7 @@ impl<'a> Lexer<'a> {
             self.next_char();
         }
         // 原始字符串未闭合
-        self.state = LexerState::Normal;
+        self.pop_state();
         Err(LexError::UnclosedString)
     }
 
@@ -952,11 +1027,11 @@ impl<'a> Lexer<'a> {
         let mut content = String::new();
 
         while let Some(ch) = self.current_char() {
-            match self.state {
+            match self.current_state() {
                 LexerState::String => {
                     if ch == '"' {
                         self.next_char();
-                        self.state = LexerState::Normal;
+                        self.pop_state();
                         return Ok(Token::StringQuote);
                     } else if ch == '\\' {
                         self.next_char();
@@ -986,7 +1061,7 @@ impl<'a> Lexer<'a> {
                             self.next_char();
                             if self.current_char() == Some('"') {
                                 self.next_char();
-                                self.state = LexerState::Normal;
+                                self.pop_state();
                                 return Ok(Token::MultilineStringQuote);
                             } else {
                                 // 不是三个连续的 "，回退两个字符
@@ -1159,7 +1234,7 @@ mod tests {
         let lexer = Lexer::new(input);
         assert_eq!(lexer.input, input);
         assert_eq!(lexer.position, 0);
-        assert_eq!(lexer.state, LexerState::Normal);
+        assert_eq!(*lexer.state_stack.last().unwrap(), LexerState::Normal);
     }
 
     #[test]

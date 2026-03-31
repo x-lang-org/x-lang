@@ -4,6 +4,7 @@ description = "测试标识符命名规则"
 category = "lexical/identifiers"
 spec = ["spec/docs/01-lexical.md"]
 
+# SPEC.md 规范: 标识符支持 Unicode 字母和数字
 source = """
 let snake_case = 1
 let camelCase = 2
@@ -11,11 +12,17 @@ let PascalCase = 3
 let _underscore_start = 4
 let with_numbers123 = 5
 
+// Unicode 标识符（支持但不推荐）
+let 变量名 = 42
+let 이름 = "Korean"
+
 println(snake_case)
 println(camelCase)
 println(PascalCase)
 println(_underscore_start)
 println(with_numbers123)
+println(变量名)
+println(이름)
 """
 
 [expect]
@@ -23,4 +30,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "1\n2\n3\n4\n5\n"
+output = "1\n2\n3\n4\n5\n42\nKorean\n"

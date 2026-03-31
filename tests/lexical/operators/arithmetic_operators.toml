@@ -1,9 +1,10 @@
 # 算术运算符测试
 name = "arithmetic_operators"
-description = "测试算术运算符: +, -, *, /, %, ^"
+description = "测试算术运算符: +, -, *, /, % 和位运算符: ^ (XOR), &, |"
 category = "lexical/operators"
 spec = ["spec/docs/01-lexical.md"]
 
+# SPEC.md 规范: ^ 是按位异或 (XOR), 不是幂运算
 source = """
 let a = 10 + 5
 let b = 10 - 5

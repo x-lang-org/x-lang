@@ -1,20 +1,21 @@
-# If 表达式测试
+# If-Then 表达式测试 (SPEC.md 规范语法)
 name = "if_expression"
-description = "测试 if 表达式"
+description = "测试 if-then 表达式"
 category = "expressions/control"
 spec = ["spec/docs/03-expressions.md", "spec/docs/04-statements.md"]
 
+# SPEC.md 规范: if condition then { ... } else { ... }
 source = """
-if 5 > 3 {
+if 5 > 3 then {
     println("greater")
 } else {
     println("not greater")
 }
 
 let x: Int = 10
-if x > 20 {
+if x > 20 then {
     println(x + 10)
-} else if x > 5 {
+} else if x > 5 then {
     println(x + 5)
 } else {
     println(x)

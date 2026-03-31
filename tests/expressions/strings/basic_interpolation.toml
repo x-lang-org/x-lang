@@ -1,0 +1,8 @@
+name = "basic string interpolation"
+source = '''
+let name = "World";
+let greeting = "Hello, ${name}!";
+greeting
+'''
+expected_output = "Hello, World!"
+exit_code = 0

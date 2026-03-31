@@ -1,14 +1,29 @@
-# 位运算测试 - 跳过
+# 位运算测试 (SPEC.md 规范)
 name = "basic_bitwise"
-description = "测试位运算符: 暂不支持，使用算术替代"
+description = "测试位运算符: & (AND), | (OR), ^ (XOR), ~ (NOT), << (左移), >> (右移)"
 category = "expressions/bitwise"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: 位运算符
+# & - 按位与
+# | - 按位或
+# ^ - 按位异或
+# ~ - 按位取反
+# << - 左移
+# >> - 右移
 source = """
-let a: Int = 12
-let b: Int = 10
+let a = 12 & 10    // 1100 & 1010 = 1000 = 8
+let b = 12 | 10    // 1100 | 1010 = 1110 = 14
+let c = 12 ^ 10    // 1100 ^ 1010 = 0110 = 6
+let d = ~0         // -1 (all bits flipped)
+let e = 1 << 4     // 0001 << 4 = 10000 = 16
+let f = 32 >> 2    // 100000 >> 2 = 1000 = 8
 println(a)
 println(b)
+println(c)
+println(d)
+println(e)
+println(f)
 """
 
 [expect]
@@ -16,4 +31,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "12\n10\n"
+output = "8\n14\n6\n-1\n16\n8\n"

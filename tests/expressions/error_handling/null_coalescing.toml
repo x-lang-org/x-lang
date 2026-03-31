@@ -1,12 +1,25 @@
-# 空值合并运算符测试 - 简化版
+# 空值合并运算符测试 (SPEC.md 规范语法)
 name = "null_coalescing"
-description = "测试 ?? 运算符"
+description = "测试 ?? 运算符: 左值为 null 时返回右值"
 category = "expressions/error_handling"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: ?? 运算符用于处理空值
 source = """
-let a: Int = 42
-println(a)
+// null 合并
+let a = null
+let b = a ?? 42
+println(b)
+
+// 非null 值直接返回
+let c = 10
+let d = c ?? 99
+println(d)
+
+// 链式使用
+let e = null
+let f = e ?? null ?? "default"
+println(f)
 """
 
 [expect]
@@ -14,4 +27,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\n"
+output = "42\n10\ndefault\n"

@@ -1,13 +1,14 @@
-# 穷尽性检查测试
+# 穷尽性检查测试 (SPEC.md 规范语法)
 name = "exhaustiveness_check"
 description = "测试模式匹配穷尽性检查"
 category = "patterns/exhaustiveness"
 spec = ["spec/docs/09-patterns.md"]
 
+# SPEC.md 规范: 使用 when-is 语法
 source = """
 let b: Bool = true
 
-match b {
+when b is {
     true => println("yes")
     false => println("no")
 }

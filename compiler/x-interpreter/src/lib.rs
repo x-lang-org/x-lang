@@ -8,7 +8,7 @@ use x_lexer::span::Span;
 use x_parser::ast::{
     BinaryOp, Block, CatchClause, ClassDecl, ClassMember, Declaration, EffectDecl, ExternFunctionDecl, Expression, ExpressionKind, FunctionDecl, Literal,
     MatchCase, MatchStatement, Pattern, Program, Spanned, Statement, StatementKind, TraitDecl, TryStatement,
-    UnaryOp,
+    Type, UnaryOp,
 };
 
 /// 效果操作的实现
@@ -43,6 +43,8 @@ pub struct Interpreter {
     handle_counter: usize,
     // Async operations
     async_results: HashMap<usize, Result<Value, String>>,
+    // Deferred expressions - execute when scope exits in LIFO order
+    deferred: Vec<Expression>,
 }
 
 #[derive(Debug, Clone)]
@@ -65,6 +67,8 @@ pub enum Value {
         body: Block,
         captured: Rc<RefCell<HashMap<String, Value>>>,
     },
+    /// 枚举命名空间：用于 Enum::Variant 访问
+    EnumNamespace(String),
     /// 枚举值：类型名、变体名、关联值
     Enum(String, String, Vec<Value>),
     /// 类型值：用于类型构造器表达式，如 Pointer(Void)
@@ -189,6 +193,7 @@ impl PartialEq for Value {
                 Value::TraitObject { object: o1, .. },
                 Value::TraitObject { object: o2, .. },
             ) => o1.as_ref() == o2.as_ref(),
+            (Value::EnumNamespace(a), Value::EnumNamespace(b)) => a == b,
             _ => false,
         }
     }
@@ -220,6 +225,7 @@ impl Interpreter {
             tcp_connections: HashMap::new(),
             handle_counter: 0,
             async_results: HashMap::new(),
+            deferred: Vec::new(),
         }
     }
 
@@ -296,24 +302,32 @@ impl Interpreter {
     }
 
     fn execute_block_expr(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
+        let deferred_start = self.deferred.len();
         let mut last_expr_result = None;
-        for stmt in &block.statements {
-            if let StatementKind::Expression(expr) = &stmt.node {
-                last_expr_result = Some(self.eval(expr)?);
-                continue;
-            }
+        let result = (|| -> Result<ControlFlow, InterpreterError> {
+            for stmt in &block.statements {
+                if let StatementKind::Expression(expr) = &stmt.node {
+                    last_expr_result = Some(self.eval(expr)?);
+                    continue;
+                }
 
-            match self.execute_statement(stmt)? {
-                ControlFlow::None => {}
-                cf => return Ok(cf),
+                match self.execute_statement(stmt)? {
+                    ControlFlow::None => {}
+                    cf => return Ok(cf),
+                }
             }
-        }
-        // 如果最后一个语句是表达式语句，返回其结果
-        if let Some(result) = last_expr_result {
-            Ok(ControlFlow::Return(result))
-        } else {
-            Ok(ControlFlow::None)
-        }
+            // 如果最后一个语句是表达式语句，返回其结果
+            if let Some(result) = last_expr_result {
+                Ok(ControlFlow::Return(result))
+            } else {
+                Ok(ControlFlow::None)
+            }
+        })();
+
+        // Execute any deferred expressions added in this block, in reverse order (LIFO)
+        self.run_deferred(deferred_start)?;
+
+        result
     }
 
     fn execute_block_stmt(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
@@ -328,6 +342,19 @@ impl Interpreter {
             }
         }
         Ok(ControlFlow::None)
+    }
+
+    /// Run deferred expressions from deferred_start to current end, in reverse order (LIFO)
+    fn run_deferred(&mut self, deferred_start: usize) -> Result<(), InterpreterError> {
+        let deferred_count = self.deferred.len() - deferred_start;
+        if deferred_count > 0 {
+            // Pop and execute in reverse order (last in first out)
+            for _ in 0..deferred_count {
+                let expr = self.deferred.pop().unwrap();
+                self.eval(&expr)?;
+            }
+        }
+        Ok(())
     }
 
     fn execute_statement(&mut self, stmt: &Statement) -> Result<ControlFlow, InterpreterError> {
@@ -409,9 +436,8 @@ impl Interpreter {
                 self.execute_block_stmt(block)
             }
             StatementKind::Defer(expr) => {
-                // Defer 表达式在函数退出前执行，解释器暂不支持自动执行
-                // 现在只计算表达式，不延迟执行
-                self.eval(expr)?;
+                // Defer 表达式存储起来，在作用域结束时执行
+                self.deferred.push(expr.clone());
                 Ok(ControlFlow::None)
             }
             StatementKind::Yield(_) => {
@@ -542,9 +568,17 @@ impl Interpreter {
         match &expr.node {
             ExpressionKind::Literal(lit) => Ok(self.eval_literal(lit)),
             ExpressionKind::Variable(name) => {
-                self.variables.get(name).cloned().ok_or_else(|| {
-                    InterpreterError::runtime_no_span(format!("未定义的变量: {}", name))
-                })
+                if let Some(value) = self.variables.get(name).cloned() {
+                    Ok(value)
+                } else {
+                    // Check if this is an enum name
+                    if self.enums.contains_key(name) {
+                        // Return an enum namespace that allows accessing variants
+                        Ok(Value::EnumNamespace(name.clone()))
+                    } else {
+                        Err(InterpreterError::runtime_no_span(format!("未定义的变量: {}", name)))
+                    }
+                }
             }
             ExpressionKind::Binary(op, l, r) => {
                 if matches!(op, BinaryOp::And) {
@@ -760,6 +794,35 @@ impl Interpreter {
                 Ok(map)
             }
             ExpressionKind::Parenthesized(inner) => self.eval(inner),
+            ExpressionKind::Cast(expr, ty) => {
+                let val = self.eval(expr)?;
+                // Type casting: convert between compatible types
+                match ty {
+                    Type::Float => match val {
+                        Value::Integer(n) => Ok(Value::Float(n as f64)),
+                        Value::Float(f) => Ok(Value::Float(f)),
+                        _ => Err(InterpreterError::runtime_no_span("只能将整数或浮点数转换为 Float")),
+                    },
+                    Type::Int => match val {
+                        Value::Integer(n) => Ok(Value::Integer(n)),
+                        Value::Float(f) => Ok(Value::Integer(f as i64)),
+                        _ => Err(InterpreterError::runtime_no_span("只能将整数或浮点数转换为 Int")),
+                    },
+                    Type::Bool => match val {
+                        Value::Boolean(b) => Ok(Value::Boolean(b)),
+                        Value::Integer(n) => Ok(Value::Boolean(n != 0)),
+                        _ => Err(InterpreterError::runtime_no_span("只能将布尔值或整数转换为 Bool")),
+                    },
+                    Type::String => match val {
+                        Value::String(s) => Ok(Value::String(s)),
+                        Value::Integer(n) => Ok(Value::String(n.to_string())),
+                        Value::Float(f) => Ok(Value::String(f.to_string())),
+                        Value::Boolean(b) => Ok(Value::String(b.to_string())),
+                        _ => Err(InterpreterError::runtime_no_span("只能将基本类型转换为 String")),
+                    },
+                    _ => Ok(val), // For other types, just return the value unchanged
+                }
+            }
             ExpressionKind::Member(obj, member) => {
                 let obj_val = self.eval(obj)?;
                 match &obj_val {
@@ -777,7 +840,11 @@ impl Interpreter {
                         }
                         Err(InterpreterError::runtime_no_span(format!("未定义的键: {}", member)))
                     }
-                    _ => Err(InterpreterError::runtime_no_span("只能访问对象的成员")),
+                    Value::EnumNamespace(enum_name) => {
+                        // Enum::Variant - unit variant
+                        Ok(Value::Enum(enum_name.clone(), member.clone(), vec![]))
+                    }
+                    _ => Err(InterpreterError::runtime_no_span("只能访问对象的成员或枚举变体")),
                 }
             }
             ExpressionKind::If(cond, then_expr, else_expr) => {
@@ -807,6 +874,25 @@ impl Interpreter {
                 }
 
                 Ok(Value::new_array(values))
+            }
+            ExpressionKind::NullCoalescing(left, right) => {
+                // ?? operator: return left if not null, otherwise right
+                let left_val = self.eval(left)?;
+                match left_val {
+                    Value::Null => self.eval(right),
+                    other => Ok(other),
+                }
+            }
+            ExpressionKind::OptionalChain(obj, member) => {
+                // ?. operator: return null if obj is null, otherwise access member
+                let obj_val = self.eval(obj)?;
+                match obj_val {
+                    Value::Null => Ok(Value::Null),
+                    _ => self.eval(&Expression {
+                        node: ExpressionKind::Member(obj.clone(), member.clone()),
+                        span: expr.span.clone(),
+                    }),
+                }
             }
             ExpressionKind::Pipe(input, functions) => {
                 let mut value = self.eval(input)?;
@@ -2901,6 +2987,27 @@ impl Interpreter {
                 let eq = left == right;
                 Ok(Value::Boolean(if matches!(op, Equal) { eq } else { !eq }))
             }
+            // Bitwise operations
+            BitAnd => {
+                let (a, b) = (self.as_i64(left)?, self.as_i64(right)?);
+                Ok(Value::Integer(a & b))
+            }
+            BitOr => {
+                let (a, b) = (self.as_i64(left)?, self.as_i64(right)?);
+                Ok(Value::Integer(a | b))
+            }
+            BitXor => {
+                let (a, b) = (self.as_i64(left)?, self.as_i64(right)?);
+                Ok(Value::Integer(a ^ b))
+            }
+            LeftShift => {
+                let (a, b) = (self.as_i64(left)?, self.as_i64(right)?);
+                Ok(Value::Integer(a << b))
+            }
+            RightShift => {
+                let (a, b) = (self.as_i64(left)?, self.as_i64(right)?);
+                Ok(Value::Integer(a >> b))
+            }
             _ => Err(InterpreterError::runtime_no_span(format!(
                 "未实现的二元运算: {:?}",
                 op
@@ -3001,6 +3108,9 @@ impl Interpreter {
             Value::Closure { params, .. } => {
                 format!("<closure({})>", params.join(", "))
             }
+            Value::EnumNamespace(name) => {
+                format!("<enum {}>", name)
+            }
             Value::Enum(type_name, variant_name, values) => {
                 if values.is_empty() {
                     format!("{}.{}", type_name, variant_name)
@@ -3065,6 +3175,9 @@ impl Interpreter {
             Value::Result(ok, _) => self.value_to_json(ok),
             Value::Closure { params, .. } => {
                 format!("{{\"__closure__\":{{\"params\":[{}]}}}}", params.iter().map(|p| format!("\"{}\"", p)).collect::<Vec<_>>().join(","))
+            }
+            Value::EnumNamespace(name) => {
+                format!("{{\"__enum_namespace__\":\"{}\"}}", name)
             }
             Value::Enum(type_name, variant_name, values) => {
                 let items: Vec<String> = values.iter().map(|v| self.value_to_json(v)).collect();

@@ -1,13 +1,14 @@
-# 通配符模式测试
+# 通配符模式测试 (SPEC.md 规范语法)
 name = "wildcard_pattern"
 description = "测试通配符 _ 模式"
 category = "patterns/wildcards"
 spec = ["spec/docs/09-patterns.md"]
 
+# SPEC.md 规范: 使用 when-is 语法
 source = """
 let n: Int = 42
 
-match n {
+when n is {
     0 => println("zero")
     1 => println("one")
     _ => println("other")

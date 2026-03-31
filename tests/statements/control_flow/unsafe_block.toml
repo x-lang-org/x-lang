@@ -1,0 +1,21 @@
+# unsafe 块测试 (SPEC.md 规范)
+name = "unsafe_block"
+description = "测试 unsafe 不安全代码块"
+category = "statements/control_flow"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: unsafe 不安全代码块用于 FFI
+source = """
+unsafe {
+    println("unsafe block executed")
+}
+
+println("done")
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "unsafe block executed\ndone\n"

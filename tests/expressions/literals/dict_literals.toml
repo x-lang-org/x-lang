@@ -1,0 +1,22 @@
+# 字典字面量测试 (SPEC.md 规范)
+name = "dict_literals"
+description = "测试字典字面量语法"
+category = "expressions/literals"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: 字典 - 大括号，键值对用冒号
+# 注意: 空字典和混合类型字典有类型推断限制
+source = """
+let scores = { Alice: 95, Bob: 87 }
+println(scores)
+
+let config = { host: "localhost", port: 8080 }
+println(config)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "{Alice: 95, Bob: 87}\n{host: localhost, port: 8080}\n"

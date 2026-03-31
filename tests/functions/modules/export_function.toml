@@ -1,0 +1,24 @@
+# 导出函数测试 (SPEC.md 规范)
+name = "export_function"
+description = "测试 export 关键字导出函数"
+category = "functions/modules"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: export 导出函数
+source = """
+export function hello() {
+    println("hello exported")
+}
+
+export function add(a: Int, b: Int) -> Int = a + b
+
+hello()
+println(add(3, 4))
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "hello exported\n7\n"

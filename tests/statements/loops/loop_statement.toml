@@ -1,0 +1,39 @@
+# Loop 语句测试 (SPEC.md 规范语法)
+name = "loop_statement"
+description = "测试无限循环 loop { ... } 和 break/continue"
+category = "statements/loops"
+spec = ["spec/docs/04-statements.md"]
+
+# SPEC.md 规范: loop { ... } 无限循环，用 break 退出
+source = """
+let mutable i = 0
+loop {
+    i = i + 1
+    if i > 5 then {
+        break
+    }
+}
+println(i)
+
+// 使用 continue 的示例
+let mutable sum = 0
+let mutable j = 0
+loop {
+    j = j + 1
+    if j > 10 then {
+        break
+    }
+    if j % 2 == 0 then {
+        continue
+    }
+    sum = sum + j
+}
+println(sum)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "6\n25\n"

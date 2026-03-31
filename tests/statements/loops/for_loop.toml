@@ -1,17 +1,14 @@
-# For 循环测试
+# For Each 循环测试 (SPEC.md 规范语法)
 name = "for_loop"
-description = "测试 for 循环遍历"
+description = "测试 for each 循环遍历"
 category = "statements/loops"
 spec = ["spec/docs/04-statements.md"]
 
-# TODO: for loop not fully implemented
-# Using while loop equivalent
+# SPEC.md 规范: for each item in collection { ... }
 source = """
-let sum = 0
-let i = 1
-while i <= 5 {
+let mutable sum = 0
+for each i in [1, 2, 3, 4, 5] {
     sum = sum + i
-    i = i + 1
 }
 println(sum)
 """

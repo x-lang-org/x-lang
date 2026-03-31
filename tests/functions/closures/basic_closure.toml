@@ -1,13 +1,18 @@
-# Lambda 测试 - 简化版
+# Lambda 测试 (SPEC.md 规范语法)
 name = "basic_lambda"
 description = "测试 Lambda 表达式"
 category = "functions/closures"
 spec = ["spec/docs/05-functions.md"]
 
+# SPEC.md 规范: x -> x * 2 和 (a, b) -> a + b
 source = """
-function double(x: Int) -> Int = x * 2
+// 单参数 lambda
+let square = x -> x * x
+println(square(5))
 
-println(double(5))
+// 多参数 lambda
+let add = (a, b) -> a + b
+println(add(3, 4))
 """
 
 [expect]
@@ -15,4 +20,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "10\n"
+output = "25\n7\n"

@@ -1,0 +1,31 @@
+# 模式守卫测试 (SPEC.md 规范)
+name = "pattern_guard"
+description = "测试带守卫的模式匹配: pattern if condition"
+category = "patterns/guards"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: 模式守卫语法 `pattern if guard_expr`
+source = """
+let n = 15
+let result = when n is {
+    x if x > 10 => "大于10"
+    x if x > 5 => "大于5"
+    _ => "其他"
+}
+println(result)
+
+let value = 25
+let message = when value is {
+    v if v >= 20 => "大"
+    v if v >= 10 => "中"
+    _ => "小"
+}
+println(message)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "大于10\n大\n"

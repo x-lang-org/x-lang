@@ -1,0 +1,32 @@
+# defer 语句测试 (SPEC.md 规范)
+name = "defer_statement"
+description = "测试 defer 延迟执行语句"
+category = "statements/control_flow"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: defer 在函数退出时执行，多个 defer 以 LIFO (后进先出) 顺序执行
+source = """
+function test() {
+    defer println("deferred")
+    println("normal")
+}
+
+function test_lifo() {
+    defer println("third")
+    defer println("second")
+    defer println("first")
+    println("start")
+}
+
+test()
+test_lifo()
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 正确行为: normal 先打印，然后 deferred (延迟到作用域/函数退出)
+# 多个 defer: 后声明先执行 (LIFO)
+[expect.runtime]
+output = "normal\ndeferred\nstart\nfirst\nsecond\nthird\n"

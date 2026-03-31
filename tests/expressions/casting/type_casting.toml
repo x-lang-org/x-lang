@@ -1,0 +1,28 @@
+# 类型转换测试 (SPEC.md 规范)
+name = "type_casting"
+description = "测试 as 类型转换运算符"
+category = "expressions/casting"
+spec = ["spec/docs/03-expressions.md"]
+
+# SPEC.md 规范: as 类型转换
+# 只允许安全的转换（如 Integer → Float）
+source = """
+let i = 42
+let f = i as Float
+println(f)
+
+let x = 3.7
+let n = x as Int
+println(n)
+
+let flag = true
+let s = flag as String
+println(s)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "42.0\n3\ntrue\n"

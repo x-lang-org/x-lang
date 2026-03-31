@@ -1,13 +1,14 @@
-# Match 表达式测试
+# When-Is 表达式测试 (SPEC.md 规范语法)
 name = "match_expression"
-description = "测试 match 语句"
+description = "测试 when-is 模式匹配表达式"
 category = "expressions/control"
 spec = ["spec/docs/03-expressions.md", "spec/docs/09-patterns.md"]
 
+# SPEC.md 规范: 使用 when x is { ... } 语法
 source = """
 let x: Int = 42
 
-match x {
+when x is {
     0 => println("zero")
     42 => println("answer")
     _ => println("other")

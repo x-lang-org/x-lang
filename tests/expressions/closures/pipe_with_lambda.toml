@@ -1,13 +1,14 @@
-# 管道与函数组合测试
+# 管道与 Lambda 组合测试 (SPEC.md 规范语法)
 name = "pipe_with_lambda"
 description = "测试管道运算符与 Lambda 组合"
 category = "expressions/pipes"
 spec = ["spec/docs/03-expressions.md", "spec/docs/05-functions.md"]
 
+# SPEC.md 规范: 使用 lambda 表达式和管道运算符
 source = """
-function double(x: Int) -> Int = x * 2
-
-let result: Int = 6 |> double
+// 定义 lambda 并在管道中使用
+let double = x -> x * 2
+let result = 6 |> double
 println(result)
 """
 

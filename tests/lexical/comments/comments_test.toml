@@ -1,18 +1,20 @@
 # 注释测试
 name = "comments_test"
-description = "测试单行注释"
+description = "测试单行注释和多行注释"
 category = "lexical/comments"
 spec = ["spec/docs/01-lexical.md"]
 
-# Note: Multi-line comments /* */ are not yet implemented
-# Only single-line comments // are supported
-
+# SPEC.md 规范: 支持单行注释 // 和多行注释 /* */
 source = """
-// single line comment
+// 单行注释
 let x: Int = 42
 
+/* 这是
+   多行注释，
+   支持嵌套 /* 内部注释 */ */
+
 function greet(name: String) {
-    // comment in function
+    // 注释在函数内
     println(name)
 }
 

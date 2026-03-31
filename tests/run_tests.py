@@ -132,7 +132,7 @@ class TestRunner:
 
     def get_tokens(self, source: str) -> tuple[bool, str]:
         """获取词法分析结果"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -146,7 +146,7 @@ class TestRunner:
 
     def get_ast(self, source: str) -> tuple[bool, str]:
         """获取 AST 结果"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -160,7 +160,7 @@ class TestRunner:
 
     def get_hir(self, source: str) -> tuple[bool, str]:
         """获取 HIR 结果"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -174,7 +174,7 @@ class TestRunner:
 
     def get_mir(self, source: str) -> tuple[bool, str]:
         """获取 MIR 结果"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -188,7 +188,7 @@ class TestRunner:
 
     def get_lir(self, source: str) -> tuple[bool, str]:
         """获取 LIR 结果"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -202,7 +202,7 @@ class TestRunner:
 
     def run_program(self, source: str) -> tuple[bool, str, int]:
         """运行程序并获取输出"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 
@@ -216,7 +216,7 @@ class TestRunner:
 
     def check_program(self, source: str) -> tuple[bool, str]:
         """检查程序类型"""
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
             temp_path = f.name
 

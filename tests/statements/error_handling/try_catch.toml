@@ -1,0 +1,28 @@
+# try-catch-finally 测试 (SPEC.md 规范)
+name = "try_catch"
+description = "测试 try-catch-finally 异常处理"
+category = "statements/error_handling"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: try-catch-finally 异常处理
+# 注意: catch 变量语法未完全实现
+source = """
+try {
+    println("try block")
+} catch {
+    println("caught")
+}
+
+try {
+    println("try2")
+} finally {
+    println("finally")
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "try block\ntry2\nfinally\n"

@@ -1,0 +1,28 @@
+# 原始字符串字面量测试 (SPEC.md 规范)
+name = "raw_string_literals"
+description = "测试原始字符串字面量: 反引号包围，不转义"
+category = "lexical/literals"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: 原始字符串使用反引号包围，内容不转义
+source = """
+// raw string (backticks) - no escaping needed
+let path = `C:\\Users\\Documents\\file.txt`
+println(path)
+
+// raw string with special characters
+let regex = `\\d+\\.\\d+`
+println(regex)
+
+// raw string with newlines
+let multiline = `Line 1
+Line 2`
+println(multiline)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "C:\\Users\\Documents\\file.txt\n\\d+\\.\\d+\nLine 1\nLine 2\n"

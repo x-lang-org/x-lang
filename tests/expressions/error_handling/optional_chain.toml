@@ -1,12 +1,20 @@
-# 可选链测试 - 简化版
+# 可选链测试 (SPEC.md 规范语法)
 name = "optional_chain"
-description = "测试 ?? 运算符"
+description = "测试 ?. 运算符: 安全访问成员"
 category = "expressions/error_handling"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: ?. 运算符用于安全访问成员
 source = """
-let name: String = "Alice"
+// 对象访问
+let obj = { name: "Alice", age: 30 }
+let name = obj?.name
 println(name)
+
+// null 安全访问
+let n = null
+let result = n?.value
+println(result)
 """
 
 [expect]
@@ -14,4 +22,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "Alice\n"
+output = "Alice\nnull\n"

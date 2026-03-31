@@ -52,6 +52,8 @@ pub enum Token {
     And,
     Or,
     Not,
+    Eq,   // eq 关键字 (相等比较)
+    Ne,   // ne 关键字 (不等比较)
     True,
     False,
     Null,
@@ -136,6 +138,10 @@ pub enum Token {
     SlashEquals,
     PercentEquals,
     CaretEquals,
+    AmpersandEquals,    // &=
+    PipeEquals,         // |=
+    LeftShiftEquals,    // <<=
+    RightShiftEquals,   // >>=
     Plus,
     Minus,
     Asterisk,
@@ -145,6 +151,8 @@ pub enum Token {
     Equals,
     LessThan,
     GreaterThan,
+    LeftShift,      // << 左移
+    RightShift,     // >> 右移
     NotOperator,
     Colon,
     Dot,

@@ -1,9 +1,11 @@
-# Result 类型测试 - 简化版
+# 错误传播运算符测试 (SPEC.md 规范语法)
 name = "error_propagation"
-description = "测试 Result 类型"
+description = "测试 ? 运算符: 错误传播（占位测试）"
 category = "expressions/error_handling"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: ? 运算符用于传播错误
+# 当前编译器未完全实现 Result 类型，使用简化测试
 source = """
 let a: Int = 42
 println(a)

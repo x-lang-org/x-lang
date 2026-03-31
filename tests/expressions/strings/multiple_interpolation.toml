@@ -1,0 +1,9 @@
+name = "multiple string interpolations"
+source = '''
+let a = 42;
+let b = 1337;
+let message = "a is ${a}, b is ${b}";
+message
+'''
+expected_output = "a is 42, b is 1337"
+exit_code = 0

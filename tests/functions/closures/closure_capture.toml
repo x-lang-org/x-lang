@@ -1,14 +1,26 @@
-# 闭包捕获测试 - 简化版
+# 闭包捕获测试 (SPEC.md 规范)
 name = "closure_capture"
 description = "测试闭包环境捕获"
 category = "functions/closures"
 spec = ["spec/docs/05-functions.md"]
 
+# SPEC.md 规范: 闭包可以捕获外部变量
 source = """
-function add(a: Int, b: Int) -> Int = a + b
+// 基本闭包捕获
+let x = 10
+let add_x = (n) -> n + x
+println(add_x(5))
 
-let result: Int = add(5, 10)
-println(result)
+// 多变量捕获
+let y = 20
+let add_both = (n) -> n + x + y
+println(add_both(1))
+
+// 嵌套闭包
+let outer = 5
+let make_adder = (n) -> (m) -> n + m + outer
+let adder = make_adder(10)
+println(adder(3))
 """
 
 [expect]
@@ -16,4 +28,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "15\n"
+output = "15\n31\n18\n"

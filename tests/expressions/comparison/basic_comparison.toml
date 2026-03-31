@@ -1,22 +1,31 @@
-# 比较表达式测试
+# 比较表达式测试 (SPEC.md 规范语法)
 name = "basic_comparison"
-description = "测试比较表达式"
+description = "测试比较表达式: <, >, <=, >=, ==, !=, eq, ne"
 category = "expressions/comparison"
 spec = ["spec/docs/03-expressions.md"]
 
+# SPEC.md 规范: 支持 ==, != 和 eq, ne 关键字两种形式
 source = """
+// 符号形式
 let a = 5 < 10
 let b = 10 > 5
 let c = 5 <= 5
 let d = 5 >= 5
 let e = 5 == 5
 let f = 5 != 10
+
+// 关键字形式
+let g = 5 eq 5
+let h = 5 ne 10
+
 println(a)
 println(b)
 println(c)
 println(d)
 println(e)
 println(f)
+println(g)
+println(h)
 """
 
 [expect]
@@ -24,4 +33,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "true\ntrue\ntrue\ntrue\ntrue\ntrue\n"
+output = "true\ntrue\ntrue\ntrue\ntrue\ntrue\ntrue\ntrue\n"
