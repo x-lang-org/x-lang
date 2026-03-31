@@ -7,13 +7,13 @@ spec = ["spec/docs/01-lexical.md"]
 # SPEC.md 规范: 支持单行注释 // 和多行注释 /* */
 source = """
 // 单行注释
-let x: Int = 42
+let x: integer = 42
 
 /* 这是
    多行注释，
    支持嵌套 /* 内部注释 */ */
 
-function greet(name: String) {
+function greet(name: string) {
     // 注释在函数内
     println(name)
 }

@@ -6,7 +6,7 @@ spec = ["spec/docs/03-expressions.md", "spec/docs/09-patterns.md"]
 
 # SPEC.md 规范: 使用 when x is { ... } 语法
 source = """
-let x: Int = 42
+let x: integer = 42
 
 when x is {
     0 => println("zero")

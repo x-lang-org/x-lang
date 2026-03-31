@@ -144,16 +144,16 @@ do { x = 1; } while (true);
     fn parse_class_basic() {
         let src = r#"
 class Point {
-    x: Int;
-    y: Int;
+    let x: Int
+    let y: Int
 
     new(x: Int, y: Int) {
-        this.x = x;
-        this.y = y;
+        this.x = x
+        this.y = y
     }
 
     function getX() -> Int {
-        return this.x;
+        return this.x
     }
 }
 "#;
@@ -174,7 +174,7 @@ class Point {
     fn parse_class_with_extends() {
         let src = r#"
 class Dog extends Animal {
-    name: String;
+    let name: String
 }
 "#;
         let program = parse_program(src).expect("parse should succeed");
@@ -338,7 +338,10 @@ function main() {
     fn parse_class_with_constructor() {
         let src = r#"
 class Point {
-    construct new(x: Int, y: Int) {
+    let x: Int
+    let y: Int
+
+    new(x: Int, y: Int) {
         this.x = x
         this.y = y
     }

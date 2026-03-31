@@ -5,7 +5,7 @@ category = "functions/basic"
 spec = ["spec/docs/05-functions.md"]
 
 source = """
-function square(x: Int) -> Int = x * x
+function square(x: integer) -> integer = x * x
 
 println(square(5))
 """

@@ -5579,20 +5579,20 @@ let y = x;
         // 测试类继承的类型检查
         let src = r#"
 class Animal {
-    name: String;
+    let name: String
 
     new(n: String) {
-        this.name = n;
+        this.name = n
     }
 
     virtual function speak() -> String {
-        return "...";
+        return "..."
     }
 }
 
 class Dog extends Animal {
     override function speak() -> String {
-        return "Woof";
+        return "Woof"
     }
 }
 "#;
@@ -5614,20 +5614,20 @@ class Dog extends Animal {
         // 测试 trait 实现
         let src = r#"
 trait Serializable {
-    function serialize() -> String;
+    function serialize() -> String
 }
 
 class Point implement Serializable {
-    x: Int;
-    y: Int;
+    let x: Int
+    let y: Int
 
     new(a: Int, b: Int) {
-        this.x = a;
-        this.y = b;
+        this.x = a
+        this.y = b
     }
 
     function serialize() -> String {
-        return "Point";
+        return "Point"
     }
 }
 "#;

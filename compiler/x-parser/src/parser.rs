@@ -2905,7 +2905,22 @@ impl XParser {
         // 先收集修饰符
         let mut modifiers = MethodModifiers::default();
 
-        // 检查是否是 let 开头的字段定义
+        // 先解析可见性修饰符（public/private/protected/internal 在最前面）
+        if matches!(ti.peek(), Some(Ok((Token::Private, _)))) {
+            ti.next();
+            modifiers.visibility = Visibility::Private;
+        } else if matches!(ti.peek(), Some(Ok((Token::Public, _)))) {
+            ti.next();
+            modifiers.visibility = Visibility::Public;
+        } else if matches!(ti.peek(), Some(Ok((Token::Protected, _)))) {
+            ti.next();
+            modifiers.visibility = Visibility::Protected;
+        } else if matches!(ti.peek(), Some(Ok((Token::Internal, _)))) {
+            ti.next();
+            modifiers.visibility = Visibility::Internal;
+        }
+
+        // 检查是否是 let 开头的字段定义（可见性修饰符之后）
         if matches!(ti.peek(), Some(Ok((Token::Let, _)))) {
             ti.next();
             let field = self.parse_field_with_visibility(ti, modifiers.visibility)?;
@@ -2936,21 +2951,6 @@ impl XParser {
         if matches!(ti.peek(), Some(Ok((Token::Static, _)))) {
             ti.next();
             modifiers.is_static = true;
-        }
-
-        // 解析可见性修饰符
-        if matches!(ti.peek(), Some(Ok((Token::Private, _)))) {
-            ti.next();
-            modifiers.visibility = Visibility::Private;
-        } else if matches!(ti.peek(), Some(Ok((Token::Public, _)))) {
-            ti.next();
-            modifiers.visibility = Visibility::Public;
-        } else if matches!(ti.peek(), Some(Ok((Token::Protected, _)))) {
-            ti.next();
-            modifiers.visibility = Visibility::Protected;
-        } else if matches!(ti.peek(), Some(Ok((Token::Internal, _)))) {
-            ti.next();
-            modifiers.visibility = Visibility::Internal;
         }
 
         // 检查是否是 function 关键字开头的方法
@@ -3003,7 +3003,7 @@ impl XParser {
                 type_annot,
                 initializer,
                 is_mutable: false,
-                visibility: Visibility::default(),
+                visibility: modifiers.visibility,
                 span: start_span,
             }));
         }

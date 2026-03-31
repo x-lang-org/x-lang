@@ -6,10 +6,10 @@ spec = ["spec/docs/06-classes.md"]
 
 source = """
 class Point {
-    public x: integer
-    private y: integer
+    public let x: integer
+    private let y: integer
 
-    get_y() -> integer {
+    function get_y() -> integer {
         return self.y
     }
 }

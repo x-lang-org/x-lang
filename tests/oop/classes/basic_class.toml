@@ -6,14 +6,14 @@ spec = ["spec/docs/06-classes.md"]
 
 source = """
 class Person {
-    name: string
-    age: integer
+    let name: string
+    let age: integer
 
-    greet() {
+    function greet() {
         println(self.name)
     }
 
-    get_age() -> integer {
+    function get_age() -> integer {
         return self.age
     }
 }

@@ -5,11 +5,11 @@ category = "lexical/keywords"
 spec = ["spec/docs/01-lexical.md"]
 
 source = """
-let x: Int = 1
-mutable y: Int = 2
-function add(a: Int, b: Int) -> Int = a + b
-class Point { x: Int, y: Int }
-trait Show { function show() -> String }
+let x: integer = 1
+mutable y: integer = 2
+function add(a: integer, b: integer) -> integer = a + b
+class Point { let x: integer, let y: integer }
+trait Show { function show() -> string }
 type Color = Red | Green | Blue
 """
 

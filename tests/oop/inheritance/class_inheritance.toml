@@ -6,9 +6,9 @@ spec = ["spec/docs/06-classes.md"]
 
 source = """
 class Animal {
-    name: string
+    let name: string
 
-    virtual speak() {
+    virtual function speak() {
         println(self.name)
     }
 }
