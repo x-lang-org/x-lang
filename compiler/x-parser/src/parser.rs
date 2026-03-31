@@ -152,7 +152,7 @@ impl XParser {
                     ti.next();
                     declarations.push(Declaration::Class(self.parse_class(ti)?));
                 }
-                Ok((Token::Struct, _)) => {
+                Ok((Token::Struct, _)) | Ok((Token::Record, _)) => {
                     ti.next();
                     declarations.push(Declaration::Record(self.parse_record(ti)?));
                 }

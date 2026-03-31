@@ -1,12 +1,22 @@
 # 访问控制测试
-# Note: Classes not fully implemented
 name = "visibility_test"
 description = "测试类成员访问控制"
 category = "oop/visibility"
 spec = ["spec/docs/06-classes.md"]
 
 source = """
-println("test")
+class Point {
+    public x: integer
+    private y: integer
+
+    get_y() -> integer {
+        return self.y
+    }
+}
+
+let p = Point(10, 20)
+println(p.x)
+println(p.get_y())
 """
 
 [expect]
@@ -14,4 +24,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "test\n"
+output = "10\n20\n"
