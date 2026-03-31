@@ -1,21 +1,27 @@
 # Option 类型测试
-# Note: Option<T> type with Some/None constructors not fully implemented
-# The compiler does not yet support algebraic data types
 name = "option_type"
-description = "测试 Option<T> 类型（占位测试）"
+description = "测试 Option<T> 类型"
 category = "types/composites"
 spec = ["spec/docs/02-types.md"]
 
-# TODO: When Option types are implemented, test:
-# - let x: Optional<int> = Some(42)
-# - let y: Optional<int> = None
-# - Pattern matching: match x { Some(v) => v, None => 0 }
-
 source = """
-let present = 42
-let absent = 0
-println(present)
-println(absent)
+enum Option {
+    Some(integer)
+    None
+}
+
+let present = Option.Some(42)
+let absent = Option.None
+
+when present is {
+    Option.Some(v) => println(v)
+    Option.None => println("none")
+}
+
+when absent is {
+    Option.Some(v) => println(v)
+    Option.None => println("empty")
+}
 """
 
 [expect]
@@ -23,4 +29,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\n0\n"
+output = "42\nempty\n"

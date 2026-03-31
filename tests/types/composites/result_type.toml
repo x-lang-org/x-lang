@@ -1,21 +1,27 @@
 # Result 类型测试
-# Note: Result<T, E> type with Success/Failure constructors not fully implemented
-# The compiler does not yet support algebraic data types
 name = "result_type"
-description = "测试 Result<T, E> 类型（占位测试）"
+description = "测试 Result<T, E> 类型"
 category = "types/composites"
 spec = ["spec/docs/02-types.md"]
 
-# TODO: When Result types are implemented, test:
-# - let x: Result<int, string> = Success(42)
-# - let y: Result<int, string> = Failure("error")
-# - Error propagation with ? operator
-
 source = """
-let success_value = 42
-let failure_value = 0
-println(success_value)
-println(failure_value)
+enum Result {
+    Success(integer)
+    Failure(string)
+}
+
+let ok = Result.Success(100)
+let err = Result.Failure("error occurred")
+
+when ok is {
+    Result.Success(v) => println(v)
+    Result.Failure(e) => println(e)
+}
+
+when err is {
+    Result.Success(v) => println(v)
+    Result.Failure(e) => println(e)
+}
 """
 
 [expect]
@@ -23,4 +29,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\n0\n"
+output = "100\nerror occurred\n"

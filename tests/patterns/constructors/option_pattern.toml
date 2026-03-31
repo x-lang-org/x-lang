@@ -1,12 +1,27 @@
 # Option 模式匹配测试
-# Note: Pattern matching not fully implemented
 name = "option_pattern"
-description = "测试 Option 类型"
+description = "测试 Option 类型模式匹配"
 category = "patterns/constructors"
 spec = ["spec/docs/09-patterns.md"]
 
 source = """
-println(42)
+enum Option {
+    Some(integer)
+    None
+}
+
+let a = Option.Some(42)
+let b = Option.None
+
+when a is {
+    Option.Some(v) => println(v)
+    Option.None => println("none")
+}
+
+when b is {
+    Option.Some(v) => println(v)
+    Option.None => println("empty")
+}
 """
 
 [expect]
@@ -14,4 +29,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\n"
+output = "42\nempty\n"

@@ -1,12 +1,25 @@
 # Trait 测试
-# Note: Traits not implemented
 name = "basic_trait"
-description = "测试 trait"
+description = "测试 trait 定义和实现"
 category = "oop/traits"
 spec = ["spec/docs/06-classes.md"]
 
 source = """
-println("Alice")
+trait Printable {
+    to_string() -> string
+}
+
+class Point {
+    x: integer
+    y: integer
+
+    to_string() -> string {
+        return "Point"
+    }
+}
+
+let p = Point(1, 2)
+println(p.to_string())
 """
 
 [expect]
@@ -14,4 +27,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "Alice\n"
+output = "Point\n"

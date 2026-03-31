@@ -1,12 +1,20 @@
 # 类继承测试
-# Note: Inheritance not implemented
 name = "class_inheritance"
 description = "测试类继承"
 category = "oop/inheritance"
 spec = ["spec/docs/06-classes.md"]
 
 source = """
-println("Max")
+class Animal {
+    name: string
+
+    virtual speak() {
+        println(self.name)
+    }
+}
+
+let a = Animal("Max")
+a.speak()
 """
 
 [expect]
