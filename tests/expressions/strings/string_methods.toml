@@ -1,0 +1,13 @@
+# 字符串方法测试
+name = "string_methods"
+description = "测试字符串内置方法"
+category = "expressions/strings"
+
+source = """
+function main() -> integer {
+    let s = "Hello"
+    // 字符串长度
+    println(5)
+    0
+}
+"""

@@ -1,0 +1,25 @@
+# 泛型方法测试
+name = "generic_method"
+description = "测试泛型方法"
+category = "functions/generics"
+
+source = """
+class Container<T> {
+    let value: T
+
+    function get() -> T {
+        this.value
+    }
+
+    function set(v: T) -> integer {
+        0
+    }
+}
+
+function main() -> integer {
+    let c = Container { value: 42 }
+    let v = c.get()
+    println(v)
+    0
+}
+"""

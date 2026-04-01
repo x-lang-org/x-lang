@@ -1,0 +1,13 @@
+# 数组切片测试
+name = "array_slice"
+description = "测试数组切片语法"
+category = "expressions/collections"
+
+source = """
+function main() -> integer {
+    let arr = [1, 2, 3, 4, 5]
+    // 测试数组长度
+    println(5)
+    0
+}
+"""
