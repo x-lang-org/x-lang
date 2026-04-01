@@ -1,0 +1,26 @@
+# 算术运算组合测试
+name = "arithmetic_chain"
+description = "测试复合算术运算"
+category = "expressions/arithmetic"
+
+source = """
+function main() -> integer {
+    let a = 10 + 5 * 2
+    let b = (10 + 5) * 2
+    let c = 100 / 10 - 5
+    let d = 17 % 5
+
+    println(a)
+    println(b)
+    println(c)
+    println(d)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "20\n30\n5\n2\n"

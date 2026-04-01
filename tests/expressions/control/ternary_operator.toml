@@ -1,0 +1,13 @@
+# 条件运算符测试
+name = "ternary_operator"
+description = "测试三元条件运算符"
+category = "expressions/control"
+
+source = """
+function main() -> integer {
+    let x = 10
+    let result = if x > 5 then "big" else "small"
+    println(result)
+    0
+}
+"""
