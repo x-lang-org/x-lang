@@ -1,0 +1,17 @@
+# 多重绑定测试
+name = "multiple_bindings"
+description = "测试同一语句中声明多个变量"
+category = "statements/declarations"
+
+source = """
+function main() -> integer {
+    let a = 1
+    let b = 2
+    let c = 3
+
+    println(a)
+    println(b)
+    println(c)
+    0
+}
+"""
