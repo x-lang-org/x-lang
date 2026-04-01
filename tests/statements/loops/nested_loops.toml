@@ -1,0 +1,30 @@
+# 嵌套循环测试
+name = "nested_loops"
+description = "测试嵌套 while 循环"
+category = "statements/loops"
+
+source = """
+function main() -> integer {
+    let i = 0
+    let sum = 0
+
+    while i < 3 {
+        let j = 0
+        while j < 3 {
+            sum = sum + 1
+            j = j + 1
+        }
+        i = i + 1
+    }
+
+    println(sum)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "9\n"
