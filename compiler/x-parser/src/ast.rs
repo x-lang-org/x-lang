@@ -202,6 +202,7 @@ pub enum Declaration {
 pub struct VariableDecl {
     pub name: String,
     pub is_mutable: bool,
+    pub is_constant: bool,
     pub type_annot: Option<Type>,
     pub initializer: Option<Expression>,
     /// 访问修饰符（用于类字段）

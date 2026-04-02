@@ -1,0 +1,17 @@
+# 类型推断测试
+name = "type_inference"
+description = "测试类型推断"
+category = "types/primitives"
+
+source = """
+function main() -> integer {
+    // 类型推断
+    let a = 42
+    let b = 3.14
+    let c = true
+    let d = "hello"
+
+    println(a)
+    0
+}
+"""

@@ -1,0 +1,25 @@
+# 作用域测试
+name = "scoping"
+description = "测试嵌套块"
+category = "statements"
+
+source = """
+function main() -> integer {
+    let a = 1
+
+    if a > 0 then {
+        let b = 2
+        println(b)
+    }
+
+    println(a)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "2\n1\n"

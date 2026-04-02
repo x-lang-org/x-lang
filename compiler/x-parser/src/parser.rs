@@ -70,8 +70,17 @@ impl XParser {
                 }
                 Ok((Token::Let, _)) => {
                     ti.next();
+                    let is_constant = self.eat_constant(ti);
                     let m = self.eat_mut(ti);
-                    declarations.push(Declaration::Variable(self.parse_variable(ti, m)?));
+                    let mut var = self.parse_variable(ti, m)?;
+                    var.is_constant = is_constant;
+                    declarations.push(Declaration::Variable(var));
+                }
+                Ok((Token::Constant, _)) => {
+                    ti.next();
+                    let mut var = self.parse_variable(ti, false)?;
+                    var.is_constant = true;
+                    declarations.push(Declaration::Variable(var));
                 }
                 Ok((Token::Val, _)) => {
                     ti.next();
@@ -383,6 +392,16 @@ impl XParser {
     fn eat_mut(&self, ti: &mut TokenIterator) -> bool {
         if matches!(ti.peek(), Some(Ok((Token::Mut, _))))
             || matches!(ti.peek(), Some(Ok((Token::Mutable, _)))) {
+            ti.next();
+            true
+        } else {
+            false
+        }
+    }
+
+    fn eat_constant(&self, ti: &mut TokenIterator) -> bool {
+        if matches!(ti.peek(), Some(Ok((Token::Const, _))))
+            || matches!(ti.peek(), Some(Ok((Token::Constant, _)))) {
             ti.next();
             true
         } else {
@@ -799,6 +818,7 @@ impl XParser {
         Ok(VariableDecl {
             name,
             is_mutable,
+            is_constant: false,
             type_annot,
             initializer,
             visibility: Visibility::default(),
@@ -868,8 +888,17 @@ impl XParser {
             }
             Some(Ok((Token::Let, _))) => {
                 ti.next();
+                let is_constant = self.eat_constant(ti);
                 let m = self.eat_mut(ti);
-                let var = self.parse_variable(ti, m)?;
+                let mut var = self.parse_variable(ti, m)?;
+                var.is_constant = is_constant;
+                self.eat_semi(ti);
+                Ok(self.mk_stmt(ti, StatementKind::Variable(var)))
+            }
+            Some(Ok((Token::Constant, _))) => {
+                ti.next();
+                let mut var = self.parse_variable(ti, false)?;
+                var.is_constant = true;
                 self.eat_semi(ti);
                 Ok(self.mk_stmt(ti, StatementKind::Variable(var)))
             }
@@ -2605,17 +2634,21 @@ impl XParser {
         // 小写：值类型 (integer, float, boolean, string, character)
         // 大写：引用类型 (Integer, Float, Boolean, String, Character)
         let base_type = match base_type_name.as_str() {
-            // 值类型（小写）
-            "integer" | "Int" | "Int64" | "i32" | "i64" => Type::Int,
-            "float" | "Float" | "Float64" | "f64" => Type::Float,
-            "boolean" | "Bool" => Type::Bool,
+            // 值类型（小写）- 包括别名
+            "integer" | "int" | "Int" | "Int32" | "i32" |
+            "Int64" | "i64" | "Int16" | "i16" | "Int8" | "i8" | "Int128" | "i128" => Type::Int,
+            "float" | "Float" | "Float32" | "f32" | "Float64" | "f64" | "Float16" | "f16" | "Float128" | "f128" => Type::Float,
+            "boolean" | "bool" | "Bool" => Type::Bool,
             "string" | "String" => Type::String,
-            "character" | "char" | "Char" => Type::Char,
+            "character" | "char" | "Character" => Type::Char,
             "unit" | "Unit" => Type::Unit,
             "never" | "Never" => Type::Never,
+            // 无符号整数
+            "unsigned" | "uint" | "UnsignedInt" | "Uint32" | "u32" |
+            "Uint64" | "u64" | "Uint16" | "u16" | "Uint8" | "u8" | "Byte" | "byte" |
+            "Uint128" | "u128" | "usize" => Type::UnsignedInt,
             // FFI 类型
             "void" | "Void" => Type::Void,
-            "u32" | "u64" | "usize" | "U32" | "U64" | "Usize" => Type::UnsignedInt,
             // C FFI 类型
             "CInt" | "c_int" => Type::CInt,
             "CUInt" | "c_uint" => Type::CUInt,
@@ -3139,6 +3172,7 @@ impl XParser {
         Ok(VariableDecl {
             name,
             is_mutable,
+            is_constant: false,
             type_annot,
             initializer,
             visibility,

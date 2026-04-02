@@ -1,0 +1,24 @@
+# 负数测试
+name = "negative_numbers"
+description = "测试负数字面量"
+category = "lexical/literals"
+
+source = """
+function main() -> integer {
+    let a = -42
+    let b = -1 + 5
+    let c = 10 - 20
+
+    println(a)
+    println(b)
+    println(c)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "-42\n4\n-10\n"

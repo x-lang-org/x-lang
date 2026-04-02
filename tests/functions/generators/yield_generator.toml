@@ -1,0 +1,30 @@
+# yield 生成器测试
+name = "yield_generator"
+description = "测试 yield 生成器语法（返回第一个 yield 的值）"
+category = "functions/generators"
+spec = ["SPEC.md"]
+
+# SPEC.md 规范: yield 关键字用于创建生成器函数
+source = """
+function count_up(max: int) -> int {
+  let mutable i = 0
+  while i < max {
+    yield i
+    i = i + 1
+  }
+}
+
+// 调用生成器函数，返回第一个 yield 的值
+let result = count_up(3)
+println(result)
+
+let result2 = count_up(5)
+println(result2)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "0\n0\n"

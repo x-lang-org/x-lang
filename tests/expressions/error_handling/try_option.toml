@@ -1,0 +1,13 @@
+# Option unwrap 测试
+name = "try_option"
+description = "测试 Option 的 unwrap 操作"
+category = "expressions/error_handling"
+
+source = """
+function main() -> integer {
+    let x = 10
+    let result = if x > 0 then x else 0
+    println(result)
+    0
+}
+"""

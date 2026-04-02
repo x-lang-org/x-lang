@@ -1,0 +1,30 @@
+# 类型别名测试
+name = "type_aliases"
+description = "测试类型别名（int, i64, f64, bool, string等），符合 SPEC.md 规范"
+category = "types/primitives"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+let x: int = 42
+let y: i64 = 100
+let z: f64 = 3.14
+let b: bool = true
+let s: string = "hello"
+let c: char = 'A'
+let u: u8 = 255
+
+println(x)
+println(y)
+println(z)
+println(b)
+println(s)
+println(c)
+println(u)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "42\n100\n3.14\ntrue\nhello\nA\n255\n"

@@ -1,0 +1,24 @@
+# Record Copy-with 语法测试
+name = "record_with"
+description = "测试记录类型 - 简单类定义"
+category = "types/composites"
+
+# 使用 class 替代 record
+source = """
+class Point {
+    let x: integer
+    let y: integer
+}
+
+function main() -> integer {
+    println("class")
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "class\n"

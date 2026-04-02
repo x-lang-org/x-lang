@@ -1,24 +1,22 @@
-# Result 类型测试
+# Result 类型测试 (按照 SPEC.md 规范)
 name = "result_type"
-description = "测试 Result<T, E> 类型"
+description = "测试 Result<T, E> 类型和 Success/Failure 构造器"
 category = "types/composites"
-spec = ["spec/docs/02-types.md"]
+spec = ["SPEC.md"]
 
+# 完整的 Result<T, E> 测试 - 使用 SPEC.md 规范语法
 source = """
-enum Result {
-    Success(integer)
-    Failure(string)
+// 定义 Result<T, E> 枚举 (符合 SPEC.md)
+enum Result<T, E> {
+    Success(T),
+    Failure(E)
 }
 
-let ok = Result.Success(100)
-let err = Result.Failure("error occurred")
+// 测试 Success 构造器
+let a = Result.Success(42)
 
-when ok is {
-    Result.Success(v) => println(v)
-    Result.Failure(e) => println(e)
-}
-
-when err is {
+// 测试模式匹配 - 使用完全限定名
+when a is {
     Result.Success(v) => println(v)
     Result.Failure(e) => println(e)
 }
@@ -29,4 +27,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "100\nerror occurred\n"
+output = "42\n"

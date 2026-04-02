@@ -1,0 +1,23 @@
+# Const 声明测试
+name = "const_declaration"
+description = "测试 const 常量声明"
+category = "statements/declarations"
+
+source = """
+// 测试 const 常量
+const MAX_SIZE: integer = 100
+const PI: float = 3.14
+
+function main() -> integer {
+    let x = MAX_SIZE
+    println(x)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "100\n"

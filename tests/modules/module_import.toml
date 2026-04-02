@@ -1,0 +1,22 @@
+# 模块导入测试
+name = "module_import"
+description = "测试模块导入功能 (import)"
+category = "modules"
+
+# 基本模块导入测试
+source = """
+// 测试 import 语句
+// 注意：当前实现可能只支持基础导入
+
+function main() -> integer {
+    println("module import test")
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "module import test\n"

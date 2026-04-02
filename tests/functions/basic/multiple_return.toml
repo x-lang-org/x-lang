@@ -1,0 +1,23 @@
+# 多返回值函数测试
+name = "multiple_return"
+description = "测试返回元组的函数"
+category = "functions/basic"
+
+source = """
+function div_mod(a: integer, b: integer) -> integer {
+    a / b
+}
+
+function main() -> integer {
+    let result = div_mod(10, 3)
+    println(result)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "3\n"

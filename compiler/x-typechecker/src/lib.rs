@@ -566,6 +566,40 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
         ),
     );
 
+    // Some<T>(T) -> Optional<T> - Optional 类型构造器 (符合 SPEC.md)
+    env.add_function(
+        "Some",
+        Type::Function(
+            vec![Box::new(Type::Dynamic)],
+            Box::new(Type::Option(Box::new(Type::Dynamic))),
+        ),
+    );
+    // None -> Optional<T> - Optional 空值构造器 (符合 SPEC.md)
+    env.add_function(
+        "None",
+        Type::Function(
+            vec![],
+            Box::new(Type::Option(Box::new(Type::Dynamic))),
+        ),
+    );
+
+    // Success<T, E>(T) -> Result<T, E> - Result 成功构造器 (符合 SPEC.md)
+    env.add_function(
+        "Success",
+        Type::Function(
+            vec![Box::new(Type::Dynamic)],
+            Box::new(Type::Result(Box::new(Type::Dynamic), Box::new(Type::Dynamic))),
+        ),
+    );
+    // Failure<T, E>(E) -> Result<T, E> - Result 错误构造器 (符合 SPEC.md)
+    env.add_function(
+        "Failure",
+        Type::Function(
+            vec![Box::new(Type::Dynamic)],
+            Box::new(Type::Result(Box::new(Type::Dynamic), Box::new(Type::Dynamic))),
+        ),
+    );
+
     check_program(program, &mut env)
 }
 
@@ -4099,11 +4133,17 @@ fn is_builtin_type_name(name: &str) -> bool {
         "CSize" | "c_size_t" | "c_size" |
         "CString" | "c_string" |
         // 标准类型别名
-        "Int" | "Int64" | "i64" | "i32" |
-        "Float" | "Float64" | "f64" | "f32" |
-        "Bool" | "Boolean" |
-        "String" |
-        "Char" | "Character" |
+        "Int" | "int" | "Int64" | "i64" | "Int32" | "i32" |
+        "Int16" | "i16" | "Int8" | "i8" |
+        "Int128" | "i128" |
+        "UnsignedInt" | "uint" | "Uint64" | "u64" | "Uint32" | "u32" |
+        "Uint16" | "u16" | "Uint8" | "u8" | "Byte" | "byte" |
+        "Uint128" | "u128" |
+        "Float" | "float" | "Float64" | "f64" | "Float32" | "f32" |
+        "Float16" | "f16" | "Float128" | "f128" |
+        "Bool" | "bool" | "Boolean" |
+        "String" | "string" |
+        "Char" | "char" | "Character" |
         "Unit" |
         "Option" |
         "Result" |

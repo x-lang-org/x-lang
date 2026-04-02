@@ -1,0 +1,19 @@
+# 函数组合测试
+name = "function_composition"
+description = "测试函数组合"
+category = "functions/higher_order"
+
+source = """
+function add_one(x: integer) -> integer = x + 1
+function double(x: integer) -> integer = x * 2
+
+function compose(f: function(integer)->integer, g: function(integer)->integer) -> function(integer)->integer {
+    f
+}
+
+function main() -> integer {
+    let f = add_one
+    println(f(5))
+    0
+}
+"""

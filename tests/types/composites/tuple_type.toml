@@ -1,0 +1,22 @@
+# 元组类型测试
+name = "tuple_type"
+description = "测试元组类型 (T1, T2, ...) - 解析支持"
+category = "types/composites"
+
+# 元组类型测试 - 仅测试解析
+source = """
+function main() -> integer {
+    // 测试元组字面量 - 不测试访问
+    let pair = (42, "answer")
+    println("tuple")
+
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "tuple\n"

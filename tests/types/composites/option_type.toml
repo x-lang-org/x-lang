@@ -1,26 +1,41 @@
-# Option 类型测试
+# Option 类型测试 (按照 SPEC.md 规范)
 name = "option_type"
-description = "测试 Option<T> 类型"
+description = "测试 Optional<T> 类型和 Some/None 构造器"
 category = "types/composites"
-spec = ["spec/docs/02-types.md"]
+spec = ["SPEC.md"]
 
+# 完整的 Optional<T> 测试 - 使用 SPEC.md 规范语法
 source = """
-enum Option {
-    Some(integer)
+// 定义 Optional<T> 枚举 (符合 SPEC.md)
+enum Optional<T> {
+    Some(T),
     None
 }
 
-let present = Option.Some(42)
-let absent = Option.None
+// 测试 Some 构造器
+let a = Optional.Some(42)
 
-when present is {
-    Option.Some(v) => println(v)
-    Option.None => println("none")
+// 测试 None 构造器
+let b = Optional.None
+
+// 测试模式匹配 - 使用完全限定名
+when a is {
+    Optional.Some(v) => println(v)
+    Optional.None => println("none")
 }
 
-when absent is {
-    Option.Some(v) => println(v)
-    Option.None => println("empty")
+// 测试 Optional 作为函数返回值
+function safe_divide(a: Int, b: Int) -> Optional<Int> {
+    if b == 0 {
+        return Optional.None
+    }
+    Optional.Some(a / b)
+}
+
+let result = safe_divide(10, 2)
+when result is {
+    Optional.Some(v) => println(v)
+    Optional.None => println("div by zero")
 }
 """
 
@@ -29,4 +44,6 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\nempty\n"
+output = """42
+5
+"""

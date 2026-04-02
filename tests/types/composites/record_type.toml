@@ -1,0 +1,33 @@
+# 记录类型 (Record) 测试
+name = "record_type"
+description = "测试记录类型定义和使用"
+category = "types/composites"
+
+# 记录类型测试 - 按照 SPEC.md 规范
+source = """
+// 定义记录类型
+type Point = {
+    x: float,
+    y: float
+}
+
+type Person = {
+    name: string,
+    age: integer
+}
+
+function main() -> integer {
+    // 创建记录实例
+    let origin = Point { x: 0.0, y: 0.0 }
+    let p1 = Point { x: 1.5, y: 2.5 }
+
+    // 访问字段
+    let x = p1.x
+    let y = p1.y
+
+    println(x)
+    println(y)
+
+    0
+}
+"""

@@ -1,0 +1,22 @@
+# 类型别名函数参数测试
+name = "type_aliases_function"
+description = "测试函数参数中的类型别名使用"
+category = "types/primitives"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+function add(a: int, b: int) -> int = a + b
+function greet(name: string) -> string = "Hello, " + name
+function is_even(n: i64) -> bool = n % 2 == 0
+
+println(add(10, 20))
+println(greet("Alice"))
+println(is_even(42))
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "30\nHello, Alice\ntrue\n"

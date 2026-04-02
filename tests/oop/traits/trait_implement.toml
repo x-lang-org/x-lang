@@ -1,0 +1,25 @@
+# Trait 实现测试
+name = "trait_implement"
+description = "测试类实现 trait"
+category = "oop/traits"
+
+source = """
+trait Printable {
+    function print() -> string
+}
+
+class Point implement Printable {
+    let x: integer
+    let y: integer
+
+    function print() -> string {
+        "Point"
+    }
+}
+
+function main() -> integer {
+    let p = Point { x: 1, y: 2 }
+    println(p.print())
+    0
+}
+"""

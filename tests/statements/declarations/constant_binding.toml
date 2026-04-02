@@ -1,0 +1,25 @@
+# 常量声明测试
+name = "constant_binding"
+description = "测试 let constant 声明，符合 SPEC.md 规范"
+category = "statements/declarations"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+let constant BUFFER_SIZE = 4096
+let constant PI = 3.14159
+let constant NAME = "X Language"
+
+println(BUFFER_SIZE)
+println(PI)
+println(NAME)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "4096\n3.14159\nX Language\n"
+
+[expect.ast]
+nodes = ["Variable", "Program"]

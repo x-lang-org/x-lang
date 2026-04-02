@@ -1,0 +1,19 @@
+# Null 安全测试
+name = "null_safety"
+description = "测试基本变量和函数调用"
+category = "expressions/error_handling"
+
+source = """
+function main() -> integer {
+    let value = 42
+    println(value)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "42\n"

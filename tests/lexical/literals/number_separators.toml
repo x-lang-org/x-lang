@@ -1,0 +1,22 @@
+# 十六进制数字测试
+name = "number_separators"
+description = "测试十六进制数字字面量"
+category = "lexical/literals"
+
+source = """
+function main() -> integer {
+    let a = 0xFF
+    let b = 0x10
+
+    println(a)
+    println(b)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "255\n16\n"

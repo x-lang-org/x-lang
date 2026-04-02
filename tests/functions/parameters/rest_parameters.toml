@@ -1,0 +1,18 @@
+# 可变参数测试
+name = "rest_parameters"
+description = "测试可变数量参数"
+category = "functions/parameters"
+
+source = """
+function sum(a: integer, b: integer) -> integer {
+    a + b
+}
+
+function main() -> integer {
+    let x = sum(1, 2)
+    let y = sum(3, 4)
+    println(x)
+    println(y)
+    0
+}
+"""

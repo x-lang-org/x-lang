@@ -1,0 +1,17 @@
+# 位移运算符测试
+name = "bit_shift"
+description = "测试位移运算符 << 和 >>"
+category = "expressions/bitwise"
+
+source = """
+function main() -> integer {
+    // 左移
+    let a = 1 << 3  // 8
+    // 右移
+    let b = 8 >> 2  // 2
+
+    println(a)
+    println(b)
+    0
+}
+"""

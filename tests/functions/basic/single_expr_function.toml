@@ -1,0 +1,26 @@
+# 单表达式函数测试
+name = "single_expr_function"
+description = "测试单表达式函数 (= 语法)"
+category = "functions/basic"
+
+source = """
+// 单表达式函数
+function add(a: integer, b: integer) = a + b
+
+function square(x: integer) = x * x
+
+function main() -> integer {
+    let x = add(3, 4)
+    let y = square(5)
+    println(x)
+    println(y)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "7\n25\n"

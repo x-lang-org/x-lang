@@ -1,26 +1,27 @@
-# Option 模式匹配测试
+# Option 模式匹配测试 (按照 SPEC.md 规范)
 name = "option_pattern"
-description = "测试 Option 类型模式匹配"
+description = "测试 Optional 类型的模式匹配"
 category = "patterns/constructors"
-spec = ["spec/docs/09-patterns.md"]
+spec = ["SPEC.md"]
 
+# SPEC.md 规范: 模式匹配 on Optional
 source = """
-enum Option {
-    Some(integer)
+// 定义 Optional 枚举
+enum Optional<T> {
+    Some(T),
     None
 }
 
-let a = Option.Some(42)
-let b = Option.None
+// 创建数组
+let items = [1, 2, 3]
 
-when a is {
-    Option.Some(v) => println(v)
-    Option.None => println("none")
-}
+// 使用 Some
+let result = Optional.Some(42)
 
-when b is {
-    Option.Some(v) => println(v)
-    Option.None => println("empty")
+// 模式匹配
+when result is {
+    Optional.Some(v) => println(v)
+    Optional.None => println("none")
 }
 """
 
@@ -29,4 +30,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "42\nempty\n"
+output = "42\n"

@@ -1,0 +1,25 @@
+# 复合位运算测试
+name = "composite_bitwise"
+description = "测试复合位运算表达式"
+category = "expressions/bitwise"
+
+source = """
+function main() -> integer {
+    let a = 5 & 3    // 0101 & 0011 = 0001 = 1
+    let b = 5 | 3    // 0101 | 0011 = 0111 = 7
+    let c = 5 ^ 3    // 0101 ^ 0011 = 0110 = 6
+    let d = ~0       // 按位取反
+
+    println(a)
+    println(b)
+    println(c)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "1\n7\n6\n"

@@ -1,0 +1,25 @@
+# Match 表达式高级测试
+name = "switch_expression"
+description = "测试 match 表达式的多种模式"
+category = "expressions/control"
+
+source = """
+function main() -> integer {
+    let x = 2
+    let result = when x is {
+        1 => "one"
+        2 => "two"
+        3 => "three"
+        _ => "other"
+    }
+    println(result)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "two\n"

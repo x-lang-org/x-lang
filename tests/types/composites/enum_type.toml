@@ -1,34 +1,40 @@
-# 枚举类型测试
+# 枚举类型测试 (按照 SPEC.md 规范)
 name = "enum_type"
 description = "测试枚举类型定义和模式匹配"
 category = "types/composites"
-spec = ["spec/docs/02-types.md", "spec/docs/06-classes.md"]
+spec = ["SPEC.md"]
 
+# SPEC.md 规范: enum 枚举定义
 source = """
+// 定义颜色枚举
 enum Color {
-    Red
-    Green
+    Red,
+    Green,
     Blue
 }
 
-enum Optional {
-    Some(integer)
-    None
+// 定义状态枚举
+enum Status {
+    Pending,
+    Active,
+    Completed
 }
 
+// 使用枚举变体
 let c = Color.Red
-println(c)
+let s = Status.Pending
 
-let x = Optional.Some(42)
-when x is {
-    Optional.Some(v) => println(v)
-    Optional.None => println("none")
+// 测试模式匹配
+when c is {
+    Color.Red => println("red")
+    Color.Green => println("green")
+    Color.Blue => println("blue")
 }
 
-let y = Optional.None
-when y is {
-    Optional.Some(v) => println(v)
-    Optional.None => println("empty")
+when s is {
+    Status.Pending => println("pending")
+    Status.Active => println("active")
+    Status.Completed => println("completed")
 }
 """
 
@@ -37,4 +43,6 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "Color.Red\n42\nempty\n"
+output = """red
+pending
+"""

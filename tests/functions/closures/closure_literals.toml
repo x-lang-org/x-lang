@@ -1,0 +1,13 @@
+# 闭包字面量测试
+name = "closure_literals"
+description = "测试闭包字面量语法"
+category = "functions/closures"
+
+source = """
+function main() -> integer {
+    let add = function(a: integer, b: integer) -> integer = a + b
+    let result = add(1, 2)
+    println(result)
+    0
+}
+"""

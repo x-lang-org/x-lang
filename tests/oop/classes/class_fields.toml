@@ -1,0 +1,18 @@
+# 类的字段测试
+name = "class_fields"
+description = "测试类的字段声明"
+category = "oop/classes"
+
+source = """
+class Person {
+    let name: string
+    let age: integer
+    let mutable score: integer
+}
+
+function main() -> integer {
+    let p = Person { name: "Alice", age: 30, score: 100 }
+    println(p.name)
+    0
+}
+"""

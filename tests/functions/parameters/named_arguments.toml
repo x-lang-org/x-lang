@@ -1,0 +1,23 @@
+# 函数参数测试
+name = "named_arguments"
+description = "测试函数参数"
+category = "functions/parameters"
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    a + b
+}
+
+function main() -> integer {
+    let result = add(1, 2)
+    println(result)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "3\n"

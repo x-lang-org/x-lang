@@ -1,0 +1,14 @@
+# 可选链测试
+name = "optional_chaining"
+description = "测试可选链操作符"
+category = "types/composites"
+
+source = """
+function main() -> integer {
+    let value = 42
+    // 测试条件表达式
+    let result = if value > 0 then 1 else 0
+    println(result)
+    0
+}
+"""

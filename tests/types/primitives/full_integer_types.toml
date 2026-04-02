@@ -1,0 +1,25 @@
+# 完整整数类型测试
+name = "full_integer_types"
+description = "测试 SPEC.md 定义的整数类型"
+category = "types/primitives"
+
+source = """
+function main() -> integer {
+    // 基本整数
+    let a: integer = 42
+
+    // 有符号整数
+    let b: signed 8-bit integer = 127
+
+    println(a)
+    println(b)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "42\n127\n"

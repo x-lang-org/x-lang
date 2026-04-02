@@ -1,0 +1,20 @@
+# 闭包作为参数测试
+name = "closure_as_parameter"
+description = "测试将闭包作为参数传递给高阶函数"
+category = "functions/higher_order"
+
+source = """
+function apply(x: integer, f: function(integer) -> integer) -> integer {
+    f(x)
+}
+
+function double(x: integer) -> integer {
+    x * 2
+}
+
+function main() -> integer {
+    let result = apply(5, double)
+    println(result)
+    0
+}
+"""

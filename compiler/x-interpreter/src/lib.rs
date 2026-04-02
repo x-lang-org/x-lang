@@ -205,6 +205,7 @@ enum ControlFlow {
     Break,
     #[allow(dead_code)]
     Continue,
+    Yield(Value),
 }
 
 impl Interpreter {
@@ -254,6 +255,7 @@ impl Interpreter {
                 ControlFlow::Return(_) => break,
                 ControlFlow::Break => break,
                 ControlFlow::Continue => {}
+                ControlFlow::Yield(_) => {}
             }
         }
 
@@ -311,9 +313,15 @@ impl Interpreter {
                     continue;
                 }
 
-                match self.execute_statement(stmt)? {
+                let cf = self.execute_statement(stmt)?;
+                match cf {
                     ControlFlow::None => {}
-                    cf => return Ok(cf),
+                    ControlFlow::Yield(v) => {
+                        // Yield - run deferred and propagate yield
+                        self.run_deferred(deferred_start)?;
+                        return Ok(ControlFlow::Yield(v));
+                    }
+                    _ => return Ok(cf),
                 }
             }
             // 如果最后一个语句是表达式语句，返回其结果
@@ -331,16 +339,26 @@ impl Interpreter {
     }
 
     fn execute_block_stmt(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
+        let deferred_start = self.deferred.len();
         for stmt in &block.statements {
             if let StatementKind::Expression(expr) = &stmt.node {
                 self.eval(expr)?;
                 continue;
             }
-            match self.execute_statement(stmt)? {
+            let cf = self.execute_statement(stmt)?;
+            match cf {
                 ControlFlow::None => {}
-                cf => return Ok(cf),
+                ControlFlow::Yield(v) => {
+                    self.run_deferred(deferred_start)?;
+                    return Ok(ControlFlow::Yield(v));
+                }
+                _ => {
+                    self.run_deferred(deferred_start)?;
+                    return Ok(cf);
+                }
             }
         }
+        self.run_deferred(deferred_start)?;
         Ok(ControlFlow::None)
     }
 
@@ -396,6 +414,7 @@ impl Interpreter {
                 match self.execute_block_stmt(&while_stmt.body)? {
                     ControlFlow::Return(v) => break Ok(ControlFlow::Return(v)),
                     ControlFlow::Break => break Ok(ControlFlow::None),
+                    ControlFlow::Yield(v) => break Ok(ControlFlow::Yield(v)),
                     _ => {}
                 }
             },
@@ -440,9 +459,13 @@ impl Interpreter {
                 self.deferred.push(expr.clone());
                 Ok(ControlFlow::None)
             }
-            StatementKind::Yield(_) => {
-                // 生成器暂不支持解释执行
-                Ok(ControlFlow::None)
+            StatementKind::Yield(expr_opt) => {
+                // Yield: evaluate expression and return as generator value
+                let value = match expr_opt {
+                    Some(expr) => self.eval(expr)?,
+                    None => Value::Unit,
+                };
+                Ok(ControlFlow::Yield(value))
             }
             StatementKind::Loop(block) => {
                 // loop 无限循环，直到遇到 break
@@ -450,6 +473,7 @@ impl Interpreter {
                     match self.execute_block_stmt(block)? {
                         ControlFlow::Break => break,
                         ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                        ControlFlow::Yield(v) => return Ok(ControlFlow::Yield(v)),
                         _ => {},
                     }
                 }
@@ -503,7 +527,11 @@ impl Interpreter {
         let guard_ok = match &case.guard {
             Some(guard_expr) => {
                 let gv = self.eval(guard_expr)?;
-                self.is_truthy(&gv)
+                // Guard must return exact boolean true (not just truthy)
+                match gv {
+                    Value::Boolean(true) => true,
+                    _ => false,
+                }
             }
             None => true,
         };
@@ -891,6 +919,29 @@ impl Interpreter {
                     other => Ok(other),
                 }
             }
+            ExpressionKind::TryPropagate(inner) => {
+                // ? error propagation operator
+                let inner_val = self.eval(inner)?;
+                match inner_val {
+                    Value::Result(ok, err) => {
+                        match (&*ok, &*err) {
+                            (Value::Null, _) | (_, Value::Null) => {
+                                // Has error, propagate
+                                Err(InterpreterError::runtime_no_span(
+                                    "error propagation: Result is Err"
+                                ))
+                            }
+                            _ => Ok((*ok).clone()),
+                        }
+                    }
+                    Value::Null | Value::None => {
+                        Err(InterpreterError::runtime_no_span(
+                            "error propagation: value is null/none"
+                        ))
+                    }
+                    _ => Ok(inner_val),
+                }
+            }
             ExpressionKind::OptionalChain(obj, member) => {
                 // ?. operator: return null if obj is null, otherwise access member
                 let obj_val = self.eval(obj)?;
@@ -1112,22 +1163,35 @@ impl Interpreter {
                     let saved_vars = self.variables.clone();
 
                     if self.match_pattern(&case.pattern, &discrim_val)? {
-                        // Pattern matched successfully with bindings added
-                        // Execute the case body
-                        for stmt in &case.body.statements {
-                            match stmt.node {
-                                StatementKind::Expression(ref expr) => {
-                                    // Return the expression value from the matching case
-                                    return self.eval(expr);
-                                }
-                                _ => {
-                                    self.execute_statement(stmt)?;
+                        // Now check the guard condition
+                        let guard_ok = match &case.guard {
+                            Some(guard_expr) => {
+                                let gv = self.eval(guard_expr)?;
+                                // Guard must return exact boolean true
+                                matches!(gv, Value::Boolean(true))
+                            }
+                            None => true,
+                        };
+
+                        if guard_ok {
+                            // Guard passed - execute the case body
+                            for stmt in &case.body.statements {
+                                match stmt.node {
+                                    StatementKind::Expression(ref expr) => {
+                                        // Return the expression value from the matching case
+                                        return self.eval(expr);
+                                    }
+                                    _ => {
+                                        self.execute_statement(stmt)?;
+                                    }
                                 }
                             }
+                            // If we get here, the last statement was not an expression
+                            // Return unit value
+                            return Ok(Value::Unit);
                         }
-                        // If we get here, the last statement was not an expression
-                        // Return unit value
-                        return Ok(Value::Unit);
+                        // Guard failed, restore variables and continue to next case
+                        self.variables = saved_vars;
                     } else {
                         // Pattern did not match, restore variables and continue
                         self.variables = saved_vars;
@@ -1942,6 +2006,7 @@ impl Interpreter {
                     Value::Object { class_name, .. } => class_name.clone(),
                     Value::Closure { .. } => "Closure".to_string(),
                     Value::Enum(type_name, _, _) => type_name.clone(),
+                    Value::EnumNamespace(type_name) => type_name.clone(),
                     Value::Type { name, .. } => format!("Type({})", name),
                     Value::Pointer(_) => "Pointer".to_string(),
                     Value::TraitObject { .. } => "TraitObject".to_string(),
@@ -2216,6 +2281,7 @@ impl Interpreter {
             }
             match result {
                 ControlFlow::Return(v) => Ok(v),
+                ControlFlow::Yield(v) => Ok(v),
                 _ => Ok(Value::Unit),
             }
         } else {

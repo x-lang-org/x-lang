@@ -1,0 +1,23 @@
+# 可选参数测试
+name = "optional_parameters"
+description = "测试函数默认参数"
+category = "functions/parameters"
+
+source = """
+function greet(name: string) -> string {
+    "Hello, " + name + "!"
+}
+
+function main() -> integer {
+    let m = greet("Alice")
+    println(m)
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "Hello, Alice!\n"

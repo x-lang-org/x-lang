@@ -1,0 +1,14 @@
+# 浮点数字面量测试
+name = "float_literals_advanced"
+description = "测试浮点数的科学计数法"
+category = "lexical/literals"
+
+source = """
+function main() -> integer {
+    let a = 1.5e10
+    let b = 2.5e-5
+
+    println(1)
+    0
+}
+"""

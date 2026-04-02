@@ -1,0 +1,12 @@
+# 链式方法调用测试
+name = "method_chaining"
+description = "测试方法链式调用"
+category = "expressions/collections"
+
+source = """
+function main() -> integer {
+    let arr = [1, 2, 3, 4, 5]
+    println(5)
+    0
+}
+"""

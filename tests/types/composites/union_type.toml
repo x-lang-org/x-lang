@@ -1,0 +1,28 @@
+# 联合类型 (Union Type) 测试
+name = "union_type"
+description = "测试联合类型 / 代数数据类型 - 解析支持"
+category = "types/composites"
+
+# 联合类型测试 - 使用现有的 enum 语法
+source = """
+// 使用 enum 定义联合类型
+enum Color {
+    Red,
+    Green,
+    Blue,
+    Custom(integer)
+}
+
+function main() -> integer {
+    let c = Color.Red
+    println("enum")
+    0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "enum\n"

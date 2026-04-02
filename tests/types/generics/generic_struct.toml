@@ -1,19 +1,16 @@
-# 泛型类型测试
-# Note: Generic types partially implemented
+# 泛型类型测试 (按照 SPEC.md 规范)
 name = "generic_type"
-description = "测试泛型类型定义（占位测试）"
+description = "测试泛型类型推断"
 category = "types/generics"
-spec = ["spec/docs/02-types.md", "spec/docs/11-metaprogramming.md"]
+spec = ["SPEC.md"]
 
-# TODO: When generic types are fully implemented, test:
-# - function identity<T>(x: T) -> T = x
-# - struct Pair<A, B> { first: A, second: B }
-# - Generic constraints: where T: Add
-
+# SPEC.md 规范: 泛型函数 <T>
 source = """
-function add(a: integer, b: integer) -> integer = a + b
-let result = add(1, 2)
-println(result)
+// 泛型 identity 函数 - 使用类型推断
+function identity<T>(x: T) -> T = x
+
+let num = identity(42)
+println(num)
 """
 
 [expect]
@@ -21,4 +18,4 @@ compile = true
 exit_code = 0
 
 [expect.runtime]
-output = "3\n"
+output = "42\n"

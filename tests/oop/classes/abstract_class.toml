@@ -1,0 +1,15 @@
+# 抽象类测试
+name = "abstract_class"
+description = "测试抽象类"
+category = "oop/classes"
+
+source = """
+abstract class Shape {
+    function area() -> float
+}
+
+function main() -> integer {
+    println("abstract")
+    0
+}
+"""
