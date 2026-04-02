@@ -181,12 +181,11 @@ LIR（低层 IR = XIR） ← 所有后端的统一输入
 
 ## 版本控制
 
-本项目默认使用 **Jujutsu (jj)** 进行版本控制。问题追踪可保留在 GitHub（或现有工作流）。Git 作为替代方案被支持。
+本项目使用 **Git** 进行版本控制。
 
-- 使用 `jj` 命令代替 `git` 命令
-- 提交：`jj commit -m "message"`
-- 推送：`jj git push`
-- 拉取：`jj git fetch`
+- 提交：`git commit -m "message"`
+- 推送：`git push origin main`
+- 拉取：`git pull origin main`
 
 ## 开发偏好
 
