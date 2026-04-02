@@ -27,6 +27,8 @@ pub struct Document {
     content: String,
     /// Version number from LSP
     version: i32,
+    /// Whether the document needs re-parsing
+    dirty: bool,
     /// Parsed tokens (cached)
     tokens: Option<Vec<(Token, Span)>>,
     /// Parsed AST (cached)
@@ -44,32 +46,47 @@ impl Document {
             uri,
             content,
             version,
+            dirty: true,
             tokens: None,
             ast: None,
             parse_error: None,
             type_errors: Vec::new(),
         };
 
-        // Parse immediately
-        let _ = doc.parse();
+        // Parse immediately on creation
+        let _ = doc.ensure_parsed();
         doc
     }
 
-    /// Update document content
+    /// Update document content and mark as dirty (lazy parsing)
     pub fn update(&mut self, content: String, version: i32) {
         self.content = content;
         self.version = version;
+        self.dirty = true;
+        // Clear cached results - will be re-populated on next parse
         self.tokens = None;
         self.ast = None;
         self.parse_error = None;
         self.type_errors.clear();
+    }
 
-        // Re-parse
-        let _ = self.parse();
+    /// Parse the document if it has been marked as dirty
+    pub fn ensure_parsed(&mut self) -> Result<()> {
+        if !self.dirty {
+            return Ok(());
+        }
+        self.parse()
+    }
+
+    /// Check if the document needs parsing
+    pub fn is_dirty(&self) -> bool {
+        self.dirty
     }
 
     /// Parse the document content into tokens and AST
     pub fn parse(&mut self) -> Result<()> {
+        self.dirty = false;
+
         // Lexical analysis
         let mut lexer = x_lexer::new_lexer(&self.content);
         let mut tokens = Vec::new();
@@ -120,24 +137,8 @@ impl Document {
 
     /// Extract span from a type error if available
     fn extract_span_from_type_error(err: &TypeError) -> Option<Span> {
-        match err {
-            TypeError::UndefinedVariable { span, .. } => Some(*span),
-            TypeError::UndefinedType { span, .. } => Some(*span),
-            TypeError::TypeMismatch { span, .. } => Some(*span),
-            TypeError::ArgumentCountMismatch { span, .. } => Some(*span),
-            TypeError::ReturnTypeMismatch { span, .. } => Some(*span),
-            TypeError::DuplicateDeclaration { span, .. } => Some(*span),
-            TypeError::InvalidTypeAnnotation { span } => Some(*span),
-            TypeError::TypeParameterMismatch { span } => Some(*span),
-            TypeError::TypeConstraintViolation { span } => Some(*span),
-            TypeError::RecursiveType { span } => Some(*span),
-            TypeError::CannotInferType { span } => Some(*span),
-            TypeError::NotImplemented { span, .. } => Some(*span),
-            TypeError::InternalError { span, .. } => Some(*span),
-            TypeError::ParameterCountMismatch { span, .. } => Some(*span),
-            TypeError::ParameterTypeMismatch { span } => Some(*span),
-            TypeError::TypeIncompatible { span } => Some(*span),
-        }
+        // All TypeError variants have a span field, use a helper method
+        Some(err.span())
     }
 
     /// Get document URI

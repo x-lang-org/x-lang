@@ -30,6 +30,8 @@ impl WorkspaceState {
     pub fn update_document(&self, uri: Url, content: String, version: i32) -> bool {
         if let Some(mut doc) = self.documents.get_mut(&uri) {
             doc.update(content, version);
+            // Parse immediately after update
+            let _ = doc.ensure_parsed();
             true
         } else {
             false
