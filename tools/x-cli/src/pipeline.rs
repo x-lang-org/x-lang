@@ -79,9 +79,8 @@ impl ModuleResolver {
 
         for search_path in &self.search_paths {
             let module_file = search_path.join(format!("{}.x", module_name.replace("::", "/")));
-            if module_file.exists() {
-                let source = std::fs::read_to_string(&module_file)
-                    .map_err(|e| format!("无法读取模块文件 {:?}: {}", module_file, e))?;
+            // 直接尝试读取文件，避免 TOCTOU 问题
+            if let Ok(source) = std::fs::read_to_string(&module_file) {
                 self.resolved.insert(module_name.to_string(), source.clone());
                 return Ok(Some(source));
             }
@@ -196,30 +195,27 @@ fn resolve_import_module(
         // 标准库模块
         let module_name = module_path.trim_start_matches("std.");
         let std_path = stdlib_dir.join(format!("{}.x", module_name));
-        if std_path.exists() {
-            return std::fs::read_to_string(&std_path)
-                .map_err(|e| format!("无法读取标准库模块 {:?}: {}", std_path, e));
+        // 直接尝试读取文件，避免 TOCTOU 问题
+        if let Ok(source) = std::fs::read_to_string(&std_path) {
+            return Ok(source);
         }
         // 尝试目录形式 std/io.x
         let std_path_dir = stdlib_dir.join(module_name.replace('.', "/")).with_extension("x");
-        if std_path_dir.exists() {
-            return std::fs::read_to_string(&std_path_dir)
-                .map_err(|e| format!("无法读取标准库模块 {:?}: {}", std_path_dir, e));
+        if let Ok(source) = std::fs::read_to_string(&std_path_dir) {
+            return Ok(source);
         }
     }
 
     // 尝试作为项目内模块解析（支持 foo.bar -> foo/bar.x）
     let module_file = project_dir.join(module_path.replace('.', "/")).with_extension("x");
-    if module_file.exists() {
-        return std::fs::read_to_string(&module_file)
-            .map_err(|e| format!("无法读取模块 {:?}: {}", module_file, e));
+    if let Ok(source) = std::fs::read_to_string(&module_file) {
+        return Ok(source);
     }
 
     // 尝试作为目录模块解析（foo -> foo/index.x 或 foo.x）
     let dir_module = project_dir.join(module_path.replace('.', "/")).join("index.x");
-    if dir_module.exists() {
-        return std::fs::read_to_string(&dir_module)
-            .map_err(|e| format!("无法读取模块 {:?}: {}", dir_module, e));
+    if let Ok(source) = std::fs::read_to_string(&dir_module) {
+        return Ok(source);
     }
 
     Err(format!("无法解析模块: {} (在 {:?} 和 {:?} 中未找到)", module_path, project_dir, stdlib_dir))
