@@ -428,10 +428,14 @@ impl TypeEnv {
             self.substitution.insert(k, v_subst);
         }
 
-        // 应用替换到现有替换中的值
-        let subst_copy = self.substitution.clone();
-        for (_k, v) in &mut self.substitution {
-            *v = apply_type_substitution(v, &subst_copy);
+        // 应用替换到现有替换中的值（避免克隆整个 HashMap）
+        let updates: Vec<(String, Type)> = self.substitution
+            .iter()
+            .map(|(k, v)| (k.clone(), apply_type_substitution(v, &self.substitution)))
+            .collect();
+
+        for (k, v) in updates {
+            self.substitution.insert(k, v);
         }
 
         Ok(())
