@@ -147,21 +147,21 @@ pub struct TypeEnv {
 impl TypeEnv {
     fn new() -> Self {
         Self {
-            variable_scopes: vec![HashMap::new()],
-            functions: HashMap::new(),
-            classes: HashMap::new(),
-            traits: HashMap::new(),
-            enums: HashMap::new(),
-            records: HashMap::new(),
-            effects: HashMap::new(),
-            enum_variants: HashMap::new(),
-            type_aliases: HashMap::new(),
+            variable_scopes: vec![HashMap::with_capacity(16)],
+            functions: HashMap::with_capacity(32),
+            classes: HashMap::with_capacity(8),
+            traits: HashMap::with_capacity(8),
+            enums: HashMap::with_capacity(8),
+            records: HashMap::with_capacity(8),
+            effects: HashMap::with_capacity(4),
+            enum_variants: HashMap::with_capacity(16),
+            type_aliases: HashMap::with_capacity(8),
             type_var_gen: TypeVarGenerator::new(),
-            substitution: HashMap::new(),
+            substitution: HashMap::with_capacity(16),
             current_module: None,
-            exports: HashSet::new(),
-            resolved_modules: HashMap::new(),
-            unsafe_context_stack: Vec::new(),
+            exports: HashSet::with_capacity(16),
+            resolved_modules: HashMap::with_capacity(4),
+            unsafe_context_stack: Vec::with_capacity(4),
         }
     }
 
@@ -6026,7 +6026,7 @@ class Point implement Serializable {
             implements: vec![],
             members: vec![],
             modifiers: x_parser::ast::ClassModifiers::default(),
-            span,
+            span: x_lexer::span::Span::new(0, 0),
         };
 
         let result = check_abstract_method_implementation(&class_decl, &env);

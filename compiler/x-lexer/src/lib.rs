@@ -8,6 +8,9 @@ use errors::LexError;
 use span::Span;
 use token::Token;
 
+/// UTF-8 BOM 字节序列
+const UTF8_BOM: [u8; 3] = [0xEF, 0xBB, 0xBF];
+
 /// 词法分析器状态
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum LexerState {
@@ -34,10 +37,10 @@ pub struct Lexer<'a> {
 impl<'a> Lexer<'a> {
     /// 创建新的词法分析器
     pub fn new(input: &'a str) -> Self {
-        // 处理 UTF-8 BOM (0xEF 0xBB 0xBF)
+        // 处理 UTF-8 BOM
         let input = if input.len() >= 3 {
             let bytes = input.as_bytes();
-            if bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF {
+            if bytes[..3] == UTF8_BOM {
                 &input[3..]
             } else {
                 input
