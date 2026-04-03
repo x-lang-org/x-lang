@@ -82,21 +82,7 @@ pub struct ZigBackend {
     needs_libc: bool,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum ZigBackendError {
-    #[error("Lowering error: {0}")]
-    LoweringError(String),
-    #[error("I/O error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("Format error: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("Compiler error: {0}")]
-    CompilerError(String),
-    #[error("Unsupported feature: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type ZigResult<T> = Result<T, ZigBackendError>;
+pub type ZigResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl ZigBackend {
     // 常量定义
@@ -123,10 +109,10 @@ impl ZigBackend {
 
         match (result, expression_count) {
             (Some(expr_str), 1) => Ok(expr_str),
-            (None, 0) => Err(ZigBackendError::CompilerError(
+            (None, 0) => Err(x_codegen::CodeGenError::CompilerError(
                 Self::MATCH_CASE_NO_EXPRESSION_ERROR.to_string(),
             )),
-            (Some(_), count) if count > 1 => Err(ZigBackendError::CompilerError(
+            (Some(_), count) if count > 1 => Err(x_codegen::CodeGenError::CompilerError(
                 Self::MATCH_CASE_MULTIPLE_EXPRESSIONS_ERROR.to_string(),
             )),
             _ => unreachable!(),
@@ -2566,7 +2552,7 @@ impl ZigBackend {
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
             let stdout = String::from_utf8_lossy(&output.stdout);
-            return Err(ZigBackendError::CompilerError(format!(
+            return Err(x_codegen::CodeGenError::CompilerError(format!(
                 "Zig compiler failed:\nstdout: {}\nstderr: {}",
                 stdout, stderr
             )));
@@ -3355,7 +3341,7 @@ impl ZigBackend {
 
 impl x_codegen::CodeGenerator for ZigBackend {
     type Config = ZigBackendConfig;
-    type Error = ZigBackendError;
+    type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
         ZigBackend::new(config)
