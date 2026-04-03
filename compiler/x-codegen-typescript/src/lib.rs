@@ -821,60 +821,68 @@ impl TypeScriptBackend {
 
         self.emit_header()?;
 
-        // Extern function declarations (builtins are mapped in emit_lir_expression)
+        // Single pass to categorize declarations
+        let mut extern_funcs = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut type_aliases = Vec::new();
+        let mut structs = Vec::new();
+        let mut classes = Vec::new();
+        let mut enums = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &lir.declarations {
-            if let x_lir::Declaration::ExternFunction(ef) = decl {
-                self.emit_lir_extern_function(ef)?;
+            match decl {
+                x_lir::Declaration::ExternFunction(ef) => extern_funcs.push(ef),
+                x_lir::Declaration::Global(gv) => global_vars.push(gv),
+                x_lir::Declaration::TypeAlias(ta) => type_aliases.push(ta),
+                x_lir::Declaration::Struct(s) => structs.push(s),
+                x_lir::Declaration::Class(c) => classes.push(c),
+                x_lir::Declaration::Enum(e) => enums.push(e),
+                x_lir::Declaration::Function(func) => functions.push(func),
+                _ => {}
             }
+        }
+
+        // Extern function declarations
+        for ef in &extern_funcs {
+            self.emit_lir_extern_function(ef)?;
         }
 
         // Global variables
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Global(gv) = decl {
-                self.emit_lir_global_var(gv)?;
-            }
+        for gv in &global_vars {
+            self.emit_lir_global_var(gv)?;
         }
 
         // Type aliases
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::TypeAlias(ta) = decl {
-                let ty_str = self.emit_lir_type(&ta.type_);
-                self.line(&format!("type {} = {};", ta.name, ty_str))?;
-                self.line("")?;
-            }
+        for ta in &type_aliases {
+            let ty_str = self.emit_lir_type(&ta.type_);
+            self.line(&format!("type {} = {};", ta.name, ty_str))?;
+            self.line("")?;
         }
 
         // Struct definitions → TypeScript interfaces
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Struct(s) = decl {
-                self.emit_lir_struct(s)?;
-            }
+        for s in &structs {
+            self.emit_lir_struct(s)?;
         }
 
         // Class definitions
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Class(c) = decl {
-                self.emit_lir_class(c)?;
-            }
+        for c in &classes {
+            self.emit_lir_class(c)?;
         }
 
         // Enum definitions → TypeScript enums
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Enum(e) = decl {
-                self.emit_lir_enum(e)?;
-            }
+        for e in &enums {
+            self.emit_lir_enum(e)?;
         }
 
         // Functions
         let mut has_main = false;
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Function(func) = decl {
-                if func.name == "main" {
-                    has_main = true;
-                }
-                self.emit_lir_function(func)?;
-                self.line("")?;
+        for func in &functions {
+            if func.name == "main" {
+                has_main = true;
             }
+            self.emit_lir_function(func)?;
+            self.line("")?;
         }
 
         // Auto-invoke main if present (TypeScript has no implicit entry point)

@@ -89,30 +89,38 @@ impl JavaBackend {
         self.line(&format!("public class {} {{", self.config.class_name))?;
         self.indent();
 
-        // Emit class fields (from class declarations)
+        // Single pass to categorize declarations
+        let mut classes = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::Class(class) = decl {
-                self.emit_x_class(class)?;
+            match decl {
+                ast::Declaration::Class(class) => classes.push(class),
+                ast::Declaration::Variable(v) => global_vars.push(v),
+                ast::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
         }
 
+        // Emit class fields (from class declarations)
+        for class in &classes {
+            self.emit_x_class(class)?;
+        }
+
         // Emit global variables as static fields
-        for decl in &program.declarations {
-            if let ast::Declaration::Variable(v) = decl {
-                self.emit_static_field(v)?;
-            }
+        for v in &global_vars {
+            self.emit_static_field(v)?;
         }
 
         // Emit functions as static methods
         let mut user_main = None;
-        for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                if f.name == "main" {
-                    user_main = Some(f.clone());
-                } else {
-                    self.emit_function(f)?;
-                    self.line("")?;
-                }
+        for f in &functions {
+            if f.name == "main" {
+                user_main = Some(f.clone());
+            } else {
+                self.emit_function(f)?;
+                self.line("")?;
             }
         }
 

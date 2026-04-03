@@ -82,15 +82,25 @@ impl ErlangBackend {
         self.buffer.clear();
         self.exports.clear();
 
-        // 收集需要导出的函数
+        // Single pass to collect exports and categorize declarations
         let mut has_main = false;
+        let mut functions = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut classes = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                let arity = f.parameters.len();
-                self.exports.push(format!("{}/{}", f.name, arity));
-                if f.name == "main" {
-                    has_main = true;
+            match decl {
+                ast::Declaration::Function(f) => {
+                    let arity = f.parameters.len();
+                    self.exports.push(format!("{}/{}", f.name, arity));
+                    if f.name == "main" {
+                        has_main = true;
+                    }
+                    functions.push(f);
                 }
+                ast::Declaration::Variable(v) => global_vars.push(v),
+                ast::Declaration::Class(class) => classes.push(class),
+                _ => {}
             }
         }
 
@@ -98,22 +108,19 @@ impl ErlangBackend {
         self.emit_header()?;
 
         // 发射函数
-        for decl in &program.declarations {
-            match decl {
-                ast::Declaration::Function(f) => {
-                    self.emit_function(f)?;
-                    self.line("")?;
-                }
-                ast::Declaration::Variable(v) => {
-                    // 全局变量作为函数导出
-                    self.emit_global_var(v)?;
-                }
-                ast::Declaration::Class(class) => {
-                    // 类作为记录导出
-                    self.emit_class_as_record(class)?;
-                }
-                _ => {}
-            }
+        for f in &functions {
+            self.emit_function(f)?;
+            self.line("")?;
+        }
+
+        // 全局变量作为函数导出
+        for v in &global_vars {
+            self.emit_global_var(v)?;
+        }
+
+        // 类作为记录导出
+        for class in &classes {
+            self.emit_class_as_record(class)?;
         }
 
         // 如果没有 main 函数，生成默认的

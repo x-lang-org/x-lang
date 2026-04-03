@@ -100,11 +100,33 @@ impl RustBackend {
 
         self.emit_header()?;
 
-        // Emit extern functions
+        // Single pass to categorize declarations
+        let mut extern_funcs = Vec::new();
+        let mut classes = Vec::new();
+        let mut enums = Vec::new();
+        let mut traits = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::ExternFunction(ext) = decl {
-                self.emit_extern_function(ext)?;
+            match decl {
+                ast::Declaration::ExternFunction(ext) => extern_funcs.push(ext),
+                ast::Declaration::Class(class) => classes.push(class),
+                ast::Declaration::Enum(enum_decl) => enums.push(enum_decl),
+                ast::Declaration::Trait(trait_decl) => traits.push(trait_decl),
+                ast::Declaration::Variable(v) => {
+                    if v.visibility == ast::Visibility::Public {
+                        global_vars.push(v);
+                    }
+                }
+                ast::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
+        }
+
+        // Emit extern functions
+        for ext in &extern_funcs {
+            self.emit_extern_function(ext)?;
         }
 
         // Emit use statements
@@ -116,34 +138,28 @@ impl RustBackend {
         }
 
         // Emit structs/enums/traits
-        for decl in &program.declarations {
-            match decl {
-                ast::Declaration::Class(class) => self.emit_struct(class)?,
-                ast::Declaration::Enum(enum_decl) => self.emit_enum(enum_decl)?,
-                ast::Declaration::Trait(trait_decl) => self.emit_trait(trait_decl)?,
-                _ => {}
-            }
+        for class in &classes {
+            self.emit_struct(class)?;
+        }
+        for enum_decl in &enums {
+            self.emit_enum(enum_decl)?;
+        }
+        for trait_decl in &traits {
+            self.emit_trait(trait_decl)?;
         }
 
-        // Emit global statics/consts (only for explicitly global variables with visibility modifiers)
-        for decl in &program.declarations {
-            if let ast::Declaration::Variable(v) = decl {
-                // Only emit as global if it has public visibility (explicit global)
-                if v.visibility == ast::Visibility::Public {
-                    self.emit_global_var(v)?;
-                }
-            }
+        // Emit global statics/consts
+        for v in &global_vars {
+            self.emit_global_var(v)?;
         }
 
         // Emit functions
         let mut has_main = false;
-        for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                self.emit_function(f)?;
-                self.line("")?;
-                if f.name == "main" {
-                    has_main = true;
-                }
+        for f in &functions {
+            self.emit_function(f)?;
+            self.line("")?;
+            if f.name == "main" {
+                has_main = true;
             }
         }
 

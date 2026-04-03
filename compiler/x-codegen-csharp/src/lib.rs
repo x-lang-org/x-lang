@@ -83,37 +83,45 @@ impl CSharpBackend {
         self.line("{")?;
         self.indent();
 
-        // 生成类定义
+        // Single pass to categorize declarations
+        let mut classes = Vec::new();
+        let mut enums = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::Class(class) = decl {
-                self.emit_class(class)?;
+            match decl {
+                ast::Declaration::Class(class) => classes.push(class),
+                ast::Declaration::Enum(enum_decl) => enums.push(enum_decl),
+                ast::Declaration::Variable(v) => global_vars.push(v),
+                ast::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
+        }
+
+        // 生成类定义
+        for class in &classes {
+            self.emit_class(class)?;
         }
 
         // 生成枚举
-        for decl in &program.declarations {
-            if let ast::Declaration::Enum(enum_decl) = decl {
-                self.emit_enum(enum_decl)?;
-            }
+        for enum_decl in &enums {
+            self.emit_enum(enum_decl)?;
         }
 
         // 生成全局变量（作为静态字段）
-        for decl in &program.declarations {
-            if let ast::Declaration::Variable(v) = decl {
-                self.emit_global_var(v)?;
-            }
+        for v in &global_vars {
+            self.emit_global_var(v)?;
         }
 
         // 生成函数（作为静态方法）
         let mut has_main = false;
-        for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                if f.name == "main" || f.name == "Main" {
-                    has_main = true;
-                }
-                self.emit_function(f, None)?;
-                self.line("")?;
+        for f in &functions {
+            if f.name == "main" || f.name == "Main" {
+                has_main = true;
             }
+            self.emit_function(f, None)?;
+            self.line("")?;
         }
 
         // 如果没有 Main 方法，生成一个默认的

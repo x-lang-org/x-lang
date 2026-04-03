@@ -141,58 +141,61 @@ impl ZigBackend {
 
         self.emit_header()?;
 
-        // Emit imports
+        // Single pass to categorize declarations (avoid O(6N) multiple passes)
+        let mut imports = Vec::new();
+        let mut classes = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut extern_funcs = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::Import(import) = decl {
-                self.emit_import(import)?;
+            match decl {
+                ast::Declaration::Import(import) => imports.push(import),
+                ast::Declaration::Class(class) => classes.push(class),
+                ast::Declaration::Variable(v) => global_vars.push(v),
+                ast::Declaration::ExternFunction(f) => extern_funcs.push(f),
+                ast::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
         }
 
-        // Emit classes as structs
-        for decl in &program.declarations {
-            if let ast::Declaration::Class(class) = decl {
-                self.emit_class(class)?;
-            }
+        // Emit in required order
+        for import in &imports {
+            self.emit_import(import)?;
         }
 
-        // Emit global variables
-        for decl in &program.declarations {
-            if let ast::Declaration::Variable(v) = decl {
-                self.emit_global_var(v)?;
-            }
+        for class in &classes {
+            self.emit_class(class)?;
         }
 
-        // Emit extern functions
-        for decl in &program.declarations {
-            if let ast::Declaration::ExternFunction(f) = decl {
-                self.emit_extern_function(f)?;
-            }
+        for v in &global_vars {
+            self.emit_global_var(v)?;
         }
 
-        // Emit functions (including class methods and standalone functions)
+        for f in &extern_funcs {
+            self.emit_extern_function(f)?;
+        }
+
+        // Emit functions and track main
         let mut has_main = false;
-        for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                self.emit_function(f)?;
-                self.line("")?;
-                if f.name == "main" {
-                    has_main = true;
-                }
+        for f in &functions {
+            self.emit_function(f)?;
+            self.line("")?;
+            if f.name == "main" {
+                has_main = true;
             }
         }
 
         // Emit class methods
-        for decl in &program.declarations {
-            if let ast::Declaration::Class(class) = decl {
-                for member in &class.members {
-                    if let ast::ClassMember::Method(method) = member {
-                        self.emit_class_method(&class.name, method)?;
-                        self.line("")?;
-                    }
-                    if let ast::ClassMember::Constructor(constructor) = member {
-                        self.emit_constructor(&class.name, constructor)?;
-                        self.line("")?;
-                    }
+        for class in &classes {
+            for member in &class.members {
+                if let ast::ClassMember::Method(method) = member {
+                    self.emit_class_method(&class.name, method)?;
+                    self.line("")?;
+                }
+                if let ast::ClassMember::Constructor(constructor) = member {
+                    self.emit_constructor(&class.name, constructor)?;
+                    self.line("")?;
                 }
             }
         }
@@ -282,40 +285,44 @@ impl ZigBackend {
 
         self.emit_header()?;
 
-        // Emit extern functions first
+        // Single pass to categorize declarations (avoid O(5N) multiple passes)
+        let mut extern_funcs = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut structs = Vec::new();
+        let mut enums = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &lir.declarations {
-            if let x_lir::Declaration::ExternFunction(extern_func) = decl {
-                self.emit_lir_extern_function(extern_func)?;
+            match decl {
+                x_lir::Declaration::ExternFunction(f) => extern_funcs.push(f),
+                x_lir::Declaration::Global(v) => global_vars.push(v),
+                x_lir::Declaration::Struct(s) => structs.push(s),
+                x_lir::Declaration::Enum(e) => enums.push(e),
+                x_lir::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
         }
 
-        // Emit global variables
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Global(global_var) = decl {
-                self.emit_lir_global_var(global_var)?;
-            }
+        // Emit in required order
+        for f in &extern_funcs {
+            self.emit_lir_extern_function(f)?;
         }
 
-        // Emit struct definitions
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Struct(struct_def) = decl {
-                self.emit_lir_struct(struct_def)?;
-            }
+        for v in &global_vars {
+            self.emit_lir_global_var(v)?;
         }
 
-        // Emit enum definitions
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Enum(enum_def) = decl {
-                self.emit_lir_enum(enum_def)?;
-            }
+        for s in &structs {
+            self.emit_lir_struct(s)?;
         }
 
-        // Emit functions
-        for decl in &lir.declarations {
-            if let x_lir::Declaration::Function(func) = decl {
-                self.emit_lir_function(func)?;
-                self.line("")?;
-            }
+        for e in &enums {
+            self.emit_lir_enum(e)?;
+        }
+
+        for f in &functions {
+            self.emit_lir_function(f)?;
+            self.line("")?;
         }
 
         // Create output file

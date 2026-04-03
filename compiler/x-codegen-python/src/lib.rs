@@ -68,29 +68,37 @@ impl PythonBackend {
 
         self.emit_header()?;
 
-        // Emit X classes as Python classes
+        // Single pass to categorize declarations
+        let mut classes = Vec::new();
+        let mut global_vars = Vec::new();
+        let mut functions = Vec::new();
+
         for decl in &program.declarations {
-            if let ast::Declaration::Class(class) = decl {
-                self.emit_x_class(class)?;
+            match decl {
+                ast::Declaration::Class(class) => classes.push(class),
+                ast::Declaration::Variable(v) => global_vars.push(v),
+                ast::Declaration::Function(f) => functions.push(f),
+                _ => {}
             }
         }
 
+        // Emit X classes as Python classes
+        for class in &classes {
+            self.emit_x_class(class)?;
+        }
+
         // Emit global variables
-        for decl in &program.declarations {
-            if let ast::Declaration::Variable(v) = decl {
-                self.emit_global_var(v)?;
-            }
+        for v in &global_vars {
+            self.emit_global_var(v)?;
         }
 
         // Emit functions
         let mut has_main = false;
-        for decl in &program.declarations {
-            if let ast::Declaration::Function(f) = decl {
-                self.emit_function(f)?;
-                self.line("")?;
-                if f.name == "main" {
-                    has_main = true;
-                }
+        for f in &functions {
+            self.emit_function(f)?;
+            self.line("")?;
+            if f.name == "main" {
+                has_main = true;
             }
         }
 
