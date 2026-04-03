@@ -2720,20 +2720,6 @@ impl XParser {
         // 根据类型名决定如何构造结果类型
             match base_type_name.as_str() {
                 // 内置泛型类型
-                "Option" => {
-                    if type_args.len() != 1 {
-                        return Err(self.err("Option 类型需要一个类型参数", ti));
-                    }
-                    Ok(Type::Option(Box::new(type_args.remove(0))))
-                }
-                "Result" => {
-                    if type_args.len() != 2 {
-                        return Err(self.err("Result 类型需要两个类型参数", ti));
-                    }
-                    let err_type = type_args.remove(1);
-                    let ok_type = type_args.remove(0);
-                    Ok(Type::Result(Box::new(ok_type), Box::new(err_type)))
-                }
                 "Array" => {
                     if type_args.len() != 1 {
                         return Err(self.err("Array 类型需要一个类型参数", ti));

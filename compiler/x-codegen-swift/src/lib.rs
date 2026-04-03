@@ -995,13 +995,13 @@ impl SwiftBackend {
                 let value_type = self.map_type(value)?;
                 Ok(format!("[{}: {}]", key_type, value_type))
             }
-            ast::Type::Option(inner) => {
-                let inner_type = self.map_type(inner)?;
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                let inner_type = self.map_type(&args[0])?;
                 Ok(format!("{}?", inner_type))
             }
-            ast::Type::Result(ok, err) => {
-                let ok_type = self.map_type(ok)?;
-                let err_type = self.map_type(err)?;
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                let ok_type = self.map_type(&args[0])?;
+                let err_type = self.map_type(&args[1])?;
                 Ok(format!("Result<{}, {}>", ok_type, err_type))
             }
             ast::Type::Tuple(types) => {
@@ -1075,7 +1075,7 @@ impl SwiftBackend {
                 ast::Type::Float => Ok("0.0".to_string()),
                 ast::Type::Bool => Ok("false".to_string()),
                 ast::Type::String => Ok("\"\"".to_string()),
-                ast::Type::Option(_) => Ok("nil".to_string()),
+                ast::Type::TypeConstructor(name, _) if name == "Option" => Ok("nil".to_string()),
                 ast::Type::Array(_) => Ok("[]".to_string()),
                 ast::Type::Dictionary(_, _) => Ok("[:]".to_string()),
                 _ => Ok("nil".to_string()),
@@ -1546,8 +1546,9 @@ mod tests {
             backend.map_type(&ast::Type::Array(Box::new(ast::Type::Int))).unwrap(),
             "[Int]"
         );
+        // Option now via TypeConstructor
         assert_eq!(
-            backend.map_type(&ast::Type::Option(Box::new(ast::Type::Int))).unwrap(),
+            backend.map_type(&ast::Type::TypeConstructor("Option".to_string(), vec![ast::Type::Int])).unwrap(),
             "Int?"
         );
     }

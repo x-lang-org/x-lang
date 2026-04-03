@@ -104,8 +104,6 @@ impl fmt::Display for Type {
                     .collect::<Vec<_>>()
                     .join(", ")
             ),
-            Type::Option(inner) => write!(f, "Option<{inner}>"),
-            Type::Result(ok, err) => write!(f, "Result<{ok}, {err}>"),
             Type::Function(params, ret) => write!(
                 f,
                 "Function<{}, {ret}>",
@@ -635,8 +633,6 @@ pub enum Type {
     Tuple(Vec<Type>),
 
     // 高级类型
-    Option(Box<Type>),
-    Result(Box<Type>, Box<Type>),
     Function(Vec<Box<Type>>, Box<Type>),
     Async(Box<Type>),
 

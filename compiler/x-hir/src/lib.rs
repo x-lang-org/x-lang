@@ -476,8 +476,6 @@ pub enum HirType {
     Tuple(Vec<HirType>),
 
     // 高级类型
-    Option(Box<HirType>),
-    Result(Box<HirType>, Box<HirType>),
     Function(Vec<HirType>, Box<HirType>),
     Async(Box<HirType>),
 
@@ -555,11 +553,8 @@ impl HirType {
                 variants.iter().map(HirType::from_ast).collect(),
             ),
             Type::Tuple(types) => HirType::Tuple(types.iter().map(HirType::from_ast).collect()),
-            Type::Option(inner) => HirType::Option(Box::new(HirType::from_ast(inner))),
-            Type::Result(ok, err) => HirType::Result(
-                Box::new(HirType::from_ast(ok)),
-                Box::new(HirType::from_ast(err)),
-            ),
+            // Option and Result are now handled as TypeConstructor
+            // Kept for backward compatibility - they will be handled by TypeConstructor case below
             Type::Function(params, ret) => HirType::Function(
                 params.iter().map(|p| HirType::from_ast(p)).collect(),
                 Box::new(HirType::from_ast(ret)),
@@ -572,7 +567,6 @@ impl HirType {
                 type_args.iter().map(HirType::from_ast).collect(),
             ),
             Type::Var(name) => HirType::Generic(name.clone()),
-            Type::Dynamic => HirType::Dynamic,
             // 引用类型
             Type::Reference(inner) => HirType::Reference(Box::new(HirType::from_ast(inner))),
             Type::MutableReference(inner) => HirType::MutableReference(Box::new(HirType::from_ast(inner))),
@@ -621,11 +615,7 @@ impl HirType {
                 name.clone(),
                 variants.iter().map(HirType::from_x_type).collect(),
             ),
-            x_typechecker::Type::Option(inner) => HirType::Option(Box::new(HirType::from_x_type(inner))),
-            x_typechecker::Type::Result(ok, err) => HirType::Result(
-                Box::new(HirType::from_x_type(ok)),
-                Box::new(HirType::from_x_type(err)),
-            ),
+            // Option and Result are now handled as TypeConstructor
             x_typechecker::Type::Function(params, ret) => HirType::Function(
                 params.iter().map(|p| HirType::from_x_type(p.as_ref())).collect(),
                 Box::new(HirType::from_x_type(ret.as_ref())),
@@ -776,8 +766,7 @@ impl HirOwnershipInfo {
             HirType::Array(_) => true,
             HirType::Dictionary(_, _) => true,
             HirType::Record(_, _) => true,
-            HirType::Option(inner) => Self::type_needs_drop(inner),
-            HirType::Result(ok, err) => Self::type_needs_drop(ok) || Self::type_needs_drop(err),
+            // Option and Result are now TypeConstructor - handled below
             HirType::Tuple(types) => types.iter().any(Self::type_needs_drop),
             HirType::Function(_, _) => false, // 函数指针是 Copy
             HirType::Async(_) => true,
@@ -1709,7 +1698,8 @@ impl<'a> HirConverter<'a> {
                 Literal::String(_) => HirType::String,
                 Literal::Char(_) => HirType::Char,
                 Literal::Null | Literal::Unit => HirType::Unit,
-                Literal::None => HirType::Option(Box::new(HirType::Unknown)),
+                // None is now represented as Option<T> via TypeConstructor
+                Literal::None => HirType::TypeConstructor("Option".to_string(), vec![HirType::Unknown]),
             },
             ExpressionKind::Variable(name) => {
                 self.variables.get(name).cloned().unwrap_or(HirType::Unknown)

@@ -1889,9 +1889,11 @@ impl RustBackend {
             ast::Type::Dictionary(k, v) => {
                 format!("HashMap<{}, {}>", self.emit_type(k), self.emit_type(v))
             }
-            ast::Type::Option(inner) => format!("Option<{}>", self.emit_type(inner)),
-            ast::Type::Result(ok, err) => {
-                format!("Result<{}, {}>", self.emit_type(ok), self.emit_type(err))
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("Option<{}>", self.emit_type(&args[0]))
+            }
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                format!("Result<{}, {}>", self.emit_type(&args[0]), self.emit_type(&args[1]))
             }
             ast::Type::Tuple(types) => {
                 let type_strs: Vec<String> = types.iter().map(|t| self.emit_type(t)).collect();

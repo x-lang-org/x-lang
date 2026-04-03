@@ -790,8 +790,7 @@ fn lower_type(ty: &HirType) -> MirType {
             MirType::Struct("tuple".to_string(), types.iter().map(lower_type).collect())
         }
 
-        HirType::Option(inner) => MirType::Pointer(Box::new(lower_type(inner))),
-        HirType::Result(ok, _) => lower_type(ok),
+        // Option and Result are now TypeConstructor - handled by the TypeConstructor case below
         HirType::Function(params, ret) => MirType::Function(
             params.iter().map(lower_type).collect(),
             Box::new(lower_type(ret)),

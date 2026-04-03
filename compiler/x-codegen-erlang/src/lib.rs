@@ -894,8 +894,8 @@ impl ErlangBackend {
             ast::Type::Void => "ok".to_string(),
             ast::Type::Never => "no_return()".to_string(),
             ast::Type::Dynamic => "any()".to_string(),
-            ast::Type::Option(inner) => {
-                let inner_type = self.map_type(inner);
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                let inner_type = self.map_type(&args[0]);
                 format!("{} | undefined", inner_type)
             }
             ast::Type::Array(inner) => {
@@ -916,9 +916,9 @@ impl ErlangBackend {
                 let val_type = self.map_type(v);
                 format!("#{{{} => {}}}", key_type, val_type)
             }
-            ast::Type::Result(ok, err) => {
-                let ok_type = self.map_type(ok);
-                let err_type = self.map_type(err);
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                let ok_type = self.map_type(&args[0]);
+                let err_type = self.map_type(&args[1]);
                 format!("{{ok, {}}} | {{error, {}}}", ok_type, err_type)
             }
             ast::Type::Async(inner) => {
@@ -1353,9 +1353,9 @@ mod tests {
         assert_eq!(backend.map_type(&ast::Type::Bool), "boolean()");
         assert_eq!(backend.map_type(&ast::Type::String), "string()");
 
-        // 测试可选类型
+        // 测试可选类型 (now via TypeConstructor)
         assert_eq!(
-            backend.map_type(&ast::Type::Option(Box::new(ast::Type::Int))),
+            backend.map_type(&ast::Type::TypeConstructor("Option".to_string(), vec![ast::Type::Int])),
             "integer() | undefined"
         );
 

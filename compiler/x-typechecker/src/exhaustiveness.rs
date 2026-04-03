@@ -158,8 +158,52 @@ fn compute_uncovered(matrix: &PatternMatrix, ty: &Type) -> Result<Vec<String>, N
     // 根据类型进行特定的穷尽性检查
     match ty {
         Type::Bool => check_bool_exhaustive(matrix),
-        Type::Option(inner) => check_option_exhaustive(matrix, inner),
-        Type::Result(ok, err) => check_result_exhaustive(matrix, ok, err),
+        // Option 和 Result 现在是 TypeConstructor，需要特殊处理
+        Type::TypeConstructor(name, _) if name == "Option" || name == "Result" => {
+            // 对于 Option/Result，检查是否有 Some/Ok 和 None/Err 模式
+            let mut has_some_or_ok = false;
+            let mut has_none_or_err = false;
+            let mut has_wildcard = false;
+
+            for row in matrix {
+                for p in row {
+                    match p {
+                        NormalizedPattern::Constructor(constructor_name, _) => {
+                            if constructor_name == "Some" || constructor_name == "Ok" {
+                                has_some_or_ok = true;
+                            }
+                            if constructor_name == "None" || constructor_name == "Err" {
+                                has_none_or_err = true;
+                            }
+                        }
+                        // Also handle Literal::None for Option
+                        NormalizedPattern::Literal(LiteralValue::None) if name == "Option" => {
+                            has_none_or_err = true;
+                        }
+                        NormalizedPattern::Wildcard | NormalizedPattern::Variable(_) => {
+                            has_wildcard = true;
+                        }
+                        _ => {}
+                    }
+                }
+            }
+
+            if has_wildcard || (has_some_or_ok && has_none_or_err) {
+                Ok(vec![])
+            } else {
+                let mut missing = vec![];
+                if !has_some_or_ok {
+                    missing.push(if name == "Option" { "Some" } else { "Ok" }.to_string());
+                }
+                if !has_none_or_err {
+                    missing.push(if name == "Option" { "None" } else { "Err" }.to_string());
+                }
+                Err(NonExhaustiveError {
+                    uncovered_patterns: missing,
+                })
+            }
+        }
+        // Option 和 Result 现在是用户定义的枚举，由通用枚举处理逻辑处理
         Type::Union(name, _) => check_union_exhaustive(matrix, name),
         _ => {
             // 对于无限类型（Int, String 等），需要通配符才能穷尽
@@ -292,8 +336,7 @@ fn check_union_exhaustive(matrix: &PatternMatrix, _name: &str) -> Result<Vec<Str
 fn type_to_pattern_string(ty: &Type) -> String {
     match ty {
         Type::Bool => "true 或 false".to_string(),
-        Type::Option(inner) => format!("Some({}) 或 None", type_to_pattern_string(inner)),
-        Type::Result(ok, err) => format!("Ok({}) 或 Err({})", type_to_pattern_string(ok), type_to_pattern_string(err)),
+        // Option 和 Result 现在是用户定义的枚举
         Type::Int => "整数字面量或 _".to_string(),
         Type::Float => "浮点字面量或 _".to_string(),
         Type::String => "字符串字面量或 _".to_string(),
@@ -333,18 +376,19 @@ mod tests {
 
     #[test]
     fn test_option_exhaustive() {
+        let opt_int = Type::TypeConstructor("Option".to_string(), vec![Type::Int]);
         // Some 和 None 都存在
         let patterns = vec![
             Pattern::Record("Some".to_string(), vec![("_".to_string(), Pattern::Wildcard)]),
             Pattern::Literal(Literal::None),
         ];
-        assert!(check_exhaustive(&patterns, &Type::Option(Box::new(Type::Int))).is_ok());
+        assert!(check_exhaustive(&patterns, &opt_int).is_ok());
 
         // 只有 Some
         let patterns = vec![
             Pattern::Record("Some".to_string(), vec![("_".to_string(), Pattern::Wildcard)]),
         ];
-        let result = check_exhaustive(&patterns, &Type::Option(Box::new(Type::Int)));
+        let result = check_exhaustive(&patterns, &opt_int);
         assert!(result.is_err());
     }
 
@@ -353,6 +397,7 @@ mod tests {
         let patterns = vec![Pattern::Wildcard];
         assert!(check_exhaustive(&patterns, &Type::Int).is_ok());
         assert!(check_exhaustive(&patterns, &Type::Bool).is_ok());
-        assert!(check_exhaustive(&patterns, &Type::Option(Box::new(Type::Int))).is_ok());
+        let opt_int = Type::TypeConstructor("Option".to_string(), vec![Type::Int]);
+        assert!(check_exhaustive(&patterns, &opt_int).is_ok());
     }
 }

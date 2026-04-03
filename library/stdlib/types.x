@@ -1,5 +1,23 @@
 module std.types
 
+/// Option 类型 - 表示可能存在或不存在的值
+/// 由标准库提供，不是编译器内置
+pub enum Option<T> {
+    /// 没有值
+    None,
+    /// 有值
+    Some(T),
+}
+
+/// Result 类型 - 表示成功或失败的结果
+/// 由标准库提供，不是编译器内置
+pub enum Result<T, E> {
+    /// 成功结果
+    Ok(T),
+    /// 错误结果
+    Err(E),
+}
+
 /// Option 类型扩展方法
 import std::prelude::*;
 

@@ -377,13 +377,14 @@ impl PerceusAnalyzer {
 
     /// 判断类型是否为消费类型（需要移动所有权）
     fn is_consume_type(&self, ty: &x_hir::HirType) -> bool {
-        matches!(ty,
+        match ty {
             x_hir::HirType::String |
             x_hir::HirType::Array(_) |
-            x_hir::HirType::Record(_, _) |
-            x_hir::HirType::Option(_) |
-            x_hir::HirType::Result(_, _)
-        )
+            x_hir::HirType::Record(_, _) => true,
+            // Option and Result are now TypeConstructor - check the name
+            x_hir::HirType::TypeConstructor(name, _) if name == "Option" || name == "Result" => true,
+            _ => false,
+        }
     }
 
     /// 分析函数体是否可能 panic
@@ -1026,8 +1027,14 @@ impl PerceusAnalyzer {
             x_hir::HirType::Unit => "Unit".to_string(),
             x_hir::HirType::Never => "Never".to_string(),
             x_hir::HirType::Array(inner) => format!("Array<{}>", self.type_to_string(inner)),
-            x_hir::HirType::Option(inner) => format!("Option<{}>", self.type_to_string(inner)),
-            x_hir::HirType::Result(ok, err) => format!("Result<{}, {}>", self.type_to_string(ok), self.type_to_string(err)),
+            // Option and Result are now TypeConstructor
+            x_hir::HirType::TypeConstructor(name, args) => {
+                let args_str = args.iter()
+                    .map(|t| self.type_to_string(t))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+                format!("{}<{}>", name, args_str)
+            }
             _ => "Unknown".to_string(),
         }
     }
@@ -1323,7 +1330,8 @@ mod tests {
 
         assert!(analyzer.is_consume_type(&HirType::String));
         assert!(analyzer.is_consume_type(&HirType::Array(Box::new(HirType::Int))));
-        assert!(analyzer.is_consume_type(&HirType::Option(Box::new(HirType::Int))));
+        // Option is now TypeConstructor
+        assert!(analyzer.is_consume_type(&HirType::TypeConstructor("Option".to_string(), vec![HirType::Int])));
         assert!(!analyzer.is_consume_type(&HirType::Int));
         assert!(!analyzer.is_consume_type(&HirType::Bool));
     }

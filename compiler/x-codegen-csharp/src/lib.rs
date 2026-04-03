@@ -1106,9 +1106,11 @@ impl CSharpBackend {
             ast::Type::Dictionary(key, value) => {
                 format!("Dictionary<{}, {}>", self.map_ast_type(key), self.map_ast_type(value))
             }
-            ast::Type::Option(inner) => format!("{}?", self.map_ast_type(inner)),
-            ast::Type::Result(ok, err) => {
-                format!("Result<{}, {}>", self.map_ast_type(ok), self.map_ast_type(err))
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("{}?", self.map_ast_type(&args[0]))
+            }
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                format!("Result<{}, {}>", self.map_ast_type(&args[0]), self.map_ast_type(&args[1]))
             }
             ast::Type::Function(params, ret) => {
                 let param_types: Vec<String> = params.iter().map(|p| self.map_ast_type(p)).collect();
@@ -1573,10 +1575,10 @@ mod tests {
         assert_eq!(backend.map_ast_type(&ast::Type::String), "string");
         assert_eq!(backend.map_ast_type(&ast::Type::Char), "char");
 
-        // 复合类型
+        // 复合类型 (now via TypeConstructor)
         assert_eq!(backend.map_ast_type(&ast::Type::Array(Box::new(ast::Type::Int))), "List<long>");
         assert_eq!(
-            backend.map_ast_type(&ast::Type::Option(Box::new(ast::Type::Int))),
+            backend.map_ast_type(&ast::Type::TypeConstructor("Option".to_string(), vec![ast::Type::Int])),
             "long?"
         );
         assert_eq!(

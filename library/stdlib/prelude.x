@@ -1,5 +1,9 @@
 // Minimal prelude with C FFI
 
+// Re-export Option and Result from std.types
+// These are now user-defined enums, not compiler built-ins
+import std.types.*;
+
 /// 外部 C 库函数：puts - 输出字符串并换行
 external function puts(message: *character) -> signed 32-bit integer
 

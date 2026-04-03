@@ -451,9 +451,11 @@ impl ZigBackend {
             x_hir::HirType::Never => "noreturn".to_string(),
             x_hir::HirType::Dynamic => "anytype".to_string(),
             x_hir::HirType::Array(inner) => format!("[]{}", self.emit_hir_type(inner)),
-            x_hir::HirType::Option(inner) => format!("?{}", self.emit_hir_type(inner)),
-            x_hir::HirType::Result(ok, err) => {
-                format!("{}!{}", self.emit_hir_type(err), self.emit_hir_type(ok))
+            x_hir::HirType::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("?{}", self.emit_hir_type(&args[0]))
+            }
+            x_hir::HirType::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                format!("{}!{}", self.emit_hir_type(&args[1]), self.emit_hir_type(&args[0]))
             }
             x_hir::HirType::Tuple(types) => {
                 let type_strs: Vec<String> = types.iter().map(|t| self.emit_hir_type(t)).collect();
@@ -2380,8 +2382,12 @@ impl ZigBackend {
                     format!("std.AutoHashMap({}, {})", key_type, value_type)
                 }
             }
-            ast::Type::Option(inner) => format!("?{}", self.emit_type(inner)),
-            ast::Type::Result(ok, err) => format!("{}!{}", self.emit_type(err), self.emit_type(ok)),
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("?{}", self.emit_type(&args[0]))
+            }
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                format!("{}!{}", self.emit_type(&args[1]), self.emit_type(&args[0]))
+            }
             ast::Type::Function(params, return_type) => {
                 let param_types = params
                     .iter()
@@ -2789,7 +2795,8 @@ mod tests {
                 type_parameters: vec![],
                 parameters: vec![],
                 effects: vec![],
-                return_type: Some(ast::Type::Option(Box::new(ast::Type::Int))),
+                // Option now via TypeConstructor
+                return_type: Some(ast::Type::TypeConstructor("Option".to_string(), vec![ast::Type::Int])),
                 body: ast::Block {
                     statements: vec![spanned(
                         StatementKind::Return(Some(spanned(
@@ -2827,9 +2834,10 @@ mod tests {
                     default: None,
                     span: Span::default(),
                 }],
-                return_type: Some(ast::Type::Result(
-                    Box::new(ast::Type::Int),
-                    Box::new(ast::Type::String),
+                // Result now via TypeConstructor
+                return_type: Some(ast::Type::TypeConstructor(
+                    "Result".to_string(),
+                    vec![ast::Type::Int, ast::Type::String],
                 )),
                 effects: vec![],
                 body: ast::Block {

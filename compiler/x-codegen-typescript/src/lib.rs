@@ -338,8 +338,12 @@ impl TypeScriptBackend {
             ast::Type::Unit => "void".to_string(),
             ast::Type::Never => "never".to_string(),
             ast::Type::Array(inner) => format!("{}[]", self.emit_type(inner)),
-            ast::Type::Option(inner) => format!("{} | null", self.emit_type(inner)),
-            ast::Type::Result(ok, _err) => self.emit_type(ok), // Simplified
+            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("{} | null", self.emit_type(&args[0]))
+            }
+            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                self.emit_type(&args[0]) // Simplified - just return ok type
+            }
             ast::Type::Tuple(types) => {
                 let type_strs: Vec<String> = types.iter().map(|t| self.emit_type(t)).collect();
                 format!("[{}]", type_strs.join(", "))

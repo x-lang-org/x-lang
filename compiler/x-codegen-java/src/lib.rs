@@ -705,11 +705,11 @@ impl JavaBackend {
             Type::Dictionary(key, value) => {
                 format!("Map<{}, {}>", self.map_type_from_type(key), self.map_type_from_type(value))
             }
-            Type::Option(inner) => {
-                format!("Optional<{}>", self.map_type_from_type(inner))
+            Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
+                format!("Optional<{}>", self.map_type_from_type(&args[0]))
             }
-            Type::Result(ok, err) => {
-                format!("Result<{}, {}>", self.map_type_from_type(ok), self.map_type_from_type(err))
+            Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
+                format!("Result<{}, {}>", self.map_type_from_type(&args[0]), self.map_type_from_type(&args[1]))
             }
             Type::Function(params, ret) => {
                 if params.len() == 1 {
@@ -1627,8 +1627,8 @@ mod tests {
         // Test generic types
         assert_eq!(backend.map_type_from_type(&Type::Array(Box::new(Type::Int))), "List<int>");
 
-        // Test optional
-        assert_eq!(backend.map_type_from_type(&Type::Option(Box::new(Type::Int))), "Optional<int>");
+        // Test optional (now via TypeConstructor)
+        assert_eq!(backend.map_type_from_type(&Type::TypeConstructor("Option".to_string(), vec![Type::Int])), "Optional<int>");
 
         // Test none type
         assert_eq!(backend.map_type(&None), "var");
