@@ -56,8 +56,8 @@ impl Default for SwiftBackendConfig {
 pub struct SwiftBackend {
     #[allow(dead_code)]
     config: SwiftBackendConfig,
-    indent: usize,
-    output: String,
+    /// 代码缓冲区
+    buffer: x_codegen::CodeBuffer,
 }
 
 pub type SwiftResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -66,18 +66,24 @@ impl SwiftBackend {
     pub fn new(config: SwiftBackendConfig) -> Self {
         Self {
             config,
-            indent: 0,
-            output: String::new(),
+            buffer: x_codegen::CodeBuffer::new(),
         }
     }
+
+    fn line(&mut self, s: &str) -> SwiftResult<()> {
+        self.buffer.line(s).map_err(|e| x_codegen::CodeGenError::GenerationError(e.to_string()))
+    }
+
+    fn indent(&mut self) { self.buffer.indent(); }
+    fn dedent(&mut self) { self.buffer.dedent(); }
+    fn output(&self) -> &str { self.buffer.as_str() }
 
     /// 从 AST 生成 Swift 代码
     pub fn generate_from_ast_impl(
         &mut self,
         program: &AstProgram,
     ) -> SwiftResult<CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
@@ -126,7 +132,7 @@ impl SwiftBackend {
         // Create output file
         let output_file = OutputFile {
             path: PathBuf::from("output.swift"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: FileType::Swift,
         };
 
@@ -148,9 +154,9 @@ impl SwiftBackend {
     /// Emit main function
     fn emit_main_function(&mut self) -> SwiftResult<()> {
         self.line("func main() {")?;
-        self.indent += 1;
+        self.indent();
         self.line("print(\"Hello from Swift backend!\")")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         self.line("main()")?;
@@ -201,7 +207,7 @@ impl SwiftBackend {
             "{}func {}({}){} {{",
             async_keyword, f.name, params.join(", "), return_type
         ))?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&f.body)?;
 
@@ -210,7 +216,7 @@ impl SwiftBackend {
             self.line("return nil")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -226,7 +232,7 @@ impl SwiftBackend {
         };
 
         self.line(&format!("class {}{} {{", class.name, inheritance))?;
-        self.indent += 1;
+        self.indent();
 
         let has_content = class.members.iter().any(|m| {
             matches!(
@@ -264,7 +270,7 @@ impl SwiftBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -306,13 +312,13 @@ impl SwiftBackend {
             .collect();
 
         self.line(&format!("init({}) {{", params.join(", ")))?;
-        self.indent += 1;
+        self.indent();
 
         for stmt in &constructor.body.statements {
             self.emit_statement(stmt)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -340,7 +346,7 @@ impl SwiftBackend {
             "{}func {}({}){} {{",
             async_keyword, method.name, params.join(", "), return_type
         ))?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&method.body)?;
 
@@ -348,7 +354,7 @@ impl SwiftBackend {
             self.line("return nil")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -356,7 +362,7 @@ impl SwiftBackend {
     /// Emit enum declaration
     fn emit_enum(&mut self, enum_decl: &ast::EnumDecl) -> SwiftResult<()> {
         self.line(&format!("enum {} {{", enum_decl.name))?;
-        self.indent += 1;
+        self.indent();
 
         for variant in &enum_decl.variants {
             match &variant.data {
@@ -383,7 +389,7 @@ impl SwiftBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -421,9 +427,9 @@ impl SwiftBackend {
             StatementKind::While(while_stmt) => {
                 let cond = self.emit_expr(&while_stmt.condition)?;
                 self.line(&format!("while {} {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::For(for_stmt) => {
@@ -443,11 +449,11 @@ impl SwiftBackend {
             }
             StatementKind::DoWhile(d) => {
                 self.line("while true {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&d.body)?;
                 let cond = self.emit_expr(&d.condition)?;
                 self.line(&format!("if !({}) {{ break }}", cond))?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::Unsafe(block) => {
@@ -470,9 +476,9 @@ impl SwiftBackend {
             }
             StatementKind::Loop(block) => {
                 self.line("while true {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -501,15 +507,15 @@ impl SwiftBackend {
     fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> SwiftResult<()> {
         let cond = self.emit_expr(&if_stmt.condition)?;
         self.line(&format!("if {} {{", cond))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&if_stmt.then_block)?;
-        self.indent -= 1;
+        self.dedent();
 
         if let Some(else_block) = &if_stmt.else_block {
             self.line("} else {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(else_block)?;
-            self.indent -= 1;
+            self.dedent();
         }
         self.line("}")?;
         Ok(())
@@ -521,9 +527,9 @@ impl SwiftBackend {
         let pattern_var = self.emit_pattern_var(&for_stmt.pattern);
 
         self.line(&format!("for {} in {} {{", pattern_var, iter))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&for_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -585,7 +591,7 @@ impl SwiftBackend {
     fn emit_match(&mut self, match_stmt: &ast::MatchStatement) -> SwiftResult<()> {
         let expr = self.emit_expr(&match_stmt.expression)?;
         self.line(&format!("switch {} {{", expr))?;
-        self.indent += 1;
+        self.indent();
 
         for case in &match_stmt.cases {
             let pattern = self.emit_switch_pattern(&case.pattern);
@@ -596,12 +602,12 @@ impl SwiftBackend {
                 String::new()
             };
             self.line(&format!("case {}{}:", pattern, guard))?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -658,9 +664,9 @@ impl SwiftBackend {
     /// Emit try statement
     fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> SwiftResult<()> {
         self.line("do {")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&try_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
 
         for catch in &try_stmt.catch_clauses {
             let catch_line = if let Some(var_name) = &catch.variable_name {
@@ -676,16 +682,16 @@ impl SwiftBackend {
             };
 
             self.line(&catch_line)?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(&catch.body)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
         if let Some(finally) = &try_stmt.finally_block {
             self.line("defer {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(finally)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -1069,15 +1075,6 @@ impl SwiftBackend {
             None => Ok("nil".to_string()),
         }
     }
-
-    /// Output a line with proper indentation
-    fn line(&mut self, s: &str) -> SwiftResult<()> {
-        for _ in 0..self.indent {
-            write!(self.output, "    ")?;
-        }
-        writeln!(self.output, "{}", s)?;
-        Ok(())
-    }
 }
 
 impl CodeGenerator for SwiftBackend {
@@ -1085,11 +1082,7 @@ impl CodeGenerator for SwiftBackend {
     type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
-        Self {
-            config,
-            indent: 0,
-            output: String::new(),
-        }
+        Self::new(config)
     }
 
     fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
@@ -1104,14 +1097,13 @@ impl CodeGenerator for SwiftBackend {
 
     fn generate_from_lir(&mut self, lir: &LirProgram) -> Result<CodegenOutput, Self::Error> {
         // LIR -> Swift 代码生成
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
         // 开始结构体定义
         self.line("struct Program {")?;
-        self.indent += 1;
+        self.indent();
 
         // 收集函数
         let mut has_main = false;
@@ -1126,20 +1118,20 @@ impl CodeGenerator for SwiftBackend {
                     .map(|p| format!("{}: {}", p.name, self.lir_type_to_swift(&p.type_)))
                     .collect();
                 self.line(&format!("static func {}({}) -> {} {{", f.name, params.join(", "), ret))?;
-                self.indent += 1;
+                self.indent();
 
                 // 发射函数体
                 for stmt in &f.body.statements {
                     self.emit_lir_statement(stmt)?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
                 self.line("")?;
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         // main 入口
@@ -1150,7 +1142,7 @@ impl CodeGenerator for SwiftBackend {
 
         let output_file = OutputFile {
             path: PathBuf::from("main.swift"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: FileType::Swift,
         };
 
@@ -1203,23 +1195,23 @@ impl SwiftBackend {
             If(i) => {
                 let cond = self.emit_lir_expr(&i.condition)?;
                 self.line(&format!("if {} {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&i.then_branch)?;
-                self.indent -= 1;
+                self.dedent();
                 if let Some(else_br) = &i.else_branch {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(else_br)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             While(w) => {
                 let cond = self.emit_lir_expr(&w.condition)?;
                 self.line(&format!("while {} {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&w.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             Return(r) => {
