@@ -273,6 +273,7 @@ impl TypeEnv {
     }
 
     /// 检查符号是否已导出
+    #[allow(dead_code)]
     fn is_exported(&self, symbol: &str) -> bool {
         self.exports.contains(symbol)
     }
@@ -293,6 +294,7 @@ impl TypeEnv {
     pub fn exit_unsafe_context(&mut self) {
         self.unsafe_context_stack.pop();
     }
+    #[allow(dead_code)]
     fn register_module(&mut self, name: String, exports: HashSet<String>) {
         self.resolved_modules.insert(name.clone(), ModuleInfo {
             name,
@@ -331,6 +333,7 @@ impl TypeEnv {
         });
     }
 
+    #[allow(dead_code)]
     fn add_function_with_effects(&mut self, name: &str, ty: Type, effects: EffectSet) {
         self.functions.insert(name.to_string(), FunctionInfo {
             ty,
@@ -404,16 +407,19 @@ impl TypeEnv {
     }
 
     /// 应用当前替换到类型
+    #[allow(dead_code)]
     fn apply_subst(&self, ty: &Type) -> Type {
         apply_type_substitution(ty, &self.substitution)
     }
 
     /// 扩展替换
+    #[allow(dead_code)]
     fn extend_subst(&mut self, var: String, ty: Type) {
         self.substitution.insert(var, ty);
     }
 
     /// 合一两个类型，更新替换
+    #[allow(dead_code)]
     fn unify_types(&mut self, t1: &Type, t2: &Type, span: Span) -> Result<(), TypeError> {
         let new_subst = unify(t1, t2).map_err(|e| match e {
             UnificationError::TypeMismatch(expected, actual) => TypeError::TypeMismatch {
