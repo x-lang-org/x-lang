@@ -42,8 +42,8 @@ impl Default for JavaConfig {
 /// Java 后端
 pub struct JavaBackend {
     config: JavaConfig,
-    indent: usize,
-    output: String,
+    /// 代码缓冲区（统一管理输出和缩进）
+    buffer: x_codegen::CodeBuffer,
 }
 
 pub type JavaResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -52,9 +52,28 @@ impl JavaBackend {
     pub fn new(config: JavaConfig) -> Self {
         Self {
             config,
-            indent: 0,
-            output: String::new(),
+            buffer: x_codegen::CodeBuffer::new(),
         }
+    }
+
+    /// 输出一行代码
+    fn line(&mut self, s: &str) -> JavaResult<()> {
+        self.buffer.line(s).map_err(|e| x_codegen::CodeGenError::GenerationError(e.to_string()))
+    }
+
+    /// 增加缩进
+    fn indent(&mut self) {
+        self.buffer.indent();
+    }
+
+    /// 减少缩进
+    fn dedent(&mut self) {
+        self.buffer.dedent();
+    }
+
+    /// 获取当前输出
+    fn output(&self) -> &str {
+        self.buffer.as_str()
     }
 
     /// 从 AST 生成 Java 代码
@@ -62,14 +81,13 @@ impl JavaBackend {
         &mut self,
         program: &AstProgram,
     ) -> JavaResult<CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
         // 开始类定义
         self.line(&format!("public class {} {{", self.config.class_name))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit class fields (from class declarations)
         for decl in &program.declarations {
@@ -109,13 +127,13 @@ impl JavaBackend {
         // Always emit the Java main method entry point
         self.emit_main_method(user_main.is_some())?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         // Create output file
         let output_file = OutputFile {
             path: PathBuf::from(format!("{}.java", self.config.class_name)),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: FileType::Java,
         };
 
@@ -169,7 +187,7 @@ impl JavaBackend {
         };
 
         self.line(&format!("{}public static class {}{}{} {{", sealed_mod, class.name, extends, implements))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit fields
         for member in &class.members {
@@ -200,7 +218,7 @@ impl JavaBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -218,13 +236,13 @@ impl JavaBackend {
             .collect();
 
         self.line(&format!("public {}({}) {{", class_name, params.join(", ")))?;
-        self.indent += 1;
+        self.indent();
 
         for stmt in &constructor.body.statements {
             self.emit_statement(stmt)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -246,7 +264,7 @@ impl JavaBackend {
 
         let async_modifier = if method.is_async { "async " } else { "" };
         self.line(&format!("public {}{} {}({}) {{", async_modifier, return_type, method.name, params.join(", ")))?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&method.body)?;
 
@@ -255,7 +273,7 @@ impl JavaBackend {
             self.line("return null;")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -289,7 +307,7 @@ impl JavaBackend {
 
         let async_modifier = if f.is_async { "async " } else { "" };
         self.line(&format!("public static {}{} {}({}) {{", async_modifier, return_type, f.name, params.join(", ")))?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&f.body)?;
 
@@ -298,7 +316,7 @@ impl JavaBackend {
             self.line("return null;")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -306,14 +324,14 @@ impl JavaBackend {
     /// Emit main method
     fn emit_main_method(&mut self, has_user_main: bool) -> JavaResult<()> {
         self.line("public static void main(String[] args) {")?;
-        self.indent += 1;
+        self.indent();
         if has_user_main {
             // Call the user's main function
             self.line("main();")?;
         } else {
             self.line("System.out.println(\"Hello from Java backend!\");")?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -356,9 +374,9 @@ impl JavaBackend {
             StatementKind::While(while_stmt) => {
                 let cond = self.emit_expr(&while_stmt.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::For(for_stmt) => {
@@ -378,9 +396,9 @@ impl JavaBackend {
             }
             StatementKind::DoWhile(d) => {
                 self.line("do {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&d.body)?;
-                self.indent -= 1;
+                self.dedent();
                 let cond = self.emit_expr(&d.condition)?;
                 self.line(&format!("}} while ({});", cond))?;
             }
@@ -405,9 +423,9 @@ impl JavaBackend {
             }
             StatementKind::Loop(block) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -418,14 +436,14 @@ impl JavaBackend {
     fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> JavaResult<()> {
         let cond = self.emit_expr(&if_stmt.condition)?;
         self.line(&format!("if ({}) {{", cond))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&if_stmt.then_block)?;
-        self.indent -= 1;
+        self.dedent();
         if let Some(else_block) = &if_stmt.else_block {
             self.line("} else {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(else_block)?;
-            self.indent -= 1;
+            self.dedent();
         }
         self.line("}")?;
         Ok(())
@@ -438,9 +456,9 @@ impl JavaBackend {
 
         // Java enhanced for loop
         self.line(&format!("for (var {} : {}) {{", pattern_var, iter))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&for_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -509,10 +527,10 @@ impl JavaBackend {
                 self.line(&format!("}} else if ({}) {{", condition))?;
             }
 
-            self.indent += 1;
+            self.indent();
             self.emit_pattern_bindings(temp_var, &case.pattern)?;
             self.emit_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
         self.line("}")?;
@@ -617,9 +635,9 @@ impl JavaBackend {
     /// Emit try statement
     fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> JavaResult<()> {
         self.line("try {")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&try_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
 
         for catch in &try_stmt.catch_clauses {
             let catch_line = if let Some(var_name) = &catch.variable_name {
@@ -635,17 +653,17 @@ impl JavaBackend {
             };
 
             self.line(&catch_line)?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(&catch.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
         if let Some(finally) = &try_stmt.finally_block {
             self.line("finally {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(finally)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -1083,15 +1101,6 @@ impl JavaBackend {
         Ok(format!("/* match {} with {} cases */ null", e, _case_count))
     }
 
-    /// Output a line of code with proper indentation
-    fn line(&mut self, s: &str) -> JavaResult<()> {
-        for _ in 0..self.indent {
-            write!(self.output, "    ")?;
-        }
-        writeln!(self.output, "{}", s)?;
-        Ok(())
-    }
-
     /// 映射 LIR 类型到 Java 类型
     fn lir_type_to_java(&self, ty: &x_lir::Type) -> String {
         use x_lir::Type::*;
@@ -1133,23 +1142,23 @@ impl JavaBackend {
             If(i) => {
                 let cond = self.emit_lir_expr(&i.condition)?;
                 self.line(&format!("if ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&i.then_branch)?;
-                self.indent -= 1;
+                self.dedent();
                 if let Some(else_br) = &i.else_branch {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(else_br)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             While(w) => {
                 let cond = self.emit_lir_expr(&w.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&w.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             Return(r) => {
@@ -1266,11 +1275,7 @@ impl CodeGenerator for JavaBackend {
     type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
-        Self {
-            config,
-            indent: 0,
-            output: String::new(),
-        }
+        Self::new(config)
     }
 
     fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
@@ -1284,14 +1289,13 @@ impl CodeGenerator for JavaBackend {
 
     fn generate_from_lir(&mut self, lir: &LirProgram) -> Result<CodegenOutput, Self::Error> {
         // 简单的 LIR -> Java 代码生成
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header().map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
 
         // 开始类定义
         self.line(&format!("public class {} {{", self.config.class_name)).map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-        self.indent += 1;
+        self.indent();
 
         // 收集函数
         let mut has_main = false;
@@ -1306,14 +1310,14 @@ impl CodeGenerator for JavaBackend {
                     .map(|p| format!("{} {}", self.lir_type_to_java(&p.type_), p.name))
                     .collect();
                 self.line(&format!("    public static {} {}({}) {{", ret, f.name, params.join(", "))).map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-                self.indent += 1;
+                self.indent();
 
                 // 发射函数体
                 for stmt in &f.body.statements {
                     self.emit_lir_statement(stmt).map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("    }").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
                 self.line("").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
             }
@@ -1321,19 +1325,19 @@ impl CodeGenerator for JavaBackend {
 
         // main 方法
         self.line("    public static void main(String[] args) {").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-        self.indent += 1;
+        self.indent();
         if has_main {
             self.line("        main(args);").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("    }").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
 
         let output_file = OutputFile {
             path: PathBuf::from(format!("{}.java", self.config.class_name)),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: FileType::Java,
         };
 
