@@ -32,6 +32,8 @@ pub struct Lexer<'a> {
     pub recovery_mode: bool,
     /// 收集的无效字符位置（用于错误报告）
     pub skipped_positions: Vec<(usize, char)>,
+    /// 缓存的下一个字符（用于高效的双字符前瞻）
+    cached_next: Option<char>,
 }
 
 impl<'a> Lexer<'a> {
@@ -49,19 +51,33 @@ impl<'a> Lexer<'a> {
             input
         };
 
+        let mut chars = input.chars().peekable();
+        // 预读：cached_next 存储当前位置+1的字符
+        // 初始时，当前位置是0，所以 cached_next 应该是索引1的字符
+        let mut cloned = chars.clone();
+        cloned.next(); // 跳过索引0
+        let next = cloned.next(); // 获取索引1
+
         Self {
             input,
-            chars: input.chars().peekable(),
+            chars,
             position: 0,
             state_stack: vec![LexerState::Normal],
             recovery_mode: false,
             skipped_positions: Vec::new(),
+            cached_next: next,
         }
     }
 
     /// 获取当前位置的字符
     pub fn current_char(&mut self) -> Option<char> {
         self.chars.peek().copied()
+    }
+
+    /// 高效获取下一个字符（不移动位置）
+    /// 使用缓存避免 O(n) 的 iterator clone
+    pub fn peek_next(&mut self) -> Option<char> {
+        self.cached_next
     }
 
     /// 启用错误恢复模式：跳过无效字符而不是返回错误
@@ -84,6 +100,11 @@ impl<'a> Lexer<'a> {
         if let Some(ch) = self.chars.next() {
             self.position += ch.len_utf8();
         }
+        // 更新缓存：peek 新的下一个字符
+        // 克隆迭代器来获取下一个字符（仅在前进时执行，不是热路径）
+        let mut cloned = self.chars.clone();
+        cloned.next();
+        self.cached_next = cloned.next();
     }
 
     /// Get the current lexer state from the top of the stack
@@ -119,7 +140,7 @@ impl<'a> Lexer<'a> {
 
     /// 跳过单行注释 (//)，返回 true 如果跳过了注释
     fn skip_line_comment(&mut self) -> bool {
-        let (a, b) = (self.current_char(), self.chars.clone().nth(1));
+        let (a, b) = (self.current_char(), self.peek_next());
         if a == Some('/') && b == Some('/') {
             self.next_char();
             self.next_char();
@@ -139,7 +160,7 @@ impl<'a> Lexer<'a> {
     /// 跳过多行注释 /* ... */ 或 /** ... */，返回 true 如果跳过了注释
     fn skip_block_comment(&mut self) -> bool {
         let a = self.current_char();
-        let b = self.chars.clone().nth(1);
+        let b = self.peek_next();
         // 支持 /* ... */ 和 /** ... */ 两种形式
         if a != Some('/') || b != Some('*') {
             return false;
@@ -153,7 +174,7 @@ impl<'a> Lexer<'a> {
         while depth > 0 {
             match self.current_char() {
                 Some('/') => {
-                    let next = self.chars.clone().nth(1);
+                    let next = self.peek_next();
                     if next == Some('*') {
                         self.next_char();
                         self.next_char();
@@ -168,7 +189,7 @@ impl<'a> Lexer<'a> {
                     }
                 }
                 Some('*') => {
-                    let next = self.chars.clone().nth(1);
+                    let next = self.peek_next();
                     if next == Some('/') {
                         self.next_char();
                         self.next_char();
@@ -621,7 +642,7 @@ impl<'a> Lexer<'a> {
         // 二/八/十六进制前缀 0b / 0o / 0x
         let first = self.current_char();
         if first == Some('0') {
-            let second = self.chars.clone().nth(1);
+            let second = self.peek_next();
             match second {
                 Some('x') | Some('X') => {
                     self.next_char();
@@ -693,7 +714,7 @@ impl<'a> Lexer<'a> {
         // 检查是否有小数点
         if let Some('.') = self.current_char() {
             // 检查下一个字符是否也是点（范围表达式）
-            let next = self.chars.clone().nth(1);
+            let next = self.peek_next();
             if next == Some('.') {
                 // 这是范围表达式的开始，返回整数
                 return Ok(Token::DecimalInt(num_str));
@@ -800,7 +821,7 @@ impl<'a> Lexer<'a> {
                 return Ok(Token::StringContent(content));
             } else if ch == '$' {
                 // 检查是否是字符串插值 `${`
-                let next = self.chars.clone().nth(1);
+                let next = self.peek_next();
                 if next == Some('{') {
                     // 字符串插值开始，先返回已收集的内容
                     // 然后我们会在下次调用输出 InterpolateStart
@@ -895,7 +916,7 @@ impl<'a> Lexer<'a> {
         while let Some(ch) = self.current_char() {
             if ch == '"' {
                 // 检查下两个字符是否也是 "
-                let second = self.chars.clone().nth(1);
+                let second = self.peek_next();
                 let third = self.chars.clone().nth(2);
                 if second == Some('"') && third == Some('"') {
                     // 跳过三个引号
@@ -910,7 +931,7 @@ impl<'a> Lexer<'a> {
                 self.next_char();
             } else if ch == '$' {
                 // 检查是否是字符串插值 `${`
-                let next = self.chars.clone().nth(1);
+                let next = self.peek_next();
                 if next == Some('{') {
                     // 字符串插值开始，先返回已收集的内容
                     self.next_char(); // consume $
