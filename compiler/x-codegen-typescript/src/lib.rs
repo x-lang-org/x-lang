@@ -36,8 +36,8 @@ impl Default for TypeScriptBackendConfig {
 
 pub struct TypeScriptBackend {
     config: TypeScriptBackendConfig,
-    indent: usize,
-    output: String,
+    /// 代码缓冲区
+    buffer: x_codegen::CodeBuffer,
 }
 
 pub type TypeScriptResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -46,17 +46,23 @@ impl TypeScriptBackend {
     pub fn new(config: TypeScriptBackendConfig) -> Self {
         Self {
             config,
-            indent: 0,
-            output: String::new(),
+            buffer: x_codegen::CodeBuffer::new(),
         }
     }
+
+    fn line(&mut self, s: &str) -> TypeScriptResult<()> {
+        self.buffer.line(s).map_err(|e| x_codegen::CodeGenError::GenerationError(e.to_string()))
+    }
+
+    fn indent(&mut self) { self.buffer.indent(); }
+    fn dedent(&mut self) { self.buffer.dedent(); }
+    fn output(&self) -> &str { self.buffer.as_str() }
 
     pub fn generate_from_ast(
         &mut self,
         program: &AstProgram,
     ) -> TypeScriptResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
@@ -68,13 +74,13 @@ impl TypeScriptBackend {
         // Emit main function containing all top-level statements
         if !program.statements.is_empty() {
             self.line("function main(): void {")?;
-            self.indent += 1;
+            self.indent();
 
             for stmt in &program.statements {
                 self.emit_statement(stmt)?;
             }
 
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
             self.line("")?;
             self.line("// Run the main function")?;
@@ -84,7 +90,7 @@ impl TypeScriptBackend {
         // Create output file
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("index.ts"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::TypeScript,
         };
 
@@ -161,11 +167,11 @@ impl TypeScriptBackend {
             name,
             params.join(", ")
         ))?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&func_decl.body)?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         Ok(())
@@ -189,7 +195,7 @@ impl TypeScriptBackend {
             "class {}{}{} {{",
             class_decl.name, extends_clause, implements_clause
         ))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit members
         for member in &class_decl.members {
@@ -222,7 +228,7 @@ impl TypeScriptBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -253,9 +259,9 @@ impl TypeScriptBackend {
             params.join(", "),
             return_type
         ))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&method.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -278,16 +284,16 @@ impl TypeScriptBackend {
             .collect();
 
         self.line(&format!("constructor({}) {{", params.join(", ")))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&constructor.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
 
     fn emit_trait_decl(&mut self, trait_decl: &ast::TraitDecl) -> TypeScriptResult<()> {
         self.line(&format!("interface {} {{", trait_decl.name))?;
-        self.indent += 1;
+        self.indent();
 
         for method in &trait_decl.methods {
             let params: Vec<String> = method
@@ -317,7 +323,7 @@ impl TypeScriptBackend {
             ))?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -389,20 +395,20 @@ impl TypeScriptBackend {
             }
             StatementKind::DoWhile(do_while) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&do_while.body)?;
                 let cond = self.emit_expr(&do_while.condition)?;
                 self.line(&format!("if (!({})) {{ break; }}", cond))?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::Unsafe(block) => {
                 // TypeScript doesn't have unsafe blocks, just emit the block
                 self.line("// unsafe block")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::Defer(expr) => {
@@ -419,9 +425,9 @@ impl TypeScriptBackend {
             }
             StatementKind::Loop(body) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -438,15 +444,15 @@ impl TypeScriptBackend {
     fn emit_if_statement(&mut self, if_stmt: &ast::IfStatement) -> TypeScriptResult<()> {
         let cond = self.emit_expr(&if_stmt.condition)?;
         self.line(&format!("if ({}) {{", cond))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&if_stmt.then_block)?;
-        self.indent -= 1;
+        self.dedent();
 
         if let Some(else_block) = &if_stmt.else_block {
             self.line("} else {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(else_block)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
         self.line("}")?;
@@ -456,9 +462,9 @@ impl TypeScriptBackend {
     fn emit_while_statement(&mut self, while_stmt: &ast::WhileStatement) -> TypeScriptResult<()> {
         let cond = self.emit_expr(&while_stmt.condition)?;
         self.line(&format!("while ({}) {{", cond))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&while_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -467,9 +473,9 @@ impl TypeScriptBackend {
         let iter = self.emit_expr(&for_stmt.iterator)?;
         let pattern_name = self.emit_pattern_var(&for_stmt.pattern);
         self.line(&format!("for (const {} of {}) {{", pattern_name, iter))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&for_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -508,10 +514,10 @@ impl TypeScriptBackend {
                 self.line(&format!("else if ({}) {{", condition))?;
             }
 
-            self.indent += 1;
+            self.indent();
             self.emit_pattern_bindings(temp_var, &case.pattern)?;
             self.emit_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -593,9 +599,9 @@ impl TypeScriptBackend {
 
     fn emit_try_statement(&mut self, try_stmt: &ast::TryStatement) -> TypeScriptResult<()> {
         self.line("try {")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&try_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
 
         for catch in &try_stmt.catch_clauses {
             let catch_line = if let Some(var_name) = &catch.variable_name {
@@ -604,16 +610,16 @@ impl TypeScriptBackend {
                 "catch (error) {".to_string()
             };
             self.line(&catch_line)?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(&catch.body)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
         if let Some(finally) = &try_stmt.finally_block {
             self.line("} finally {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(finally)?;
-            self.indent -= 1;
+            self.dedent();
         }
 
         self.line("}")?;
@@ -801,14 +807,6 @@ impl TypeScriptBackend {
         }
     }
 
-    fn line(&mut self, s: &str) -> TypeScriptResult<()> {
-        for _ in 0..self.indent {
-            write!(self.output, "    ")?;
-        }
-        writeln!(self.output, "{}", s)?;
-        Ok(())
-    }
-
     // ============================================================
     // LIR → TypeScript generation (full pipeline entry point)
     // ============================================================
@@ -819,8 +817,7 @@ impl TypeScriptBackend {
         &mut self,
         lir: &x_lir::Program,
     ) -> TypeScriptResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
@@ -888,7 +885,7 @@ impl TypeScriptBackend {
 
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("index.ts"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::TypeScript,
         };
 
@@ -943,12 +940,12 @@ impl TypeScriptBackend {
 
     fn emit_lir_struct(&mut self, s: &x_lir::Struct) -> TypeScriptResult<()> {
         self.line(&format!("interface {} {{", s.name))?;
-        self.indent += 1;
+        self.indent();
         for field in &s.fields {
             let ty_str = self.emit_lir_type(&field.type_);
             self.line(&format!("{}: {};", field.name, ty_str))?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -969,12 +966,12 @@ impl TypeScriptBackend {
             "class {}{}{} {{",
             c.name, extends_part, implements_part
         ))?;
-        self.indent += 1;
+        self.indent();
         for field in &c.fields {
             let ty_str = self.emit_lir_type(&field.type_);
             self.line(&format!("{}: {};", field.name, ty_str))?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -982,7 +979,7 @@ impl TypeScriptBackend {
 
     fn emit_lir_enum(&mut self, e: &x_lir::Enum) -> TypeScriptResult<()> {
         self.line(&format!("enum {} {{", e.name))?;
-        self.indent += 1;
+        self.indent();
         for (i, variant) in e.variants.iter().enumerate() {
             let value = variant
                 .value
@@ -991,7 +988,7 @@ impl TypeScriptBackend {
             let comma = if i < e.variants.len() - 1 { "," } else { "" };
             self.line(&format!("{} = {}{}", variant.name, value, comma))?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
         Ok(())
@@ -1010,9 +1007,9 @@ impl TypeScriptBackend {
             params.join(", "),
             ret_type
         ))?;
-        self.indent += 1;
+        self.indent();
         self.emit_lir_block(&func.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1050,30 +1047,30 @@ impl TypeScriptBackend {
             x_lir::Statement::If(if_stmt) => {
                 let cond = self.emit_lir_expression(&if_stmt.condition)?;
                 self.line(&format!("if ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&if_stmt.then_branch)?;
-                self.indent -= 1;
+                self.dedent();
                 if let Some(else_branch) = &if_stmt.else_branch {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(else_branch)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             x_lir::Statement::While(w) => {
                 let cond = self.emit_lir_expression(&w.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&w.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::DoWhile(d) => {
                 self.line("do {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&d.body)?;
-                self.indent -= 1;
+                self.dedent();
                 let cond = self.emit_lir_expression(&d.condition)?;
                 self.line(&format!("}} while ({});", cond))?;
             }
@@ -1113,30 +1110,30 @@ impl TypeScriptBackend {
                     .transpose()?
                     .unwrap_or_default();
                 self.line(&format!("for ({}; {}; {}) {{", init, cond, incr))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&for_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Switch(sw) => {
                 let expr = self.emit_lir_expression(&sw.expression)?;
                 self.line(&format!("switch ({}) {{", expr))?;
-                self.indent += 1;
+                self.indent();
                 for case in &sw.cases {
                     let val = self.emit_lir_expression(&case.value)?;
                     self.line(&format!("case {}:", val))?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(&case.body)?;
                     self.line("break;")?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 if let Some(default) = &sw.default {
                     self.line("default:")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(default)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Match(m) => {
@@ -1144,21 +1141,21 @@ impl TypeScriptBackend {
             }
             x_lir::Statement::Try(try_stmt) => {
                 self.line("try {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_block(&try_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 for catch in &try_stmt.catch_clauses {
                     let var = catch.variable_name.as_deref().unwrap_or("_e");
                     self.line(&format!("}} catch ({}) {{", var))?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_block(&catch.body)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 if let Some(finally) = &try_stmt.finally_block {
                     self.line("} finally {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_block(finally)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
@@ -1174,9 +1171,9 @@ impl TypeScriptBackend {
             x_lir::Statement::Continue => self.line("continue;")?,
             x_lir::Statement::Compound(block) => {
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Label(name) => {
@@ -1210,10 +1207,10 @@ impl TypeScriptBackend {
             } else {
                 self.line(&format!("}} else if ({}) {{", guard_cond))?;
             }
-            self.indent += 1;
+            self.indent();
             self.emit_lir_pattern_bindings("__match__", &case.pattern)?;
             self.emit_lir_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
         }
         if !m.cases.is_empty() {
             self.line("}")?;
