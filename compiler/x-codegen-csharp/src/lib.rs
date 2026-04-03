@@ -42,8 +42,8 @@ impl Default for CSharpConfig {
 /// C# 后端
 pub struct CSharpBackend {
     config: CSharpConfig,
-    indent: usize,
-    output: String,
+    /// 代码缓冲区
+    buffer: x_codegen::CodeBuffer,
     /// 当前正在生成的类名（用于实例方法生成）
     current_class: Option<String>,
 }
@@ -54,19 +54,25 @@ impl CSharpBackend {
     pub fn new(config: CSharpConfig) -> Self {
         Self {
             config,
-            indent: 0,
-            output: String::new(),
+            buffer: x_codegen::CodeBuffer::new(),
             current_class: None,
         }
     }
+
+    fn line(&mut self, s: &str) -> CSharpResult<()> {
+        self.buffer.line(s).map_err(|e| x_codegen::CodeGenError::GenerationError(e.to_string()))
+    }
+
+    fn indent(&mut self) { self.buffer.indent(); }
+    fn dedent(&mut self) { self.buffer.dedent(); }
+    fn output(&self) -> &str { self.buffer.as_str() }
 
     /// 从 AST 生成 C# 代码
     pub fn generate_from_ast(
         &mut self,
         program: &AstProgram,
     ) -> CSharpResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
@@ -75,7 +81,7 @@ impl CSharpBackend {
 
         self.line(&format!("namespace {}", namespace))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         // 生成类定义
         for decl in &program.declarations {
@@ -115,13 +121,13 @@ impl CSharpBackend {
             self.emit_default_main()?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         // 创建输出文件
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("Program.cs"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::CSharp,
         };
 
@@ -191,7 +197,7 @@ impl CSharpBackend {
 
         self.line(&format!("{}public class {}{}{}", modifiers, class.name, primary_ctor, base_str))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         // 生成字段
         for member in &class.members {
@@ -218,7 +224,7 @@ impl CSharpBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
 
@@ -253,14 +259,14 @@ impl CSharpBackend {
         let visibility = self.map_visibility(constructor.visibility);
         self.line(&format!("{}{}({})", visibility, class_name, params.join(", ")))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         // 生成构造函数体
         for stmt in &constructor.body.statements {
             self.emit_stmt(stmt)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -284,7 +290,7 @@ impl CSharpBackend {
             modifiers, async_keyword, return_type, method.name, params.join(", ")
         ))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&method.body)?;
 
@@ -293,7 +299,7 @@ impl CSharpBackend {
             // 可以添加 return default; 但这通常是可选的
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -309,7 +315,7 @@ impl CSharpBackend {
             // 简单枚举：生成 C# enum
             self.line(&format!("public enum {}", enum_decl.name))?;
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
 
             for (i, variant) in enum_decl.variants.iter().enumerate() {
                 if i > 0 {
@@ -318,13 +324,13 @@ impl CSharpBackend {
                 self.line(&variant.name)?;
             }
 
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         } else {
             // 复杂枚举：生成抽象类 + 子类
             self.line(&format!("public abstract class {}", enum_decl.name))?;
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
 
             // 为每个变体生成嵌套类
             for variant in &enum_decl.variants {
@@ -335,29 +341,29 @@ impl CSharpBackend {
                     ast::EnumVariantData::Tuple(types) => {
                         self.line(&format!("public class {} : {}", variant.name, enum_decl.name))?;
                         self.line("{")?;
-                        self.indent += 1;
+                        self.indent();
                         for (i, ty) in types.iter().enumerate() {
                             let type_str = self.map_ast_type(ty);
                             self.line(&format!("public {} Item{};", type_str, i + 1))?;
                         }
-                        self.indent -= 1;
+                        self.dedent();
                         self.line("}")?;
                     }
                     ast::EnumVariantData::Record(fields) => {
                         self.line(&format!("public class {} : {}", variant.name, enum_decl.name))?;
                         self.line("{")?;
-                        self.indent += 1;
+                        self.indent();
                         for (field_name, field_type) in fields {
                             let type_str = self.map_ast_type(field_type);
                             self.line(&format!("public {} {};", type_str, field_name))?;
                         }
-                        self.indent -= 1;
+                        self.dedent();
                         self.line("}")?;
                     }
                 }
             }
 
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
         self.line("")?;
@@ -396,11 +402,11 @@ impl CSharpBackend {
             static_keyword, async_keyword, return_type, f.name, params.join(", ")
         ))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         self.emit_block(&f.body)?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -409,9 +415,9 @@ impl CSharpBackend {
     fn emit_default_main(&mut self) -> CSharpResult<()> {
         self.line("public static void Main(string[] args)")?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.line("Console.WriteLine(\"Hello from C# backend!\");")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -462,9 +468,9 @@ impl CSharpBackend {
                 let cond = self.emit_expr(&while_stmt.condition)?;
                 self.line(&format!("while ({})", cond))?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::For(for_stmt) => {
@@ -485,9 +491,9 @@ impl CSharpBackend {
             StatementKind::DoWhile(d) => {
                 self.line("do")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&d.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
                 let cond = self.emit_expr(&d.condition)?;
                 self.line(&format!("while ({});", cond))?;
@@ -495,9 +501,9 @@ impl CSharpBackend {
             StatementKind::Unsafe(block) => {
                 self.line("unsafe")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::Defer(expr) => {
@@ -517,9 +523,9 @@ impl CSharpBackend {
             StatementKind::Loop(block) => {
                 self.line("while (true)")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -531,17 +537,17 @@ impl CSharpBackend {
         let cond = self.emit_expr(&if_stmt.condition)?;
         self.line(&format!("if ({})", cond))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&if_stmt.then_block)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         if let Some(else_block) = &if_stmt.else_block {
             self.line("else")?;
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(else_block)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
         Ok(())
@@ -554,9 +560,9 @@ impl CSharpBackend {
 
         self.line(&format!("foreach (var {} in {})", var_name, iter))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&for_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -632,10 +638,10 @@ impl CSharpBackend {
             }
 
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
             self.emit_pattern_bindings(temp_var, &case.pattern)?;
             self.emit_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -749,9 +755,9 @@ impl CSharpBackend {
     fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> CSharpResult<()> {
         self.line("try")?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&try_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         for catch in &try_stmt.catch_clauses {
@@ -769,18 +775,18 @@ impl CSharpBackend {
 
             self.line(&catch_line)?;
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(&catch.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
         if let Some(finally) = &try_stmt.finally_block {
             self.line("finally")?;
             self.line("{")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(finally)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -1171,15 +1177,6 @@ impl CSharpBackend {
 
         result
     }
-
-    /// 输出一行代码（带缩进）
-    fn line(&mut self, s: &str) -> CSharpResult<()> {
-        for _ in 0..self.indent {
-            write!(self.output, "    ")?;
-        }
-        writeln!(self.output, "{}", s)?;
-        Ok(())
-    }
 }
 
 impl x_codegen::CodeGenerator for CSharpBackend {
@@ -1206,8 +1203,7 @@ impl x_codegen::CodeGenerator for CSharpBackend {
         lir: &LirProgram,
     ) -> Result<x_codegen::CodegenOutput, Self::Error> {
         // LIR -> C# 代码生成
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
 
         self.emit_header()?;
 
@@ -1216,11 +1212,11 @@ impl x_codegen::CodeGenerator for CSharpBackend {
 
         self.line(&format!("namespace {}", namespace))?;
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
 
         // 开始类定义
         self.line(&format!("public class Program {{"))?;
-        self.indent += 1;
+        self.indent();
 
         // 收集函数
         let mut has_main = false;
@@ -1235,14 +1231,14 @@ impl x_codegen::CodeGenerator for CSharpBackend {
                     .map(|p| format!("{} {}", self.lir_type_to_csharp(&p.type_), p.name))
                     .collect();
                 self.line(&format!("public static {} {}({}) {{", ret, f.name, params.join(", "))).map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-                self.indent += 1;
+                self.indent();
 
                 // 发射函数体
                 for stmt in &f.body.statements {
                     self.emit_lir_statement(stmt).map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("    }").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
                 self.line("").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
             }
@@ -1250,21 +1246,21 @@ impl x_codegen::CodeGenerator for CSharpBackend {
 
         // Main 方法入口
         self.line("    public static void Main(string[] args) {").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-        self.indent += 1;
+        self.indent();
         if has_main {
             self.line("        Main(args);").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("    }").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}").map_err(|e| x_codegen::CodeGenError::Unimplemented(e.to_string()))?;
 
         let output_file = x_codegen::OutputFile {
             path: PathBuf::from("Program.cs"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::CSharp,
         };
 
@@ -1318,23 +1314,23 @@ impl CSharpBackend {
             If(i) => {
                 let cond = self.emit_lir_expr(&i.condition)?;
                 self.line(&format!("if ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&i.then_branch)?;
-                self.indent -= 1;
+                self.dedent();
                 if let Some(else_br) = &i.else_branch {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(else_br)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             While(w) => {
                 let cond = self.emit_lir_expr(&w.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&w.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             Return(r) => {
