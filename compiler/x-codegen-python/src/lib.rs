@@ -42,19 +42,7 @@ pub struct PythonBackend {
     output: String,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum PythonBackendError {
-    #[error("Generation error: {0}")]
-    GenerationError(String),
-    #[error("I/O error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("Format error: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("Unsupported feature: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type PythonResult<T> = Result<T, PythonBackendError>;
+pub type PythonResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl PythonBackend {
     pub fn new(config: PythonBackendConfig) -> Self {
@@ -627,7 +615,7 @@ impl PythonBackend {
                 let r = self.emit_expr(right)?;
                 Ok(format!("{} if {} is not None else {}", l, l, r))
             }
-            _ => Err(PythonBackendError::UnsupportedFeature(format!(
+            _ => Err(x_codegen::CodeGenError::UnsupportedFeature(format!(
                 "{:?}",
                 expr
             ))),
@@ -810,7 +798,7 @@ impl PythonBackend {
 /// CodeGenerator trait 实现
 impl CodeGenerator for PythonBackend {
     type Config = PythonBackendConfig;
-    type Error = PythonBackendError;
+    type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
         Self::new(config)
@@ -827,7 +815,7 @@ impl CodeGenerator for PythonBackend {
         &mut self,
         _hir: &x_hir::Hir,
     ) -> Result<CodegenOutput, Self::Error> {
-        Err(PythonBackendError::UnsupportedFeature(
+        Err(x_codegen::CodeGenError::UnsupportedFeature(
             "HIR → Python not yet implemented".to_string(),
         ))
     }

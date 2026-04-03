@@ -53,21 +53,7 @@ pub struct ErlangBackend {
     exports: Vec<String>,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum ErlangError {
-    #[error("Erlang 代码生成错误: {0}")]
-    GenerationError(String),
-    #[error("未实现: {0}")]
-    Unimplemented(String),
-    #[error("IO 错误: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("格式化错误: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("不支持的功能: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type ErlangResult<T> = Result<T, ErlangError>;
+pub type ErlangResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl ErlangBackend {
     pub fn new(config: ErlangBackendConfig) -> Self {
@@ -608,7 +594,7 @@ impl ErlangBackend {
                     .collect::<ErlangResult<Vec<_>>>()?;
                 Ok(format!("case {} of {} -> true; _ -> false end", e, case_patterns.join("; ")))
             }
-            _ => Err(ErlangError::UnsupportedFeature(format!(
+            _ => Err(x_codegen::CodeGenError::UnsupportedFeature(format!(
                 "表达式类型: {:?}",
                 expr.node
             ))),
@@ -995,7 +981,7 @@ impl ErlangBackend {
 
 impl CodeGenerator for ErlangBackend {
     type Config = ErlangBackendConfig;
-    type Error = ErlangError;
+    type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
         Self::new(config)
@@ -1008,7 +994,7 @@ impl CodeGenerator for ErlangBackend {
     fn generate_from_hir(&mut self, hir: &x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
         // 从 HIR 生成：先转换为 AST 再生成（简化实现）
         // 实际实现应该直接从 HIR 生成
-        Err(ErlangError::Unimplemented(
+        Err(x_codegen::CodeGenError::Unimplemented(
             "从 HIR 生成 Erlang 代码尚未实现，请使用 AST 后端".to_string()
         ))
     }

@@ -60,21 +60,7 @@ pub struct SwiftBackend {
     output: String,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum SwiftError {
-    #[error("Swift 代码生成错误: {0}")]
-    GenerationError(String),
-    #[error("未实现: {0}")]
-    Unimplemented(String),
-    #[error("IO 错误: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("格式化错误: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("不支持的功能: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type SwiftResult<T> = Result<T, SwiftError>;
+pub type SwiftResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl SwiftBackend {
     pub fn new(config: SwiftBackendConfig) -> Self {
@@ -799,7 +785,7 @@ impl SwiftBackend {
                 let r = self.emit_expr(right)?;
                 Ok(format!("{} ?? {}", l, r))
             }
-            _ => Err(SwiftError::UnsupportedFeature(format!(
+            _ => Err(x_codegen::CodeGenError::UnsupportedFeature(format!(
                 "Expression type not yet supported: {:?}",
                 expr.node
             ))),
@@ -1096,7 +1082,7 @@ impl SwiftBackend {
 
 impl CodeGenerator for SwiftBackend {
     type Config = SwiftBackendConfig;
-    type Error = SwiftError;
+    type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
         Self {
@@ -1111,7 +1097,7 @@ impl CodeGenerator for SwiftBackend {
     }
 
     fn generate_from_hir(&mut self, _hir: &x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
-        Err(SwiftError::Unimplemented(
+        Err(x_codegen::CodeGenError::Unimplemented(
             "Swift backend does not yet support HIR generation".to_string(),
         ))
     }

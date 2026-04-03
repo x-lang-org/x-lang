@@ -40,19 +40,7 @@ pub struct TypeScriptBackend {
     output: String,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum TypeScriptBackendError {
-    #[error("Generation error: {0}")]
-    GenerationError(String),
-    #[error("I/O error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("Format error: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("Unsupported feature: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type TypeScriptResult<T> = Result<T, TypeScriptBackendError>;
+pub type TypeScriptResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl TypeScriptBackend {
     pub fn new(config: TypeScriptBackendConfig) -> Self {
@@ -134,7 +122,7 @@ impl TypeScriptBackend {
                 self.line("")?;
             }
             _ => {
-                return Err(TypeScriptBackendError::UnsupportedFeature(format!(
+                return Err(x_codegen::CodeGenError::UnsupportedFeature(format!(
                     "Declaration type {:?} is not yet supported in TypeScript backend",
                     decl
                 )));
@@ -682,7 +670,7 @@ impl TypeScriptBackend {
                 let right_str = self.emit_expr(right)?;
                 Ok(format!("({} ?? {})", left_str, right_str))
             }
-            _ => Err(TypeScriptBackendError::UnsupportedFeature(format!(
+            _ => Err(x_codegen::CodeGenError::UnsupportedFeature(format!(
                 "Expression type {:?} is not yet supported in TypeScript backend",
                 expr
             ))),
@@ -1506,7 +1494,7 @@ impl TypeScriptBackend {
     ) -> TypeScriptResult<std::path::PathBuf> {
         let ts_path = output_dir.join(format!("{}.ts", out_name));
         std::fs::write(&ts_path, ts_code).map_err(|e| {
-            TypeScriptBackendError::GenerationError(format!(
+            x_codegen::CodeGenError::GenerationError(format!(
                 "Failed to write TypeScript source: {}",
                 e
             ))
@@ -1524,14 +1512,14 @@ impl TypeScriptBackend {
             .arg(&ts_path)
             .status()
             .map_err(|e| {
-                TypeScriptBackendError::GenerationError(format!(
+                x_codegen::CodeGenError::GenerationError(format!(
                     "Failed to invoke tsc: {}. Install TypeScript with: npm install -g typescript",
                     e
                 ))
             })?;
 
         if !status.success() {
-            return Err(TypeScriptBackendError::GenerationError(
+            return Err(x_codegen::CodeGenError::GenerationError(
                 "TypeScript compilation failed. \
                  Use `--emit ts` to inspect the generated TypeScript code."
                     .to_string(),
@@ -1546,7 +1534,7 @@ impl TypeScriptBackend {
 /// to participate in the full compiler pipeline (LIR → TypeScript).
 impl x_codegen::CodeGenerator for TypeScriptBackend {
     type Config = TypeScriptBackendConfig;
-    type Error = TypeScriptBackendError;
+    type Error = x_codegen::CodeGenError;
 
     fn new(config: Self::Config) -> Self {
         TypeScriptBackend::new(config)
@@ -1563,7 +1551,7 @@ impl x_codegen::CodeGenerator for TypeScriptBackend {
         &mut self,
         _hir: &x_hir::Hir,
     ) -> Result<x_codegen::CodegenOutput, Self::Error> {
-        Err(TypeScriptBackendError::UnsupportedFeature(
+        Err(x_codegen::CodeGenError::UnsupportedFeature(
             "HIR → TypeScript not yet implemented; use the LIR path (generate_from_lir)."
                 .to_string(),
         ))

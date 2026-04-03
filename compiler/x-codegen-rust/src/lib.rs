@@ -63,19 +63,7 @@ pub struct RustBackend {
     last_expr_is_return: bool,
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum RustBackendError {
-    #[error("Generation error: {0}")]
-    GenerationError(String),
-    #[error("I/O error: {0}")]
-    IoError(#[from] std::io::Error),
-    #[error("Format error: {0}")]
-    FmtError(#[from] std::fmt::Error),
-    #[error("Unsupported feature: {0}")]
-    UnsupportedFeature(String),
-}
-
-pub type RustResult<T> = Result<T, RustBackendError>;
+pub type RustResult<T> = Result<T, x_codegen::CodeGenError>;
 
 impl RustBackend {
     pub fn new(config: RustBackendConfig) -> Self {
@@ -1648,7 +1636,7 @@ impl RustBackend {
                         let expr_str = self.emit_expr(&exprs[0])?;
                         Ok(format!("{}.await", expr_str))
                     } else {
-                        Err(RustBackendError::UnsupportedFeature(
+                        Err(x_codegen::CodeGenError::UnsupportedFeature(
                             "Wait single with multiple expressions".to_string(),
                         ))
                     }
@@ -1672,14 +1660,14 @@ impl RustBackend {
                     Ok(format!("futures::select!({})", exprs_str.join(", ")))
                 }
                 ast::WaitType::Timeout(_) => {
-                    Err(RustBackendError::UnsupportedFeature("Wait with timeout".to_string()))
+                    Err(x_codegen::CodeGenError::UnsupportedFeature("Wait with timeout".to_string()))
                 }
                 ast::WaitType::Atomic => {
                     if exprs.len() == 1 {
                         let expr_str = self.emit_expr(&exprs[0])?;
                         Ok(format!("atomic {}; {}", expr_str, expr_str))
                     } else {
-                        Err(RustBackendError::UnsupportedFeature("Wait atomic with multiple expressions".to_string()))
+                        Err(x_codegen::CodeGenError::UnsupportedFeature("Wait atomic with multiple expressions".to_string()))
                     }
                 }
                 ast::WaitType::Retry => {
@@ -1687,7 +1675,7 @@ impl RustBackend {
                         let expr_str = self.emit_expr(&exprs[0])?;
                         Ok(format!("// retry: {}", expr_str))
                     } else {
-                        Err(RustBackendError::UnsupportedFeature("Wait retry with multiple expressions".to_string()))
+                        Err(x_codegen::CodeGenError::UnsupportedFeature("Wait retry with multiple expressions".to_string()))
                     }
                 }
             },
@@ -2446,16 +2434,16 @@ impl RustBackend {
             x_lir::Pattern::Tuple(patterns) => {
                 let pat_strs: Vec<String> = patterns.iter()
                     .map(|p| self.generate_lir_pattern(p))
-                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                    .collect::<Result<Vec<String>, x_codegen::CodeGenError>>()?;
                 format!("({},)", pat_strs.join(", "))
             }
             x_lir::Pattern::Record(name, fields) => {
                 let field_strs: Vec<String> = fields.iter()
-                    .map(|(n, p)| -> Result<String, RustBackendError> {
+                    .map(|(n, p)| -> Result<String, x_codegen::CodeGenError> {
                         let p_str = self.generate_lir_pattern(p)?;
                         Ok(format!("{}: {}", n, p_str))
                     })
-                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                    .collect::<Result<Vec<String>, x_codegen::CodeGenError>>()?;
                 format!("{} {{ {} }}", name, field_strs.join(", "))
             }
             x_lir::Pattern::Or(left, right) => {
@@ -2595,7 +2583,7 @@ impl RustBackend {
             x_lir::Expression::Comma(exprs) => {
                 let expr_codes: Vec<String> = exprs.iter()
                     .map(|e| self.generate_lir_expression(e))
-                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                    .collect::<Result<Vec<String>, x_codegen::CodeGenError>>()?;
                 expr_codes.join(", ")
             }
             x_lir::Expression::Parenthesized(inner) => {
@@ -2605,14 +2593,14 @@ impl RustBackend {
             x_lir::Expression::InitializerList(inits) => {
                 let init_codes: Vec<String> = inits.iter()
                     .map(|init| self.generate_lir_initializer(init))
-                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                    .collect::<Result<Vec<String>, x_codegen::CodeGenError>>()?;
                 format!("{{{}}}", init_codes.join(", "))
             }
             x_lir::Expression::CompoundLiteral(ty, inits) => {
                 let ty_str = self.lir_type_to_rust(ty);
                 let init_codes: Vec<String> = inits.iter()
                     .map(|init| self.generate_lir_initializer(init))
-                    .collect::<Result<Vec<String>, RustBackendError>>()?;
+                    .collect::<Result<Vec<String>, x_codegen::CodeGenError>>()?;
                 format!("{} {{ {} }}", ty_str, init_codes.join(", "))
             }
         };
