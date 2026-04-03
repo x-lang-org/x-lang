@@ -1,0 +1,30 @@
+# 示例程序: 类型注解
+name = "example_006_type_annotations"
+description = "测试类型注解和类型转换"
+category = "examples"
+spec = ["spec/docs/04-types.md"]
+
+source = """
+let a: integer = 7
+let b: float = 3.0
+let c = a * b
+
+let d: string = "result: " + c
+println(c)
+println(d)
+
+let e: unsigned integer = 915
+println(e)
+
+function sum(a: integer, b: integer) -> integer {
+    return a + b
+}
+let f = sum(8, 9)
+println(f)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["21", "result: 21", "915", "17"]

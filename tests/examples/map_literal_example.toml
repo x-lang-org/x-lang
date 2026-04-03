@@ -1,0 +1,17 @@
+# 示例程序: 字典字面量
+name = "example_003_map_literal"
+description = "测试字典/Map 字面量"
+category = "examples"
+spec = ["spec/docs/02-expressions.md"]
+
+source = """
+let map = {
+    "code": 200,
+    "message": "OK",
+    "data": [1, 2, 3, "hello"]
+}
+println(map)
+"""
+
+[expect]
+compile = true

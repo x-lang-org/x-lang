@@ -1,0 +1,29 @@
+# 完整编译流水线测试
+name = "full_compilation_pipeline"
+description = "测试完整的源代码到执行流水线"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+// 简单程序测试完整流水线
+function add(a: integer, b: integer) -> integer = a + b
+
+function main() {
+    let result = add(10, 20)
+    println(result)
+}
+
+main()
+"""
+
+[expect]
+compile = true
+
+[expect.tokens]
+contains = ["Function", "integer", "println"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Call"]
+
+[expect.runtime]
+output_contains = ["30"]

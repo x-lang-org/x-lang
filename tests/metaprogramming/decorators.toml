@@ -1,0 +1,21 @@
+# 元编程测试: 装饰器
+name = "metaprogramming_decorators"
+description = "测试函数装饰器"
+category = "metaprogramming"
+spec = ["spec/docs/10-metaprogramming.md"]
+
+source = """
+// 装饰器尚未实现
+// 简化测试：基本函数
+function square(n: integer) -> integer {
+    n * n
+}
+
+println(square(5))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "25\n"

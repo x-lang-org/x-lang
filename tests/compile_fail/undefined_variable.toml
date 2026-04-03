@@ -1,0 +1,16 @@
+# 未定义变量编译失败测试
+name = "undefined_variable_compile_fail"
+description = "测试使用未定义变量时的编译错误"
+category = "compile_fail"
+spec = ["spec/docs/03-statements.md"]
+
+source = """
+// 未定义变量 - 应该编译失败
+let x = 10
+let y = z + 1  // z 未定义
+"""
+
+[expect]
+compile = false
+compile_fail = true
+error_contains = ["undefined", "z"]

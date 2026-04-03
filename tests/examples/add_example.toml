@@ -1,0 +1,18 @@
+# 示例程序: add.x
+name = "example_add"
+description = "运行 examples/add.x 示例程序"
+category = "examples"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+let a = 3
+let b = 5
+let c = a + b
+println(c)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "8\n"

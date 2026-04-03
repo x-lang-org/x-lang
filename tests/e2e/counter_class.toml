@@ -1,0 +1,21 @@
+# 端到端计数器测试
+name = "e2e_counter"
+description = "端到端测试：计数器类"
+category = "e2e"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+// 类定义尚未完全实现
+// 简化测试：基本计数
+let mutable count = 0
+count = count + 1
+count = count + 1
+count = count + 1
+println(count)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["3"]

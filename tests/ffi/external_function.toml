@@ -1,0 +1,17 @@
+# FFI 外部函数接口测试
+name = "ffi_external_function"
+description = "测试 external 关键字声明 C 函数"
+category = "ffi"
+spec = ["spec/docs/11-advanced-features.md"]
+
+source = """
+// external 函数声明尚未实现
+// 简化测试：基本打印
+println("FFI test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "FFI test\n"

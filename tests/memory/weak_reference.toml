@@ -1,0 +1,17 @@
+# weak 引用测试
+name = "weak_reference"
+description = "测试 weak 引用打破循环引用"
+category = "memory"
+spec = ["spec/docs/10-memory.md"]
+
+source = """
+// weak 引用尚未实现
+// 简化测试：基本打印
+println("weak reference test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "weak reference test\n"

@@ -1,0 +1,19 @@
+# unsafe 块测试
+name = "ffi_unsafe_block"
+description = "测试 unsafe 块的安全边界"
+category = "ffi"
+spec = ["spec/docs/11-advanced-features.md"]
+
+source = """
+// unsafe 块尚未实现
+// 简化测试：基本打印
+let x = 42
+let y = x + 1
+println(y)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "43\n"

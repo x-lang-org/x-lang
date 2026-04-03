@@ -1,0 +1,18 @@
+# 缺少返回值编译失败测试
+name = "missing_return_compile_fail"
+description = "测试函数缺少返回值时的编译错误"
+category = "compile_fail"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+// 缺少返回值 - 应该编译失败
+function get_value() -> integer {
+    let x = 10
+    // 没有 return 语句
+}
+"""
+
+[expect]
+compile = false
+compile_fail = true
+error_contains = ["return", "integer"]

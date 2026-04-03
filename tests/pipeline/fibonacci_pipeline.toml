@@ -1,0 +1,22 @@
+# Fibonacci 完整程序测试
+name = "fibonacci_pipeline"
+description = "Fibonacci 数列计算测试完整流水线"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function fib(n: integer) -> integer {
+    if n <= 1 {
+        return n
+    }
+    fib(n - 1) + fib(n - 2)
+}
+
+println(fib(10))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "55\n"

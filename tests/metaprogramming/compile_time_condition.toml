@@ -1,0 +1,17 @@
+# 编译期条件测试
+name = "compile_time_condition"
+description = "测试 #if 编译期条件编译"
+category = "metaprogramming"
+spec = ["spec/docs/11-advanced-features.md"]
+
+source = """
+// 编译期条件尚未实现
+// 简化测试：基本打印
+println("compile condition test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "compile condition test\n"

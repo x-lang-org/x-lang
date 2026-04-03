@@ -1,0 +1,23 @@
+# 泛型函数测试
+name = "generic_function"
+description = "测试泛型函数"
+category = "metaprogramming"
+spec = ["spec/docs/11-metaprogramming.md"]
+
+source = """
+function identity<T>(value: T) -> T {
+    value
+}
+
+let a = identity(42)
+let b = identity("hello")
+
+println(a)
+println(b)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["42", "hello"]

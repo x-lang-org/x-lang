@@ -1,0 +1,17 @@
+# IO 效果测试
+name = "io_effect"
+description = "测试 IO 效果"
+category = "effects"
+spec = ["spec/docs/07-effects.md"]
+
+source = """
+// 基本输出
+println("Hello, World!")
+println(42)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["Hello, World!", "42"]

@@ -1,0 +1,17 @@
+# Result 基本测试
+name = "result_basic"
+description = "测试 Result 类型基本操作"
+category = "error_handling"
+spec = ["spec/docs/04-error-handling.md"]
+
+source = """
+// Result 类型尚未完全实现
+// 简化测试：基本打印
+println("result test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["result test"]

@@ -1,0 +1,27 @@
+# 模式匹配不完整编译失败测试
+name = "non_exhaustive_match_compile_fail"
+description = "测试模式匹配不完整时的编译错误"
+category = "compile_fail"
+spec = ["spec/docs/09-patterns.md"]
+
+source = """
+// 模式匹配不完整 - 应该编译失败
+enum Color {
+    Red
+    Green
+    Blue
+}
+
+function color_name(c: Color) -> string {
+    when c is {
+        Color.Red => "red"
+        Color.Green => "green"
+        // 缺少 Blue 分支
+    }
+}
+"""
+
+[expect]
+compile = false
+compile_fail = true
+error_contains = ["exhaustive", "Blue"]

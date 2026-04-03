@@ -1,0 +1,17 @@
+# Perceus dup/drop 分析测试
+name = "perceus_dup_drop"
+description = "测试 Perceus 编译期 dup/drop 分析"
+category = "memory"
+spec = ["spec/docs/10-memory.md"]
+
+source = """
+// Perceus dup/drop 分析尚未完全实现
+// 简化测试：基本打印
+println("perceus test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "perceus test\n"

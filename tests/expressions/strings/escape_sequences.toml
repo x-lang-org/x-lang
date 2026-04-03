@@ -1,0 +1,26 @@
+# 转义字符测试
+name = "escape_sequences"
+description = "测试字符串转义字符"
+category = "expressions/strings"
+spec = ["spec/docs/01-lexical.md"]
+
+source = '''
+// 转义字符
+let newline = "line1\nline2"
+let tab = "col1\tcol2"
+let quote = "He said \"Hello\""
+let backslash = "path\\to\\file"
+let carriage_return = "windows\r\n"
+
+// Unicode 转义
+let heart = "\u{2764}"
+let chinese = "\u{4E2D}\u{6587}"
+
+println("escape test passed")
+'''
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "escape test passed\n"

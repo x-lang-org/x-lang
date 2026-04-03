@@ -1,0 +1,25 @@
+# 示例程序: 类和接口
+name = "example_004_class_interface"
+description = "测试类和接口实现"
+category = "examples"
+spec = ["spec/docs/08-oop.md"]
+
+source = """
+interface Flyable {
+    function fly()
+}
+
+class Bird implements Flyable {
+    function fly() {
+        println("Flying")
+    }
+}
+let bird = Bird()
+bird.fly()
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "Flying\n"

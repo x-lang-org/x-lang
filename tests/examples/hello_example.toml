@@ -1,0 +1,15 @@
+# 示例程序: hello.x
+name = "example_hello"
+description = "运行 examples/hello.x 示例程序"
+category = "examples"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+println("Hello, World!")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "Hello, World!\n"

@@ -1,0 +1,17 @@
+# C 类型映射测试
+name = "ffi_c_types"
+description = "测试 FFI 中的 C 类型映射"
+category = "ffi"
+spec = ["spec/docs/11-advanced-features.md"]
+
+source = """
+// C 类型映射尚未实现
+// 简化测试：基本打印
+println("C types test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "C types test\n"

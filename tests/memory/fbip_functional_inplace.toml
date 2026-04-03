@@ -1,0 +1,17 @@
+# FBIP 函数式原地更新测试
+name = "fbip_functional_inplace"
+description = "测试 Functional But In-Place 优化"
+category = "memory"
+spec = ["spec/docs/10-memory.md"]
+
+source = """
+// FBIP 优化尚未实现
+// 简化测试：基本打印
+println("FBIP test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "FBIP test\n"

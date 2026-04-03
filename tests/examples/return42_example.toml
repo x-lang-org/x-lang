@@ -1,0 +1,14 @@
+# 示例程序: return42.x
+name = "example_return42"
+description = "运行 examples/return42.x 示例程序"
+category = "examples"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function main() -> integer {
+    return 42
+}
+"""
+
+[expect]
+compile = true

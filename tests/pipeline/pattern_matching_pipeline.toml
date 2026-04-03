@@ -1,0 +1,32 @@
+# 模式匹配完整测试
+name = "pattern_matching_pipeline"
+description = "测试 when-is 模式匹配完整流程"
+category = "pipeline"
+spec = ["spec/docs/05-patterns.md"]
+
+source = """
+enum Color {
+    Red
+    Green
+    Blue
+    RGB(integer, integer, integer)
+}
+
+function colorName(c: Color) -> string {
+    when c is {
+        Color.Red => "red"
+        Color.Green => "green"
+        Color.Blue => "blue"
+        Color.RGB(r, g, b) => "rgb(" + r + ", " + g + ", " + b + ")"
+    }
+}
+
+println(colorName(Color.Red))
+println(colorName(Color.RGB(255, 128, 0)))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["red", "rgb(255, 128, 0)"]

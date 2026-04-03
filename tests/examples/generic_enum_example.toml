@@ -1,0 +1,27 @@
+# 示例程序: 泛型枚举 Option
+name = "example_007_generic_enum"
+description = "测试泛型枚举和 when-is 模式匹配"
+category = "examples"
+spec = ["spec/docs/05-patterns.md"]
+
+source = """
+enum Option<T> {
+    /// 值存在
+    Some(T),
+    /// 值不存在
+    None
+}
+
+let opt = Option.Some(42)
+
+when opt is {
+    Option.Some(value) => println(value)
+    Option.None => println("No value")
+}
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "42\n"

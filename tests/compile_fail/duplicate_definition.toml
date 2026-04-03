@@ -1,0 +1,16 @@
+# 重复定义编译失败测试
+name = "duplicate_definition_compile_fail"
+description = "测试重复定义时的编译错误"
+category = "compile_fail"
+spec = ["spec/docs/03-statements.md"]
+
+source = """
+// 重复定义 - 应该编译失败
+let x = 10
+let x = 20  // 重复定义
+"""
+
+[expect]
+compile = false
+compile_fail = true
+error_contains = ["duplicate", "x"]

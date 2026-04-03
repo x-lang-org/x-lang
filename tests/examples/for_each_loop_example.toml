@@ -1,0 +1,19 @@
+# 示例程序: for each 循环
+name = "example_002_for_each"
+description = "测试 for each 循环"
+category = "examples"
+spec = ["spec/docs/03-statements.md"]
+
+source = """
+let list = [1, 2, 3, 4, 5]
+
+for item in list {
+    println(item)
+}
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["1", "2", "3", "4", "5"]

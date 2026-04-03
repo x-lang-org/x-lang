@@ -1,0 +1,28 @@
+# HIR 生成测试
+name = "hir_mir_lir_pipeline"
+description = "测试 HIR/MIR/LIR 中间表示生成"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function factorial(n: integer) -> integer {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+println(factorial(5))
+"""
+
+[expect]
+compile = true
+
+[expect.hir]
+
+[expect.mir]
+
+[expect.lir]
+
+[expect.runtime]
+output_contains = ["120"]

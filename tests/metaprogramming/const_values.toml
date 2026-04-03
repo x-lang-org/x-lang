@@ -1,0 +1,19 @@
+# const 常量测试
+name = "const_values"
+description = "测试常量声明"
+category = "metaprogramming"
+spec = ["spec/docs/11-metaprogramming.md"]
+
+source = """
+// 使用 let constant 声明常量
+let constant MAX: integer = 100
+let constant PI: float = 3.14159
+
+println(MAX)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["100"]

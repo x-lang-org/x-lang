@@ -2084,8 +2084,8 @@ dependencies = [
  "walkdir",
  "which",
  "x-codegen",
+ "x-codegen-asm",
  "x-codegen-csharp",
- "x-codegen-native",
  "x-codegen-rust",
  "x-codegen-typescript",
  "x-codegen-zig",
@@ -2111,11 +2111,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "x-codegen-csharp"
+name = "x-codegen-asm"
 version = "0.1.0"
 dependencies = [
  "log",
  "thiserror",
+ "which",
  "x-codegen",
  "x-hir",
  "x-lir",
@@ -2123,12 +2124,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "x-codegen-native"
+name = "x-codegen-csharp"
 version = "0.1.0"
 dependencies = [
  "log",
  "thiserror",
- "which",
  "x-codegen",
  "x-hir",
  "x-lir",

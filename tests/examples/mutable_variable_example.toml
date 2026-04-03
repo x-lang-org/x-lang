@@ -1,0 +1,17 @@
+# 示例程序: 可变变量
+name = "example_001_mutable"
+description = "测试可变变量和复合赋值"
+category = "examples"
+spec = ["spec/docs/03-statements.md"]
+
+source = """
+let mutable a = 9
+a += 3
+println(a)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "12\n"

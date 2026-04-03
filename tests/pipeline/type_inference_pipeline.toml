@@ -1,0 +1,24 @@
+# 类型推断流水线测试
+name = "type_inference_pipeline"
+description = "测试类型推断在完整流水线中的表现"
+category = "pipeline"
+spec = ["spec/docs/04-types.md"]
+
+source = """
+// 类型推断测试
+let x = 42          // 推断为 integer
+let y = 3.14        // 推断为 float
+let s = "hello"     // 推断为 string
+let b = true        // 推断为 bool
+
+let arr = [1, 2, 3]           // 数组类型推断
+
+println(x)
+println(y)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["42", "42"]

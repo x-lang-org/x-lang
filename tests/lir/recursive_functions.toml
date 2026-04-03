@@ -1,0 +1,26 @@
+# LIR 递归函数测试
+name = "lir_recursion"
+description = "测试递归函数的 LIR 降低"
+category = "lir"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function factorial(n: integer) -> integer {
+    if n <= 1 { return 1 }
+    return n * factorial(n - 1)
+}
+
+function fibonacci(n: integer) -> integer {
+    if n <= 1 { return n }
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+println(factorial(5))
+println(fibonacci(10))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["120", "55"]

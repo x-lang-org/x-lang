@@ -1,0 +1,24 @@
+# LIR 基本运算测试
+name = "lir_basic_operations"
+description = "测试基本运算的 LIR 降低"
+category = "lir"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    a + b
+}
+
+function mul(a: integer, b: integer) -> integer {
+    a * b
+}
+
+println(add(10, 20))
+println(mul(5, 6))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["30", "30"]

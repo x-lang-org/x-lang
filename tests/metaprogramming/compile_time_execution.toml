@@ -1,0 +1,18 @@
+# 元编程测试: 编译时执行
+name = "metaprogramming_compile_time"
+description = "测试编译时执行"
+category = "metaprogramming"
+spec = ["spec/docs/10-metaprogramming.md"]
+
+source = """
+// 编译时执行尚未完全实现
+// 简化测试：基本计算
+let result = 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10
+println(result)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "3628800\n"

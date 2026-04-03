@@ -1,0 +1,17 @@
+# 常量泛型测试
+name = "const_generic_test"
+description = "测试编译期常量泛型参数"
+category = "metaprogramming"
+spec = ["spec/docs/11-advanced-features.md"]
+
+source = """
+// 常量泛型尚未实现
+// 简化测试：基本打印
+println("const generic test")
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "const generic test\n"

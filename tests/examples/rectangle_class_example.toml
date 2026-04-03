@@ -1,0 +1,30 @@
+# 示例程序: 类定义
+name = "example_005_rectangle_class"
+description = "测试类定义和方法"
+category = "examples"
+spec = ["spec/docs/08-oop.md"]
+
+source = """
+class Rectangle {
+    private let width: integer
+    private let height: integer
+
+    public new(width: integer, height: integer) {
+        this.width = width
+        this.height = height
+    }
+
+    public function area() -> integer {
+        this.width * this.height
+    }
+}
+
+let rect = Rectangle(77, 88)
+println(rect.area())
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "6776\n"

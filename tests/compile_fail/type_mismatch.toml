@@ -1,0 +1,17 @@
+# 类型不匹配编译失败测试
+name = "type_mismatch_compile_fail"
+description = "测试类型不匹配时的编译错误"
+category = "compile_fail"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+// 类型不匹配 - 应该编译失败
+function add_integers(a: integer, b: integer) -> integer = a + b
+
+let result = add_integers(1, "two")  // 类型错误
+"""
+
+[expect]
+compile = false
+compile_fail = true
+error_contains = ["type", "mismatch"]

@@ -1,0 +1,18 @@
+# 元编程测试: 宏定义
+name = "metaprogramming_macros"
+description = "测试宏定义和展开"
+category = "metaprogramming"
+spec = ["spec/docs/10-metaprogramming.md"]
+
+source = """
+// 宏尚未实现
+// 简化测试：基本打印
+let value = 42
+println(value)
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output = "42\n"

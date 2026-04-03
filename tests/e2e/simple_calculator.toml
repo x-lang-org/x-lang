@@ -1,0 +1,29 @@
+# 端到端计算器测试
+name = "e2e_calculator"
+description = "端到端测试：简单计算器"
+category = "e2e"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    a + b
+}
+
+function subtract(a: integer, b: integer) -> integer {
+    a - b
+}
+
+function multiply(a: integer, b: integer) -> integer {
+    a * b
+}
+
+println(add(10, 5))
+println(subtract(10, 5))
+println(multiply(10, 5))
+"""
+
+[expect]
+compile = true
+
+[expect.runtime]
+output_contains = ["15", "5", "50"]
