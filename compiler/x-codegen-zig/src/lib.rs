@@ -68,8 +68,8 @@ impl Default for ZigBackendConfig {
 
 pub struct ZigBackend {
     config: ZigBackendConfig,
-    indent: usize,
-    output: String,
+    /// 代码缓冲区（统一管理输出和缩进）
+    buffer: x_codegen::CodeBuffer,
     /// Track global (top-level) variable declarations for forward decls
     global_vars: Vec<String>,
     /// Track imported Zig modules
@@ -122,8 +122,7 @@ impl ZigBackend {
     pub fn new(config: ZigBackendConfig) -> Self {
         Self {
             config,
-            indent: 0,
-            output: String::new(),
+            buffer: x_codegen::CodeBuffer::new(),
             global_vars: Vec::new(),
             imported_modules: Vec::new(),
             lambda_counter: 0,
@@ -133,8 +132,7 @@ impl ZigBackend {
     }
 
     pub fn generate_from_ast(&mut self, program: &AstProgram) -> ZigResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
         self.needs_libc = false;
         self.global_vars.clear();
         self.imported_modules.clear();
@@ -207,7 +205,7 @@ impl ZigBackend {
         // Create output file
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("output.zig"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::Zig,
         };
 
@@ -219,8 +217,7 @@ impl ZigBackend {
 
     /// 从 HIR 生成代码
     pub fn generate_from_hir(&mut self, hir: &x_hir::Hir) -> ZigResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
         self.global_vars.clear();
         self.imported_modules.clear();
         self.var_types.clear();
@@ -238,7 +235,7 @@ impl ZigBackend {
         // Create output file
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("output.zig"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::Zig,
         };
 
@@ -250,8 +247,7 @@ impl ZigBackend {
 
     /// 从 PerceusIR 生成代码（带内存管理）
     pub fn generate_from_pir(&mut self, pir: &x_mir::PerceusIR) -> ZigResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
         self.global_vars.clear();
         self.imported_modules.clear();
         self.var_types.clear();
@@ -267,7 +263,7 @@ impl ZigBackend {
         // Create output file
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("output.zig"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::Zig,
         };
 
@@ -279,8 +275,7 @@ impl ZigBackend {
 
     /// 从 LIR 生成代码（低层中间表示 - 后端统一正式输入）
     pub fn generate_from_lir(&mut self, lir: &x_lir::Program) -> ZigResult<x_codegen::CodegenOutput> {
-        self.output.clear();
-        self.indent = 0;
+        self.buffer.clear();
         self.global_vars.clear();
         self.imported_modules.clear();
         self.var_types.clear();
@@ -326,7 +321,7 @@ impl ZigBackend {
         // Create output file
         let output_file = x_codegen::OutputFile {
             path: std::path::PathBuf::from("output.zig"),
-            content: self.output.as_bytes().to_vec(),
+            content: self.output().as_bytes().to_vec(),
             file_type: x_codegen::FileType::Zig,
         };
 
@@ -350,12 +345,12 @@ impl ZigBackend {
 
         let return_type = self.emit_hir_type(&func.return_type);
         self.line(&format!("fn {}({}) {} {{", func.name, params, return_type))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit function body
         self.emit_hir_block(&func.body)?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -374,7 +369,7 @@ impl ZigBackend {
 
         let return_type = self.ownership_type_to_zig(&func.return_ownership.ty);
         self.line(&format!("fn {}({}) {} {{", func.name, params, return_type))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit memory operations
         for mem_op in &func.memory_ops {
@@ -386,7 +381,7 @@ impl ZigBackend {
             self.emit_basic_block(block)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -579,23 +574,23 @@ impl ZigBackend {
             x_hir::HirStatement::If(if_stmt) => {
                 let cond = self.emit_hir_expression(&if_stmt.condition)?;
                 self.line(&format!("if ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_hir_block(&if_stmt.then_block)?;
-                self.indent -= 1;
+                self.dedent();
                 if let Some(else_block) = &if_stmt.else_block {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_hir_block(else_block)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             x_hir::HirStatement::While(while_stmt) => {
                 let cond = self.emit_hir_expression(&while_stmt.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_hir_block(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_hir::HirStatement::For(for_stmt) => {
@@ -606,9 +601,9 @@ impl ZigBackend {
                     _ => "_item".to_string(),
                 };
                 self.line(&format!("for ({}) |{}| {{", iterator, pattern_name))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_hir_block(&for_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_hir::HirStatement::Break => self.line("break;")?,
@@ -623,9 +618,9 @@ impl ZigBackend {
                 // Zig doesn't need special unsafe syntax, emit block with comment
                 self.line("// unsafe block")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_hir_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_hir::HirStatement::Defer(expr) => {
@@ -638,9 +633,9 @@ impl ZigBackend {
             }
             x_hir::HirStatement::Loop(body) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_hir_block(body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -651,7 +646,7 @@ impl ZigBackend {
     fn emit_hir_match(&mut self, match_stmt: &x_hir::HirMatchStatement) -> ZigResult<()> {
         let expr = self.emit_hir_expression(&match_stmt.expression)?;
         self.line(&format!("switch ({}) {{", expr))?;
-        self.indent += 1;
+        self.indent();
 
         for case in &match_stmt.cases {
             let pattern_str = self.emit_hir_pattern(&case.pattern)?;
@@ -661,13 +656,13 @@ impl ZigBackend {
             } else {
                 self.line(&format!("{} => {{", pattern_str))?;
             }
-            self.indent += 1;
+            self.indent();
             self.emit_hir_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("},")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -675,18 +670,18 @@ impl ZigBackend {
     /// Emit HIR try statement
     fn emit_hir_try(&mut self, try_stmt: &x_hir::HirTryStatement) -> ZigResult<()> {
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.line("var __err: ?anyerror = null;")?;
         self.line("errdefer {")?;
-        self.indent += 1;
+        self.indent();
         self.line("__err = error.UnexpectedError;")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.emit_hir_block(&try_stmt.body)?;
 
         if !try_stmt.catch_clauses.is_empty() {
             self.line("if (__err) |err| {")?;
-            self.indent += 1;
+            self.indent();
 
             for catch in &try_stmt.catch_clauses {
                 if let Some(var_name) = &catch.variable_name {
@@ -695,7 +690,7 @@ impl ZigBackend {
                 self.emit_hir_block(&catch.body)?;
             }
 
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
@@ -703,7 +698,7 @@ impl ZigBackend {
             self.emit_hir_block(finally)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -874,7 +869,7 @@ impl ZigBackend {
 
     fn emit_main_function(&mut self, statements: &[ast::Statement]) -> ZigResult<()> {
         self.line("pub fn main() !void {")?;
-        self.indent += 1;
+        self.indent();
 
         // Emit top-level statements
         if statements.is_empty() {
@@ -888,7 +883,7 @@ impl ZigBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -920,28 +915,28 @@ impl ZigBackend {
         self.line("")?;
 
         self.line("fn http_listen(host: []const u8, port: u16) void {")?;
-        self.indent += 1;
+        self.indent();
         self.line("const addr = std.net.Address.parseIp(host, port) catch {")?;
-        self.indent += 1;
+        self.indent();
         self.line("std.debug.print(\"Failed to parse address\\\\n\", .{});")?;
         self.line("return;")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line("http_server_handle = addr.listen(.{ .reuse_address = true }) catch {")?;
-        self.indent += 1;
+        self.indent();
         self.line("std.debug.print(\"Failed to start server\\\\n\", .{});")?;
         self.line("return;")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line(
             "std.debug.print(\"HTTP Server listening on http://{s}:{d}\\\\n\", .{ host, port });",
         )?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
 
         self.line("fn http_accept() ?[]const u8 {")?;
-        self.indent += 1;
+        self.indent();
         self.line("const server = http_server_handle orelse return null;")?;
         self.line("var conn = server.accept() catch return null;")?;
         self.line("defer conn.stream.close();")?;
@@ -953,30 +948,30 @@ impl ZigBackend {
         self.line("const request = allocator.alloc(u8, n) catch return null;")?;
         self.line("@memcpy(request, buf[0..n]);")?;
         self.line("return request;")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
 
         self.line(
             "fn http_respond(status: u16, content_type: []const u8, body: []const u8) void {",
         )?;
-        self.indent += 1;
+        self.indent();
         self.line("const server = http_server_handle orelse return;")?;
         self.line("var conn = server.accept() catch return;")?;
         self.line("defer conn.stream.close();")?;
         self.line("")?;
         self.line("var buf: [1024]u8 = undefined;")?;
         self.line("const response = std.fmt.bufPrint(&buf,")?;
-        self.indent += 1;
+        self.indent();
         self.line("\\\\\"HTTP/1.1 {d} OK\\\\r\\\\n\\\\\" ++")?;
         self.line("\\\\\"Content-Type: {s}\\\\r\\\\n\\\\\" ++")?;
         self.line("\\\\\"Content-Length: {d}\\\\r\\\\n\\\\r\\\\n\\\\\"")?;
         self.line(", .{ status, content_type, body.len }) catch return;")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("")?;
         self.line("_ = conn.stream.writeAll(response) catch {};")?;
         self.line("_ = conn.stream.writeAll(body) catch {};")?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         self.line("")?;
 
@@ -1054,7 +1049,7 @@ impl ZigBackend {
             "{}{}fn {}({}){} {{",
             pub_keyword, async_keyword, f.name, params, return_type
         ))?;
-        self.indent += 1;
+        self.indent();
 
         // Check if function has a return type (not void/unit)
         let has_return_type = f.return_type.is_some();
@@ -1084,7 +1079,7 @@ impl ZigBackend {
             self.line("return;")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1163,7 +1158,7 @@ impl ZigBackend {
     fn emit_class(&mut self, class: &ast::ClassDecl) -> ZigResult<()> {
         // Emit struct definition
         self.line(&format!("const {} = struct {{", class.name))?;
-        self.indent += 1;
+        self.indent();
 
         // If there's a parent class, embed it as the first field for inheritance
         if let Some(parent) = &class.extends {
@@ -1191,7 +1186,7 @@ impl ZigBackend {
             self.line(&format!("vtable: *const {}_VTable,", class.name))?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line("")?;
 
@@ -1206,7 +1201,7 @@ impl ZigBackend {
     /// Emit a vtable for a class with virtual methods
     fn emit_vtable(&mut self, class: &ast::ClassDecl) -> ZigResult<()> {
         self.line(&format!("const {}_VTable = struct {{", class.name))?;
-        self.indent += 1;
+        self.indent();
 
         for member in &class.members {
             if let ast::ClassMember::Method(method) = member {
@@ -1236,7 +1231,7 @@ impl ZigBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line("")?;
         Ok(())
@@ -1270,12 +1265,12 @@ impl ZigBackend {
             "{}fn {}({}){} {{",
             async_keyword, func_name, params_str, return_type
         ))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&method.body)?;
         if method.return_type.is_none() {
             self.line("return;")?;
         }
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1306,14 +1301,14 @@ impl ZigBackend {
             "fn {}({}) {} {{",
             func_name, params_str, class_name
         ))?;
-        self.indent += 1;
+        self.indent();
 
         // Initialize instance using 'this' name to match X language
         self.line(&format!("var this: {} = undefined;", class_name))?;
         self.emit_block(&constructor.body)?;
         self.line("return this;")?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1377,9 +1372,9 @@ impl ZigBackend {
             StatementKind::While(while_stmt) => {
                 let cond = self.emit_expr(&while_stmt.condition)?;
                 self.line(&format!("while ({}) {{", cond))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::For(for_stmt) => {
@@ -1399,9 +1394,9 @@ impl ZigBackend {
             }
             StatementKind::DoWhile(d) => {
                 self.line("do {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(&d.body)?;
-                self.indent -= 1;
+                self.dedent();
                 let cond = self.emit_expr(&d.condition)?;
                 self.line(&format!("}} while ({});", cond))?;
             }
@@ -1410,9 +1405,9 @@ impl ZigBackend {
                 // 添加注释标记 unsafe 块开始
                 self.line("// unsafe block")?;
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             StatementKind::Defer(expr) => {
@@ -1425,9 +1420,9 @@ impl ZigBackend {
             }
             StatementKind::Loop(body) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_block(body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
         }
@@ -1437,14 +1432,14 @@ impl ZigBackend {
     fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> ZigResult<()> {
         let cond = self.emit_expr(&if_stmt.condition)?;
         self.line(&format!("if ({}) {{", cond))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&if_stmt.then_block)?;
-        self.indent -= 1;
+        self.dedent();
         if let Some(else_block) = &if_stmt.else_block {
             self.line("} else {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(else_block)?;
-            self.indent -= 1;
+            self.dedent();
         }
         self.line("}")?;
         Ok(())
@@ -1460,9 +1455,9 @@ impl ZigBackend {
         };
 
         self.line(&format!("for ({}) |{}| {{", iterator, pattern_name))?;
-        self.indent += 1;
+        self.indent();
         self.emit_block(&for_stmt.body)?;
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1471,7 +1466,7 @@ impl ZigBackend {
         // Zig 使用 switch 语句进行模式匹配
         let expr = self.emit_expr(&match_stmt.expression)?;
         self.line(&format!("switch ({}) {{", expr))?;
-        self.indent += 1;
+        self.indent();
 
         for case in &match_stmt.cases {
             let pattern_str = self.emit_pattern(&case.pattern)?;
@@ -1484,13 +1479,13 @@ impl ZigBackend {
                 self.line(&format!("{} => {{", pattern_str))?;
             }
 
-            self.indent += 1;
+            self.indent();
             self.emit_block(&case.body)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("},")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1498,9 +1493,9 @@ impl ZigBackend {
     fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> ZigResult<()> {
         // Zig 使用 errdefer 和 catch 处理错误
         self.line("{")?;
-        self.indent += 1;
+        self.indent();
         self.line("errdefer {")?;
-        self.indent += 1;
+        self.indent();
 
         // Emit catch clauses
         for catch in &try_stmt.catch_clauses {
@@ -1510,7 +1505,7 @@ impl ZigBackend {
             self.emit_block(&catch.body)?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
         // Emit try body
@@ -1519,13 +1514,13 @@ impl ZigBackend {
         // Emit finally block
         if let Some(finally) = &try_stmt.finally_block {
             self.line("defer {")?;
-            self.indent += 1;
+            self.indent();
             self.emit_block(finally)?;
-            self.indent -= 1;
+            self.dedent();
             self.line("}")?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -1814,7 +1809,7 @@ impl ZigBackend {
 
         // Emit closure struct
         self.line(&format!("const {} = struct {{", lambda_name))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit capture fields
         for (name, ty) in &captures {
@@ -1832,16 +1827,16 @@ impl ZigBackend {
                 all_params.join(", ")
             }
         ))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit body
         self.emit_block(body)?;
 
         // Add implicit return if body doesn't have one
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
 
         // Return instance creation
@@ -2502,11 +2497,22 @@ impl ZigBackend {
     }
 
     fn line(&mut self, s: &str) -> ZigResult<()> {
-        for _ in 0..self.indent {
-            write!(self.output, "    ")?;
-        }
-        writeln!(self.output, "{}", s)?;
-        Ok(())
+        self.buffer.line(s).map_err(|e| x_codegen::CodeGenError::GenerationError(e.to_string()))
+    }
+
+    /// 增加缩进
+    fn indent(&mut self) {
+        self.buffer.indent();
+    }
+
+    /// 减少缩进
+    fn dedent(&mut self) {
+        self.buffer.dedent();
+    }
+
+    /// 获取当前输出
+    fn output(&self) -> &str {
+        self.buffer.as_str()
     }
 
     /// Compile generated Zig code to executable
@@ -3302,14 +3308,14 @@ impl ZigBackend {
     /// 发出结构体定义（来自 LIR）
     fn emit_lir_struct(&mut self, struct_def: &x_lir::Struct) -> ZigResult<()> {
         self.line(&format!("pub const {} = struct {{", struct_def.name))?;
-        self.indent += 1;
+        self.indent();
 
         for field in &struct_def.fields {
             let type_str = self.emit_lir_type(&field.type_);
             self.line(&format!("{}: {},", field.name, type_str))?;
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line("")?;
         Ok(())
@@ -3318,7 +3324,7 @@ impl ZigBackend {
     /// 发出枚举定义（来自 LIR）
     fn emit_lir_enum(&mut self, enum_def: &x_lir::Enum) -> ZigResult<()> {
         self.line(&format!("pub const {} = enum {{", enum_def.name))?;
-        self.indent += 1;
+        self.indent();
 
         for variant in &enum_def.variants {
             if let Some(value) = variant.value {
@@ -3328,7 +3334,7 @@ impl ZigBackend {
             }
         }
 
-        self.indent -= 1;
+        self.dedent();
         self.line("};")?;
         self.line("")?;
         Ok(())
@@ -3406,12 +3412,12 @@ impl ZigBackend {
             "{}fn {}{} {} {{",
             pub_str, func.name, full_params, return_type
         ))?;
-        self.indent += 1;
+        self.indent();
 
         // Emit function body
         self.emit_lir_block(&func.body)?;
 
-        self.indent -= 1;
+        self.dedent();
         self.line("}")?;
         Ok(())
     }
@@ -3439,14 +3445,14 @@ impl ZigBackend {
             x_lir::Declaration::Class(class_def) => {
                 // Classes are compiled to structs in Zig
                 self.line(&format!("pub const {} = struct {{", class_def.name))?;
-                self.indent += 1;
+                self.indent();
 
                 for field in &class_def.fields {
                     let type_str = self.emit_lir_type(&field.type_);
                     self.line(&format!("{}: {},", field.name, type_str))?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("};")?;
                 self.line("")?;
             }
@@ -3513,33 +3519,33 @@ impl ZigBackend {
             x_lir::Statement::If(if_stmt) => {
                 let cond_str = self.emit_lir_expression(&if_stmt.condition)?;
                 self.line(&format!("if ({}) {{", cond_str))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&if_stmt.then_branch)?;
-                self.indent -= 1;
+                self.dedent();
 
                 if let Some(else_branch) = &if_stmt.else_branch {
                     self.line("} else {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(else_branch)?;
-                    self.indent -= 1;
+                    self.dedent();
                 }
                 self.line("}")?;
             }
             x_lir::Statement::While(while_stmt) => {
                 let cond_str = self.emit_lir_expression(&while_stmt.condition)?;
                 self.line(&format!("while ({}) {{", cond_str))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&while_stmt.body)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::DoWhile(do_while_stmt) => {
                 self.line("while (true) {")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&do_while_stmt.body)?;
                 let cond_str = self.emit_lir_expression(&do_while_stmt.condition)?;
                 self.line(&format!("if (!{}) break;", cond_str))?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::For(for_stmt) => {
@@ -3554,59 +3560,59 @@ impl ZigBackend {
                     .transpose()?
                     .unwrap_or_else(|| "true".to_string());
                 self.line(&format!("while ({}) {{", cond_str))?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_statement(&for_stmt.body)?;
                 if let Some(increment) = &for_stmt.increment {
                     let _ = self.emit_lir_expression(increment)?;
                 }
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Switch(switch_stmt) => {
                 let expr_str = self.emit_lir_expression(&switch_stmt.expression)?;
                 self.line(&format!("switch ({}) {{", expr_str))?;
-                self.indent += 1;
+                self.indent();
 
                 for case in &switch_stmt.cases {
                     let value_str = self.emit_lir_expression(&case.value)?;
                     self.line(&format!("{} => {{", value_str))?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(&case.body)?;
-                    self.indent -= 1;
+                    self.dedent();
                     self.line("},")?;
                 }
 
                 if let Some(default) = &switch_stmt.default {
                     self.line("_ => {")?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_statement(default)?;
-                    self.indent -= 1;
+                    self.dedent();
                     self.line("},")?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Match(match_stmt) => {
                 let scrutinee_str = self.emit_lir_expression(&match_stmt.scrutinee)?;
                 self.line(&format!("switch ({}) {{", scrutinee_str))?;
-                self.indent += 1;
+                self.indent();
 
                 for case in &match_stmt.cases {
                     let pattern_str = self.emit_lir_pattern(&case.pattern)?;
                     self.line(&format!("{} => {{", pattern_str))?;
-                    self.indent += 1;
+                    self.indent();
                     self.emit_lir_block(&case.body)?;
-                    self.indent -= 1;
+                    self.dedent();
                     self.line("},")?;
                 }
 
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Try(try_stmt) => {
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_block(&try_stmt.body)?;
                 for catch in &try_stmt.catch_clauses {
                     if let Some(var_name) = &catch.variable_name {
@@ -3617,7 +3623,7 @@ impl ZigBackend {
                 if let Some(finally) = &try_stmt.finally_block {
                     self.emit_lir_block(finally)?;
                 }
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Return(expr) => {
@@ -3635,9 +3641,9 @@ impl ZigBackend {
             x_lir::Statement::Empty => { /* do nothing */ }
             x_lir::Statement::Compound(block) => {
                 self.line("{")?;
-                self.indent += 1;
+                self.indent();
                 self.emit_lir_block(block)?;
-                self.indent -= 1;
+                self.dedent();
                 self.line("}")?;
             }
             x_lir::Statement::Declaration(_) => {
