@@ -3677,12 +3677,9 @@ impl ZigBackend {
             x_lir::Statement::Return(expr) => {
                 if let Some(expr) = expr {
                     let expr_str = self.emit_lir_expression(expr)?;
-                    // 对于 main 函数，如果返回的是整数，转换为返回 void
-                    // 因为 Zig 的 main 函数 !void 不能返回非 void 值
-                    // 所有的返回值都表示退出状态，不需要实际返回值
+                    // 对于 main 函数，使用 std.process.exit() 来设置退出码
                     if self.current_function_name == "main" {
-                        // main 函数返回 void（忽略具体值，因为这只是退出状态）
-                        self.line("return;")?;
+                        self.line(&format!("std.process.exit({});", expr_str))?;
                     } else {
                         self.line(&format!("return {};", expr_str))?;
                     }

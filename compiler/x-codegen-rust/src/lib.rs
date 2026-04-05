@@ -2101,6 +2101,7 @@ impl RustBackend {
         // Add necessary imports that are commonly used
         self.line("use std::collections::HashMap;")?;
         self.line("use std::ffi::c_void;")?;
+        self.line("use std::process;")?;
         self.line("")?;
 
         // Process all declarations
@@ -2331,11 +2332,10 @@ path = "src/main.rs"
             };
 
             if is_last_return {
-                // For main, convert return value to ()
+                // For main, use std::process::exit() to set exit code
                 if let x_lir::Statement::Return(Some(expr)) = stmt {
                     let code = self.generate_lir_expression(expr)?;
-                    // Discard the return value, main returns ()
-                    self.line(&format!("let _ = {};", code))?;
+                    self.line(&format!("std::process::exit({});", code))?;
                 }
             } else {
                 self.generate_lir_statement(stmt)?;
@@ -2347,15 +2347,13 @@ path = "src/main.rs"
     /// Generate global variable
     fn generate_lir_global(&mut self, global: &x_lir::GlobalVar) -> RustResult<()> {
         let ty = self.lir_type_to_rust(&global.type_);
-        let static_ = if global.is_static { "static " } else { "" };
+        // For global variables in X, use static (not pub)
+        let prefix = if global.is_static { "static " } else { "static " };
+        let pub_prefix = if global.is_static { "pub " } else { "" };
         let mut decl = format!(
-            "{}{}pub {}: {}{}",
-            static_,
-            if global.initializer.is_some() {
-                ""
-            } else {
-                "extern "
-            },
+            "{}{}{} : {}{}",
+            prefix,
+            pub_prefix,
             global.name,
             ty,
             if global.initializer.is_some() {
