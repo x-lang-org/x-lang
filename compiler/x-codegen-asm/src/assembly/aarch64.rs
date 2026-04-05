@@ -748,7 +748,9 @@ impl AArch64AssemblyGenerator {
             }
             lir::Expression::Assign(target, value) => {
                 self.emit_assign(target, value)?;
-                if result_reg != "x9" {
+                // 对于函数调用（result_reg 可能是 x0），不要移动 x9 的值
+                // 因为函数调用的结果会在 x0 中返回
+                if result_reg != "x9" && result_reg != "x0" {
                     self.emit_line(&format!("mov {}, x9", result_reg))?;
                 }
                 Ok(())
