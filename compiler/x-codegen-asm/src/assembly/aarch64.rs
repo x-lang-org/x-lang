@@ -1102,15 +1102,26 @@ impl AArch64AssemblyGenerator {
                 Ok(())
             }
             lir::Statement::Return(expr) => {
-                // 对于 main 函数：默认返回 0，避免返回 println 等函数的返回值
+                // 对于 main 函数：避免返回函数调用的返回值
                 if self.current_function == "main" {
                     match expr {
                         Some(lir::Expression::Literal(lir::Literal::Integer(n))) => {
-                            // 如果是明确的整数常量，使用该值
+                            // 整数常量：直接使用该值
                             self.emit_line(&format!("mov x0, #{}", n))?;
                         }
-                        _ => {
-                            // 其他情况（变量、函数调用等），默认返回 0
+                        Some(lir::Expression::Call(_, _)) => {
+                            // 函数调用：跳过结果，直接返回 0
+                            self.emit_line("mov x0, #0")?;
+                        }
+                        Some(lir::Expression::Variable(name)) if name.starts_with('t') && name[1..].chars().all(|c| c.is_ascii_digit()) => {
+                            // 临时变量（t0, t1 等）：通常是函数调用结果，返回 0
+                            self.emit_line("mov x0, #0")?;
+                        }
+                        Some(_) => {
+                            // 其他表达式：正常执行，结果放到 x0
+                            self.emit_expression(expr.as_ref().unwrap(), "x0")?;
+                        }
+                        None => {
                             self.emit_line("mov x0, #0")?;
                         }
                     }
@@ -1537,14 +1548,24 @@ impl AArch64AssemblyGenerator {
         self.indent -= 1;
 
         // 如果函数没有显式返回，我们需要添加一个默认返回
+        // 对于 main 函数，始终返回 0
         if let Some(last) = func.body.statements.last() {
             if !matches!(last, lir::Statement::Return(_)) {
+                if self.current_function == "main" {
+                    self.emit_line("mov x0, #0")?;
+                }
                 self.emit_line("mov sp, x29")?;
                 self.emit_line("ldp x29, x30, [sp], #16")?;
                 self.emit_line("ret")?;
+            } else if self.current_function == "main" && !matches!(last, lir::Statement::Return(Some(lir::Expression::Literal(lir::Literal::Integer(_))))) {
+                // main 函数有显式返回但不是整数常量，确保返回 0
+                // 这里不需要额外处理，因为 return 语句已经处理了
             }
         } else {
             // 空函数，直接返回
+            if self.current_function == "main" {
+                self.emit_line("mov x0, #0")?;
+            }
             self.emit_line("mov sp, x29")?;
             self.emit_line("ldp x29, x30, [sp], #16")?;
             self.emit_line("ret")?;
