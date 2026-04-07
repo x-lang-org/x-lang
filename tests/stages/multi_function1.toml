@@ -1,0 +1,39 @@
+# 阶段测试 - 多个函数
+name = "stage_multi_function1"
+description = "测试多个函数定义"
+category = "stages/functions"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function square(x: integer) -> integer = x * x
+function cube(x: integer) -> integer = x * x * x
+function abs(x: integer) -> integer = if x < 0 { -x } else { x }
+
+function main() {
+    println(square(5))
+    println(cube(2))
+    println(abs(-10))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function"]
+not_contains = ["Error"]
+
+[expect.ast]
+nodes = ["FunctionDecl"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["square", "cube", "abs", "main"]
+
+[expect.backend.python]
+source_contains = ["def square", "def cube", "def abs", "def main"]
+
+[expect.runtime]
+output = "25\n8\n10\n"

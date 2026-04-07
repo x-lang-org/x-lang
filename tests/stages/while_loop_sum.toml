@@ -1,0 +1,22 @@
+# 阶段测试 - While 循环求和
+name = "stage_while_loop_sum"
+description = "测试 while 循环求和"
+category = "stages/loops"
+
+source = """
+function main() {
+    let sum = 0
+    let i = 1
+    while i <= 50 {
+        sum = sum + i
+        i = i + 1
+    }
+    println(sum)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "1275\n"

@@ -1,0 +1,19 @@
+# 阶段测试 - 判断偶数
+name = "stage_is_even"
+description = "测试判断偶数"
+category = "stages/functions"
+
+source = """
+function is_even(n: integer) -> bool = n % 2 == 0
+
+function main() {
+    println(is_even(4))
+    println(is_even(7))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "true\nfalse\n"

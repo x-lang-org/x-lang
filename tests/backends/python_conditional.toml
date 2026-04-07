@@ -1,0 +1,50 @@
+# 后端测试 - Python 条件
+name = "backend_python_conditional"
+description = "测试 Python 后端条件语句"
+category = "backends/python"
+
+source = """
+function abs(x: integer) -> integer {
+    if x < 0 { return -x }
+    return x
+}
+
+function sign(n: integer) -> integer {
+    if n > 0 { return 1 }
+    if n < 0 { return -1 }
+    return 0
+}
+
+function main() {
+    println(abs(-5))
+    println(sign(10))
+    println(sign(-3))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "If", "Return"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["abs", "sign", "main"]
+
+[expect.mir]
+functions = ["abs", "sign", "main"]
+
+[expect.lir]
+functions = ["abs", "sign", "main"]
+
+[expect.backend.python]
+source_contains = ["def abs", "def sign", "def main"]
+
+[expect.runtime]
+output = "5\n1\n-1\n"

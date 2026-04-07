@@ -1,0 +1,61 @@
+# 阶段测试示例 - 词法分析
+# 展示如何使用新的阶段验证功能
+
+name = "stage_lexer_keywords"
+description = "测试词法分析阶段的关键字识别"
+category = "stages/lexer"
+spec = ["spec/docs/01-lexical.md"]
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    return a + b
+}
+
+function main() {
+    println(add(1, 2))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证：tokens → ast → typecheck → hir → mir → lir → backend → runtime
+
+# 1. 词法分析验证
+[expect.tokens]
+contains = ["Function", "Ident", "LeftParen", "RightParen", "Comma", "Arrow", "Return"]
+not_contains = ["Error"]
+
+# 2. AST 验证
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Binary", "Call"]
+not_nodes = ["Error"]
+
+# 3. 类型检查验证（通过即成功）
+[expect.typecheck]
+
+# 4. HIR 验证
+[expect.hir]
+functions = ["add", "main"]
+
+# 5. MIR 验证
+[expect.mir]
+functions = ["add", "main"]
+
+# 6. LIR 验证
+[expect.lir]
+functions = ["add", "main"]
+
+# 7. 后端验证 (Python)
+[expect.backend.python]
+source_contains = ["def add", "def main"]
+functions = ["add", "main"]
+
+# 8. 执行验证
+[expect.backend.python.execute]
+output = "3\n"
+
+# 9. 运行时验证
+[expect.runtime]
+output = "3\n"

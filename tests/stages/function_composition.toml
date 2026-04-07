@@ -1,0 +1,41 @@
+# 阶段测试 - 函数组合
+name = "stage_function_composition"
+description = "测试函数组合"
+category = "stages/functions"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function add1(x: integer) -> integer = x + 1
+function double(x: integer) -> integer = x * 2
+function square(x: integer) -> integer = x * x
+
+function main() {
+    let a = add1(5)
+    let b = double(3)
+    let c = square(4)
+    println(a)
+    println(b)
+    println(c)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function"]
+
+[expect.ast]
+nodes = ["FunctionDecl"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["add1", "double", "square", "main"]
+
+[expect.backend.python]
+source_contains = ["def add1", "def double", "def square", "def main"]
+
+[expect.runtime]
+output = "6\n6\n16\n"

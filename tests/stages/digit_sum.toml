@@ -1,0 +1,25 @@
+# 阶段测试 - 数字各位之和
+name = "stage_digit_sum"
+description = "测试数字各位之和"
+category = "stages/algorithms"
+
+source = """
+function digit_sum(n: integer) -> integer {
+    let sum = 0
+    while n > 0 {
+        sum = sum + (n % 10)
+        n = n / 10
+    }
+    return sum
+}
+
+function main() {
+    println(digit_sum(1234))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "10\n"

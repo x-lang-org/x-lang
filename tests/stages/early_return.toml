@@ -1,0 +1,55 @@
+# 阶段测试 - 提前返回
+name = "stage_early_return"
+description = "测试函数提前返回的完整流水线"
+category = "stages/functions"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function abs_max(a: integer, b: integer) -> integer {
+    if a < 0 {
+        return -a
+    }
+    if b < 0 {
+        return -b
+    }
+    if a > b {
+        return a
+    }
+    return b
+}
+
+function main() {
+    let result = abs_max(-5, -3)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Return", "Unary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["abs_max", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def abs_max", "def main"]
+
+# 6. 运行时 (max of absolute values: 5 vs 3 = 5)
+[expect.runtime]
+output = "5\n"

@@ -1,0 +1,37 @@
+# 阶段测试 - 字符串操作
+name = "stage_string_ops"
+description = "测试字符串操作"
+category = "stages/strings"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function main() {
+    let s1 = "Hello"
+    let s2 = "World"
+    let s3 = s1 + " " + s2
+    println(s3)
+    println(s3.length)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["String", "Plus"]
+not_contains = ["Error"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "Binary"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["main"]
+
+[expect.backend.python]
+source_contains = ["def main"]
+
+[expect.runtime]
+output_contains = ["Hello World"]

@@ -1,0 +1,27 @@
+# 阶段测试 - 幂运算
+name = "stage_power"
+description = "测试幂运算"
+category = "stages/arithmetic"
+
+source = """
+function pow(base: integer, exp: integer) -> integer {
+    let result = 1
+    let i = 0
+    while i < exp {
+        result = result * base
+        i = i + 1
+    }
+    return result
+}
+
+function main() {
+    println(pow(2, 10))
+    println(pow(3, 4))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "1024\n81\n"

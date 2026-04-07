@@ -1,0 +1,24 @@
+# 阶段测试 - 阶乘尾递归优化
+name = "stage_factorial_tail"
+description = "测试阶乘尾递归版"
+category = "stages/algorithms"
+
+source = """
+function factorial_tail(n: integer) -> integer {
+    function helper(n: integer, acc: integer) -> integer {
+        if n <= 1 { return acc }
+        return helper(n - 1, n * acc)
+    }
+    return helper(n, 1)
+}
+
+function main() {
+    println(factorial_tail(8))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "40320\n"

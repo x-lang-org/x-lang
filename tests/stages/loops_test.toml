@@ -1,0 +1,53 @@
+# 阶段测试 - 循环
+name = "stage_loops"
+description = "测试循环的完整流水线"
+category = "stages/loops"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+function sum_to(n: integer) -> integer {
+    let total = 0
+    let i = 1
+    while i <= n {
+        total = total + i
+        i = i + 1
+    }
+    return total
+}
+
+function main() {
+    let result = sum_to(10)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "While", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "While", "Binary", "Assign"]
+not_nodes = ["Error"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["sum_to", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def sum_to", "def main"]
+
+# 6. 运行时 (1+2+...+10 = 55)
+[expect.runtime]
+output = "55\n"

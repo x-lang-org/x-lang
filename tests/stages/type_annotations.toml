@@ -1,0 +1,52 @@
+# 阶段测试 - 类型注解
+name = "stage_type_annotations"
+description = "测试类型注解的完整流水线"
+category = "stages/types"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+function greet(name: string) -> string {
+    return "Hello, " + name
+}
+
+function add(a: integer, b: integer) -> integer {
+    return a + b
+}
+
+function main() {
+    let message: string = greet("X")
+    let sum: integer = add(10, 20)
+    println(message)
+    println(sum)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "Arrow", "Colon"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "VariableDecl"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["greet", "add", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def greet", "def add", "def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "Hello, X\n30\n"

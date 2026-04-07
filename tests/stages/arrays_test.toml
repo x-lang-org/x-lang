@@ -1,0 +1,47 @@
+# 阶段测试 - 变量和算术
+name = "stage_variables"
+description = "测试变量和算术运算的完整流水线"
+category = "stages/variables"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function main() {
+    let a = 10
+    let b = 20
+    let c = a + b
+    let d = a * b - c
+    println(c)
+    println(d)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Let", "Ident", "DecimalInt"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "VariableDecl", "Binary"]
+not_nodes = ["Error"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def main"]
+
+# 6. 运行时 (c=30, d=170)
+[expect.runtime]
+output_contains = ["30", "170"]

@@ -1,0 +1,20 @@
+# 阶段测试 - While 循环
+name = "stage_while_loop1"
+description = "测试 while 循环"
+category = "stages/loops"
+
+source = """
+function main() {
+    let i = 0
+    while i < 5 {
+        println(i)
+        i = i + 1
+    }
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "0\n1\n2\n3\n4\n"

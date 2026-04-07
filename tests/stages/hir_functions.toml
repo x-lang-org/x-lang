@@ -1,0 +1,65 @@
+# 阶段测试 - HIR 函数定义
+name = "stage_hir_functions"
+description = "测试 HIR 阶段的函数定义"
+category = "stages/hir"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    return a + b
+}
+
+function multiply(a: integer, b: integer) -> integer {
+    return a * b
+}
+
+function main() {
+    let x = add(3, 4)
+    let y = multiply(x, 2)
+    println(y)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证：tokens → ast → typecheck → hir → mir → lir → backend → runtime
+
+# 1. 词法分析验证
+[expect.tokens]
+contains = ["Function", "Ident", "LeftParen", "RightParen", "Arrow", "Return"]
+not_contains = ["Error"]
+
+# 2. AST 验证
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Call", "Binary"]
+not_nodes = ["Error"]
+
+# 3. 类型检查验证（通过即成功）
+[expect.typecheck]
+
+# 4. HIR 验证
+[expect.hir]
+functions = ["add", "multiply", "main"]
+
+# 5. MIR 验证
+[expect.mir]
+functions = ["add", "multiply", "main"]
+
+# 6. LIR 验证
+[expect.lir]
+functions = ["add", "multiply", "main"]
+
+# 7. 后端验证 (Python)
+[expect.backend.python]
+source_contains = ["def add", "def multiply", "def main"]
+functions = ["add", "multiply", "main"]
+
+# 8. 执行验证
+[expect.backend.python.execute]
+output = "14\n"
+
+# 9. 运行时验证
+[expect.runtime]
+output = "14\n"

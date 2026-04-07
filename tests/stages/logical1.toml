@@ -1,0 +1,23 @@
+# 阶段测试 - 逻辑运算1
+name = "stage_logical1"
+description = "测试逻辑运算1"
+category = "stages/expressions"
+
+source = """
+function main() {
+    let a = true and true
+    let b = true and false
+    let c = false or true
+    let d = false or false
+    println(a)
+    println(b)
+    println(c)
+    println(d)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "true\nfalse\ntrue\nfalse\n"

@@ -1,0 +1,19 @@
+# 阶段测试 - 比较运算符3
+name = "stage_comparison3"
+description = "测试比较运算符3"
+category = "stages/expressions"
+
+source = """
+function main() {
+    println(10 >= 10)
+    println(10 <= 10)
+    println(9 < 10)
+    println(11 > 10)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "true\ntrue\ntrue\ntrue\n"

@@ -1,0 +1,39 @@
+# 多后端编译测试
+# 验证同一个程序可以编译到不同后端并正确运行
+name = "multi_backend_pipeline"
+description = "测试同一程序在多个后端的编译和运行"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+# 简单的测试程序，确保能在所有后端上运行
+source = """
+function greet(name: string) -> string {
+    return "Hello, " + name + "!"
+}
+
+function main() {
+    let message = greet("World")
+    println(message)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "string", "Ident"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Call"]
+
+# 验证所有 IR 阶段都能生成
+[expect.hir]
+
+[expect.mir]
+
+[expect.lir]
+
+# 运行时验证
+[expect.runtime]
+output = "Hello, World!\n"

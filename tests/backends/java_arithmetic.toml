@@ -1,0 +1,20 @@
+# 后端测试 - Java 算术
+name = "backend_java_arithmetic"
+description = "测试 Java 后端算术运算"
+category = "backends/java"
+
+source = """
+function add(a: integer, b: integer) -> integer = a + b
+function mul(a: integer, b: integer) -> integer = a * b
+
+function main() {
+    println(add(50, 50))
+    println(mul(12, 8))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "100\n96\n"

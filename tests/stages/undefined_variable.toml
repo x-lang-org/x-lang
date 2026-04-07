@@ -1,0 +1,15 @@
+# 阶段测试 - 未定义变量错误
+name = "stage_undefined_variable"
+description = "测试未定义变量的错误检测"
+category = "stages/errors"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+function main() {
+    println(undefined_var)
+}
+"""
+
+[expect]
+compile = false
+error_contains = ["undefined"]

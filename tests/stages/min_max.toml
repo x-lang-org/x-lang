@@ -1,0 +1,20 @@
+# 阶段测试 - 最小最大值
+name = "stage_min_max"
+description = "测试 min 和 max 函数"
+category = "stages/functions"
+
+source = """
+function min(a: integer, b: integer) -> integer = if a < b { a } else { b }
+function max(a: integer, b: integer) -> integer = if a > b { a } else { b }
+
+function main() {
+    println(min(5, 10))
+    println(max(5, 10))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "5\n10\n"

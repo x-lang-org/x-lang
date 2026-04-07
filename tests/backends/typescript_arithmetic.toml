@@ -1,0 +1,19 @@
+# 后端测试 - TypeScript 算术
+name = "backend_typescript_arithmetic"
+description = "测试 TypeScript 后端算术运算"
+category = "backends/typescript"
+
+source = """
+function square(x: integer) -> integer = x * x
+
+function main() {
+    println(square(12))
+    println(square(5))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "144\n25\n"

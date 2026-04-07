@@ -1,0 +1,53 @@
+# 阶段测试 - 比较运算符
+name = "stage_comparison"
+description = "测试比较运算符的完整流水线"
+category = "stages/expressions"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function compare(a: integer, b: integer) -> integer {
+    if a == b { return 0 }
+    if a < b { return -1 }
+    if a > b { return 1 }
+    return 0
+}
+
+function main() {
+    let r1 = compare(5, 5)
+    let r2 = compare(3, 7)
+    let r3 = compare(10, 2)
+    println(r1)
+    println(r2)
+    println(r3)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "Eq"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["compare", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def compare", "def main"]
+
+# 6. 运行时 (0, -1, 1)
+[expect.runtime]
+output = "0\n-1\n1\n"

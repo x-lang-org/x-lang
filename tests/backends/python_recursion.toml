@@ -1,0 +1,58 @@
+# 后端测试 - Python 递归
+name = "backend_python_recursion"
+description = "测试 Python 后端递归函数"
+category = "backends/python"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function fib(n: integer) -> integer {
+    if n <= 1 {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+function main() {
+    let result = fib(10)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Call", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["fib", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["fib", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["fib", "main"]
+
+# 7. 后端验证 (Python)
+[expect.backend.python]
+source_contains = ["def fib", "def main"]
+functions = ["fib", "main"]
+
+# 8. 运行时验证 (fib(10) = 55)
+[expect.runtime]
+output = "55\n"

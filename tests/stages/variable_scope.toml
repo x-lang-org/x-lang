@@ -1,0 +1,32 @@
+# 阶段测试 - 变量作用域
+name = "stage_variable_scope"
+description = "测试变量作用域"
+category = "stages/scopes"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+function main() {
+    let x = 10
+    let y = 20
+    let z = x + y
+    println(z)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Let", "Ident"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "VariableDecl"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["main"]
+
+[expect.runtime]
+output = "30\n"

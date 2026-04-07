@@ -1,0 +1,69 @@
+# 后端测试 - C# 递归
+name = "backend_csharp_recursion"
+description = "测试 C# 后端递归函数"
+category = "backends/csharp"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function is_even(n: integer) -> bool {
+    if n == 0 {
+        return true
+    }
+    return is_odd(n - 1)
+}
+
+function is_odd(n: integer) -> bool {
+    if n == 0 {
+        return false
+    }
+    return is_even(n - 1)
+}
+
+function main() {
+    let result = is_even(100)
+    if result {
+        println("even")
+    } else {
+        println("odd")
+    }
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Call"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["is_even", "is_odd", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["is_even", "is_odd", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["is_even", "is_odd", "main"]
+
+# 7. 后端验证 (C#)
+[expect.backend.csharp]
+source_contains = ["public static bool is_even", "public static void main"]
+functions = ["is_even", "is_odd", "main"]
+
+# 8. 运行时验证
+[expect.runtime]
+output = "even\n"

@@ -1,0 +1,25 @@
+# 阶段测试 - 最大公约数（循环版）
+name = "stage_gcd_iterative"
+description = "测试 GCD 循环版本"
+category = "stages/algorithms"
+
+source = """
+function gcd(a: integer, b: integer) -> integer {
+    while b != 0 {
+        let t = b
+        b = a % b
+        a = t
+    }
+    return a
+}
+
+function main() {
+    println(gcd(48, 18))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "6\n"

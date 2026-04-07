@@ -1,0 +1,66 @@
+# 完整编译器流水线端到端测试
+# 验证 AST -> HIR -> MIR -> LIR -> 目标代码 -> 可执行文件 -> 运行结果
+name = "full_pipeline_ast_to_run"
+description = "测试编译器完整流水线：AST到HIR到MIR到LIR到Zig代码到可执行文件到运行结果"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+# 测试源代码
+source = """
+// 完整流水线测试函数
+function multiply(a: integer, b: integer) -> integer = a * b
+
+function main() {
+    let x = multiply(6, 7)
+    println(x)
+}
+"""
+
+[expect]
+# 必须能成功编译
+compile = true
+# 退出码为 0
+exit_code = 0
+
+# 阶段1: 词法分析
+[expect.tokens]
+# 必须包含这些 token 类型
+contains = ["Function", "integer", "Ident", "DecimalInt"]
+# 不能包含错误 token
+not_contains = ["Error"]
+
+# 阶段2: 语法分析 (AST)
+[expect.ast]
+# 必须包含这些 AST 节点类型
+nodes = ["FunctionDecl", "Parameter", "Call", "VariableDecl"]
+# 不能包含错误节点
+not_nodes = ["Error"]
+
+# 阶段3: HIR 生成
+[expect.hir]
+# 验证 HIR 生成成功（无显式验证规则，只要不崩溃即可）
+# 下一阶段 MIR 会检查具体内容
+
+# 阶段4: MIR 生成
+[expect.mir]
+# 验证 MIR 生成成功
+
+# 阶段5: LIR 生成 (XIR - 所有后端的统一输入)
+[expect.lir]
+# 验证 LIR 生成成功
+
+# 阶段6: Zig 代码生成
+[expect.backend.zig]
+# 验证 Zig 代码包含特定内容
+source_contains = ["fn multiply", "pub fn main"]
+functions = ["multiply", "main"]
+
+# 注意：Zig 后端执行需要使用 --target zig，这需要单独的测试框架支持
+# 当前版本只验证代码生成
+
+# 阶段7: 运行时验证
+[expect.runtime]
+# 输出必须包含 42 (6 * 7)
+output_contains = ["42"]
+# 精确输出（忽略空行和状态信息）
+output = "42\n"

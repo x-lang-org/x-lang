@@ -1,0 +1,36 @@
+# 后端测试 - Zig 条件
+name = "backend_zig_conditional"
+description = "测试 Zig 后端条件语句"
+category = "backends/zig"
+
+source = """
+function max(a: integer, b: integer) -> integer {
+    if a > b { return a }
+    return b
+}
+
+function main() {
+    println(max(10, 20))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "If"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["max", "main"]
+
+[expect.backend.zig]
+source_contains = ["fn max", "pub fn main"]
+
+[expect.runtime]
+output = "20\n"

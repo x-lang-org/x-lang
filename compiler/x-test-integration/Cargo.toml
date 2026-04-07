@@ -1,0 +1,25 @@
+[package]
+name = "x-test-integration"
+version = "0.1.0"
+edition = "2021"
+description = "X Language Compiler Integration Tests"
+
+[dependencies]
+# Frontend
+x-lexer = { path = "../x-lexer" }
+x-parser = { path = "../x-parser" }
+x-typechecker = { path = "../x-typechecker" }
+# Middleend
+x-hir = { path = "../x-hir" }
+x-mir = { path = "../x-mir" }
+x-lir = { path = "../x-lir" }
+# Interpreter
+x-interpreter = { path = "../x-interpreter" }
+
+[dev-dependencies]
+tempfile = "3"
+
+[features]
+default = []
+# Enable backend tests (requires external compilers)
+backends = []

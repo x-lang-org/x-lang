@@ -1,0 +1,47 @@
+# 阶段测试 - 嵌套循环
+name = "stage_nested_loops"
+description = "测试嵌套循环的完整流水线"
+category = "stages/loops"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+function main() {
+    let count = 0
+    for i in 1..4 {
+        for j in 1..3 {
+            count = count + 1
+        }
+    }
+    println(count)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["For"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "For"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def main"]
+
+# 6. 运行时 (3 iterations each for 2 values = 6)
+[expect.runtime]
+output = "6\n"

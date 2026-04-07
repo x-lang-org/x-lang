@@ -1,0 +1,23 @@
+# 阶段测试 - 重复定义错误
+name = "stage_duplicate_function"
+description = "测试重复函数定义的错误检测"
+category = "stages/errors"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+function add(a: integer, b: integer) -> integer {
+    return a + b
+}
+
+function add(a: integer, b: integer, c: integer) -> integer {
+    return a + b + c
+}
+
+function main() {
+    println(add(1, 2))
+}
+"""
+
+[expect]
+compile = false
+error_contains = ["duplicate", "already"]

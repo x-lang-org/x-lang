@@ -1,0 +1,19 @@
+# 阶段测试 - 返回类型错误
+name = "stage_wrong_return_type"
+description = "测试返回类型不匹配的错误检测"
+category = "stages/errors"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+function get_number() -> integer {
+    return "hello"
+}
+
+function main() {
+    println(get_number())
+}
+"""
+
+[expect]
+compile = false
+error_contains = ["type", "mismatch"]

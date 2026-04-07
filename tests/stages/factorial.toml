@@ -1,0 +1,22 @@
+# 阶段测试 - 阶乘
+name = "stage_factorial"
+description = "测试阶乘"
+category = "stages/algorithms"
+
+source = """
+function factorial(n: integer) -> integer {
+    if n <= 1 { return 1 }
+    return n * factorial(n - 1)
+}
+
+function main() {
+    println(factorial(5))
+    println(factorial(0))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "120\n1\n"

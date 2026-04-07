@@ -1,0 +1,28 @@
+# 阶段测试 - 判断回文数
+name = "stage_is_palindrome"
+description = "测试判断回文数"
+category = "stages/algorithms"
+
+source = """
+function reverse(n: integer) -> integer {
+    let r = 0
+    while n > 0 {
+        r = r * 10 + (n % 10)
+        n = n / 10
+    }
+    return r
+}
+
+function is_palindrome(n: integer) -> bool = n == reverse(n)
+
+function main() {
+    println(is_palindrome(121))
+    println(is_palindrome(123))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "true\nfalse\n"

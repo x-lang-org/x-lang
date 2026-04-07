@@ -1,0 +1,20 @@
+# 阶段测试 - 绝对值
+name = "stage_absolute"
+description = "测试绝对值函数"
+category = "stages/functions"
+
+source = """
+function abs(x: integer) -> integer = if x < 0 { -x } else { x }
+
+function main() {
+    println(abs(-5))
+    println(abs(10))
+    println(abs(0))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "5\n10\n0\n"

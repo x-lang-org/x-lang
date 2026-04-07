@@ -1,0 +1,22 @@
+# 阶段测试 - While 循环3
+name = "stage_while_loop3"
+description = "测试 while 循环3"
+category = "stages/loops"
+
+source = """
+function main() {
+    let count = 0
+    let i = 0
+    while i < 100 {
+        i = i + 1
+        count = count + 1
+    }
+    println(count)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "100\n"

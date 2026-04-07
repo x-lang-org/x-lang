@@ -1,0 +1,55 @@
+# 面向对象编程流水线测试
+# 测试类、方法和继承的完整编译流水线
+name = "oop_pipeline"
+description = "测试类和方法的完整编译器流水线"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+# 面向对象测试程序
+source = """
+// 定义一个简单的类
+class Counter {
+    private let count: integer
+
+    public new() {
+        this.count = 0
+    }
+
+    public function increment() -> integer {
+        this.count = this.count + 1
+        return this.count
+    }
+
+    public function getCount() -> integer = this.count
+}
+
+let counter = Counter()
+let a = counter.increment()
+let b = counter.increment()
+let c = counter.getCount()
+
+println(a)
+println(b)
+println(c)
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "Class", "integer", "Ident", "Return"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "ClassDecl", "Call", "Return"]
+
+# 验证所有 IR 阶段
+[expect.hir]
+
+[expect.mir]
+
+[expect.lir]
+
+# 运行时验证：increment 两次后 count = 2
+[expect.runtime]
+output_contains = ["1", "2"]

@@ -1,0 +1,55 @@
+# 后端测试 - Erlang
+name = "backend_erlang_hello"
+description = "测试 Erlang 后端代码生成"
+category = "backends/erlang"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function double(x: integer) -> integer {
+    return x * 2
+}
+
+function main() {
+    let result = double(21)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Binary", "Call"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["double", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["double", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["double", "main"]
+
+# 7. 后端验证 (Erlang)
+[expect.backend.erlang]
+source_contains = ["double(", "main()"]
+functions = ["double", "main"]
+
+# 8. 运行时验证
+[expect.runtime]
+output = "42\n"

@@ -1,0 +1,21 @@
+# 阶段测试 - 逻辑运算2
+name = "stage_logical2"
+description = "测试逻辑运算2"
+category = "stages/expressions"
+
+source = """
+function main() {
+    let a = not true
+    let b = not false
+    let c = not (true and false)
+    println(a)
+    println(b)
+    println(c)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "false\ntrue\ntrue\n"

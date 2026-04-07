@@ -1,0 +1,36 @@
+# 后端测试 - TypeScript 条件
+name = "backend_typescript_conditional"
+description = "测试 TypeScript 后端条件语句"
+category = "backends/typescript"
+
+source = """
+function min(a: integer, b: integer) -> integer {
+    if a < b { return a }
+    return b
+}
+
+function main() {
+    println(min(5, 3))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "If"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["min", "main"]
+
+[expect.backend.ts]
+source_contains = ["function min", "function main"]
+
+[expect.runtime]
+output = "3\n"

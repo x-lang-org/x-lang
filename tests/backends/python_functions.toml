@@ -1,0 +1,20 @@
+# 后端测试 - Python 函数
+name = "backend_python_functions"
+description = "测试 Python 后端函数"
+category = "backends/python"
+
+source = """
+function add(a: integer, b: integer) -> integer = a + b
+function multiply(a: integer, b: integer) -> integer = a * b
+
+function main() {
+    let result = add(multiply(3, 4), multiply(5, 2))
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "22\n"

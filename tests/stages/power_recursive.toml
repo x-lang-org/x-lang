@@ -1,0 +1,21 @@
+# 阶段测试 - 幂运算递归
+name = "stage_power_recursive"
+description = "测试幂运算递归版本"
+category = "stages/algorithms"
+
+source = """
+function pow(base: integer, exp: integer) -> integer {
+    if exp == 0 { return 1 }
+    return base * pow(base, exp - 1)
+}
+
+function main() {
+    println(pow(2, 8))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "256\n"

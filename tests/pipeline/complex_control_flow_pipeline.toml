@@ -1,0 +1,56 @@
+# 复杂控制流流水线测试
+# 测试 if/match/循环/递归等控制流结构的完整流水线
+name = "complex_control_flow_pipeline"
+description = "测试复杂控制流（if/match/递归）的完整流水线"
+category = "pipeline"
+spec = ["spec/docs/01-overview.md"]
+
+# 包含条件判断、模式匹配和递归的测试程序
+source = """
+// 递归计算阶乘
+function factorial(n: integer) -> integer {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+// 使用 when-is 表达式
+function describe(n: integer) -> string {
+    when n is {
+        0 => "zero"
+        1 => "one"
+        2 => "two"
+        _ => "many"
+    }
+}
+
+function main() {
+    let fact5 = factorial(5)
+    let desc = describe(2)
+
+    println(fact5)
+    println(desc)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "integer", "Ident", "If", "When", "Return"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Match", "Call", "Return"]
+
+# 验证所有 IR 阶段
+[expect.hir]
+
+[expect.mir]
+
+[expect.lir]
+
+# 运行时验证：factorial(5) = 120, describe(2) = "two"
+[expect.runtime]
+output_contains = ["120", "two"]

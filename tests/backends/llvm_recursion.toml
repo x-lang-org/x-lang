@@ -1,0 +1,53 @@
+# 后端测试 - LLVM 递归
+name = "backend_llvm_recursion"
+description = "测试 LLVM 后端递归函数"
+category = "backends/llvm"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function tribonacci(n: integer) -> integer {
+    if n == 0 { return 0 }
+    if n == 1 { return 0 }
+    if n == 2 { return 1 }
+    return tribonacci(n - 1) + tribonacci(n - 2) + tribonacci(n - 3)
+}
+
+function main() {
+    let result = tribonacci(10)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1-6: IR 阶段验证
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Call"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["tribonacci", "main"]
+
+[expect.mir]
+functions = ["tribonacci", "main"]
+
+[expect.lir]
+functions = ["tribonacci", "main"]
+
+# 7. 后端验证 (LLVM)
+[expect.backend.llvm]
+source_contains = ["define", "tribonacci", "main"]
+functions = ["tribonacci", "main"]
+
+# 8. 运行时验证 (tribonacci(10) = 81)
+[expect.runtime]
+output = "81\n"

@@ -1,0 +1,23 @@
+# 阶段测试 - 求最大公约数
+name = "stage_gcd"
+description = "测试 GCD 算法"
+category = "stages/algorithms"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function gcd(a: integer, b: integer) -> integer {
+    if b == 0 { return a }
+    return gcd(b, a % b)
+}
+
+function main() {
+    println(gcd(48, 18))
+    println(gcd(100, 25))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "6\n25\n"

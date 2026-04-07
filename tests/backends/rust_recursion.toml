@@ -1,0 +1,58 @@
+# 后端测试 - Rust 递归
+name = "backend_rust_recursion"
+description = "测试 Rust 后端递归函数"
+category = "backends/rust"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function gcd(a: integer, b: integer) -> integer {
+    if b == 0 {
+        return a
+    }
+    return gcd(b, a % b)
+}
+
+function main() {
+    let result = gcd(48, 18)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Call", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["gcd", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["gcd", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["gcd", "main"]
+
+# 7. 后端验证 (Rust)
+[expect.backend.rust]
+source_contains = ["fn gcd", "fn main"]
+functions = ["gcd", "main"]
+
+# 8. 运行时验证 (gcd(48, 18) = 6)
+[expect.runtime]
+output = "6\n"

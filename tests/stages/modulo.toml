@@ -1,0 +1,18 @@
+# 阶段测试 - 取模运算
+name = "stage_modulo"
+description = "测试取模运算"
+category = "stages/arithmetic"
+
+source = """
+function main() {
+    println(17 % 5)
+    println(100 % 30)
+    println(7 % 7)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "2\n10\n0\n"

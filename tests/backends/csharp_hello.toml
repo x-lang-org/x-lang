@@ -1,0 +1,55 @@
+# 后端测试 - C#
+name = "backend_csharp_hello"
+description = "测试 C# 后端代码生成"
+category = "backends/csharp"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function multiply(a: integer, b: integer) -> integer {
+    return a * b
+}
+
+function main() {
+    let product = multiply(6, 7)
+    println(product)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Parameter", "Binary", "Call"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["multiply", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["multiply", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["multiply", "main"]
+
+# 7. 后端验证 (C#)
+[expect.backend.csharp]
+source_contains = ["public static int multiply", "public static void main"]
+functions = ["multiply", "main"]
+
+# 8. 运行时验证
+[expect.runtime]
+output = "42\n"

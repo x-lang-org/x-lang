@@ -1,0 +1,41 @@
+# 阶段测试 - 算术运算组合
+name = "stage_arithmetic1"
+description = "测试基础算术运算组合"
+category = "stages/arithmetic"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function main() {
+    let a = 10 + 5
+    let b = 20 - 8
+    let c = 4 * 7
+    let d = 15 / 3
+    let e = 17 % 5
+    println(a)
+    println(b)
+    println(c)
+    println(d)
+    println(e)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Plus", "Minus", "Star", "Slash", "Percent"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "Binary"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["main"]
+
+[expect.backend.python]
+source_contains = ["def main"]
+
+[expect.runtime]
+output = "15\n12\n28\n5\n2\n"

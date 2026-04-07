@@ -1,0 +1,24 @@
+# 阶段测试 - 求最小公倍数
+name = "stage_lcm"
+description = "测试 LCM 算法"
+category = "stages/algorithms"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function gcd(a: integer, b: integer) -> integer {
+    if b == 0 { return a }
+    return gcd(b, a % b)
+}
+function lcm(a: integer, b: integer) -> integer = (a * b) / gcd(a, b)
+
+function main() {
+    println(lcm(4, 6))
+    println(lcm(12, 15))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "12\n60\n"

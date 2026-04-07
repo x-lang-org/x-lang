@@ -1,0 +1,58 @@
+# 后端测试 - Erlang 递归
+name = "backend_erlang_recursion"
+description = "测试 Erlang 后端递归函数"
+category = "backends/erlang"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function multiply(a: integer, b: integer) -> integer {
+    if b == 0 {
+        return 0
+    }
+    return a + multiply(a, b - 1)
+}
+
+function main() {
+    let result = multiply(6, 7)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Call", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["multiply", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["multiply", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["multiply", "main"]
+
+# 7. 后端验证 (Erlang)
+[expect.backend.erlang]
+source_contains = ["multiply(", "main()"]
+functions = ["multiply", "main"]
+
+# 8. 运行时验证 (6*7 = 42)
+[expect.runtime]
+output = "42\n"

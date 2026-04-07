@@ -1,0 +1,20 @@
+# 后端测试 - Zig 函数
+name = "backend_zig_functions"
+description = "测试 Zig 后端函数"
+category = "backends/zig"
+
+source = """
+function diff(a: integer, b: integer) -> integer = a - b
+function mod(a: integer, b: integer) -> integer = a % b
+
+function main() {
+    println(diff(100, 37))
+    println(mod(17, 5))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "63\n2\n"

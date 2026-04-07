@@ -1,0 +1,21 @@
+# 阶段测试 - 阶乘递归
+name = "stage_factorial_recursive"
+description = "测试阶乘递归版"
+category = "stages/algorithms"
+
+source = """
+function factorial(n: integer) -> integer {
+    if n <= 1 { return 1 }
+    return n * factorial(n - 1)
+}
+
+function main() {
+    println(factorial(7))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "5040\n"

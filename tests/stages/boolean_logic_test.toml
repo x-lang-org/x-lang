@@ -1,0 +1,61 @@
+# 阶段测试 - 布尔逻辑
+name = "stage_boolean_logic"
+description = "测试布尔逻辑运算的完整流水线"
+category = "stages/booleans"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function is_positive(n: integer) -> bool {
+    return n > 0
+}
+
+function is_even(n: integer) -> bool {
+    return n % 2 == 0
+}
+
+function check(n: integer) -> bool {
+    let positive = is_positive(n)
+    let even = is_even(n)
+    return positive and even
+}
+
+function main() {
+    let result = check(10)
+    if result {
+        println("yes")
+    } else {
+        println("no")
+    }
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "And"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary", "Call"]
+not_nodes = ["Error"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["is_positive", "is_even", "check", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def is_positive", "def is_even", "def check", "def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "yes\n"

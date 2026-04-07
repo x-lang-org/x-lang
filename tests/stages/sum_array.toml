@@ -1,0 +1,25 @@
+# 阶段测试 - 求和
+name = "stage_sum_array"
+description = "测试数组求和"
+category = "stages/arrays"
+
+source = """
+function sum_array(nums: list<integer>) -> integer {
+    let total = 0
+    for n in nums {
+        total = total + n
+    }
+    return total
+}
+
+function main() {
+    let nums = [1, 2, 3, 4, 5]
+    println(sum_array(nums))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "15\n"

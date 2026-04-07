@@ -1,0 +1,22 @@
+# 后端测试 - Rust 条件
+name = "backend_rust_conditional"
+description = "测试 Rust 后端条件语句"
+category = "backends/rust"
+
+source = """
+function abs(x: integer) -> integer {
+    if x < 0 { return -x }
+    return x
+}
+
+function main() {
+    println(abs(-5))
+    println(abs(10))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "5\n10\n"

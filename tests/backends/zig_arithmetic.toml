@@ -1,0 +1,22 @@
+# 后端测试 - Zig 算术
+name = "backend_zig_arithmetic"
+description = "测试 Zig 后端算术运算"
+category = "backends/zig"
+
+source = """
+function add(a: integer, b: integer) -> integer = a + b
+function sub(a: integer, b: integer) -> integer = a - b
+function mul(a: integer, b: integer) -> integer = a * b
+
+function main() {
+    println(add(100, 200))
+    println(sub(50, 20))
+    println(mul(6, 7))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "300\n30\n42\n"

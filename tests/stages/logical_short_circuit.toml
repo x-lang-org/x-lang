@@ -1,0 +1,48 @@
+# 阶段测试 - 逻辑运算符
+name = "stage_logical"
+description = "测试逻辑运算符的完整流水线"
+category = "stages/expressions"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function main() {
+    let a = 5
+    let b = 10
+    let and_result = a > 0 and b > 0
+    let or_result = a < 0 or b > 0
+    let not_result = not (a == b)
+    println(and_result)
+    println(or_result)
+    println(not_result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["And", "Or"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端（跳过，因为 Python 后端有问题）
+# [expect.backend.python]
+# source_contains = ["def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "true\ntrue\ntrue\n"

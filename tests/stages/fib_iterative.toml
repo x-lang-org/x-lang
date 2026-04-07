@@ -1,0 +1,30 @@
+# 阶段测试 - 斐波那契（循环版）
+name = "stage_fib_iterative"
+description = "测试斐波那契循环版"
+category = "stages/algorithms"
+
+source = """
+function fib(n: integer) -> integer {
+    if n <= 1 { return n }
+    let a = 0
+    let b = 1
+    let i = 2
+    while i <= n {
+        let c = a + b
+        a = b
+        b = c
+        i = i + 1
+    }
+    return b
+}
+
+function main() {
+    println(fib(10))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "55\n"

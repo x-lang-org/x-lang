@@ -1,0 +1,25 @@
+# 阶段测试 - 数字反转
+name = "stage_reverse_number"
+description = "测试数字反转"
+category = "stages/algorithms"
+
+source = """
+function reverse(n: integer) -> integer {
+    let result = 0
+    while n > 0 {
+        result = result * 10 + (n % 10)
+        n = n / 10
+    }
+    return result
+}
+
+function main() {
+    println(reverse(12345))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "54321\n"

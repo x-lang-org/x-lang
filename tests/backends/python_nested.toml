@@ -1,0 +1,22 @@
+# 后端测试 - Python 嵌套函数
+name = "backend_python_nested"
+description = "测试 Python 后端嵌套函数"
+category = "backends/python"
+
+source = """
+function fact(n: integer) -> integer {
+    if n <= 1 { return 1 }
+    return n * fact(n - 1)
+}
+
+function main() {
+    println(fact(6))
+    println(fact(3))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "720\n6\n"

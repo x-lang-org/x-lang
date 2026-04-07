@@ -1,0 +1,61 @@
+# 后端测试 - Python 循环
+name = "backend_python_loop"
+description = "测试 Python 后端循环"
+category = "backends/python"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function sum_to(n: integer) -> integer {
+    let total = 0
+    let i = 1
+    while i <= n {
+        total = total + i
+        i = i + 1
+    }
+    return total
+}
+
+function main() {
+    let result = sum_to(100)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "While", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "While", "Binary", "Assign"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["sum_to", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["sum_to", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["sum_to", "main"]
+
+# 7. 后端验证 (Python)
+[expect.backend.python]
+source_contains = ["def sum_to", "def main"]
+functions = ["sum_to", "main"]
+
+# 8. 运行时验证 (1+2+...+100 = 5050)
+[expect.runtime]
+output = "5050\n"

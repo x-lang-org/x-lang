@@ -1,0 +1,47 @@
+# 阶段测试 - 负数
+name = "stage_negation"
+description = "测试负数的完整流水线"
+category = "stages/literals"
+spec = ["spec/docs/01-lexical.md"]
+
+source = """
+function main() {
+    let a = 10
+    let b = -a
+    let c = -5
+    let d = a + c
+    println(b)
+    println(c)
+    println(d)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["DecimalInt", "Minus"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Unary", "Binary"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "-10\n-5\n5\n"

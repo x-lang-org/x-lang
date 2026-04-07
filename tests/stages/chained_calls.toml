@@ -1,0 +1,52 @@
+# 阶段测试 - 函数链式调用
+name = "stage_chained_calls"
+description = "测试函数链式调用的完整流水线"
+category = "stages/calls"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function inc(x: integer) -> integer {
+    return x + 1
+}
+
+function double(x: integer) -> integer {
+    return x * 2
+}
+
+function main() {
+    let result = inc(inc(inc(10)))
+    println(result)
+    let result2 = double(double(double(1)))
+    println(result2)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "Call"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["inc", "double", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def inc", "def double", "def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "13\n8\n"

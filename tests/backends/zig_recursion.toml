@@ -1,0 +1,58 @@
+# 后端测试 - Zig 递归
+name = "backend_zig_recursion"
+description = "测试 Zig 后端递归函数"
+category = "backends/zig"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function factorial(n: integer) -> integer {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+function main() {
+    let result = factorial(5)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary", "Call"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["factorial", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["factorial", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["factorial", "main"]
+
+# 7. 后端验证 (Zig)
+[expect.backend.zig]
+source_contains = ["fn factorial", "pub fn main"]
+functions = ["factorial", "main"]
+
+# 8. 运行时验证 (5! = 120)
+[expect.runtime]
+output = "120\n"

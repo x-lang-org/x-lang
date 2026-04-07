@@ -1,0 +1,59 @@
+# 阶段测试 - 递归函数
+name = "stage_recursion"
+description = "测试递归函数的完整流水线"
+category = "stages/recursion"
+spec = ["spec/docs/05-functions.md"]
+
+source = """
+function fib(n: integer) -> integer {
+    if n <= 1 {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+function main() {
+    let result = fib(10)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary", "Call"]
+not_nodes = ["Error"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["fib", "main"]
+
+# 5. MIR
+[expect.mir]
+functions = ["fib", "main"]
+
+# 6. LIR
+[expect.lir]
+functions = ["fib", "main"]
+
+# 7. 后端
+[expect.backend.python]
+source_contains = ["def fib", "def main"]
+functions = ["fib", "main"]
+
+# 8. 运行时 (fib(10) = 55)
+[expect.runtime]
+output = "55\n"

@@ -1,0 +1,50 @@
+# 阶段测试 - 条件表达式
+name = "stage_conditionals"
+description = "测试条件表达式的完整流水线"
+category = "stages/conditionals"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function max(a: integer, b: integer) -> integer {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+function main() {
+    let m = max(100, 200)
+    println(m)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary", "Return"]
+not_nodes = ["Error"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["max", "main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def max", "def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "200\n"

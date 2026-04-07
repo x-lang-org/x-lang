@@ -1,0 +1,44 @@
+# 阶段测试 - 多重条件分支
+name = "stage_multi_condition"
+description = "测试多重 if-elseif-else 分支"
+category = "stages/control"
+spec = ["spec/docs/03-expressions.md"]
+
+source = """
+function grade(score: integer) -> string {
+    if score >= 90 { return "A" }
+    else if score >= 80 { return "B" }
+    else if score >= 70 { return "C" }
+    else if score >= 60 { return "D" }
+    else { return "F" }
+}
+
+function main() {
+    println(grade(95))
+    println(grade(82))
+    println(grade(65))
+    println(grade(45))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.tokens]
+contains = ["Function", "If", "Return"]
+not_contains = ["Error"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["grade", "main"]
+
+[expect.backend.python]
+source_contains = ["def grade", "def main"]
+
+[expect.runtime]
+output = "A\nB\nD\nF\n"

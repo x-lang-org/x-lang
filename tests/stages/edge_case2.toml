@@ -1,0 +1,21 @@
+# 阶段测试 - 边界情况2
+name = "stage_edge_case2"
+description = "测试边界情况2"
+category = "stages/edge"
+
+source = """
+function main() {
+    let result = 0 - 0
+    let result2 = 1 - 1
+    let result3 = 100 - 100
+    println(result)
+    println(result2)
+    println(result3)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "0\n0\n0\n"

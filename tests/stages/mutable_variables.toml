@@ -1,0 +1,45 @@
+# 阶段测试 - 可变变量
+name = "stage_mutable_variables"
+description = "测试可变变量的完整流水线"
+category = "stages/mutability"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+function main() {
+    let mutable counter = 0
+    counter = counter + 1
+    counter = counter + 1
+    counter = counter + 1
+    println(counter)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["Let", "Mutable", "Ident"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "VariableDecl", "Assign"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def main"]
+
+# 6. 运行时
+[expect.runtime]
+output = "3\n"

@@ -1,0 +1,53 @@
+# 后端测试 - Swift 递归
+name = "backend_swift_recursion"
+description = "测试 Swift 后端递归函数"
+category = "backends/swift"
+spec = ["spec/docs/01-overview.md"]
+
+source = """
+function digit_sum(n: integer) -> integer {
+    if n < 10 {
+        return n
+    }
+    return (n % 10) + digit_sum(n / 10)
+}
+
+function main() {
+    let result = digit_sum(12345)
+    println(result)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1-6: IR 阶段验证
+[expect.tokens]
+contains = ["Function", "Ident", "If", "Return"]
+not_contains = ["Error"]
+
+[expect.ast]
+nodes = ["FunctionDecl", "If", "Binary"]
+
+[expect.typecheck]
+
+[expect.hir]
+functions = ["digit_sum", "main"]
+
+[expect.mir]
+functions = ["digit_sum", "main"]
+
+[expect.lir]
+functions = ["digit_sum", "main"]
+
+# 7. 后端验证 (Swift)
+[expect.backend.swift]
+source_contains = ["func digit_sum", "func main()"]
+functions = ["digit_sum", "main"]
+
+# 8. 运行时验证 (1+2+3+4+5 = 15)
+[expect.runtime]
+output = "15\n"

@@ -1,0 +1,21 @@
+# 后端测试 - Java 条件
+name = "backend_java_conditional"
+description = "测试 Java 后端条件语句"
+category = "backends/java"
+
+source = """
+function abs(x: integer) -> integer {
+    if x < 0 { return -x }
+    return x
+}
+
+function main() {
+    println(abs(-42))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "42\n"

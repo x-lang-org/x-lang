@@ -1,0 +1,20 @@
+# 后端测试 - Rust 算术
+name = "backend_rust_arithmetic"
+description = "测试 Rust 后端算术运算"
+category = "backends/rust"
+
+source = """
+function sub(a: integer, b: integer) -> integer = a - b
+function div(a: integer, b: integer) -> integer = a / b
+
+function main() {
+    println(sub(100, 33))
+    println(div(84, 7))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "67\n12\n"

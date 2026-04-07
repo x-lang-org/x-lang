@@ -1,0 +1,48 @@
+# 阶段测试 - Break 和 Continue
+name = "stage_break_continue"
+description = "测试 break 和 continue 的完整流水线"
+category = "stages/loops"
+spec = ["spec/docs/04-statements.md"]
+
+source = """
+function main() {
+    let count = 0
+    for i in 1..10 {
+        if i == 5 {
+            break
+        }
+        count = count + 1
+    }
+    println(count)
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+# 完整流水线验证
+
+# 1. 词法分析
+[expect.tokens]
+contains = ["For", "If", "Break"]
+not_contains = ["Error"]
+
+# 2. AST
+[expect.ast]
+nodes = ["FunctionDecl", "For", "If", "Break"]
+
+# 3. 类型检查
+[expect.typecheck]
+
+# 4. HIR
+[expect.hir]
+functions = ["main"]
+
+# 5. 后端
+[expect.backend.python]
+source_contains = ["def main"]
+
+# 6. 运行时 (breaks at 5, so counts 1,2,3,4 = 4)
+[expect.runtime]
+output = "4\n"

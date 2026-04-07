@@ -1,0 +1,22 @@
+# 后端测试 - C# 条件
+name = "backend_csharp_conditional"
+description = "测试 C# 后端条件语句"
+category = "backends/csharp"
+
+source = """
+function is_positive(n: integer) -> bool {
+    if n > 0 { return true }
+    return false
+}
+
+function main() {
+    println(is_positive(5))
+    println(is_positive(-1))
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+[expect.runtime]
+output = "true\nfalse\n"
