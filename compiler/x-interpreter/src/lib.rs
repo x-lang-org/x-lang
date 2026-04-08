@@ -2818,8 +2818,9 @@ impl Interpreter {
                     let saved = self.variables.clone();
                     let saved_this = self.variables.get("self").cloned();
 
-                    // 设置 self
+                    // 设置 self/this
                     self.variables.insert("self".to_string(), instance.clone());
+                    self.variables.insert("this".to_string(), instance.clone());
 
                     // 添加构造函数参数
                     for (p, v) in constructor.parameters.iter().zip(&arg_vals) {
@@ -2832,7 +2833,8 @@ impl Interpreter {
                     // 恢复变量状态
                     self.variables = saved;
                     if let Some(this_val) = saved_this {
-                        self.variables.insert("self".to_string(), this_val);
+                        self.variables.insert("self".to_string(), this_val.clone());
+                        self.variables.insert("this".to_string(), this_val);
                     }
 
                     // 返回更新后的实例
@@ -3108,8 +3110,9 @@ impl Interpreter {
                     // 保存当前变量状态
                     let saved = self.variables.clone();
 
-                    // 设置 self
+                    // 设置 self/this
                     self.variables.insert("self".to_string(), obj_val.clone());
+                    self.variables.insert("this".to_string(), obj_val.clone());
 
                     // 添加字段作为可直接访问的变量
                     if let Value::Object { fields, .. } = &obj_val {
