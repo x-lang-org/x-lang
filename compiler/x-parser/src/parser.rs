@@ -828,7 +828,10 @@ impl XParser {
         })
     }
 
-    fn parse_lambda_param(&self, ti: &mut TokenIterator) -> Result<(String, Option<Type>, Span), ParseError> {
+    fn parse_lambda_param(
+        &self,
+        ti: &mut TokenIterator,
+    ) -> Result<(String, Option<Type>, Span), ParseError> {
         let name = match self.expect_token(ti, "参数名")? {
             Token::Ident(n) => n,
             t => return Err(self.err(format!("期望参数名，但得到 {:?}", t), ti)),
@@ -2621,10 +2624,7 @@ impl XParser {
 
         // 期望 then 关键字
         if !matches!(ti.peek(), Some(Ok((Token::Then, _)))) {
-            return Err(self.err(
-                format!("期望 then 关键字，但得到 {:?}", ti.peek()),
-                ti,
-            ));
+            return Err(self.err(format!("期望 then 关键字，但得到 {:?}", ti.peek()), ti));
         }
         ti.next(); // consume 'then'
 
@@ -2633,10 +2633,7 @@ impl XParser {
 
         // 期望 else 关键字
         if !matches!(ti.peek(), Some(Ok((Token::Else, _)))) {
-            return Err(self.err(
-                format!("期望 else，但得到 {:?}", ti.peek()),
-                ti,
-            ));
+            return Err(self.err(format!("期望 else，但得到 {:?}", ti.peek()), ti));
         }
         ti.next(); // consume 'else'
 
