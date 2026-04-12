@@ -23,6 +23,7 @@ pub enum Token {
     Abstract,   // abstract 关键字
     Super,      // super 关键字
     Type,
+    Newtype, // newtype 关键字
     New,
     Virtual,
     Override,
@@ -69,7 +70,6 @@ pub enum Token {
     Needs,
     Given,
     Wait,
-    Together,
     Race,
     Timeout,
     Atomic,

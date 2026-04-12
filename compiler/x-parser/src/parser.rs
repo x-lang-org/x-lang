@@ -159,6 +159,36 @@ impl XParser {
                                 span: self.current_span(ti),
                             }));
                         }
+                        Some(Ok((Token::Trait, _))) | Some(Ok((Token::Interface, _))) => {
+                            ti.next();
+                            let trait_ = self.parse_trait(ti)?;
+                            let name = trait_.name.clone();
+                            declarations.push(Declaration::Trait(trait_));
+                            declarations.push(Declaration::Export(ExportDecl {
+                                symbol: name,
+                                span: self.current_span(ti),
+                            }));
+                        }
+                        Some(Ok((Token::Struct, _))) | Some(Ok((Token::Record, _))) => {
+                            ti.next();
+                            let record = self.parse_record(ti)?;
+                            let name = record.name.clone();
+                            declarations.push(Declaration::Record(record));
+                            declarations.push(Declaration::Export(ExportDecl {
+                                symbol: name,
+                                span: self.current_span(ti),
+                            }));
+                        }
+                        Some(Ok((Token::Effect, _))) => {
+                            ti.next();
+                            let effect = self.parse_effect(ti)?;
+                            let name = effect.name.clone();
+                            declarations.push(Declaration::Effect(effect));
+                            declarations.push(Declaration::Export(ExportDecl {
+                                symbol: name,
+                                span: self.current_span(ti),
+                            }));
+                        }
                         _ => {
                             // Traditional export declaration: export name;
                             declarations.push(Declaration::Export(self.parse_export(ti)?));
@@ -695,7 +725,28 @@ impl XParser {
         ti: &mut TokenIterator,
     ) -> Result<ExternFunctionDecl, ParseError> {
         // Parse optional ABI string
-        let abi = if matches!(ti.peek(), Some(Ok((Token::StringContent(_), _)))) {
+        let abi = if matches!(ti.peek(), Some(Ok((Token::StringQuote, _)))) {
+            // Full string syntax: "c"
+            ti.next(); // consume opening StringQuote
+
+            let s = match ti.next() {
+                Some(Ok((Token::StringContent(content), _))) => content,
+                Some(Ok((Token::StringQuote, _))) => {
+                    // Empty string
+                    String::new()
+                }
+                _ => return Err(self.err("期望字符串内容", ti)),
+            };
+
+            // Expect closing string quote
+            match ti.next() {
+                Some(Ok((Token::StringQuote, _))) => {}
+                _ => return Err(self.err("期望闭合字符串引号", ti)),
+            }
+
+            s
+        } else if matches!(ti.peek(), Some(Ok((Token::StringContent(_), _)))) {
+            // Already have content directly
             match ti.next() {
                 Some(Ok((Token::StringContent(s), _))) => s,
                 _ => return Err(self.err("期望 ABI 字符串", ti)),
@@ -774,6 +825,7 @@ impl XParser {
 
                 let param_name = match self.expect_token(ti, "参数名")? {
                     Token::Ident(n) => n,
+                    Token::SelfLower => "self".to_string(),
                     t => return Err(self.err(format!("期望参数名，但得到 {:?}", t), ti)),
                 };
 
@@ -856,6 +908,7 @@ impl XParser {
         loop {
             let name = match self.expect_token(ti, "参数名")? {
                 Token::Ident(n) => n,
+                Token::SelfLower => "self".to_string(),
                 Token::RightParen => break,
                 t => return Err(self.err(format!("期望参数名，但得到 {:?}", t), ti)),
             };
@@ -1470,15 +1523,13 @@ impl XParser {
     fn parse_for(&self, ti: &mut TokenIterator) -> Result<Statement, ParseError> {
         // SPEC.md: for each item in collection { }
         // 也支持: for item in collection { } (向后兼容)
+        // 也支持: for (index, item) in collection { } 元组模式
         // 可选的 each 关键字
         if matches!(ti.peek(), Some(Ok((Token::Each, _)))) {
             ti.next(); // 消费 each
         }
 
-        let name = match self.expect_token(ti, "变量名")? {
-            Token::Ident(n) => n,
-            t => return Err(self.err(format!("期望变量名，但得到 {:?}", t), ti)),
-        };
+        let pattern = self.parse_pattern(ti)?;
         match self.expect_token(ti, "in")? {
             Token::Ident(ref s) if s == "in" => {}
             Token::In => {}
@@ -1490,7 +1541,6 @@ impl XParser {
             t => return Err(self.err(format!("期望 {{，但得到 {:?}", t), ti)),
         }
         let body = self.parse_block(ti)?;
-        let pattern = Pattern::Variable(name);
         Ok(self.mk_stmt(
             ti,
             StatementKind::For(ForStatement {
@@ -1843,6 +1893,29 @@ impl XParser {
                     ExpressionKind::Unary(UnaryOp::BitNot, Box::new(operand)),
                 ))
             }
+            Some(&Ok((Token::Ampersand, _))) => {
+                // Reference: &expr or &mut expr
+                ti.next();
+                let is_mut = matches!(
+                    ti.peek(),
+                    Some(&Ok((Token::Mut, _))) | Some(&Ok((Token::Mutable, _)))
+                );
+                if is_mut {
+                    ti.next();
+                }
+                let operand = self.parse_unary(ti)?;
+                if is_mut {
+                    Ok(self.mk_expr(
+                        ti,
+                        ExpressionKind::Unary(UnaryOp::MutableReference, Box::new(operand)),
+                    ))
+                } else {
+                    Ok(self.mk_expr(
+                        ti,
+                        ExpressionKind::Unary(UnaryOp::Reference, Box::new(operand)),
+                    ))
+                }
+            }
             Some(&Ok((Token::Wait, _))) => {
                 ti.next();
                 self.parse_wait_expression(ti)
@@ -1855,7 +1928,7 @@ impl XParser {
     fn parse_wait_expression(&self, ti: &mut TokenIterator) -> Result<Expression, ParseError> {
         match ti.peek() {
             // wait together { e1, e2, ... }
-            Some(&Ok((Token::Together, _))) => {
+            Some(&Ok((Token::Concurrently, _))) => {
                 ti.next();
                 match self.expect_token(ti, "{")? {
                     Token::LeftBrace => {}
@@ -1866,7 +1939,7 @@ impl XParser {
                     Token::RightBrace => {}
                     t => return Err(self.err(format!("期望 }}，但得到 {:?}", t), ti)),
                 }
-                Ok(self.mk_expr(ti, ExpressionKind::Wait(WaitType::Together, exprs)))
+                Ok(self.mk_expr(ti, ExpressionKind::Wait(WaitType::Concurrently, exprs)))
             }
             // wait race { e1, e2, ... }
             Some(&Ok((Token::Race, _))) => {
@@ -2078,6 +2151,47 @@ impl XParser {
                     ti.next();
                     expr = self.mk_expr(ti, ExpressionKind::Member(Box::new(expr), variant));
                 }
+                Some(Ok((Token::LeftBrace, _))) => {
+                    // Record constructor: TypeName { field: value, ... }
+                    // The expression must be a type name (variable reference to a record type)
+                    // Extract the type name from the expression
+                    let type_name = match &expr.node {
+                        ExpressionKind::Variable(name) => name.clone(),
+                        ExpressionKind::Member(_, member) => {
+                            // Handle nested: module.Type { ... }
+                            // For now just use the final member name as the record name
+                            // Full name resolution happens later during type checking
+                            member.clone()
+                        }
+                        _ => {
+                            // This { doesn't belong to us (it's probably the start of a block
+                            // like in if condition { ... } or while condition { ... })
+                            // Break out of the postfix loop and let the outer syntax handle it
+                            break;
+                        }
+                    };
+
+                    // Try to parse record constructor - if it fails, this { was actually
+                    // the start of a block (like for/if/while body), so we restore the iterator to before consuming {
+                    // and break, leaving the { for the outer parser to handle.
+                    // This perfectly disambiguates cases like `for x in arr {` where arr is a variable identifier
+                    // but the { needs to start the loop body not a record constructor.
+                    let saved_state = (*ti).clone();
+                    ti.next(); // consume {
+                    match self.parse_record_constructor_fields(ti) {
+                        Ok(fields) => {
+                            // Successfully parsed - this is really a record constructor
+                            expr = self.mk_expr(ti, ExpressionKind::Record(type_name, fields));
+                        }
+                        Err(_) => {
+                            // Failed to parse - restore to before consuming {
+                            *ti = saved_state;
+                            // this { is probably the start of a block - break out of postfix loop
+                            // leaving { for the outer parser to handle
+                            break;
+                        }
+                    }
+                }
                 _ => break,
             }
         }
@@ -2164,6 +2278,46 @@ impl XParser {
                 Some(Ok((Token::QuestionMark, _))) => {
                     ti.next();
                     expr = self.mk_expr(ti, ExpressionKind::TryPropagate(Box::new(expr)));
+                }
+                Some(Ok((Token::LeftBrace, _))) => {
+                    // Record constructor: TypeName { field: value, ... }
+                    // The expression must be a type name (variable reference to a record type)
+                    // Extract the type name from the expression
+                    let type_name = match &expr.node {
+                        ExpressionKind::Variable(name) => name.clone(),
+                        ExpressionKind::Member(_, member) => {
+                            // Handle nested: module.Type { ... }
+                            // For now just use the final member name as the record name
+                            // Full name resolution happens later during type checking
+                            member.clone()
+                        }
+                        _ => {
+                            // This { doesn't belong to us (it's probably the start of a block
+                            // like in if condition { ... } or while condition { ... })
+                            // Break out of the postfix loop and let the outer syntax handle it
+                            break;
+                        }
+                    };
+
+                    // Try to parse record constructor - if it fails, this { was actually
+                    // the start of a block (like for/if/while body), so we restore the iterator to before consuming {
+                    // and break, leaving the { for the outer parser to handle.
+                    // This perfectly disambiguates cases like `for x in arr { where arr is a variable identifier
+                    // but the { needs to start the loop body not a record constructor.
+                    let saved_state = (*ti).clone();
+                    ti.next(); // consume {
+                    match self.parse_record_constructor_fields(ti) {
+                        Ok(fields) => {
+                            // Successfully parsed - this is really a record constructor
+                            expr = self.mk_expr(ti, ExpressionKind::Record(type_name, fields));
+                        }
+                        Err(_) => {
+                            // Failed to parse - this { is probably the start of a block
+                            // Restore iterator to before consuming { and break out of postfix loop
+                            *ti = saved_state;
+                            break;
+                        }
+                    }
                 }
                 _ => break,
             }
@@ -2889,6 +3043,69 @@ impl XParser {
         Ok((positional_args, named_fields))
     }
 
+    /// Parse record constructor arguments inside braces: { field1: value1, field2: value2, }
+    fn parse_record_constructor_fields(
+        &self,
+        ti: &mut TokenIterator,
+    ) -> Result<Vec<(String, Expression)>, ParseError> {
+        let mut fields = Vec::new();
+
+        if matches!(ti.peek(), Some(Ok((Token::RightBrace, _)))) {
+            ti.next();
+            return Ok(fields);
+        }
+
+        loop {
+            // Allow skipped keywords: public/private at field level (not useful in constructor but allowed)
+            match ti.peek() {
+                Some(Ok((Token::Public, _))) | Some(Ok((Token::Private, _))) => {
+                    ti.next();
+                    continue;
+                }
+                _ => {}
+            }
+
+            // Field name must be an identifier
+            let name = match ti.peek() {
+                Some(Ok((Token::Ident(n), _))) => n.clone(),
+                Some(Ok((t, _))) => return Err(self.err(format!("期望字段名，但得到 {:?}", t), ti)),
+                None => return Err(self.err("意外的输入结束", ti)),
+                Some(Err(e)) => return Err(self.err(e.to_string(), ti)),
+            };
+            ti.next(); // consume identifier
+
+            // Expect colon after field name
+            match self.expect_token(ti, ":")? {
+                Token::Colon => {}
+                t => return Err(self.err(format!("期望 :，但得到 {:?}", t), ti)),
+            }
+            // expect_token already consumed the colon
+
+            // Parse the field value
+            let value = self.parse_expression(ti)?;
+            fields.push((name, value));
+
+            // Comma or closing brace
+            match ti.peek() {
+                Some(Ok((Token::Comma, _))) => {
+                    ti.next();
+                    // Allow trailing comma - check if next token is already closing brace
+                    if matches!(ti.peek(), Some(Ok((Token::RightBrace, _)))) {
+                        ti.next();
+                        break;
+                    }
+                }
+                Some(Ok((Token::RightBrace, _))) => {
+                    ti.next();
+                    break;
+                }
+                _ => break,
+            }
+        }
+
+        Ok(fields)
+    }
+
     fn parse_type(&self, ti: &mut TokenIterator) -> Result<Type, ParseError> {
         // Handle unit type: ()
         if matches!(ti.peek(), Some(&Ok((Token::LeftParen, _)))) {
@@ -2918,21 +3135,39 @@ impl XParser {
             };
         }
 
-        // Handle pointer types: *T or *const T
+        // Handle pointer types: *T, *const T, or *mut T
         if matches!(ti.peek(), Some(&Ok((Token::Asterisk, _)))) {
             ti.next(); // consume *
-                       // Check for *const (const can be Token::Const keyword)
-            let is_const = matches!(ti.peek(), Some(&Ok((Token::Const, _))))
-                || matches!(ti.peek(), Some(&Ok((Token::Ident(ref name), _))) if name == "const");
-            if is_const {
+            let inner_type;
+            // Check for *const or *mut
+            if matches!(ti.peek(), Some(&Ok((Token::Const, _))))
+                || matches!(ti.peek(), Some(&Ok((Token::Ident(ref name), _))) if name == "const")
+            {
                 ti.next(); // consume const
-            }
-            let inner_type = self.parse_type(ti)?;
-            return if is_const {
-                Ok(Type::ConstPointer(Box::new(inner_type)))
+                inner_type = self.parse_type(ti)?;
+                return Ok(Type::ConstPointer(Box::new(inner_type)));
+            } else if matches!(ti.peek(), Some(&Ok((Token::Mut, _))))
+                || matches!(ti.peek(), Some(&Ok((Token::Mutable, _))))
+                || matches!(ti.peek(), Some(&Ok((Token::Ident(ref name), _))) if name == "mut")
+            {
+                ti.next(); // consume mut
+                inner_type = self.parse_type(ti)?;
+                return Ok(Type::MutPointer(Box::new(inner_type)));
             } else {
-                Ok(Type::Pointer(Box::new(inner_type)))
-            };
+                inner_type = self.parse_type(ti)?;
+                return Ok(Type::Pointer(Box::new(inner_type)));
+            }
+        }
+
+        // Handle array/slice types: [T]
+        if matches!(ti.peek(), Some(&Ok((Token::LeftBracket, _)))) {
+            ti.next(); // consume [
+            let inner_type = self.parse_type(ti)?;
+            match self.expect_token(ti, "]")? {
+                Token::RightBracket => {}
+                t => return Err(self.err(format!("期望 ]，但得到 {:?}", t), ti)),
+            }
+            return Ok(Type::Array(Box::new(inner_type)));
         }
 
         let tok = self.expect_token(ti, "类型名")?;
@@ -3961,6 +4196,11 @@ impl XParser {
                     break;
                 }
                 Ok((Token::Comma, _)) => {
+                    ti.next();
+                    continue;
+                }
+                Ok((Token::Public, _)) | Ok((Token::Private, _)) => {
+                    // Visibility modifier, skip it
                     ti.next();
                     continue;
                 }

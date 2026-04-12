@@ -23,6 +23,7 @@ pub enum LexerState {
 }
 
 /// 词法分析器
+#[derive(Clone)]
 pub struct Lexer<'a> {
     pub input: &'a str,
     pub chars: std::iter::Peekable<std::str::Chars<'a>>,
@@ -280,7 +281,7 @@ impl<'a> Lexer<'a> {
             "needs" => Ok(Token::Needs),
             "given" => Ok(Token::Given),
             "wait" => Ok(Token::Wait),
-            "together" => Ok(Token::Together),
+            "together" => Ok(Token::Concurrently),
             "race" => Ok(Token::Race),
             "timeout" => Ok(Token::Timeout),
             "atomic" => Ok(Token::Atomic),
@@ -541,9 +542,32 @@ impl<'a> Lexer<'a> {
                         }
                         Some('"') => {
                             let start = self.position;
-                            let result = self.parse_string();
+                            // Check for triple quote """
+                            self.next_char(); // consume first "
+                            if self.current_char() == Some('"') {
+                                let next_ch = self.peek_next();
+                                if next_ch == Some('"') {
+                                    // We have three quotes in a row - triple quote
+                                    self.next_char(); // consume second "
+                                    self.next_char(); // consume third "
+                                                      // Triple quote - enter multiline string mode
+                                    self.push_state(LexerState::MultilineString);
+                                    let end = self.position;
+                                    return Ok((
+                                        Token::MultilineStringQuote,
+                                        Span::new(start, end),
+                                    ));
+                                }
+                                // Two quotes in a row - empty string "", don't consume the second " yet,
+                                // just open the string and parse_string_content will handle the empty case
+                                self.push_state(LexerState::String);
+                                let end = self.position;
+                                return Ok((Token::StringQuote, Span::new(start, end)));
+                            }
+                            // Opening single quote string with one quote
+                            self.push_state(LexerState::String);
                             let end = self.position;
-                            return result.map(|t| (t, Span::new(start, end)));
+                            return Ok((Token::StringQuote, Span::new(start, end)));
                         }
                         Some('`') => {
                             let start = self.position;
@@ -605,9 +629,28 @@ impl<'a> Lexer<'a> {
                     }
                 }
 
-                LexerState::String | LexerState::MultilineString => {
-                    // 这是一个内部错误状态 - 正常情况下不应该发生
-                    return Err(LexError::InvalidToken(' ', self.position));
+                LexerState::String => {
+                    // Check for closing quote first
+                    if self.current_char() == Some('"') {
+                        let start = self.position;
+                        self.next_char(); // consume closing "
+                        self.pop_state();
+                        let end = self.position;
+                        return Ok((Token::StringQuote, Span::new(start, end)));
+                    }
+                    // Resume parsing string content after interpolation
+                    let start = self.position;
+                    let result = self.parse_string_content();
+                    let end = self.position;
+                    return result.map(|t| (t, Span::new(start, end)));
+                }
+
+                LexerState::MultilineString => {
+                    // Resume parsing multiline string content after interpolation
+                    let start = self.position;
+                    let result = self.parse_string_content();
+                    let end = self.position;
+                    return result.map(|t| (t, Span::new(start, end)));
                 }
 
                 LexerState::Char => {
@@ -793,231 +836,6 @@ impl<'a> Lexer<'a> {
         Ok(Token::DecimalInt(num_str))
     }
 
-    /// 解析字符串
-    fn parse_string(&mut self) -> Result<Token, LexError> {
-        self.next_char(); // 跳过第一个 "
-
-        // 检查是否是三引号多行字符串
-        if self.current_char() == Some('"') {
-            self.next_char();
-            if self.current_char() == Some('"') {
-                self.next_char();
-                // 进入多行字符串模式
-                self.push_state(LexerState::MultilineString);
-                return self.parse_multiline_string();
-            }
-            // 空字符串 "" 或两个引号相邻的情况
-            // 当前字符不是第三个引号，所以这是一个空字符串
-            return Ok(Token::StringContent(String::new()));
-        }
-
-        // 解析单行字符串
-        let mut content = String::new();
-        while let Some(ch) = self.current_char() {
-            if ch == '"' {
-                self.next_char(); // 跳过闭合的 "
-                return Ok(Token::StringContent(content));
-            } else if ch == '$' {
-                // 检查是否是字符串插值 `${`
-                let next = self.peek_next();
-                if next == Some('{') {
-                    // 字符串插值开始，先返回已收集的内容
-                    // 然后我们会在下次调用输出 InterpolateStart
-                    self.next_char(); // consume $
-                    self.next_char(); // consume {
-                    self.push_state(LexerState::StringInterpolate);
-                    return Ok(Token::StringContent(content));
-                } else {
-                    // 普通 $ 字符
-                    content.push('$');
-                    self.next_char();
-                }
-            } else if ch == '\\' {
-                // 处理转义字符
-                self.next_char();
-                if let Some(escaped_ch) = self.current_char() {
-                    match escaped_ch {
-                        'n' => {
-                            content.push('\n');
-                            self.next_char();
-                        }
-                        't' => {
-                            content.push('\t');
-                            self.next_char();
-                        }
-                        'r' => {
-                            content.push('\r');
-                            self.next_char();
-                        }
-                        '"' => {
-                            content.push('"');
-                            self.next_char();
-                        }
-                        '\'' => {
-                            content.push('\'');
-                            self.next_char();
-                        }
-                        '\\' => {
-                            content.push('\\');
-                            self.next_char();
-                        }
-                        '0' => {
-                            content.push('\0');
-                            self.next_char();
-                        }
-                        'u' => {
-                            // Unicode 转义: \u{...}
-                            self.next_char();
-                            if self.current_char() == Some('{') {
-                                self.next_char();
-                                let mut hex = String::new();
-                                while let Some(h) = self.current_char() {
-                                    if h.is_ascii_hexdigit() {
-                                        hex.push(h);
-                                        self.next_char();
-                                    } else if h == '}' {
-                                        self.next_char();
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                if let Ok(code_point) = u32::from_str_radix(&hex, 16) {
-                                    if let Some(c) = char::from_u32(code_point) {
-                                        content.push(c);
-                                    }
-                                }
-                                // 已经消耗了 }，不需要再调用 next_char()
-                            } else {
-                                content.push('u');
-                                self.next_char();
-                            }
-                        }
-                        _ => {
-                            content.push(escaped_ch);
-                            self.next_char();
-                        }
-                    }
-                }
-            } else {
-                content.push(ch);
-                self.next_char();
-            }
-        }
-        // 如果没有找到闭合的 "，则返回错误
-        Err(LexError::UnclosedString)
-    }
-
-    /// 解析多行字符串内容
-    fn parse_multiline_string(&mut self) -> Result<Token, LexError> {
-        let mut content = String::new();
-        while let Some(ch) = self.current_char() {
-            if ch == '"' {
-                // 检查下两个字符是否也是 "
-                let second = self.peek_next();
-                let third = self.chars.clone().nth(2);
-                if second == Some('"') && third == Some('"') {
-                    // 跳过三个引号
-                    self.next_char();
-                    self.next_char();
-                    self.next_char();
-                    self.pop_state();
-                    return Ok(Token::StringContent(content));
-                }
-                // 不是三引号，是普通字符
-                content.push(ch);
-                self.next_char();
-            } else if ch == '$' {
-                // 检查是否是字符串插值 `${`
-                let next = self.peek_next();
-                if next == Some('{') {
-                    // 字符串插值开始，先返回已收集的内容
-                    self.next_char(); // consume $
-                    self.next_char(); // consume {
-                    self.push_state(LexerState::StringInterpolate);
-                    return Ok(Token::StringContent(content));
-                } else {
-                    // 普通 $ 字符
-                    content.push('$');
-                    self.next_char();
-                }
-            } else if ch == '\\' {
-                // 处理转义字符
-                self.next_char();
-                if let Some(escaped_ch) = self.current_char() {
-                    match escaped_ch {
-                        'n' => {
-                            content.push('\n');
-                            self.next_char();
-                        }
-                        't' => {
-                            content.push('\t');
-                            self.next_char();
-                        }
-                        'r' => {
-                            content.push('\r');
-                            self.next_char();
-                        }
-                        '"' => {
-                            content.push('"');
-                            self.next_char();
-                        }
-                        '\'' => {
-                            content.push('\'');
-                            self.next_char();
-                        }
-                        '\\' => {
-                            content.push('\\');
-                            self.next_char();
-                        }
-                        '0' => {
-                            content.push('\0');
-                            self.next_char();
-                        }
-                        'u' => {
-                            // Unicode 转义: \u{...}
-                            self.next_char();
-                            if self.current_char() == Some('{') {
-                                self.next_char();
-                                let mut hex = String::new();
-                                while let Some(h) = self.current_char() {
-                                    if h.is_ascii_hexdigit() {
-                                        hex.push(h);
-                                        self.next_char();
-                                    } else if h == '}' {
-                                        self.next_char();
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                if let Ok(code_point) = u32::from_str_radix(&hex, 16) {
-                                    if let Some(c) = char::from_u32(code_point) {
-                                        content.push(c);
-                                    }
-                                }
-                                // 已经消耗了 }，不需要再调用 next_char()
-                            } else {
-                                content.push('u');
-                                self.next_char();
-                            }
-                        }
-                        _ => {
-                            content.push(escaped_ch);
-                            self.next_char();
-                        }
-                    }
-                }
-            } else {
-                content.push(ch);
-                self.next_char();
-            }
-        }
-        // 多行字符串未闭合
-        self.pop_state();
-        Err(LexError::UnclosedString)
-    }
-
     /// 解析原始字符串（反引号包围）
     fn parse_raw_string(&mut self) -> Result<Token, LexError> {
         self.next_char(); // 跳过开头的 `
@@ -1055,9 +873,16 @@ impl<'a> Lexer<'a> {
             match self.current_state() {
                 LexerState::String => {
                     if ch == '"' {
-                        self.next_char();
-                        self.pop_state();
-                        return Ok(Token::StringQuote);
+                        if content.is_empty() {
+                            // Empty string, consume the quote now and return it directly
+                            self.next_char();
+                            self.pop_state();
+                            return Ok(Token::StringQuote);
+                        } else {
+                            // We have content, return it first; closing quote will be handled next token
+                            // Don't pop state yet - we'll still be in string state when we come back for the closing quote
+                            return Ok(Token::StringContent(content));
+                        }
                     } else if ch == '\\' {
                         self.next_char();
                         if let Some(escaped_ch) = self.current_char() {
@@ -1073,6 +898,18 @@ impl<'a> Lexer<'a> {
                             }
                             self.next_char();
                         }
+                    } else if ch == '$' && self.peek_next() == Some('{') {
+                        // Start interpolation: ${expr}
+                        self.next_char(); // consume $
+                        self.next_char(); // consume {
+                                          // Push Normal state so we can lex the expression normally
+                        self.push_state(LexerState::StringInterpolate);
+                        if content.is_empty() {
+                            // No content before interpolation, return InterpolateStart directly
+                            return Ok(Token::InterpolateStart);
+                        }
+                        // Return the content we have so far and next token will be InterpolateStart
+                        break;
                     } else {
                         content.push(ch);
                         self.next_char();
@@ -1180,6 +1017,7 @@ impl<'a> Lexer<'a> {
 }
 
 /// 词法分析器迭代器：产出带 Span 的 token，并保留 last_span 供解析错误使用。
+#[derive(Clone)]
 pub struct TokenIterator<'a> {
     lexer: Lexer<'a>,
     peeked: Option<Result<(Token, Span), LexError>>,
@@ -1778,4 +1616,33 @@ mod tests {
         // 确保所有关键字都能被正确解析
         assert!(tokens.len() >= 50);
     }
+}
+
+#[test]
+fn test_empty_string_correct_token_sequence() {
+    // Empty string "" should produce:
+    // - StringQuote (opening)
+    // - StringQuote (closing)
+    // No StringContent token needed for empty content
+    let input = r#""""#;
+    let iter = new_lexer(input);
+    let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+    assert_eq!(tokens.len(), 2);
+    assert!(matches!(tokens[0], Token::StringQuote));
+    assert!(matches!(tokens[1], Token::StringQuote));
+}
+
+#[test]
+fn test_non_empty_string_correct_sequence() {
+    // Non-empty string "hello" should produce:
+    // - StringQuote (opening)
+    // - StringContent("hello")
+    // - StringQuote (closing)
+    let input = r#""hello""#;
+    let iter = new_lexer(input);
+    let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+    assert_eq!(tokens.len(), 3);
+    assert!(matches!(tokens[0], Token::StringQuote));
+    assert!(matches!(&tokens[1], Token::StringContent(s) if s == "hello"));
+    assert!(matches!(tokens[2], Token::StringQuote));
 }
