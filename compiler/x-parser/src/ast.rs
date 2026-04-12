@@ -131,6 +131,7 @@ impl fmt::Display for Type {
             Type::MutableReference(inner) => write!(f, "&mut {inner}"),
             Type::Pointer(inner) => write!(f, "*{inner}"),
             Type::ConstPointer(inner) => write!(f, "*const {inner}"),
+            Type::MutPointer(inner) => write!(f, "*mut {inner}"),
             Type::Void => write!(f, "void"),
             // C FFI types
             Type::CInt => write!(f, "CInt"),
@@ -189,6 +190,7 @@ pub enum Declaration {
     Record(RecordDecl),
     Effect(EffectDecl),
     TypeAlias(TypeAlias),
+    Newtype(Newtype),
     Module(ModuleDecl),
     Import(ImportDecl),
     Export(ExportDecl),
@@ -384,6 +386,15 @@ pub enum EnumVariantData {
 /// 类型别名
 #[derive(Debug, PartialEq, Clone)]
 pub struct TypeAlias {
+    pub name: String,
+    pub type_: Type,
+    /// 源码位置
+    pub span: Span,
+}
+
+/// 新类型（不透明包装）
+#[derive(Debug, PartialEq, Clone)]
+pub struct Newtype {
     pub name: String,
     pub type_: Type,
     /// 源码位置
@@ -655,6 +666,8 @@ pub enum Type {
     Pointer(Box<Type>),
     /// 常量原始指针类型 (*const T)
     ConstPointer(Box<Type>),
+    /// 可变原始指针类型 (*mut T)
+    MutPointer(Box<Type>),
     /// void 类型（用于 FFI）
     Void,
 
@@ -755,13 +768,15 @@ pub enum UnaryOp {
     Not,
     BitNot,
     Wait,
+    Reference,
+    MutableReference,
 }
 
 /// Wait类型（异步操作）
 #[derive(Debug, PartialEq, Clone)]
 pub enum WaitType {
     Single,
-    Together,
+    Concurrently,
     Race,
     Atomic,
     Retry,

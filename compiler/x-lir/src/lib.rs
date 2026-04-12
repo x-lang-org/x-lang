@@ -42,6 +42,14 @@ pub enum Declaration {
     Enum(Enum),
     /// 类型别名
     TypeAlias(TypeAlias),
+    /// 新类型（不透明包装）
+    Newtype(Newtype),
+    /// trait 定义（接口）
+    Trait(Trait),
+    /// effect 定义（效果接口）
+    Effect(Effect),
+    /// trait/effect 实现
+    Impl(Impl),
     /// 外部函数声明
     ExternFunction(ExternFunction),
 }
@@ -136,9 +144,61 @@ pub struct EnumVariant {
     pub value: Option<i64>,
 }
 
+/// effect 操作
+#[derive(Debug, Clone, PartialEq)]
+pub struct EffectOperation {
+    pub name: String,
+    pub parameters: Vec<Parameter>,
+    pub return_type: Option<Type>,
+}
+
+/// effect 定义
+#[derive(Debug, Clone, PartialEq)]
+pub struct Effect {
+    pub name: String,
+    pub type_params: Vec<String>,
+    pub operations: Vec<EffectOperation>,
+}
+
+/// trait 方法
+#[derive(Debug, Clone, PartialEq)]
+pub struct TraitMethod {
+    pub name: String,
+    pub type_params: Vec<String>,
+    pub parameters: Vec<Parameter>,
+    pub return_type: Option<Type>,
+    pub default_body: Option<Block>,
+}
+
+/// trait 定义
+#[derive(Debug, Clone, PartialEq)]
+pub struct Trait {
+    pub name: String,
+    pub type_params: Vec<String>,
+    pub extends: Vec<String>,
+    pub methods: Vec<TraitMethod>,
+}
+
+/// 实现（trait 或 effect）
+#[derive(Debug, Clone, PartialEq)]
+pub struct Impl {
+    pub type_params: Vec<String>,
+    pub target_type: Type,
+    pub trait_name: String,
+    pub methods: Vec<Function>,
+    pub is_effect: bool,
+}
+
 /// 类型别名
 #[derive(Debug, Clone, PartialEq)]
 pub struct TypeAlias {
+    pub name: String,
+    pub type_: Type,
+}
+
+/// 新类型（不透明包装）
+#[derive(Debug, Clone, PartialEq)]
+pub struct Newtype {
     pub name: String,
     pub type_: Type,
 }
@@ -423,6 +483,8 @@ pub enum UnaryOp {
     PreDecrement,
     PostIncrement,
     PostDecrement,
+    Reference,
+    MutableReference,
 }
 
 /// 二元运算符
@@ -489,6 +551,14 @@ impl Display for Declaration {
             Declaration::VTable(vtable) => write!(f, "{vtable};"),
             Declaration::Enum(enm) => write!(f, "{enm};"),
             Declaration::TypeAlias(alias) => write!(f, "{alias};"),
+            Declaration::Newtype(nt) => write!(f, "{nt};"),
+            Declaration::Trait(trait_) => write!(f, "trait {};", trait_.name),
+            Declaration::Effect(effect) => write!(f, "effect {};", effect.name),
+            Declaration::Impl(impl_) => write!(
+                f,
+                "implement {} for {};",
+                impl_.trait_name, impl_.target_type
+            ),
             Declaration::ExternFunction(ext) => write!(f, "{ext};"),
         }
     }
@@ -706,6 +776,8 @@ impl Display for UnaryOp {
             UnaryOp::PreDecrement => write!(f, "--"),
             UnaryOp::PostIncrement => write!(f, "++"),
             UnaryOp::PostDecrement => write!(f, "--"),
+            UnaryOp::Reference => write!(f, "&"),
+            UnaryOp::MutableReference => write!(f, "&mut"),
         }
     }
 }
@@ -859,6 +931,134 @@ impl Display for EnumVariant {
 impl Display for TypeAlias {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "typedef {} {}", self.type_, self.name)
+    }
+}
+
+impl Display for Newtype {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "newtype {} {}", self.type_, self.name)
+    }
+}
+
+impl Display for EffectOperation {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "operation {}(", self.name)?;
+        for (i, param) in self.parameters.iter().enumerate() {
+            if i > 0 {
+                write!(f, ", ")?;
+            }
+            write!(f, "{param}")?;
+        }
+        write!(f, ")")?;
+        if let Some(ret) = &self.return_type {
+            write!(f, " -> {ret}")?;
+        }
+        Ok(())
+    }
+}
+
+impl Display for Effect {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "effect {}", self.name)?;
+        if !self.type_params.is_empty() {
+            write!(f, "<")?;
+            for (i, param) in self.type_params.iter().enumerate() {
+                if i > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{param}")?;
+            }
+            write!(f, ">")?;
+        }
+        write!(f, " {{")?;
+        for op in &self.operations {
+            writeln!(f, "  {op};")?;
+        }
+        write!(f, "}}")
+    }
+}
+
+impl Display for TraitMethod {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.name)?;
+        if !self.type_params.is_empty() {
+            write!(f, "<")?;
+            for (i, param) in self.type_params.iter().enumerate() {
+                if i > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{param}")?;
+            }
+            write!(f, ">")?;
+        }
+        write!(f, "(")?;
+        for (i, param) in self.parameters.iter().enumerate() {
+            if i > 0 {
+                write!(f, ", ")?;
+            }
+            write!(f, "{param}")?;
+        }
+        write!(f, ")")?;
+        if let Some(ret) = &self.return_type {
+            write!(f, " -> {ret}")?;
+        }
+        if self.default_body.is_some() {
+            write!(f, " = ...")?;
+        }
+        Ok(())
+    }
+}
+
+impl Display for Trait {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "trait {}", self.name)?;
+        if !self.type_params.is_empty() {
+            write!(f, "<")?;
+            for (i, param) in self.type_params.iter().enumerate() {
+                if i > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{param}")?;
+            }
+            write!(f, ">")?;
+        }
+        if !self.extends.is_empty() {
+            write!(f, " extends ")?;
+            for (i, ext) in self.extends.iter().enumerate() {
+                if i > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{ext}")?;
+            }
+        }
+        write!(f, " {{")?;
+        for method in &self.methods {
+            writeln!(f, "  {method};")?;
+        }
+        write!(f, "}}")
+    }
+}
+
+impl Display for Impl {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.is_effect {
+            write!(f, "implement effect ")?;
+        } else {
+            write!(f, "implement ")?;
+        }
+        write!(f, "{} for {}", self.trait_name, self.target_type)?;
+        if !self.type_params.is_empty() {
+            write!(f, "<")?;
+            for (i, param) in self.type_params.iter().enumerate() {
+                if i > 0 {
+                    write!(f, ", ")?;
+                }
+                write!(f, "{param}")?;
+            }
+            write!(f, ">")?;
+        }
+        write!(f, " {{ ... }}")?;
+        Ok(())
     }
 }
 

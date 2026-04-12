@@ -1,6 +1,8 @@
 module std.hash
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 /// 哈希 trait
 /// 类型可以实现这个来提供自定义哈希

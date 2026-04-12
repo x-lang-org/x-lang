@@ -828,6 +828,12 @@ impl JavaBackend {
                     self.map_type_from_type(inner)
                 )
             }
+            Type::MutPointer(inner) => {
+                format!(
+                    "/* mut pointer to {} */ long",
+                    self.map_type_from_type(inner)
+                )
+            }
             Type::CInt => "int".to_string(),
             Type::CUInt => "int".to_string(),
             Type::CLong => "long".to_string(),
@@ -1016,7 +1022,7 @@ impl JavaBackend {
                     Ok(format!("List.of({})", awaited.join(", ")))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 if expr_strs.is_empty() {
                     Ok("CompletableFuture.completedFuture(null)".to_string())
                 } else if expr_strs.len() == 1 {
@@ -1464,6 +1470,8 @@ impl JavaBackend {
             PreDecrement => "--".to_string(),
             PostIncrement => "++".to_string(),
             PostDecrement => "--".to_string(),
+            Reference => "&".to_string(),
+            MutableReference => "&".to_string(), // Java doesn't have mutable references, just use regular reference
         }
     }
 }

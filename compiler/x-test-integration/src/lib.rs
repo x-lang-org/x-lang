@@ -9,11 +9,11 @@
 
 #[cfg(test)]
 mod stage_tests {
-    use x_parser::parser::XParser;
     use x_hir::ast_to_hir;
-    use x_mir::lower_hir_to_mir;
-    use x_lir::lower_mir_to_lir;
     use x_interpreter::Interpreter;
+    use x_lir::lower_mir_to_lir;
+    use x_mir::lower_hir_to_mir;
+    use x_parser::parser::XParser;
 
     /// Test source code samples for different complexity levels
     mod sources {

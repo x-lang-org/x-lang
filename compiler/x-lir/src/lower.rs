@@ -454,6 +454,8 @@ fn lower_unary_op(op: MirUnOp) -> UnaryOp {
         MirUnOp::Neg => UnaryOp::Minus,
         MirUnOp::Not => UnaryOp::Not,
         MirUnOp::BitNot => UnaryOp::BitNot,
+        MirUnOp::Reference => UnaryOp::Reference,
+        MirUnOp::MutableReference => UnaryOp::MutableReference,
     }
 }
 

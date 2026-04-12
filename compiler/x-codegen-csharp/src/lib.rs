@@ -996,6 +996,8 @@ impl CSharpBackend {
             ast::UnaryOp::Not => format!("!{}", e),
             ast::UnaryOp::BitNot => format!("~{}", e),
             ast::UnaryOp::Wait => format!("await {}", e),
+            ast::UnaryOp::Reference => format!("ref {}", e),
+            ast::UnaryOp::MutableReference => format!("ref mutable {}", e),
         }
     }
 
@@ -1160,7 +1162,7 @@ impl CSharpBackend {
                     Ok(format!("({})", awaited.join(", ")))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 if expr_strs.is_empty() {
                     Ok("Task.CompletedTask".to_string())
                 } else if expr_strs.len() == 1 {
@@ -1266,6 +1268,7 @@ impl CSharpBackend {
             ast::Type::Void => "void".to_string(),
             ast::Type::Pointer(inner) => format!("{}*", self.map_ast_type(inner)),
             ast::Type::ConstPointer(inner) => format!("{}*", self.map_ast_type(inner)),
+            ast::Type::MutPointer(inner) => format!("{}*", self.map_ast_type(inner)),
             // C FFI types
             ast::Type::CInt => "int".to_string(),
             ast::Type::CUInt => "uint".to_string(),
@@ -1743,6 +1746,99 @@ impl CSharpBackend {
                         t.name,
                         self.lir_type_to_csharp(&t.type_)
                     ))?;
+                }
+                x_lir::Declaration::Newtype(nt) => {
+                    self.line(&format!("public readonly struct {} {{", nt.name))?;
+                    self.indent();
+                    self.line(&format!(
+                        "public {} Value;",
+                        self.lir_type_to_csharp(&nt.type_)
+                    ))?;
+                    self.dedent();
+                    self.line("}")?;
+                    self.line("")?;
+                }
+                x_lir::Declaration::Trait(trait_) => {
+                    self.line(&format!("public interface {} {{", trait_.name))?;
+                    self.indent();
+                    for method in &trait_.methods {
+                        let ret_ty = method
+                            .return_type
+                            .as_ref()
+                            .map(|ty| self.lir_type_to_csharp(ty))
+                            .unwrap_or_else(|| "void".to_string());
+                        let params: Vec<String> = method
+                            .parameters
+                            .iter()
+                            .map(|p| format!("{} {}", self.lir_type_to_csharp(&p.type_), p.name))
+                            .collect();
+                        self.line(&format!(
+                            "{} {}({});",
+                            ret_ty,
+                            method.name,
+                            params.join(", ")
+                        ))?;
+                    }
+                    self.dedent();
+                    self.line("}")?;
+                    self.line("")?;
+                }
+                x_lir::Declaration::Effect(effect) => {
+                    self.line(&format!("public interface {} {{", effect.name))?;
+                    self.indent();
+                    for op in &effect.operations {
+                        let ret_ty = op
+                            .return_type
+                            .as_ref()
+                            .map(|ty| self.lir_type_to_csharp(ty))
+                            .unwrap_or_else(|| "void".to_string());
+                        let params: Vec<String> = op
+                            .parameters
+                            .iter()
+                            .map(|p| format!("{} {}", self.lir_type_to_csharp(&p.type_), p.name))
+                            .collect();
+                        self.line(&format!("{} {}({});", ret_ty, op.name, params.join(", ")))?;
+                    }
+                    self.dedent();
+                    self.line("}")?;
+                    self.line("")?;
+                }
+                x_lir::Declaration::Impl(impl_) => {
+                    let target_ty = self.lir_type_to_csharp(&impl_.target_type);
+                    self.line(&format!(
+                        "public {} {} for {} {{",
+                        if impl_.is_effect {
+                            "effect implementation"
+                        } else {
+                            "implementation"
+                        },
+                        impl_.trait_name,
+                        target_ty
+                    ))?;
+                    self.indent();
+                    for method in &impl_.methods {
+                        // Method generation is same as regular function
+                        let ret = self.lir_type_to_csharp(&method.return_type);
+                        let params: Vec<String> = method
+                            .parameters
+                            .iter()
+                            .map(|p| format!("{} {}", self.lir_type_to_csharp(&p.type_), p.name))
+                            .collect();
+                        self.line(&format!(
+                            "public {} {}({}) {{",
+                            ret,
+                            method.name,
+                            params.join(", ")
+                        ))?;
+                        self.indent();
+                        // TODO: emit method body when fully implemented
+                        self.line("// method body")?;
+                        self.dedent();
+                        self.line("}")?;
+                    }
+                    self.dedent();
+                    self.line("}")?;
+                    self.line("")?;
                 }
                 x_lir::Declaration::ExternFunction(e) => {
                     let params_str = e

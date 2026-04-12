@@ -990,6 +990,8 @@ impl SwiftBackend {
             UnaryOp::Not => format!("!{}", e),
             UnaryOp::BitNot => format!("~{}", e),
             UnaryOp::Wait => format!("await {}", e),
+            UnaryOp::Reference => format!("&{}", e),
+            UnaryOp::MutableReference => format!("&mut {}", e),
         };
         Ok(result)
     }
@@ -1053,7 +1055,7 @@ impl SwiftBackend {
                     Ok(format!("({})", awaited.join(", ")))
                 }
             }
-            WaitType::Together => {
+            WaitType::Concurrently => {
                 if expr_strs.is_empty() {
                     Ok("await Task.yield()".to_string())
                 } else if expr_strs.len() == 1 {
@@ -1175,6 +1177,10 @@ impl SwiftBackend {
             ast::Type::ConstPointer(inner) => {
                 let inner_type = self.map_type(inner)?;
                 Ok(format!("UnsafePointer<{}>", inner_type))
+            }
+            ast::Type::MutPointer(inner) => {
+                let inner_type = self.map_type(inner)?;
+                Ok(format!("UnsafeMutablePointer<{}>", inner_type))
             }
             ast::Type::Void => Ok("Void".to_string()),
             // C FFI types
@@ -1349,7 +1355,7 @@ impl SwiftBackend {
                     let parts: Vec<&str> = s.split(" = ").collect();
                     if parts.len() == 2 && parts[1].contains("print(") {
                         // 只调用 print 函数，不赋值
-                        self.line(&parts[1].trim())?;
+                        self.line(parts[1].trim())?;
                         return Ok(());
                     }
                 }

@@ -339,7 +339,9 @@ impl RiscVAssemblyGenerator {
     fn count_flat_initializer_slots(init: &lir::Initializer) -> usize {
         match init {
             lir::Initializer::Expression(_) => 1,
-            lir::Initializer::List(list) => list.iter().map(Self::count_flat_initializer_slots).sum(),
+            lir::Initializer::List(list) => {
+                list.iter().map(Self::count_flat_initializer_slots).sum()
+            }
             lir::Initializer::Named(_, inner) => Self::count_flat_initializer_slots(inner),
             lir::Initializer::Indexed(_, inner) => Self::count_flat_initializer_slots(inner),
         }
@@ -1424,10 +1426,8 @@ impl AssemblyGenerator for RiscVAssemblyGenerator {
                         }
 
                         let size = self.type_size(&field.type_);
-                        self.field_offsets.insert(
-                            Self::layout_key(&strct.name, &field.name),
-                            current_offset,
-                        );
+                        self.field_offsets
+                            .insert(Self::layout_key(&strct.name, &field.name), current_offset);
                         current_offset += size;
                     }
 
@@ -1448,10 +1448,8 @@ impl AssemblyGenerator for RiscVAssemblyGenerator {
                         }
 
                         let size = self.type_size(&field.type_);
-                        self.field_offsets.insert(
-                            Self::layout_key(&cls.name, &field.name),
-                            current_offset,
-                        );
+                        self.field_offsets
+                            .insert(Self::layout_key(&cls.name, &field.name), current_offset);
                         current_offset += size;
                     }
 

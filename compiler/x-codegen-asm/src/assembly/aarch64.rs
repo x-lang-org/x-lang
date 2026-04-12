@@ -366,7 +366,9 @@ impl AArch64AssemblyGenerator {
     fn count_flat_initializer_slots(init: &lir::Initializer) -> usize {
         match init {
             lir::Initializer::Expression(_) => 1,
-            lir::Initializer::List(list) => list.iter().map(Self::count_flat_initializer_slots).sum(),
+            lir::Initializer::List(list) => {
+                list.iter().map(Self::count_flat_initializer_slots).sum()
+            }
             lir::Initializer::Named(_, inner) => Self::count_flat_initializer_slots(inner),
             lir::Initializer::Indexed(_, inner) => Self::count_flat_initializer_slots(inner),
         }
@@ -523,10 +525,7 @@ impl AArch64AssemblyGenerator {
                 self.emit_expression(base, result_reg)?;
                 let offset = self.resolve_field_offset(base, field, false).unwrap_or(0);
                 if offset > 0 {
-                    self.emit_line(&format!(
-                        "add {}, {}, #{}",
-                        result_reg, result_reg, offset
-                    ))?;
+                    self.emit_line(&format!("add {}, {}, #{}", result_reg, result_reg, offset))?;
                 }
                 self.emit_line(&format!("ldr {}, [{}]", result_reg, result_reg))?;
                 Ok(())
@@ -536,10 +535,7 @@ impl AArch64AssemblyGenerator {
                 self.emit_line(&format!("ldr {}, [{}]", result_reg, result_reg))?;
                 let offset = self.resolve_field_offset(base, field, true).unwrap_or(0);
                 if offset > 0 {
-                    self.emit_line(&format!(
-                        "add {}, {}, #{}",
-                        result_reg, result_reg, offset
-                    ))?;
+                    self.emit_line(&format!("add {}, {}, #{}", result_reg, result_reg, offset))?;
                 }
                 self.emit_line(&format!("ldr {}, [{}]", result_reg, result_reg))?;
                 Ok(())
@@ -677,7 +673,10 @@ impl AArch64AssemblyGenerator {
 
                 // 如果是 println/print，检测第一个参数是否为字符串字面量
                 let is_string_arg = if needs_format_string {
-                    matches!(args.first(), Some(lir::Expression::Literal(lir::Literal::String(_))))
+                    matches!(
+                        args.first(),
+                        Some(lir::Expression::Literal(lir::Literal::String(_)))
+                    )
                 } else {
                     false
                 };
@@ -694,7 +693,10 @@ impl AArch64AssemblyGenerator {
                         self.string_literals.insert(fmt_str.to_string(), l.clone());
                         l
                     } else {
-                        self.string_literals.get(fmt_str).cloned().unwrap_or_default()
+                        self.string_literals
+                            .get(fmt_str)
+                            .cloned()
+                            .unwrap_or_default()
                     };
 
                     // 将格式字符串地址加载到 x0（第一个参数位置）
@@ -1639,10 +1641,8 @@ impl AssemblyGenerator for AArch64AssemblyGenerator {
                         }
 
                         let size = self.type_size(&field.type_);
-                        self.field_offsets.insert(
-                            Self::layout_key(&strct.name, &field.name),
-                            current_offset,
-                        );
+                        self.field_offsets
+                            .insert(Self::layout_key(&strct.name, &field.name), current_offset);
                         current_offset += size;
                     }
 
@@ -1664,10 +1664,8 @@ impl AssemblyGenerator for AArch64AssemblyGenerator {
                         }
 
                         let size = self.type_size(&field.type_);
-                        self.field_offsets.insert(
-                            Self::layout_key(&cls.name, &field.name),
-                            current_offset,
-                        );
+                        self.field_offsets
+                            .insert(Self::layout_key(&cls.name, &field.name), current_offset);
                         current_offset += size;
                     }
 

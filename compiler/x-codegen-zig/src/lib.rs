@@ -497,6 +497,7 @@ impl ZigBackend {
             // FFI types
             x_hir::HirType::Pointer(inner) => format!("*{}", self.emit_hir_type(inner)),
             x_hir::HirType::ConstPointer(inner) => format!("*const {}", self.emit_hir_type(inner)),
+            x_hir::HirType::MutPointer(inner) => format!("*mut {}", self.emit_hir_type(inner)),
             x_hir::HirType::Void => "void".to_string(),
             // C FFI types
             x_hir::HirType::CInt => "c_int".to_string(),
@@ -2074,7 +2075,7 @@ impl ZigBackend {
                     Ok(awaited.join(", "))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 // Parallel execution: start all, then await all
                 // In Zig, we use a block that starts all async operations and then awaits them
                 if expr_strs.is_empty() {
@@ -2482,6 +2483,7 @@ impl ZigBackend {
             // FFI pointer types
             ast::Type::Pointer(inner) => format!("*{}", self.emit_type(inner)),
             ast::Type::ConstPointer(inner) => format!("*const {}", self.emit_type(inner)),
+            ast::Type::MutPointer(inner) => format!("*mut {}", self.emit_type(inner)),
             ast::Type::Void => "void".to_string(),
             // C FFI types - map to Zig's C ABI types
             ast::Type::CInt => "c_int".to_string(),
@@ -3260,7 +3262,7 @@ mod tests {
                     statements: vec![spanned(
                         StatementKind::Expression(spanned(
                             ExpressionKind::Wait(
-                                ast::WaitType::Together,
+                                ast::WaitType::Concurrently,
                                 vec![
                                     spanned(
                                         ExpressionKind::Variable("task1".to_string()),
@@ -3539,6 +3541,7 @@ impl ZigBackend {
                     if let Some(eq_pos) = inner.find(" = ") {
                         let var_name = inner[..eq_pos].trim();
                         // 去掉前导下划线，存储不带下划线的版本
+                        #[allow(clippy::manual_strip)]
                         let clean_name = if var_name.starts_with('_') {
                             var_name[1..].to_string()
                         } else {
@@ -3860,6 +3863,8 @@ impl ZigBackend {
                     x_lir::UnaryOp::PreDecrement => "--",
                     x_lir::UnaryOp::PostIncrement => "/* post++ */",
                     x_lir::UnaryOp::PostDecrement => "/* post-- */",
+                    x_lir::UnaryOp::Reference => "&",
+                    x_lir::UnaryOp::MutableReference => "&mut ",
                 };
                 Ok(format!("{}({})", op_str, expr_str))
             }

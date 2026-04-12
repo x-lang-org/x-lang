@@ -214,6 +214,8 @@ pub fn get_unary_op(op: &UnaryOp) -> &'static str {
         UnaryOp::Not => "!",
         UnaryOp::BitNot => "~",
         UnaryOp::Wait => "await ",
+        UnaryOp::Reference => "&",
+        UnaryOp::MutableReference => "&mut ",
     }
 }
 

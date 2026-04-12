@@ -17,6 +17,7 @@
 //! - 新架构下的流水线联通
 
 use std::collections::HashMap;
+use x_hir::HirImportSymbol;
 
 use crate::mir::*;
 use x_hir::{
@@ -134,6 +135,24 @@ impl HirToMirLowerer {
                 };
                 self.module.functions.push(mir_func);
             }
+            HirDeclaration::Import(import_decl) => {
+                // 将导入声明添加到 MIR 模块中供后续阶段使用
+                self.module.imports.push(crate::mir::Import {
+                    module_path: import_decl.module_path.clone(),
+                    symbols: import_decl
+                        .symbols
+                        .iter()
+                        .map(|sym| match sym {
+                            HirImportSymbol::All => (String::new(), None),
+                            HirImportSymbol::Named(name, alias) => (name.clone(), alias.clone()),
+                        })
+                        .collect(),
+                    import_all: import_decl
+                        .symbols
+                        .iter()
+                        .any(|sym| matches!(sym, HirImportSymbol::All)),
+                });
+            }
             HirDeclaration::Class(_)
             | HirDeclaration::Trait(_)
             | HirDeclaration::Enum(_)
@@ -141,8 +160,8 @@ impl HirToMirLowerer {
             | HirDeclaration::Effect(_)
             | HirDeclaration::Implement
             | HirDeclaration::TypeAlias(_)
+            | HirDeclaration::Newtype(_)
             | HirDeclaration::Module(_)
-            | HirDeclaration::Import(_)
             | HirDeclaration::Export(_) => {
                 // 当前阶段先不在 MIR 中显式建模这些高级声明。
                 // 它们要么属于类型层信息，要么会在后续 lowering 中展开。
@@ -925,7 +944,8 @@ fn lower_type(ty: &HirType) -> MirType {
         HirType::Reference(inner)
         | HirType::MutableReference(inner)
         | HirType::Pointer(inner)
-        | HirType::ConstPointer(inner) => MirType::Pointer(Box::new(lower_type(inner))),
+        | HirType::ConstPointer(inner)
+        | HirType::MutPointer(inner) => MirType::Pointer(Box::new(lower_type(inner))),
 
         HirType::CInt
         | HirType::CUInt
@@ -982,6 +1002,8 @@ fn lower_unary_op(op: &HirUnaryOp) -> MirLowerResult<MirUnOp> {
                 "Await 尚未 lowering 到专用 MIR 指令".to_string(),
             ))
         }
+        HirUnaryOp::Reference => MirUnOp::Reference,
+        HirUnaryOp::MutableReference => MirUnOp::MutableReference,
     })
 }
 

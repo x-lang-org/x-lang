@@ -1417,6 +1417,8 @@ impl RustBackend {
                     UnaryOp::Not => Ok(format!("!{}", e_str)),
                     UnaryOp::BitNot => Ok(format!("!{}", e_str)), // Rust uses ! for bitwise not
                     UnaryOp::Wait => Ok(format!("{}.await", e_str)),
+                    UnaryOp::Reference => Ok(format!("&{}", e_str)),
+                    UnaryOp::MutableReference => Ok(format!("&mut {}", e_str)),
                 }
             }
             ExpressionKind::Cast(expr, ty) => {
@@ -1764,7 +1766,7 @@ impl RustBackend {
                         ))
                     }
                 }
-                ast::WaitType::Together => {
+                ast::WaitType::Concurrently => {
                     let exprs_str: Vec<String> = exprs
                         .iter()
                         .map(|e| self.emit_expr(e))
@@ -2053,6 +2055,7 @@ impl RustBackend {
             // FFI types
             ast::Type::Pointer(inner) => format!("*mut {}", self.emit_type(inner)),
             ast::Type::ConstPointer(inner) => format!("*const {}", self.emit_type(inner)),
+            ast::Type::MutPointer(inner) => format!("*mut {}", self.emit_type(inner)),
             ast::Type::Void => "std::ffi::c_void".to_string(),
             // C FFI types
             ast::Type::CInt => "std::ffi::c_int".to_string(),
@@ -2258,6 +2261,10 @@ path = "src/main.rs"
             x_lir::Declaration::VTable(vtable) => self.generate_lir_vtable(vtable)?,
             x_lir::Declaration::Enum(enum_) => self.generate_lir_enum(enum_)?,
             x_lir::Declaration::TypeAlias(alias) => self.generate_lir_type_alias(alias)?,
+            x_lir::Declaration::Newtype(nt) => self.generate_lir_newtype(nt)?,
+            x_lir::Declaration::Trait(trait_) => self.generate_lir_trait(trait_)?,
+            x_lir::Declaration::Effect(effect) => self.generate_lir_effect(effect)?,
+            x_lir::Declaration::Impl(impl_) => self.generate_lir_impl(impl_)?,
             x_lir::Declaration::ExternFunction(ext) => self.generate_lir_extern_function(ext)?,
         }
         Ok(())
@@ -2344,15 +2351,13 @@ path = "src/main.rs"
         // 先扫描一次，标记所有有赋值的临时变量
         let mut assigned_temp_vars = std::collections::HashSet::new();
         for stmt in &block.statements {
-            if let x_lir::Statement::Expression(expr) = stmt {
-                if let x_lir::Expression::Assign(target, _) = expr {
-                    if let x_lir::Expression::Variable(name) = target.as_ref() {
-                        if name.starts_with('t')
-                            && name.len() > 1
-                            && name[1..].chars().all(|c| c.is_ascii_digit())
-                        {
-                            assigned_temp_vars.insert(name.clone());
-                        }
+            if let x_lir::Statement::Expression(x_lir::Expression::Assign(target, _)) = stmt {
+                if let x_lir::Expression::Variable(name) = target.as_ref() {
+                    if name.starts_with('t')
+                        && name.len() > 1
+                        && name[1..].chars().all(|c| c.is_ascii_digit())
+                    {
+                        assigned_temp_vars.insert(name.clone());
                     }
                 }
             }
@@ -2363,13 +2368,11 @@ path = "src/main.rs"
 
         for stmt in &block.statements {
             // 检测是否是 println/print 等输出语句
-            if let x_lir::Statement::Expression(expr) = stmt {
-                if let x_lir::Expression::Assign(_, value) = expr {
-                    if let x_lir::Expression::Call(callee, _) = value.as_ref() {
-                        if let x_lir::Expression::Variable(fn_name) = callee.as_ref() {
-                            if matches!(fn_name.as_str(), "println" | "print" | "eprintln") {
-                                has_output = true;
-                            }
+            if let x_lir::Statement::Expression(x_lir::Expression::Assign(_, value)) = stmt {
+                if let x_lir::Expression::Call(callee, _) = value.as_ref() {
+                    if let x_lir::Expression::Variable(fn_name) = callee.as_ref() {
+                        if matches!(fn_name.as_str(), "println" | "print" | "eprintln") {
+                            has_output = true;
                         }
                     }
                 }
@@ -2521,6 +2524,144 @@ path = "src/main.rs"
     fn generate_lir_type_alias(&mut self, alias: &x_lir::TypeAlias) -> RustResult<()> {
         let ty = self.lir_type_to_rust(&alias.type_);
         self.line(&format!("pub type {} = {};", alias.name, ty))?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate newtype (struct wrapper)
+    fn generate_lir_newtype(&mut self, nt: &x_lir::Newtype) -> RustResult<()> {
+        let ty = self.lir_type_to_rust(&nt.type_);
+        self.line(&format!("pub struct {} (pub {});", nt.name, ty))?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate trait (interface) definition
+    fn generate_lir_trait(&mut self, trait_: &x_lir::Trait) -> RustResult<()> {
+        let type_params = if trait_.type_params.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", trait_.type_params.join(", "))
+        };
+        self.line(&format!("pub trait {}{}", trait_.name, type_params))?;
+        if !trait_.extends.is_empty() {
+            self.line(&format!(": {} +", trait_.extends.join(" +")))?;
+        }
+        self.line("{")?;
+        self.indent();
+        for method in &trait_.methods {
+            let ret_ty = method
+                .return_type
+                .as_ref()
+                .map(|ty| self.lir_type_to_rust(ty))
+                .unwrap_or_else(|| "()".to_string());
+            let params: Vec<String> = method
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.lir_type_to_rust(&p.type_)))
+                .collect();
+            let method_type_params = if method.type_params.is_empty() {
+                String::new()
+            } else {
+                format!("<{}>", method.type_params.join(", "))
+            };
+            self.line(&format!(
+                "fn {}{}({}) -> {} {}",
+                method.name,
+                method_type_params,
+                params.join(", "),
+                ret_ty,
+                if method.default_body.is_some() {
+                    "{"
+                } else {
+                    ";"
+                }
+            ))?;
+            if method.default_body.is_some() {
+                self.indent();
+                self.line("// default body")?;
+                self.dedent();
+                self.line("}")?;
+            }
+        }
+        self.dedent();
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate effect definition
+    fn generate_lir_effect(&mut self, effect: &x_lir::Effect) -> RustResult<()> {
+        let type_params = if effect.type_params.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", effect.type_params.join(", "))
+        };
+        self.line(&format!("pub trait {}{} {{", effect.name, type_params))?;
+        self.indent();
+        for op in &effect.operations {
+            let ret_ty = op
+                .return_type
+                .as_ref()
+                .map(|ty| self.lir_type_to_rust(ty))
+                .unwrap_or_else(|| "()".to_string());
+            let params: Vec<String> = op
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.lir_type_to_rust(&p.type_)))
+                .collect();
+            self.line(&format!(
+                "fn {}({}) -> {};",
+                op.name,
+                params.join(", "),
+                ret_ty
+            ))?;
+        }
+        self.dedent();
+        self.line("}")?;
+        self.line("")?;
+        Ok(())
+    }
+
+    /// Generate trait/effect implementation
+    fn generate_lir_impl(&mut self, impl_: &x_lir::Impl) -> RustResult<()> {
+        let type_params = if impl_.type_params.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", impl_.type_params.join(", "))
+        };
+        let target_ty = self.lir_type_to_rust(&impl_.target_type);
+        self.line(&format!(
+            "impl{}{} for {} {{",
+            type_params, impl_.trait_name, target_ty
+        ))?;
+        self.indent();
+        for method in &impl_.methods {
+            let ret = self.lir_type_to_rust(&method.return_type);
+            let params: Vec<String> = method
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.lir_type_to_rust(&p.type_)))
+                .collect();
+            let method_type_params = if method.type_params.is_empty() {
+                String::new()
+            } else {
+                format!("<{}>", method.type_params.join(", "))
+            };
+            self.line(&format!(
+                "fn {}{}({}) -> {} {{",
+                method.name,
+                method_type_params,
+                params.join(", "),
+                ret
+            ))?;
+            self.indent();
+            self.line("// method body")?;
+            self.dedent();
+            self.line("}")?;
+        }
+        self.dedent();
+        self.line("}")?;
         self.line("")?;
         Ok(())
     }
@@ -2833,6 +2974,8 @@ path = "src/main.rs"
                     x_lir::UnaryOp::PreDecrement => "--",
                     x_lir::UnaryOp::PostIncrement => "++",
                     x_lir::UnaryOp::PostDecrement => "--",
+                    x_lir::UnaryOp::Reference => "&",
+                    x_lir::UnaryOp::MutableReference => "&mut ",
                 };
                 let result = match op {
                     x_lir::UnaryOp::PostIncrement | x_lir::UnaryOp::PostDecrement => {

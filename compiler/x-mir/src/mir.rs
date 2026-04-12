@@ -273,6 +273,10 @@ pub enum MirUnOp {
     Not,
     /// 位非
     BitNot,
+    /// 引用
+    Reference,
+    /// 可变引用
+    MutableReference,
 }
 
 /// MIR 终止指令

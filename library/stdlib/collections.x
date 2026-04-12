@@ -1,7 +1,7 @@
 module std.collections
 
-import std::prelude::*;
-import std::types::*;
+import std.prelude;
+import std.types;
 
 /// 哈希集合 - 基于 Map 实现
 export record HashSet<T> where T: Eq {
@@ -11,7 +11,7 @@ export record HashSet<T> where T: Eq {
 
 /// 创建空的哈希集合
 export function empty_set<T> where T: Eq -> HashSet<T> {
-    HashSet { data: std::types::empty() }
+    HashSet { data: std.types.empty() }
 }
 
 /// 创建哈希集合并从数组初始化
@@ -72,7 +72,7 @@ export function for_each<T> where T: Eq(self: HashSet<T>, f: function(T) -> unit
 
 /// 集合转换为列表
 export function to_list<T> where T: Eq(self: HashSet<T>) -> List<T> {
-    let mut result = std::types::empty();
+    let mut result = std.types.empty();
     self.for_each(|item| result.push(item));
     result
 }
@@ -84,12 +84,12 @@ export record Stack<T> {
 
 /// 创建空栈
 export function empty_stack<T>() -> Stack<T> {
-    Stack { items: std::types::empty() }
+    Stack { items: std.types.empty() }
 }
 
 /// 创建栈从数组
 export function stack_from_array<T>(items: [T]) -> Stack<T> {
-    Stack { items: std::types::from_array(items) }
+    Stack { items: std.types.from_array(items) }
 }
 
 /// 获取栈大小
@@ -228,7 +228,7 @@ export fn push_back<T>(self: &mut LinkedList<T>, value: T) -> unit {
     // 现在这只是一个逻辑结构，实际分配由运行时处理
     // 对于 X 标准库，这里展示接口设计
     unsafe {
-        let node: *Node<T> = alloc_one::<Node<T>>();
+        let node: *Node<T> = alloc_one.<Node<T>>();
         (*node) = Node {
             value: value,
             prev: self.tail,
@@ -281,7 +281,7 @@ export record MinHeap<T> where T: Ord {
 
 /// 创建空最小堆
 export fn empty_min_heap<T> where T: Ord -> MinHeap<T> {
-    MinHeap { data: std::types::empty() }
+    MinHeap { data: std.types.empty() }
 }
 
 /// 获取堆大小

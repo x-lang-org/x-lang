@@ -1,14 +1,16 @@
 module std.errors
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::error::*;
+
+
 
 // ============================================================================
 // 基础错误类型
 // ============================================================================
 
 /// 错误分类
-pub enum ErrorCategory {
+export enum ErrorCategory {
     /// IO 错误
     Io,
     /// 解析错误
@@ -38,12 +40,12 @@ pub enum ErrorCategory {
 }
 
 /// 基础错误记录
-pub record BaseError {
-    pub category: ErrorCategory,
-    pub message: string,
-    pub code: Int,
-    pub file: string,
-    pub line: Int,
+export record BaseError {
+    public category: ErrorCategory,
+    public message: string,
+    public code: Int,
+    public file: string,
+    public line: Int,
 }
 
 /// 创建基础错误
@@ -94,19 +96,19 @@ export function to_error_stack(self: BaseError) -> ErrorStack {
 /// 格式化错误分类
 function format_category(category: ErrorCategory) -> string {
     match category {
-        ErrorCategory::Io => "IoError",
-        ErrorCategory::Parse => "ParseError",
-        ErrorCategory::Type => "TypeError",
-        ErrorCategory::Runtime => "RuntimeError",
-        ErrorCategory::Logic => "LogicError",
-        ErrorCategory::Config => "ConfigError",
-        ErrorCategory::Network => "NetworkError",
-        ErrorCategory::Database => "DatabaseError",
-        ErrorCategory::Validation => "ValidationError",
-        ErrorCategory::Permission => "PermissionError",
-        ErrorCategory::Timeout => "TimeoutError",
-        ErrorCategory::Resource => "ResourceError",
-        ErrorCategory::Unknown => "UnknownError",
+        ErrorCategory.Io => "IoError",
+        ErrorCategory.Parse => "ParseError",
+        ErrorCategory.Type => "TypeError",
+        ErrorCategory.Runtime => "RuntimeError",
+        ErrorCategory.Logic => "LogicError",
+        ErrorCategory.Config => "ConfigError",
+        ErrorCategory.Network => "NetworkError",
+        ErrorCategory.Database => "DatabaseError",
+        ErrorCategory.Validation => "ValidationError",
+        ErrorCategory.Permission => "PermissionError",
+        ErrorCategory.Timeout => "TimeoutError",
+        ErrorCategory.Resource => "ResourceError",
+        ErrorCategory.Unknown => "UnknownError",
     }
 }
 
@@ -115,7 +117,7 @@ function format_category(category: ErrorCategory) -> string {
 // ============================================================================
 
 /// IO 错误类型
-pub enum IoErrorKind {
+export enum IoErrorKind {
     /// 文件未找到
     FileNotFound,
     /// 权限被拒绝
@@ -149,10 +151,10 @@ pub enum IoErrorKind {
 }
 
 /// IO 错误
-pub record IoError {
-    pub kind: IoErrorKind,
-    pub message: string,
-    pub path: string,
+export record IoError {
+    public kind: IoErrorKind,
+    public message: string,
+    public path: string,
 }
 
 /// 创建 IO 错误
@@ -167,7 +169,7 @@ export function io_error(kind: IoErrorKind, message: string) -> IoError {
 /// 创建文件未找到错误
 export function file_not_found(path: string) -> IoError {
     IoError {
-        kind: IoErrorKind::FileNotFound,
+        kind: IoErrorKind.FileNotFound,
         message: "file not found: " ++ path,
         path: path,
     }
@@ -176,7 +178,7 @@ export function file_not_found(path: string) -> IoError {
 /// 创建权限被拒绝错误
 export function permission_denied(path: string) -> IoError {
     IoError {
-        kind: IoErrorKind::PermissionDenied,
+        kind: IoErrorKind.PermissionDenied,
         message: "permission denied: " ++ path,
         path: path,
     }
@@ -185,7 +187,7 @@ export function permission_denied(path: string) -> IoError {
 /// 创建连接错误
 export function connection_error(message: string) -> IoError {
     IoError {
-        kind: IoErrorKind::ConnectionReset,
+        kind: IoErrorKind.ConnectionReset,
         message: message,
         path: "",
     }
@@ -206,21 +208,21 @@ export function io_to_error_stack(self: IoError) -> ErrorStack {
 /// IO 错误代码
 function io_error_code(kind: IoErrorKind) -> Int {
     match kind {
-        IoErrorKind::FileNotFound => 1,
-        IoErrorKind::PermissionDenied => 2,
-        IoErrorKind::ConnectionReset => 3,
-        IoErrorKind::ConnectionAborted => 4,
-        IoErrorKind::NotConnected => 5,
-        IoErrorKind::AddrInUse => 6,
-        IoErrorKind::AddrNotAvailable => 7,
-        IoErrorKind::BrokenPipe => 8,
-        IoErrorKind::AlreadyExists => 9,
-        IoErrorKind::InvalidInput => 10,
-        IoErrorKind::InvalidData => 11,
-        IoErrorKind::TimedOut => 12,
-        IoErrorKind::WriteZero => 13,
-        IoErrorKind::Interrupted => 14,
-        IoErrorKind::Other => 15,
+        IoErrorKind.FileNotFound => 1,
+        IoErrorKind.PermissionDenied => 2,
+        IoErrorKind.ConnectionReset => 3,
+        IoErrorKind.ConnectionAborted => 4,
+        IoErrorKind.NotConnected => 5,
+        IoErrorKind.AddrInUse => 6,
+        IoErrorKind.AddrNotAvailable => 7,
+        IoErrorKind.BrokenPipe => 8,
+        IoErrorKind.AlreadyExists => 9,
+        IoErrorKind.InvalidInput => 10,
+        IoErrorKind.InvalidData => 11,
+        IoErrorKind.TimedOut => 12,
+        IoErrorKind.WriteZero => 13,
+        IoErrorKind.Interrupted => 14,
+        IoErrorKind.Other => 15,
     }
 }
 
@@ -229,12 +231,12 @@ function io_error_code(kind: IoErrorKind) -> Int {
 // ============================================================================
 
 /// 解析错误
-pub record ParseError {
-    pub message: string,
-    pub file: string,
-    pub line: Int,
-    pub column: Int,
-    pub source_line: string,
+export record ParseError {
+    public message: string,
+    public file: string,
+    public line: Int,
+    public column: Int,
+    public source_line: string,
 }
 
 /// 创建解析错误
@@ -305,12 +307,12 @@ export function format_parse_error(self: ParseError) -> string {
 // ============================================================================
 
 /// 类型错误
-pub record TypeError {
-    pub expected: string,
-    pub actual: string,
-    pub message: string,
-    pub file: string,
-    pub line: Int,
+export record TypeError {
+    public expected: string,
+    public actual: string,
+    public message: string,
+    public file: string,
+    public line: Int,
 }
 
 /// 创建类型错误
@@ -352,10 +354,10 @@ export function type_to_error_stack(self: TypeError) -> ErrorStack {
 // ============================================================================
 
 /// 运行时错误
-pub record RuntimeError {
-    pub message: string,
-    pub code: Int,
-    pub recoverable: Bool,
+export record RuntimeError {
+    public message: string,
+    public code: Int,
+    public recoverable: Bool,
 }
 
 /// 创建运行时错误
@@ -402,10 +404,10 @@ export function runtime_to_error_stack(self: RuntimeError) -> ErrorStack {
 // ============================================================================
 
 /// 验证错误
-pub record ValidationError {
-    pub field: string,
-    pub message: string,
-    pub value: string,
+export record ValidationError {
+    public field: string,
+    public message: string,
+    public value: string,
 }
 
 /// 创建验证错误
@@ -447,11 +449,11 @@ export function validation_to_error_stack(self: ValidationError) -> ErrorStack {
 // ============================================================================
 
 /// 网络错误
-pub record NetworkError {
-    pub message: string,
-    pub code: Int,
-    pub url: string,
-    pub retryable: Bool,
+export record NetworkError {
+    public message: string,
+    public code: Int,
+    public url: string,
+    public retryable: Bool,
 }
 
 /// 创建网络错误
@@ -505,9 +507,9 @@ export function network_to_error_stack(self: NetworkError) -> ErrorStack {
 // ============================================================================
 
 /// 超时错误
-pub record TimeoutError {
-    pub operation: string,
-    pub timeout_ms: Int,
+export record TimeoutError {
+    public operation: string,
+    public timeout_ms: Int,
 }
 
 /// 创建超时错误

@@ -1,6 +1,8 @@
 module std.net
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 // 地址族
 const AF_INET: Int = 2;      // IPv4
@@ -117,7 +119,7 @@ export fn tcp_bind(addr: IpV4Addr, port: Int) -> Result<TcpListener, string> {
         } else {
             // 设置 SO_REUSEADDR
             let optval: signed 32-bit integer = 1;
-            setsockopt(fd, SOL_SOCKET as signed 32-bit integer, SO_REUSEADDR as signed 32-bit integer, &optval as *(), size_of::<signed 32-bit integer>() as usize);
+            setsockopt(fd, SOL_SOCKET as signed 32-bit integer, SO_REUSEADDR as signed 32-bit integer, &optval as *(), size_of.<signed 32-bit integer>() as usize);
 
             // 构造 sockaddr_in
             let mut buffer: [u8] = [0; 16]; // 足够大小容纳 sockaddr_in
@@ -329,7 +331,7 @@ export fn set_nodelay(stream: &mut TcpStream, nodelay: Bool) -> Result<unit, str
             IPPROTO_TCP as signed 32-bit integer,
             TCP_NODELAY as signed 32-bit integer,
             &optval as *(),
-            size_of::<signed 32-bit integer>() as usize
+            size_of.<signed 32-bit integer>() as usize
         );
         when result == 0 {
             Ok(unit)

@@ -105,6 +105,8 @@ pub enum HirDeclaration {
     Effect(HirEffectDecl),
     /// 类型别名
     TypeAlias(HirTypeAlias),
+    /// 新类型（不透明包装）
+    Newtype(HirTypeAlias),
     /// 模块声明
     Module(String),
     /// 导入声明
@@ -453,13 +455,15 @@ pub enum HirUnaryOp {
     Not,
     BitNot,
     Await,
+    Reference,
+    MutableReference,
 }
 
 /// HIR Wait 类型
 #[derive(Debug, PartialEq, Clone)]
 pub enum HirWaitType {
     Single,
-    Together,
+    Concurrently,
     Race,
     Timeout(Box<HirExpression>),
     Atomic,
@@ -522,6 +526,8 @@ pub enum HirType {
     Pointer(Box<HirType>),
     /// 常量原始指针类型 (*const T)
     ConstPointer(Box<HirType>),
+    /// 可变原始指针类型 (*mut T)
+    MutPointer(Box<HirType>),
     /// void 类型（用于 FFI）
     Void,
 
@@ -605,6 +611,7 @@ impl HirType {
             // FFI types
             Type::Pointer(inner) => HirType::Pointer(Box::new(HirType::from_ast(inner))),
             Type::ConstPointer(inner) => HirType::ConstPointer(Box::new(HirType::from_ast(inner))),
+            Type::MutPointer(inner) => HirType::MutPointer(Box::new(HirType::from_ast(inner))),
             Type::Void => HirType::Void,
             // C FFI types
             Type::CInt => HirType::CInt,
@@ -682,6 +689,9 @@ impl HirType {
             }
             x_typechecker::Type::ConstPointer(inner) => {
                 HirType::ConstPointer(Box::new(HirType::from_x_type(inner)))
+            }
+            x_typechecker::Type::MutPointer(inner) => {
+                HirType::MutPointer(Box::new(HirType::from_x_type(inner)))
             }
             x_typechecker::Type::Void => HirType::Void,
             x_typechecker::Type::CInt => HirType::CInt,
@@ -842,6 +852,7 @@ impl HirOwnershipInfo {
             // FFI types - pointers are Copy
             HirType::Pointer(_) => false,
             HirType::ConstPointer(_) => false,
+            HirType::MutPointer(_) => false,
             HirType::Void => false,
             // C FFI types - all Copy types
             HirType::CInt
@@ -1139,6 +1150,10 @@ impl<'a> HirConverter<'a> {
                     ty: HirType::from_ast(&type_alias.type_),
                 }))
             }
+            ast::Declaration::Newtype(newtype) => Ok(HirDeclaration::Newtype(HirTypeAlias {
+                name: newtype.name.clone(),
+                ty: HirType::from_ast(&newtype.type_),
+            })),
             ast::Declaration::Module(module_decl) => {
                 Ok(HirDeclaration::Module(module_decl.name.clone()))
             }
@@ -1587,7 +1602,7 @@ impl<'a> HirConverter<'a> {
             ExpressionKind::Wait(wait_type, exprs) => {
                 let hir_wait_type = match wait_type {
                     ast::WaitType::Single => HirWaitType::Single,
-                    ast::WaitType::Together => HirWaitType::Together,
+                    ast::WaitType::Concurrently => HirWaitType::Concurrently,
                     ast::WaitType::Race => HirWaitType::Race,
                     ast::WaitType::Timeout(timeout_expr) => {
                         HirWaitType::Timeout(Box::new(self.convert_expression(timeout_expr)?))
@@ -1712,6 +1727,8 @@ impl<'a> HirConverter<'a> {
             UnaryOp::Not => HirUnaryOp::Not,
             UnaryOp::BitNot => HirUnaryOp::BitNot,
             UnaryOp::Wait => HirUnaryOp::Await,
+            UnaryOp::Reference => HirUnaryOp::Reference,
+            UnaryOp::MutableReference => HirUnaryOp::MutableReference,
         }
     }
 
@@ -2147,6 +2164,9 @@ fn analyze_declaration(decl: &HirDeclaration, result: &mut SemanticAnalysisResul
             result
                 .variables
                 .insert(alias.name.clone(), alias.ty.clone());
+        }
+        HirDeclaration::Newtype(nt) => {
+            result.variables.insert(nt.name.clone(), nt.ty.clone());
         }
         _ => {}
     }

@@ -1,6 +1,8 @@
 module std.process
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 // === 外部 C 库函数 ===
 

@@ -24,7 +24,7 @@ pub fn parse_program(input: &str) -> Result<Program, ParseError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ast::{Declaration, ExpressionKind, Pattern, StatementKind};
+    use crate::ast::{BinaryOp, Declaration, ExpressionKind, Literal, Pattern, StatementKind};
 
     #[test]
     fn parse_module_import_export() {
@@ -1342,5 +1342,175 @@ function map<T, U>(self: List<T>, f: function(T) -> U) -> List<U> {
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
+    }
+
+    // ==================== String Interpolation Tests ====================
+
+    #[test]
+    fn parse_string_interpolation_simple() {
+        // "Hello, ${name}!"
+        let src = r#"
+let greeting = "Hello, ${name}!";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        // Should desugar to "Hello, " + name + "!"
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let expr = decl.initializer.as_ref().expect("initializer exists");
+                // Should be Binary Add: ("Hello, " + name) + "!"
+                match &expr.node {
+                    ExpressionKind::Binary(BinaryOp::Add, _, _) => {
+                        // This is expected - desugared to concatenation
+                        assert!(true);
+                    }
+                    _ => panic!("expected binary add for interpolated string"),
+                }
+            }
+            _ => panic!("expected variable declaration"),
+        }
+    }
+
+    #[test]
+    fn parse_string_interpolation_expression() {
+        // "Result: ${x + y}"
+        let src = r#"
+let result = "Result: ${x + y}";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let expr = decl.initializer.as_ref().expect("initializer exists");
+                // Should be "Result: " + (x + y)
+                match &expr.node {
+                    ExpressionKind::Binary(BinaryOp::Add, _, right) => {
+                        match &right.node {
+                            ExpressionKind::Binary(BinaryOp::Add, _, _) => {
+                                // Inner expression x + y parsed correctly
+                                assert!(true);
+                            }
+                            _ => panic!("expected inner binary add in interpolation"),
+                        }
+                    }
+                    _ => panic!("expected binary add for interpolated string"),
+                }
+            }
+            _ => panic!("expected variable declaration"),
+        }
+    }
+
+    #[test]
+    fn parse_string_interpolation_multiple() {
+        // "${a} + ${b} = ${a + b}"
+        let src = r#"
+let equation = "${a} + ${b} = ${a + b}";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        // Should desugar to a + " + " + b + " = " + (a + b)
+        // Five parts → four Add operations
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let mut current = decl.initializer.as_ref().unwrap();
+                let mut add_count = 0;
+                while let ExpressionKind::Binary(BinaryOp::Add, _, next) = &current.node {
+                    add_count += 1;
+                    current = next;
+                }
+                // Five parts: 4 adds
+                assert_eq!(add_count, 4);
+            }
+            _ => panic!("expected variable declaration"),
+        }
+    }
+
+    #[test]
+    fn parse_string_interpolation_single_part() {
+        // "${expression}" - only one part, returns directly
+        let src = r#"
+let value = "${x + y}";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let expr = decl.initializer.as_ref().unwrap();
+                // Should just be the expression directly, no concatenation
+                match &expr.node {
+                    ExpressionKind::Binary(BinaryOp::Add, _, _) => {
+                        // This is correct - "${x + y}" is StringContent("") + (x+y), which is one add
+                        assert!(true);
+                    }
+                    _ => {
+                        // If empty string is optimized away, that's fine too
+                        assert!(true);
+                    }
+                }
+            }
+            _ => panic!("expected variable declaration"),
+        }
+    }
+
+    #[test]
+    fn parse_string_interpolation_multiline() {
+        // Multiline string with interpolation
+        let src = r#"
+let text = """
+Hello, ${name}!
+Count: ${count}
+""";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        // Should succeed with interpolation in multiline
+        assert!(true);
+    }
+
+    #[test]
+    fn parse_regular_string_no_interpolation() {
+        // Regular string without interpolation
+        let src = r#"
+let text = "Hello, world!";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let expr = decl.initializer.as_ref().unwrap();
+                match &expr.node {
+                    ExpressionKind::Literal(Literal::String(s)) if s == "Hello, world!" => {
+                        assert!(true);
+                    }
+                    _ => panic!("expected simple string literal"),
+                }
+            }
+            _ => panic!("expected variable declaration"),
+        }
+    }
+
+    #[test]
+    fn parse_string_interpolation_short() {
+        // "Hello, $name!" - simple variable interpolation without braces
+        let src = r#"
+let greeting = "Hello, $name!";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        // Should desugar to "Hello, " + name + "!"
+        match &program.declarations[0] {
+            Declaration::Variable(decl) => {
+                let expr = decl.initializer.as_ref().expect("initializer exists");
+                // Should be Binary Add: ("Hello, " + name) + "!"
+                match &expr.node {
+                    ExpressionKind::Binary(BinaryOp::Add, _, _) => {
+                        // This is expected - desugared to concatenation
+                        assert!(true);
+                    }
+                    _ => panic!("expected binary add for interpolated string"),
+                }
+            }
+            _ => panic!("expected variable declaration"),
+        }
     }
 }

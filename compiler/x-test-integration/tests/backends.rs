@@ -11,10 +11,10 @@
 #[cfg(test)]
 #[cfg(feature = "backends")]
 mod backend_tests {
-    use x_test_integration::stage_tests::sources;
-    use std::process::Command;
     use std::fs;
+    use std::process::Command;
     use tempfile::TempDir;
+    use x_test_integration::stage_tests::sources;
 
     /// Test result for backend compilation
     #[derive(Debug)]
@@ -47,10 +47,14 @@ mod backend_tests {
         // Compile using x CLI
         let output = Command::new("cargo")
             .args(&[
-                "run", "--", "compile",
+                "run",
+                "--",
+                "compile",
                 source_path.to_str().unwrap(),
-                "-o", output_path.to_str().unwrap(),
-                "--target", backend,
+                "-o",
+                output_path.to_str().unwrap(),
+                "--target",
+                backend,
             ])
             .current_dir("/Users/xiongdi/x-lang/tools/x-cli")
             .output();
@@ -79,7 +83,7 @@ mod backend_tests {
                             }
                         } else {
                             BackendResult::CompilationError(
-                                String::from_utf8_lossy(&run_output.stderr).to_string()
+                                String::from_utf8_lossy(&run_output.stderr).to_string(),
                             )
                         }
                     }

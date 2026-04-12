@@ -744,7 +744,7 @@ impl PythonBackend {
                     Ok(format!("({})", awaited.join(", ")))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 // Parallel execution: asyncio.gather
                 if expr_strs.is_empty() {
                     Ok("asyncio.sleep(0)".to_string())
@@ -1169,7 +1169,7 @@ mod tests {
     #[test]
     fn test_function_with_parameters() {
         // Simple test: generate a function with parameters and return type
-        let mut backend = PythonBackend::new(PythonBackendConfig::default());
+        let backend = PythonBackend::new(PythonBackendConfig::default());
         let code = backend.output(); // empty buffer
         assert_eq!(code, "");
     }
@@ -1278,7 +1278,7 @@ mod tests {
 
     #[test]
     fn test_binary_operations_map_correctly() {
-        let mut backend = PythonBackend::new(PythonBackendConfig::default());
+        let backend = PythonBackend::new(PythonBackendConfig::default());
         // Test binary operation mapping directly
         let result = backend.emit_binop(&ast::BinaryOp::Add, "a", "b");
         assert_eq!(result, "a + b");
@@ -1292,7 +1292,7 @@ mod tests {
 
     #[test]
     fn test_unary_operations_map_correctly() {
-        let mut backend = PythonBackend::new(PythonBackendConfig::default());
+        let backend = PythonBackend::new(PythonBackendConfig::default());
         // Test unary operation mapping
         let result = backend.emit_unaryop(&ast::UnaryOp::Negate, "x");
         assert_eq!(result, "-x");
@@ -1303,7 +1303,7 @@ mod tests {
 
     #[test]
     fn test_literal_emission() {
-        let mut backend = PythonBackend::new(PythonBackendConfig::default());
+        let backend = PythonBackend::new(PythonBackendConfig::default());
 
         // Test integer
         let lit = ast::Literal::Integer(42);

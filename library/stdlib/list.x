@@ -1,7 +1,9 @@
 module std.list
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::types::*;
+
+
 
 /// 动态数组类型
 export record List<T> {

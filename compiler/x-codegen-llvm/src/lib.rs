@@ -921,61 +921,110 @@ impl LlvmBackend {
 
                         // 执行运算
                         let result = self.new_temp();
-                        let is_float = matches!(value_ty, Type::Float | Type::Double | Type::LongDouble);
+                        let is_float =
+                            matches!(value_ty, Type::Float | Type::Double | Type::LongDouble);
 
                         let instruction = match op {
                             BinaryOp::Add => {
                                 if is_float {
-                                    format!("{} = fadd {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = fadd {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 } else {
-                                    format!("{} = add {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = add {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 }
                             }
                             BinaryOp::Subtract => {
                                 if is_float {
-                                    format!("{} = fsub {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = fsub {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 } else {
-                                    format!("{} = sub {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = sub {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 }
                             }
                             BinaryOp::Multiply => {
                                 if is_float {
-                                    format!("{} = fmul {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = fmul {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 } else {
-                                    format!("{} = mul {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = mul {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 }
                             }
                             BinaryOp::Divide => {
                                 if is_float {
-                                    format!("{} = fdiv {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = fdiv {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 } else {
-                                    format!("{} = sdiv {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = sdiv {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 }
                             }
                             BinaryOp::Modulo => {
                                 if is_float {
-                                    format!("{} = frem {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = frem {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 } else {
-                                    format!("{} = srem {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                    format!(
+                                        "{} = srem {} {}, {}",
+                                        result, llvm_ty, current_val, value_reg
+                                    )
                                 }
                             }
                             BinaryOp::BitAnd => {
-                                format!("{} = and {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = and {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             BinaryOp::BitOr => {
-                                format!("{} = or {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = or {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             BinaryOp::BitXor => {
-                                format!("{} = xor {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = xor {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             BinaryOp::LeftShift => {
-                                format!("{} = shl {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = shl {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             BinaryOp::RightShift => {
-                                format!("{} = lshr {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = lshr {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             BinaryOp::RightShiftArithmetic => {
-                                format!("{} = ashr {} {}, {}", result, llvm_ty, current_val, value_reg)
+                                format!(
+                                    "{} = ashr {} {}, {}",
+                                    result, llvm_ty, current_val, value_reg
+                                )
                             }
                             _ => {
                                 return Err(LlvmError::Unimplemented(format!(
@@ -1564,6 +1613,13 @@ impl LlvmBackend {
                 return Err(LlvmError::Unimplemented("Decrement operators".to_string()));
             }
             UnaryOp::Plus => {
+                return Ok((val, ty));
+            }
+            // References - just return the value since it's already a pointer
+            UnaryOp::Reference => {
+                return Ok((val, ty));
+            }
+            UnaryOp::MutableReference => {
                 return Ok((val, ty));
             }
         };

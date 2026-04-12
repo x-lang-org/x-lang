@@ -403,7 +403,7 @@ impl ErlangBackend {
                 self.line(&format!("case {} of", cond))?;
                 self.indent();
                 self.line(&format!("true -> {};", body_str))?;
-                self.line("false -> ok");
+                self.line("false -> ok")?;
                 self.dedent();
                 self.line("end.")?;
             }
@@ -846,6 +846,8 @@ impl ErlangBackend {
             ast::UnaryOp::Not => format!("not {}", e),
             ast::UnaryOp::BitNot => format!("bnot {}", e),
             ast::UnaryOp::Wait => format!("receive Msg -> Msg end"), // Wait becomes receive
+            ast::UnaryOp::Reference => format!("{}", e), // Erlang doesn't have references, just pass through
+            ast::UnaryOp::MutableReference => format!("{}", e), // Erlang doesn't have references, just pass through
         }
     }
 
@@ -944,7 +946,7 @@ impl ErlangBackend {
                     Ok(format!("receive Msg -> Msg end"))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 // 等待所有消息
                 Ok(format!("receive_all([{}])", expr_strs.join(", ")))
             }
@@ -1155,7 +1157,8 @@ impl ErlangBackend {
             ast::Type::Reference(inner)
             | ast::Type::MutableReference(inner)
             | ast::Type::Pointer(inner)
-            | ast::Type::ConstPointer(inner) => self.map_type(inner),
+            | ast::Type::ConstPointer(inner)
+            | ast::Type::MutPointer(inner) => self.map_type(inner),
             ast::Type::CInt
             | ast::Type::CUInt
             | ast::Type::CLong
@@ -1496,6 +1499,8 @@ impl ErlangBackend {
                     BitNot => Ok(format!("(bnot {})", e)),
                     PreIncrement | PostIncrement => Ok(format!("({} + 1)", e)),
                     PreDecrement | PostDecrement => Ok(format!("({} - 1)", e)),
+                    Reference => Ok(format!("{}", e)), // Erlang doesn't have references, just pass through
+                    MutableReference => Ok(format!("{}", e)), // Erlang doesn't have references, just pass through
                 }
             }
             Ternary(c, t, el) => {

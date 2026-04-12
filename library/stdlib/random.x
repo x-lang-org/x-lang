@@ -1,7 +1,9 @@
 module std.random
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::time;
+
+import std.time;
 
 // XorShift 64 位随机数生成器
 
@@ -13,7 +15,7 @@ export record Rng {
 /// 初始化生成器，使用时间作为种子
 export fn new() -> Rng {
     // 使用当前时间作为种子
-    let now = time::now_ns();
+    let now = time.now_ns();
     seed(now as u64)
 }
 
@@ -205,7 +207,7 @@ export fn random_int(max: Int) -> Int {
 }
 
 /// 使用全局生成器生成 [min..max) Int
-pub fn random_range_int(min: Int, max: Int) -> Int {
+public fn random_range_int(min: Int, max: Int) -> Int {
     unsafe {
         global_rng.range_int(min, max)
     }
@@ -240,4 +242,4 @@ export fn random_choose<T>(array: [T]) -> T {
 }
 
 // 导入需要的数学函数
-import std::math::{sqrt, ln, pi, cos, sin};
+import std.math.{sqrt, ln, pi, cos, sin};

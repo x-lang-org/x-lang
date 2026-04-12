@@ -1,7 +1,9 @@
 module std.encoding
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::types::*;
+
+
 
 // === HEX 编码 ===
 

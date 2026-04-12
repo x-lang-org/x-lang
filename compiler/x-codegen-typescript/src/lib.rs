@@ -752,6 +752,8 @@ impl TypeScriptBackend {
             ast::UnaryOp::Not => format!("!{}", expr),
             ast::UnaryOp::BitNot => format!("~{}", expr),
             ast::UnaryOp::Wait => format!("await {}", expr),
+            ast::UnaryOp::Reference => format!("&{}", expr),
+            ast::UnaryOp::MutableReference => format!("&mut {}", expr),
         }
     }
 
@@ -776,7 +778,7 @@ impl TypeScriptBackend {
                     Ok(format!("({})", awaited.join(", ")))
                 }
             }
-            ast::WaitType::Together => {
+            ast::WaitType::Concurrently => {
                 // Parallel execution: Promise.all
                 if expr_strs.is_empty() {
                     Ok("Promise.resolve()".to_string())
@@ -855,6 +857,10 @@ impl TypeScriptBackend {
         let mut extern_funcs = Vec::new();
         let mut global_vars = Vec::new();
         let mut type_aliases = Vec::new();
+        let mut newtypes = Vec::new();
+        let mut traits = Vec::new();
+        let mut effects = Vec::new();
+        let mut impls = Vec::new();
         let mut structs = Vec::new();
         let mut classes = Vec::new();
         let mut enums = Vec::new();
@@ -865,6 +871,10 @@ impl TypeScriptBackend {
                 x_lir::Declaration::ExternFunction(ef) => extern_funcs.push(ef),
                 x_lir::Declaration::Global(gv) => global_vars.push(gv),
                 x_lir::Declaration::TypeAlias(ta) => type_aliases.push(ta),
+                x_lir::Declaration::Newtype(nt) => newtypes.push(nt),
+                x_lir::Declaration::Trait(t) => traits.push(t),
+                x_lir::Declaration::Effect(e) => effects.push(e),
+                x_lir::Declaration::Impl(i) => impls.push(i),
                 x_lir::Declaration::Struct(s) => structs.push(s),
                 x_lir::Declaration::Class(c) => classes.push(c),
                 x_lir::Declaration::Enum(e) => enums.push(e),
@@ -887,6 +897,31 @@ impl TypeScriptBackend {
         for ta in &type_aliases {
             let ty_str = self.emit_lir_type(&ta.type_);
             self.line(&format!("type {} = {};", ta.name, ty_str))?;
+            self.line("")?;
+        }
+
+        // Newtypes - TypeScript treats as type alias since it's structurally compatible
+        for nt in &newtypes {
+            let ty_str = self.emit_lir_type(&nt.type_);
+            self.line(&format!("type {} = {};", nt.name, ty_str))?;
+            self.line("")?;
+        }
+
+        // Trait definitions → TypeScript interfaces
+        for t in &traits {
+            self.emit_lir_trait(t)?;
+            self.line("")?;
+        }
+
+        // Effect definitions → TypeScript interfaces
+        for e in &effects {
+            self.emit_lir_effect(e)?;
+            self.line("")?;
+        }
+
+        // Trait/Effect implementations
+        for i in &impls {
+            self.emit_lir_impl(i)?;
             self.line("")?;
         }
 
@@ -1029,6 +1064,119 @@ impl TypeScriptBackend {
         self.dedent();
         self.line("}")?;
         self.line("")?;
+        Ok(())
+    }
+
+    /// Emit trait definition as TypeScript interface
+    fn emit_lir_trait(&mut self, trait_: &x_lir::Trait) -> TypeScriptResult<()> {
+        let type_params = if trait_.type_params.is_empty() {
+            "".to_string()
+        } else {
+            format!("<{}>", trait_.type_params.join(", "))
+        };
+        self.line(&format!(
+            "export interface {}{} {{",
+            trait_.name, type_params
+        ))?;
+        self.indent();
+        for method in &trait_.methods {
+            let ret_ty = method
+                .return_type
+                .as_ref()
+                .map(|ty| self.emit_lir_type(ty))
+                .unwrap_or_else(|| "void".to_string());
+            let params: Vec<String> = method
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.emit_lir_type(&p.type_)))
+                .collect();
+            let method_type_params = if method.type_params.is_empty() {
+                "".to_string()
+            } else {
+                format!("<{}>", method.type_params.join(", "))
+            };
+            self.line(&format!(
+                "{}{}({}): {};",
+                method.name,
+                method_type_params,
+                params.join(", "),
+                ret_ty
+            ))?;
+        }
+        self.dedent();
+        self.line("}")?;
+        Ok(())
+    }
+
+    /// Emit effect definition as TypeScript interface
+    fn emit_lir_effect(&mut self, effect: &x_lir::Effect) -> TypeScriptResult<()> {
+        let type_params = if effect.type_params.is_empty() {
+            "".to_string()
+        } else {
+            format!("<{}>", effect.type_params.join(", "))
+        };
+        self.line(&format!(
+            "export interface {}{} {{",
+            effect.name, type_params
+        ))?;
+        self.indent();
+        for op in &effect.operations {
+            let ret_ty = op
+                .return_type
+                .as_ref()
+                .map(|ty| self.emit_lir_type(ty))
+                .unwrap_or_else(|| "void".to_string());
+            let params: Vec<String> = op
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.emit_lir_type(&p.type_)))
+                .collect();
+            self.line(&format!("{}({}): {};", op.name, params.join(", "), ret_ty))?;
+        }
+        self.dedent();
+        self.line("}")?;
+        Ok(())
+    }
+
+    /// Emit trait/effect implementation
+    fn emit_lir_impl(&mut self, impl_: &x_lir::Impl) -> TypeScriptResult<()> {
+        let type_params = if impl_.type_params.is_empty() {
+            "".to_string()
+        } else {
+            format!("<{}>", impl_.type_params.join(", "))
+        };
+        let target_ty = self.emit_lir_type(&impl_.target_type);
+        self.line(&format!(
+            "export class {}{} implements {} {{",
+            impl_.trait_name, type_params, target_ty
+        ))?;
+        self.indent();
+        for method in &impl_.methods {
+            let ret = self.emit_lir_type(&method.return_type);
+            let params: Vec<String> = method
+                .parameters
+                .iter()
+                .map(|p| format!("{}: {}", p.name, self.emit_lir_type(&p.type_)))
+                .collect();
+            let method_type_params = if method.type_params.is_empty() {
+                "".to_string()
+            } else {
+                format!("<{}>", method.type_params.join(", "))
+            };
+            self.line(&format!(
+                "public {}{}({}): {} {{",
+                method.name,
+                method_type_params,
+                params.join(", "),
+                ret
+            ))?;
+            self.indent();
+            self.line("// method implementation")?;
+            self.dedent();
+            self.line("}")?;
+        }
+        self.dedent();
+        self.line("}")?;
         Ok(())
     }
 
@@ -1353,6 +1501,8 @@ impl TypeScriptBackend {
                     x_lir::UnaryOp::PostIncrement => format!("({}++)", s),
                     x_lir::UnaryOp::PostDecrement => format!("({}--)", s),
                     x_lir::UnaryOp::Plus => s,
+                    x_lir::UnaryOp::Reference => format!("(&{})", s),
+                    x_lir::UnaryOp::MutableReference => format!("(&mut {})", s),
                 })
             }
             x_lir::Expression::Binary(op, lhs, rhs) => {
@@ -1699,7 +1849,7 @@ mod tests {
                 body: ast::Block {
                     statements: vec![make_stmt(StatementKind::Expression(make_expr(
                         ExpressionKind::Wait(
-                            ast::WaitType::Together,
+                            ast::WaitType::Concurrently,
                             vec![
                                 make_expr(ExpressionKind::Variable("task1".to_string())),
                                 make_expr(ExpressionKind::Variable("task2".to_string())),
@@ -1859,7 +2009,7 @@ mod tests {
 
     #[test]
     fn test_binary_operations() {
-        let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
+        let backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
 
         let result = backend.emit_binop(&ast::BinaryOp::Add, "a", "b");
         assert_eq!(result, "a + b");
@@ -1873,7 +2023,7 @@ mod tests {
 
     #[test]
     fn test_unary_operations() {
-        let mut backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
+        let backend = TypeScriptBackend::new(TypeScriptBackendConfig::default());
 
         let result = backend.emit_unaryop(&ast::UnaryOp::Negate, "x");
         assert_eq!(result, "-x");

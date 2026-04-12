@@ -1,8 +1,10 @@
 module std.set
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::types::*;
-import std::list::*;
+
+
+
 
 /// 哈希集合类型
 export record Set<T> {
@@ -11,12 +13,12 @@ export record Set<T> {
 
 export function empty<T>() -> Set<T> {
     Set {
-        items: List::empty<T>(),
+        items: List.empty<T>(),
     }
 }
 
 export function from_array<T: Eq>(arr: [T]) -> Set<T> {
-    let mut set = Set::empty<T>()
+    let mut set = Set.empty<T>()
     for elem in arr {
         set.insert(elem)
     }

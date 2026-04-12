@@ -1,7 +1,9 @@
 module std.map
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::types::*;
+
+
 
 /// 哈希映射类型
 export record Map<K, V> {
@@ -12,8 +14,8 @@ export record Map<K, V> {
 
 export function empty<K, V>() -> Map<K, V> {
     Map {
-        keys: List::empty<K>(),
-        values: List::empty<V>(),
+        keys: List.empty<K>(),
+        values: List.empty<V>(),
         size: 0,
     }
 }

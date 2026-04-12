@@ -1,6 +1,8 @@
 module std.math
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 /// 数学常数 π
 export const pi: Float = 3.14159265358979323846;

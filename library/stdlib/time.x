@@ -1,6 +1,8 @@
 module std.time
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 /// 时间点（以 UNIX 时间戳表示，秒）
 export type Instant = Float;

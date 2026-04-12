@@ -82,6 +82,10 @@ pub enum Value {
     },
     /// 原始指针值（用于 FFI）
     Pointer(usize), // 存储地址值
+    /// 共享引用
+    Ref(Rc<Value>),
+    /// 可变引用
+    RefMut(Rc<RefCell<Value>>),
     /// 装箱的 trait 对象：存储对象实例和trait方法表
     TraitObject {
         /// 实际对象
@@ -693,6 +697,15 @@ impl Interpreter {
                         Value::Integer(n) => Ok(Value::Integer(!n)),
                         _ => Err(InterpreterError::runtime_no_span("~ 需要整数")),
                     },
+                    UnaryOp::Reference => {
+                        // &expr - take reference to value
+                        // In the tree-walking interpreter, we just wrap in an Rc
+                        Ok(Value::Ref(std::rc::Rc::new(v)))
+                    }
+                    UnaryOp::MutableReference => {
+                        // &mut expr - take mutable reference to value
+                        Ok(Value::RefMut(std::rc::Rc::new(std::cell::RefCell::new(v))))
+                    }
                 }
             }
             ExpressionKind::Assign(target, value) => {
@@ -884,11 +897,17 @@ impl Interpreter {
                 }
                 Ok(map)
             }
-            ExpressionKind::Record(_name, _fields) => {
-                // 处理记录表达式，暂时创建一个映射来存储字段
-                let map = Value::new_map();
-                // 暂时直接返回一个空映射，避免栈溢出
-                Ok(map)
+            ExpressionKind::Record(name, fields) => {
+                // 处理记录表达式：创建一个对象来存储命名字段
+                let mut obj_fields = HashMap::new();
+                for (field_name, field_expr) in fields {
+                    let val = self.eval(field_expr)?;
+                    obj_fields.insert(field_name.clone(), val);
+                }
+                Ok(Value::Object {
+                    class_name: name.clone(),
+                    fields: Rc::new(RefCell::new(obj_fields)),
+                })
             }
             ExpressionKind::Parenthesized(inner) => self.eval(inner),
             ExpressionKind::Cast(expr, ty) => {
@@ -1004,7 +1023,7 @@ impl Interpreter {
                             (Value::Null, err_val) => {
                                 // Has error, propagate the error value
                                 Err(InterpreterError::runtime(
-                                    &format!("error propagation: Result::Err({:?})", err_val),
+                                    format!("error propagation: Result::Err({:?})", err_val),
                                     expr.span,
                                 ))
                             }
@@ -1295,6 +1314,28 @@ impl Interpreter {
                 // If no case matched (shouldn't happen with exhaustive matching)
                 Ok(Value::Unit)
             }
+            ExpressionKind::Await(inner) => {
+                // Await 表达式：在同步解释器中直接求值返回，不需要实际等待
+                // 在真正的异步运行时，这会等待 future 完成
+                self.eval(inner)
+            }
+            ExpressionKind::Block(block) => {
+                // Block 表达式：执行块中的语句，返回最后一个表达式的值
+                match self.execute_block_expr(block)? {
+                    ControlFlow::Return(v) => Ok(v),
+                    _ => Ok(Value::Unit),
+                }
+            }
+            ExpressionKind::WhenGuard(condition, body) => {
+                // When guard 表达式：如果条件为真，返回 body 的值；否则不返回（继续执行）
+                let cond = self.eval(condition)?;
+                if self.is_truthy(&cond) {
+                    let val = self.eval(body)?;
+                    Ok(val)
+                } else {
+                    Ok(Value::Unit)
+                }
+            }
             ExpressionKind::Lambda(params, body) => {
                 // 创建闭包：收集参数名和捕获的变量
                 let param_names: Vec<String> = params.iter().map(|p| p.name.clone()).collect();
@@ -1309,10 +1350,6 @@ impl Interpreter {
                     captured,
                 })
             }
-            _ => Err(InterpreterError::runtime_no_span(format!(
-                "未实现的表达式类型: {:?}",
-                expr
-            ))),
         }
     }
 
@@ -2108,6 +2145,8 @@ impl Interpreter {
                     Value::Type { name, .. } => format!("Type({})", name),
                     Value::Pointer(_) => "Pointer".to_string(),
                     Value::TraitObject { .. } => "TraitObject".to_string(),
+                    Value::Ref(_) => "Ref".to_string(),
+                    Value::RefMut(_) => "RefMut".to_string(),
                 };
                 Ok(Value::String(t))
             }
@@ -3378,6 +3417,8 @@ impl Interpreter {
                 }
             }
             Value::Pointer(addr) => format!("Pointer(0x{:x})", addr),
+            Value::Ref(inner) => format!("Ref({})", self.format_value(inner)),
+            Value::RefMut(inner) => format!("RefMut({})", self.format_value(&inner.borrow())),
             Value::TraitObject { object, .. } => {
                 format!("TraitObject({})", self.format_value(object))
             }
@@ -3455,6 +3496,8 @@ impl Interpreter {
                 )
             }
             Value::Pointer(addr) => format!("{{\"__pointer__\":{}}}", addr),
+            Value::Ref(inner) => self.value_to_json(inner),
+            Value::RefMut(inner) => self.value_to_json(&inner.borrow()),
             Value::TraitObject { object, .. } => self.value_to_json(object),
         }
     }

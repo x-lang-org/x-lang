@@ -1,6 +1,8 @@
 module std.error
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 // ============================================================================
 // Error Trait - 错误接口
@@ -8,7 +10,7 @@ import std::prelude::*;
 
 /// 错误特征 - 所有错误类型必须实现此特征
 /// 用于统一的错误处理和转换
-pub trait Error {
+export trait Error {
     /// 获取错误消息
     function message(self) -> string;
     
@@ -27,23 +29,23 @@ pub trait Error {
 // ============================================================================
 
 /// 栈帧信息
-pub record StackFrame {
+export record StackFrame {
     /// 函数名
-    pub function_name: string,
+    public function_name: string,
     /// 文件名
-    pub file: string,
+    public file: string,
     /// 行号
-    pub line: Int,
+    public line: Int,
     /// 列号
-    pub column: Int,
+    public column: Int,
 }
 
 /// 栈回溯信息
-pub record StackTrace {
+export record StackTrace {
     /// 栈帧列表
-    pub frames: [StackFrame],
+    public frames: [StackFrame],
     /// 创建时间戳
-    pub timestamp: Int,
+    public timestamp: Int,
 }
 
 /// 创建空栈回溯
@@ -113,19 +115,19 @@ function current_time_millis() -> Int {
 // ============================================================================
 
 /// 错误栈追踪 - 记录错误传播路径
-pub record ErrorStack {
+export record ErrorStack {
     /// 错误消息
-    pub message: string,
+    public message: string,
     /// 错误代码
-    pub error_code: Option<Int>,
+    public error_code: Option<Int>,
     /// 栈回溯
-    pub trace: Option<StackTrace>,
+    public trace: Option<StackTrace>,
     /// 来源错误
-    pub source: Option<ErrorStack>,
+    public source: Option<ErrorStack>,
     /// 文件名
-    pub file: string,
+    public file: string,
     /// 行号
-    pub line: Int,
+    public line: Int,
 }
 
 /// 创建简单错误栈
@@ -267,12 +269,12 @@ export function option_to_result<T>(opt: Option<T>, error: ErrorStack) -> Result
 // ============================================================================
 
 /// 错误链构建器 - 用于逐步构建复杂错误
-pub record ErrorBuilder {
-    pub message: string,
-    pub code: Option<Int>,
-    pub file: string,
-    pub line: Int,
-    pub source: Option<ErrorStack>,
+export record ErrorBuilder {
+    public message: string,
+    public code: Option<Int>,
+    public file: string,
+    public line: Int,
+    public source: Option<ErrorStack>,
 }
 
 /// 创建错误构建器

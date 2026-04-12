@@ -1,6 +1,8 @@
 module std.io
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 /// 外部 C 库函数：getline - 读取一行
 external "c" function getline(line: **character, capacity: *signed 32-bit integer, stream: *()) -> signed 32-bit integer

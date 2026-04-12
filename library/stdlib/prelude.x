@@ -2,7 +2,7 @@
 
 // Re-export Option and Result from std.types
 // These are now user-defined enums, not compiler built-ins
-import std.types.*;
+import std.types;
 
 /// 外部 C 库函数：puts - 输出字符串并换行
 external function puts(message: *character) -> signed 32-bit integer
@@ -43,8 +43,8 @@ export function assert(condition: boolean) -> unit {
 external function __file_read(path: string) -> Result<string, string>
 
 /// Builtin: 获取命令行参数
-/// __args() -> [string]
-external function __args() -> [string]
+/// __args() -> Array<string>
+external function __args() -> Array<string>
 
 /// Builtin: 解析JSON字符串
 /// x_json_parse(json: string) -> Dynamic

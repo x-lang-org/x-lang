@@ -392,6 +392,9 @@ impl ConstantPropagation {
                     MirUnOp::Neg => MirConstant::Int(-v),
                     MirUnOp::BitNot => MirConstant::Int(!v),
                     MirUnOp::Not => MirConstant::Bool(*v == 0),
+                    MirUnOp::Reference | MirUnOp::MutableReference => {
+                        return ConstantValue::Variable;
+                    }
                 };
                 ConstantValue::Constant(result)
             }

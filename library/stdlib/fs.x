@@ -1,6 +1,8 @@
 module std.fs
+import std.prelude
+import std.types
 
-import std::prelude::*;
+
 
 /// 文件打开模式
 export enum OpenMode {
@@ -19,11 +21,11 @@ export enum OpenMode {
 /// 将打开模式转换为 C 字符串
 function mode_to_c_string(mode: OpenMode) -> string {
     match mode {
-        OpenMode::Read => "r",
-        OpenMode::Write => "w",
-        OpenMode::Append => "a",
-        OpenMode::ReadWrite => "r+",
-        OpenMode::ReadWriteCreate => "w+",
+        OpenMode.Read => "r",
+        OpenMode.Write => "w",
+        OpenMode.Append => "a",
+        OpenMode.ReadWrite => "r+",
+        OpenMode.ReadWriteCreate => "w+",
     }
 }
 
@@ -115,7 +117,7 @@ export function open(path: string, mode: OpenMode) -> Result<File, string> {
 /// 创建并打开文件用于写入
 /// 如果文件已存在则覆盖
 export function create(path: string) -> Result<File, string> {
-    open(path, OpenMode::Write)
+    open(path, OpenMode.Write)
 }
 
 /// 关闭文件
@@ -285,7 +287,7 @@ export function remove_dir(path: string) -> Result<unit, string> {
 
 /// 读取整个文件内容为字符串（便捷函数）
 export function read_to_string_at(path: string) -> Result<string, string> {
-    match open(path, OpenMode::Read) {
+    match open(path, OpenMode.Read) {
         Err(err) => Err(err),
         Ok(mut file) => {
             let result = file.read_to_string();

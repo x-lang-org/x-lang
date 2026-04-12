@@ -13,7 +13,7 @@ use std::collections::{HashMap, HashSet};
 use x_lexer::span::Span;
 use x_parser::ast::{
     Block, ClassDecl, ClassMember, Declaration, Expression, ExpressionKind, FunctionDecl, Literal,
-    Program, Statement, StatementKind, TraitDecl, TypeAlias, VariableDecl, Visibility,
+    Newtype, Program, Statement, StatementKind, TraitDecl, TypeAlias, VariableDecl, Visibility,
 };
 
 /// 类型检查结果（支持多错误收集）
@@ -260,6 +260,11 @@ impl TypeEnv {
     /// 注册效果声明
     fn register_effect(&mut self, name: String, effect: x_parser::ast::EffectDecl) {
         self.effects.insert(name.clone(), effect);
+    }
+
+    /// 获取效果声明
+    pub fn get_effect(&self, name: &str) -> Option<&x_parser::ast::EffectDecl> {
+        self.effects.get(name)
     }
 
     /// 设置当前模块
@@ -579,6 +584,9 @@ fn check_program(program: &Program, env: &mut TypeEnv) -> Result<(), TypeError> 
             }
             Declaration::TypeAlias(type_alias) => {
                 collect_type_alias_info(type_alias, env)?;
+            }
+            Declaration::Newtype(newtype) => {
+                collect_newtype_info(newtype, env)?;
             }
             Declaration::Function(func_decl) => {
                 // 收集函数签名（不检查函数体）
@@ -907,6 +915,7 @@ fn check_declaration(decl: &Declaration, env: &mut TypeEnv) -> Result<(), TypeEr
         Declaration::Effect(effect_decl) => check_effect_decl(effect_decl, env),
         Declaration::Implement(impl_decl) => check_implement_decl(impl_decl, env),
         Declaration::TypeAlias(type_alias) => check_type_alias(type_alias, env),
+        Declaration::Newtype(newtype) => check_newtype(newtype, env),
         Declaration::Module(module_decl) => check_module_decl(module_decl, env),
         Declaration::Import(import_decl) => check_import_decl(import_decl, env),
         Declaration::Export(export_decl) => check_export_decl(export_decl, env),
@@ -1872,6 +1881,16 @@ fn check_trait_decl(trait_decl: &TraitDecl, env: &mut TypeEnv) -> Result<(), Typ
         }
     }
 
+    // 检查继承的 trait 是否都存在
+    for extends_trait in &trait_decl.extends {
+        if env.get_trait(extends_trait).is_none() {
+            return Err(TypeError::UndefinedType {
+                name: extends_trait.clone(),
+                span: trait_decl.span,
+            });
+        }
+    }
+
     for method in &trait_decl.methods {
         // 检查方法参数类型是否有效
         for param in &method.parameters {
@@ -2238,6 +2257,7 @@ fn is_valid_type_with_params(
         // FFI 类型
         Type::Pointer(inner) => is_valid_type_with_params(inner, env, type_params),
         Type::ConstPointer(inner) => is_valid_type_with_params(inner, env, type_params),
+        Type::MutPointer(inner) => is_valid_type_with_params(inner, env, type_params),
         Type::Void => true,
 
         // C FFI 类型 - 都是有效的原始类型
@@ -2279,6 +2299,47 @@ fn check_type_alias(type_alias: &TypeAlias, env: &mut TypeEnv) -> Result<(), Typ
         &mut visited,
         env,
     ) {
+        return Err(TypeError::RecursiveType { span });
+    }
+
+    Ok(())
+}
+
+/// 第一遍：收集 newtype 信息
+fn collect_newtype_info(newtype: &Newtype, env: &mut TypeEnv) -> Result<(), TypeError> {
+    let span = newtype.span;
+
+    if env.get_type_alias(&newtype.name).is_some() {
+        return Err(TypeError::DuplicateDeclaration {
+            name: newtype.name.clone(),
+            span,
+        });
+    }
+
+    // Newtype 也作为命名类型添加到环境中
+    // 与类型别名不同，newtype 创建一个全新的不透明类型
+    // 在当前简化实现中，我们仍然存储底层类型供以后使用
+    env.add_type_alias(&newtype.name, newtype.type_.clone());
+
+    Ok(())
+}
+
+/// 检查 newtype 声明（第二遍：验证类型有效性）
+fn check_newtype(newtype: &Newtype, env: &mut TypeEnv) -> Result<(), TypeError> {
+    let span = newtype.span;
+
+    // 验证底层类型是否有效
+    if !is_valid_type(&newtype.type_, env) {
+        return Err(TypeError::UndefinedType {
+            name: format!("{:?}", newtype.type_),
+            span,
+        });
+    }
+
+    // 检查非法递归类型定义
+    let mut visited = std::collections::HashSet::new();
+    visited.insert(newtype.name.clone());
+    if check_recursive_type_definition(&newtype.name, false, &newtype.type_, &mut visited, env) {
         return Err(TypeError::RecursiveType { span });
     }
 
@@ -2356,6 +2417,7 @@ fn is_valid_type(ty: &Type, env: &TypeEnv) -> bool {
         // FFI 类型
         Type::Pointer(inner) => is_valid_type(inner, env),
         Type::ConstPointer(inner) => is_valid_type(inner, env),
+        Type::MutPointer(inner) => is_valid_type(inner, env),
         Type::Void => true,
 
         // C FFI 类型 - 都是有效的原始类型
@@ -2469,7 +2531,7 @@ fn check_recursive_type_definition(
         }
 
         // 指针类型内部的递归是允许的（指针间接，大小固定）
-        Type::Pointer(_inner) | Type::ConstPointer(_inner) => {
+        Type::Pointer(_inner) | Type::ConstPointer(_inner) | Type::MutPointer(_inner) => {
             // 不继续检查内部，因为指针间接打破了递归
             false
         }
@@ -2619,6 +2681,9 @@ pub fn apply_type_substitution(ty: &Type, subst: &HashMap<String, Type>) -> Type
         Type::Pointer(inner) => Type::Pointer(Box::new(apply_type_substitution(inner, subst))),
         Type::ConstPointer(inner) => {
             Type::ConstPointer(Box::new(apply_type_substitution(inner, subst)))
+        }
+        Type::MutPointer(inner) => {
+            Type::MutPointer(Box::new(apply_type_substitution(inner, subst)))
         }
     }
 }
@@ -2939,6 +3004,7 @@ pub fn occurs_in(var_name: &str, ty: &Type) -> bool {
         // FFI 指针类型
         Type::Pointer(inner) => occurs_in(var_name, inner),
         Type::ConstPointer(inner) => occurs_in(var_name, inner),
+        Type::MutPointer(inner) => occurs_in(var_name, inner),
     }
 }
 
@@ -3060,6 +3126,7 @@ fn collect_free_vars(ty: &Type, vars: &mut Vec<String>) {
         // FFI 指针类型
         Type::Pointer(inner) => collect_free_vars(inner, vars),
         Type::ConstPointer(inner) => collect_free_vars(inner, vars),
+        Type::MutPointer(inner) => collect_free_vars(inner, vars),
     }
 }
 
@@ -3597,6 +3664,17 @@ fn check_function_decl(func_decl: &FunctionDecl, env: &mut TypeEnv) -> Result<()
 
     // 解析声明的效果
     let declared_effects = parse_effects(&func_decl.effects);
+
+    // 验证所有声明的效果都已定义
+    for effect in &func_decl.effects {
+        let effect_name = effect_to_string(effect);
+        if env.get_effect(&effect_name).is_none() {
+            return Err(TypeError::UndeclaredEffect {
+                effect: effect_name,
+                span,
+            });
+        }
+    }
 
     // 检查函数体
     env.push_scope();
@@ -4887,6 +4965,16 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                         })
                     }
                 }
+                x_parser::ast::UnaryOp::Reference => {
+                    // &expr: creates reference to expr
+                    // Type is &inner_type
+                    Ok(Type::Reference(Box::new(expr_type)))
+                }
+                x_parser::ast::UnaryOp::MutableReference => {
+                    // &mut expr: creates mutable reference to expr
+                    // Type is &mut inner_type
+                    Ok(Type::MutableReference(Box::new(expr_type)))
+                }
             }
         }
         ExpressionKind::Cast(expr, target_type) => {
@@ -5105,8 +5193,8 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                         })
                     }
                 }
-                x_parser::ast::WaitType::Together => {
-                    // together 返回所有结果的元组
+                x_parser::ast::WaitType::Concurrently => {
+                    // concurrently 返回所有结果的元组
                     if exprs.is_empty() {
                         return Err(TypeError::CannotInferType { span });
                     }
@@ -5216,15 +5304,45 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                 }
             }
         }
-        ExpressionKind::Needs(effect_name) => {
-            // Needs 表达式返回 Unit，但标记需要的效果
-            // 效果系统检查在更高级的分析中进行
-            let _ = effect_name;
-            Ok(Type::Unit)
+        ExpressionKind::Needs(operation) => {
+            // Needs 表达式: needs Effect.op(args)
+            // operation 是 "Effect.op"
+            // 解析 effect 名称和操作名称
+            let Some((effect_name, op_name)) = operation.split_once('.') else {
+                return Err(TypeError::InvalidNeedsSyntax {
+                    syntax: operation.clone(),
+                    span: expr.span,
+                });
+            };
+
+            // 检查 effect 是否已声明
+            let Some(effect_decl) = env.get_effect(effect_name) else {
+                return Err(TypeError::UndeclaredEffect {
+                    effect: effect_name.to_string(),
+                    span: expr.span,
+                });
+            };
+
+            // 查找操作
+            let Some((_op_name, _param_ty, ret_ty)) = effect_decl
+                .operations
+                .iter()
+                .find(|(name, _, _)| name == op_name)
+            else {
+                return Err(TypeError::UndefinedEffectOperation {
+                    effect: effect_name.to_string(),
+                    operation: op_name.to_string(),
+                    span: expr.span,
+                });
+            };
+
+            // 返回操作的返回类型，None 表示 Unit
+            Ok(ret_ty.clone().unwrap_or(Type::Unit))
         }
-        ExpressionKind::Given(effect_name, expr) => {
-            // Given 表达式返回内部表达式的类型
-            let _ = effect_name;
+        ExpressionKind::Given(_effect_name, expr) => {
+            // Given 表达式提供 effect 的处理，返回内部表达式的类型
+            // 效果检查已经通过效果推断完成
+            // 这里只需要返回内部表达式的类型
             infer_expression_type(expr, env)
         }
         ExpressionKind::Handle(inner_expr, handlers) => {

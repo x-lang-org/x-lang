@@ -1,7 +1,9 @@
 module std.string
 
-import std.types.{Option, Some, None};
-import std.prelude.{panic};
+import std.prelude;
+import std.types;
+import std.types { Option, Some, None };
+import std.prelude { panic };
 
 /// 字符串长度
 extern function strlen(s: *character) -> unsigned 64-bit integer

@@ -210,9 +210,7 @@ impl Wasm32AssemblyGenerator {
     ///
     /// 不使用 Rust `escape_default()`：其 `\xNN`、`\u{...}` 等形式不是 WAT 字符串合法转义。
     fn wat_escape_data_string(s: &str) -> String {
-        s.bytes()
-            .map(|b| format!("\\{:02x}", b))
-            .collect()
+        s.bytes().map(|b| format!("\\{:02x}", b)).collect()
     }
 
     /// 将 LIR 类型转换为 Wasm 类型
@@ -243,14 +241,16 @@ impl Wasm32AssemblyGenerator {
 
     /// 从线性内存加载全局 `name` 到 `result_local`（按标量宽度读取，8 字节时截断为 i32）。
     fn emit_global_load(&mut self, name: &str, result_local: &str) -> NativeResult<()> {
-        let addr = self.global_memory_offsets.get(name).copied().ok_or_else(|| {
-            NativeError::CodegenError(format!("Global `{}` has no linear memory layout", name))
-        })?;
-        let size = self
-            .globals
+        let addr = self
+            .global_memory_offsets
             .get(name)
-            .map(|g| g.size)
-            .ok_or_else(|| NativeError::CodegenError(format!("Global `{}` metadata missing", name)))?;
+            .copied()
+            .ok_or_else(|| {
+                NativeError::CodegenError(format!("Global `{}` has no linear memory layout", name))
+            })?;
+        let size = self.globals.get(name).map(|g| g.size).ok_or_else(|| {
+            NativeError::CodegenError(format!("Global `{}` metadata missing", name))
+        })?;
 
         if size == 8 {
             self.emit_line(&format!("i32.const {}", addr))?;
@@ -280,14 +280,16 @@ impl Wasm32AssemblyGenerator {
 
     /// 将 `temp` 中的 i32 写入全局 `name` 的线性内存槽位（8 字节时符号扩展到 i64）。
     fn emit_global_store(&mut self, name: &str) -> NativeResult<()> {
-        let addr = self.global_memory_offsets.get(name).copied().ok_or_else(|| {
-            NativeError::CodegenError(format!("Global `{}` has no linear memory layout", name))
-        })?;
-        let size = self
-            .globals
+        let addr = self
+            .global_memory_offsets
             .get(name)
-            .map(|g| g.size)
-            .ok_or_else(|| NativeError::CodegenError(format!("Global `{}` metadata missing", name)))?;
+            .copied()
+            .ok_or_else(|| {
+                NativeError::CodegenError(format!("Global `{}` has no linear memory layout", name))
+            })?;
+        let size = self.globals.get(name).map(|g| g.size).ok_or_else(|| {
+            NativeError::CodegenError(format!("Global `{}` metadata missing", name))
+        })?;
 
         if size == 8 {
             self.emit_line(&format!("i32.const {}", addr))?;
@@ -679,7 +681,10 @@ impl Wasm32AssemblyGenerator {
                             self.emit_local_set_named(result_local)?;
                         } else {
                             // Wasm: 局部变量不能直接取地址
-                            self.emit_line(&format!(";; TODO: address of local variable {}", name))?;
+                            self.emit_line(&format!(
+                                ";; TODO: address of local variable {}",
+                                name
+                            ))?;
                             self.emit_line("i32.const 0")?;
                             self.emit_local_set_named(result_local)?;
                         }
@@ -1098,8 +1103,7 @@ impl Wasm32AssemblyGenerator {
                 let body_exit = self.wat_label("do_after_body");
 
                 // continue：跳到条件再判；break：跳出最外层 block
-                self.loop_labels
-                    .push((body_exit.clone(), brk.clone()));
+                self.loop_labels.push((body_exit.clone(), brk.clone()));
 
                 self.emit_line(&format!("(block {}", brk))?;
                 self.indent += 1;
@@ -1667,8 +1671,7 @@ impl AssemblyGenerator for Wasm32AssemblyGenerator {
             globals.sort_by(|a, b| a.0.cmp(&b.0));
             for (name, info) in globals {
                 data_offset = data_offset.next_multiple_of(info.align.max(1));
-                self.global_memory_offsets
-                    .insert(name.clone(), data_offset);
+                self.global_memory_offsets.insert(name.clone(), data_offset);
                 self.emit_line(&format!(
                     ";; Global `{}` @{} size {}",
                     name, data_offset, info.size

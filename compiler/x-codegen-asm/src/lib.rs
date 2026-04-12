@@ -591,7 +591,13 @@ impl NativeBackend {
                                         0
                                     }
                                     lir::Literal::Char(c) => *c as u64,
-                                    lir::Literal::Bool(b) => if *b { 1 } else { 0 },
+                                    lir::Literal::Bool(b) => {
+                                        if *b {
+                                            1
+                                        } else {
+                                            0
+                                        }
+                                    }
                                     _ => 0,
                                 };
                                 // 根据类型大小输出适当的指令
@@ -1846,6 +1852,9 @@ impl NativeBackend {
                 self.emit_line("mov rax, rcx")?;
             }
             UnaryOp::Plus => {}
+            // References - just leave the value as is since assembly doesn't need special handling
+            UnaryOp::Reference => {}
+            UnaryOp::MutableReference => {}
         }
         Ok(())
     }
@@ -2309,10 +2318,10 @@ impl NativeBackend {
                         file_type: FileType::Executable,
                     };
 
-                    return Ok(CodegenOutput {
+                    Ok(CodegenOutput {
                         files: vec![output_file],
                         dependencies: vec![],
-                    });
+                    })
                 }
 
                 // macOS/Linux：返回汇编文本，由 x-cli 用 clang 汇编并链接（与 ObjectFile 路径区分）
@@ -2525,13 +2534,14 @@ mod tests {
                 },
             ],
         }));
-        let mut func = lir::Function::new("main", Type::Int).param(
-            "pb",
-            Type::Pointer(Box::new(Type::Named("B".into()))),
-        );
-        func.body.statements.push(Statement::Return(Some(
-            Expression::PointerMember(Box::new(Expression::var("pb")), "x".into()),
-        )));
+        let mut func = lir::Function::new("main", Type::Int)
+            .param("pb", Type::Pointer(Box::new(Type::Named("B".into()))));
+        func.body
+            .statements
+            .push(Statement::Return(Some(Expression::PointerMember(
+                Box::new(Expression::var("pb")),
+                "x".into(),
+            ))));
         program.add(Declaration::Function(func));
 
         let config = NativeBackendConfig {
@@ -2553,15 +2563,19 @@ mod tests {
     fn test_legacy_x86_collect_strings_comma_and_nested_initializer() {
         let mut program = lir::Program::new();
         let mut func = lir::Function::new("main", Type::Int);
-        func.body.statements.push(Statement::Expression(Expression::Comma(vec![
-            Expression::Literal(Literal::String("hello".into())),
-            Expression::int(0),
-        ])));
-        func.body.statements.push(Statement::Expression(Expression::InitializerList(vec![
-            lir::Initializer::List(vec![lir::Initializer::Expression(
-                Expression::Literal(Literal::String("world".into())),
-            )]),
-        ])));
+        func.body
+            .statements
+            .push(Statement::Expression(Expression::Comma(vec![
+                Expression::Literal(Literal::String("hello".into())),
+                Expression::int(0),
+            ])));
+        func.body
+            .statements
+            .push(Statement::Expression(Expression::InitializerList(vec![
+                lir::Initializer::List(vec![lir::Initializer::Expression(Expression::Literal(
+                    Literal::String("world".into()),
+                ))]),
+            ])));
         program.add(Declaration::Function(func));
 
         let config = NativeBackendConfig {
@@ -2583,12 +2597,14 @@ mod tests {
     fn test_legacy_x86_initializer_list_nested_stack_size() {
         let mut program = lir::Program::new();
         let mut func = lir::Function::new("main", Type::Int);
-        func.body.statements.push(Statement::Return(Some(Expression::InitializerList(vec![
-            lir::Initializer::List(vec![
-                lir::Initializer::Expression(Expression::int(1)),
-                lir::Initializer::Expression(Expression::int(2)),
-            ]),
-        ]))));
+        func.body
+            .statements
+            .push(Statement::Return(Some(Expression::InitializerList(vec![
+                lir::Initializer::List(vec![
+                    lir::Initializer::Expression(Expression::int(1)),
+                    lir::Initializer::Expression(Expression::int(2)),
+                ]),
+            ]))));
         program.add(Declaration::Function(func));
 
         let config = NativeBackendConfig {
@@ -2600,9 +2616,7 @@ mod tests {
         backend.generate_lir(&program).unwrap();
         let content = backend.legacy_asm_snapshot_for_test();
         assert!(
-            content
-                .lines()
-                .any(|l| l.trim() == "sub rsp, 16"),
+            content.lines().any(|l| l.trim() == "sub rsp, 16"),
             "两层标量应分配 16 字节栈，而非仅顶层 1 项的 8 字节: {content}"
         );
     }
@@ -2705,7 +2719,9 @@ mod tests {
         let mut backend = NativeBackend::new(config);
         let result = backend.generate_from_lir(&lir).unwrap();
         let content = String::from_utf8(result.files[0].content.clone()).unwrap();
-        let pos_eqz = content.find("i32.eqz").expect("if lowering should emit i32.eqz");
+        let pos_eqz = content
+            .find("i32.eqz")
+            .expect("if lowering should emit i32.eqz");
         let pos_br_if = content
             .find("br_if")
             .expect("if lowering should emit br_if");
@@ -2785,13 +2801,14 @@ mod tests {
                 },
             ],
         }));
-        let mut f2 = lir::Function::new("main", Type::Int).param(
-            "p",
-            Type::Pointer(Box::new(Type::Named("B".into()))),
-        );
-        f2.body.statements.push(Statement::return_(Some(
-            Expression::PointerMember(Box::new(Expression::var("p")), "x".into()),
-        )));
+        let mut f2 = lir::Function::new("main", Type::Int)
+            .param("p", Type::Pointer(Box::new(Type::Named("B".into()))));
+        f2.body
+            .statements
+            .push(Statement::return_(Some(Expression::PointerMember(
+                Box::new(Expression::var("p")),
+                "x".into(),
+            ))));
         p2.add(Declaration::Function(f2));
 
         let out = backend.generate_from_lir(&p2).unwrap();
@@ -2826,13 +2843,14 @@ mod tests {
                 },
             ],
         }));
-        let mut func = lir::Function::new("main", Type::Int).param(
-            "pb",
-            Type::Pointer(Box::new(Type::Named("B".into()))),
-        );
-        func.body.statements.push(Statement::return_(Some(
-            Expression::PointerMember(Box::new(Expression::var("pb")), "x".into()),
-        )));
+        let mut func = lir::Function::new("main", Type::Int)
+            .param("pb", Type::Pointer(Box::new(Type::Named("B".into()))));
+        func.body
+            .statements
+            .push(Statement::return_(Some(Expression::PointerMember(
+                Box::new(Expression::var("pb")),
+                "x".into(),
+            ))));
         program.add(Declaration::Function(func));
 
         let config = NativeBackendConfig {

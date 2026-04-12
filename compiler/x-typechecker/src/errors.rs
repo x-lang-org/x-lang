@@ -186,6 +186,16 @@ pub enum TypeError {
     #[error("缺少效果声明: 需要 '{required}'")]
     MissingEffectDeclaration { required: String, span: Span },
 
+    #[error("无效的 needs 语法: '{syntax}', 期望格式 'Effect.operation'")]
+    InvalidNeedsSyntax { syntax: String, span: Span },
+
+    #[error("效果 '{effect}' 中未定义的操作: '{operation}'")]
+    UndefinedEffectOperation {
+        effect: String,
+        operation: String,
+        span: Span,
+    },
+
     // 可见性和访问控制错误
     #[error("字段 '{field}' 在类 '{class}' 中不可见")]
     FieldNotVisible {
@@ -273,6 +283,8 @@ impl TypeError {
             TypeError::UndeclaredEffect { span, .. } => *span,
             TypeError::EffectMismatch { span, .. } => *span,
             TypeError::MissingEffectDeclaration { span, .. } => *span,
+            TypeError::InvalidNeedsSyntax { span, .. } => *span,
+            TypeError::UndefinedEffectOperation { span, .. } => *span,
             TypeError::FieldNotVisible { span, .. } => *span,
             TypeError::MethodNotVisible { span, .. } => *span,
             TypeError::MissingOverrideKeyword { span, .. } => *span,
@@ -325,6 +337,8 @@ impl TypeError {
             | TypeError::UndeclaredEffect { .. }
             | TypeError::EffectMismatch { .. }
             | TypeError::MissingEffectDeclaration { .. }
+            | TypeError::InvalidNeedsSyntax { .. }
+            | TypeError::UndefinedEffectOperation { .. }
             | TypeError::FieldNotVisible { .. }
             | TypeError::MethodNotVisible { .. }
             | TypeError::MissingOverrideKeyword { .. }
@@ -376,6 +390,8 @@ impl TypeError {
             TypeError::UndeclaredEffect { .. } => ErrorCode::E0009,
             TypeError::EffectMismatch { .. } => ErrorCode::E0009,
             TypeError::MissingEffectDeclaration { .. } => ErrorCode::E0009,
+            TypeError::InvalidNeedsSyntax { .. } => ErrorCode::E0002,
+            TypeError::UndefinedEffectOperation { .. } => ErrorCode::E0002,
             TypeError::FieldNotVisible { .. } => ErrorCode::E0003,
             TypeError::MethodNotVisible { .. } => ErrorCode::E0003,
             TypeError::MissingOverrideKeyword { .. } => ErrorCode::E0009,

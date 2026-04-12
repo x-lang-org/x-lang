@@ -1,7 +1,9 @@
 module std.panic
+import std.prelude
+import std.types
 
-import std::prelude::*;
-import std::io;
+
+import std.io;
 
 /// Panic 处理函数类型
 export type PanicHandler = function(string) -> never;
