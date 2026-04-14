@@ -5,8 +5,6 @@ edition = "2021"
 description = "X语言 ASM 后端 - LIR 直译汇编，无需外部编译器"
 
 [dependencies]
-x-parser = { workspace = true }
-x-hir = { workspace = true }
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
 thiserror = { workspace = true }

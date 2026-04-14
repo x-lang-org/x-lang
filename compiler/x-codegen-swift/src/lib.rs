@@ -1,13 +1,13 @@
-//! Swift 后端 - 生成 Swift 6.3 源代码
+//! Swift 后端 - 生成 Swift 6 源代码
 //!
-//! 面向 Apple 生态（iOS、macOS、watchOS、tvOS）
+//! 面向 Apple 生态（iOS、macOS、watchOS、tvOS）及 Linux
 //!
 //! ## Swift 6.x 特性支持
-//! - Data-race safety in concurrent code（并发代码数据竞争安全）
-//! - Typed throws（类型化抛出）
-//! - Non-copyable types with generics（泛型不可复制类型）
-//! - 128-bit integer types（128位整数类型）
-//! - Embedded Swift for microcontrollers（嵌入式 Swift）
+//! - Data-race safety in concurrent code
+//! - Typed throws
+//! - Non-copyable types with generics
+//! - 128-bit integer types
+//! - Embedded Swift for microcontrollers
 //! - Swift Testing library
 //! - C++ interoperability improvements
 //! - Strict concurrency by default
@@ -17,10 +17,6 @@
 use std::path::PathBuf;
 use x_codegen::{headers, CodeGenerator, CodegenOutput, FileType, OutputFile};
 use x_lir::Program as LirProgram;
-use x_parser::ast::{
-    self, BinaryOp, ExpressionKind, Literal, Pattern, Program as AstProgram, StatementKind,
-    UnaryOp, WaitType,
-};
 
 /// Swift 后端配置
 #[derive(Debug, Clone)]
@@ -63,6 +59,10 @@ pub struct SwiftBackend {
 
 pub type SwiftResult<T> = Result<T, x_codegen::CodeGenError>;
 
+// 保持向后兼容的别名
+pub type SwiftCodeGenerator = SwiftBackend;
+pub type SwiftCodeGenError = x_codegen::CodeGenError;
+
 impl SwiftBackend {
     pub fn new(config: SwiftBackendConfig) -> Self {
         Self {
@@ -80,1173 +80,568 @@ impl SwiftBackend {
     fn indent(&mut self) {
         self.buffer.indent();
     }
+
     fn dedent(&mut self) {
         self.buffer.dedent();
     }
+
     fn output(&self) -> &str {
         self.buffer.as_str()
     }
 
-    /// 从 AST 生成 Swift 代码
-    pub fn generate_from_ast_impl(&mut self, program: &AstProgram) -> SwiftResult<CodegenOutput> {
-        self.buffer.clear();
-
-        self.emit_header()?;
-
-        // Emit imports
-        self.line("import Foundation")?;
-        self.line("")?;
-
-        // Single pass to categorize declarations
-        let mut classes = Vec::new();
-        let mut enums = Vec::new();
-        let mut global_vars = Vec::new();
-        let mut functions = Vec::new();
-
-        for decl in &program.declarations {
-            match decl {
-                ast::Declaration::Class(class) => classes.push(class),
-                ast::Declaration::Enum(enum_decl) => enums.push(enum_decl),
-                ast::Declaration::Variable(v) => global_vars.push(v),
-                ast::Declaration::Function(f) => functions.push(f),
-                _ => {}
-            }
-        }
-
-        // Emit X classes as Swift classes
-        for class in &classes {
-            self.emit_class(class)?;
-        }
-
-        // Emit enums
-        for enum_decl in &enums {
-            self.emit_enum(enum_decl)?;
-        }
-
-        // Emit global variables
-        for v in &global_vars {
-            self.emit_global_var(v)?;
-        }
-
-        // Emit functions
-        let mut has_main = false;
-        for f in &functions {
-            self.emit_function(f)?;
-            self.line("")?;
-            if f.name == "main" {
-                has_main = true;
-            }
-        }
-
-        // Emit main function only if not already defined
-        if !has_main {
-            self.emit_main_function()?;
-        }
-
-        // Create output file
-        let output_file = OutputFile {
-            path: PathBuf::from("output.swift"),
-            content: self.output().as_bytes().to_vec(),
-            file_type: FileType::Swift,
-        };
-
-        Ok(CodegenOutput {
-            files: vec![output_file],
-            dependencies: vec![],
-        })
-    }
-
-    /// Emit file header (Swift 6.3)
+    /// Emit file header (Swift 6)
     fn emit_header(&mut self) -> SwiftResult<()> {
         self.line(headers::SWIFT)?;
         self.line("// DO NOT EDIT")?;
-        self.line("// Target: Swift 6.3")?;
+        self.line("// Target: Swift 6")?;
+        self.line("")?;
+        self.line("import Foundation")?;
         self.line("")?;
         Ok(())
     }
 
-    /// Emit main function
-    fn emit_main_function(&mut self) -> SwiftResult<()> {
-        self.line("func main() {")?;
-        self.indent();
-        self.line("print(\"Hello from Swift backend!\")")?;
-        self.dedent();
-        self.line("}")?;
-        self.line("")?;
-        self.line("main()")?;
-        Ok(())
-    }
+    // ========================================================================
+    // LIR type mapping
+    // ========================================================================
 
-    /// Emit global variable
-    fn emit_global_var(&mut self, v: &ast::VariableDecl) -> SwiftResult<()> {
-        let keyword = if v.is_mutable { "var" } else { "let" };
-        let init = if let Some(expr) = &v.initializer {
-            self.emit_expr(expr)?
-        } else {
-            self.emit_default_value(&v.type_annot)?
-        };
-
-        if let Some(type_annot) = &v.type_annot {
-            let swift_type = self.map_type(type_annot)?;
-            self.line(&format!(
-                "{} {}: {} = {}",
-                keyword, v.name, swift_type, init
-            ))?;
-        } else {
-            self.line(&format!("{} {} = {}", keyword, v.name, init))?;
+    /// Map LIR type to Swift type
+    fn lir_type_to_swift(&self, ty: &x_lir::Type) -> String {
+        use x_lir::Type::*;
+        match ty {
+            Void => "Void".to_string(),
+            Bool => "Bool".to_string(),
+            Char => "Character".to_string(),
+            Schar | Short => "Int16".to_string(),
+            Uchar | Ushort => "UInt16".to_string(),
+            Int => "Int".to_string(),
+            Uint => "UInt".to_string(),
+            Long | LongLong => "Int64".to_string(),
+            Ulong | UlongLong => "UInt64".to_string(),
+            Float => "Float".to_string(),
+            Double | LongDouble => "Double".to_string(),
+            Size | Uintptr => "UInt".to_string(),
+            Ptrdiff | Intptr => "Int".to_string(),
+            Pointer(inner) => format!("UnsafeMutablePointer<{}>", self.lir_type_to_swift(inner)),
+            Array(inner, _) => format!("[{}]", self.lir_type_to_swift(inner)),
+            FunctionPointer(ret, params) => {
+                let param_strs: Vec<String> =
+                    params.iter().map(|p| self.lir_type_to_swift(p)).collect();
+                let ret_str = self.lir_type_to_swift(ret);
+                format!("({}) -> {}", param_strs.join(", "), ret_str)
+            }
+            Named(n) => n.clone(),
+            Qualified(_, inner) => self.lir_type_to_swift(inner),
         }
-        Ok(())
     }
 
-    /// Emit function declaration
-    fn emit_function(&mut self, f: &ast::FunctionDecl) -> SwiftResult<()> {
-        let params: Vec<String> = f
-            .parameters
-            .iter()
-            .map(|p| {
-                if let Some(type_annot) = &p.type_annot {
-                    let swift_type = self
-                        .map_type(type_annot)
-                        .unwrap_or_else(|_| "Any".to_string());
-                    format!("{}: {}", p.name, swift_type)
+    // ========================================================================
+    // LIR statement emission
+    // ========================================================================
+
+    /// Emit a LIR statement
+    fn emit_lir_statement(&mut self, stmt: &x_lir::Statement) -> SwiftResult<()> {
+        use x_lir::Statement::*;
+        match stmt {
+            Expression(e) => {
+                // Handle assignment expressions where rhs is a print call
+                if let x_lir::Expression::Assign(target, value) = e {
+                    if let x_lir::Expression::Call(callee, args) = value.as_ref() {
+                        if let x_lir::Expression::Variable(fn_name) = callee.as_ref() {
+                            let name = fn_name.as_str();
+                            if matches!(name, "println" | "print" | "eprintln" | "eprintln!") {
+                                let args_str: Vec<String> = args
+                                    .iter()
+                                    .map(|a| self.emit_lir_expr(a))
+                                    .collect::<Result<Vec<_>, _>>()?;
+                                let args_part = args_str.join(", ");
+
+                                let call_str = if name == "eprintln" || name == "eprintln!" {
+                                    format!(
+                                        "fputs({} + \"\\n\", stderr)",
+                                        if args_part.is_empty() {
+                                            "\"\"".to_string()
+                                        } else {
+                                            args_part
+                                        }
+                                    )
+                                } else if name == "println" {
+                                    format!("print({})", args_part)
+                                } else {
+                                    // "print" without newline
+                                    format!("print({}, terminator: \"\")", args_part)
+                                };
+                                self.line(&call_str)?;
+                                return Ok(());
+                            }
+                        }
+                    }
+                    // General assignment
+                    let target_str = self.emit_lir_expr(target)?;
+                    let value_str = self.emit_lir_expr(value)?;
+                    self.line(&format!("{} = {}", target_str, value_str))?;
+                    return Ok(());
+                }
+                // Regular expression statement
+                let s = self.emit_lir_expr(e)?;
+                self.line(&s)?;
+            }
+            Variable(v) => {
+                let ty = self.lir_type_to_swift(&v.type_);
+                if let Some(init) = &v.initializer {
+                    let init_str = self.emit_lir_expr(init)?;
+                    self.line(&format!("var {}: {} = {}", v.name, ty, init_str))?;
                 } else {
-                    format!("{}: Any", p.name)
-                }
-            })
-            .collect();
-
-        let return_type = if let Some(ret) = &f.return_type {
-            format!(" -> {}", self.map_type(ret)?)
-        } else {
-            String::new()
-        };
-
-        let async_keyword = if f.is_async { "async " } else { "" };
-        self.line(&format!(
-            "{}func {}({}){} {{",
-            async_keyword,
-            f.name,
-            params.join(", "),
-            return_type
-        ))?;
-        self.indent();
-
-        self.emit_block(&f.body)?;
-
-        // Add implicit return if needed
-        if f.return_type.is_some() {
-            self.line("return nil")?;
-        }
-
-        self.dedent();
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit class declaration
-    fn emit_class(&mut self, class: &ast::ClassDecl) -> SwiftResult<()> {
-        let inheritance = if let Some(parent) = &class.extends {
-            format!(": {}", parent)
-        } else if !class.implements.is_empty() {
-            format!(": {}", class.implements.join(", "))
-        } else {
-            String::new()
-        };
-
-        self.line(&format!("class {}{} {{", class.name, inheritance))?;
-        self.indent();
-
-        let has_content = class.members.iter().any(|m| {
-            matches!(
-                m,
-                ast::ClassMember::Field(_)
-                    | ast::ClassMember::Method(_)
-                    | ast::ClassMember::Constructor(_)
-            )
-        });
-
-        if !has_content {
-            self.line("// Empty class")?;
-        } else {
-            // Emit properties
-            for member in &class.members {
-                if let ast::ClassMember::Field(field) = member {
-                    self.emit_property(field)?;
+                    // Swift requires initialization; declare with default
+                    self.line(&format!("var {}: {}", v.name, ty))?;
                 }
             }
-
-            // Emit constructor if present
-            for member in &class.members {
-                if let ast::ClassMember::Constructor(constructor) = member {
-                    self.line("")?;
-                    self.emit_constructor(constructor)?;
+            If(i) => {
+                let cond = self.emit_lir_expr(&i.condition)?;
+                self.line(&format!("if {} {{", cond))?;
+                self.indent();
+                self.emit_lir_statement(&i.then_branch)?;
+                self.dedent();
+                if let Some(else_br) = &i.else_branch {
+                    self.line("} else {")?;
+                    self.indent();
+                    self.emit_lir_statement(else_br)?;
+                    self.dedent();
                 }
+                self.line("}")?;
             }
-
-            // Emit methods
-            for member in &class.members {
-                if let ast::ClassMember::Method(method) = member {
-                    self.line("")?;
-                    self.emit_method(method)?;
+            While(w) => {
+                let cond = self.emit_lir_expr(&w.condition)?;
+                self.line(&format!("while {} {{", cond))?;
+                self.indent();
+                self.emit_lir_statement(&w.body)?;
+                self.dedent();
+                self.line("}")?;
+            }
+            DoWhile(d) => {
+                self.line("repeat {")?;
+                self.indent();
+                self.emit_lir_statement(&d.body)?;
+                self.dedent();
+                let cond = self.emit_lir_expr(&d.condition)?;
+                self.line(&format!("}} while {}", cond))?;
+            }
+            For(f) => {
+                // Swift doesn't have C-style for loops; emit as while
+                if let Some(init) = &f.initializer {
+                    self.emit_lir_statement(init)?;
                 }
-            }
-        }
-
-        self.dedent();
-        self.line("}")?;
-        self.line("")?;
-        Ok(())
-    }
-
-    /// Emit property
-    fn emit_property(&mut self, field: &ast::VariableDecl) -> SwiftResult<()> {
-        let keyword = if field.is_mutable { "var" } else { "let" };
-        let type_str = if let Some(type_annot) = &field.type_annot {
-            format!(": {}", self.map_type(type_annot)?)
-        } else {
-            String::new()
-        };
-
-        if let Some(init) = &field.initializer {
-            let init_str = self.emit_expr(init)?;
-            self.line(&format!(
-                "{} {}{} = {}",
-                keyword, field.name, type_str, init_str
-            ))?;
-        } else if !type_str.is_empty() {
-            self.line(&format!("{} {}{}", keyword, field.name, type_str))?;
-        } else {
-            self.line(&format!("{} {}: Any", keyword, field.name))?;
-        }
-        Ok(())
-    }
-
-    /// Emit constructor
-    fn emit_constructor(&mut self, constructor: &ast::ConstructorDecl) -> SwiftResult<()> {
-        let params: Vec<String> = constructor
-            .parameters
-            .iter()
-            .map(|p| {
-                if let Some(type_annot) = &p.type_annot {
-                    let swift_type = self
-                        .map_type(type_annot)
-                        .unwrap_or_else(|_| "Any".to_string());
-                    format!("{}: {}", p.name, swift_type)
+                let cond = if let Some(c) = &f.condition {
+                    self.emit_lir_expr(c)?
                 } else {
-                    format!("{}: Any", p.name)
+                    "true".to_string()
+                };
+                self.line(&format!("while {} {{", cond))?;
+                self.indent();
+                self.emit_lir_statement(&f.body)?;
+                if let Some(inc) = &f.increment {
+                    let inc_str = self.emit_lir_expr(inc)?;
+                    self.line(&inc_str)?;
                 }
-            })
-            .collect();
-
-        self.line(&format!("init({}) {{", params.join(", ")))?;
-        self.indent();
-
-        for stmt in &constructor.body.statements {
-            self.emit_statement(stmt)?;
-        }
-
-        self.dedent();
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit method
-    fn emit_method(&mut self, method: &ast::FunctionDecl) -> SwiftResult<()> {
-        let mut params = vec![format!("_ self: {}", "Self")];
-        for p in &method.parameters {
-            if let Some(type_annot) = &p.type_annot {
-                let swift_type = self.map_type(type_annot)?;
-                params.push(format!("{}: {}", p.name, swift_type));
-            } else {
-                params.push(format!("{}: Any", p.name));
+                self.dedent();
+                self.line("}")?;
             }
-        }
-
-        let return_type = if let Some(ret) = &method.return_type {
-            format!(" -> {}", self.map_type(ret)?)
-        } else {
-            String::new()
-        };
-
-        let async_keyword = if method.is_async { "async " } else { "" };
-        self.line(&format!(
-            "{}func {}({}){} {{",
-            async_keyword,
-            method.name,
-            params.join(", "),
-            return_type
-        ))?;
-        self.indent();
-
-        self.emit_block(&method.body)?;
-
-        if method.return_type.is_some() {
-            self.line("return nil")?;
-        }
-
-        self.dedent();
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit enum declaration
-    fn emit_enum(&mut self, enum_decl: &ast::EnumDecl) -> SwiftResult<()> {
-        self.line(&format!("enum {} {{", enum_decl.name))?;
-        self.indent();
-
-        for variant in &enum_decl.variants {
-            match &variant.data {
-                ast::EnumVariantData::Unit => {
-                    self.line(&format!("case {}", variant.name))?;
+            Switch(s) => {
+                let expr = self.emit_lir_expr(&s.expression)?;
+                self.line(&format!("switch {} {{", expr))?;
+                self.indent();
+                for case in &s.cases {
+                    let val = self.emit_lir_expr(&case.value)?;
+                    self.line(&format!("case {}:", val))?;
+                    self.indent();
+                    self.emit_lir_statement(&case.body)?;
+                    self.dedent();
                 }
-                ast::EnumVariantData::Tuple(types) => {
-                    let type_strs: Vec<String> = types
-                        .iter()
-                        .map(|t| self.map_type(t))
-                        .collect::<SwiftResult<Vec<_>>>()?;
-                    self.line(&format!("case {}({})", variant.name, type_strs.join(", ")))?;
+                if let Some(default) = &s.default {
+                    self.line("default:")?;
+                    self.indent();
+                    self.emit_lir_statement(default)?;
+                    self.dedent();
                 }
-                ast::EnumVariantData::Record(fields) => {
-                    let field_strs: Vec<String> = fields
-                        .iter()
-                        .map(|(name, ty)| {
-                            let swift_type =
-                                self.map_type(ty).unwrap_or_else(|_| "Any".to_string());
-                            format!("{}: {}", name, swift_type)
-                        })
-                        .collect();
-                    self.line(&format!("case {}({})", variant.name, field_strs.join(", ")))?;
+                self.dedent();
+                self.line("}")?;
+            }
+            Match(m) => {
+                let scrutinee = self.emit_lir_expr(&m.scrutinee)?;
+                self.line(&format!("switch {} {{", scrutinee))?;
+                self.indent();
+                for case in &m.cases {
+                    let pattern = self.emit_lir_pattern(&case.pattern);
+                    if let Some(guard) = &case.guard {
+                        let guard_str = self.emit_lir_expr(guard)?;
+                        self.line(&format!("case {} where {}:", pattern, guard_str))?;
+                    } else {
+                        self.line(&format!("case {}:", pattern))?;
+                    }
+                    self.indent();
+                    for stmt in &case.body.statements {
+                        self.emit_lir_statement(stmt)?;
+                    }
+                    self.dedent();
+                }
+                self.dedent();
+                self.line("}")?;
+            }
+            Try(t) => {
+                self.line("do {")?;
+                self.indent();
+                for stmt in &t.body.statements {
+                    self.emit_lir_statement(stmt)?;
+                }
+                self.dedent();
+                for catch in &t.catch_clauses {
+                    let catch_line = if let Some(var_name) = &catch.variable_name {
+                        if let Some(exc_type) = &catch.exception_type {
+                            format!("}} catch let {} as {} {{", var_name, exc_type)
+                        } else {
+                            format!("}} catch let {} {{", var_name)
+                        }
+                    } else if let Some(exc_type) = &catch.exception_type {
+                        format!("}} catch let error as {} {{", exc_type)
+                    } else {
+                        "} catch {".to_string()
+                    };
+                    self.line(&catch_line)?;
+                    self.indent();
+                    for stmt in &catch.body.statements {
+                        self.emit_lir_statement(stmt)?;
+                    }
+                    self.dedent();
+                }
+                if let Some(finally) = &t.finally_block {
+                    // Swift doesn't have finally; use defer semantics in a comment
+                    self.line("} // finally:")?;
+                    for stmt in &finally.statements {
+                        self.emit_lir_statement(stmt)?;
+                    }
+                } else {
+                    self.line("}")?;
                 }
             }
-        }
-
-        self.dedent();
-        self.line("}")?;
-        self.line("")?;
-        Ok(())
-    }
-
-    /// Emit block of statements
-    fn emit_block(&mut self, block: &ast::Block) -> SwiftResult<()> {
-        for stmt in &block.statements {
-            self.emit_statement(stmt)?;
-        }
-        Ok(())
-    }
-
-    /// Emit statement
-    fn emit_statement(&mut self, stmt: &ast::Statement) -> SwiftResult<()> {
-        match &stmt.node {
-            StatementKind::Expression(expr) => {
-                let e = self.emit_expr(expr)?;
-                self.line(&e)?;
-            }
-            StatementKind::Variable(v) => {
-                self.emit_variable_decl(v)?;
-            }
-            StatementKind::Return(opt) => {
-                if let Some(expr) = opt {
-                    let e = self.emit_expr(expr)?;
-                    self.line(&format!("return {}", e))?;
+            Return(opt_expr) => {
+                if let Some(expr) = opt_expr {
+                    let val = self.emit_lir_expr(expr)?;
+                    self.line(&format!("return {}", val))?;
                 } else {
                     self.line("return")?;
                 }
             }
-            StatementKind::If(if_stmt) => {
-                self.emit_if(if_stmt)?;
+            Break => self.line("break")?,
+            Continue => self.line("continue")?,
+            Label(name) => {
+                self.line(&format!("// label: {}", name))?;
             }
-            StatementKind::While(while_stmt) => {
-                let cond = self.emit_expr(&while_stmt.condition)?;
-                self.line(&format!("while {} {{", cond))?;
-                self.indent();
-                self.emit_block(&while_stmt.body)?;
-                self.dedent();
-                self.line("}")?;
+            Goto(name) => {
+                self.line(&format!("// goto: {}", name))?;
             }
-            StatementKind::For(for_stmt) => {
-                self.emit_for(for_stmt)?;
-            }
-            StatementKind::Match(match_stmt) => {
-                self.emit_match(match_stmt)?;
-            }
-            StatementKind::Try(try_stmt) => {
-                self.emit_try(try_stmt)?;
-            }
-            StatementKind::Break => {
-                self.line("break")?;
-            }
-            StatementKind::Continue => {
-                self.line("continue")?;
-            }
-            StatementKind::DoWhile(d) => {
-                self.line("while true {")?;
-                self.indent();
-                self.emit_block(&d.body)?;
-                let cond = self.emit_expr(&d.condition)?;
-                self.line(&format!("if !({}) {{ break }}", cond))?;
-                self.dedent();
-                self.line("}")?;
-            }
-            StatementKind::Unsafe(block) => {
-                // Swift doesn't have unsafe blocks like Rust, just emit the block
-                self.line("// unsafe block")?;
-                self.emit_block(block)?;
-            }
-            StatementKind::Defer(expr) => {
-                // Swift has defer like keyword (Swift 6+ has `defer`
-                let e = self.emit_expr(expr)?;
-                self.line(&format!("defer {{ {};}}", e))?;
-            }
-            StatementKind::Yield(opt_expr) => {
-                if let Some(expr) = opt_expr {
-                    let e = self.emit_expr(expr)?;
-                    self.line(&format!("yield {}", e))?;
-                } else {
-                    self.line("yield")?;
+            Empty => {}
+            Compound(block) => {
+                for stmt in &block.statements {
+                    self.emit_lir_statement(stmt)?;
                 }
             }
-            StatementKind::Loop(block) => {
-                self.line("while true {")?;
-                self.indent();
-                self.emit_block(block)?;
-                self.dedent();
-                self.line("}")?;
-            }
-            StatementKind::WhenGuard(condition, body_expr) => {
-                let cond = self.emit_expr(condition)?;
-                self.line(&format!("if {} {{", cond))?;
-                self.indent();
-                let body = self.emit_expr(body_expr)?;
-                self.line(&format!("return {}", body))?;
-                self.dedent();
-                self.line("}")?;
+            Declaration(_) => {
+                self.line("// nested declaration")?;
             }
         }
         Ok(())
     }
 
-    /// Emit variable declaration statement
-    fn emit_variable_decl(&mut self, v: &ast::VariableDecl) -> SwiftResult<()> {
-        let keyword = if v.is_mutable { "var" } else { "let" };
-        let init = if let Some(expr) = &v.initializer {
-            self.emit_expr(expr)?
-        } else {
-            self.emit_default_value(&v.type_annot)?
-        };
+    // ========================================================================
+    // LIR expression emission
+    // ========================================================================
 
-        if let Some(type_annot) = &v.type_annot {
-            let swift_type = self.map_type(type_annot)?;
-            self.line(&format!(
-                "{} {}: {} = {}",
-                keyword, v.name, swift_type, init
-            ))?;
-        } else {
-            self.line(&format!("{} {} = {}", keyword, v.name, init))?;
-        }
-        Ok(())
-    }
-
-    /// Emit if statement
-    fn emit_if(&mut self, if_stmt: &ast::IfStatement) -> SwiftResult<()> {
-        let cond = self.emit_expr(&if_stmt.condition)?;
-        self.line(&format!("if {} {{", cond))?;
-        self.indent();
-        self.emit_block(&if_stmt.then_block)?;
-        self.dedent();
-
-        if let Some(else_block) = &if_stmt.else_block {
-            self.line("} else {")?;
-            self.indent();
-            self.emit_block(else_block)?;
-            self.dedent();
-        }
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit for statement
-    fn emit_for(&mut self, for_stmt: &ast::ForStatement) -> SwiftResult<()> {
-        let iter = self.emit_expr(&for_stmt.iterator)?;
-        let pattern_var = self.emit_pattern_var(&for_stmt.pattern);
-
-        self.line(&format!("for {} in {} {{", pattern_var, iter))?;
-        self.indent();
-        self.emit_block(&for_stmt.body)?;
-        self.dedent();
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit pattern variable
-    fn emit_pattern_var(&self, pattern: &Pattern) -> String {
-        match pattern {
-            Pattern::Wildcard => "_".to_string(),
-            Pattern::Variable(name) => name.clone(),
-            Pattern::Literal(lit) => self.emit_literal_for_pattern(lit),
-            Pattern::Array(elements) => {
-                let vars: Vec<String> = elements.iter().map(|p| self.emit_pattern_var(p)).collect();
-                format!("[{}]", vars.join(", "))
+    /// Emit a LIR expression
+    fn emit_lir_expr(&self, expr: &x_lir::Expression) -> SwiftResult<String> {
+        use x_lir::Expression::*;
+        match expr {
+            Literal(l) => self.emit_lir_literal(l),
+            Variable(n) => Ok(n.clone()),
+            Binary(op, l, r) => {
+                let left = self.emit_lir_expr(l)?;
+                let right = self.emit_lir_expr(r)?;
+                let op_str = self.map_lir_binop(op);
+                Ok(format!("({} {} {})", left, op_str, right))
             }
-            Pattern::Tuple(elements) => {
-                let vars: Vec<String> = elements.iter().map(|p| self.emit_pattern_var(p)).collect();
-                format!("({})", vars.join(", "))
-            }
-            Pattern::Or(left, _) => self.emit_pattern_var(left),
-            Pattern::Guard(inner, _) => self.emit_pattern_var(inner),
-            Pattern::Dictionary(entries) => {
-                let vars: Vec<String> = entries
-                    .iter()
-                    .map(|(k, v)| {
-                        format!("{}: {}", self.emit_pattern_var(k), self.emit_pattern_var(v))
-                    })
-                    .collect();
-                format!("[{}]", vars.join(", "))
-            }
-            Pattern::Record(name, fields) => {
-                let field_strs: Vec<String> = fields
-                    .iter()
-                    .map(|(k, v)| format!("{}: {}", k, self.emit_pattern_var(v)))
-                    .collect();
-                format!("{}({})", name, field_strs.join(", "))
-            }
-            Pattern::EnumConstructor(_type_name, variant_name, patterns) => {
-                let pattern_strs: Vec<String> =
-                    patterns.iter().map(|p| self.emit_pattern_var(p)).collect();
-                if patterns.is_empty() {
-                    format!(".{}", variant_name)
-                } else {
-                    format!(".{}({})", variant_name, pattern_strs.join(", "))
+            Unary(op, e) => {
+                let inner = self.emit_lir_expr(e)?;
+                let op_str = self.map_lir_unaryop(op);
+                // Post-increment/decrement go after the expression
+                match op {
+                    x_lir::UnaryOp::PostIncrement | x_lir::UnaryOp::PostDecrement => {
+                        Ok(format!("({}{})", inner, op_str))
+                    }
+                    _ => Ok(format!("({}{})", op_str, inner)),
                 }
             }
-        }
-    }
-
-    /// Emit literal for pattern
-    fn emit_literal_for_pattern(&self, lit: &Literal) -> String {
-        match lit {
-            Literal::Integer(n) => format!("{}", n),
-            Literal::Float(f) => format!("{}", f),
-            Literal::Boolean(b) => format!("{}", b),
-            Literal::String(s) => format!("\"{}\"", s),
-            Literal::Char(c) => format!("'{}'", c),
-            Literal::Null | Literal::None | Literal::Unit => "nil".to_string(),
-        }
-    }
-
-    /// Emit match statement using switch
-    fn emit_match(&mut self, match_stmt: &ast::MatchStatement) -> SwiftResult<()> {
-        let expr = self.emit_expr(&match_stmt.expression)?;
-        self.line(&format!("switch {} {{", expr))?;
-        self.indent();
-
-        for case in &match_stmt.cases {
-            let pattern = self.emit_switch_pattern(&case.pattern);
-            let guard = if let Some(guard_expr) = &case.guard {
-                let guard_str = self.emit_expr(guard_expr)?;
-                format!(" where {}", guard_str)
-            } else {
-                String::new()
-            };
-            self.line(&format!("case {}{}:", pattern, guard))?;
-            self.indent();
-            self.emit_block(&case.body)?;
-            self.dedent();
-        }
-
-        self.dedent();
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit switch pattern
-    fn emit_switch_pattern(&self, pattern: &Pattern) -> String {
-        match pattern {
-            Pattern::Wildcard => "_".to_string(),
-            Pattern::Variable(name) => format!("let {}", name),
-            Pattern::Literal(lit) => self.emit_literal_for_pattern(lit),
-            Pattern::Array(elements) => {
-                let vars: Vec<String> = elements
+            Ternary(cond, then_e, else_e) => {
+                let c = self.emit_lir_expr(cond)?;
+                let t = self.emit_lir_expr(then_e)?;
+                let e = self.emit_lir_expr(else_e)?;
+                Ok(format!("({} ? {} : {})", c, t, e))
+            }
+            Assign(target, value) => {
+                let t = self.emit_lir_expr(target)?;
+                let v = self.emit_lir_expr(value)?;
+                Ok(format!("{} = {}", t, v))
+            }
+            AssignOp(op, target, value) => {
+                let t = self.emit_lir_expr(target)?;
+                let v = self.emit_lir_expr(value)?;
+                let op_str = self.map_lir_binop(op);
+                Ok(format!("{} {}= {}", t, op_str, v))
+            }
+            Call(callee, args) => {
+                let callee_str = self.emit_lir_expr(callee)?;
+                let args_str: Vec<String> = args
                     .iter()
-                    .map(|p| self.emit_switch_pattern(p))
-                    .collect();
-                format!("[{}]", vars.join(", "))
-            }
-            Pattern::Tuple(elements) => {
-                let vars: Vec<String> = elements
-                    .iter()
-                    .map(|p| self.emit_switch_pattern(p))
-                    .collect();
-                format!("({})", vars.join(", "))
-            }
-            Pattern::Or(left, right) => {
-                format!(
-                    "{}, {}",
-                    self.emit_switch_pattern(left),
-                    self.emit_switch_pattern(right)
-                )
-            }
-            Pattern::Guard(inner, cond) => {
-                format!("{} where {:?}", self.emit_switch_pattern(inner), cond)
-            }
-            Pattern::Dictionary(entries) => {
-                let vars: Vec<String> = entries
-                    .iter()
-                    .map(|(k, v)| {
-                        format!(
-                            "{}: {}",
-                            self.emit_switch_pattern(k),
-                            self.emit_switch_pattern(v)
-                        )
-                    })
-                    .collect();
-                format!("[{}]", vars.join(", "))
-            }
-            Pattern::Record(name, fields) => {
-                let field_strs: Vec<String> = fields
-                    .iter()
-                    .map(|(k, v)| format!("{}: {}", k, self.emit_switch_pattern(v)))
-                    .collect();
-                format!("{}.{}({})", name, name, field_strs.join(", "))
-            }
-            Pattern::EnumConstructor(_type_name, variant_name, patterns) => {
-                let pattern_strs: Vec<String> = patterns
-                    .iter()
-                    .map(|p| self.emit_switch_pattern(p))
-                    .collect();
-                if patterns.is_empty() {
-                    format!(".{}", variant_name)
-                } else {
-                    format!(".{}({})", variant_name, pattern_strs.join(", "))
-                }
-            }
-        }
-    }
+                    .map(|a| self.emit_lir_expr(a))
+                    .collect::<Result<Vec<_>, _>>()?;
 
-    /// Emit try statement
-    fn emit_try(&mut self, try_stmt: &ast::TryStatement) -> SwiftResult<()> {
-        self.line("do {")?;
-        self.indent();
-        self.emit_block(&try_stmt.body)?;
-        self.dedent();
-
-        for catch in &try_stmt.catch_clauses {
-            let catch_line = if let Some(var_name) = &catch.variable_name {
-                if let Some(exc_type) = &catch.exception_type {
-                    format!("catch let {} as {} {{", var_name, exc_type)
-                } else {
-                    format!("catch let {} {{", var_name)
-                }
-            } else if let Some(exc_type) = &catch.exception_type {
-                format!("catch let error as {} {{", exc_type)
-            } else {
-                "catch {".to_string()
-            };
-
-            self.line(&catch_line)?;
-            self.indent();
-            self.emit_block(&catch.body)?;
-            self.dedent();
-        }
-
-        if let Some(finally) = &try_stmt.finally_block {
-            self.line("defer {")?;
-            self.indent();
-            self.emit_block(finally)?;
-            self.dedent();
-            self.line("}")?;
-        }
-
-        self.line("}")?;
-        Ok(())
-    }
-
-    /// Emit expression
-    fn emit_expr(&self, expr: &ast::Expression) -> SwiftResult<String> {
-        match &expr.node {
-            ExpressionKind::Literal(lit) => self.emit_literal(lit),
-            ExpressionKind::Variable(name) => Ok(name.clone()),
-            ExpressionKind::Binary(op, lhs, rhs) => {
-                let l = self.emit_expr(lhs)?;
-                let r = self.emit_expr(rhs)?;
-                self.emit_binop(op, &l, &r)
-            }
-            ExpressionKind::Unary(op, e) => {
-                let inner = self.emit_expr(e)?;
-                self.emit_unaryop(op, &inner)
-            }
-            ExpressionKind::Call(callee, args) => self.emit_call(callee, args),
-            ExpressionKind::Assign(target, value) => self.emit_assign(target, value),
-            ExpressionKind::Array(elements) => self.emit_array_literal(elements),
-            ExpressionKind::Parenthesized(inner) => {
-                let e = self.emit_expr(inner)?;
-                Ok(format!("({})", e))
-            }
-            ExpressionKind::If(cond, then_e, else_e) => {
-                let c = self.emit_expr(cond)?;
-                let t = self.emit_expr(then_e)?;
-                let e = self.emit_expr(else_e)?;
-                Ok(format!("{} ? {} : {}", c, t, e))
-            }
-            ExpressionKind::Member(obj, field) => {
-                let o = self.emit_expr(obj)?;
-                Ok(format!("{}.{}", o, field))
-            }
-            ExpressionKind::Wait(wait_type, exprs) => self.emit_wait(wait_type, exprs),
-            ExpressionKind::Dictionary(entries) => {
-                if entries.is_empty() {
-                    return Ok("[:]".to_string());
-                }
-                let entry_strs: Vec<String> = entries
-                    .iter()
-                    .map(|(k, v)| {
-                        let k_str = self.emit_expr(k)?;
-                        let v_str = self.emit_expr(v)?;
-                        Ok(format!("{}: {}", k_str, v_str))
-                    })
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("[{}]", entry_strs.join(", ")))
-            }
-            ExpressionKind::Range(start, end, inclusive) => {
-                let s = self.emit_expr(start)?;
-                let e = self.emit_expr(end)?;
-                if *inclusive {
-                    Ok(format!("{}...{}", s, e))
-                } else {
-                    Ok(format!("{}..<{}", s, e))
-                }
-            }
-            ExpressionKind::Lambda(params, _body) => {
-                let param_strs: Vec<String> = params
-                    .iter()
-                    .map(|p| {
-                        if let Some(type_annot) = &p.type_annot {
-                            let swift_type = self
-                                .map_type(type_annot)
-                                .unwrap_or_else(|_| "Any".to_string());
-                            format!("{}: {}", p.name, swift_type)
+                // Map built-in functions to Swift equivalents
+                match callee_str.as_str() {
+                    "println" => {
+                        let args_part = args_str.join(", ");
+                        return Ok(format!("print({})", args_part));
+                    }
+                    "print" => {
+                        let args_part = args_str.join(", ");
+                        return Ok(format!("print({}, terminator: \"\")", args_part));
+                    }
+                    "eprintln" | "eprintln!" => {
+                        let args_part = if args_str.is_empty() {
+                            "\"\"".to_string()
                         } else {
-                            format!("{}: Any", p.name)
-                        }
-                    })
-                    .collect();
-                // For lambda, we need to emit the body differently
-                Ok(format!("{{ {} in /* body */ }}", param_strs.join(", ")))
-            }
-            ExpressionKind::TryPropagate(inner) => {
-                let e = self.emit_expr(inner)?;
-                Ok(format!("try {}", e))
-            }
-            ExpressionKind::Cast(expr, ty) => {
-                let e = self.emit_expr(expr)?;
-                let type_str = self.map_type(ty)?;
-                Ok(format!("{} as! {}", e, type_str))
-            }
-            ExpressionKind::Await(expr) => {
-                let e = self.emit_expr(expr)?;
-                Ok(format!("await {}", e))
-            }
-            ExpressionKind::OptionalChain(base_expr, member) => {
-                let base = self.emit_expr(base_expr)?;
-                Ok(format!("{}?.{}", base, member))
-            }
-            ExpressionKind::NullCoalescing(left, right) => {
-                let l = self.emit_expr(left)?;
-                let r = self.emit_expr(right)?;
-                Ok(format!("{} ?? {}", l, r))
-            }
-            ExpressionKind::Tuple(elements) => {
-                let elem_strs: Vec<String> = elements
-                    .iter()
-                    .map(|e| self.emit_expr(e))
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("({})", elem_strs.join(", ")))
-            }
-            ExpressionKind::Record(name, fields) => {
-                let field_strs: Vec<String> = fields
-                    .iter()
-                    .map(|(k, v)| {
-                        let v_str = self.emit_expr(v)?;
-                        Ok(format!("{}: {}", k, v_str))
-                    })
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("{}({})", name, field_strs.join(", ")))
-            }
-            ExpressionKind::Pipe(input, handlers) => {
-                let input_str = self.emit_expr(input)?;
-                let mut result = input_str;
-                for handler in handlers {
-                    let handler_str = self.emit_expr(handler)?;
-                    // Swift 中使用 |> 运算符需要自定义，建议使用闭包
-                    result = format!("{}({})", handler_str, result);
-                }
-                Ok(result)
-            }
-            ExpressionKind::Needs(effect) => {
-                // Swift 6 通过 sendable 和 actor 处理 effect
-                Ok(format!("/* needs {} */ ()", effect))
-            }
-            ExpressionKind::Given(effect, expr) => {
-                let e = self.emit_expr(expr)?;
-                Ok(format!("/* given {} */ {}", effect, e))
-            }
-            ExpressionKind::Handle(expr, handlers) => {
-                let e = self.emit_expr(expr)?;
-                // Swift 没有原生的 effect handler，简化处理
-                let handler_strs: Vec<String> = handlers
-                    .iter()
-                    .map(|(name, handler)| {
-                        let h = self.emit_expr(handler)?;
-                        Ok(format!("{}: {}", name, h))
-                    })
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("/* handle: {} */ {}", handler_strs.join(", "), e))
-            }
-            ExpressionKind::Match(cond, cases) => {
-                let c = self.emit_expr(cond)?;
-                // match 作为表达式需要简化
-                let case_strs: Vec<String> = cases
-                    .iter()
-                    .map(|case| {
-                        let pattern = self.emit_pattern_var(&case.pattern);
-                        // MatchCase body is a Block, extract first expression
-                        let body_str = if let Some(first_stmt) = case.body.statements.first() {
-                            if let StatementKind::Expression(expr) = &first_stmt.node {
-                                self.emit_expr(expr)?
-                            } else {
-                                "()".to_string()
-                            }
-                        } else {
-                            "()".to_string()
+                            args_str.join(", ")
                         };
-                        Ok(format!("case {}: return {}", pattern, body_str))
-                    })
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("{{ switch {} {{ {} }} }}", c, case_strs.join("; ")))
+                        return Ok(format!("fputs({} + \"\\n\", stderr)", args_part));
+                    }
+                    "format" => {
+                        if args_str.is_empty() {
+                            return Ok("\"\"".to_string());
+                        }
+                        // Swift string interpolation
+                        return Ok(format!("\"\\({})\"", args_str.join(", ")));
+                    }
+                    _ => {}
+                }
+                Ok(format!("{}({})", callee_str, args_str.join(", ")))
             }
-            ExpressionKind::WhenGuard(condition, body_expr) => {
-                let cond = self.emit_expr(condition)?;
-                let body = self.emit_expr(body_expr)?;
-                Ok(format!("{{ if {} {{ return {} }} }}()", cond, body))
+            Index(arr, idx) => {
+                let arr_str = self.emit_lir_expr(arr)?;
+                let idx_str = self.emit_lir_expr(idx)?;
+                Ok(format!("{}[{}]", arr_str, idx_str))
             }
-            ExpressionKind::Block(_block) => Ok("()".to_string()),
+            Member(obj, member) => {
+                let obj_str = self.emit_lir_expr(obj)?;
+                Ok(format!("{}.{}", obj_str, member))
+            }
+            PointerMember(obj, member) => {
+                let obj_str = self.emit_lir_expr(obj)?;
+                Ok(format!("{}.pointee.{}", obj_str, member))
+            }
+            AddressOf(e) => {
+                let inner = self.emit_lir_expr(e)?;
+                Ok(format!("&{}", inner))
+            }
+            Dereference(e) => {
+                let inner = self.emit_lir_expr(e)?;
+                Ok(format!("{}.pointee", inner))
+            }
+            Cast(ty, e) => {
+                let inner = self.emit_lir_expr(e)?;
+                let swift_type = self.lir_type_to_swift(ty);
+                Ok(format!("{}({})  ", swift_type, inner))
+            }
+            SizeOf(ty) => {
+                let swift_type = self.lir_type_to_swift(ty);
+                Ok(format!("MemoryLayout<{}>.size", swift_type))
+            }
+            SizeOfExpr(e) => {
+                let inner = self.emit_lir_expr(e)?;
+                Ok(format!("MemoryLayout.size(ofValue: {})", inner))
+            }
+            AlignOf(ty) => {
+                let swift_type = self.lir_type_to_swift(ty);
+                Ok(format!("MemoryLayout<{}>.alignment", swift_type))
+            }
+            Comma(exprs) => {
+                // Swift doesn't have the comma operator; emit last expression
+                if let Some(last) = exprs.last() {
+                    self.emit_lir_expr(last)
+                } else {
+                    Ok("()".to_string())
+                }
+            }
+            Parenthesized(e) => {
+                let inner = self.emit_lir_expr(e)?;
+                Ok(format!("({})", inner))
+            }
+            InitializerList(inits) => {
+                let init_strs: Vec<String> = inits
+                    .iter()
+                    .map(|i| self.emit_lir_initializer(i))
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok(format!("[{}]", init_strs.join(", ")))
+            }
+            CompoundLiteral(ty, inits) => {
+                let swift_type = self.lir_type_to_swift(ty);
+                let init_strs: Vec<String> = inits
+                    .iter()
+                    .map(|i| self.emit_lir_initializer(i))
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok(format!("{}({})", swift_type, init_strs.join(", ")))
+            }
         }
     }
 
-    /// Emit literal
-    fn emit_literal(&self, lit: &Literal) -> SwiftResult<String> {
+    /// Emit a LIR literal
+    fn emit_lir_literal(&self, lit: &x_lir::Literal) -> SwiftResult<String> {
+        use x_lir::Literal::*;
         match lit {
-            Literal::Integer(n) => Ok(format!("{}", n)),
-            Literal::Float(f) => Ok(format!("{}", f)),
-            Literal::Boolean(b) => Ok(format!("{}", b)),
-            Literal::String(s) => {
-                let escaped = s
-                    .replace('\\', "\\\\")
+            Integer(n) | Long(n) | LongLong(n) => Ok(n.to_string()),
+            UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(n.to_string()),
+            Float(f) | Double(f) => Ok(f.to_string()),
+            String(s) => Ok(format!(
+                "\"{}\"",
+                s.replace('\\', "\\\\")
                     .replace('"', "\\\"")
                     .replace('\n', "\\n")
                     .replace('\r', "\\r")
-                    .replace('\t', "\\t");
-                Ok(format!("\"{}\"", escaped))
-            }
-            Literal::Char(c) => Ok(format!("'{}'", c)),
-            Literal::Null => Ok("nil".to_string()),
-            Literal::None => Ok("nil".to_string()),
-            Literal::Unit => Ok("()".to_string()),
-        }
-    }
-
-    /// Emit binary operation
-    fn emit_binop(&self, op: &BinaryOp, l: &str, r: &str) -> SwiftResult<String> {
-        let result = match op {
-            BinaryOp::Add => format!("{} + {}", l, r),
-            BinaryOp::Sub => format!("{} - {}", l, r),
-            BinaryOp::Mul => format!("{} * {}", l, r),
-            BinaryOp::Div => format!("{} / {}", l, r),
-            BinaryOp::Mod => format!("{} % {}", l, r),
-            BinaryOp::Equal => format!("{} == {}", l, r),
-            BinaryOp::NotEqual => format!("{} != {}", l, r),
-            BinaryOp::Less => format!("{} < {}", l, r),
-            BinaryOp::LessEqual => format!("{} <= {}", l, r),
-            BinaryOp::Greater => format!("{} > {}", l, r),
-            BinaryOp::GreaterEqual => format!("{} >= {}", l, r),
-            BinaryOp::And => format!("{} && {}", l, r),
-            BinaryOp::Or => format!("{} || {}", l, r),
-            BinaryOp::Pow => format!("pow({}, {})", l, r),
-            BinaryOp::BitAnd => format!("{} & {}", l, r),
-            BinaryOp::BitOr => format!("{} | {}", l, r),
-            BinaryOp::BitXor => format!("{} ^ {}", l, r),
-            BinaryOp::LeftShift => format!("{} << {}", l, r),
-            BinaryOp::RightShift => format!("{} >> {}", l, r),
-            BinaryOp::Concat => format!("{} + {}", l, r),
-            BinaryOp::RangeExclusive => format!("{}..<{}", l, r),
-            BinaryOp::RangeInclusive => format!("{}...{}", l, r),
-        };
-        Ok(result)
-    }
-
-    /// Emit unary operation
-    fn emit_unaryop(&self, op: &UnaryOp, e: &str) -> SwiftResult<String> {
-        let result = match op {
-            UnaryOp::Negate => format!("-{}", e),
-            UnaryOp::Not => format!("!{}", e),
-            UnaryOp::BitNot => format!("~{}", e),
-            UnaryOp::Wait => format!("await {}", e),
-            UnaryOp::Reference => format!("&{}", e),
-            UnaryOp::MutableReference => format!("&mut {}", e),
-        };
-        Ok(result)
-    }
-
-    /// Emit call expression
-    fn emit_call(&self, callee: &ast::Expression, args: &[ast::Expression]) -> SwiftResult<String> {
-        let callee_str = self.emit_expr(callee)?;
-        let arg_strs: Vec<String> = args
-            .iter()
-            .map(|a| self.emit_expr(a))
-            .collect::<SwiftResult<Vec<_>>>()?;
-        Ok(format!("{}({})", callee_str, arg_strs.join(", ")))
-    }
-
-    /// Emit assignment expression
-    fn emit_assign(
-        &self,
-        target: &ast::Expression,
-        value: &ast::Expression,
-    ) -> SwiftResult<String> {
-        let val = self.emit_expr(value)?;
-        match &target.node {
-            ExpressionKind::Variable(name) => Ok(format!("{} = {}", name, val)),
-            ExpressionKind::Member(obj, field) => {
-                let o = self.emit_expr(obj)?;
-                Ok(format!("{}.{} = {}", o, field, val))
-            }
-            _ => {
-                let t = self.emit_expr(target)?;
-                Ok(format!("{} = {}", t, val))
-            }
-        }
-    }
-
-    /// Emit array literal
-    fn emit_array_literal(&self, elements: &[ast::Expression]) -> SwiftResult<String> {
-        if elements.is_empty() {
-            return Ok("[]".to_string());
-        }
-        let elem_strs: Vec<String> = elements
-            .iter()
-            .map(|e| self.emit_expr(e))
-            .collect::<SwiftResult<Vec<_>>>()?;
-        Ok(format!("[{}]", elem_strs.join(", ")))
-    }
-
-    /// Emit wait expression
-    fn emit_wait(&self, wait_type: &WaitType, exprs: &[ast::Expression]) -> SwiftResult<String> {
-        let expr_strs: Vec<String> = exprs
-            .iter()
-            .map(|e| self.emit_expr(e))
-            .collect::<SwiftResult<Vec<_>>>()?;
-
-        match wait_type {
-            WaitType::Single => {
-                if expr_strs.len() == 1 {
-                    Ok(format!("await {}", expr_strs[0]))
-                } else {
-                    let awaited: Vec<String> =
-                        expr_strs.iter().map(|e| format!("await {}", e)).collect();
-                    Ok(format!("({})", awaited.join(", ")))
-                }
-            }
-            WaitType::Concurrently => {
-                if expr_strs.is_empty() {
-                    Ok("await Task.yield()".to_string())
-                } else if expr_strs.len() == 1 {
-                    Ok(format!("await {}", expr_strs[0]))
-                } else {
-                    Ok(format!(
-                        "await Task {{ [{}] in () }}.value",
-                        expr_strs.join(", ")
-                    ))
-                }
-            }
-            WaitType::Race => {
-                if expr_strs.is_empty() {
-                    Ok("await Task.yield()".to_string())
-                } else if expr_strs.len() == 1 {
-                    Ok(format!("await {}", expr_strs[0]))
-                } else {
-                    Ok(format!(
-                        "await Task {{ try await Task.sleep(nanoseconds: 1) }}.value"
-                    ))
-                }
-            }
-            WaitType::Timeout(timeout_expr) => {
-                let timeout = self.emit_expr(timeout_expr)?;
-                if expr_strs.is_empty() {
-                    Ok(format!("await Task.sleep(nanoseconds: {})", timeout))
-                } else {
-                    let expr = &expr_strs[0];
-                    Ok(format!(
-                        "await Task.timeout(nanoseconds: {}) {{ await {} }}",
-                        timeout, expr
-                    ))
-                }
-            }
-            WaitType::Atomic => Ok(format!(
-                "/* atomic wait: {} */ await {}",
-                expr_strs.join(", "),
-                expr_strs[0]
+                    .replace('\t', "\\t")
             )),
-            WaitType::Retry => Ok(format!(
-                "/* retry wait: {} */ await {}",
-                expr_strs.join(", "),
-                expr_strs[0]
-            )),
+            Char(c) => {
+                // Swift Character is created from a String literal
+                Ok(format!("Character(\"{}\")", c))
+            }
+            Bool(b) => Ok(if *b { "true" } else { "false" }.to_string()),
+            NullPointer => Ok("nil".to_string()),
         }
     }
 
-    /// Map X type to Swift type
-    fn map_type(&self, ty: &ast::Type) -> SwiftResult<String> {
-        match ty {
-            ast::Type::Int => Ok("Int".to_string()),
-            ast::Type::UnsignedInt => Ok("UInt".to_string()),
-            ast::Type::Float => Ok("Double".to_string()),
-            ast::Type::Bool => Ok("Bool".to_string()),
-            ast::Type::String => Ok("String".to_string()),
-            ast::Type::Char => Ok("Character".to_string()),
-            ast::Type::Unit => Ok("Void".to_string()),
-            ast::Type::Never => Ok("Never".to_string()),
-            ast::Type::Dynamic => Ok("Any".to_string()),
-            ast::Type::Array(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("[{}]", inner_type))
-            }
-            ast::Type::Dictionary(key, value) => {
-                let key_type = self.map_type(key)?;
-                let value_type = self.map_type(value)?;
-                Ok(format!("[{}: {}]", key_type, value_type))
-            }
-            ast::Type::TypeConstructor(name, args) if name == "Option" && args.len() == 1 => {
-                let inner_type = self.map_type(&args[0])?;
-                Ok(format!("{}?", inner_type))
-            }
-            ast::Type::TypeConstructor(name, args) if name == "Result" && args.len() == 2 => {
-                let ok_type = self.map_type(&args[0])?;
-                let err_type = self.map_type(&args[1])?;
-                Ok(format!("Result<{}, {}>", ok_type, err_type))
-            }
-            ast::Type::Tuple(types) => {
-                let type_strs: Vec<String> = types
+    /// Emit a LIR initializer
+    fn emit_lir_initializer(&self, init: &x_lir::Initializer) -> SwiftResult<String> {
+        match init {
+            x_lir::Initializer::Expression(e) => self.emit_lir_expr(e),
+            x_lir::Initializer::List(items) => {
+                let strs: Vec<String> = items
                     .iter()
-                    .map(|t| self.map_type(t))
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("({})", type_strs.join(", ")))
+                    .map(|i| self.emit_lir_initializer(i))
+                    .collect::<Result<Vec<_>, _>>()?;
+                Ok(format!("[{}]", strs.join(", ")))
             }
-            ast::Type::Function(params, ret) => {
-                let param_strs: Vec<String> = params
-                    .iter()
-                    .map(|p| self.map_type(p))
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                let ret_type = self.map_type(ret)?;
-                Ok(format!("({}) -> {}", param_strs.join(", "), ret_type))
+            x_lir::Initializer::Named(name, inner) => {
+                let val = self.emit_lir_initializer(inner)?;
+                Ok(format!("{}: {}", name, val))
             }
-            ast::Type::Async(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("async -> {}", inner_type))
+            x_lir::Initializer::Indexed(idx, inner) => {
+                let idx_str = self.emit_lir_expr(idx)?;
+                let val = self.emit_lir_initializer(inner)?;
+                Ok(format!("/* [{}] */ {}", idx_str, val))
             }
-            ast::Type::Generic(name) => Ok(name.clone()),
-            ast::Type::TypeParam(name) => Ok(name.clone()),
-            ast::Type::TypeConstructor(name, args) => {
-                let arg_strs: Vec<String> = args
-                    .iter()
-                    .map(|t| self.map_type(t))
-                    .collect::<SwiftResult<Vec<_>>>()?;
-                Ok(format!("{}<{}>", name, arg_strs.join(", ")))
-            }
-            ast::Type::Var(name) => Ok(name.clone()),
-            ast::Type::Reference(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("&{}", inner_type))
-            }
-            ast::Type::MutableReference(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("&mut {}", inner_type))
-            }
-            ast::Type::Pointer(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("UnsafeMutablePointer<{}>", inner_type))
-            }
-            ast::Type::ConstPointer(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("UnsafePointer<{}>", inner_type))
-            }
-            ast::Type::MutPointer(inner) => {
-                let inner_type = self.map_type(inner)?;
-                Ok(format!("UnsafeMutablePointer<{}>", inner_type))
-            }
-            ast::Type::Void => Ok("Void".to_string()),
-            // C FFI types
-            ast::Type::CInt => Ok("CInt".to_string()),
-            ast::Type::CUInt => Ok("CUnsignedInt".to_string()),
-            ast::Type::CLong => Ok("CLong".to_string()),
-            ast::Type::CULong => Ok("CUnsignedLong".to_string()),
-            ast::Type::CLongLong => Ok("CLongLong".to_string()),
-            ast::Type::CULongLong => Ok("CUnsignedLongLong".to_string()),
-            ast::Type::CFloat => Ok("CFloat".to_string()),
-            ast::Type::CDouble => Ok("CDouble".to_string()),
-            ast::Type::CChar => Ok("CChar".to_string()),
-            ast::Type::CSize => Ok("CSize".to_string()),
-            ast::Type::CString => Ok("UnsafePointer<CChar>".to_string()),
-            ast::Type::Record(name, _) => Ok(name.clone()),
-            ast::Type::Union(name, _) => Ok(name.clone()),
         }
     }
 
-    /// Emit default value for type
-    fn emit_default_value(&self, type_annot: &Option<ast::Type>) -> SwiftResult<String> {
-        match type_annot {
-            Some(ty) => match ty {
-                ast::Type::Int | ast::Type::UnsignedInt => Ok("0".to_string()),
-                ast::Type::Float => Ok("0.0".to_string()),
-                ast::Type::Bool => Ok("false".to_string()),
-                ast::Type::String => Ok("\"\"".to_string()),
-                ast::Type::TypeConstructor(name, _) if name == "Option" => Ok("nil".to_string()),
-                ast::Type::Array(_) => Ok("[]".to_string()),
-                ast::Type::Dictionary(_, _) => Ok("[:]".to_string()),
-                _ => Ok("nil".to_string()),
-            },
-            None => Ok("nil".to_string()),
+    /// Emit a LIR pattern for switch/match
+    fn emit_lir_pattern(&self, pattern: &x_lir::Pattern) -> String {
+        match pattern {
+            x_lir::Pattern::Wildcard => "_".to_string(),
+            x_lir::Pattern::Variable(name) => format!("let {}", name),
+            x_lir::Pattern::Literal(lit) => self
+                .emit_lir_literal(lit)
+                .unwrap_or_else(|_| "_".to_string()),
+            x_lir::Pattern::Constructor(name, pats) => {
+                let pat_strs: Vec<String> = pats.iter().map(|p| self.emit_lir_pattern(p)).collect();
+                if pats.is_empty() {
+                    format!(".{}", name)
+                } else {
+                    format!(".{}({})", name, pat_strs.join(", "))
+                }
+            }
+            x_lir::Pattern::Tuple(pats) => {
+                let pat_strs: Vec<String> = pats.iter().map(|p| self.emit_lir_pattern(p)).collect();
+                format!("({})", pat_strs.join(", "))
+            }
+            x_lir::Pattern::Record(name, fields) => {
+                let field_strs: Vec<String> = fields
+                    .iter()
+                    .map(|(k, v)| format!("{}: {}", k, self.emit_lir_pattern(v)))
+                    .collect();
+                format!("{}({})", name, field_strs.join(", "))
+            }
+            x_lir::Pattern::Or(left, right) => {
+                format!(
+                    "{}, {}",
+                    self.emit_lir_pattern(left),
+                    self.emit_lir_pattern(right)
+                )
+            }
         }
     }
-}
 
-impl CodeGenerator for SwiftBackend {
-    type Config = SwiftBackendConfig;
-    type Error = x_codegen::CodeGenError;
+    // ========================================================================
+    // Operator mapping
+    // ========================================================================
 
-    fn new(config: Self::Config) -> Self {
-        Self::new(config)
+    /// Map LIR binary operator to Swift operator string
+    fn map_lir_binop(&self, op: &x_lir::BinaryOp) -> String {
+        use x_lir::BinaryOp::*;
+        match op {
+            Add => "+",
+            Subtract => "-",
+            Multiply => "*",
+            Divide => "/",
+            Modulo => "%",
+            LeftShift => "<<",
+            RightShift => ">>",
+            RightShiftArithmetic => ">>", // Swift >> is arithmetic for signed types
+            LessThan => "<",
+            LessThanEqual => "<=",
+            GreaterThan => ">",
+            GreaterThanEqual => ">=",
+            Equal => "==",
+            NotEqual => "!=",
+            BitAnd => "&",
+            BitOr => "|",
+            BitXor => "^",
+            LogicalAnd => "&&",
+            LogicalOr => "||",
+        }
+        .to_string()
     }
 
-    fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
-        self.generate_from_ast_impl(program)
+    /// Map LIR unary operator to Swift operator string
+    fn map_lir_unaryop(&self, op: &x_lir::UnaryOp) -> String {
+        use x_lir::UnaryOp::*;
+        match op {
+            Plus => "+".to_string(),
+            Minus => "-".to_string(),
+            Not => "!".to_string(),
+            BitNot => "~".to_string(),
+            PreIncrement => "/* ++pre */ ".to_string(),
+            PreDecrement => "/* --pre */ ".to_string(),
+            PostIncrement => " /* post++ */".to_string(),
+            PostDecrement => " /* post-- */".to_string(),
+            Reference => "&".to_string(),
+            MutableReference => "&".to_string(),
+        }
     }
 
-    fn generate_from_hir(&mut self, _hir: &x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
-        // HIR generation for Swift is delegated to AST generation
-        // The HIR layer doesn't provide sufficient semantic information yet
-        // so we fall back to AST-based generation
-        Err(x_codegen::CodeGenError::UnsupportedFeature(
-            "Swift backend: HIR generation requires complete type information. Please use AST generation via generate_from_ast.".to_string(),
-        ))
-    }
+    // ========================================================================
+    // Top-level LIR -> Swift code generation
+    // ========================================================================
 
-    fn generate_from_lir(&mut self, lir: &LirProgram) -> Result<CodegenOutput, Self::Error> {
-        // LIR -> Swift 代码生成 - 简化版
+    /// Generate Swift source from a LIR program
+    pub fn generate_from_lir_impl(&mut self, lir: &LirProgram) -> SwiftResult<CodegenOutput> {
         self.buffer.clear();
 
         self.emit_header()?;
 
-        // 直接生成函数，不使用 struct 包装
-        // 收集并生成函数
+        // Collect and emit functions
         let mut has_main = false;
 
         for decl in &lir.declarations {
@@ -1255,32 +650,33 @@ impl CodeGenerator for SwiftBackend {
                 let params: Vec<String> = f
                     .parameters
                     .iter()
-                    .map(|p| format!("{}: {}", p.name, self.lir_type_to_swift(&p.type_)))
+                    .map(|p| format!("_ {}: {}", p.name, self.lir_type_to_swift(&p.type_)))
                     .collect();
 
-                // 函数名 - main 函数特殊处理
-                let func_name = if f.name == "main" {
-                    has_main = true;
-                    "main".to_string()
-                } else {
-                    f.name.clone()
-                };
-
-                // main 函数始终使用 Void 返回类型（不需要 return）
                 if f.name == "main" {
-                    self.line(&format!("func {}() {{", func_name))?;
+                    has_main = true;
+                    // Swift uses top-level code; emit main body directly
+                    // or wrap it in a func main() and call it
+                    self.line("func main() {")?;
                 } else {
                     self.line(&format!(
                         "func {}({}) -> {} {{",
-                        func_name,
+                        f.name,
                         params.join(", "),
                         ret
                     ))?;
                 }
                 self.indent();
 
-                // 发射函数体
                 for stmt in &f.body.statements {
+                    // Skip `return 0` in main (Swift main is Void)
+                    if f.name == "main" {
+                        if let x_lir::Statement::Return(Some(expr)) = stmt {
+                            if let x_lir::Expression::Literal(x_lir::Literal::Integer(0)) = expr {
+                                continue;
+                            }
+                        }
+                    }
                     self.emit_lir_statement(stmt)?;
                 }
 
@@ -1290,17 +686,16 @@ impl CodeGenerator for SwiftBackend {
             }
         }
 
-        // 如果没有 main 函数，生成一个
-        if !has_main {
+        // Call main if it exists; otherwise emit a default
+        if has_main {
+            self.line("main()")?;
+        } else {
             self.line("func main() {")?;
             self.indent();
             self.line("print(\"Hello from Swift!\")")?;
             self.dedent();
             self.line("}")?;
             self.line("")?;
-            self.line("main()")?;
-        } else {
-            // 调用 main 函数
             self.line("main()")?;
         }
 
@@ -1317,756 +712,66 @@ impl CodeGenerator for SwiftBackend {
     }
 }
 
-/// LIR -> Swift 辅助方法
-impl SwiftBackend {
-    /// 将 LIR 类型转换为 Swift 类型
-    fn lir_type_to_swift(&self, ty: &x_lir::Type) -> String {
-        use x_lir::Type::*;
-        match ty {
-            Void => "Void".to_string(),
-            Bool => "Bool".to_string(),
-            Char => "Character".to_string(),
-            Schar | Short => "Int16".to_string(),
-            Uchar | Ushort | Int | Uint => "Int".to_string(),
-            Long | Ulong | LongLong | UlongLong => "Int64".to_string(),
-            Float => "Float".to_string(),
-            Double | LongDouble => "Double".to_string(),
-            Size | Ptrdiff | Intptr | Uintptr => "Int".to_string(),
-            Pointer(inner) => format!("UnsafePointer<{}>", self.lir_type_to_swift(inner)),
-            Array(inner, _) => format!("[{}]", self.lir_type_to_swift(inner)),
-            FunctionPointer(_, _) => "(@escaping (...) -> Void)".to_string(),
-            Named(n) => n.clone(),
-            Qualified(_, inner) => self.lir_type_to_swift(inner),
-        }
+impl CodeGenerator for SwiftBackend {
+    type Config = SwiftBackendConfig;
+    type Error = x_codegen::CodeGenError;
+
+    fn new(config: Self::Config) -> Self {
+        Self::new(config)
     }
 
-    /// 发射 LIR 语句
-    fn emit_lir_statement(&mut self, stmt: &x_lir::Statement) -> SwiftResult<()> {
-        use x_lir::Statement::*;
-        match stmt {
-            Expression(e) => {
-                // 直接处理表达式
-                let s = self.emit_lir_expr(e)?;
-                // 映射 println 到 print 并添加换行符
-                let s = s.replace("println(", "print(");
-
-                // 如果是赋值语句且右边是函数调用（print），直接调用函数
-                if s.contains(" = ") {
-                    let parts: Vec<&str> = s.split(" = ").collect();
-                    if parts.len() == 2 && parts[1].contains("print(") {
-                        // 只调用 print 函数，不赋值
-                        self.line(parts[1].trim())?;
-                        return Ok(());
-                    }
-                }
-
-                self.line(&s)?;
-            }
-            Variable(v) => {
-                // 变量声明 - 在函数内部使用 var
-                let ty = self.lir_type_to_swift(&v.type_);
-                if let Some(init) = &v.initializer {
-                    let init_str = self.emit_lir_expr(init)?;
-                    self.line(&format!("let {}: {} = {}", v.name, ty, init_str))?;
-                }
-                // 如果没有 initializer，不生成
-            }
-            Label(name) => {
-                // 标签转换为注释
-                self.line(&format!("// label: {}", name))?;
-            }
-            Return(opt_expr) => {
-                if let Some(expr) = opt_expr {
-                    let val = self.emit_lir_expr(expr)?;
-                    // 如果返回 0 且是 void 函数，就不返回
-                    if val == "0" {
-                        // 跳过 return 0 在 void 函数中
-                    } else {
-                        self.line(&format!("return {}", val))?;
-                    }
-                } else {
-                    self.line("return")?;
-                }
-            }
-            _ => {
-                // 其他语句类型用注释标记
-                self.line(&format!("// {:?} not fully implemented", stmt))?;
-            }
-        }
-        Ok(())
-    }
-
-    // 旧的实现保留作为参考
-    fn emit_lir_expr(&self, expr: &x_lir::Expression) -> SwiftResult<String> {
-        use x_lir::Expression::*;
-        match expr {
-            Literal(l) => self.emit_lir_literal(l),
-            Variable(n) => Ok(n.clone()),
-            Binary(op, l, r) => {
-                let left = self.emit_lir_expr(l)?;
-                let right = self.emit_lir_expr(r)?;
-                let op_str = self.map_lir_binop(op);
-                Ok(format!("({} {} {})", left, op_str, right))
-            }
-            Unary(op, e) => {
-                let e = self.emit_lir_expr(e)?;
-                let op_str = self.map_lir_unaryop(op);
-                Ok(format!("({}{})", op_str, e))
-            }
-            Call(callee, args) => {
-                let callee_str = self.emit_lir_expr(callee)?;
-                let args_str: Vec<String> = args
-                    .iter()
-                    .map(|a| self.emit_lir_expr(a))
-                    .collect::<Result<Vec<_>, _>>()?;
-                Ok(format!("{}({})", callee_str, args_str.join(", ")))
-            }
-            Assign(target, value) => {
-                let target_str = self.emit_lir_expr(target)?;
-                let value_str = self.emit_lir_expr(value)?;
-                Ok(format!("{} = {}", target_str, value_str))
-            }
-            Member(obj, member) => {
-                let obj_str = self.emit_lir_expr(obj)?;
-                Ok(format!("{}.{}", obj_str, member))
-            }
-            Index(arr, idx) => {
-                let arr_str = self.emit_lir_expr(arr)?;
-                let idx_str = self.emit_lir_expr(idx)?;
-                Ok(format!("{}[{}]", arr_str, idx_str))
-            }
-            _ => Ok("nil".to_string()),
-        }
-    }
-
-    /// 发射 LIR 字面量
-    fn emit_lir_literal(&self, lit: &x_lir::Literal) -> SwiftResult<String> {
-        use x_lir::Literal::*;
-        match lit {
-            Integer(n) | Long(n) | LongLong(n) => Ok(n.to_string()),
-            UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(n.to_string()),
-            Float(f) | Double(f) => Ok(f.to_string()),
-            String(s) => Ok(format!(
-                "\"{}\"",
-                s.replace('\\', "\\\\").replace('"', "\\\"")
-            )),
-            Char(c) => Ok(format!("\"{}\"", c)),
-            Bool(b) => Ok(if *b { "true" } else { "false" }.to_string()),
-            NullPointer => Ok("nil".to_string()),
-        }
-    }
-
-    /// 映射 LIR 二元运算符
-    fn map_lir_binop(&self, op: &x_lir::BinaryOp) -> String {
-        use x_lir::BinaryOp::*;
-        match op {
-            Add => "+",
-            Subtract => "-",
-            Multiply => "*",
-            Divide => "/",
-            Modulo => "%",
-            LessThan => "<",
-            LessThanEqual => "<=",
-            GreaterThan => ">",
-            GreaterThanEqual => ">=",
-            Equal => "==",
-            NotEqual => "!=",
-            BitAnd => "&",
-            BitOr => "|",
-            BitXor => "^",
-            LeftShift => "<<",
-            RightShift => ">>",
-            RightShiftArithmetic => ">>",
-            LogicalAnd => "&&",
-            LogicalOr => "||",
-        }
-        .to_string()
-    }
-
-    /// 映射 LIR 一元运算符
-    fn map_lir_unaryop(&self, op: &x_lir::UnaryOp) -> String {
-        use x_lir::UnaryOp::*;
-        match op {
-            Plus => "+".to_string(),
-            Minus => "-".to_string(),
-            Not => "!".to_string(),
-            BitNot => "~".to_string(),
-            _ => "".to_string(),
-        }
+    fn generate_from_lir(&mut self, lir: &LirProgram) -> Result<CodegenOutput, Self::Error> {
+        self.generate_from_lir_impl(lir)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use x_lexer::span::Span;
-    use x_parser::ast::{ExpressionKind, MethodModifiers, Spanned, StatementKind};
 
-    fn make_expr(kind: ExpressionKind) -> ast::Expression {
-        Spanned::new(kind, Span::default())
-    }
-
-    fn make_stmt(kind: StatementKind) -> ast::Statement {
-        Spanned::new(kind, Span::default())
+    #[test]
+    fn test_config_default() {
+        let config = SwiftBackendConfig::default();
+        assert!(!config.optimize);
+        assert!(config.debug_info);
+        assert!(config.output_dir.is_none());
+        assert_eq!(config.target, SwiftTarget::MacOS);
     }
 
     #[test]
-    fn test_hello_world_generation() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "main".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::Expression(make_expr(
-                        ExpressionKind::Call(
-                            Box::new(make_expr(ExpressionKind::Variable("print".to_string()))),
-                            vec![make_expr(ExpressionKind::Literal(ast::Literal::String(
-                                "Hello, World!".to_string(),
-                            )))],
-                        ),
-                    )))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("print(\"Hello, World!\")"));
-        assert!(swift_code.contains("func main()"));
+    fn test_lir_type_mapping() {
+        let backend = SwiftBackend::new(SwiftBackendConfig::default());
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Int), "Int");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Uint), "UInt");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Long), "Int64");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Float), "Float");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Double), "Double");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Bool), "Bool");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Char), "Character");
+        assert_eq!(backend.lir_type_to_swift(&x_lir::Type::Void), "Void");
     }
 
     #[test]
-    fn test_empty_program_generates_default_main() {
-        let program = AstProgram {
-            span: Span::default(),
+    fn test_empty_lir_program() {
+        let lir = LirProgram {
             declarations: vec![],
-            statements: vec![],
         };
-
         let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
+        let output = backend.generate_from_lir_impl(&lir).unwrap();
         let swift_code = String::from_utf8_lossy(&output.files[0].content);
 
         assert!(swift_code.contains("func main()"));
-        assert!(swift_code.contains("print(\"Hello from Swift backend!\")"));
+        assert!(swift_code.contains("print(\"Hello from Swift!\")"));
         assert!(swift_code.contains("main()"));
     }
 
     #[test]
-    fn test_function_with_parameters() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "add".to_string(),
-                type_parameters: vec![],
-                parameters: vec![
-                    ast::Parameter {
-                        name: "a".to_string(),
-                        type_annot: Some(ast::Type::Int),
-                        default: None,
-                        span: Span::default(),
-                    },
-                    ast::Parameter {
-                        name: "b".to_string(),
-                        type_annot: Some(ast::Type::Int),
-                        default: None,
-                        span: Span::default(),
-                    },
-                ],
-                effects: vec![],
-                return_type: Some(ast::Type::Int),
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::Return(Some(make_expr(
-                        ExpressionKind::Binary(
-                            BinaryOp::Add,
-                            Box::new(make_expr(ExpressionKind::Variable("a".to_string()))),
-                            Box::new(make_expr(ExpressionKind::Variable("b".to_string()))),
-                        ),
-                    ))))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("func add(a: Int, b: Int) -> Int"));
-        assert!(swift_code.contains("return a + b"));
-    }
-
-    #[test]
-    fn test_variable_declaration() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![
-                        make_stmt(StatementKind::Variable(ast::VariableDecl {
-                            name: "x".to_string(),
-                            is_mutable: false,
-                            is_constant: false,
-                            type_annot: Some(ast::Type::Int),
-                            initializer: Some(make_expr(ExpressionKind::Literal(
-                                ast::Literal::Integer(42),
-                            ))),
-                            visibility: ast::Visibility::Private,
-                            span: Span::default(),
-                        })),
-                        make_stmt(StatementKind::Variable(ast::VariableDecl {
-                            name: "y".to_string(),
-                            is_mutable: true,
-                            is_constant: false,
-                            type_annot: Some(ast::Type::String),
-                            initializer: Some(make_expr(ExpressionKind::Literal(
-                                ast::Literal::String("hello".to_string()),
-                            ))),
-                            visibility: ast::Visibility::Private,
-                            span: Span::default(),
-                        })),
-                    ],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("let x: Int = 42"));
-        assert!(swift_code.contains("var y: String = \"hello\""));
-    }
-
-    #[test]
-    fn test_if_statement() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::If(ast::IfStatement {
-                        condition: make_expr(ExpressionKind::Variable("condition".to_string())),
-                        then_block: ast::Block {
-                            statements: vec![make_stmt(StatementKind::Expression(make_expr(
-                                ExpressionKind::Call(
-                                    Box::new(make_expr(ExpressionKind::Variable(
-                                        "print".to_string(),
-                                    ))),
-                                    vec![make_expr(ExpressionKind::Literal(ast::Literal::String(
-                                        "yes".to_string(),
-                                    )))],
-                                ),
-                            )))],
-                        },
-                        else_block: Some(ast::Block {
-                            statements: vec![make_stmt(StatementKind::Expression(make_expr(
-                                ExpressionKind::Call(
-                                    Box::new(make_expr(ExpressionKind::Variable(
-                                        "print".to_string(),
-                                    ))),
-                                    vec![make_expr(ExpressionKind::Literal(ast::Literal::String(
-                                        "no".to_string(),
-                                    )))],
-                                ),
-                            )))],
-                        }),
-                    }))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("if condition {"));
-        assert!(swift_code.contains("} else {"));
-        assert!(swift_code.contains("print(\"yes\")"));
-        assert!(swift_code.contains("print(\"no\")"));
-    }
-
-    #[test]
-    fn test_type_mapping() {
+    fn test_lir_binop_mapping() {
         let backend = SwiftBackend::new(SwiftBackendConfig::default());
-
-        assert_eq!(backend.map_type(&ast::Type::Int).unwrap(), "Int");
-        assert_eq!(backend.map_type(&ast::Type::Float).unwrap(), "Double");
-        assert_eq!(backend.map_type(&ast::Type::Bool).unwrap(), "Bool");
-        assert_eq!(backend.map_type(&ast::Type::String).unwrap(), "String");
-        assert_eq!(
-            backend
-                .map_type(&ast::Type::Array(Box::new(ast::Type::Int)))
-                .unwrap(),
-            "[Int]"
-        );
-        // Option now via TypeConstructor
-        assert_eq!(
-            backend
-                .map_type(&ast::Type::TypeConstructor(
-                    "Option".to_string(),
-                    vec![ast::Type::Int]
-                ))
-                .unwrap(),
-            "Int?"
-        );
-    }
-
-    #[test]
-    fn test_class_generation() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Class(ast::ClassDecl {
-                span: Span::default(),
-                name: "Person".to_string(),
-                type_parameters: vec![],
-                extends: None,
-                implements: vec![],
-                modifiers: ast::ClassModifiers::default(),
-                members: vec![
-                    ast::ClassMember::Field(ast::VariableDecl {
-                        name: "name".to_string(),
-                        is_mutable: false,
-                        is_constant: false,
-                        type_annot: Some(ast::Type::String),
-                        initializer: None,
-                        visibility: ast::Visibility::Private,
-                        span: Span::default(),
-                    }),
-                    ast::ClassMember::Field(ast::VariableDecl {
-                        name: "age".to_string(),
-                        is_mutable: true,
-                        is_constant: false,
-                        type_annot: Some(ast::Type::Int),
-                        initializer: Some(make_expr(ExpressionKind::Literal(
-                            ast::Literal::Integer(0),
-                        ))),
-                        visibility: ast::Visibility::Private,
-                        span: Span::default(),
-                    }),
-                ],
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("class Person {"));
-        assert!(swift_code.contains("let name: String"));
-        assert!(swift_code.contains("var age: Int = 0"));
-    }
-
-    #[test]
-    fn test_enum_generation() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Enum(ast::EnumDecl {
-                span: Span::default(),
-                name: "Option".to_string(),
-                type_parameters: vec![],
-                variants: vec![
-                    ast::EnumVariant {
-                        name: "None".to_string(),
-                        data: ast::EnumVariantData::Unit,
-                        doc: None,
-                        span: Span::default(),
-                    },
-                    ast::EnumVariant {
-                        name: "Some".to_string(),
-                        data: ast::EnumVariantData::Tuple(vec![ast::Type::Generic(
-                            "T".to_string(),
-                        )]),
-                        doc: None,
-                        span: Span::default(),
-                    },
-                ],
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("enum Option {"));
-        assert!(swift_code.contains("case None"));
-        assert!(swift_code.contains("case Some(T)"));
-    }
-
-    #[test]
-    fn test_binary_operations() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![
-                        make_stmt(StatementKind::Expression(make_expr(
-                            ExpressionKind::Binary(
-                                BinaryOp::Add,
-                                Box::new(make_expr(ExpressionKind::Literal(
-                                    ast::Literal::Integer(1),
-                                ))),
-                                Box::new(make_expr(ExpressionKind::Literal(
-                                    ast::Literal::Integer(2),
-                                ))),
-                            ),
-                        ))),
-                        make_stmt(StatementKind::Expression(make_expr(
-                            ExpressionKind::Binary(
-                                BinaryOp::Equal,
-                                Box::new(make_expr(ExpressionKind::Variable("a".to_string()))),
-                                Box::new(make_expr(ExpressionKind::Variable("b".to_string()))),
-                            ),
-                        ))),
-                    ],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("1 + 2"));
-        assert!(swift_code.contains("a == b"));
-    }
-
-    #[test]
-    fn test_array_and_dictionary() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![
-                        make_stmt(StatementKind::Variable(ast::VariableDecl {
-                            name: "arr".to_string(),
-                            is_mutable: false,
-                            is_constant: false,
-                            type_annot: Some(ast::Type::Array(Box::new(ast::Type::Int))),
-                            initializer: Some(make_expr(ExpressionKind::Array(vec![
-                                make_expr(ExpressionKind::Literal(ast::Literal::Integer(1))),
-                                make_expr(ExpressionKind::Literal(ast::Literal::Integer(2))),
-                                make_expr(ExpressionKind::Literal(ast::Literal::Integer(3))),
-                            ]))),
-                            visibility: ast::Visibility::Private,
-                            span: Span::default(),
-                        })),
-                        make_stmt(StatementKind::Variable(ast::VariableDecl {
-                            name: "dict".to_string(),
-                            is_mutable: false,
-                            is_constant: false,
-                            type_annot: Some(ast::Type::Dictionary(
-                                Box::new(ast::Type::String),
-                                Box::new(ast::Type::Int),
-                            )),
-                            initializer: Some(make_expr(ExpressionKind::Dictionary(vec![
-                                (
-                                    make_expr(ExpressionKind::Literal(ast::Literal::String(
-                                        "a".to_string(),
-                                    ))),
-                                    make_expr(ExpressionKind::Literal(ast::Literal::Integer(1))),
-                                ),
-                                (
-                                    make_expr(ExpressionKind::Literal(ast::Literal::String(
-                                        "b".to_string(),
-                                    ))),
-                                    make_expr(ExpressionKind::Literal(ast::Literal::Integer(2))),
-                                ),
-                            ]))),
-                            visibility: ast::Visibility::Private,
-                            span: Span::default(),
-                        })),
-                    ],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("[1, 2, 3]"));
-        assert!(swift_code.contains("\"a\": 1"));
-        assert!(swift_code.contains("\"b\": 2"));
-    }
-
-    #[test]
-    fn test_while_loop() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::While(ast::WhileStatement {
-                        condition: make_expr(ExpressionKind::Literal(ast::Literal::Boolean(true))),
-                        body: ast::Block { statements: vec![] },
-                    }))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("while true {"));
-        assert!(swift_code.contains("}"));
-    }
-
-    #[test]
-    fn test_for_loop() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::For(ast::ForStatement {
-                        pattern: Pattern::Variable("x".to_string()),
-                        iterator: make_expr(ExpressionKind::Variable("items".to_string())),
-                        body: ast::Block { statements: vec![] },
-                    }))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("for x in items {"));
-        assert!(swift_code.contains("}"));
-    }
-
-    #[test]
-    fn test_break_continue() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![
-                        make_stmt(StatementKind::Break),
-                        make_stmt(StatementKind::Continue),
-                    ],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("break"));
-        assert!(swift_code.contains("continue"));
-    }
-
-    #[test]
-    fn test_try_catch() {
-        let program = AstProgram {
-            span: Span::default(),
-            declarations: vec![ast::Declaration::Function(ast::FunctionDecl {
-                span: Span::default(),
-                name: "test".to_string(),
-                type_parameters: vec![],
-                parameters: vec![],
-                effects: vec![],
-                return_type: None,
-                body: ast::Block {
-                    statements: vec![make_stmt(StatementKind::Try(ast::TryStatement {
-                        body: ast::Block { statements: vec![] },
-                        catch_clauses: vec![ast::CatchClause {
-                            variable_name: Some("e".to_string()),
-                            exception_type: None,
-                            body: ast::Block { statements: vec![] },
-                        }],
-                        finally_block: None,
-                    }))],
-                },
-                is_async: false,
-                modifiers: MethodModifiers::default(),
-            })],
-            statements: vec![],
-        };
-
-        let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
-        let output = backend.generate_from_ast(&program).unwrap();
-        let swift_code = String::from_utf8_lossy(&output.files[0].content);
-
-        assert!(swift_code.contains("do {"));
-        assert!(swift_code.contains("catch"));
+        assert_eq!(backend.map_lir_binop(&x_lir::BinaryOp::Add), "+");
+        assert_eq!(backend.map_lir_binop(&x_lir::BinaryOp::Subtract), "-");
+        assert_eq!(backend.map_lir_binop(&x_lir::BinaryOp::Multiply), "*");
+        assert_eq!(backend.map_lir_binop(&x_lir::BinaryOp::Equal), "==");
+        assert_eq!(backend.map_lir_binop(&x_lir::BinaryOp::LogicalAnd), "&&");
     }
 }

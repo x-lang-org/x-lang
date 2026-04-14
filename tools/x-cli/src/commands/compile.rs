@@ -4,12 +4,12 @@ use x_codegen::CodeGenerator;
 use x_codegen::Target;
 use x_codegen_asm::{NativeBackend, NativeBackendConfig, TargetArch};
 use x_codegen_csharp::{CSharpBackend, CSharpConfig};
+use x_codegen_erlang::{ErlangBackend, ErlangBackendConfig};
 use x_codegen_java::{JavaBackend, JavaConfig};
 use x_codegen_llvm::{LlvmBackend, LlvmBackendConfig};
+use x_codegen_python::{PythonBackend, PythonBackendConfig};
 use x_codegen_rust::{RustBackend, RustBackendConfig};
 use x_codegen_swift::{SwiftBackend, SwiftBackendConfig};
-use x_codegen_erlang::{ErlangBackend, ErlangBackendConfig};
-use x_codegen_python::{PythonBackend, PythonBackendConfig};
 use x_codegen_typescript::{TypeScriptBackend, TypeScriptBackendConfig};
 use x_codegen_zig::{ZigBackend, ZigBackendConfig, ZigTarget};
 
@@ -244,21 +244,33 @@ pub fn exec(
             let out_dir = std::path::Path::new(out_path)
                 .parent()
                 .unwrap_or(std::path::Path::new("."));
-            let out_stem = std::path::Path::new(out_path)
-                .file_stem()
-                .and_then(|s| s.to_str())
-                .unwrap_or("index");
 
-            match TypeScriptBackend::compile_ts_to_js(&ts_code, out_dir, out_stem) {
-                Ok(js_path) => {
+            let status = std::process::Command::new("tsc")
+                .arg("--outDir")
+                .arg(out_dir)
+                .arg("--target")
+                .arg("ES2020")
+                .arg("--module")
+                .arg("commonjs")
+                .arg("--strict")
+                .arg("--esModuleInterop")
+                .arg(&ts_out_path)
+                .status();
+
+            match status {
+                Ok(s) if s.success() => {
+                    let js_path = std::path::Path::new(&ts_out_path).with_extension("js");
                     println!("编译成功: {}", js_path.display());
                 }
-                Err(e) => {
-                    // tsc not available — the .ts file is still useful
+                Ok(_) => {
+                    println!("已生成TypeScript代码: {}", ts_out_path);
+                    return Err("TypeScript编译失败 (tsc 返回非零退出码)".to_string());
+                }
+                Err(_) => {
                     println!("已生成TypeScript代码: {}", ts_out_path);
                     println!("提示: 安装TypeScript后可编译为JavaScript: npm install -g typescript");
                     println!("      然后运行: tsc {}", ts_out_path);
-                    return Err(format!("TypeScript编译失败: {}", e));
+                    return Err("tsc 未找到，请安装 TypeScript".to_string());
                 }
             }
         }
@@ -483,21 +495,24 @@ pub fn exec(
             let java_code = String::from_utf8_lossy(&codegen_output.files[0].content);
 
             // Write the .java source (always use Main.java to match class name)
-            let java_out_path = format!("{}/Main.java", out_path);
+            let out_dir = std::path::Path::new(out_path)
+                .parent()
+                .unwrap_or(std::path::Path::new("."));
+            let java_out_path = out_dir.join("Main.java");
+
             // Create directory if needed
-            let java_dir = std::path::Path::new(&java_out_path).parent().unwrap_or(std::path::Path::new("."));
-            std::fs::create_dir_all(java_dir).map_err(|e| format!("无法创建目录: {}", e))?;
+            std::fs::create_dir_all(out_dir).map_err(|e| format!("无法创建目录: {}", e))?;
             std::fs::write(&java_out_path, java_code.as_bytes())
                 .map_err(|e| format!("无法写入Java文件: {}", e))?;
 
             if no_link {
-                println!("已生成Java代码: {}", java_out_path);
+                println!("已生成Java代码: {}", java_out_path.display());
                 return Ok(());
             }
 
             // Find javac and java
-            let javac_path = which::which("javac")
-                .map_err(|_| "未找到 javac（请安装 JDK）".to_string())?;
+            let javac_path =
+                which::which("javac").map_err(|_| "未找到 javac（请安装 JDK）".to_string())?;
 
             // Compile .java → .class
             let compile_status = std::process::Command::new(&javac_path)
@@ -510,19 +525,22 @@ pub fn exec(
             }
 
             // Run the Java program
-            let java_path = which::which("java")
-                .map_err(|_| "未找到 java（请安装 JRE/JDK）".to_string())?;
+            let java_path =
+                which::which("java").map_err(|_| "未找到 java（请安装 JRE/JDK）".to_string())?;
 
             let run_status = std::process::Command::new(&java_path)
                 .arg("Main")
-                .current_dir(java_dir)
+                .current_dir(out_dir)
                 .status()
                 .map_err(|e| format!("执行Java失败: {}", e))?;
 
             if run_status.success() {
                 println!("执行成功");
             } else {
-                return Err(format!("Java 程序执行失败，退出码: {:?}", run_status.code()));
+                return Err(format!(
+                    "Java 程序执行失败，退出码: {:?}",
+                    run_status.code()
+                ));
             }
         }
 
@@ -555,7 +573,8 @@ pub fn exec(
                 // Create a temporary project
                 let temp_dir = std::env::temp_dir().join("xlang_csharp_build");
                 let _ = std::fs::remove_dir_all(&temp_dir);
-                std::fs::create_dir_all(&temp_dir).map_err(|e| format!("创建临时目录失败: {}", e))?;
+                std::fs::create_dir_all(&temp_dir)
+                    .map_err(|e| format!("创建临时目录失败: {}", e))?;
 
                 let cs_file = temp_dir.join("Program.cs");
                 std::fs::write(&cs_file, csharp_code.as_bytes())
@@ -584,7 +603,10 @@ pub fn exec(
                     println!("执行成功");
                     return Ok(());
                 } else {
-                    return Err(format!("dotnet run 执行失败，退出码: {:?}", build_status.code()));
+                    return Err(format!(
+                        "dotnet run 执行失败，退出码: {:?}",
+                        build_status.code()
+                    ));
                 }
             } else if let (Some(mcs), Some(mono)) = (mcs_path, mono_path) {
                 // Use Mono to compile and run
@@ -613,7 +635,10 @@ pub fn exec(
                 if run_status.success() {
                     println!("执行成功");
                 } else {
-                    return Err(format!("Mono 程序执行失败，退出码: {:?}", run_status.code()));
+                    return Err(format!(
+                        "Mono 程序执行失败，退出码: {:?}",
+                        run_status.code()
+                    ));
                 }
             } else {
                 return Err("未找到 dotnet 或 mono（请安装 .NET SDK 或 Mono）".to_string());
@@ -681,7 +706,10 @@ pub fn exec(
             if run_status.success() {
                 println!("执行成功");
             } else {
-                return Err(format!("Swift 程序执行失败，退出码: {:?}", run_status.code()));
+                return Err(format!(
+                    "Swift 程序执行失败，退出码: {:?}",
+                    run_status.code()
+                ));
             }
         }
     }

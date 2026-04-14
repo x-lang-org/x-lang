@@ -4,10 +4,7 @@
 //! 具体的后端实现在独立的 x-codegen-* crate 中。
 
 use std::path::PathBuf;
-pub use x_hir;
 pub use x_lir;
-pub use x_mir;
-use x_parser::ast::Program as AstProgram;
 
 pub mod constants;
 pub mod error;
@@ -79,26 +76,14 @@ pub trait CodeGenerator {
     /// 创建新的代码生成器
     fn new(config: Self::Config) -> Self;
 
-    /// 从 AST 生成代码（初级接口，用于向后兼容）
-    fn generate_from_ast(&mut self, program: &AstProgram) -> Result<CodegenOutput, Self::Error>;
-
-    /// 从 HIR 生成代码（高级接口）
-    fn generate_from_hir(&mut self, hir: &x_hir::Hir) -> Result<CodegenOutput, Self::Error>;
-
     /// 从 LIR 生成代码（后端统一正式输入）
     fn generate_from_lir(&mut self, lir: &x_lir::Program) -> Result<CodegenOutput, Self::Error>;
 }
 
 /// 动态代码生成器 trait（用于类型擦除）
 pub trait DynamicCodeGenerator: 'static {
-    fn generate_from_ast(&mut self, program: &AstProgram) -> CodeGenResult<CodegenOutput>;
-
-    /// Generate code from LIR (optional, default returns error)
-    fn generate_from_lir(&mut self, _lir: &x_lir::Program) -> CodeGenResult<CodegenOutput> {
-        Err(CodeGenError::UnsupportedFeature(
-            "LIR generation not implemented for this backend".to_string(),
-        ))
-    }
+    /// Generate code from LIR
+    fn generate_from_lir(&mut self, lir: &x_lir::Program) -> CodeGenResult<CodegenOutput>;
 }
 
 // ============================================================================

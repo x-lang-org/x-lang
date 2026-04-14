@@ -9,9 +9,6 @@ license = "MIT"
 default = []
 
 [dependencies]
-x-parser = { workspace = true }
-x-hir = { workspace = true }
-x-mir = { workspace = true }
 x-lir = { workspace = true }
 
 # 错误处理

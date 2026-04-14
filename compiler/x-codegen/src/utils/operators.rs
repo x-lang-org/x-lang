@@ -1,8 +1,8 @@
 //! 运算符配置工具
 //!
-//! 提供各语言的运算符映射配置
+//! 提供各语言的运算符映射配置（基于 LIR 运算符类型）
 
-use x_parser::ast::{BinaryOp, UnaryOp};
+use x_lir::{BinaryOp, UnaryOp};
 
 /// 运算符配置，用于不同语言的运算符映射
 #[derive(Debug, Clone)]
@@ -17,8 +17,6 @@ pub struct OperatorConfig {
     pub div: &'static str,
     /// 取模运算符
     pub modulo: &'static str,
-    /// 幂运算符（或函数调用格式）
-    pub power: &'static str,
     /// 相等比较
     pub eq: &'static str,
     /// 不等比较
@@ -45,8 +43,6 @@ pub struct OperatorConfig {
     pub shl: &'static str,
     /// 右移
     pub shr: &'static str,
-    /// 范围运算符
-    pub range: &'static str,
 }
 
 impl OperatorConfig {
@@ -58,7 +54,6 @@ impl OperatorConfig {
             mul: " * ",
             div: " / ",
             modulo: " % ",
-            power: "Math.pow",
             eq: " == ",
             ne: " != ",
             lt: " < ",
@@ -72,7 +67,6 @@ impl OperatorConfig {
             bitxor: " ^ ",
             shl: " << ",
             shr: " >> ",
-            range: "..",
         }
     }
 
@@ -84,7 +78,6 @@ impl OperatorConfig {
             mul: " * ",
             div: " / ",
             modulo: " % ",
-            power: "Math.Pow",
             eq: " == ",
             ne: " != ",
             lt: " < ",
@@ -98,7 +91,6 @@ impl OperatorConfig {
             bitxor: " ^ ",
             shl: " << ",
             shr: " >> ",
-            range: "..",
         }
     }
 
@@ -110,7 +102,6 @@ impl OperatorConfig {
             mul: " * ",
             div: " / ",
             modulo: " % ",
-            power: "pow",
             eq: " == ",
             ne: " != ",
             lt: " < ",
@@ -124,7 +115,6 @@ impl OperatorConfig {
             bitxor: " ^ ",
             shl: " << ",
             shr: " >> ",
-            range: "...",
         }
     }
 
@@ -136,7 +126,6 @@ impl OperatorConfig {
             mul: " * ",
             div: " / ",
             modulo: " % ",
-            power: " ** ",
             eq: " == ",
             ne: " != ",
             lt: " < ",
@@ -150,7 +139,6 @@ impl OperatorConfig {
             bitxor: " ^ ",
             shl: " << ",
             shr: " >> ",
-            range: "..",
         }
     }
 
@@ -162,7 +150,6 @@ impl OperatorConfig {
             mul: " * ",
             div: " / ",
             modulo: " % ",
-            power: "pow",
             eq: " == ",
             ne: " != ",
             lt: " < ",
@@ -176,7 +163,6 @@ impl OperatorConfig {
             bitxor: " ^ ",
             shl: " << ",
             shr: " >> ",
-            range: "..",
         }
     }
 
@@ -184,19 +170,18 @@ impl OperatorConfig {
     pub fn get_binary(&self, op: &BinaryOp) -> Option<&'static str> {
         match op {
             BinaryOp::Add => Some(self.add),
-            BinaryOp::Sub => Some(self.sub),
-            BinaryOp::Mul => Some(self.mul),
-            BinaryOp::Div => Some(self.div),
-            BinaryOp::Mod => Some(self.modulo),
-            BinaryOp::Pow => Some(self.power),
+            BinaryOp::Subtract => Some(self.sub),
+            BinaryOp::Multiply => Some(self.mul),
+            BinaryOp::Divide => Some(self.div),
+            BinaryOp::Modulo => Some(self.modulo),
             BinaryOp::Equal => Some(self.eq),
             BinaryOp::NotEqual => Some(self.ne),
-            BinaryOp::Less => Some(self.lt),
-            BinaryOp::LessEqual => Some(self.le),
-            BinaryOp::Greater => Some(self.gt),
-            BinaryOp::GreaterEqual => Some(self.ge),
-            BinaryOp::And => Some(self.and),
-            BinaryOp::Or => Some(self.or),
+            BinaryOp::LessThan => Some(self.lt),
+            BinaryOp::LessThanEqual => Some(self.le),
+            BinaryOp::GreaterThan => Some(self.gt),
+            BinaryOp::GreaterThanEqual => Some(self.ge),
+            BinaryOp::LogicalAnd => Some(self.and),
+            BinaryOp::LogicalOr => Some(self.or),
             BinaryOp::BitAnd => Some(self.bitand),
             BinaryOp::BitOr => Some(self.bitor),
             BinaryOp::BitXor => Some(self.bitxor),
@@ -207,15 +192,19 @@ impl OperatorConfig {
     }
 }
 
-/// 一元运算符配置
+/// 获取一元运算符的字符串表示
 pub fn get_unary_op(op: &UnaryOp) -> &'static str {
     match op {
-        UnaryOp::Negate => "-",
+        UnaryOp::Minus => "-",
         UnaryOp::Not => "!",
         UnaryOp::BitNot => "~",
-        UnaryOp::Wait => "await ",
+        UnaryOp::Plus => "+",
         UnaryOp::Reference => "&",
         UnaryOp::MutableReference => "&mut ",
+        UnaryOp::PreIncrement => "++",
+        UnaryOp::PreDecrement => "--",
+        UnaryOp::PostIncrement => "++",
+        UnaryOp::PostDecrement => "--",
     }
 }
 
@@ -232,21 +221,21 @@ mod tests {
     }
 
     #[test]
-    fn test_python_power() {
+    fn test_python_config() {
         let config = OperatorConfig::python();
-        assert_eq!(config.power, " ** ");
+        assert_eq!(config.and, " and ");
     }
 
     #[test]
-    fn test_swift_range() {
+    fn test_swift_config() {
         let config = OperatorConfig::swift();
-        assert_eq!(config.range, "...");
+        assert_eq!(config.add, " + ");
     }
 
     #[test]
     fn test_get_binary() {
         let config = OperatorConfig::java();
         assert_eq!(config.get_binary(&BinaryOp::Add), Some(" + "));
-        assert_eq!(config.get_binary(&BinaryOp::And), Some(" && "));
+        assert_eq!(config.get_binary(&BinaryOp::LogicalAnd), Some(" && "));
     }
 }

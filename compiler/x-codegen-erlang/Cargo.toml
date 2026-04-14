@@ -5,12 +5,7 @@ edition = "2021"
 description = "X语言 Erlang 后端 - 生成 Erlang 源代码，面向并发/分布式系统"
 
 [dependencies]
-x-parser = { workspace = true }
-x-hir = { workspace = true }
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
 thiserror = { workspace = true }
 log = { workspace = true }
-
-[dev-dependencies]
-x-lexer = { workspace = true }

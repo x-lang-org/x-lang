@@ -27,7 +27,6 @@ use x_lir::{
     BinaryOp, Block, Declaration, Expression, Function, GlobalVar, Initializer, Literal,
     MatchStatement, Program, Statement, SwitchStatement, TryStatement, Type, UnaryOp,
 };
-use x_parser::ast::Program as AstProgram;
 
 /// LLVM 后端配置
 #[derive(Debug, Clone)]
@@ -1930,20 +1929,6 @@ impl CodeGenerator for LlvmBackend {
 
     fn new(config: Self::Config) -> Self {
         Self::new(config)
-    }
-
-    fn generate_from_ast(&mut self, _program: &AstProgram) -> Result<CodegenOutput, Self::Error> {
-        // 从 AST 直接生成需要完整的实现
-        // 这里返回错误提示用户使用 LIR 接口
-        Err(LlvmError::Unimplemented(
-            "LLVM 后端不支持直接从 AST 生成。请使用 LIR 接口。".to_string(),
-        ))
-    }
-
-    fn generate_from_hir(&mut self, _hir: &x_hir::Hir) -> Result<CodegenOutput, Self::Error> {
-        Err(LlvmError::Unimplemented(
-            "LLVM 后端不支持直接从 HIR 生成。请使用 LIR 接口。".to_string(),
-        ))
     }
 
     fn generate_from_lir(&mut self, lir: &Program) -> Result<CodegenOutput, Self::Error> {

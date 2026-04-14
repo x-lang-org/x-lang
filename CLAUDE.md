@@ -121,13 +121,14 @@ LIR (Low-level IR = XIR) ← Unified input for all backends
 | Zig | ✅ Mature | Compile to Zig source code, then use Zig compiler to generate native or Wasm binary. Most features implemented. |
 | C | 🚧 Early | Compile to C source code for maximum portability. |
 | Rust | 🚧 Early | Compile to Rust source code for Rust ecosystem interoperability. |
-| JavaScript/TS | 🚧 Early | Compile to TypeScript/JavaScript for browser/Node.js. |
-| JVM | 🚧 Early | Compile to JVM bytecode (currently via Java source). |
-| .NET | 🚧 Early | Compile to .NET CIL (currently via C# source). |
+| TypeScript | 🚧 Early | Compile to TypeScript/JavaScript for browser/Node.js. |
+| Java | 🚧 Early | Compile to Java source for JVM ecosystem. |
+| C# | 🚧 Early | Compile to C# source for .NET ecosystem. |
 | Python | 🚧 Early | Compile to Python source code. |
-| Swift | 📋 Planned | Compile to Swift source code for Apple ecosystem. |
+| Swift | 🚧 Early | Compile to Swift source code for Apple ecosystem. |
+| Erlang | 🚧 Early | Compile to Erlang source code for concurrent/distributed systems. |
 | LLVM | 🚧 Early | Generate LLVM IR for advanced optimizations. |
-| Native | 📋 Planned | Direct machine code generation for fast compilation. |
+| ASM | 🚧 Early | Direct machine code generation (x86_64/aarch64) via system assembler. |
 
 **Current implementation**: CLI fully integrates the complete pipeline:
 - **run**: source → parse → type check → interpret
@@ -139,17 +140,27 @@ LIR (Low-level IR = XIR) ← Unified input for all backends
 | Crate | Location | Purpose |
 |-------|----------|---------|
 | x-cli | `tools/x-cli` | CLI binary (run, compile, check, format, package, repl). Orchestrates the compiler pipeline. |
+| x-lsp | `tools/x-lsp` | Language Server Protocol server for IDE integration. |
+| x-syntax-gen | `tools/x-syntax-gen` | Syntax highlighting generator for editors from token model. |
 | x-lexer | `compiler/x-lexer` | Lexical analysis. Generates token stream from source code. Uses the `logos` crate. |
 | x-parser | `compiler/x-parser` | Syntax analysis. Builds AST (program, declarations, expressions, types). |
 | x-hir | `compiler/x-hir` | High-level intermediate representation (after parsing, before type checking). |
 | x-mir | `compiler/x-mir` | Mid-level intermediate representation (control flow graph). Perceus analysis happens here. |
 | x-lir | `compiler/x-lir` | Low-level intermediate representation (XIR) - unified input for all backends. |
 | x-typechecker | `compiler/x-typechecker` | Type checking and semantic analysis. Error types defined; most logic not yet implemented. |
-| x-codegen | `compiler/x-codegen` | Common code generation infrastructure + multiple source output backends (Zig, C, Rust, Java, C#, TS, Python). XIR definition. |
-| x-codegen-js | `compiler/x-codegen-js` | JavaScript backend. |
-| x-codegen-jvm | `compiler/x-codegen-jvm` | JVM bytecode backend. |
-| x-codegen-dotnet | `compiler/x-codegen-dotnet` | .NET CIL backend. |
+| x-codegen | `compiler/x-codegen` | Common code generation infrastructure and XIR definition. |
+| x-codegen-zig | `compiler/x-codegen-zig` | Zig backend (most mature). |
+| x-codegen-typescript | `compiler/x-codegen-typescript` | TypeScript/JavaScript backend. |
+| x-codegen-python | `compiler/x-codegen-python` | Python backend. |
+| x-codegen-rust | `compiler/x-codegen-rust` | Rust backend. |
+| x-codegen-java | `compiler/x-codegen-java` | Java backend. |
+| x-codegen-csharp | `compiler/x-codegen-csharp` | C#/.NET backend. |
+| x-codegen-llvm | `compiler/x-codegen-llvm` | LLVM IR backend. |
+| x-codegen-swift | `compiler/x-codegen-swift` | Swift backend. |
+| x-codegen-erlang | `compiler/x-codegen-erlang` | Erlang backend. |
+| x-codegen-asm | `compiler/x-codegen-asm` | Direct assembly backend (x86_64/aarch64). |
 | x-interpreter | `compiler/x-interpreter` | AST-based tree-walking interpreter. Used by the `run` command. |
+| x-test-integration | `compiler/x-test-integration` | Integration tests. |
 | x-stdlib | `library/stdlib` | Minimal standard library: Option, Result and other core language types. |
 | x-spec | `spec/x-spec` | (Planned) Specification test runner. TOML test cases, optionally linked to specification sections. |
 
@@ -202,9 +213,21 @@ This project is multi-licensed open source software. You can use it under any of
 
 See [LICENSES.md](LICENSES.md) for full terms.
 
+## Subdirectory Documentation
+
+Additional detailed documentation is available in subdirectory `CLAUDE.md` files:
+
+| Location | Purpose |
+|----------|---------|
+| `compiler/CLAUDE.md` | Compiler workspace details, pipeline flow, and member crate links |
+| `compiler/*/CLAUDE.md` | Individual crate-specific documentation (lexer, parser, HIR, MIR, LIR, codegen, etc.) |
+| `tools/CLAUDE.md` | Tools workspace overview (x-cli, x-lsp, x-syntax-gen) |
+| `tools/x-cli/CLAUDE.md` | CLI implementation details, command routing, and backend selection |
+
 ## Quick Reference
 
 - **Specification**: [SPEC.md](./SPEC.md) - Complete language specification
+- **Design Goals**: [DESIGN_GOALS.md](./DESIGN_GOALS.md) - Constitutional document for all design decisions
 - **Run**: `cd tools/x-cli && cargo run -- run <file.x>` - Run .x file (parse + interpret)
 - **Check**: `cd tools/x-cli && cargo run -- check <file.x>` - Check syntax and types
 - **Output IR**: `cd tools/x-cli && cargo run -- compile <file.x> --emit tokens` or `--emit ast|hir|mir|lir`

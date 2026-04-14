@@ -5,12 +5,7 @@ edition = "2021"
 description = "X语言 TypeScript 后端 - 生成 TypeScript/JavaScript 代码"
 
 [dependencies]
-x-parser = { workspace = true }
-x-hir = { workspace = true }
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
 thiserror = { workspace = true }
 log = { workspace = true }
-
-[dev-dependencies]
-x-lexer = { path = "../x-lexer" }

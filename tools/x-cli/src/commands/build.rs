@@ -105,12 +105,8 @@ fn build_source(
     let source =
         std::fs::read_to_string(path).map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
 
-    let parser = x_parser::parser::XParser::new();
-    let program = parser
-        .parse(&source)
-        .map_err(|e| pipeline::format_parse_error(&path.display().to_string(), &source, &e))?;
-
-    x_typechecker::type_check(&program).map_err(|e| format!("类型检查错误: {}", e))?;
+    // Run the full compiler pipeline: source → AST → HIR → MIR → LIR
+    let pipeline_output = pipeline::run_pipeline(&source)?;
 
     // Use Zig backend directly for now, since it's the most mature
     let mut backend = ZigBackend::new(ZigBackendConfig {
@@ -121,7 +117,7 @@ fn build_source(
     });
 
     let codegen_output = backend
-        .generate_from_ast(&program)
+        .generate_from_lir(&pipeline_output.lir)
         .map_err(|e| format!("代码生成失败: {}", e))?;
 
     let zig_code = String::from_utf8_lossy(&codegen_output.files[0].content);

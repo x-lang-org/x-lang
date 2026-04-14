@@ -5,10 +5,7 @@ edition = "2021"
 description = "X语言 Swift 后端 - 生成 Swift 源代码，面向 Apple 生态"
 
 [dependencies]
-x-parser = { workspace = true }
-x-hir = { workspace = true }
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
-x-lexer = { workspace = true }
 thiserror = { workspace = true }
 log = { workspace = true }

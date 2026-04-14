@@ -2037,10 +2037,7 @@ version = "0.1.0"
 dependencies = [
  "log",
  "thiserror",
- "x-hir",
  "x-lir",
- "x-mir",
- "x-parser",
 ]
 
 [[package]]
@@ -2051,9 +2048,7 @@ dependencies = [
  "thiserror",
  "which",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2063,9 +2058,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2075,9 +2068,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2087,9 +2078,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2099,9 +2088,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2111,9 +2098,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2123,9 +2108,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2135,10 +2118,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
- "x-lexer",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2148,9 +2128,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-parser",
 ]
 
 [[package]]
@@ -2160,10 +2138,7 @@ dependencies = [
  "log",
  "thiserror",
  "x-codegen",
- "x-hir",
  "x-lir",
- "x-mir",
- "x-parser",
 ]
 
 [[package]]
