@@ -1,5 +1,9 @@
 # AGENTS.md — compiler/ Workspace
 
+**Updated:** 2026-04-22 | **Workspace:** compiler/ (Rust)
+
+---
+
 **Hub of X language compilation pipeline.** Shared workspace for all frontend, IR stages, and 10 backends.
 
 ---
