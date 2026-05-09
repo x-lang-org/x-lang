@@ -10,10 +10,13 @@ external function puts(message: *character) -> signed 32-bit integer
 /// 外部 C 库函数：putchar - 输出单个字符
 external function putchar(c: signed 32-bit integer) -> signed 32-bit integer
 
+/// 外部 C 库函数：abort - 立即终止程序
+external function abort() -> never
+
 /// println 函数 - 打印字符串并换行
 export function println(message: string) -> unit {
     unsafe {
-        puts(message as *character)
+        let result = puts(message as *character);
     }
 }
 
@@ -21,14 +24,17 @@ export function println(message: string) -> unit {
 export function print(message: string) -> unit {
     for c in message {
         unsafe {
-            putchar(c as signed 32-bit integer)
+            let result = putchar(c as signed 32-bit integer);
         }
     }
 }
 
 /// panic 宏 - 终止程序并输出错误信息
-export function panic(message: string) -> unit {
-    println(message)
+export function panic(message: string) -> never {
+    println(message);
+    unsafe {
+        abort()
+    }
 }
 
 /// assert 断言 - 如果条件不满足则panic
@@ -36,6 +42,17 @@ export function assert(condition: boolean) -> unit {
     if not condition {
         panic("assertion failed")
     }
+}
+
+/// enumerate - 为数组元素附加索引
+export function enumerate<T>(items: [T]) -> [(Int, T)] {
+    let mut result: [(Int, T)] = [];
+    let mut index = 0;
+    for item in items {
+        result.push((index as Int, item));
+        index = index + 1;
+    }
+    result
 }
 
 /// Builtin: 读取文件内容

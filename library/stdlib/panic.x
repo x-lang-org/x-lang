@@ -72,7 +72,7 @@ export fn print_stack_trace() -> unit {
 }
 
 /// 检查条件，如果为 false 则 panic
-export fn assert(condition: Bool, message: string) -> unit {
+export fn assert_with_message(condition: Bool, message: string) -> unit {
     when not condition {
         panic("assertion failed: " ++ message);
     }
@@ -86,7 +86,7 @@ export fn assert(condition: Bool) -> unit {
 }
 
 /// 解包 Option，如果是 None 则 panic
-export fn unwrap<T>(opt: Option<T>, msg: string) -> T {
+export fn unwrap_option<T>(opt: Option<T>, msg: string) -> T {
     match opt {
         None => panic(msg),
         Some(v) => v,
@@ -94,9 +94,9 @@ export fn unwrap<T>(opt: Option<T>, msg: string) -> T {
 }
 
 /// 解包 Result，如果是 Err 则 panic
-export fn unwrap<T, E>(res: Result<T, E>, msg: string) -> T where E: to_string {
+export fn unwrap_result<T, E>(res: Result<T, E>, msg: string) -> T {
     match res {
-        Err(e) => panic(msg ++ ": " ++ to_string(e)),
+        Err(_) => panic(msg),
         Ok(v) => v,
     }
 }

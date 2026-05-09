@@ -76,7 +76,7 @@ export function capture_stack_trace() -> StackTrace {
     }
     
     unsafe {
-        let count = __capture_stack_trace(&frames[0], 64);
+        let count = __capture_stack_trace(&frames[0] as *mut StackFrame, 64);
         // 截取实际捕获的帧数
         frames = frames.slice(0, count);
     }

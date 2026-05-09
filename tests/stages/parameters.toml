@@ -20,7 +20,7 @@ compile = true
 exit_code = 0
 
 [expect.tokens]
-contains = ["Function", "Parameter"]
+contains = ["Function", "Ident"]
 
 [expect.ast]
 nodes = ["FunctionDecl", "Parameter"]

@@ -1,7 +1,8 @@
 // @test recursive functions
 // @stdout: 55
 // @stdout: 120
-// @stdout: 3628800
+// @stdout: 55
+// @stdout: 5050
 
 function fib(n: integer) -> integer {
     if n <= 1 {

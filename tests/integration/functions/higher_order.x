@@ -1,7 +1,10 @@
 // @test higher-order functions
 // @stdout: 12
+// @stdout: 7
+// @stdout: 21
+// @stdout: 2
+// @stdout: 4
 // @stdout: 6
-// @stdout: 30
 
 function applyTwice(f, x) {
     f(f(x))

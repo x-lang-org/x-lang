@@ -1,0 +1,23 @@
+# 简单类型别名测试
+name = "simple_type_alias"
+description = "测试简单顶层类型别名在变量与函数签名中的使用"
+category = "types/primitives"
+spec = ["spec/docs/02-types.md"]
+
+source = """
+type UserID = integer
+
+function add_one(id: UserID) -> UserID {
+    return id + 1
+}
+
+let user_id: UserID = 41
+println(int_to_string(add_one(user_id)))
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output = "42\n"

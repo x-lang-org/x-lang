@@ -1,6 +1,7 @@
 module std.errors
 import std.prelude
 import std.types
+import std.error
 
 
 

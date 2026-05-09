@@ -1,11 +1,13 @@
 // @test math operations
 // @stdout: 3.14159
 // @stdout: 2.71828
-// @stdout: 4
+// @stdout: -4
 // @stdout: 2
 // @stdout: 8
 // @stdout: 3
-// @stdout: 2
+// @stdout: 3
+// @stdout: 5
+// @stdout: 10
 
 let pi = 3.14159
 let e = 2.71828

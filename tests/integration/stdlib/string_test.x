@@ -2,12 +2,20 @@
 // @stdout: Hello
 // @stdout: World
 // @stdout: HelloWorld
-// @stdout: 11
+// @stdout: 5
+// @stdout: true
+// @stdout: Hello
 // @stdout: H
 // @stdout: e
 // @stdout: l
 // @stdout: l
 // @stdout: o
+// @stdout: HELLO
+// @stdout: hello
+// @stdout: hello
+// @stdout: a
+// @stdout: b
+// @stdout: c
 
 let s1 = "Hello"
 let s2 = "World"

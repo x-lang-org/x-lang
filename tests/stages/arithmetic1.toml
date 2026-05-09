@@ -24,7 +24,7 @@ compile = true
 exit_code = 0
 
 [expect.tokens]
-contains = ["Plus", "Minus", "Star", "Slash", "Percent"]
+contains = ["Plus", "Minus", "Asterisk", "Slash", "Percent"]
 
 [expect.ast]
 nodes = ["FunctionDecl", "Binary"]

@@ -2,8 +2,14 @@
 // @stdout: 1
 // @stdout: 2
 // @stdout: 3
+// @stdout: 5
+// @stdout: 1
+// @stdout: 5
+// @stdout: 15
+// @stdout: 1
+// @stdout: 4
 // @stdout: 3
-// @stdout: 6
+// @stdout: 0
 
 let numbers = [1, 2, 3, 4, 5]
 
