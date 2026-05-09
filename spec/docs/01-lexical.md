@@ -370,24 +370,27 @@ EscapeChar → 'n'   // 换行 U+000A
            | '"'   // 双引号
            | '\''  // 单引号
            | '\\'  // 反斜杠
-           | '{'   // 左花括号（转义插值）
+           | '$'   // 美元符号
+           | '{'   // 左花括号
+           | '}'   // 右花括号
            | 'u' '{' HexDigit{1,6} '}'  // Unicode 转义
 
-Interpolation → '{' Expression '}'
+Interpolation → '$' Identifier
+              | '${' Expression '}'
 ```
 
-字符串插值使用 `{expr}` 语法，花括号内可以是任意表达式：
+字符串插值支持 `$name` 与 `${expr}` 两种语法，其中 `${expr}` 可容纳任意表达式：
 
 ```x
 let name = "World"
-let greeting = "Hello, {name}!"              // 简单插值
-let math = "1 + 1 = {1 + 1}"                // 表达式插值
-let escaped = "Use \{braces\} literally"     // 转义花括号
+let greeting = "Hello, $name!"               // 简单插值
+let math = "1 + 1 = ${1 + 1}"               // 表达式插值
+let escaped = "Use \${braces\} literally"   // 转义美元符号和花括号
 
 let multiline = """
     SELECT *
     FROM users
-    WHERE id = {user_id}
+    WHERE id = ${user_id}
     ORDER BY name
     """
 ```

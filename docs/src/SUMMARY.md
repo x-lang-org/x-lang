@@ -64,7 +64,7 @@
 - [如何编写测试](ch11-01-how-to-write-tests.md)
 - [测试组织](ch11-02-test-organization.md)
 
-## 精简标准库
+## 标准库
 - [标准库概览](ch12-01-stdlib-overview.md)
 - [Option 类型](ch12-02-option.md)
 - [Result 类型](ch12-03-result.md)

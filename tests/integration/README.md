@@ -1,6 +1,8 @@
 # X Language Integration Tests
 
-This directory contains comprehensive integration tests for the X language compiler and runtime.
+This directory documents the `x test integration` flow and the `.x`-source integration cases that belong to it.
+
+It is only one layer of the repository's test story. Broader validation in this repo also uses `python tests/run_tests.py` for the TOML/spec harness and workspace `cargo test` runs for Rust crates.
 
 ## Directory Structure
 
@@ -38,7 +40,7 @@ tests/integration/
 ## Running Tests
 
 ```bash
-# Run all integration tests
+# Run the integration-test flow documented in this directory
 x test integration
 
 # Run with verbose output
@@ -117,7 +119,7 @@ Tests for standard library functions:
 
 ## Test Runner Architecture
 
-The integration test runner:
+The integration test runner used by this flow:
 1. Discovers all `.x` files in the integration test directories
 2. Parses test annotations from comments
 3. Executes each test using the `x run` command

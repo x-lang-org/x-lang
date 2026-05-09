@@ -258,7 +258,7 @@ members = [
 | `x run` | 构建并运行 |
 | `x test` | 运行测试 |
 | `x add json` | 添加依赖到 `x.toml` |
-| `x publish` | 发布包到仓库 |
+| `x publish` | 打包并发布到已配置的本地文件型注册表；远程仓库发布仍在建设中 |
 
 ---
 
