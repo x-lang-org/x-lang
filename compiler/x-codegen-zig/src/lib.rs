@@ -71,6 +71,12 @@ pub struct ZigBackend {
     current_function_name: String,
     /// 跟踪 void 返回调用的目标变量，以便跳过其声明
     void_call_vars: std::collections::HashSet<String>,
+    /// 跟踪已声明的临时变量，避免重复声明并允许按首次赋值推断类型
+    declared_temp_vars: std::collections::HashSet<String>,
+    temp_assignment_counts: std::collections::HashMap<String, usize>,
+    temp_use_counts: std::collections::HashMap<String, usize>,
+    used_params: std::collections::HashSet<String>,
+    used_type_params: std::collections::HashSet<String>,
 }
 
 pub type ZigResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -86,6 +92,11 @@ impl ZigBackend {
             buffer: x_codegen::CodeBuffer::new(),
             current_function_name: String::new(),
             void_call_vars: std::collections::HashSet::new(),
+            declared_temp_vars: std::collections::HashSet::new(),
+            temp_assignment_counts: std::collections::HashMap::new(),
+            temp_use_counts: std::collections::HashMap::new(),
+            used_params: std::collections::HashSet::new(),
+            used_type_params: std::collections::HashSet::new(),
         }
     }
 
@@ -93,6 +104,11 @@ impl ZigBackend {
     pub fn generate_from_lir(&mut self, lir: &LirProgram) -> ZigResult<x_codegen::CodegenOutput> {
         self.buffer.clear();
         self.void_call_vars.clear();
+        self.declared_temp_vars.clear();
+        self.temp_assignment_counts.clear();
+        self.temp_use_counts.clear();
+        self.used_params.clear();
+        self.used_type_params.clear();
 
         self.emit_header()?;
 
@@ -487,20 +503,18 @@ impl ZigBackend {
     /// 发出外部函数声明（来自 LIR）
     fn emit_lir_extern_function(&mut self, extern_func: &x_lir::ExternFunction) -> ZigResult<()> {
         // Output generic type parameters if any: (T: type, U: type)
-        let type_params_str = if extern_func.type_params.is_empty() {
-            "".to_string()
+        let type_params = if extern_func.type_params.is_empty() {
+            Vec::new()
         } else {
-            let type_params = extern_func
+            extern_func
                 .type_params
                 .iter()
                 .map(|tp| format!("{}: type", tp))
                 .collect::<Vec<_>>()
-                .join(", ");
-            format!("({})", type_params)
         };
 
         let params = if extern_func.parameters.is_empty() {
-            "".to_string()
+            Vec::new()
         } else {
             extern_func
                 .parameters
@@ -508,16 +522,15 @@ impl ZigBackend {
                 .enumerate()
                 .map(|(i, param_type)| format!("arg{}: {}", i, self.emit_lir_type(param_type)))
                 .collect::<Vec<_>>()
-                .join(", ")
         };
 
-        // Combine type params and regular params for Zig generic function syntax
-        let full_params = match (type_params_str.is_empty(), params.is_empty()) {
-            (true, true) => "".to_string(),
-            (true, false) => format!("({})", params),
-            (false, true) => type_params_str,
-            (false, false) => format!("{}({})", type_params_str, params),
-        };
+        // Combine type params and regular params into a single Zig parameter list
+        let full_params = type_params
+            .into_iter()
+            .chain(params.into_iter())
+            .collect::<Vec<_>>()
+            .join(", ");
+        let full_params = format!("({})", full_params);
 
         let return_type = self.emit_lir_type(&extern_func.return_type);
         match &extern_func.abi {
@@ -749,26 +762,23 @@ impl ZigBackend {
     /// 发出函数定义（来自 LIR）
     fn emit_lir_function(&mut self, func: &x_lir::Function) -> ZigResult<()> {
         // Output generic type parameters if any: (T: type, U: type)
-        let type_params_str = if func.type_params.is_empty() {
-            "".to_string()
+        let type_params = if func.type_params.is_empty() {
+            Vec::new()
         } else {
-            let type_params = func
+            func
                 .type_params
                 .iter()
                 .map(|tp| format!("{}: type", tp))
                 .collect::<Vec<_>>()
-                .join(", ");
-            format!("({})", type_params)
         };
 
         let params = if func.parameters.is_empty() {
-            "".to_string()
+            Vec::new()
         } else {
             func.parameters
                 .iter()
                 .map(|p| format!("{}: {}", p.name, self.emit_lir_type(&p.type_)))
                 .collect::<Vec<_>>()
-                .join(", ")
         };
 
         let return_type = self.emit_lir_type(&func.return_type);
@@ -783,15 +793,29 @@ impl ZigBackend {
 
         // 记录当前正在发射的函数名
         self.current_function_name = func.name.clone();
+        self.declared_temp_vars.clear();
+        self.temp_assignment_counts = Self::collect_temp_assignment_counts(&func.body);
+        self.temp_use_counts = Self::collect_temp_use_counts(&func.body);
+        self.used_params = func
+            .parameters
+            .iter()
+            .filter(|param| Self::block_uses_variable(&func.body, &param.name))
+            .map(|param| param.name.clone())
+            .collect();
+        self.used_type_params = func
+            .type_params
+            .iter()
+            .filter(|type_param| Self::function_uses_type_param(func, type_param))
+            .cloned()
+            .collect();
 
-        // Combine type params and regular params for Zig generic function syntax
-        // Always include parentheses, even if empty
-        let full_params = match (type_params_str.is_empty(), params.is_empty()) {
-            (true, true) => "()".to_string(),
-            (true, false) => format!("({})", params),
-            (false, true) => format!("({})", type_params_str),
-            (false, false) => format!("{}({})", type_params_str, params),
-        };
+        // Combine type params and regular params into a single Zig parameter list
+        let full_params = type_params
+            .into_iter()
+            .chain(params.into_iter())
+            .collect::<Vec<_>>()
+            .join(", ");
+        let full_params = format!("({})", full_params);
 
         self.line(&format!(
             "{}fn {}{} {} {{",
@@ -799,12 +823,59 @@ impl ZigBackend {
         ))?;
         self.indent();
 
+        if self.emit_runtime_helper_body(func)? {
+            self.dedent();
+            self.line("}")?;
+            return Ok(());
+        }
+
+        for type_param in &func.type_params {
+            if !self.used_type_params.contains(type_param) {
+                self.line(&format!("_ = {};", type_param))?;
+            }
+        }
+
+        for param in &func.parameters {
+            if !self.used_params.contains(&param.name) {
+                self.line(&format!("_ = {};", param.name))?;
+            }
+        }
+
         // Emit function body
         self.emit_lir_block(&func.body)?;
 
         self.dedent();
         self.line("}")?;
         Ok(())
+    }
+
+    fn emit_runtime_helper_body(&mut self, func: &x_lir::Function) -> ZigResult<bool> {
+        match func.name.as_str() {
+            "println" if func.parameters.len() == 1 => {
+                self.line("std.debug.print(\"{s}\\n\", .{arg0});")?;
+                self.line("return;")?;
+                Ok(true)
+            }
+            "print" if func.parameters.len() == 1 => {
+                self.line("std.debug.print(\"{s}\", .{arg0});")?;
+                self.line("return;")?;
+                Ok(true)
+            }
+            "panic" if func.parameters.len() == 1 => {
+                self.line("std.debug.panic(\"{s}\", .{arg0});")?;
+                Ok(true)
+            }
+            "assert" if func.parameters.len() == 1 => {
+                self.line("if (!arg0) {")?;
+                self.indent();
+                self.line("std.debug.panic(\"{s}\", .{\"assertion failed\"});")?;
+                self.dedent();
+                self.line("}")?;
+                self.line("return;")?;
+                Ok(true)
+            }
+            _ => Ok(false),
+        }
     }
 
     /// 发出块（来自 LIR）
@@ -859,27 +930,23 @@ impl ZigBackend {
                 // 格式: t0 = expr -> expr;
                 let is_temp_assign = if let Some(eq_pos) = inner.find(" = ") {
                     let var_part = inner[..eq_pos].trim();
-                    // 检查是否是临时变量赋值 (t0, t1, etc.)
-                    (var_part.starts_with("_t") || var_part.starts_with('t'))
-                        && var_part[1..]
-                            .chars()
-                            .all(|c| c.is_ascii_digit() || c == '_')
-                        && var_part
-                            .chars()
-                            .skip(1)
-                            .take_while(|c| *c == '_' || c.is_ascii_digit())
-                            .count()
-                            > 0
+                    let temp_suffix = if let Some(stripped) = var_part.strip_prefix("_t") {
+                        Some(stripped)
+                    } else {
+                        var_part.strip_prefix('t')
+                    };
+
+                    temp_suffix
+                        .map(|suffix| !suffix.is_empty() && suffix.chars().all(|c| c.is_ascii_digit()))
+                        .unwrap_or(false)
                 } else {
                     false
                 };
 
                 if is_temp_assign {
-                    // 对于临时变量赋值，生成完整的声明+赋值语句
                     if let Some(eq_pos) = inner.find(" = ") {
                         let var_part = inner[..eq_pos].trim();
                         let value_part = inner[eq_pos + 3..].trim();
-                        // 转换变量名：t0 -> _t0
                         let var_name = if var_part.starts_with("t") {
                             format!("_{}", var_part)
                         } else if var_part.starts_with("_t") {
@@ -887,11 +954,24 @@ impl ZigBackend {
                         } else {
                             format!("_{}", var_part)
                         };
-                        // 生成完整的变量声明和赋值
-                        // Zig 允许在一行中声明并赋值: var x: i32 = value;
-                        self.line(&format!("var {} : i32 = {};", var_name, value_part))?;
+                        let use_count = self.temp_use_counts.get(&var_name).copied().unwrap_or(0);
+                        let assignment_count = self
+                            .temp_assignment_counts
+                            .get(&var_name)
+                            .copied()
+                            .unwrap_or(1);
+
+                        if use_count == 0 {
+                            self.line(&format!("_ = {};", value_part))?;
+                        } else if self.declared_temp_vars.insert(var_name.clone()) {
+                            let decl_keyword = if assignment_count > 1 { "var" } else { "const" };
+                            self.line(&format!("{} {} = {};", decl_keyword, var_name, value_part))?;
+                        } else {
+                            self.line(&format!("{} = {};", var_name, value_part))?;
+                        }
                         return Ok(());
                     }
+                    return Ok(());
                 }
 
                 // 其他赋值表达式
@@ -922,16 +1002,14 @@ impl ZigBackend {
                     return Ok(());
                 }
 
-                // 跳过所有临时变量（t0, t1 等）的声明
-                // 它们会在后续的赋值表达式中被内联生成
-                if var.name.starts_with('t')
+                // 跳过所有仅作为 SSA 临时值占位的未初始化临时变量（t0, t1 等）。
+                // 它们在首次赋值处懒声明，从而避免错误的预设类型。
+                if var.initializer.is_none()
+                    && var.name.starts_with('t')
                     && var.name.len() > 1
                     && var.name[1..].chars().all(|c| c.is_ascii_digit())
                 {
-                    // 检查是否有初始化器，如果没有就跳过
-                    if var.initializer.is_none() {
-                        return Ok(());
-                    }
+                    return Ok(());
                 }
 
                 let type_str = self.emit_lir_type(&var.type_);
@@ -960,10 +1038,6 @@ impl ZigBackend {
                         "{} {} : {} = undefined;",
                         keyword, var_name, type_str
                     ))?;
-                    // 对于没有初始化器的临时变量，在 main 函数中添加使用标记
-                    if is_temp_var && self.current_function_name == "main" {
-                        self.line(&format!("_ = {};", var_name))?;
-                    }
                 }
             }
             x_lir::Statement::If(if_stmt) => {
@@ -1397,12 +1471,24 @@ impl ZigBackend {
             x_lir::Type::Ptrdiff => "isize".to_string(),
             x_lir::Type::Intptr => "isize".to_string(),
             x_lir::Type::Uintptr => "usize".to_string(),
-            x_lir::Type::Pointer(inner) => format!("*{}", self.emit_lir_type(inner)),
+            x_lir::Type::Pointer(inner) => match inner.as_ref() {
+                x_lir::Type::Char | x_lir::Type::Uchar => "[*:0]const u8".to_string(),
+                _ => format!("*{}", self.emit_lir_type(inner)),
+            },
             x_lir::Type::Array(inner, Some(size)) => {
                 format!("[{}]{}", size, self.emit_lir_type(inner))
             }
             x_lir::Type::Array(inner, None) => {
                 format!("[]{}", self.emit_lir_type(inner))
+            }
+            x_lir::Type::Tuple(items) => {
+                let field_str = items
+                    .iter()
+                    .enumerate()
+                    .map(|(index, ty)| format!("f{}: {}", index, self.emit_lir_type(ty)))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+                format!("struct {{ {} }}", field_str)
             }
             x_lir::Type::FunctionPointer(ret_type, param_types) => {
                 let param_str = param_types
@@ -1414,6 +1500,590 @@ impl ZigBackend {
             }
             x_lir::Type::Named(name) => name.clone(),
             x_lir::Type::Qualified(_, inner) => self.emit_lir_type(inner),
+        }
+    }
+
+    fn is_temp_name(name: &str) -> bool {
+        name.strip_prefix("_t")
+            .or_else(|| name.strip_prefix('t'))
+            .map(|suffix| !suffix.is_empty() && suffix.chars().all(|c| c.is_ascii_digit()))
+            .unwrap_or(false)
+    }
+
+    fn normalized_temp_name(name: &str) -> Option<String> {
+        if !Self::is_temp_name(name) {
+            return None;
+        }
+
+        Some(if name.starts_with("_t") {
+            name.to_string()
+        } else {
+            format!("_{}", name)
+        })
+    }
+
+    fn collect_temp_assignment_counts(block: &x_lir::Block) -> std::collections::HashMap<String, usize> {
+        let mut counts = std::collections::HashMap::new();
+        Self::collect_temp_assignment_counts_block(block, &mut counts);
+        counts
+    }
+
+    fn collect_temp_assignment_counts_block(
+        block: &x_lir::Block,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        for stmt in &block.statements {
+            Self::collect_temp_assignment_counts_stmt(stmt, counts);
+        }
+    }
+
+    fn collect_temp_assignment_counts_stmt(
+        stmt: &x_lir::Statement,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        match stmt {
+            x_lir::Statement::Expression(x_lir::Expression::Assign(lhs, _rhs)) => {
+                if let x_lir::Expression::Variable(name) = lhs.as_ref() {
+                    if let Some(temp_name) = Self::normalized_temp_name(name) {
+                        *counts.entry(temp_name).or_insert(0) += 1;
+                    }
+                }
+            }
+            x_lir::Statement::If(if_stmt) => {
+                Self::collect_temp_assignment_counts_stmt(&if_stmt.then_branch, counts);
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    Self::collect_temp_assignment_counts_stmt(else_branch, counts);
+                }
+            }
+            x_lir::Statement::While(while_stmt) => {
+                Self::collect_temp_assignment_counts_stmt(&while_stmt.body, counts);
+            }
+            x_lir::Statement::DoWhile(do_while_stmt) => {
+                Self::collect_temp_assignment_counts_stmt(&do_while_stmt.body, counts);
+            }
+            x_lir::Statement::For(for_stmt) => {
+                if let Some(init) = &for_stmt.initializer {
+                    Self::collect_temp_assignment_counts_stmt(init, counts);
+                }
+                Self::collect_temp_assignment_counts_stmt(&for_stmt.body, counts);
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                for case in &switch_stmt.cases {
+                    Self::collect_temp_assignment_counts_stmt(&case.body, counts);
+                }
+                if let Some(default) = &switch_stmt.default {
+                    Self::collect_temp_assignment_counts_stmt(default, counts);
+                }
+            }
+            x_lir::Statement::Match(match_stmt) => {
+                for case in &match_stmt.cases {
+                    Self::collect_temp_assignment_counts_block(&case.body, counts);
+                }
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                Self::collect_temp_assignment_counts_block(&try_stmt.body, counts);
+                for catch in &try_stmt.catch_clauses {
+                    Self::collect_temp_assignment_counts_block(&catch.body, counts);
+                }
+                if let Some(finally_block) = &try_stmt.finally_block {
+                    Self::collect_temp_assignment_counts_block(finally_block, counts);
+                }
+            }
+            x_lir::Statement::Compound(block) => {
+                Self::collect_temp_assignment_counts_block(block, counts);
+            }
+            _ => {}
+        }
+    }
+
+    fn collect_temp_use_counts(block: &x_lir::Block) -> std::collections::HashMap<String, usize> {
+        let mut counts = std::collections::HashMap::new();
+        Self::collect_temp_use_counts_block(block, &mut counts);
+        counts
+    }
+
+    fn collect_temp_use_counts_block(
+        block: &x_lir::Block,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        for stmt in &block.statements {
+            Self::collect_temp_use_counts_stmt(stmt, counts);
+        }
+    }
+
+    fn collect_temp_use_counts_stmt(
+        stmt: &x_lir::Statement,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        match stmt {
+            x_lir::Statement::Expression(expr) => Self::collect_temp_use_counts_expr(expr, counts),
+            x_lir::Statement::Variable(var) => {
+                if let Some(initializer) = &var.initializer {
+                    Self::collect_temp_use_counts_expr(initializer, counts);
+                }
+            }
+            x_lir::Statement::If(if_stmt) => {
+                Self::collect_temp_use_counts_expr(&if_stmt.condition, counts);
+                Self::collect_temp_use_counts_stmt(&if_stmt.then_branch, counts);
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    Self::collect_temp_use_counts_stmt(else_branch, counts);
+                }
+            }
+            x_lir::Statement::While(while_stmt) => {
+                Self::collect_temp_use_counts_expr(&while_stmt.condition, counts);
+                Self::collect_temp_use_counts_stmt(&while_stmt.body, counts);
+            }
+            x_lir::Statement::DoWhile(do_while_stmt) => {
+                Self::collect_temp_use_counts_stmt(&do_while_stmt.body, counts);
+                Self::collect_temp_use_counts_expr(&do_while_stmt.condition, counts);
+            }
+            x_lir::Statement::For(for_stmt) => {
+                if let Some(init) = &for_stmt.initializer {
+                    Self::collect_temp_use_counts_stmt(init, counts);
+                }
+                if let Some(condition) = &for_stmt.condition {
+                    Self::collect_temp_use_counts_expr(condition, counts);
+                }
+                if let Some(increment) = &for_stmt.increment {
+                    Self::collect_temp_use_counts_expr(increment, counts);
+                }
+                Self::collect_temp_use_counts_stmt(&for_stmt.body, counts);
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                Self::collect_temp_use_counts_expr(&switch_stmt.expression, counts);
+                for case in &switch_stmt.cases {
+                    Self::collect_temp_use_counts_expr(&case.value, counts);
+                    Self::collect_temp_use_counts_stmt(&case.body, counts);
+                }
+                if let Some(default) = &switch_stmt.default {
+                    Self::collect_temp_use_counts_stmt(default, counts);
+                }
+            }
+            x_lir::Statement::Match(match_stmt) => {
+                Self::collect_temp_use_counts_expr(&match_stmt.scrutinee, counts);
+                for case in &match_stmt.cases {
+                    if let Some(guard) = &case.guard {
+                        Self::collect_temp_use_counts_expr(guard, counts);
+                    }
+                    Self::collect_temp_use_counts_block(&case.body, counts);
+                }
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                Self::collect_temp_use_counts_block(&try_stmt.body, counts);
+                for catch in &try_stmt.catch_clauses {
+                    Self::collect_temp_use_counts_block(&catch.body, counts);
+                }
+                if let Some(finally_block) = &try_stmt.finally_block {
+                    Self::collect_temp_use_counts_block(finally_block, counts);
+                }
+            }
+            x_lir::Statement::Return(expr) => {
+                if let Some(expr) = expr {
+                    Self::collect_temp_use_counts_expr(expr, counts);
+                }
+            }
+            x_lir::Statement::Compound(block) => {
+                Self::collect_temp_use_counts_block(block, counts);
+            }
+            _ => {}
+        }
+    }
+
+    fn collect_temp_use_counts_expr(
+        expr: &x_lir::Expression,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        match expr {
+            x_lir::Expression::Variable(name) => {
+                if let Some(temp_name) = Self::normalized_temp_name(name) {
+                    *counts.entry(temp_name).or_insert(0) += 1;
+                }
+            }
+            x_lir::Expression::Unary(_, expr)
+            | x_lir::Expression::AddressOf(expr)
+            | x_lir::Expression::Dereference(expr)
+            | x_lir::Expression::Parenthesized(expr)
+            | x_lir::Expression::SizeOfExpr(expr) => Self::collect_temp_use_counts_expr(expr, counts),
+            x_lir::Expression::Binary(_, lhs, rhs)
+            | x_lir::Expression::AssignOp(_, lhs, rhs)
+            | x_lir::Expression::Index(lhs, rhs) => {
+                Self::collect_temp_use_counts_expr(lhs, counts);
+                Self::collect_temp_use_counts_expr(rhs, counts);
+            }
+            x_lir::Expression::Assign(lhs, rhs) => {
+                if !matches!(lhs.as_ref(), x_lir::Expression::Variable(_)) {
+                    Self::collect_temp_use_counts_expr(lhs, counts);
+                }
+                Self::collect_temp_use_counts_expr(rhs, counts);
+            }
+            x_lir::Expression::Ternary(cond, then_expr, else_expr) => {
+                Self::collect_temp_use_counts_expr(cond, counts);
+                Self::collect_temp_use_counts_expr(then_expr, counts);
+                Self::collect_temp_use_counts_expr(else_expr, counts);
+            }
+            x_lir::Expression::Call(callee, args) => {
+                Self::collect_temp_use_counts_expr(callee, counts);
+                for arg in args {
+                    Self::collect_temp_use_counts_expr(arg, counts);
+                }
+            }
+            x_lir::Expression::Member(obj, _)
+            | x_lir::Expression::PointerMember(obj, _)
+            | x_lir::Expression::Cast(_, obj) => Self::collect_temp_use_counts_expr(obj, counts),
+            x_lir::Expression::Comma(exprs) => {
+                for expr in exprs {
+                    Self::collect_temp_use_counts_expr(expr, counts);
+                }
+            }
+            x_lir::Expression::InitializerList(inits)
+            | x_lir::Expression::CompoundLiteral(_, inits) => {
+                for init in inits {
+                    Self::collect_temp_use_counts_initializer(init, counts);
+                }
+            }
+            x_lir::Expression::Literal(_)
+            | x_lir::Expression::SizeOf(_)
+            | x_lir::Expression::AlignOf(_) => {}
+        }
+    }
+
+    fn collect_temp_use_counts_initializer(
+        init: &x_lir::Initializer,
+        counts: &mut std::collections::HashMap<String, usize>,
+    ) {
+        match init {
+            x_lir::Initializer::Expression(expr) => Self::collect_temp_use_counts_expr(expr, counts),
+            x_lir::Initializer::List(items) => {
+                for item in items {
+                    Self::collect_temp_use_counts_initializer(item, counts);
+                }
+            }
+            x_lir::Initializer::Named(_, init) => Self::collect_temp_use_counts_initializer(init, counts),
+            x_lir::Initializer::Indexed(expr, init) => {
+                Self::collect_temp_use_counts_expr(expr, counts);
+                Self::collect_temp_use_counts_initializer(init, counts);
+            }
+        }
+    }
+
+    fn block_uses_variable(block: &x_lir::Block, name: &str) -> bool {
+        let mut counts = std::collections::HashMap::new();
+        Self::collect_temp_use_counts_block(block, &mut counts);
+        // Temp collector only handles temps; for named variables we need direct traversal.
+        Self::block_uses_variable_direct(block, name)
+    }
+
+    fn block_uses_variable_direct(block: &x_lir::Block, name: &str) -> bool {
+        block.statements
+            .iter()
+            .any(|stmt| Self::stmt_uses_variable(stmt, name))
+    }
+
+    fn stmt_uses_variable(stmt: &x_lir::Statement, name: &str) -> bool {
+        match stmt {
+            x_lir::Statement::Expression(expr) => Self::expr_uses_variable(expr, name),
+            x_lir::Statement::Variable(var) => var
+                .initializer
+                .as_ref()
+                .map(|expr| Self::expr_uses_variable(expr, name))
+                .unwrap_or(false),
+            x_lir::Statement::If(if_stmt) => {
+                Self::expr_uses_variable(&if_stmt.condition, name)
+                    || Self::stmt_uses_variable(&if_stmt.then_branch, name)
+                    || if_stmt
+                        .else_branch
+                        .as_ref()
+                        .map(|stmt| Self::stmt_uses_variable(stmt, name))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::While(while_stmt) => {
+                Self::expr_uses_variable(&while_stmt.condition, name)
+                    || Self::stmt_uses_variable(&while_stmt.body, name)
+            }
+            x_lir::Statement::DoWhile(do_while_stmt) => {
+                Self::stmt_uses_variable(&do_while_stmt.body, name)
+                    || Self::expr_uses_variable(&do_while_stmt.condition, name)
+            }
+            x_lir::Statement::For(for_stmt) => {
+                for_stmt
+                    .initializer
+                    .as_ref()
+                    .map(|stmt| Self::stmt_uses_variable(stmt, name))
+                    .unwrap_or(false)
+                    || for_stmt
+                        .condition
+                        .as_ref()
+                        .map(|expr| Self::expr_uses_variable(expr, name))
+                        .unwrap_or(false)
+                    || for_stmt
+                        .increment
+                        .as_ref()
+                        .map(|expr| Self::expr_uses_variable(expr, name))
+                        .unwrap_or(false)
+                    || Self::stmt_uses_variable(&for_stmt.body, name)
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                Self::expr_uses_variable(&switch_stmt.expression, name)
+                    || switch_stmt.cases.iter().any(|case| {
+                        Self::expr_uses_variable(&case.value, name)
+                            || Self::stmt_uses_variable(&case.body, name)
+                    })
+                    || switch_stmt
+                        .default
+                        .as_ref()
+                        .map(|stmt| Self::stmt_uses_variable(stmt, name))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::Match(match_stmt) => {
+                Self::expr_uses_variable(&match_stmt.scrutinee, name)
+                    || match_stmt.cases.iter().any(|case| {
+                        case.guard
+                            .as_ref()
+                            .map(|expr| Self::expr_uses_variable(expr, name))
+                            .unwrap_or(false)
+                            || Self::block_uses_variable_direct(&case.body, name)
+                    })
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                Self::block_uses_variable_direct(&try_stmt.body, name)
+                    || try_stmt
+                        .catch_clauses
+                        .iter()
+                        .any(|catch| Self::block_uses_variable_direct(&catch.body, name))
+                    || try_stmt
+                        .finally_block
+                        .as_ref()
+                        .map(|block| Self::block_uses_variable_direct(block, name))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::Return(expr) => expr
+                .as_ref()
+                .map(|expr| Self::expr_uses_variable(expr, name))
+                .unwrap_or(false),
+            x_lir::Statement::Compound(block) => Self::block_uses_variable_direct(block, name),
+            _ => false,
+        }
+    }
+
+    fn expr_uses_variable(expr: &x_lir::Expression, name: &str) -> bool {
+        match expr {
+            x_lir::Expression::Variable(var_name) => var_name == name,
+            x_lir::Expression::Unary(_, expr)
+            | x_lir::Expression::AddressOf(expr)
+            | x_lir::Expression::Dereference(expr)
+            | x_lir::Expression::Parenthesized(expr)
+            | x_lir::Expression::SizeOfExpr(expr)
+            | x_lir::Expression::Member(expr, _)
+            | x_lir::Expression::PointerMember(expr, _)
+            | x_lir::Expression::Cast(_, expr) => Self::expr_uses_variable(expr, name),
+            x_lir::Expression::Binary(_, lhs, rhs)
+            | x_lir::Expression::AssignOp(_, lhs, rhs)
+            | x_lir::Expression::Index(lhs, rhs) => {
+                Self::expr_uses_variable(lhs, name) || Self::expr_uses_variable(rhs, name)
+            }
+            x_lir::Expression::Assign(lhs, rhs) => {
+                (!matches!(lhs.as_ref(), x_lir::Expression::Variable(var_name) if var_name == name)
+                    && Self::expr_uses_variable(lhs, name))
+                    || Self::expr_uses_variable(rhs, name)
+            }
+            x_lir::Expression::Ternary(cond, then_expr, else_expr) => {
+                Self::expr_uses_variable(cond, name)
+                    || Self::expr_uses_variable(then_expr, name)
+                    || Self::expr_uses_variable(else_expr, name)
+            }
+            x_lir::Expression::Call(callee, args) => {
+                Self::expr_uses_variable(callee, name)
+                    || args.iter().any(|arg| Self::expr_uses_variable(arg, name))
+            }
+            x_lir::Expression::Comma(exprs) => exprs.iter().any(|expr| Self::expr_uses_variable(expr, name)),
+            x_lir::Expression::InitializerList(inits)
+            | x_lir::Expression::CompoundLiteral(_, inits) => inits
+                .iter()
+                .any(|init| Self::initializer_uses_variable(init, name)),
+            x_lir::Expression::Literal(_)
+            | x_lir::Expression::SizeOf(_)
+            | x_lir::Expression::AlignOf(_) => false,
+        }
+    }
+
+    fn initializer_uses_variable(init: &x_lir::Initializer, name: &str) -> bool {
+        match init {
+            x_lir::Initializer::Expression(expr) => Self::expr_uses_variable(expr, name),
+            x_lir::Initializer::List(items) => items.iter().any(|item| Self::initializer_uses_variable(item, name)),
+            x_lir::Initializer::Named(_, init) => Self::initializer_uses_variable(init, name),
+            x_lir::Initializer::Indexed(expr, init) => {
+                Self::expr_uses_variable(expr, name) || Self::initializer_uses_variable(init, name)
+            }
+        }
+    }
+
+    fn function_uses_type_param(func: &x_lir::Function, type_param: &str) -> bool {
+        Self::type_uses_name(&func.return_type, type_param)
+            || func
+                .parameters
+                .iter()
+                .any(|param| Self::type_uses_name(&param.type_, type_param))
+            || Self::block_uses_type_param(&func.body, type_param)
+    }
+
+    fn block_uses_type_param(block: &x_lir::Block, type_param: &str) -> bool {
+        block.statements
+            .iter()
+            .any(|stmt| Self::stmt_uses_type_param(stmt, type_param))
+    }
+
+    fn stmt_uses_type_param(stmt: &x_lir::Statement, type_param: &str) -> bool {
+        match stmt {
+            x_lir::Statement::Expression(expr) => Self::expr_uses_type_param(expr, type_param),
+            x_lir::Statement::Variable(var) => {
+                Self::type_uses_name(&var.type_, type_param)
+                    || var
+                        .initializer
+                        .as_ref()
+                        .map(|expr| Self::expr_uses_type_param(expr, type_param))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::If(if_stmt) => {
+                Self::expr_uses_type_param(&if_stmt.condition, type_param)
+                    || Self::stmt_uses_type_param(&if_stmt.then_branch, type_param)
+                    || if_stmt
+                        .else_branch
+                        .as_ref()
+                        .map(|stmt| Self::stmt_uses_type_param(stmt, type_param))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::While(while_stmt) => {
+                Self::expr_uses_type_param(&while_stmt.condition, type_param)
+                    || Self::stmt_uses_type_param(&while_stmt.body, type_param)
+            }
+            x_lir::Statement::DoWhile(do_while_stmt) => {
+                Self::stmt_uses_type_param(&do_while_stmt.body, type_param)
+                    || Self::expr_uses_type_param(&do_while_stmt.condition, type_param)
+            }
+            x_lir::Statement::For(for_stmt) => {
+                for_stmt
+                    .initializer
+                    .as_ref()
+                    .map(|stmt| Self::stmt_uses_type_param(stmt, type_param))
+                    .unwrap_or(false)
+                    || for_stmt
+                        .condition
+                        .as_ref()
+                        .map(|expr| Self::expr_uses_type_param(expr, type_param))
+                        .unwrap_or(false)
+                    || for_stmt
+                        .increment
+                        .as_ref()
+                        .map(|expr| Self::expr_uses_type_param(expr, type_param))
+                        .unwrap_or(false)
+                    || Self::stmt_uses_type_param(&for_stmt.body, type_param)
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                Self::expr_uses_type_param(&switch_stmt.expression, type_param)
+                    || switch_stmt.cases.iter().any(|case| {
+                        Self::expr_uses_type_param(&case.value, type_param)
+                            || Self::stmt_uses_type_param(&case.body, type_param)
+                    })
+                    || switch_stmt
+                        .default
+                        .as_ref()
+                        .map(|stmt| Self::stmt_uses_type_param(stmt, type_param))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::Match(match_stmt) => {
+                Self::expr_uses_type_param(&match_stmt.scrutinee, type_param)
+                    || match_stmt.cases.iter().any(|case| {
+                        case.guard
+                            .as_ref()
+                            .map(|expr| Self::expr_uses_type_param(expr, type_param))
+                            .unwrap_or(false)
+                            || Self::block_uses_type_param(&case.body, type_param)
+                    })
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                Self::block_uses_type_param(&try_stmt.body, type_param)
+                    || try_stmt
+                        .catch_clauses
+                        .iter()
+                        .any(|catch| Self::block_uses_type_param(&catch.body, type_param))
+                    || try_stmt
+                        .finally_block
+                        .as_ref()
+                        .map(|block| Self::block_uses_type_param(block, type_param))
+                        .unwrap_or(false)
+            }
+            x_lir::Statement::Return(expr) => expr
+                .as_ref()
+                .map(|expr| Self::expr_uses_type_param(expr, type_param))
+                .unwrap_or(false),
+            x_lir::Statement::Compound(block) => Self::block_uses_type_param(block, type_param),
+            _ => false,
+        }
+    }
+
+    fn expr_uses_type_param(expr: &x_lir::Expression, type_param: &str) -> bool {
+        match expr {
+            x_lir::Expression::Unary(_, expr)
+            | x_lir::Expression::AddressOf(expr)
+            | x_lir::Expression::Dereference(expr)
+            | x_lir::Expression::Parenthesized(expr)
+            | x_lir::Expression::SizeOfExpr(expr)
+            | x_lir::Expression::Member(expr, _)
+            | x_lir::Expression::PointerMember(expr, _)
+            | x_lir::Expression::Cast(_, expr) => Self::expr_uses_type_param(expr, type_param),
+            x_lir::Expression::Binary(_, lhs, rhs)
+            | x_lir::Expression::Assign(lhs, rhs)
+            | x_lir::Expression::AssignOp(_, lhs, rhs)
+            | x_lir::Expression::Index(lhs, rhs) => {
+                Self::expr_uses_type_param(lhs, type_param)
+                    || Self::expr_uses_type_param(rhs, type_param)
+            }
+            x_lir::Expression::Ternary(cond, then_expr, else_expr) => {
+                Self::expr_uses_type_param(cond, type_param)
+                    || Self::expr_uses_type_param(then_expr, type_param)
+                    || Self::expr_uses_type_param(else_expr, type_param)
+            }
+            x_lir::Expression::Call(callee, args) => {
+                Self::expr_uses_type_param(callee, type_param)
+                    || args.iter().any(|arg| Self::expr_uses_type_param(arg, type_param))
+            }
+            x_lir::Expression::SizeOf(ty)
+            | x_lir::Expression::AlignOf(ty) => Self::type_uses_name(ty, type_param),
+            x_lir::Expression::Comma(exprs) => exprs.iter().any(|expr| Self::expr_uses_type_param(expr, type_param)),
+            x_lir::Expression::InitializerList(inits)
+            | x_lir::Expression::CompoundLiteral(_, inits) => inits
+                .iter()
+                .any(|init| Self::initializer_uses_type_param(init, type_param)),
+            x_lir::Expression::Literal(_) | x_lir::Expression::Variable(_) => false,
+        }
+    }
+
+    fn initializer_uses_type_param(init: &x_lir::Initializer, type_param: &str) -> bool {
+        match init {
+            x_lir::Initializer::Expression(expr) => Self::expr_uses_type_param(expr, type_param),
+            x_lir::Initializer::List(items) => items
+                .iter()
+                .any(|item| Self::initializer_uses_type_param(item, type_param)),
+            x_lir::Initializer::Named(_, init) => Self::initializer_uses_type_param(init, type_param),
+            x_lir::Initializer::Indexed(expr, init) => {
+                Self::expr_uses_type_param(expr, type_param)
+                    || Self::initializer_uses_type_param(init, type_param)
+            }
+        }
+    }
+
+    fn type_uses_name(ty: &x_lir::Type, type_name: &str) -> bool {
+        match ty {
+            x_lir::Type::Pointer(inner)
+            | x_lir::Type::Qualified(_, inner) => Self::type_uses_name(inner, type_name),
+            x_lir::Type::Array(inner, _) => Self::type_uses_name(inner, type_name),
+            x_lir::Type::Tuple(items) => items.iter().any(|item| Self::type_uses_name(item, type_name)),
+            x_lir::Type::FunctionPointer(ret, params) => {
+                Self::type_uses_name(ret, type_name)
+                    || params.iter().any(|param| Self::type_uses_name(param, type_name))
+            }
+            x_lir::Type::Named(name) => name == type_name,
+            _ => false,
         }
     }
 }
@@ -1479,6 +2149,10 @@ mod tests {
         assert_eq!(
             backend.emit_lir_type(&x_lir::Type::Array(Box::new(x_lir::Type::Int), None)),
             "[]i32"
+        );
+        assert_eq!(
+            backend.emit_lir_type(&x_lir::Type::Tuple(vec![x_lir::Type::Int, x_lir::Type::Bool])),
+            "struct { f0: i32, f1: bool }"
         );
     }
 }

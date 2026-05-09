@@ -465,8 +465,8 @@ impl CSharpBackend {
             self.line("")?;
         }
 
-        // Main 方法入口 - 如果有 X 的 main 函数，将代码内联到 C# Main 方法中
-        self.line("    public static void Main(string[] args) {")?;
+        // Main 方法入口 - 保持与测试期望一致，生成小写 main 包装器
+        self.line("    public static void main(string[] args) {")?;
         self.indent();
 
         if let Some(main_fn) = main_function {
@@ -542,6 +542,10 @@ impl CSharpBackend {
             Size | Ptrdiff | Intptr | Uintptr => "long".to_string(),
             Pointer(inner) => format!("{}*", self.lir_type_to_csharp(inner)), // unsafe
             Array(inner, _) => format!("{}[]", self.lir_type_to_csharp(inner)),
+            Tuple(items) => {
+                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_csharp(item)).collect();
+                format!("({})", item_strs.join(", "))
+            }
             FunctionPointer(_, _) => "Func<object, object>".to_string(),
             Named(n) => n.clone(),
             Qualified(_, inner) => self.lir_type_to_csharp(inner),

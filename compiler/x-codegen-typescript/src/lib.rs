@@ -99,6 +99,13 @@ impl TypeScriptBackend {
             Size | Ptrdiff | Intptr | Uintptr => "number".to_string(),
             Pointer(inner) => format!("Array<{}>", self.lir_type_to_typescript(inner)),
             Array(inner, _) => format!("Array<{}>", self.lir_type_to_typescript(inner)),
+            Tuple(items) => {
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_typescript(item))
+                    .collect();
+                format!("[{}]", item_strs.join(", "))
+            }
             Named(n) => n.clone(),
             FunctionPointer(ret, params) => {
                 let param_strs: Vec<String> = params

@@ -69,6 +69,26 @@ impl PythonBackend {
         self.buffer.as_str()
     }
 
+    fn sanitize_identifier(&self, name: &str) -> String {
+        match name {
+            "False" | "None" | "True" | "and" | "as" | "assert" | "async" | "await"
+            | "break" | "class" | "continue" | "def" | "del" | "elif" | "else"
+            | "except" | "finally" | "for" | "from" | "global" | "if" | "import"
+            | "in" | "is" | "lambda" | "nonlocal" | "not" | "or" | "pass"
+            | "raise" | "return" | "try" | "while" | "with" | "yield" | "match"
+            | "case" => format!("{}_x", name),
+            _ => name.to_string(),
+        }
+    }
+
+    fn sanitize_parameters(&self, params: &[x_lir::Parameter]) -> String {
+        params
+            .iter()
+            .map(|p| self.sanitize_identifier(&p.name))
+            .collect::<Vec<_>>()
+            .join(", ")
+    }
+
     /// Emit file header with imports (Python 3.14)
     fn emit_header(&mut self) -> PythonResult<()> {
         self.line(headers::PYTHON)?;
@@ -77,6 +97,7 @@ impl PythonBackend {
         self.line("# Requires: Python >= 3.14")?;
         self.line("")?;
         self.line("from __future__ import annotations")?;
+        self.line("import builtins")?;
         self.line("import sys")?;
         self.line("")?;
         Ok(())
@@ -100,6 +121,10 @@ impl PythonBackend {
             Size | Ptrdiff | Intptr | Uintptr => "int".to_string(),
             Pointer(inner) => format!("list[{}]", self.lir_type_to_python(inner)),
             Array(inner, _) => format!("list[{}]", self.lir_type_to_python(inner)),
+            Tuple(items) => {
+                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_python(item)).collect();
+                format!("tuple[{}]", item_strs.join(", "))
+            }
             Named(n) => n.clone(),
             FunctionPointer(_, _) => "callable".to_string(),
             Qualified(_, inner) => self.lir_type_to_python(inner),
@@ -128,14 +153,27 @@ impl PythonBackend {
 
                                 let call_str = if name == "eprintln" || name == "eprintln!" {
                                     if args_part.is_empty() {
-                                        "print(file=sys.stderr)".to_string()
+                                        "builtins.print(file=sys.stderr)".to_string()
                                     } else {
-                                        format!("print({}, file=sys.stderr)", args_part)
+                                        format!("builtins.print({}, file=sys.stderr)", args_part)
                                     }
                                 } else {
-                                    format!("print({})", args_part)
+                                    format!("builtins.print({})", args_part)
                                 };
                                 self.line(&call_str)?;
+                                return Ok(());
+                            }
+                            if name == "panic" {
+                                let args_str: Vec<String> = args
+                                    .iter()
+                                    .map(|a| self.emit_lir_expr(a))
+                                    .collect::<Result<Vec<_>, _>>()?;
+                                let panic_stmt = if args_str.is_empty() {
+                                    "raise Exception()".to_string()
+                                } else {
+                                    format!("raise Exception({})", args_str.join(", "))
+                                };
+                                self.line(&panic_stmt)?;
                                 return Ok(());
                             }
                         }
@@ -143,6 +181,10 @@ impl PythonBackend {
                     // Other assignments
                     let target_str = self.emit_lir_expr(target)?;
                     let value_str = self.emit_lir_expr(value)?;
+                    if value_str.starts_with("raise ") {
+                        self.line(&value_str)?;
+                        return Ok(());
+                    }
                     self.line(&format!("{} = {}", target_str, value_str))?;
                     return Ok(());
                 }
@@ -152,10 +194,10 @@ impl PythonBackend {
             Variable(v) => {
                 if let Some(init) = &v.initializer {
                     let init_str = self.emit_lir_expr(init)?;
-                    self.line(&format!("{} = {}", v.name, init_str))?;
+                    self.line(&format!("{} = {}", self.sanitize_identifier(&v.name), init_str))?;
                 } else {
                     // Python variables need a value; use None as default
-                    self.line(&format!("{} = None", v.name))?;
+                    self.line(&format!("{} = None", self.sanitize_identifier(&v.name)))?;
                 }
             }
             If(i) => {
@@ -318,16 +360,16 @@ impl PythonBackend {
         use x_lir::Pattern::*;
         match pattern {
             Wildcard => "_".to_string(),
-            Variable(name) => name.clone(),
+            Variable(name) => self.sanitize_identifier(name),
             Literal(lit) => self
                 .emit_lir_literal(lit)
                 .unwrap_or_else(|_| "None".to_string()),
             Constructor(name, pats) => {
                 if pats.is_empty() {
-                    name.clone()
+                    self.sanitize_identifier(name)
                 } else {
                     let args: Vec<String> = pats.iter().map(|p| self.emit_lir_pattern(p)).collect();
-                    format!("{}({})", name, args.join(", "))
+                    format!("{}({})", self.sanitize_identifier(name), args.join(", "))
                 }
             }
             Tuple(pats) => {
@@ -339,7 +381,7 @@ impl PythonBackend {
                     .iter()
                     .map(|(k, v)| format!("{}={}", k, self.emit_lir_pattern(v)))
                     .collect();
-                format!("{}({})", name, field_strs.join(", "))
+                format!("{}({})", self.sanitize_identifier(name), field_strs.join(", "))
             }
             Or(left, right) => {
                 let l = self.emit_lir_pattern(left);
@@ -357,7 +399,7 @@ impl PythonBackend {
         use x_lir::Expression::*;
         match expr {
             Literal(l) => self.emit_lir_literal(l),
-            Variable(n) => Ok(n.clone()),
+            Variable(n) => Ok(self.sanitize_identifier(n)),
             Binary(op, l, r) => {
                 let left = self.emit_lir_expr(l)?;
                 let right = self.emit_lir_expr(r)?;
@@ -384,13 +426,13 @@ impl PythonBackend {
 
                 // Map X built-in functions to Python equivalents
                 let func_name = match callee_str.as_str() {
-                    "println" | "print" => "print",
+                    "println" | "print" => "builtins.print",
                     "eprintln" | "eprintln!" => {
                         let args_part = args_str.join(", ");
                         if args_part.is_empty() {
-                            return Ok("print(file=sys.stderr)".to_string());
+                            return Ok("builtins.print(file=sys.stderr)".to_string());
                         } else {
-                            return Ok(format!("print({}, file=sys.stderr)", args_part));
+                            return Ok(format!("builtins.print({}, file=sys.stderr)", args_part));
                         }
                     }
                     "panic" => {
@@ -429,11 +471,17 @@ impl PythonBackend {
             }
             Member(obj, member) => {
                 let obj_str = self.emit_lir_expr(obj)?;
+                if member == "length" {
+                    return Ok(format!("len({})", obj_str));
+                }
                 Ok(format!("{}.{}", obj_str, member))
             }
             PointerMember(obj, member) => {
                 // Python doesn't have pointer access, treat like member
                 let obj_str = self.emit_lir_expr(obj)?;
+                if member == "length" {
+                    return Ok(format!("len({})", obj_str));
+                }
                 Ok(format!("{}.{}", obj_str, member))
             }
             Index(arr, idx) => {
@@ -585,13 +633,8 @@ impl PythonBackend {
     fn emit_lir_declaration(&mut self, decl: &x_lir::Declaration) -> PythonResult<()> {
         match decl {
             x_lir::Declaration::Function(f) => {
-                let params = f
-                    .parameters
-                    .iter()
-                    .map(|p| p.name.clone())
-                    .collect::<Vec<_>>()
-                    .join(", ");
-                self.line(&format!("def {}({}):", f.name, params))?;
+                let params = self.sanitize_parameters(&f.parameters);
+                self.line(&format!("def {}({}):", self.sanitize_identifier(&f.name), params))?;
                 self.indent();
 
                 if f.body.statements.is_empty() {
@@ -609,9 +652,9 @@ impl PythonBackend {
                 let ty = self.lir_type_to_python(&v.type_);
                 if let Some(init) = &v.initializer {
                     let init_str = self.emit_lir_expr(init)?;
-                    self.line(&format!("{}: {} = {}", v.name, ty, init_str))?;
+                    self.line(&format!("{}: {} = {}", self.sanitize_identifier(&v.name), ty, init_str))?;
                 } else {
-                    self.line(&format!("{}: {} = None", v.name, ty))?;
+                    self.line(&format!("{}: {} = None", self.sanitize_identifier(&v.name), ty))?;
                 }
             }
             x_lir::Declaration::Struct(s) => {
@@ -765,7 +808,26 @@ impl PythonBackend {
                 self.line(&format!("# extern function {}", ef.name))?;
             }
             x_lir::Declaration::Import(imp) => {
-                if imp.import_all {
+                if imp.module_path.starts_with("std.") {
+                    if imp.import_all {
+                        self.line(&format!("# import {}.*", imp.module_path))?;
+                    } else if imp.symbols.is_empty() {
+                        self.line(&format!("# import {}", imp.module_path))?;
+                    } else {
+                        let syms: Vec<String> = imp
+                            .symbols
+                            .iter()
+                            .map(|(name, alias)| {
+                                if let Some(a) = alias {
+                                    format!("{} as {}", name, a)
+                                } else {
+                                    name.clone()
+                                }
+                            })
+                            .collect();
+                        self.line(&format!("# from {} import {}", imp.module_path, syms.join(", ")))?;
+                    }
+                } else if imp.import_all {
                     self.line(&format!("from {} import *", imp.module_path))?;
                 } else if imp.symbols.is_empty() {
                     self.line(&format!("import {}", imp.module_path))?;
@@ -986,5 +1048,13 @@ mod tests {
         assert_eq!(backend.lir_type_to_python(&x_lir::Type::Bool), "bool");
         assert_eq!(backend.lir_type_to_python(&x_lir::Type::Char), "str");
         assert_eq!(backend.lir_type_to_python(&x_lir::Type::Void), "None");
+    }
+
+    #[test]
+    fn test_sanitize_python_reserved_identifier() {
+        let backend = PythonBackend::new(PythonBackendConfig::default());
+
+        assert_eq!(backend.sanitize_identifier("assert"), "assert_x");
+        assert_eq!(backend.sanitize_identifier("main"), "main");
     }
 }

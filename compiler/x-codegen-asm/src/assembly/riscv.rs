@@ -149,6 +149,7 @@ impl RiscVAssemblyGenerator {
                 let len = len.unwrap_or(1);
                 self.size_of_ty(ty) * (len as usize)
             }
+            lir::Type::Tuple(items) => items.iter().map(|item| self.size_of_ty(item)).sum(),
             lir::Type::FunctionPointer(_, _) => 8,
             lir::Type::Named(_) => 8,
             lir::Type::Qualified(_, ty) => self.size_of_ty(ty),
@@ -1375,6 +1376,7 @@ impl RiscVAssemblyGenerator {
             Type::FunctionPointer(_, _) => 8,
             Type::Array(elem, Some(len)) => elem.size_of() * (*len as usize),
             Type::Array(elem, None) => elem.size_of(),
+            Type::Tuple(items) => items.iter().map(Type::size_of).sum(),
             Type::Named(_) => 0,
             Type::Qualified(_, ty) => ty.size_of(),
         }
@@ -1398,6 +1400,7 @@ impl RiscVAssemblyGenerator {
             Type::Pointer(_) => 8,
             Type::FunctionPointer(_, _) => 8,
             Type::Array(elem, _) => elem.align_of(),
+            Type::Tuple(items) => items.iter().map(Type::align_of).max().unwrap_or(1),
             Type::Named(_) => 8,
             Type::Qualified(_, ty) => ty.align_of(),
         }

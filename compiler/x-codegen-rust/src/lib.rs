@@ -1234,6 +1234,10 @@ path = "src/main.rs"
                 let inner_str = self.lir_type_to_rust(inner);
                 format!("[{}; {}]", inner_str, size)
             }
+            x_lir::Type::Tuple(items) => {
+                let item_strs: Vec<String> = items.iter().map(|t| self.lir_type_to_rust(t)).collect();
+                format!("({})", item_strs.join(", "))
+            }
             x_lir::Type::FunctionPointer(return_type, param_types) => {
                 let params: Vec<String> = param_types
                     .iter()

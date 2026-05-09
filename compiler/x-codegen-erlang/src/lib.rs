@@ -189,6 +189,10 @@ impl ErlangBackend {
             Size | Ptrdiff | Intptr | Uintptr => "integer()".to_string(),
             Pointer(_) => "term()".to_string(),
             Array(_, _) => "[term()]".to_string(),
+            Tuple(items) => {
+                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_erlang(item)).collect();
+                format!("{{{}}}", item_strs.join(", "))
+            }
             FunctionPointer(_, _) => "fun()".to_string(),
             Named(n) => n.clone(),
             Qualified(_, inner) => self.lir_type_to_erlang(inner),

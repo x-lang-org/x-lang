@@ -105,6 +105,10 @@ impl JavaBackend {
             Size | Ptrdiff | Intptr | Uintptr => "long".to_string(),
             Pointer(inner) => format!("{}[]", self.lir_type_to_java(inner)),
             Array(inner, _) => format!("{}[]", self.lir_type_to_java(inner)),
+            Tuple(items) => {
+                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_java(item)).collect();
+                format!("Object /* tuple<{}> */", item_strs.join(", "))
+            }
             Named(n) => n.clone(),
             FunctionPointer(_, _) => "java.util.function.Function".to_string(),
             Qualified(_, inner) => self.lir_type_to_java(inner),

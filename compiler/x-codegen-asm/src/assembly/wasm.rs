@@ -196,6 +196,7 @@ impl Wasm32AssemblyGenerator {
             lir::Type::Pointer(_) => 4,
             lir::Type::FunctionPointer(_, _) => 4,
             lir::Type::Array(elem, _) => self.align_of_ty(elem),
+            lir::Type::Tuple(items) => items.iter().map(|item| self.align_of_ty(item)).max().unwrap_or(1),
             lir::Type::Qualified(_, ty) => self.align_of_ty(ty),
             _ => 4,
         }

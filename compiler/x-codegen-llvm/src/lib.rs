@@ -162,6 +162,11 @@ impl LlvmBackend {
                 let size = size.unwrap_or(0);
                 Ok(format!("[{} x {}]", size, inner_ty))
             }
+            Type::Tuple(items) => {
+                let item_tys: Result<Vec<String>, _> =
+                    items.iter().map(|item| self.llvm_type(item)).collect();
+                Ok(format!("{{ {} }}", item_tys?.join(", ")))
+            }
             Type::FunctionPointer(ret, params) => {
                 let ret_ty = self.llvm_type(ret)?;
                 let param_tys: Result<Vec<String>, _> =
@@ -2201,6 +2206,7 @@ impl LlvmBackend {
                 let inner_size = self.type_size(inner);
                 inner_size * size.unwrap_or(1)
             }
+            Type::Tuple(items) => items.iter().map(|item| self.type_size(item)).sum(),
             _ => 8,
         }
     }
@@ -2217,6 +2223,7 @@ impl LlvmBackend {
             Type::Double => 8,
             Type::LongDouble => 16,
             Type::Pointer(_) => 8,
+            Type::Tuple(items) => items.iter().map(|item| self.type_align(item)).max().unwrap_or(1),
             _ => 8,
         }
     }

@@ -1472,6 +1472,7 @@ impl X86_64AssemblyGenerator {
             Type::Int | Type::Uint | Type::Float => 4,
             Type::Long | Type::Ulong | Type::Double | Type::Pointer(_) => 8,
             Type::LongLong | Type::UlongLong | Type::LongDouble => 16,
+            Type::Tuple(items) => items.iter().map(Type::size_of).sum(),
             _ => 8,
         }
     }
