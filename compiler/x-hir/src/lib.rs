@@ -1250,6 +1250,12 @@ impl<'a> HirConverter<'a> {
         &mut self,
         var_decl: &ast::VariableDecl,
     ) -> Result<HirVariableDecl, HirError> {
+        let Some(name) = var_decl.simple_name() else {
+            return Err(HirError::conversion(
+                "destructuring variable declarations are not lowered to HIR yet".to_string(),
+            ));
+        };
+
         let ty = if let Some(type_annot) = &var_decl.type_annot {
             HirType::from_ast(type_annot)
         } else if let Some(initializer) = &var_decl.initializer {
@@ -1265,7 +1271,7 @@ impl<'a> HirConverter<'a> {
         };
 
         Ok(HirVariableDecl {
-            name: var_decl.name.clone(),
+            name: name.to_string(),
             is_mutable: var_decl.is_mutable,
             ty,
             initializer,
@@ -1375,6 +1381,57 @@ impl<'a> HirConverter<'a> {
             }
             StatementKind::Variable(var_decl) => {
                 let hir_decl = self.convert_variable_decl(var_decl)?;
+                self.variables
+                    .insert(hir_decl.name.clone(), hir_decl.ty.clone());
+                Ok(HirStatement::Variable(hir_decl))
+            }
+            StatementKind::Function(func_decl) => {
+                let outer_vars = self.variables.clone();
+
+                let mut hir_params = Vec::new();
+                for param in &func_decl.parameters {
+                    let ty = if let Some(type_annot) = &param.type_annot {
+                        HirType::from_ast(type_annot)
+                    } else {
+                        HirType::Unknown
+                    };
+                    self.variables.insert(param.name.clone(), ty.clone());
+                    hir_params.push(HirParameter {
+                        name: param.name.clone(),
+                        ty,
+                        default: None,
+                    });
+                }
+
+                let hir_body = self.convert_block(&func_decl.body)?;
+                self.variables = outer_vars;
+
+                let lambda = HirExpression::Lambda(hir_params, hir_body);
+                let hir_decl = HirVariableDecl {
+                    name: func_decl.name.clone(),
+                    is_mutable: false,
+                    ty: HirType::Function(
+                        func_decl
+                            .parameters
+                            .iter()
+                            .map(|param| {
+                                param
+                                    .type_annot
+                                    .as_ref()
+                                    .map(HirType::from_ast)
+                                    .unwrap_or(HirType::Unknown)
+                            })
+                            .collect(),
+                        Box::new(
+                            func_decl
+                                .return_type
+                                .as_ref()
+                                .map(HirType::from_ast)
+                                .unwrap_or(HirType::Unknown),
+                        ),
+                    ),
+                    initializer: Some(lambda),
+                };
                 self.variables
                     .insert(hir_decl.name.clone(), hir_decl.ty.clone());
                 Ok(HirStatement::Variable(hir_decl))

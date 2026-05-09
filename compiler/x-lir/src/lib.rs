@@ -254,6 +254,7 @@ pub enum Type {
     Uintptr,
     Pointer(Box<Type>),
     Array(Box<Type>, Option<u64>),
+    Tuple(Vec<Type>),
     FunctionPointer(Box<Type>, Vec<Type>),
     Named(String),
     Qualified(Qualifiers, Box<Type>),
@@ -619,6 +620,16 @@ impl Display for Type {
             Type::Pointer(inner) => write!(f, "{}*", inner),
             Type::Array(inner, Some(size)) => write!(f, "{}[{size}]", inner),
             Type::Array(inner, None) => write!(f, "{}[]", inner),
+            Type::Tuple(items) => {
+                write!(f, "(")?;
+                for (i, item) in items.iter().enumerate() {
+                    if i > 0 {
+                        write!(f, ", ")?;
+                    }
+                    write!(f, "{item}")?;
+                }
+                write!(f, ")")
+            }
             Type::FunctionPointer(ret, params) => {
                 write!(f, "{} (*)(,", ret)?;
                 for (i, p) in params.iter().enumerate() {
@@ -1331,6 +1342,7 @@ impl Type {
             Type::FunctionPointer(_, _) => 8,
             Type::Array(elem, Some(len)) => elem.size_of() * (*len as usize),
             Type::Array(elem, None) => elem.size_of(), // unsized array, size is element size
+            Type::Tuple(items) => items.iter().map(Type::size_of).sum(),
             Type::Named(_) => 0,                       // named types need lookup, handled by caller
             Type::Qualified(_, ty) => ty.size_of(),
         }
@@ -1353,6 +1365,7 @@ impl Type {
             Type::Pointer(_) => 8,
             Type::FunctionPointer(_, _) => 8,
             Type::Array(elem, _) => elem.align_of(),
+            Type::Tuple(items) => items.iter().map(Type::align_of).max().unwrap_or(1),
             Type::Named(_) => 8, // default alignment for named types
             Type::Qualified(_, ty) => ty.align_of(),
         }

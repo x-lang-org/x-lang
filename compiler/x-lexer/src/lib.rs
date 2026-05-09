@@ -1,5 +1,7 @@
 // 词法分析器库
 
+use std::collections::VecDeque;
+
 pub mod errors;
 pub mod span;
 pub mod token;
@@ -35,6 +37,10 @@ pub struct Lexer<'a> {
     pub skipped_positions: Vec<(usize, char)>,
     /// 缓存的下一个字符（用于高效的双字符前瞻）
     cached_next: Option<char>,
+    /// 当前字符串插值表达式中的大括号嵌套深度
+    interpolation_brace_depth: usize,
+    /// 已词法化但尚未返回的 token（用于字符串插值拆分）
+    pending_tokens: VecDeque<(Token, Span)>,
 }
 
 impl<'a> Lexer<'a> {
@@ -67,12 +73,18 @@ impl<'a> Lexer<'a> {
             recovery_mode: false,
             skipped_positions: Vec::new(),
             cached_next: next,
+            interpolation_brace_depth: 0,
+            pending_tokens: VecDeque::new(),
         }
     }
 
     /// 获取当前位置的字符
     pub fn current_char(&mut self) -> Option<char> {
         self.chars.peek().copied()
+    }
+
+    fn is_identifier_start(ch: char) -> bool {
+        ch.is_alphabetic() || ch == '_'
     }
 
     /// 高效获取下一个字符（不移动位置）
@@ -484,6 +496,10 @@ impl<'a> Lexer<'a> {
 
     /// 获取下一个标记及其在源码中的 Span
     pub fn next_token(&mut self) -> Result<(Token, Span), LexError> {
+        if let Some(token) = self.pending_tokens.pop_front() {
+            return Ok(token);
+        }
+
         loop {
             match self.current_state() {
                 LexerState::Normal => {
@@ -589,6 +605,13 @@ impl<'a> Lexer<'a> {
                                     LexerState::StringInterpolate
                                 )
                             {
+                                if self.interpolation_brace_depth > 0 {
+                                    self.interpolation_brace_depth -= 1;
+                                    let start = self.position;
+                                    let result = self.parse_operator();
+                                    let end = self.position;
+                                    return result.map(|t| (t, Span::new(start, end)));
+                                }
                                 // This } closes an interpolation - pop Normal (current) and StringInterpolate
                                 // This returns us to the string state where we started
                                 let start = self.position;
@@ -599,6 +622,20 @@ impl<'a> Lexer<'a> {
                                 return Ok((Token::InterpolateEnd, Span::new(start, end)));
                             }
                             // Otherwise it's a normal }
+                            let start = self.position;
+                            let result = self.parse_operator();
+                            let end = self.position;
+                            return result.map(|t| (t, Span::new(start, end)));
+                        }
+                        Some('{') => {
+                            if self.state_stack.len() >= 2
+                                && matches!(
+                                    self.state_stack[self.state_stack.len() - 2],
+                                    LexerState::StringInterpolate
+                                )
+                            {
+                                self.interpolation_brace_depth += 1;
+                            }
                             let start = self.position;
                             let result = self.parse_operator();
                             let end = self.position;
@@ -761,6 +798,10 @@ impl<'a> Lexer<'a> {
                 return Ok(Token::DecimalInt(num_str));
             }
 
+            if !matches!(next, Some(ch) if ch.is_ascii_digit()) {
+                return Ok(Token::DecimalInt(num_str));
+            }
+
             // 这是浮点数的开始
             num_str.push('.');
             self.next_char();
@@ -864,6 +905,42 @@ impl<'a> Lexer<'a> {
         Err(LexError::UnclosedString)
     }
 
+    fn parse_unicode_escape(&mut self) -> Result<char, LexError> {
+        if self.current_char() != Some('u') {
+            return Err(LexError::InvalidUnicodeEscape("expected unicode escape".to_string()));
+        }
+
+        self.next_char(); // consume 'u'
+        if self.current_char() != Some('{') {
+            return Err(LexError::InvalidUnicodeEscape("\\u".to_string()));
+        }
+        self.next_char(); // consume '{'
+
+        let mut hex = String::new();
+        let mut closed = false;
+        while let Some(ch) = self.current_char() {
+            if ch.is_ascii_hexdigit() {
+                hex.push(ch);
+                self.next_char();
+            } else if ch == '}' {
+                self.next_char();
+                closed = true;
+                break;
+            } else {
+                return Err(LexError::InvalidUnicodeEscape(format!("\\u{{{}{}}}", hex, ch)));
+            }
+        }
+
+        if !closed || hex.is_empty() {
+            return Err(LexError::InvalidUnicodeEscape(format!("\\u{{{}", hex)));
+        }
+
+        let code_point =
+            u32::from_str_radix(&hex, 16).map_err(|_| LexError::InvalidUnicodeEscape(format!("\\u{{{}}}", hex)))?;
+        char::from_u32(code_point)
+            .ok_or_else(|| LexError::InvalidUnicodeEscape(format!("\\u{{{}}}", hex)))
+    }
+
     /// 解析字符串内容
     #[allow(dead_code)]
     fn parse_string_content(&mut self) -> Result<Token, LexError> {
@@ -887,49 +964,142 @@ impl<'a> Lexer<'a> {
                         self.next_char();
                         if let Some(escaped_ch) = self.current_char() {
                             match escaped_ch {
-                                'n' => content.push('\n'),
-                                't' => content.push('\t'),
-                                'r' => content.push('\r'),
-                                '"' => content.push('"'),
-                                '\'' => content.push('\''),
-                                '\\' => content.push('\\'),
-                                '0' => content.push('\0'),
-                                _ => content.push(escaped_ch),
+                                'n' => {
+                                    content.push('\n');
+                                    self.next_char();
+                                }
+                                't' => {
+                                    content.push('\t');
+                                    self.next_char();
+                                }
+                                'r' => {
+                                    content.push('\r');
+                                    self.next_char();
+                                }
+                                '"' => {
+                                    content.push('"');
+                                    self.next_char();
+                                }
+                                '\'' => {
+                                    content.push('\'');
+                                    self.next_char();
+                                }
+                                '\\' => {
+                                    content.push('\\');
+                                    self.next_char();
+                                }
+                                '0' => {
+                                    content.push('\0');
+                                    self.next_char();
+                                }
+                                'u' => content.push(self.parse_unicode_escape()?),
+                                _ => {
+                                    content.push(escaped_ch);
+                                    self.next_char();
+                                }
                             }
-                            self.next_char();
+                        } else {
+                            self.pop_state();
+                            return Err(LexError::UnclosedString);
                         }
                     } else if ch == '$' && self.peek_next() == Some('{') {
                         // Start interpolation: ${expr}
                         self.next_char(); // consume $
                         self.next_char(); // consume {
-                                          // Push Normal state so we can lex the expression normally
+                        self.interpolation_brace_depth = 0;
+                        self.push_state(LexerState::StringInterpolate);
                         if content.is_empty() {
                             // No content before interpolation, return InterpolateStart directly
+                            self.push_state(LexerState::Normal);
                             return Ok(Token::InterpolateStart);
                         }
                         // The next token will be InterpolateStart handled by the state logic
                         break;
+                    } else if ch == '$'
+                        && self
+                            .peek_next()
+                            .is_some_and(Lexer::is_identifier_start)
+                    {
+                        let interpolate_start = self.position;
+                        self.next_char(); // consume $
+
+                        let ident_start = self.position;
+                        let ident = self.parse_identifier()?;
+                        let ident_end = self.position;
+
+                        self.pending_tokens.push_back((
+                            ident,
+                            Span::new(ident_start, ident_end),
+                        ));
+                        self.pending_tokens.push_back((
+                            Token::InterpolateEnd,
+                            Span::new(ident_end, ident_end),
+                        ));
+
+                        if content.is_empty() {
+                            return Ok(Token::InterpolateStart);
+                        }
+
+                        self.pending_tokens.push_front((
+                            Token::InterpolateStart,
+                            Span::new(interpolate_start, ident_start),
+                        ));
+                        break;
+                    } else {
+                        content.push(ch);
+                        self.next_char();
                     }
                 }
                 LexerState::MultilineString => {
-                    if ch == '"' {
-                        // 检查下两个字符是否也是 "
-                        self.next_char();
-                        if self.current_char() == Some('"') {
+                    if self.input[self.position..].starts_with("\"\"\"") {
+                        if content.is_empty() {
                             self.next_char();
-                            if self.current_char() == Some('"') {
-                                self.next_char();
-                                self.pop_state();
-                                return Ok(Token::MultilineStringQuote);
-                            } else {
-                                // 不是三个连续的 "，回退两个字符
-                                content.push('"');
-                                content.push('"');
-                            }
-                        } else {
-                            // 不是三个连续的 "，回退一个字符
-                            content.push('"');
+                            self.next_char();
+                            self.next_char();
+                            self.pop_state();
+                            return Ok(Token::MultilineStringQuote);
                         }
+                        return Ok(Token::StringContent(content));
+                    } else if ch == '$' && self.peek_next() == Some('{') {
+                        self.next_char(); // consume $
+                        self.next_char(); // consume {
+                        self.interpolation_brace_depth = 0;
+                        self.push_state(LexerState::StringInterpolate);
+                        if content.is_empty() {
+                            self.push_state(LexerState::Normal);
+                            return Ok(Token::InterpolateStart);
+                        }
+                        break;
+                    } else if ch == '$'
+                        && self
+                            .peek_next()
+                            .is_some_and(Lexer::is_identifier_start)
+                    {
+                        let interpolate_start = self.position;
+                        self.next_char(); // consume $
+
+                        let ident_start = self.position;
+                        let ident = self.parse_identifier()?;
+                        let ident_end = self.position;
+
+                        self.pending_tokens.push_back((
+                            ident,
+                            Span::new(ident_start, ident_end),
+                        ));
+                        self.pending_tokens.push_back((
+                            Token::InterpolateEnd,
+                            Span::new(ident_end, ident_end),
+                        ));
+
+                        if content.is_empty() {
+                            return Ok(Token::InterpolateStart);
+                        }
+
+                        self.pending_tokens.push_front((
+                            Token::InterpolateStart,
+                            Span::new(interpolate_start, ident_start),
+                        ));
+                        break;
                     } else {
                         content.push(ch);
                         self.next_char();
@@ -937,6 +1107,13 @@ impl<'a> Lexer<'a> {
                 }
                 _ => break,
             }
+        }
+
+        if self.current_char().is_none()
+            && matches!(self.current_state(), LexerState::String | LexerState::MultilineString)
+        {
+            self.pop_state();
+            return Err(LexError::UnclosedString);
         }
 
         Ok(Token::StringContent(content))
@@ -964,29 +1141,7 @@ impl<'a> Lexer<'a> {
                 Some('\\') => '\\',
                 Some('0') => '\0',
                 Some('u') => {
-                    // Unicode 转义: \u{...}
-                    if self.current_char() == Some('{') {
-                        self.next_char();
-                        let mut hex = String::new();
-                        while let Some(h) = self.current_char() {
-                            if h.is_ascii_hexdigit() {
-                                hex.push(h);
-                                self.next_char();
-                            } else if h == '}' {
-                                self.next_char();
-                                break;
-                            } else {
-                                break;
-                            }
-                        }
-                        if let Ok(code_point) = u32::from_str_radix(&hex, 16) {
-                            if let Some(c) = char::from_u32(code_point) {
-                                return Ok(Token::CharContent(c.to_string()));
-                            }
-                        }
-                        return Err(LexError::InvalidToken('u', self.position));
-                    }
-                    'u'
+                    self.parse_unicode_escape()?
                 }
                 Some(c) => c,
                 None => unreachable!(),
@@ -1162,6 +1317,21 @@ mod tests {
     }
 
     #[test]
+    fn test_integer_member_access_does_not_become_float() {
+        let input = "4.sqrt() 2.pow(3)";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+
+        assert!(matches!(&tokens[0], Token::DecimalInt(s) if s == "4"));
+        assert!(matches!(tokens[1], Token::Dot));
+        assert!(matches!(&tokens[2], Token::Ident(s) if s == "sqrt"));
+
+        assert!(matches!(&tokens[5], Token::DecimalInt(s) if s == "2"));
+        assert!(matches!(tokens[6], Token::Dot));
+        assert!(matches!(&tokens[7], Token::Ident(s) if s == "pow"));
+    }
+
+    #[test]
     fn test_lex_operators() {
         let input = "+ - * / = == != < <= > >= && ||";
         let iter = new_lexer(input);
@@ -1284,8 +1454,10 @@ mod tests {
         let input = r#" "a" "#;
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "a"));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::StringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "a"));
+        assert!(matches!(tokens[2], Token::StringQuote));
     }
 
     #[test]
@@ -1293,8 +1465,10 @@ mod tests {
         let input = r#" "\n\t\r\"\\" "#;
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "\n\t\r\"\\"));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::StringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "\n\t\r\"\\"));
+        assert!(matches!(tokens[2], Token::StringQuote));
     }
 
     #[test]
@@ -1302,7 +1476,9 @@ mod tests {
         let input = r#" "abc"#;
         let mut iter = new_lexer(input);
         let first = iter.next();
-        assert!(matches!(first, Some(Err(LexError::UnclosedString))));
+        assert!(matches!(first, Some(Ok((Token::StringQuote, _)))));
+        let second = iter.next();
+        assert!(matches!(second, Some(Err(LexError::UnclosedString))));
     }
 
     // ----- 字符字面量 -----
@@ -1390,10 +1566,12 @@ mod tests {
         let input = "\"\"\"\nmultiline\nstring\ncontent\n\"\"\"";
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::MultilineStringQuote));
         assert!(
-            matches!(&tokens[0], Token::StringContent(s) if s == "\nmultiline\nstring\ncontent\n")
+            matches!(&tokens[1], Token::StringContent(s) if s == "\nmultiline\nstring\ncontent\n")
         );
+        assert!(matches!(tokens[2], Token::MultilineStringQuote));
     }
 
     #[test]
@@ -1402,8 +1580,9 @@ mod tests {
         let input = "\"\"\"\"\"\"";
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s.is_empty()));
+        assert_eq!(tokens.len(), 2);
+        assert!(matches!(tokens[0], Token::MultilineStringQuote));
+        assert!(matches!(tokens[1], Token::MultilineStringQuote));
     }
 
     #[test]
@@ -1414,17 +1593,20 @@ mod tests {
         let input = "\"\"\"hello \"\"world\"\" test\"\"\"";
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "hello \"\"world\"\" test"));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::MultilineStringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "hello \"\"world\"\" test"));
+        assert!(matches!(tokens[2], Token::MultilineStringQuote));
     }
 
     #[test]
     fn test_multiline_string_unclosed() {
         let input = "\"\"\"hello ";
-        let iter = new_lexer(input);
-        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        // 第一个 """ 是多行字符串开始但未闭合，会返回错误
-        assert!(tokens.is_empty());
+        let mut iter = new_lexer(input);
+        let first = iter.next();
+        assert!(matches!(first, Some(Ok((Token::MultilineStringQuote, _)))));
+        let second = iter.next();
+        assert!(matches!(second, Some(Err(LexError::UnclosedString))));
     }
 
     // ----- Unicode 转义 -----
@@ -1433,8 +1615,10 @@ mod tests {
         let input = r#""\u{41}\u{42}\u{43}""#;
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "ABC"));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::StringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "ABC"));
+        assert!(matches!(tokens[2], Token::StringQuote));
     }
 
     #[test]
@@ -1442,8 +1626,10 @@ mod tests {
         let input = r#""\u{4E2D}\u{6587}""#;
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s == "中文"));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::StringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "中文"));
+        assert!(matches!(tokens[2], Token::StringQuote));
     }
 
     #[test]
@@ -1577,8 +1763,10 @@ mod tests {
         let input = "\"\"\"\nhello\nworld\n\"\"\"";
         let iter = new_lexer(input);
         let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
-        assert_eq!(tokens.len(), 1);
-        assert!(matches!(&tokens[0], Token::StringContent(s) if s.contains("hello")));
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(tokens[0], Token::MultilineStringQuote));
+        assert!(matches!(&tokens[1], Token::StringContent(s) if s == "\nhello\nworld\n"));
+        assert!(matches!(tokens[2], Token::MultilineStringQuote));
     }
 
     // ----- SPEC.md 关键字测试 -----
@@ -1641,4 +1829,19 @@ fn test_non_empty_string_correct_sequence() {
     assert!(matches!(tokens[0], Token::StringQuote));
     assert!(matches!(&tokens[1], Token::StringContent(s) if s == "hello"));
     assert!(matches!(tokens[2], Token::StringQuote));
+}
+
+#[test]
+fn test_short_interpolation_token_sequence() {
+    let input = r#""Hello, $name!""#;
+    let iter = new_lexer(input);
+    let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+    assert_eq!(tokens.len(), 7);
+    assert!(matches!(tokens[0], Token::StringQuote));
+    assert!(matches!(&tokens[1], Token::StringContent(s) if s == "Hello, "));
+    assert!(matches!(tokens[2], Token::InterpolateStart));
+    assert!(matches!(&tokens[3], Token::Ident(s) if s == "name"));
+    assert!(matches!(tokens[4], Token::InterpolateEnd));
+    assert!(matches!(&tokens[5], Token::StringContent(s) if s == "!"));
+    assert!(matches!(tokens[6], Token::StringQuote));
 }

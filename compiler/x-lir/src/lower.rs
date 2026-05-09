@@ -417,6 +417,9 @@ fn lower_type(ty: &MirType) -> Type {
         MirType::Unit => Type::Void,
         MirType::Pointer(inner) => Type::Pointer(Box::new(lower_type(inner))),
         MirType::Array(inner, len) => Type::Array(Box::new(lower_type(inner)), Some(*len as u64)),
+        MirType::Struct(name, fields) if name == "tuple" => {
+            Type::Tuple(fields.iter().map(lower_type).collect())
+        }
         MirType::Struct(name, _) => Type::Named(name.clone()),
         MirType::Function(params, ret) => Type::FunctionPointer(
             Box::new(lower_type(ret)),

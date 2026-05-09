@@ -22,7 +22,7 @@ impl Span {
 
     /// 将字节偏移转换为 (行号, 列号)，1-based，用于显示。
     pub fn line_col(&self, source: &str) -> (usize, usize) {
-        let offset = self.start.min(source.len());
+        let offset = clamp_to_char_boundary(source, self.start.min(source.len()));
         let head = &source[..offset];
         let line = head.split('\n').count().max(1);
         let last_newline = head.rfind('\n').map(|i| i + 1).unwrap_or(0);
@@ -32,8 +32,16 @@ impl Span {
 
     /// 取该 span 对应的源码片段（用于错误信息中的代码引用）。
     pub fn snippet<'a>(&self, source: &'a str) -> &'a str {
-        let start = self.start.min(source.len());
-        let end = self.end.min(source.len()).max(start);
+        let start = clamp_to_char_boundary(source, self.start.min(source.len()));
+        let end = clamp_to_char_boundary(source, self.end.min(source.len())).max(start);
         &source[start..end]
     }
+}
+
+fn clamp_to_char_boundary(source: &str, offset: usize) -> usize {
+    let mut clamped = offset.min(source.len());
+    while clamped > 0 && !source.is_char_boundary(clamped) {
+        clamped -= 1;
+    }
+    clamped
 }
