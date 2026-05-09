@@ -1,92 +1,43 @@
 # AGENTS.md — tools/x-cli/
 
-**CLI entry point & pipeline orchestrator.** Exposes `run`, `check`, `compile` commands; drives compiler from lexer through codegen.
-
----
+**Scope**: user-facing CLI behavior and pipeline orchestration only. Tools-workspace policy belongs in `tools/AGENTS.md`.
 
 ## OVERVIEW
 
-Command-line interface for the X toolchain orchestrating the full compilation pipeline.
-- **Binary name**: `x` (defined in `Cargo.toml` as `[[bin]]`)
-- **Entry point**: `src/main.rs` (clap-based argument parser)
-- **Pipeline driver**: `src/pipeline.rs` (sequences lexer → parser → typechecker → hir → mir → lir → codegen)
-- **Output control**: `--emit` flag selects which IR stage to output
+`x-cli` is the main binary crate:
+- entry point: `src/main.rs`
+- pipeline orchestration: `src/pipeline.rs`
+- command handlers: `src/commands/*`
 
----
+## WHERE TO LOOK
+
+| Task | Location |
+|------|----------|
+| Add global flag / subcommand routing | `src/main.rs` |
+| Change pipeline sequencing or shared compile logic | `src/pipeline.rs` |
+| Change `run` behavior | `src/commands/run.rs` |
+| Change `check` behavior | `src/commands/check.rs` |
+| Change `compile` targets/linking | `src/commands/compile.rs` |
+| Change `test` command behavior | `src/commands/test_cmd.rs` |
+
+## LOCAL RULES
+
+- CLI should route cleanly into compiler crates; do not re-implement stage logic here.
+- `run` and `check` use big-stack wrappers around type checking; preserve that behavior when touching deep-AST paths.
+- Backend defaults and native linking details can route into `x-codegen-asm` or target-specific backends.
+- Keep user-facing behavior deterministic and error messages actionable.
 
 ## COMMANDS
 
-| Command | Effect |
-|---------|--------|
-| `x run <file.x>` | Parse → type-check → interpret (AST-based execution) |
-| `x check <file.x>` | Parse → type-check only; report errors; no codegen |
-| `x compile <file.x>` | Full pipeline → codegen → target code output |
-
----
-
-## KEY FLAGS
-
-| Flag | Purpose |
-|------|---------|
-| `--emit {tokens,ast,hir,mir,lir,zig,python,rust,...}` | Output IR stage or generated code |
-| `-o, --output <path>` | Write result to file |
-| `--backend {zig,python,rust,...}` | Select codegen backend (default: zig) |
-| `--debug` | Increase logging verbosity |
-| `--version` | Print version info |
-
----
-
-## PIPELINE ORCHESTRATION
-
-**File**: `src/pipeline.rs`
-
-```
-Input (file.x)
-  ↓ [Lexer]
-  ↓ [Parser]
-  ↓ [Typechecker]
-  ↓ [HIR] (optional --emit hir)
-  ↓ [MIR] (optional --emit mir + Perceus marks)
-  ↓ [LIR] (optional --emit lir)
-  ↓ [Codegen: x-codegen-{backend}]
-Output (target code or --emit stage)
+```bash
+cd tools/x-cli && cargo build
+cd tools && cargo test -p x-cli
+cd tools/x-cli && cargo run -- run ../../examples/hello.x
+cd tools/x-cli && cargo run -- check ../../examples/hello.x
+cd tools/x-cli && cargo run -- compile ../../examples/hello.x -o hello
 ```
 
-**Emit stage mapping**: --emit flag gates output at each pipeline stage.
+## HAZARDS
 
----
-
-## COMMON TASKS
-
-| Task | Steps |
-|------|-------|
-| **Add CLI flag** | 1. Add field to clap struct in main.rs; 2. Pass through pipeline.rs; 3. Test with `cargo run -- <cmd> --new-flag` |
-| **Add --emit type** | 1. Add variant to `EmitStage` enum in pipeline.rs; 2. Extend match arms in emit logic; 3. Integrate codegen or IR output |
-| **Change default backend** | Edit pipeline.rs backend selection (currently Zig) |
-| **Test** | `cargo run -- run examples/hello.x` / `check` / `compile` |
-
----
-
-## DEPENDENCIES
-
-- **Upstream**: All compiler crates (x-lexer through x-codegen-*) via `../compiler/*` path dependencies
-- **Parser**: Clap for CLI argument handling
-- **No downstream**: CLI is final user-facing tool
-
----
-
-## CONVENTIONS
-
-1. **Deterministic behavior**: Same input → same output (crucial for reproducible builds)
-2. **Clap struct**: Defines CLI interface; auto-generates `--help`
-3. **Error propagation**: Use `Result<T, CliError>` through pipeline
-4. **Logging**: Use `log::info!()` for major stages; `debug!()` for details
-5. **Workspace deps**: Reference compiler crates via `path = "../compiler/..."` in Cargo.toml
-
----
-
-## NEXT STEPS
-
-- For **pipeline stages**, see `compiler/AGENTS.md`
-- For **backend selection**, see `compiler/x-codegen/AGENTS.md`
-- For **feature implementation**, see root `AGENTS.md` → Feature Implementation Order
+- Windows/native link behavior frequently crosses into `src/commands/compile.rs` and `x-codegen-asm`.
+- Do not put workspace-wide compiler dependency notes here; keep those in `tools/AGENTS.md`.
