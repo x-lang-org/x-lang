@@ -24,7 +24,7 @@ pub fn parse_program(input: &str) -> Result<Program, ParseError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ast::{BinaryOp, Declaration, ExpressionKind, Literal, Pattern, StatementKind};
+    use crate::ast::{BinaryOp, Declaration, ExpressionKind, Literal, Pattern, StatementKind, Type};
 
     #[test]
     fn parse_module_import_export() {
@@ -389,10 +389,37 @@ trait Printable {
     #[test]
     fn parse_type_alias() {
         let src = r#"
-type AliasName = Int
+type AliasName = integer
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
+        match &program.declarations[0] {
+            Declaration::TypeAlias(alias) => {
+                assert_eq!(alias.name, "AliasName");
+                assert_eq!(alias.type_, Type::Int);
+            }
+            other => panic!("expected type alias, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_dictionary_literal_with_string_keys() {
+        let src = r#"
+let dict = {"a": 1, "b": 2}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+        match &program.declarations[0] {
+            Declaration::Variable(var) => match var.initializer.as_ref().map(|e| &e.node) {
+                Some(ExpressionKind::Dictionary(entries)) => {
+                    assert_eq!(entries.len(), 2);
+                    assert!(matches!(&entries[0].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "a"));
+                    assert!(matches!(&entries[1].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "b"));
+                }
+                other => panic!("expected dictionary initializer, got {other:?}"),
+            },
+            other => panic!("expected variable declaration, got {other:?}"),
+        }
     }
 
     // ===== SPEC.md 测试 =====
@@ -495,6 +522,18 @@ defer cleanup()
     }
 
     #[test]
+    fn parse_when_guard_statement() {
+        let src = r#"
+when x > 0 {
+    log(x)
+}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.statements.len(), 1);
+        assert!(matches!(program.statements[0].node, StatementKind::WhenGuard(_, _)));
+    }
+
+    #[test]
     fn parse_yield_statement() {
         // SPEC.md: yield statement for generators
         let src = r#"
@@ -580,6 +619,15 @@ let result = data |> process() |> output()
         // SPEC.md: x -> x * x
         let src = r#"
 let square = x -> x * x
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+    }
+
+    #[test]
+    fn parse_function_keyword_lambda_expression() {
+        let src = r#"
+let add_base = function(x) -> x + base
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
@@ -786,7 +834,6 @@ import std.collections.HashMap as Map;
     }
 
     #[test]
-    #[ignore = "selective import not yet implemented"]
     fn parse_import_selective() {
         let src = r#"
 import std.io.{print, println, read_line};
@@ -798,6 +845,168 @@ import std.io.{print, println, read_line};
                 assert_eq!(i.symbols.len(), 3);
             }
             other => panic!("expected import declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_import_double_colon_wildcard() {
+        let src = r#"
+import std::prelude::*;
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Import(i) => {
+                assert_eq!(i.module_path, "std::prelude");
+                assert_eq!(i.symbols.len(), 1);
+            }
+            other => panic!("expected import declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_member_access_keyword_operation() {
+        let src = r#"
+let x = err.operation;
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => match &var.initializer {
+                Some(value) => match &value.node {
+                    ExpressionKind::Member(base, member) => {
+                        assert!(matches!(base.node, ExpressionKind::Variable(_)));
+                        assert_eq!(member, "operation");
+                    }
+                    other => panic!("expected member access, got {other:?}"),
+                },
+                None => panic!("expected initializer"),
+            },
+            other => panic!("expected variable declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_keyword_operation_identifier_expression() {
+        let src = r#"
+let x = operation;
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => match &var.initializer {
+                Some(value) => match &value.node {
+                    ExpressionKind::Variable(name) => assert_eq!(name, "operation"),
+                    other => panic!("expected variable expression, got {other:?}"),
+                },
+                None => panic!("expected initializer"),
+            },
+            other => panic!("expected variable declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_top_level_static_mut_variable() {
+        let src = r#"
+static mut panic_handler: PanicHandler = default_panic_handler;
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => {
+                assert_eq!(var.simple_name(), Some("panic_handler"));
+                assert!(var.is_mutable);
+                assert!(var.type_annot.is_some());
+                assert!(var.initializer.is_some());
+            }
+            other => panic!("expected variable declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_top_level_fn_alias() {
+        let src = r#"
+fn helper() -> Unit {}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Function(func) => assert_eq!(func.name, "helper"),
+            other => panic!("expected function declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_export_fn_alias() {
+        let src = r#"
+export fn helper() -> Unit {}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert!(matches!(program.declarations[0], Declaration::Function(_)));
+        assert!(matches!(program.declarations[1], Declaration::Export(_)));
+    }
+
+    #[test]
+    fn parse_private_fn_alias() {
+        let src = r#"
+private fn helper() -> Unit {}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Function(func) => assert_eq!(func.name, "helper"),
+            other => panic!("expected function declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_top_level_static_then_export_fn() {
+        let src = r#"
+static mut panic_handler: PanicHandler = default_panic_handler;
+export fn set_handler(handler: PanicHandler) -> unit {}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert!(matches!(program.declarations[0], Declaration::Variable(_)));
+        assert!(matches!(program.declarations[1], Declaration::Function(_)));
+        assert!(matches!(program.declarations[2], Declaration::Export(_)));
+    }
+
+    #[test]
+    fn parse_function_where_clause_after_return_type() {
+        let src = r#"
+export fn unwrap<T, E>(res: Result<T, E>, msg: string) -> T where E: to_string {
+    msg
+}
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Function(func) => {
+                assert_eq!(func.name, "unwrap");
+                assert_eq!(func.type_parameters.len(), 2);
+                assert_eq!(func.type_parameters[1].name, "E");
+                assert_eq!(func.type_parameters[1].constraints.len(), 1);
+                assert_eq!(func.type_parameters[1].constraints[0].trait_name, "to_string");
+            }
+            other => panic!("expected function declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_when_block_else_expression() {
+        let src = r#"
+let result = when x == 0 {
+    Err("zero")
+} else {
+    Ok(x)
+};
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => match &var.initializer {
+                Some(value) => match &value.node {
+                    ExpressionKind::If(_, then_expr, else_expr) => {
+                        assert!(matches!(then_expr.node, ExpressionKind::Block(_)));
+                        assert!(matches!(else_expr.node, ExpressionKind::Block(_)));
+                    }
+                    other => panic!("expected conditional expression, got {other:?}"),
+                },
+                None => panic!("expected initializer"),
+            },
+            other => panic!("expected variable declaration, got {other:?}"),
         }
     }
 
@@ -985,10 +1194,18 @@ class Container<T> {
     }
 
     #[test]
-    #[ignore = "tuple type annotation not yet implemented"]
     fn parse_tuple_type() {
         let src = r#"
 let pair: (Int, String) = (1, "hello");
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+    }
+
+    #[test]
+    fn parse_tuple_type_with_function_member() {
+        let src = r#"
+let tests: [(string, function() -> Bool)] = [];
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
@@ -1174,7 +1391,29 @@ async function main() {
         let program = parse_program(src).expect("parse should succeed");
         match &program.declarations[0] {
             Declaration::Function(f) => {
-                assert!(!f.body.statements.is_empty());
+                match &f.body.statements[0].node {
+                    StatementKind::Variable(var) => match var.initializer.as_ref() {
+                        Some(expr) => match &expr.node {
+                            ExpressionKind::Await(inner) => match &inner.node {
+                                ExpressionKind::Call(callee, args) => {
+                                    assert!(args.is_empty());
+                                    match &callee.node {
+                                        ExpressionKind::Variable(name) => {
+                                            assert_eq!(name, "fetch");
+                                        }
+                                        other => panic!(
+                                            "expected await callee variable, got {other:?}"
+                                        ),
+                                    }
+                                }
+                                other => panic!("expected await call expression, got {other:?}"),
+                            },
+                            other => panic!("expected await initializer, got {other:?}"),
+                        },
+                        None => panic!("expected variable initializer"),
+                    },
+                    other => panic!("expected variable statement, got {other:?}"),
+                }
             }
             other => panic!("expected function declaration, got {other:?}"),
         }
@@ -1213,6 +1452,23 @@ extern function puts(s: CString) -> CInt;
                 assert_eq!(e.name, "puts");
             }
             other => panic!("expected extern function declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_external_variable() {
+        let src = r#"
+external "c" variable stdin: *();
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => {
+                assert_eq!(var.simple_name(), Some("stdin"));
+                assert_eq!(var.extern_abi.as_deref(), Some("c"));
+                assert!(var.type_annot.is_some());
+                assert!(var.initializer.is_none());
+            }
+            other => panic!("expected variable declaration, got {other:?}"),
         }
     }
 
@@ -1313,7 +1569,6 @@ for each item in [1, 2, 3] {
     // ==================== Function Type Tests ====================
 
     #[test]
-    #[ignore = "simple function type syntax not yet fully implemented"]
     fn parse_simple_function_type() {
         let src = r#"
 let f: () -> Int = get_value;
@@ -1323,7 +1578,6 @@ let f: () -> Int = get_value;
     }
 
     #[test]
-    #[ignore = "function type single param syntax not yet fully implemented"]
     fn parse_function_type_single_param() {
         let src = r#"
 let f: (Int) -> Int = double;
@@ -1333,12 +1587,35 @@ let f: (Int) -> Int = double;
     }
 
     #[test]
-    #[ignore = "function type with function keyword not yet fully implemented"]
     fn parse_function_type_with_function_keyword() {
         let src = r#"
 function map<T, U>(self: List<T>, f: function(T) -> U) -> List<U> {
     empty()
 }
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
+    }
+
+    #[test]
+    fn parse_string_concat_with_double_plus() {
+        let src = r#"
+let msg = "a" ++ "b";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        match &program.declarations[0] {
+            Declaration::Variable(var) => match var.initializer.as_ref().map(|e| &e.node) {
+                Some(ExpressionKind::Binary(BinaryOp::Add, _, _)) => {}
+                other => panic!("expected additive concat expression, got {other:?}"),
+            },
+            other => panic!("expected variable declaration, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn parse_array_with_trailing_comma() {
+        let src = r#"
+let values = [1, 2, 3,];
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
@@ -1408,18 +1685,22 @@ let equation = "${a} + ${b} = ${a + b}";
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
-        // Should desugar to a + " + " + b + " = " + (a + b)
-        // Five parts → four Add operations
+        // Should desugar to (((a + " + ") + b) + " = ") + (a + b)
+        // The interpolation contributes four outer concatenation adds,
+        // and the final `${a + b}` contributes one inner arithmetic add.
         match &program.declarations[0] {
             Declaration::Variable(decl) => {
-                let mut current = decl.initializer.as_ref().unwrap();
-                let mut add_count = 0;
-                while let ExpressionKind::Binary(BinaryOp::Add, _, next) = &current.node {
-                    add_count += 1;
-                    current = next;
+                fn count_adds(expr: &crate::ast::Expression) -> usize {
+                    match &expr.node {
+                        ExpressionKind::Binary(BinaryOp::Add, left, right) => {
+                            1 + count_adds(left) + count_adds(right)
+                        }
+                        _ => 0,
+                    }
                 }
-                // Five parts: 4 adds
-                assert_eq!(add_count, 4);
+
+                let add_count = count_adds(decl.initializer.as_ref().unwrap());
+                assert_eq!(add_count, 5);
             }
             _ => panic!("expected variable declaration"),
         }
@@ -1465,6 +1746,15 @@ Count: ${count}
         assert_eq!(program.declarations.len(), 1);
         // Should succeed with interpolation in multiline
         assert!(true);
+    }
+
+    #[test]
+    fn parse_string_interpolation_with_inner_braces() {
+        let src = r#"
+let text = "${Point{ x: 1, y: 2 }}";
+"#;
+        let program = parse_program(src).expect("parse should succeed");
+        assert_eq!(program.declarations.len(), 1);
     }
 
     #[test]

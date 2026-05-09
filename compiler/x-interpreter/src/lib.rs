@@ -218,6 +218,9 @@ impl PartialEq for Value {
             (Value::TraitObject { object: o1, .. }, Value::TraitObject { object: o2, .. }) => {
                 o1.as_ref() == o2.as_ref()
             }
+            (Value::Enum(type1, variant1, values1), Value::Enum(type2, variant2, values2)) => {
+                type1 == type2 && variant1 == variant2 && values1 == values2
+            }
             (Value::EnumNamespace(a), Value::EnumNamespace(b)) => a == b,
             _ => false,
         }
@@ -232,6 +235,7 @@ impl Default for Interpreter {
 
 enum ControlFlow {
     None,
+    BlockValue(Value),
     Return(Value),
     Break,
     #[allow(dead_code)]
@@ -240,6 +244,65 @@ enum ControlFlow {
 }
 
 impl Interpreter {
+    fn prefer_user_function_over_builtin(name: &str) -> bool {
+        !matches!(
+            name,
+            "Some"
+                | "None"
+                | "Ok"
+                | "Err"
+                | "print"
+                | "print_inline"
+                | "println"
+        )
+    }
+
+    fn variable_decl_name(var_decl: &x_parser::ast::VariableDecl) -> Option<&str> {
+        match &var_decl.pattern {
+            Pattern::Variable(name) => Some(name.as_str()),
+            _ => None,
+        }
+    }
+
+    fn referenced_variable_name(expr: &Expression) -> Option<&str> {
+        match &expr.node {
+            ExpressionKind::Variable(name) => Some(name.as_str()),
+            ExpressionKind::Parenthesized(inner) | ExpressionKind::Cast(inner, _) => {
+                Self::referenced_variable_name(inner)
+            }
+            ExpressionKind::Unary(UnaryOp::Reference | UnaryOp::MutableReference, inner) => {
+                Self::referenced_variable_name(inner)
+            }
+            _ => None,
+        }
+    }
+
+    fn extern_stdio_variable_value(var_decl: &x_parser::ast::VariableDecl) -> Option<Value> {
+        let name = var_decl.simple_name()?;
+        let abi = var_decl.extern_abi.as_deref()?;
+        let type_annot = var_decl.type_annot.as_ref()?;
+
+        if var_decl.initializer.is_some() {
+            return None;
+        }
+
+        if !abi.eq_ignore_ascii_case("c") {
+            return None;
+        }
+
+        let is_void_pointer = matches!(type_annot, Type::Pointer(inner) if matches!(inner.as_ref(), Type::Unit));
+
+        if !is_void_pointer {
+            return None;
+        }
+
+        match name {
+            "stdin" => Some(Value::Pointer(1)),
+            "stdout" => Some(Value::Pointer(2)),
+            _ => None,
+        }
+    }
+
     pub fn new() -> Self {
         let mut variables = HashMap::new();
         // 添加None作为内置变量
@@ -279,7 +342,21 @@ impl Interpreter {
     }
 
     pub fn run(&mut self, program: &Program) -> Result<(), InterpreterError> {
-        // 首先加载所有声明（函数、变量等）
+        // 先预注册所有函数/外部函数，保证全局初始化器可以引用后续声明的函数值
+        for decl in &program.declarations {
+            match decl {
+                Declaration::Function(func) => {
+                    self.functions.insert(func.name.clone(), func.clone());
+                }
+                Declaration::ExternFunction(extern_func) => {
+                    self.foreign_functions
+                        .insert(extern_func.name.clone(), extern_func.clone());
+                }
+                _ => {}
+            }
+        }
+
+        // 然后加载所有声明（变量、类、枚举等）
         for decl in &program.declarations {
             self.load_declaration(decl)?;
         }
@@ -288,6 +365,7 @@ impl Interpreter {
         for stmt in &program.statements {
             match self.execute_statement(stmt)? {
                 ControlFlow::None => {}
+                ControlFlow::BlockValue(_) => {}
                 ControlFlow::Return(_) => break,
                 ControlFlow::Break => break,
                 ControlFlow::Continue => {}
@@ -306,17 +384,14 @@ impl Interpreter {
 
     fn load_declaration(&mut self, decl: &Declaration) -> Result<(), InterpreterError> {
         match decl {
-            Declaration::Function(func) => {
-                self.functions.insert(func.name.clone(), func.clone());
-            }
-            Declaration::ExternFunction(extern_func) => {
-                self.foreign_functions
-                    .insert(extern_func.name.clone(), extern_func.clone());
-            }
+            Declaration::Function(_) => {}
+            Declaration::ExternFunction(_) => {}
             Declaration::Variable(var) => {
-                if let Some(init) = &var.initializer {
+                if let Some(value) = Self::extern_stdio_variable_value(var) {
+                    self.match_pattern(&var.pattern, &value)?;
+                } else if let Some(init) = &var.initializer {
                     let val = self.eval(init)?;
-                    self.variables.insert(var.name.clone(), val);
+                    self.match_pattern(&var.pattern, &val)?;
                 }
             }
             Declaration::Class(class) => {
@@ -344,6 +419,7 @@ impl Interpreter {
 
     fn execute_block_expr(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
         let deferred_start = self.deferred.len();
+        let saved_local_functions = self.install_local_functions(block)?;
         let mut last_expr_result = None;
         let result = (|| -> Result<ControlFlow, InterpreterError> {
             for stmt in &block.statements {
@@ -352,20 +428,69 @@ impl Interpreter {
                     continue;
                 }
 
+                if let StatementKind::If(if_stmt) = &stmt.node {
+                    let cond = self.eval(&if_stmt.condition)?;
+                    let branch_result = if self.is_truthy(&cond) {
+                        self.execute_block_expr(&if_stmt.then_block)?
+                    } else if let Some(else_blk) = &if_stmt.else_block {
+                        self.execute_block_expr(else_blk)?
+                    } else {
+                        ControlFlow::None
+                    };
+
+                    match branch_result {
+                        ControlFlow::None => {}
+                        ControlFlow::BlockValue(v) => {
+                            last_expr_result = Some(v);
+                        }
+                        ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                        ControlFlow::Yield(v) => {
+                            self.run_deferred(deferred_start)?;
+                            return Ok(ControlFlow::Yield(v));
+                        }
+                        ControlFlow::Break => return Ok(ControlFlow::Break),
+                        ControlFlow::Continue => return Ok(ControlFlow::Continue),
+                    }
+                    continue;
+                }
+
+                if let StatementKind::Match(match_stmt) = &stmt.node {
+                    let branch_result = self.execute_match_expr(match_stmt)?;
+                    match branch_result {
+                        ControlFlow::None => {}
+                        ControlFlow::BlockValue(v) => {
+                            last_expr_result = Some(v);
+                        }
+                        ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                        ControlFlow::Yield(v) => {
+                            self.run_deferred(deferred_start)?;
+                            return Ok(ControlFlow::Yield(v));
+                        }
+                        ControlFlow::Break => return Ok(ControlFlow::Break),
+                        ControlFlow::Continue => return Ok(ControlFlow::Continue),
+                    }
+                    continue;
+                }
+
                 let cf = self.execute_statement(stmt)?;
                 match cf {
                     ControlFlow::None => {}
+                    ControlFlow::BlockValue(v) => {
+                        last_expr_result = Some(v);
+                    }
+                    ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                    ControlFlow::Break => return Ok(ControlFlow::Break),
+                    ControlFlow::Continue => return Ok(ControlFlow::Continue),
                     ControlFlow::Yield(v) => {
                         // Yield - run deferred and propagate yield
                         self.run_deferred(deferred_start)?;
                         return Ok(ControlFlow::Yield(v));
                     }
-                    _ => return Ok(cf),
                 }
             }
             // 如果最后一个语句是表达式语句，返回其结果
             if let Some(result) = last_expr_result {
-                Ok(ControlFlow::Return(result))
+                Ok(ControlFlow::BlockValue(result))
             } else {
                 Ok(ControlFlow::None)
             }
@@ -373,12 +498,14 @@ impl Interpreter {
 
         // Execute any deferred expressions added in this block, in reverse order (LIFO)
         self.run_deferred(deferred_start)?;
+        self.restore_local_functions(saved_local_functions);
 
         result
     }
 
     fn execute_block_stmt(&mut self, block: &Block) -> Result<ControlFlow, InterpreterError> {
         let deferred_start = self.deferred.len();
+        let saved_local_functions = self.install_local_functions(block)?;
         for stmt in &block.statements {
             if let StatementKind::Expression(expr) = &stmt.node {
                 self.eval(expr)?;
@@ -387,18 +514,69 @@ impl Interpreter {
             let cf = self.execute_statement(stmt)?;
             match cf {
                 ControlFlow::None => {}
+                ControlFlow::BlockValue(_) => {}
                 ControlFlow::Yield(v) => {
                     self.run_deferred(deferred_start)?;
+                    self.restore_local_functions(saved_local_functions);
                     return Ok(ControlFlow::Yield(v));
                 }
                 _ => {
                     self.run_deferred(deferred_start)?;
+                    self.restore_local_functions(saved_local_functions);
                     return Ok(cf);
                 }
             }
         }
         self.run_deferred(deferred_start)?;
+        self.restore_local_functions(saved_local_functions);
         Ok(ControlFlow::None)
+    }
+
+    fn install_local_functions(
+        &mut self,
+        block: &Block,
+    ) -> Result<Vec<(String, Option<Value>)>, InterpreterError> {
+        let mut saved = Vec::new();
+        let mut local_functions = Vec::new();
+
+        for stmt in &block.statements {
+            if let StatementKind::Function(func_decl) = &stmt.node {
+                saved.push((func_decl.name.clone(), self.variables.get(&func_decl.name).cloned()));
+                local_functions.push(func_decl.clone());
+            }
+        }
+
+        if local_functions.is_empty() {
+            return Ok(saved);
+        }
+
+        for func_decl in &local_functions {
+            let closure = Value::Closure {
+                params: func_decl.parameters.iter().map(|p| p.name.clone()).collect(),
+                body: func_decl.body.clone(),
+                captured: Rc::new(RefCell::new(HashMap::new())),
+            };
+            self.variables.insert(func_decl.name.clone(), closure);
+        }
+
+        let captured_snapshot = self.variables.clone();
+        for func_decl in &local_functions {
+            if let Some(Value::Closure { captured, .. }) = self.variables.get(&func_decl.name).cloned() {
+                *captured.borrow_mut() = captured_snapshot.clone();
+            }
+        }
+
+        Ok(saved)
+    }
+
+    fn restore_local_functions(&mut self, saved: Vec<(String, Option<Value>)>) {
+        for (name, previous) in saved.into_iter().rev() {
+            if let Some(value) = previous {
+                self.variables.insert(name, value);
+            } else {
+                self.variables.remove(&name);
+            }
+        }
     }
 
     /// Run deferred expressions from deferred_start to current end, in reverse order (LIFO)
@@ -423,9 +601,10 @@ impl Interpreter {
                     Value::Null
                 };
                 // 忽略类型注解，因为解释器暂时不支持类型检查
-                self.variables.insert(var.name.clone(), val);
+                self.match_pattern(&var.pattern, &val)?;
                 Ok(ControlFlow::None)
             }
+            StatementKind::Function(_) => Ok(ControlFlow::None),
             StatementKind::Expression(expr) => {
                 self.eval(expr)?;
                 Ok(ControlFlow::None)
@@ -465,9 +644,10 @@ impl Interpreter {
                 match iterator {
                     Value::Array(arr) => {
                         for item in arr.borrow().iter() {
-                            // 绑定循环变量
-                            if let x_parser::ast::Pattern::Variable(name) = &for_stmt.pattern {
-                                self.variables.insert(name.clone(), item.clone());
+                            if !self.match_pattern(&for_stmt.pattern, item)? {
+                                return Err(InterpreterError::runtime_no_span(
+                                    "For循环模式匹配失败",
+                                ));
                             }
                             // 执行循环体
                             match self.execute_block_stmt(&for_stmt.body)? {
@@ -477,9 +657,23 @@ impl Interpreter {
                             }
                         }
                     }
+                    Value::String(text) => {
+                        for ch in text.chars() {
+                            if let x_parser::ast::Pattern::Variable(name) = &for_stmt.pattern {
+                                self.variables.insert(name.clone(), Value::String(ch.to_string()));
+                            }
+                            match self.execute_block_stmt(&for_stmt.body)? {
+                                ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
+                                ControlFlow::Break => break,
+                                _ => {}
+                            }
+                        }
+                    }
                     _ => {
                         // 暂时不支持其他类型的迭代器
-                        return Err(InterpreterError::runtime_no_span("For循环只支持数组迭代"));
+                        return Err(InterpreterError::runtime_no_span(
+                            "For循环只支持数组或字符串迭代",
+                        ));
                     }
                 }
                 Ok(ControlFlow::None)
@@ -491,7 +685,7 @@ impl Interpreter {
             StatementKind::DoWhile(d) => self.execute_do_while(d),
             StatementKind::Unsafe(block) => {
                 // Execute unsafe block (interpreter doesn't enforce safety)
-                self.execute_block_stmt(block)
+                self.execute_block_expr(block)
             }
             StatementKind::Defer(expr) => {
                 // Defer 表达式存储起来，在作用域结束时执行
@@ -522,7 +716,7 @@ impl Interpreter {
                 let cond = self.eval(condition)?;
                 if self.is_truthy(&cond) {
                     let val = self.eval(body)?;
-                    return Ok(ControlFlow::Return(val));
+                    return Ok(ControlFlow::BlockValue(val));
                 }
                 Ok(ControlFlow::None)
             }
@@ -558,6 +752,32 @@ impl Interpreter {
             self.variables = base_vars.clone();
             if self.match_case(&value, case)? {
                 return self.execute_block_stmt(&case.body);
+            }
+        }
+
+        self.variables = base_vars;
+        Ok(ControlFlow::None)
+    }
+
+    fn execute_match_expr(
+        &mut self,
+        match_stmt: &MatchStatement,
+    ) -> Result<ControlFlow, InterpreterError> {
+        let value = self.eval(&match_stmt.expression)?;
+
+        let base_vars = self.variables.clone();
+        for case in &match_stmt.cases {
+            self.variables = base_vars.clone();
+            if self.match_case(&value, case)? {
+                let result = self.execute_block_expr(&case.body);
+                let current_vars = self.variables.clone();
+                self.variables = base_vars.clone();
+                for name in base_vars.keys() {
+                    if let Some(value) = current_vars.get(name).cloned() {
+                        self.variables.insert(name.clone(), value);
+                    }
+                }
+                return result;
             }
         }
 
@@ -644,8 +864,17 @@ impl Interpreter {
         match &expr.node {
             ExpressionKind::Literal(lit) => Ok(self.eval_literal(lit)),
             ExpressionKind::Variable(name) => {
+                if name == "unit" {
+                    return Ok(Value::Unit);
+                }
                 if let Some(value) = self.variables.get(name).cloned() {
                     Ok(value)
+                } else if let Some(func) = self.functions.get(name).cloned() {
+                    Ok(Value::Closure {
+                        params: func.parameters.into_iter().map(|param| param.name).collect(),
+                        body: func.body,
+                        captured: Rc::new(RefCell::new(HashMap::new())),
+                    })
                 } else {
                     // Check if this is an enum name
                     if self.enums.contains_key(name) {
@@ -781,6 +1010,7 @@ impl Interpreter {
 
                     // Handle return value
                     return match result {
+                        Ok(ControlFlow::BlockValue(v)) => Ok(v),
                         Ok(ControlFlow::Return(v)) => Ok(v),
                         Ok(_) => Ok(Value::Unit),
                         Err(e) => Err(e),
@@ -949,6 +1179,9 @@ impl Interpreter {
             }
             ExpressionKind::Member(obj, member) => {
                 let obj_val = self.eval(obj)?;
+                if let Some(value) = self.call_builtin_method(&obj_val, member, &[])? {
+                    return Ok(value);
+                }
                 match &obj_val {
                     Value::Object { fields, .. } => {
                         fields.borrow().get(member).cloned().ok_or_else(|| {
@@ -1322,6 +1555,7 @@ impl Interpreter {
             ExpressionKind::Block(block) => {
                 // Block 表达式：执行块中的语句，返回最后一个表达式的值
                 match self.execute_block_expr(block)? {
+                    ControlFlow::BlockValue(v) => Ok(v),
                     ControlFlow::Return(v) => Ok(v),
                     _ => Ok(Value::Unit),
                 }
@@ -1748,6 +1982,48 @@ impl Interpreter {
         name: &str,
         args: &[Expression],
     ) -> Result<Value, InterpreterError> {
+        if Self::prefer_user_function_over_builtin(name) {
+            if let Some(value) = self.variables.get(name).cloned() {
+                if let Value::Closure {
+                    params,
+                    body,
+                    captured,
+                } = value
+                {
+                    let arg_vals: Vec<Value> = args
+                        .iter()
+                        .map(|a| self.eval(a))
+                        .collect::<Result<_, _>>()?;
+                    if arg_vals.len() != params.len() {
+                        return Err(InterpreterError::runtime_no_span(format!(
+                            "闭包 {} 期望 {} 个参数，得到 {}",
+                            name,
+                            params.len(),
+                            arg_vals.len()
+                        )));
+                    }
+                    let saved = self.variables.clone();
+                    for (k, v) in captured.borrow().iter() {
+                        self.variables.insert(k.clone(), v.clone());
+                    }
+                    for (p, v) in params.iter().zip(arg_vals) {
+                        self.variables.insert(p.clone(), v);
+                    }
+                    let result = self.execute_block_expr(&body)?;
+                    self.variables = saved;
+                    return match result {
+                        ControlFlow::BlockValue(v) => Ok(v),
+                        ControlFlow::Return(v) => Ok(v),
+                        _ => Ok(Value::Unit),
+                    };
+                }
+            }
+
+            if self.foreign_functions.contains_key(name) || self.functions.contains_key(name) {
+                return self.call_user_function(name, args);
+            }
+        }
+
         match name {
             "Some" => {
                 let value = self.eval(&args[0])?;
@@ -2013,6 +2289,22 @@ impl Interpreter {
                 Ok(Value::Float(
                     self.as_f64(&base_v)?.powf(self.as_f64(&exp_v)?),
                 ))
+            }
+            "min" => {
+                let x = self.eval(&args[0])?;
+                let y = self.eval(&args[1])?;
+                match (&x, &y) {
+                    (Value::Integer(a), Value::Integer(b)) => Ok(Value::Integer((*a).min(*b))),
+                    _ => Ok(Value::Float(self.as_f64(&x)?.min(self.as_f64(&y)?))),
+                }
+            }
+            "max" => {
+                let x = self.eval(&args[0])?;
+                let y = self.eval(&args[1])?;
+                match (&x, &y) {
+                    (Value::Integer(a), Value::Integer(b)) => Ok(Value::Integer((*a).max(*b))),
+                    _ => Ok(Value::Float(self.as_f64(&x)?.max(self.as_f64(&y)?))),
+                }
             }
             "concat" => {
                 let mut result = String::new();
@@ -2313,51 +2605,7 @@ impl Interpreter {
             }
 
             _ => {
-                // 首先检查是否是闭包变量
-                if let Some(value) = self.variables.get(name).cloned() {
-                    if let Value::Closure {
-                        params,
-                        body,
-                        captured,
-                    } = value
-                    {
-                        let arg_vals: Vec<Value> = args
-                            .iter()
-                            .map(|a| self.eval(a))
-                            .collect::<Result<_, _>>()?;
-                        if arg_vals.len() != params.len() {
-                            return Err(InterpreterError::runtime_no_span(format!(
-                                "闭包 {} 期望 {} 个参数，得到 {}",
-                                name,
-                                params.len(),
-                                arg_vals.len()
-                            )));
-                        }
-                        // 保存当前变量状态
-                        let saved = self.variables.clone();
-                        // 添加捕获的变量
-                        for (k, v) in captured.borrow().iter() {
-                            self.variables.insert(k.clone(), v.clone());
-                        }
-                        // 添加参数
-                        for (p, v) in params.iter().zip(arg_vals) {
-                            self.variables.insert(p.clone(), v);
-                        }
-                        let result = self.execute_block_expr(&body)?;
-                        // 恢复变量状态
-                        self.variables = saved;
-                        match result {
-                            ControlFlow::Return(v) => Ok(v),
-                            _ => Ok(Value::Unit),
-                        }
-                    } else {
-                        // 不是闭包，继续检查是否是函数
-                        self.call_user_function(name, args)
-                    }
-                } else {
-                    // 不是变量，检查是否是函数
-                    self.call_user_function(name, args)
-                }
+                self.call_user_function(name, args)
             }
         }
     }
@@ -2379,41 +2627,46 @@ impl Interpreter {
                 .iter()
                 .map(|a| self.eval(a))
                 .collect::<Result<_, _>>()?;
-            if arg_vals.len() != func.parameters.len() {
-                return Err(InterpreterError::runtime_no_span(format!(
-                    "函数 {} 期望 {} 个参数，得到 {}",
-                    name,
-                    func.parameters.len(),
-                    arg_vals.len()
-                )));
-            }
-            // 只保存函数参数覆盖的外部变量值
-            let mut saved_params: std::collections::HashMap<_, _> =
-                std::collections::HashMap::new();
-            for p in &func.parameters {
-                if let Some(val) = self.variables.get(&p.name) {
-                    saved_params.insert(p.name.clone(), val.clone());
-                }
-            }
-            // 添加函数参数
-            for (p, v) in func.parameters.iter().zip(arg_vals) {
-                self.variables.insert(p.name.clone(), v);
-            }
-            let result = self.execute_block_expr(&func.body)?;
-            // 只恢复函数参数覆盖的外部变量值，保留对其他变量的修改
-            for (name, val) in saved_params {
-                self.variables.insert(name, val);
-            }
-            match result {
-                ControlFlow::Return(v) => Ok(v),
-                ControlFlow::Yield(v) => Ok(v),
-                _ => Ok(Value::Unit),
-            }
+            self.call_user_function_with_values(&func, name, arg_vals)
         } else {
             Err(InterpreterError::runtime_no_span(format!(
                 "未定义的函数: {}",
                 name
             )))
+        }
+    }
+
+    fn call_user_function_with_values(
+        &mut self,
+        func: &FunctionDecl,
+        name: &str,
+        arg_vals: Vec<Value>,
+    ) -> Result<Value, InterpreterError> {
+        if arg_vals.len() != func.parameters.len() {
+            return Err(InterpreterError::runtime_no_span(format!(
+                "函数 {} 期望 {} 个参数，得到 {}",
+                name,
+                func.parameters.len(),
+                arg_vals.len()
+            )));
+        }
+
+        let saved_vars = self.variables.clone();
+
+        // 添加函数参数
+        for (p, v) in func.parameters.iter().zip(arg_vals) {
+            self.variables.insert(p.name.clone(), v);
+        }
+
+        let result = self.execute_block_expr(&func.body)?;
+
+        self.variables = saved_vars;
+
+        match result {
+            ControlFlow::BlockValue(v) => Ok(v),
+            ControlFlow::Return(v) => Ok(v),
+            ControlFlow::Yield(v) => Ok(v),
+            _ => Ok(Value::Unit),
         }
     }
 
@@ -2441,6 +2694,37 @@ impl Interpreter {
                     .unwrap_or_default()
                     .as_secs() as i64;
                 Ok(Value::Integer(timestamp))
+            }
+            "getline" => {
+                use std::io::BufRead;
+
+                let mut line = String::new();
+                let stdin = std::io::stdin();
+                let mut handle = stdin.lock();
+
+                match handle.read_line(&mut line) {
+                    Ok(0) => Ok(Value::Integer(-1)),
+                    Ok(_) => {
+                        while matches!(line.chars().last(), Some('\n' | '\r')) {
+                            line.pop();
+                        }
+
+                        let char_len = line.chars().count() as i64;
+
+                        if let Some(buffer_name) = args.first().and_then(|arg| Self::referenced_variable_name(arg)) {
+                            self.variables
+                                .insert(buffer_name.to_string(), Value::String(line.clone()));
+                        }
+
+                        if let Some(capacity_name) = args.get(1).and_then(|arg| Self::referenced_variable_name(arg)) {
+                            self.variables
+                                .insert(capacity_name.to_string(), Value::Integer(char_len));
+                        }
+
+                        Ok(Value::Integer(char_len))
+                    }
+                    Err(_) => Ok(Value::Integer(-1)),
+                }
             }
             // 字符串函数
             "strlen" => {
@@ -2820,7 +3104,15 @@ impl Interpreter {
                     if let Some(return_type) = &extern_func.return_type {
                         match return_type {
                             x_parser::ast::Type::Void => Ok(Value::Unit),
-                            x_parser::ast::Type::Int => Ok(Value::Integer(0)),
+                            x_parser::ast::Type::Int
+                            | x_parser::ast::Type::CInt
+                            | x_parser::ast::Type::CUInt
+                            | x_parser::ast::Type::CLong
+                            | x_parser::ast::Type::CULong
+                            | x_parser::ast::Type::CLongLong
+                            | x_parser::ast::Type::CULongLong
+                            | x_parser::ast::Type::CChar
+                            | x_parser::ast::Type::CSize => Ok(Value::Integer(0)),
                             x_parser::ast::Type::Float => Ok(Value::Float(0.0)),
                             x_parser::ast::Type::Bool => Ok(Value::Boolean(false)),
                             x_parser::ast::Type::String => Ok(Value::String(String::new())),
@@ -2862,7 +3154,9 @@ impl Interpreter {
                 } else {
                     Value::Null
                 };
-                fields.insert(field.name.clone(), initial_value);
+                if let Some(field_name) = Self::variable_decl_name(field) {
+                    fields.insert(field_name.to_string(), initial_value);
+                }
             }
         }
 
@@ -2912,7 +3206,7 @@ impl Interpreter {
                 .iter()
                 .filter_map(|m| {
                     if let ClassMember::Field(f) = m {
-                        Some(f.name.clone())
+                        Self::variable_decl_name(f).map(|name| name.to_string())
                     } else {
                         None
                     }
@@ -2940,6 +3234,10 @@ impl Interpreter {
         args: &[Expression],
     ) -> Result<Value, InterpreterError> {
         let obj_val = self.eval(obj_expr)?;
+
+        if let Some(value) = self.call_builtin_method(&obj_val, method_name, args)? {
+            return Ok(value);
+        }
 
         // 处理类型值上的静态方法调用（如 Pointer(Void).null()）
         if let Value::Type {
@@ -3022,6 +3320,7 @@ impl Interpreter {
                 self.effect_handlers = saved_handlers;
 
                 return match result {
+                    Ok(ControlFlow::BlockValue(v)) => Ok(v),
                     Ok(ControlFlow::Return(v)) => Ok(v),
                     Ok(_) => Ok(Value::Unit),
                     Err(e) => Err(e),
@@ -3143,6 +3442,33 @@ impl Interpreter {
             _ => return Err(InterpreterError::runtime_no_span("只能对对象调用方法")),
         };
 
+        if !self.classes.contains_key(&class_name) {
+            let arg_vals: Vec<Value> = args
+                .iter()
+                .map(|a| self.eval(a))
+                .collect::<Result<_, _>>()?;
+
+            if let Some(func) = self.functions.get(method_name).cloned() {
+                let has_self_receiver = func
+                    .parameters
+                    .first()
+                    .map(|param| param.name == "self")
+                    .unwrap_or(false);
+
+                if has_self_receiver && func.parameters.len() == arg_vals.len() + 1 {
+                    let mut method_args = Vec::with_capacity(arg_vals.len() + 1);
+                    method_args.push(obj_val.clone());
+                    method_args.extend(arg_vals);
+                    return self.call_user_function_with_values(&func, method_name, method_args);
+                }
+            }
+
+            return Err(InterpreterError::runtime_no_span(format!(
+                "类型 {} 没有方法 {}",
+                class_name, method_name
+            )));
+        }
+
         // 获取类定义
         let class = self.classes.get(&class_name).cloned().ok_or_else(|| {
             InterpreterError::runtime_no_span(format!("未定义的类: {}", class_name))
@@ -3194,6 +3520,7 @@ impl Interpreter {
                     self.variables = saved;
 
                     return match result {
+                        ControlFlow::BlockValue(v) => Ok(v),
                         ControlFlow::Return(v) => Ok(v),
                         _ => Ok(Value::Unit),
                     };
@@ -3205,6 +3532,154 @@ impl Interpreter {
             "类 {} 没有方法 {}",
             class_name, method_name
         )))
+    }
+
+    fn call_builtin_method(
+        &mut self,
+        obj_val: &Value,
+        method_name: &str,
+        args: &[Expression],
+    ) -> Result<Option<Value>, InterpreterError> {
+        match obj_val {
+            Value::String(s) => match method_name {
+                "length" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer(s.chars().count() as i64)))
+                }
+                "contains" => {
+                    self.expect_method_arity(method_name, args, 1)?;
+                    let pat = self.eval_as_string(&args[0])?;
+                    Ok(Some(Value::Boolean(s.contains(&pat))))
+                }
+                "substring" => {
+                    self.expect_method_arity(method_name, args, 2)?;
+                    let start_value = self.eval(&args[0])?;
+                    let end_value = self.eval(&args[1])?;
+                    let start = self.as_i64(&start_value)? as usize;
+                    let end = self.as_i64(&end_value)? as usize;
+                    let chars: Vec<char> = s.chars().collect();
+                    if start > chars.len() || end > chars.len() || start > end {
+                        Ok(Some(Value::String(String::new())))
+                    } else {
+                        Ok(Some(Value::String(chars[start..end].iter().collect())))
+                    }
+                }
+                "toUpperCase" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::String(s.to_uppercase())))
+                }
+                "toLowerCase" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::String(s.to_lowercase())))
+                }
+                "trim" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::String(s.trim().to_string())))
+                }
+                "split" => {
+                    self.expect_method_arity(method_name, args, 1)?;
+                    let delim = self.eval_as_string(&args[0])?;
+                    let parts = s
+                        .split(&delim)
+                        .map(|part| Value::String(part.to_string()))
+                        .collect();
+                    Ok(Some(Value::new_array(parts)))
+                }
+                _ => Ok(None),
+            },
+            Value::Array(rc) => match method_name {
+                "length" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer(rc.borrow().len() as i64)))
+                }
+                "push" => {
+                    self.expect_method_arity(method_name, args, 1)?;
+                    let value = self.eval(&args[0])?;
+                    rc.borrow_mut().push(value);
+                    Ok(Some(Value::Unit))
+                }
+                "slice" => {
+                    self.expect_method_arity(method_name, args, 2)?;
+                    let start_value = self.eval(&args[0])?;
+                    let end_value = self.eval(&args[1])?;
+                    let start = self.as_i64(&start_value)? as usize;
+                    let end = self.as_i64(&end_value)? as usize;
+                    let array = rc.borrow();
+
+                    if start > array.len() || end > array.len() || start > end {
+                        Ok(Some(Value::new_array(Vec::new())))
+                    } else {
+                        Ok(Some(Value::new_array(array[start..end].to_vec())))
+                    }
+                }
+                _ => Ok(None),
+            },
+            Value::Integer(n) => match method_name {
+                "abs" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer(n.abs())))
+                }
+                "sqrt" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer((*n as f64).sqrt() as i64)))
+                }
+                "pow" => {
+                    self.expect_method_arity(method_name, args, 1)?;
+                    let exp_value = self.eval(&args[0])?;
+                    let exp = self.as_i64(&exp_value)?;
+                    if exp < 0 {
+                        return Err(InterpreterError::runtime_no_span(
+                            "pow 指数必须是非负整数".to_string(),
+                        ));
+                    }
+                    Ok(Some(Value::Integer(n.pow(exp as u32))))
+                }
+                _ => Ok(None),
+            },
+            Value::Float(f) => match method_name {
+                "abs" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Float(f.abs())))
+                }
+                "sqrt" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Float(f.sqrt())))
+                }
+                "pow" => {
+                    self.expect_method_arity(method_name, args, 1)?;
+                    let exp_value = self.eval(&args[0])?;
+                    let exp = self.as_f64(&exp_value)?;
+                    Ok(Some(Value::Float(f.powf(exp))))
+                }
+                "floor" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer(f.floor() as i64)))
+                }
+                "ceil" => {
+                    self.expect_method_arity(method_name, args, 0)?;
+                    Ok(Some(Value::Integer(f.ceil() as i64)))
+                }
+                _ => Ok(None),
+            },
+            _ => Ok(None),
+        }
+    }
+
+    fn expect_method_arity(
+        &self,
+        method_name: &str,
+        args: &[Expression],
+        expected: usize,
+    ) -> Result<(), InterpreterError> {
+        if args.len() != expected {
+            return Err(InterpreterError::runtime_no_span(format!(
+                "方法 {} 需要 {} 个参数，但提供了 {} 个",
+                method_name,
+                expected,
+                args.len()
+            )));
+        }
+        Ok(())
     }
 
     fn eval_as_string(&mut self, expr: &Expression) -> Result<String, InterpreterError> {
@@ -3225,6 +3700,11 @@ impl Interpreter {
                 (Value::Float(a), Value::Float(b)) => Ok(Value::Float(a + b)),
                 (Value::Integer(a), Value::Float(b)) => Ok(Value::Float(*a as f64 + b)),
                 (Value::Float(a), Value::Integer(b)) => Ok(Value::Float(a + *b as f64)),
+                (Value::Array(a), Value::Array(b)) => {
+                    let mut combined = a.borrow().clone();
+                    combined.extend(b.borrow().iter().cloned());
+                    Ok(Value::new_array(combined))
+                }
                 (Value::String(a), Value::String(b)) => Ok(Value::String(format!("{}{}", a, b))),
                 (Value::String(a), _) => {
                     Ok(Value::String(format!("{}{}", a, self.format_value(right))))
@@ -3232,7 +3712,7 @@ impl Interpreter {
                 (_, Value::String(b)) => {
                     Ok(Value::String(format!("{}{}", self.format_value(left), b)))
                 }
-                _ => Err(InterpreterError::runtime_no_span("+ 需要数字或字符串")),
+                _ => Err(InterpreterError::runtime_no_span("+ 需要数字、字符串或数组")),
             },
             Sub => self.numeric_op(left, right, |a, b| a - b, |a, b| a - b),
             Mul => self.numeric_op(left, right, |a, b| a.wrapping_mul(b), |a, b| a * b),
@@ -4005,6 +4485,165 @@ mod tests {
     }
 
     #[test]
+    fn test_extern_stdout_variable_is_preloaded_for_fflush() {
+        let source = r#"
+            external "c" variable stdout: *();
+            external "c" function fflush(stream: *()) -> signed 32-bit integer
+
+            function main() {
+                fflush(stdout)
+            }
+        "#;
+
+        run_ok(source).expect("fflush(stdout) should not fail with undefined variable");
+    }
+
+    #[test]
+    fn test_extern_stdin_variable_is_bound_without_initializer() {
+        let source = r#"
+            external "c" variable stdin: *();
+            external "c" function consume(stream: *()) -> unit
+
+            function main() {
+                consume(stdin)
+            }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+
+        let mut interpreter = Interpreter::new();
+        interpreter
+            .load_declaration(&program.declarations[0])
+            .expect("load decl ok");
+
+        assert_eq!(interpreter.variables.get("stdin"), Some(&Value::Pointer(1)));
+        interpreter.run(&program).expect("consume(stdin) should run");
+    }
+
+    #[test]
+    fn test_plain_uninitialized_stdout_is_not_treated_as_extern() {
+        let source = r#"
+            let stdout: *()
+
+            function main() {
+                stdout
+            }
+        "#;
+
+        let err = run_ok(source).expect_err("plain uninitialized stdout should stay undefined");
+        let msg = err.to_string();
+        assert!(msg.contains("未定义的变量: stdout"));
+    }
+
+    #[test]
+    fn test_unhandled_foreign_c_long_return_defaults_to_integer_zero() {
+        let source = r#"
+            external "c" function getline(line: **character, capacity: *CSize, stream: *()) -> CLong
+            external "c" variable stdin: *();
+
+            function main() {
+                let result = getline(null as **character, null as *CSize, stdin);
+                let read_len = result as signed 64-bit integer;
+                print(read_len)
+            }
+        "#;
+
+        run_ok(source).expect("CLong extern returns should be castable to integer");
+    }
+
+    #[test]
+    fn test_referenced_variable_name_supports_casted_reference_arguments() {
+        let parser = x_parser::parser::XParser::new();
+        let program = parser
+            .parse("function main() { let buffer = \"\"; let ptr = &buffer as **character; }")
+            .expect("Failed to parse");
+
+        let main_func = match &program.declarations[0] {
+            Declaration::Function(func) => func,
+            other => panic!("unexpected declaration: {other:?}"),
+        };
+
+        let ptr_initializer = match &main_func.body.statements[1].node {
+            StatementKind::Variable(var) => var.initializer.as_ref().expect("initializer exists"),
+            other => panic!("unexpected stmt: {other:?}"),
+        };
+
+        assert_eq!(Interpreter::referenced_variable_name(ptr_initializer), Some("buffer"));
+    }
+
+    #[test]
+    fn test_getline_returns_character_count_for_non_ascii_input() {
+        let source = r#"
+            external "c" function getline(line: **character, capacity: *CSize, stream: *()) -> CLong
+            external "c" variable stdin: *();
+
+            function main() -> Unit {
+                let buffer = "";
+                let capacity = 0;
+                let result = getline(&buffer as **character, &capacity as *CSize, stdin);
+                println(result)
+                println(capacity)
+                println(buffer)
+            }
+        "#;
+
+        let parser = x_parser::parser::XParser::new();
+        let program = parser.parse(source).expect("Failed to parse");
+
+        let mut interpreter = Interpreter::new();
+
+        #[cfg(unix)]
+        unsafe {
+            let mut fds = [0; 2];
+            assert_eq!(libc::pipe(fds.as_mut_ptr()), 0, "pipe should succeed");
+
+            let input = "你好\n";
+            let bytes = input.as_bytes();
+            let written = libc::write(fds[1], bytes.as_ptr() as *const libc::c_void, bytes.len());
+            assert_eq!(written, bytes.len() as isize, "write should succeed");
+            libc::close(fds[1]);
+
+            let saved_stdin = libc::dup(0);
+            assert!(saved_stdin >= 0, "dup stdin should succeed");
+            assert!(libc::dup2(fds[0], 0) >= 0, "dup2 should succeed");
+            libc::close(fds[0]);
+
+            let run_result = interpreter.run(&program);
+
+            assert!(libc::dup2(saved_stdin, 0) >= 0, "restore stdin should succeed");
+            libc::close(saved_stdin);
+
+            run_result.expect("getline should handle non-ascii input");
+            assert_eq!(interpreter.variables.get("buffer"), Some(&Value::String("你好".to_string())));
+            assert_eq!(interpreter.variables.get("capacity"), Some(&Value::Integer(2)));
+        }
+
+        #[cfg(not(unix))]
+        {
+            let _ = &program;
+            let _ = &mut interpreter;
+        }
+    }
+
+    #[test]
+    fn test_unsafe_statement_propagates_block_value_for_function_result() {
+        let source = r#"
+            function choose() -> string {
+                unsafe {
+                    "unsafe-value"
+                }
+            }
+
+            function main() -> Unit {
+                println(choose())
+            }
+        "#;
+
+        run_ok(source).expect("unsafe statement should preserve final block expression value");
+    }
+
+    #[test]
     fn test_match_or_pattern_and_guard() {
         let source = r#"
             let x = 2;
@@ -4383,6 +5022,31 @@ mod tests {
     }
 
     #[test]
+    fn test_function_block_returns_if_expression_value() {
+        let source = r#"
+            enum Option<T> {
+                Some(T)
+                None
+            }
+
+            function divide(a, b) {
+                if b == 0 {
+                    Option.None
+                } else {
+                    Option.Some(a / b)
+                }
+            }
+
+            let result = divide(10, 2)
+            when result is {
+                Option.Some(v) => print(v)
+                Option.None => print("none")
+            }
+        "#;
+        run_ok(source).expect("block-valued if should propagate function result");
+    }
+
+    #[test]
     fn test_closure() {
         let source = r#"
             function make_counter() {
@@ -4550,7 +5214,6 @@ mod tests {
     // ==================== String Operations Tests ====================
 
     #[test]
-    #[ignore = "string methods not yet fully implemented"]
     fn test_string_length() {
         let source = r#"
             let s = "Hello"
@@ -4560,18 +5223,16 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "string methods not yet fully implemented"]
     fn test_string_upper_lower() {
         let source = r#"
             let s = "Hello"
-            print(s.upper())
-            print(s.lower())
+            print(s.toUpperCase())
+            print(s.toLowerCase())
         "#;
         run_ok(source).expect("string upper/lower should work");
     }
 
     #[test]
-    #[ignore = "string methods not yet fully implemented"]
     fn test_string_contains() {
         let source = r#"
             let s = "Hello, World!"
@@ -4579,6 +5240,31 @@ mod tests {
             print(s.contains("xyz"))
         "#;
         run_ok(source).expect("string contains should work");
+    }
+
+    #[test]
+    fn test_string_substring_trim_split() {
+        let source = r#"
+            let greeting = "  Hello, World!  "
+            print(greeting.trim())
+            print(greeting.substring(2, 7))
+            let parts = "a,b,c".split(",")
+            print(parts[0])
+            print(parts[2])
+        "#;
+        run_ok(source).expect("string substring/trim/split should work");
+    }
+
+    #[test]
+    fn test_numeric_builtin_methods() {
+        let source = r#"
+            print(4.0.sqrt())
+            print(2.0.pow(3.0))
+            print(3.7.floor())
+            print(2.1.ceil())
+            print((-4).abs())
+        "#;
+        run_ok(source).expect("numeric builtin methods should work");
     }
 
     // ==================== Mathematical Functions Tests ====================
@@ -4593,7 +5279,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "min/max builtins not yet implemented"]
     fn test_min_max_functions() {
         let source = r#"
             print(min(1, 2))

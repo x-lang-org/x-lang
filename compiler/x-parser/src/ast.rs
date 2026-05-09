@@ -200,15 +200,26 @@ pub enum Declaration {
 /// 变量声明
 #[derive(Debug, PartialEq, Clone)]
 pub struct VariableDecl {
-    pub name: String,
+    pub pattern: Pattern,
     pub is_mutable: bool,
     pub is_constant: bool,
+    /// 外部变量 ABI（仅 extern variable 声明使用）
+    pub extern_abi: Option<String>,
     pub type_annot: Option<Type>,
     pub initializer: Option<Expression>,
     /// 访问修饰符（用于类字段）
     pub visibility: Visibility,
     /// 源码位置
     pub span: Span,
+}
+
+impl VariableDecl {
+    pub fn simple_name(&self) -> Option<&str> {
+        match &self.pattern {
+            Pattern::Variable(name) => Some(name.as_str()),
+            _ => None,
+        }
+    }
 }
 
 /// 函数声明
@@ -447,6 +458,7 @@ pub type Statement = Spanned<StatementKind>;
 pub enum StatementKind {
     Expression(Expression),
     Variable(VariableDecl),
+    Function(FunctionDecl),
     Return(Option<Expression>),
     If(IfStatement),
     For(ForStatement),
