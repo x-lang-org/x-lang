@@ -71,8 +71,11 @@ pub fn exec(
         }
     };
 
-    // Run the full compiler pipeline: source → AST → HIR → MIR → LIR
-    let pipeline_output = pipeline::run_pipeline(&content)?;
+    // Run the full compiler pipeline: source → imports/prelude → AST → HIR → MIR → LIR
+    let project_dir = std::path::Path::new(file)
+        .parent()
+        .unwrap_or_else(|| std::path::Path::new("."));
+    let pipeline_output = pipeline::run_pipeline_with_project_dir(&content, project_dir)?;
 
     // All backends use the full pipeline via LIR
     match parsed_target {
@@ -172,7 +175,7 @@ pub fn exec(
             let _ = std::fs::remove_file(&asm_path);
             let _ = std::fs::remove_file(&obj_path);
 
-            println!("编译成功: {}", output_path.display());
+            eprintln!("编译成功: {}", output_path.display());
         }
         // ── Zig-based targets (Native + Wasm) ────────────────────────────────
         Target::Zig => {
@@ -211,7 +214,7 @@ pub fn exec(
                 .compile_zig_code(&zig_code, &output_path)
                 .map_err(|e| format!("Zig编译失败: {}", e))?;
 
-            println!("编译成功: {}", output_path.display());
+            eprintln!("编译成功: {}", output_path.display());
         }
 
         // ── TypeScript target ─────────────────────────────────────────────────
@@ -236,7 +239,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入TypeScript文件 {}: {}", ts_out_path, e))?;
 
             if no_link {
-                println!("已生成TypeScript代码: {}", ts_out_path);
+                eprintln!("已生成TypeScript代码: {}", ts_out_path);
                 return Ok(());
             }
 
@@ -260,16 +263,16 @@ pub fn exec(
             match status {
                 Ok(s) if s.success() => {
                     let js_path = std::path::Path::new(&ts_out_path).with_extension("js");
-                    println!("编译成功: {}", js_path.display());
+                    eprintln!("编译成功: {}", js_path.display());
                 }
                 Ok(_) => {
-                    println!("已生成TypeScript代码: {}", ts_out_path);
+                    eprintln!("已生成TypeScript代码: {}", ts_out_path);
                     return Err("TypeScript编译失败 (tsc 返回非零退出码)".to_string());
                 }
                 Err(_) => {
-                    println!("已生成TypeScript代码: {}", ts_out_path);
-                    println!("提示: 安装TypeScript后可编译为JavaScript: npm install -g typescript");
-                    println!("      然后运行: tsc {}", ts_out_path);
+                    eprintln!("已生成TypeScript代码: {}", ts_out_path);
+                    eprintln!("提示: 安装TypeScript后可编译为JavaScript: npm install -g typescript");
+                    eprintln!("      然后运行: tsc {}", ts_out_path);
                     return Err("tsc 未找到，请安装 TypeScript".to_string());
                 }
             }
@@ -299,7 +302,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入LLVM IR文件: {}", e))?;
 
             if no_link {
-                println!("已生成LLVM IR: {}", ll_path.display());
+                eprintln!("已生成LLVM IR: {}", ll_path.display());
                 return Ok(());
             }
 
@@ -344,7 +347,7 @@ pub fn exec(
             }
 
             let _ = std::fs::remove_file(&obj_path);
-            println!("编译成功: {}", output_path.display());
+            eprintln!("编译成功: {}", output_path.display());
         }
 
         // ── Rust target ─────────────────────────────────────────────────────────
@@ -367,7 +370,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入Rust文件: {}", e))?;
 
             if no_link {
-                println!("已生成Rust代码: {}", rs_out_path);
+                eprintln!("已生成Rust代码: {}", rs_out_path);
                 return Ok(());
             }
 
@@ -381,12 +384,12 @@ pub fn exec(
 
             match RustBackend::compile_rust(&rust_code, &exe_path) {
                 Ok(final_path) => {
-                    println!("编译成功: {}", final_path.display());
+                    eprintln!("编译成功: {}", final_path.display());
                 }
                 Err(e) => {
-                    println!("已生成Rust代码: {}", rs_out_path);
-                    println!("提示: 安装 Rust 后可编译为可执行文件");
-                    println!("      然后运行: cargo build --release {}", rs_out_path);
+                    eprintln!("已生成Rust代码: {}", rs_out_path);
+                    eprintln!("提示: 安装 Rust 后可编译为可执行文件");
+                    eprintln!("      然后运行: cargo build --release {}", rs_out_path);
                     return Err(format!("Rust编译失败: {}", e));
                 }
             }
@@ -414,7 +417,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入Erlang文件 {}: {}", erl_out_path, e))?;
 
             if no_link {
-                println!("已生成Erlang代码: {}", erl_out_path);
+                eprintln!("已生成Erlang代码: {}", erl_out_path);
                 return Ok(());
             }
 
@@ -439,7 +442,7 @@ pub fn exec(
                 .map_err(|e| format!("执行Erlang失败: {}", e))?;
 
             if status.success() {
-                println!("执行成功");
+                eprintln!("执行成功");
             } else {
                 return Err(format!("Erlang 脚本执行失败，退出码: {:?}", status.code()));
             }
@@ -464,7 +467,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入Python文件: {}", e))?;
 
             if no_link {
-                println!("已生成Python代码: {}", py_out_path);
+                eprintln!("已生成Python代码: {}", py_out_path);
                 return Ok(());
             }
 
@@ -479,7 +482,7 @@ pub fn exec(
                 .map_err(|e| format!("执行Python失败: {}", e))?;
 
             if status.success() {
-                println!("执行成功");
+                eprintln!("执行成功");
             } else {
                 return Err(format!("Python 脚本执行失败，退出码: {:?}", status.code()));
             }
@@ -506,7 +509,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入Java文件: {}", e))?;
 
             if no_link {
-                println!("已生成Java代码: {}", java_out_path.display());
+                eprintln!("已生成Java代码: {}", java_out_path.display());
                 return Ok(());
             }
 
@@ -535,7 +538,7 @@ pub fn exec(
                 .map_err(|e| format!("执行Java失败: {}", e))?;
 
             if run_status.success() {
-                println!("执行成功");
+                eprintln!("执行成功");
             } else {
                 return Err(format!(
                     "Java 程序执行失败，退出码: {:?}",
@@ -559,7 +562,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入C#文件: {}", e))?;
 
             if no_link {
-                println!("已生成C#代码: {}", cs_out_path);
+                eprintln!("已生成C#代码: {}", cs_out_path);
                 return Ok(());
             }
 
@@ -600,7 +603,7 @@ pub fn exec(
                     .map_err(|e| format!("dotnet run 失败: {}", e))?;
 
                 if build_status.success() {
-                    println!("执行成功");
+                    eprintln!("执行成功");
                     return Ok(());
                 } else {
                     return Err(format!(
@@ -633,7 +636,7 @@ pub fn exec(
                     .map_err(|e| format!("执行Mono失败: {}", e))?;
 
                 if run_status.success() {
-                    println!("执行成功");
+                    eprintln!("执行成功");
                 } else {
                     return Err(format!(
                         "Mono 程序执行失败，退出码: {:?}",
@@ -660,7 +663,7 @@ pub fn exec(
                 .map_err(|e| format!("无法写入Swift文件: {}", e))?;
 
             if no_link {
-                println!("已生成Swift代码: {}", swift_out_path);
+                eprintln!("已生成Swift代码: {}", swift_out_path);
                 return Ok(());
             }
 
@@ -704,7 +707,7 @@ pub fn exec(
                 .map_err(|e| format!("执行Swift失败: {}", e))?;
 
             if run_status.success() {
-                println!("执行成功");
+                eprintln!("执行成功");
             } else {
                 return Err(format!(
                     "Swift 程序执行失败，退出码: {:?}",
@@ -737,17 +740,21 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "ast" => {
-            let parser = x_parser::parser::XParser::new();
-            let program = parser
-                .parse(content)
-                .map_err(|e| pipeline::format_parse_error(file, content, &e))?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let program = pipeline::prepare_program(content, project_dir)
+                .map_err(|e| format!("{}", e))?;
             println!("{:#?}", program);
             Ok(())
         }
         // ── Backend source-emit options ──────────────────────────────────────
         "zig" => {
             // 使用完整流水线 LIR → Zig 代码生成
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = ZigBackend::new(
                 ZigBackendConfig::default(),
             );
@@ -760,7 +767,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         // TypeScript / JavaScript: both emit from LIR for accuracy
         "ts" | "typescript" | "js" | "javascript" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend =
                 TypeScriptBackend::new(TypeScriptBackendConfig::default());
             let codegen_output = backend
@@ -771,7 +781,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "java" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = JavaBackend::new(JavaConfig::default());
             let codegen_output = backend.generate_from_lir(&output.lir)
                 .map_err(|e| format!("Java代码生成失败: {}", e))?;
@@ -781,7 +794,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "dotnet" | "csharp" => {
             // 使用 LIR 进行代码生成（符合编译流水线要求）
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = CSharpBackend::new(
                 CSharpConfig::default(),
             );
@@ -794,7 +810,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "rust" => {
             // 使用 LIR 进行代码生成（符合编译流水线要求）
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = RustBackend::new(
                 RustBackendConfig::default(),
             );
@@ -806,7 +825,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "swift" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = SwiftBackend::new(SwiftBackendConfig::default());
             let codegen_output = backend
                 .generate_from_lir(&output.lir)
@@ -817,7 +839,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         "c" => {
             // C 后端使用 Rust 后端生成 C 风格代码
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = RustBackend::new(
                 RustBackendConfig::default(),
             );
@@ -829,7 +854,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "erlang" | "erl" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = ErlangBackend::new(ErlangBackendConfig::default());
             let codegen_output = backend
                 .generate_from_lir(&output.lir)
@@ -839,7 +867,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "python" | "py" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let mut backend = PythonBackend::new(PythonBackendConfig::default());
             let codegen_output = backend
                 .generate_from_lir(&output.lir)
@@ -849,7 +880,10 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
             Ok(())
         }
         "llvm" | "ll" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             let target_triple = get_host_target_triple();
             let mut backend = LlvmBackend::new(
                 LlvmBackendConfig {
@@ -869,23 +903,35 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
         }
         // ── IR dump options ───────────────────────────────────────────────────
         "hir" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             println!("{:#?}", output.hir);
             Ok(())
         }
         "mir" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             println!("{:#?}", output.mir);
             Ok(())
         }
         "lir" => {
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             println!("{:#?}", output.lir);
             Ok(())
         }
         "asm" | "assembly" | "native" => {
             // 输出 Native 后端汇编
-            let output = pipeline::run_pipeline(content)?;
+            let project_dir = std::path::Path::new(file)
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."));
+            let output = pipeline::run_pipeline_with_project_dir(content, project_dir)?;
             use x_codegen_asm::{NativeBackend, NativeBackendConfig, TargetArch, TargetOS};
             let arch = if cfg!(target_arch = "x86_64") {
                 TargetArch::X86_64

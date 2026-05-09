@@ -105,8 +105,9 @@ fn build_source(
     let source =
         std::fs::read_to_string(path).map_err(|e| format!("无法读取 {}: {}", path.display(), e))?;
 
-    // Run the full compiler pipeline: source → AST → HIR → MIR → LIR
-    let pipeline_output = pipeline::run_pipeline(&source)?;
+    // Run the full compiler pipeline: source → imports/prelude → AST → HIR → MIR → LIR
+    let project_dir = path.parent().unwrap_or_else(|| std::path::Path::new("."));
+    let pipeline_output = pipeline::run_pipeline_with_project_dir(&source, project_dir)?;
 
     // Use Zig backend directly for now, since it's the most mature
     let mut backend = ZigBackend::new(ZigBackendConfig {

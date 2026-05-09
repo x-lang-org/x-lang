@@ -95,21 +95,32 @@ pub fn install_root() -> PathBuf {
     x_home().join("bin")
 }
 
+pub fn git_install_root() -> PathBuf {
+    x_home().join("git")
+}
+
+pub fn managed_stdlib_root() -> PathBuf {
+    x_home().join("toolchain").join("stdlib")
+}
+
 pub fn _registry_cache() -> PathBuf {
     x_home().join("registry")
 }
 
 impl GlobalConfig {
     pub fn load() -> Self {
+        Self::load_checked().unwrap_or_default()
+    }
+
+    pub fn load_checked() -> Result<Self, String> {
         let path = config_path();
-        if path.exists() {
-            if let Ok(content) = std::fs::read_to_string(&path) {
-                if let Ok(config) = toml::from_str(&content) {
-                    return config;
-                }
-            }
+        if !path.exists() {
+            return Ok(Self::default());
         }
-        Self::default()
+
+        let content = std::fs::read_to_string(&path)
+            .map_err(|e| format!("无法读取全局配置 {}: {}", path.display(), e))?;
+        toml::from_str(&content).map_err(|e| format!("无法解析全局配置 {}: {}", path.display(), e))
     }
 
     pub fn save(&self) -> Result<(), String> {

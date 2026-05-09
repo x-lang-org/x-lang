@@ -2,7 +2,7 @@ use crate::registry::RegistryClient;
 use crate::utils;
 
 pub fn exec(query: &str, limit: usize, registry: Option<&str>) -> Result<(), String> {
-    let client = RegistryClient::new(registry);
+    let client = RegistryClient::from_registry_name(registry)?;
 
     utils::status("Searching", &format!("\"{}\"", query));
 

@@ -60,12 +60,15 @@ fn check_file(file: &str) -> Result<(), String> {
         .parse(&content)
         .map_err(|e| pipeline::format_parse_error(file, &content, &e))?;
 
-    // 解析模块导入：使用当前工作目录作为项目根目录
+    // 解析模块导入：使用源文件所在目录作为项目根目录
     let stdlib_dir = crate::pipeline::find_stdlib_path()?;
-    let project_dir = std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from("."));
+    let project_dir = std::path::Path::new(file)
+        .parent()
+        .unwrap_or_else(|| std::path::Path::new("."))
+        .to_path_buf();
     crate::pipeline::resolve_imports(&mut program, &stdlib_dir, &project_dir)?;
 
-    // 注意：prelude 由类型检查器内置处理，不需要单独加载
+    crate::pipeline::inject_std_prelude(&mut program)?;
 
     pipeline::type_check_with_big_stack_formatted(&program, file, &content)?;
 
@@ -81,10 +84,12 @@ fn check_single_file(path: &std::path::Path, error_count: &mut usize) -> Result<
     let path_str = path.display().to_string();
     match parser.parse(&content) {
         Ok(mut program) => {
-            // 解析模块导入：使用当前工作目录作为项目根目录
+            // 解析模块导入：使用源文件所在目录作为项目根目录
             let stdlib_dir = crate::pipeline::find_stdlib_path()?;
-            let project_dir =
-                std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from("."));
+            let project_dir = path
+                .parent()
+                .unwrap_or_else(|| std::path::Path::new("."))
+                .to_path_buf();
             if let Err(e) =
                 crate::pipeline::resolve_imports(&mut program, &stdlib_dir, &project_dir)
             {
@@ -94,17 +99,10 @@ fn check_single_file(path: &std::path::Path, error_count: &mut usize) -> Result<
             }
 
             // 自动导入标准库 prelude
-            match crate::pipeline::parse_std_prelude() {
-                Ok(prelude_decls) => {
-                    let mut new_decls = prelude_decls;
-                    new_decls.extend(program.declarations);
-                    program.declarations = new_decls;
-                }
-                Err(e) => {
-                    crate::utils::error(&e);
-                    *error_count += 1;
-                    return Ok(());
-                }
+            if let Err(e) = crate::pipeline::inject_std_prelude(&mut program) {
+                crate::utils::error(&e);
+                *error_count += 1;
+                return Ok(());
             }
             if let Err(e) =
                 pipeline::type_check_with_big_stack_formatted(&program, &path_str, &content)

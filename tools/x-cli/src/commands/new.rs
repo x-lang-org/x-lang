@@ -2,12 +2,12 @@ use crate::manifest::Manifest;
 use crate::utils;
 use std::path::Path;
 
-pub const MAIN_TEMPLATE: &str = r#"fun main() {
-    print("Hello, world!")
+pub const MAIN_TEMPLATE: &str = r#"function main() -> Unit {
+    println("Hello, X!")
 }
 "#;
 
-pub const LIB_TEMPLATE: &str = r#"fun add(a: Int, b: Int) -> Int {
+pub const LIB_TEMPLATE: &str = r#"function add(a: integer, b: integer) -> integer {
     a + b
 }
 "#;

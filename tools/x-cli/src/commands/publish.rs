@@ -1,6 +1,7 @@
 use crate::project::Project;
 use crate::registry::RegistryClient;
 use crate::utils;
+use std::path::PathBuf;
 
 pub fn exec(
     dry_run: bool,
@@ -44,12 +45,22 @@ pub fn exec(
         return Ok(());
     }
 
-    let client = RegistryClient::new(registry);
-    client.publish(&[])?;
+    let tarball_path = default_tarball_path(&project);
+    let tarball = std::fs::read(&tarball_path)
+        .map_err(|e| format!("无法读取打包文件 {}: {}", tarball_path.display(), e))?;
+    let client = RegistryClient::from_registry_name(registry)?;
+    client.publish(&tarball)?;
 
     utils::status(
         "Published",
         &format!("{} v{}", project.name(), project.version()),
     );
     Ok(())
+}
+
+fn default_tarball_path(project: &Project) -> PathBuf {
+    project
+        .target_dir()
+        .join("package")
+        .join(format!("{}-{}.tar.gz", project.name(), project.version()))
 }

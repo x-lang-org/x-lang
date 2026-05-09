@@ -39,7 +39,7 @@ pub fn exec(
     };
 
     if !quiet {
-        utils::status("Running", &format!("`{}`", source_path.display()));
+        utils::status_stderr("Running", &format!("`{}`", source_path.display()));
     }
 
     let path_str = source_path.to_str().ok_or_else(|| {
@@ -60,16 +60,15 @@ fn run_file(file: &str, quiet: bool) -> Result<bool, String> {
         .parse(&content)
         .map_err(|e| format!("解析错误: {}", e))?;
 
-    // 自动导入标准库 prelude
-    let prelude_decls = pipeline::parse_std_prelude()?;
-    let mut new_decls = prelude_decls;
-    new_decls.extend(program.declarations);
-    program.declarations = new_decls;
-
-    // 解析模块导入：使用当前工作目录作为项目根目录
+    // 解析模块导入：使用源文件所在目录作为项目根目录
     let stdlib_dir = crate::pipeline::find_stdlib_path()?;
-    let project_dir = std::env::current_dir().unwrap_or_else(|_| std::path::PathBuf::from("."));
+    let project_dir = std::path::Path::new(file)
+        .parent()
+        .unwrap_or_else(|| std::path::Path::new("."))
+        .to_path_buf();
     crate::pipeline::resolve_imports(&mut program, &stdlib_dir, &project_dir)?;
+
+    pipeline::inject_std_prelude(&mut program)?;
 
     pipeline::type_check_with_big_stack(&program)?;
 
@@ -79,7 +78,7 @@ fn run_file(file: &str, quiet: bool) -> Result<bool, String> {
         .map_err(|e| format!("运行失败: {}", e))?;
 
     if !quiet {
-        utils::status("Finished", "运行成功");
+        utils::status_stderr("Finished", "运行成功");
     }
 
     Ok(true)

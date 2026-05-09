@@ -41,7 +41,12 @@ pub fn exec(filter: Option<&str>, no_run: bool) -> Result<(), String> {
 
         let parser = x_parser::parser::XParser::new();
         match parser.parse(&content) {
-            Ok(program) => {
+            Ok(mut program) => {
+                if let Err(e) = pipeline::inject_std_prelude(&mut program) {
+                    utils::error(&format!("{}: 无法加载 prelude: {}", name, e));
+                    continue;
+                }
+
                 if let Err(e) = x_typechecker::type_check(&program) {
                     utils::error(&format!("{}: 类型检查失败: {}", name, e));
                     continue;

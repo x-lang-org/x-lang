@@ -123,6 +123,9 @@ enum Commands {
         /// 过滤测试名称
         #[arg(value_name = "FILTER")]
         filter: Option<String>,
+        /// integration 测试分类
+        #[arg(value_name = "CATEGORY")]
+        category: Option<String>,
         /// 使用 release 配置
         #[arg(long)]
         release: bool,
@@ -557,6 +560,8 @@ fn main() {
 fn real_main() {
     let cli = Cli::parse();
 
+    utils::init_logging(cli.verbose, cli.quiet);
+
     if let Some(ref dir) = cli.directory {
         if let Err(e) = std::env::set_current_dir(dir) {
             utils::error(&format!("无法切换到目录 {}: {}", dir, e));
@@ -633,12 +638,35 @@ fn dispatch(cli: Cli) -> Result<(), String> {
 
         Commands::Test {
             filter,
+            category,
             release,
             lib,
             doc,
             no_run,
             jobs,
-        } => commands::test_cmd::exec(filter.as_deref(), release, lib, doc, no_run, jobs),
+        } => {
+            let combined_filter = match (filter.as_deref(), category.as_deref()) {
+                (Some("integration"), Some(category)) => Some(format!("integration/{category}")),
+                (Some(filter), None) => Some(filter.to_string()),
+                (Some(_), Some(category)) => {
+                    return Err(format!(
+                        "额外的测试分类 `{}` 仅支持与 `x test integration <category>` 一起使用",
+                        category
+                    ));
+                }
+                (None, Some(category)) => Some(category.to_string()),
+                (None, None) => None,
+            };
+            commands::test_cmd::exec(
+                combined_filter.as_deref(),
+                release,
+                lib,
+                doc,
+                no_run,
+                jobs,
+                cli.verbose,
+            )
+        }
 
         Commands::Bench { filter, no_run } => commands::bench::exec(filter.as_deref(), no_run),
 

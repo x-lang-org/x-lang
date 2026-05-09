@@ -1,28 +1,91 @@
 use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
-/// 查找标准库文件路径
-pub fn find_stdlib_path() -> Result<PathBuf, String> {
-    // 尝试从项目根目录查找
-    let candidates = [
+fn first_existing_path(candidates: impl IntoIterator<Item = PathBuf>) -> Option<PathBuf> {
+    candidates.into_iter().find(|candidate| candidate.exists())
+}
+
+fn cwd_stdlib_candidates() -> Vec<PathBuf> {
+    vec![
         PathBuf::from("../../library/stdlib"),
         PathBuf::from("../library/stdlib"),
         PathBuf::from("library/stdlib"),
         PathBuf::from("/library/stdlib"),
-    ];
+    ]
+}
 
-    for candidate in candidates {
-        if candidate.exists() {
-            return Ok(candidate);
-        }
+fn managed_stdlib_candidates() -> Vec<PathBuf> {
+    vec![crate::config::managed_stdlib_root()]
+}
+
+fn executable_stdlib_candidates() -> Vec<PathBuf> {
+    let Ok(exe_path) = std::env::current_exe() else {
+        return Vec::new();
+    };
+    let Some(exe_dir) = exe_path.parent() else {
+        return Vec::new();
+    };
+
+    exe_dir
+        .ancestors()
+        .take(6)
+        .map(|ancestor| ancestor.join("library/stdlib"))
+        .collect()
+}
+
+fn trusted_stdlib_candidates() -> Vec<PathBuf> {
+    let mut candidates = Vec::new();
+
+    if let Ok(x_root) = std::env::var("X_ROOT") {
+        candidates.push(PathBuf::from(x_root).join("library/stdlib"));
     }
 
-    // 尝试从可执行文件位置查找（通过环境变量）
+    candidates.extend(managed_stdlib_candidates());
+    candidates.extend(executable_stdlib_candidates());
+
+    if let Ok(manifest_dir) = std::env::var("CARGO_MANIFEST_DIR") {
+        candidates.push(PathBuf::from(manifest_dir).join("../../library/stdlib"));
+    }
+
+    candidates
+}
+
+pub fn find_trusted_stdlib_source() -> Result<PathBuf, String> {
+    if let Some(path) = first_existing_path(trusted_stdlib_candidates()) {
+        return path
+            .canonicalize()
+            .map_err(|e| format!("无法规范化标准库路径 {}: {}", path.display(), e));
+    }
+
+    Err(format!(
+        "无法找到可信标准库目录。请设置 X_ROOT，或确保 {} 存在，或从包含 library/stdlib 的已构建仓库环境运行 x。",
+        crate::config::managed_stdlib_root().display()
+    ))
+}
+
+/// 查找标准库文件路径
+pub fn find_stdlib_path() -> Result<PathBuf, String> {
+    // 显式环境变量优先于推断路径
     if let Ok(x_root) = std::env::var("X_ROOT") {
         let path = PathBuf::from(x_root).join("library/stdlib");
         if path.exists() {
             return Ok(path);
         }
+    }
+
+    // 已安装工具优先使用复制到 X_HOME 下的托管标准库
+    if let Some(path) = first_existing_path(managed_stdlib_candidates()) {
+        return Ok(path);
+    }
+
+    // 开发场景允许直接从当前工作目录发现仓库内置标准库
+    if let Some(path) = first_existing_path(cwd_stdlib_candidates()) {
+        return Ok(path);
+    }
+
+    // 尝试从已构建的 x 可执行文件位置推断仓库根目录
+    if let Some(path) = first_existing_path(executable_stdlib_candidates()) {
+        return Ok(path);
     }
 
     // 对于开发构建，从 Cargo 环境查找
@@ -36,7 +99,10 @@ pub fn find_stdlib_path() -> Result<PathBuf, String> {
         }
     }
 
-    Err("无法找到标准库目录。请确保 X_ROOT 环境变量正确设置，或者在项目根目录中运行。".to_string())
+    Err(format!(
+        "无法找到标准库目录。请设置 X_ROOT，或确保 {} 存在，或从包含 library/stdlib 的仓库相对位置运行 x。",
+        crate::config::managed_stdlib_root().display()
+    ))
 }
 
 /// CLI 编译流水线产物
@@ -123,73 +189,166 @@ pub fn parse_std_prelude() -> Result<Vec<x_parser::ast::Declaration>, String> {
     Ok(prelude_program.declarations)
 }
 
+/// 将标准库 prelude 声明插入到程序最前面。
+pub fn inject_std_prelude(program: &mut x_parser::ast::Program) -> Result<(), String> {
+    let existing_keys: HashSet<_> = program
+        .declarations
+        .iter()
+        .filter_map(declaration_identity_key)
+        .collect();
+
+    let mut prelude_decls: Vec<_> = parse_std_prelude()?
+        .into_iter()
+        .filter(|decl| match declaration_identity_key(decl) {
+            Some(key) => !existing_keys.contains(&key),
+            None => true,
+        })
+        .collect();
+
+    prelude_decls.extend(program.declarations.clone());
+    program.declarations = prelude_decls;
+    Ok(())
+}
+
+fn declaration_identity_key(decl: &x_parser::ast::Declaration) -> Option<(&'static str, String)> {
+    use x_parser::ast::Declaration;
+
+    match decl {
+        Declaration::Variable(var) => var
+            .simple_name()
+            .map(|name| ("variable", name.to_string())),
+        Declaration::Function(func) => Some(("function", func.name.clone())),
+        Declaration::ExternFunction(func) => Some(("extern_function", func.name.clone())),
+        Declaration::Class(class) => Some(("class", class.name.clone())),
+        Declaration::Trait(trait_decl) => Some(("trait", trait_decl.name.clone())),
+        Declaration::Enum(enum_decl) => Some(("enum", enum_decl.name.clone())),
+        Declaration::Record(record) => Some(("record", record.name.clone())),
+        Declaration::Effect(effect) => Some(("effect", effect.name.clone())),
+        Declaration::TypeAlias(alias) => Some(("type_alias", alias.name.clone())),
+        Declaration::Newtype(newtype) => Some(("newtype", newtype.name.clone())),
+        Declaration::Module(module) => Some(("module", module.name.clone())),
+        Declaration::Import(import_decl) => Some(("import", import_decl.module_path.clone())),
+        Declaration::Export(export_decl) => Some(("export", export_decl.symbol.clone())),
+        Declaration::Implement(_) => None,
+    }
+}
+
+fn should_insert_declaration(
+    program: &x_parser::ast::Program,
+    decl: &x_parser::ast::Declaration,
+) -> bool {
+    if matches!(decl, x_parser::ast::Declaration::Import(_)) {
+        return true;
+    }
+
+    match declaration_identity_key(decl) {
+        Some(key) => !program
+            .declarations
+            .iter()
+            .filter_map(declaration_identity_key)
+            .any(|existing_key| existing_key == key),
+        None => true,
+    }
+}
+
+/// Parse a source string, resolve imports relative to a project directory, then inject prelude.
+pub fn prepare_program(
+    source: &str,
+    project_dir: &Path,
+) -> Result<x_parser::ast::Program, String> {
+    let parser = x_parser::parser::XParser::new();
+    let mut program = parser
+        .parse(source)
+        .map_err(|e| format!("解析错误: {}", e))?;
+
+    let stdlib_dir = find_stdlib_path()?;
+    resolve_imports(&mut program, &stdlib_dir, project_dir)?;
+    inject_std_prelude(&mut program)?;
+
+    Ok(program)
+}
+
 /// 解析并处理所有 import 语句
 pub fn resolve_imports(
     program: &mut x_parser::ast::Program,
     stdlib_dir: &Path,
     project_dir: &Path,
 ) -> Result<(), String> {
-    let mut imports_to_process: Vec<(usize, x_parser::ast::ImportDecl)> = Vec::new();
+    loop {
+        let imports_to_process: Vec<(usize, x_parser::ast::ImportDecl)> = program
+            .declarations
+            .iter()
+            .enumerate()
+            .filter_map(|(idx, decl)| match decl {
+                x_parser::ast::Declaration::Import(import_decl) => Some((idx, import_decl.clone())),
+                _ => None,
+            })
+            .collect();
 
-    // 收集所有 import 声明
-    for (idx, decl) in program.declarations.iter().enumerate() {
-        if let x_parser::ast::Declaration::Import(import_decl) = decl {
-            imports_to_process.push((idx, import_decl.clone()));
+        if imports_to_process.is_empty() {
+            break;
         }
-    }
 
-    // 处理每个 import
-    for (original_idx, import_decl) in imports_to_process {
-        let module_path = &import_decl.module_path;
+        let processed_imports: Vec<x_parser::ast::ImportDecl> = imports_to_process
+            .iter()
+            .map(|(_, import_decl)| import_decl.clone())
+            .collect();
 
-        // 解析模块源文件
-        let module_source = resolve_import_module(module_path, stdlib_dir, project_dir)?;
+        for (original_idx, import_decl) in imports_to_process {
+            let module_path = &import_decl.module_path;
 
-        // 解析模块
-        let parser = x_parser::parser::XParser::new();
-        let module_program = parser
-            .parse(&module_source)
-            .map_err(|e| format!("无法解析模块 {}: {}", module_path, e))?;
+            // 解析模块源文件
+            let module_source = resolve_import_module(module_path, stdlib_dir, project_dir)?;
 
-        // 根据 import 类型处理
-        match &import_decl.symbols[..] {
-            // import std.Option  -> 导入整个模块
-            [] => {
-                // 将模块的所有声明插入到当前程序中
-                insert_module_declarations(program, original_idx, module_program);
-            }
-            // import std.Option.Some  -> 导入特定符号
-            symbols => {
-                for symbol in symbols {
-                    match symbol {
-                        x_parser::ast::ImportSymbol::All => {
-                            // 导入所有 - 需要克隆因为 module_program 可能被多次使用
-                            insert_module_declarations(
-                                program,
-                                original_idx,
-                                module_program.clone(),
-                            );
-                        }
-                        x_parser::ast::ImportSymbol::Named(name, alias) => {
-                            // 导入特定符号 (name is String, alias is Option<String>)
-                            insert_specific_symbol(
-                                program,
-                                original_idx,
-                                &module_program,
-                                name,
-                                alias.as_deref(),
-                            );
+            // 解析模块
+            let parser = x_parser::parser::XParser::new();
+            let module_program = parser
+                .parse(&module_source)
+                .map_err(|e| format!("无法解析模块 {}: {}", module_path, e))?;
+
+            // 根据 import 类型处理
+            match &import_decl.symbols[..] {
+                // import std.Option  -> 导入整个模块
+                [] => {
+                    // 将模块的所有声明插入到当前程序中
+                    insert_module_declarations(program, original_idx, module_program);
+                }
+                // import std.Option.Some  -> 导入特定符号
+                symbols => {
+                    for symbol in symbols {
+                        match symbol {
+                            x_parser::ast::ImportSymbol::All => {
+                                // 导入所有 - 需要克隆因为 module_program 可能被多次使用
+                                insert_module_declarations(
+                                    program,
+                                    original_idx,
+                                    module_program.clone(),
+                                );
+                            }
+                            x_parser::ast::ImportSymbol::Named(name, alias) => {
+                                // 导入特定符号 (name is String, alias is Option<String>)
+                                insert_specific_symbol(
+                                    program,
+                                    original_idx,
+                                    &module_program,
+                                    name,
+                                    alias.as_deref(),
+                                );
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    // 移除 import 声明
-    program
-        .declarations
-        .retain(|d| !matches!(d, x_parser::ast::Declaration::Import(_)));
+        // 移除本轮 import 声明，让新插入模块中的 import 在下一轮继续解析
+        program.declarations.retain(|decl| match decl {
+            x_parser::ast::Declaration::Import(import_decl) => !processed_imports
+                .iter()
+                .any(|processed| processed == import_decl),
+            _ => true,
+        });
+    }
 
     Ok(())
 }
@@ -265,8 +424,10 @@ fn insert_module_declarations(
     module_program: x_parser::ast::Program,
 ) {
     // 在 import 位置插入模块声明
-    for decl in module_program.declarations {
-        program.declarations.insert(import_idx, decl);
+    for decl in module_program.declarations.into_iter().rev() {
+        if should_insert_declaration(program, &decl) {
+            program.declarations.insert(import_idx, decl);
+        }
     }
 }
 
@@ -288,7 +449,9 @@ fn insert_specific_symbol(
         };
 
         if should_insert {
-            program.declarations.insert(import_idx, decl.clone());
+            if should_insert_declaration(program, decl) {
+                program.declarations.insert(import_idx, decl.clone());
+            }
             break;
         }
     }
@@ -320,17 +483,8 @@ impl CompilationContext {
 
     /// 编译源代码
     pub fn compile_source(&mut self, source: &str) -> Result<x_parser::ast::Program, String> {
-        let parser = x_parser::parser::XParser::new();
-        let mut program = parser
-            .parse(source)
-            .map_err(|e| format!("解析错误: {}", e))?;
-
-        // 自动导入标准库 prelude
-        let prelude_decls = parse_std_prelude()?;
-        // 将 prelude 声明插入到用户程序最前面
-        let mut new_decls = prelude_decls;
-        new_decls.extend(program.declarations);
-        program.declarations = new_decls;
+        let project_dir = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+        let program = prepare_program(source, &project_dir)?;
 
         // 收集模块信息和导出
         for decl in &program.declarations {
@@ -379,10 +533,15 @@ impl Default for CompilationContext {
 }
 
 pub fn run_pipeline(source: &str) -> Result<PipelineOutput, String> {
-    let parser = x_parser::parser::XParser::new();
-    let ast = parser
-        .parse(source)
-        .map_err(|e| format!("解析错误: {}", e))?;
+    let project_dir = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    run_pipeline_with_project_dir(source, &project_dir)
+}
+
+pub fn run_pipeline_with_project_dir(
+    source: &str,
+    project_dir: &Path,
+) -> Result<PipelineOutput, String> {
+    let ast = prepare_program(source, project_dir)?;
 
     // 类型检查并获取类型环境，用于 HIR 整合类型注解
     // 使用 type_check_with_env 以获取类型环境
@@ -518,8 +677,92 @@ mod tests {
     fn test_interpreter_hello_world() {
         let source = r#"println("Hello, World!")"#;
         let parser = x_parser::parser::XParser::new();
-        let ast = parser.parse(source).expect("Should parse");
+        let mut ast = parser.parse(source).expect("Should parse");
+        inject_std_prelude(&mut ast).expect("Should inject prelude");
         let result = x_typechecker::type_check(&ast);
         assert!(result.is_ok(), "Type checking should pass");
+    }
+
+    #[test]
+    fn test_prepare_program_resolves_nested_imports_recursively() {
+        let project_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("..")
+            .join("tests")
+            .join("integration")
+            .join("modules")
+            .join("nested_imports");
+        let source = std::fs::read_to_string(project_dir.join("main.x"))
+            .expect("Should read nested import main fixture");
+
+        let ast = prepare_program(&source, &project_dir).expect("Should resolve nested imports");
+
+        assert!(ast.declarations.iter().any(|decl| matches!(
+            decl,
+            x_parser::ast::Declaration::Variable(var) if var.simple_name() == Some("base_value")
+        )));
+        assert!(ast.declarations.iter().any(|decl| matches!(
+            decl,
+            x_parser::ast::Declaration::Function(func) if func.name == "add_base"
+        )));
+        assert!(
+            !ast.declarations.iter().any(|decl| matches!(
+                decl,
+                x_parser::ast::Declaration::Import(import_decl)
+                    if import_decl.module_path == "middle" || import_decl.module_path == "base"
+            )),
+            "nested project imports should be resolved before type checking"
+        );
+
+        let result = x_typechecker::type_check(&ast);
+        assert!(result.is_ok(), "Type checking should pass after nested imports are resolved");
+    }
+
+    #[test]
+    fn test_prepare_program_dedupes_explicit_prelude_import_before_injection() {
+        let project_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("..")
+            .join("library")
+            .join("stdlib");
+        let source = "import std.prelude\nprintln(\"hello\")";
+
+        let ast = prepare_program(source, &project_dir).expect("Should prepare program");
+
+        let puts_count = ast
+            .declarations
+            .iter()
+            .filter(|decl| matches!(
+                decl,
+                x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
+            ))
+            .count();
+
+        assert_eq!(puts_count, 1, "prelude externs should only be injected once");
+        assert!(x_typechecker::type_check(&ast).is_ok(), "Type checking should pass");
+    }
+
+    #[test]
+    fn test_prepare_program_dedupes_transitive_std_imports() {
+        let project_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("..")
+            .join("library")
+            .join("stdlib");
+        let source = std::fs::read_to_string(project_dir.join("panic.x"))
+            .expect("Should read std panic module fixture");
+
+        let ast = prepare_program(&source, &project_dir).expect("Should prepare std panic module");
+
+        let puts_count = ast
+            .declarations
+            .iter()
+            .filter(|decl| matches!(
+                decl,
+                x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
+            ))
+            .count();
+
+        assert_eq!(puts_count, 1, "transitive std imports should not duplicate prelude externs");
     }
 }

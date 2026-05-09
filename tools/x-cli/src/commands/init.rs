@@ -21,6 +21,11 @@ pub fn exec(
             .and_then(|n| n.to_str())
             .unwrap_or("my-project"),
     );
+    let pkg_name = if pkg_name.chars().next().is_some_and(|c| c.is_alphanumeric()) {
+        pkg_name
+    } else {
+        format!("x_{}", pkg_name.trim_start_matches('_'))
+    };
     utils::validate_package_name(&pkg_name)?;
 
     let manifest = if lib {

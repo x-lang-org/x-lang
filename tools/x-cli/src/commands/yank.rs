@@ -7,7 +7,7 @@ pub fn exec(
     undo: bool,
     registry: Option<&str>,
 ) -> Result<(), String> {
-    let client = RegistryClient::new(registry);
+    let client = RegistryClient::from_registry_name(registry)?;
 
     if undo {
         client.unyank(package, version)?;

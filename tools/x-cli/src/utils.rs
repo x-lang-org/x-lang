@@ -1,19 +1,72 @@
 use colored::*;
+use log::{debug, error as log_error, info, warn};
+use std::io::Write;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static QUIET_MODE: AtomicBool = AtomicBool::new(false);
+
+pub fn init_logging(verbose: bool, quiet: bool) {
+    QUIET_MODE.store(quiet, Ordering::Relaxed);
+
+    let level = if quiet {
+        log::LevelFilter::Error
+    } else if verbose {
+        log::LevelFilter::Info
+    } else {
+        log::LevelFilter::Off
+    };
+
+    let mut builder = env_logger::Builder::new();
+    builder
+        .target(env_logger::Target::Stderr)
+        .filter_level(level)
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "[{} {}] {}",
+                buf.timestamp_millis(),
+                record.level(),
+                record.args()
+            )
+        });
+
+    let _ = builder.try_init();
+
+    debug!("cli logging initialized");
+}
+
+fn quiet_mode() -> bool {
+    QUIET_MODE.load(Ordering::Relaxed)
+}
 
 pub fn status(label: &str, message: &str) {
-    println!("{:>12} {}", label.green().bold(), message);
+    info!(target: "x_cli::status", "{}: {}", label, message);
+    if !quiet_mode() {
+        eprintln!("{:>12} {}", label.green().bold(), message);
+    }
+}
+
+pub fn status_stderr(label: &str, message: &str) {
+    status(label, message);
 }
 
 pub fn warning(message: &str) {
-    println!("{}: {}", "warning".yellow().bold(), message);
+    warn!(target: "x_cli::warning", "{}", message);
+    if !quiet_mode() {
+        eprintln!("{}: {}", "warning".yellow().bold(), message);
+    }
 }
 
 pub fn error(message: &str) {
+    log_error!(target: "x_cli::error", "{}", message);
     eprintln!("{}: {}", "error".red().bold(), message);
 }
 
 pub fn note(message: &str) {
-    println!("{}: {}", "note".cyan().bold(), message);
+    info!(target: "x_cli::note", "{}", message);
+    if !quiet_mode() {
+        eprintln!("{}: {}", "note".cyan().bold(), message);
+    }
 }
 
 pub fn validate_package_name(name: &str) -> Result<(), String> {

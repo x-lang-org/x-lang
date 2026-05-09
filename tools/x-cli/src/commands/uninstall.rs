@@ -39,6 +39,13 @@ pub fn exec(packages: &[String], root: Option<&str>) -> Result<(), String> {
                 install_dir.display()
             ));
         }
+
+        let managed_checkout = config::git_install_root().join(name);
+        if managed_checkout.exists() {
+            std::fs::remove_dir_all(&managed_checkout)
+                .map_err(|e| format!("无法删除 {}: {}", managed_checkout.display(), e))?;
+            utils::status("Removed", &format!("{}", managed_checkout.display()));
+        }
     }
 
     Ok(())

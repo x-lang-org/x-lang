@@ -8,7 +8,7 @@ pub fn exec(
     list: bool,
     registry: Option<&str>,
 ) -> Result<(), String> {
-    let client = RegistryClient::new(registry);
+    let client = RegistryClient::from_registry_name(registry)?;
 
     if list || (add.is_empty() && remove.is_empty()) {
         let owners = client.list_owners(package)?;
