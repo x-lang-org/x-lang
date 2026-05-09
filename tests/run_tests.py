@@ -200,7 +200,7 @@ class TestRunner:
         finally:
             os.unlink(temp_path)
 
-    def run_program(self, source: str) -> tuple[bool, str, int]:
+    def run_program(self, source: str) -> tuple[bool, str, str, int]:
         """运行程序并获取输出"""
         with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
@@ -210,7 +210,7 @@ class TestRunner:
             returncode, stdout, stderr = self.run_cli(
                 ["run", temp_path]
             )
-            return returncode == 0, stdout, returncode
+            return returncode == 0, stdout, stderr, returncode
         finally:
             os.unlink(temp_path)
 
@@ -337,6 +337,13 @@ class TestRunner:
                     errors.append(f"输出应包含: {text}")
 
         return len(errors) == 0, "\n".join(errors)
+
+    def build_runtime_expectation(self, expect: dict) -> dict:
+        """构建运行时验证期望，兼容顶层 exit_code 约定"""
+        runtime_expect = dict(expect.get("runtime", {}))
+        if "exit_code" in expect and "exit_code" not in runtime_expect:
+            runtime_expect["exit_code"] = expect["exit_code"]
+        return runtime_expect
 
     def _clean_cli_output(self, output: str) -> str:
         """清理 CLI 输出，移除状态信息"""
@@ -727,9 +734,16 @@ class TestRunner:
 
         # 运行时测试
         if expect.get("compile", True):
-            success, output, returncode = self.run_program(config.source)
-            if "runtime" in expect:
-                verify_ok, verify_error = self.verify_runtime(output, returncode, expect["runtime"])
+            success, output, stderr, returncode = self.run_program(config.source)
+            runtime_expect = self.build_runtime_expectation(expect)
+            if runtime_expect:
+                if success:
+                    verify_ok, verify_error = self.verify_runtime(output, returncode, runtime_expect)
+                else:
+                    verify_ok = False
+                    runtime_error = stderr.strip() or output.strip() or f"程序执行失败，退出码: {returncode}"
+                    verify_error = f"程序执行失败（exit code {returncode}）\n{runtime_error}"
+
                 result.stage_results["runtime"] = verify_ok
                 if not verify_ok:
                     result.passed = False

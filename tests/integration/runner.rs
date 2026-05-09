@@ -4,6 +4,25 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
 use std::time::Instant;
 
+fn repo_root() -> PathBuf {
+    let source_path = PathBuf::from(file!());
+    source_path
+        .ancestors()
+        .nth(2)
+        .map(Path::to_path_buf)
+        .expect("tests/integration/runner.rs should live under the repository root")
+}
+
+fn x_cli_candidates() -> [PathBuf; 4] {
+    let root = repo_root();
+    [
+        root.join("tools/target/debug/x.exe"),
+        root.join("tools/target/release/x.exe"),
+        root.join("tools/target/debug/x"),
+        root.join("tools/target/release/x"),
+    ]
+}
+
 #[derive(Debug, Clone)]
 pub struct IntegrationTest {
     pub name: String,
@@ -437,16 +456,7 @@ impl IntegrationTestRunner {
 }
 
 fn find_x_cli() -> Result<PathBuf, String> {
-    let candidates = [
-        PathBuf::from("tools/target/release/x.exe"),
-        PathBuf::from("tools/target/debug/x.exe"),
-        PathBuf::from("target/release/x.exe"),
-        PathBuf::from("target/debug/x.exe"),
-        PathBuf::from("x.exe"),
-        PathBuf::from("x"),
-    ];
-
-    for candidate in candidates {
+    for candidate in x_cli_candidates() {
         if candidate.exists() {
             return Ok(candidate.canonicalize().unwrap_or(candidate));
         }
@@ -468,6 +478,19 @@ pub fn run_integration_tests(verbose: bool) -> Result<TestReport, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn repo_root_contains_tests_directory() {
+        let root = repo_root();
+        assert!(root.join("tests").exists(), "repo root should contain tests/: {}", root.display());
+    }
+
+    #[test]
+    fn find_x_cli_resolves_existing_binary() {
+        let resolved = find_x_cli().expect("should find built x-cli binary");
+        assert!(resolved.exists(), "resolved path should exist: {}", resolved.display());
+        assert_eq!(resolved.file_stem().and_then(|stem| stem.to_str()), Some("x"));
+    }
 
     #[test]
     fn test_parse_test_annotations() {
