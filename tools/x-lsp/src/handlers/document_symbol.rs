@@ -53,18 +53,20 @@ fn get_symbols_for_document(doc: &crate::state::Document) -> Vec<SymbolInformati
                 });
             }
             x_parser::ast::Declaration::Variable(var) => {
-                let range = utils::span_to_range(&var.span, doc.content());
-                symbols.push(SymbolInformation {
-                    name: var.name.clone(),
-                    kind: SymbolKind::VARIABLE,
-                    location: Location {
-                        uri: doc.uri().clone(),
-                        range,
-                    },
-                    container_name: None,
-                    tags: None,
-                    deprecated: None,
-                });
+                if let Some(name) = var.simple_name() {
+                    let range = utils::span_to_range(&var.span, doc.content());
+                    symbols.push(SymbolInformation {
+                        name: name.to_string(),
+                        kind: SymbolKind::VARIABLE,
+                        location: Location {
+                            uri: doc.uri().clone(),
+                            range,
+                        },
+                        container_name: None,
+                        tags: None,
+                        deprecated: None,
+                    });
+                }
             }
             x_parser::ast::Declaration::Class(class) => {
                 // Assuming span exists
@@ -98,17 +100,19 @@ fn get_symbols_for_document(doc: &crate::state::Document) -> Vec<SymbolInformati
                             });
                         }
                         x_parser::ast::ClassMember::Field(field) => {
-                            symbols.push(SymbolInformation {
-                                name: field.name.clone(),
-                                kind: SymbolKind::FIELD,
-                                location: Location {
-                                    uri: doc.uri().clone(),
-                                    range: utils::span_to_range(&field.span, doc.content()),
-                                },
-                                container_name: Some(class.name.clone()),
-                                tags: None,
-                                deprecated: None,
-                            });
+                            if let Some(name) = field.simple_name() {
+                                symbols.push(SymbolInformation {
+                                    name: name.to_string(),
+                                    kind: SymbolKind::FIELD,
+                                    location: Location {
+                                        uri: doc.uri().clone(),
+                                        range: utils::span_to_range(&field.span, doc.content()),
+                                    },
+                                    container_name: Some(class.name.clone()),
+                                    tags: None,
+                                    deprecated: None,
+                                });
+                            }
                         }
                         _ => {}
                     }
@@ -147,18 +151,20 @@ fn get_symbols_for_document(doc: &crate::state::Document) -> Vec<SymbolInformati
     // Get symbols from statements
     for stmt in &ast.statements {
         if let x_parser::ast::StatementKind::Variable(var) = &stmt.node {
-            let range = utils::span_to_range(&stmt.span, doc.content());
-            symbols.push(SymbolInformation {
-                name: var.name.clone(),
-                kind: SymbolKind::VARIABLE,
-                location: Location {
-                    uri: doc.uri().clone(),
-                    range,
-                },
-                container_name: None,
-                tags: None,
-                deprecated: None,
-            });
+            if let Some(name) = var.simple_name() {
+                let range = utils::span_to_range(&stmt.span, doc.content());
+                symbols.push(SymbolInformation {
+                    name: name.to_string(),
+                    kind: SymbolKind::VARIABLE,
+                    location: Location {
+                        uri: doc.uri().clone(),
+                        range,
+                    },
+                    container_name: None,
+                    tags: None,
+                    deprecated: None,
+                });
+            }
         }
     }
 

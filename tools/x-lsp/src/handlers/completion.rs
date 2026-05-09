@@ -129,13 +129,15 @@ fn get_symbol_completions(doc: &crate::state::Document) -> Vec<CompletionItem> {
                 });
             }
             x_parser::ast::Declaration::Variable(var) => {
-                items.push(CompletionItem {
-                    label: var.name.clone(),
-                    kind: Some(CompletionItemKind::VARIABLE),
-                    detail: var.type_annot.as_ref().map(|t| t.to_string()),
-                    insert_text: Some(var.name.clone()),
-                    ..Default::default()
-                });
+                if let Some(name) = var.simple_name() {
+                    items.push(CompletionItem {
+                        label: name.to_string(),
+                        kind: Some(CompletionItemKind::VARIABLE),
+                        detail: var.type_annot.as_ref().map(|t| t.to_string()),
+                        insert_text: Some(name.to_string()),
+                        ..Default::default()
+                    });
+                }
             }
             x_parser::ast::Declaration::Class(class) => {
                 items.push(CompletionItem {

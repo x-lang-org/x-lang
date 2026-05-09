@@ -80,7 +80,7 @@ fn get_hover_info(doc: &crate::state::Document, offset: usize) -> Option<Hover> 
                         type_str.push_str("mut ");
                     }
                     type_str.push_str("let ");
-                    type_str.push_str(&var.name);
+                    type_str.push_str(var.simple_name().unwrap_or("<pattern>"));
 
                     if let Some(ty) = &var.type_annot {
                         type_str.push_str(": ");
@@ -106,7 +106,7 @@ fn get_hover_info(doc: &crate::state::Document, offset: usize) -> Option<Hover> 
                     type_str.push_str("mut ");
                 }
                 type_str.push_str("let ");
-                type_str.push_str(&var.name);
+                type_str.push_str(var.simple_name().unwrap_or("<pattern>"));
 
                 if let Some(ty) = &var.type_annot {
                     type_str.push_str(": ");

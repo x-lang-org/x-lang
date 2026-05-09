@@ -55,18 +55,20 @@ fn find_definition(doc: &crate::state::Document, offset: usize) -> Option<Locati
                 }
             }
             x_parser::ast::Declaration::Variable(var) => {
-                let name_start = var.span.start;
-                let name_end = name_start + var.name.len();
+                if let Some(name) = var.simple_name() {
+                    let name_start = var.span.start;
+                    let name_end = name_start + name.len();
 
-                if offset >= name_start && offset <= name_end {
-                    let content = doc.content();
-                    return Some(Location {
-                        uri: doc.uri().clone(),
-                        range: Range {
-                            start: utils::offset_to_position(name_start, content),
-                            end: utils::offset_to_position(name_end, content),
-                        },
-                    });
+                    if offset >= name_start && offset <= name_end {
+                        let content = doc.content();
+                        return Some(Location {
+                            uri: doc.uri().clone(),
+                            range: Range {
+                                start: utils::offset_to_position(name_start, content),
+                                end: utils::offset_to_position(name_end, content),
+                            },
+                        });
+                    }
                 }
             }
             _ => {}

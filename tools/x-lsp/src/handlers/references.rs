@@ -64,16 +64,18 @@ fn find_references(doc: &crate::state::Document, offset: usize) -> Vec<Location>
                 }
             }
             x_parser::ast::Declaration::Variable(var) => {
-                if var.name == symbol_name {
-                    let start = var.span.start;
-                    let end = start + var.name.len();
-                    references.push(Location {
-                        uri: doc.uri().clone(),
-                        range: Range {
-                            start: utils::offset_to_position(start, content),
-                            end: utils::offset_to_position(end, content),
-                        },
-                    });
+                if let Some(name) = var.simple_name() {
+                    if name == symbol_name {
+                        let start = var.span.start;
+                        let end = start + name.len();
+                        references.push(Location {
+                            uri: doc.uri().clone(),
+                            range: Range {
+                                start: utils::offset_to_position(start, content),
+                                end: utils::offset_to_position(end, content),
+                            },
+                        });
+                    }
                 }
             }
             _ => {}
@@ -98,7 +100,7 @@ fn find_symbol_name_at_offset(program: &x_parser::ast::Program, offset: usize) -
                 let start = var.span.start;
                 let end = var.span.end;
                 if offset >= start && offset <= end {
-                    return Some(var.name.clone());
+                    return var.simple_name().map(|name| name.to_string());
                 }
             }
             _ => {}
@@ -111,7 +113,7 @@ fn find_symbol_name_at_offset(program: &x_parser::ast::Program, offset: usize) -
             let start = stmt.span.start;
             let end = stmt.span.end;
             if offset >= start && offset <= end {
-                return Some(var.name.clone());
+                return var.simple_name().map(|name| name.to_string());
             }
         }
     }
