@@ -899,17 +899,6 @@ fn collect_class_info(class_decl: &ClassDecl, env: &mut TypeEnv) -> Result<(), T
     };
     env.add_class(&class_decl.name, class_info);
 
-    let type_params: Vec<String> = class_decl
-        .type_parameters
-        .iter()
-        .map(|tp| tp.name.clone())
-        .collect();
-    env.add_type_alias(
-        &class_decl.name,
-        type_params,
-        Type::Generic(class_decl.name.clone()),
-    );
-
     Ok(())
 }
 
@@ -3890,7 +3879,7 @@ fn check_variable_decl(var_decl: &VariableDecl, env: &mut TypeEnv) -> Result<(),
                     || types_equal(&resolved_type_annot, &Type::UnsignedInt));
 
             if !types_equal_resolved(&init_type, &resolved_type_annot, env)
-                && !is_compatible(&init_type, &resolved_type_annot, env)
+                && !is_type_compatible(&init_type, &resolved_type_annot)
                 && !is_int_compatible
             {
                 return Err(TypeError::TypeMismatch {

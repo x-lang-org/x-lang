@@ -109,7 +109,7 @@ impl JavaBackend {
                 let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_java(item)).collect();
                 format!("Object /* tuple<{}> */", item_strs.join(", "))
             }
-            Named(n) => self.java_ident(n),
+            Named(n) => n.clone(),
             FunctionPointer(_, _) => "java.util.function.Function".to_string(),
             Qualified(_, inner) => self.lir_type_to_java(inner),
         }
