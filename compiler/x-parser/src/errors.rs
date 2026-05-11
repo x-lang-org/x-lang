@@ -19,6 +19,9 @@ pub enum ParseError {
 
     #[error("文件读取错误: {0}")]
     IoError(#[from] std::io::Error),
+
+    #[error("多个错误:\n{}", .0.iter().map(|e| format!("  - {}", e)).collect::<Vec<_>>().join("\n"))]
+    MultipleErrors(Vec<ParseError>),
 }
 
 impl ParseError {

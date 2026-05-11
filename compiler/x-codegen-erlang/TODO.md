@@ -4,10 +4,6 @@
 
 ### 高优先级
 
-- [x] 实现 AST 到 Erlang 代码转换
-- [x] 实现类型映射（AST `map_type` + LIR `lir_type_to_erlang`，`-spec` 使用 LIR 类型）
-- [x] 添加测试用例（含 LIR `generate_from_lir`、while 尾递归、`map_type` 等）
-
 ---
 
 ## 完成状态

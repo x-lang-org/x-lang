@@ -1,11 +1,12 @@
 use crate::ast::{
-    spanned, BinaryOp, Block, CatchClause, ClassDecl, ClassMember, ClassModifiers, ConstructorDecl,
-    Declaration, DoWhileStatement, Effect, EffectDecl, EnumDecl, EnumVariant, EnumVariantData,
-    ExportDecl, Expression, ExpressionKind, ExternFunctionDecl, ForStatement, FunctionDecl,
-    IfStatement, ImplementDecl, ImportDecl, ImportSymbol, Literal, MatchCase, MatchStatement,
-    MethodModifiers, ModuleDecl, Parameter, Pattern, Program, RecordDecl, Statement, StatementKind,
-    TraitDecl, TryStatement, Type, TypeAlias, TypeConstraint, TypeParameter, UnaryOp, VariableDecl,
-    Visibility, WaitType, WhileStatement,
+    spanned, BinaryOp, Block, CatchClause, ClassDecl, ClassMember, ClassModifiers,
+    ConstructorDecl, Declaration, DoWhileStatement, Effect, EffectDecl, EnumDecl, EnumVariant,
+    EnumVariantData, ExportDecl, Expression, ExpressionKind, ExternFunctionDecl, ForStatement,
+    FunctionDecl, IfStatement, ImplementDecl, ImportDecl, ImportSymbol, Literal, MatchCase,
+    MatchStatement, MethodModifiers, ModuleDecl, Newtype, Parameter, Pattern, Program,
+    RecordDecl, Statement, StatementKind, TraitDecl, TryStatement, Type, TypeAlias,
+    TypeConstraint, TypeParameter, UnaryOp, VariableDecl, Visibility, WaitType,
+    WhileStatement,
 };
 use crate::errors::ParseError;
 use x_lexer::span::Span;
@@ -121,6 +122,10 @@ impl XParser {
                     ti.next();
                     declarations.push(Declaration::TypeAlias(self.parse_type_alias(ti)?));
                 }
+                Ok((Token::Newtype, _)) => {
+                    ti.next();
+                    declarations.push(Declaration::Newtype(self.parse_newtype(ti)?));
+                }
                 Ok((Token::Import, _)) => {
                     ti.next();
                     declarations.push(Declaration::Import(self.parse_import(ti)?));
@@ -170,6 +175,16 @@ impl XParser {
                             let alias = self.parse_type_alias(ti)?;
                             let name = alias.name.clone();
                             declarations.push(Declaration::TypeAlias(alias));
+                            declarations.push(Declaration::Export(ExportDecl {
+                                symbol: name,
+                                span: self.current_span(ti),
+                            }));
+                        }
+                        Some(Ok((Token::Newtype, _))) => {
+                            ti.next();
+                            let newtype = self.parse_newtype(ti)?;
+                            let name = newtype.name.clone();
+                            declarations.push(Declaration::Newtype(newtype));
                             declarations.push(Declaration::Export(ExportDecl {
                                 symbol: name,
                                 span: self.current_span(ti),
@@ -1723,8 +1738,19 @@ impl XParser {
         };
 
         // 处理泛型参数
+        let mut type_parameters = Vec::new();
         if matches!(ti.peek(), Some(Ok((Token::LessThan, _)))) {
-            return Err(self.err("当前仅支持非泛型类型别名".to_string(), ti));
+            ti.next();
+            while !matches!(ti.peek(), Some(Ok((Token::GreaterThan, _)))) {
+                match self.expect_token(ti, "类型参数名")? {
+                    Token::Ident(param_name) => type_parameters.push(param_name),
+                    t => return Err(self.err(format!("期望类型参数名，但得到 {:?}", t), ti)),
+                }
+                if matches!(ti.peek(), Some(Ok((Token::Comma, _)))) {
+                    ti.next();
+                }
+            }
+            ti.next();
         }
 
         match self.expect_token(ti, "=")? {
@@ -1737,7 +1763,45 @@ impl XParser {
 
         Ok(TypeAlias {
             name,
+            type_parameters,
             type_: aliased_type,
+            span: self.current_span(ti),
+        })
+    }
+
+    fn parse_newtype(&self, ti: &mut TokenIterator) -> Result<Newtype, ParseError> {
+        let name = match self.expect_token(ti, "新类型名")? {
+            Token::Ident(n) => n,
+            t => return Err(self.err(format!("期望新类型名，但得到 {:?}", t), ti)),
+        };
+
+        let mut type_parameters = Vec::new();
+        if matches!(ti.peek(), Some(Ok((Token::LessThan, _)))) {
+            ti.next();
+            while !matches!(ti.peek(), Some(Ok((Token::GreaterThan, _)))) {
+                match self.expect_token(ti, "类型参数名")? {
+                    Token::Ident(param_name) => type_parameters.push(param_name),
+                    t => return Err(self.err(format!("期望类型参数名，但得到 {:?}", t), ti)),
+                }
+                if matches!(ti.peek(), Some(Ok((Token::Comma, _)))) {
+                    ti.next();
+                }
+            }
+            ti.next();
+        }
+
+        match self.expect_token(ti, "=")? {
+            Token::Equals => {}
+            t => return Err(self.err(format!("期望 =，但得到 {:?}", t), ti)),
+        }
+
+        let type_ = self.parse_type(ti)?;
+        self.eat_semi(ti);
+
+        Ok(Newtype {
+            name,
+            type_parameters,
+            type_,
             span: self.current_span(ti),
         })
     }

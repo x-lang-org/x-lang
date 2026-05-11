@@ -1685,9 +1685,7 @@ let equation = "${a} + ${b} = ${a + b}";
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.declarations.len(), 1);
-        // Should desugar to (((a + " + ") + b) + " = ") + (a + b)
-        // The interpolation contributes four outer concatenation adds,
-        // and the final `${a + b}` contributes one inner arithmetic add.
+        // Current interpolation lowering should produce five Add nodes total.
         match &program.declarations[0] {
             Declaration::Variable(decl) => {
                 fn count_adds(expr: &crate::ast::Expression) -> usize {

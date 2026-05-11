@@ -59,13 +59,29 @@ export function enumerate<T>(items: [T]) -> [(Int, T)] {
 /// __file_read(path: string) -> Result<string, string>
 external function __file_read(path: string) -> Result<string, string>
 
+/// Builtin: 写入文件内容
+/// __file_write(path: string, content: string) -> Result<unit, string>
+external function __file_write(path: string, content: string) -> Result<unit, string>
+
+/// Builtin: 检查文件是否存在
+/// __file_exists(path: string) -> boolean
+external function __file_exists(path: string) -> boolean
+
+/// Builtin: 删除文件
+/// __file_delete(path: string) -> Result<unit, string>
+external function __file_delete(path: string) -> Result<unit, string>
+
+/// Builtin: 强制解包 Result 类型的 Ok 值，如果失败则运行时报错
+/// unwrap_ok(res) -> any
+external function unwrap_ok(res: Result<string, string>) -> string
+
 /// Builtin: 获取命令行参数
 /// __args() -> Array<string>
 external function __args() -> Array<string>
 
 /// Builtin: 解析JSON字符串
-/// x_json_parse(json: string) -> Dynamic
-external function x_json_parse(json: string) -> Dynamic
+/// x_json_parse(json: string) -> string
+external function x_json_parse(json: string) -> string
 
 /// Builtin: 获取环境变量
 /// __get_env(name: string) -> Option<string>
