@@ -246,7 +246,7 @@ fn smoke_compile_emit_ast_with_local_import() {
         .arg(&main_file)
         .arg("--emit")
         .arg("ast")
-        .current_dir("C:\\Users\\Administrator\\Documents\\x-lang\\tools")
+        .current_dir(dir.path())
         .output()
         .expect("执行 x compile --emit ast 失败");
     if !out.status.success() {
@@ -325,7 +325,7 @@ fn smoke_check_with_local_import() {
     let out = Command::new(&bin)
         .arg("check")
         .arg(&main_file)
-        .current_dir("C:\\Users\\Administrator\\Documents\\x-lang\\tools")
+        .current_dir(dir.path())
         .output()
         .expect("执行 x check 失败");
     if !out.status.success() {
@@ -358,7 +358,7 @@ fn smoke_run_with_local_import() {
     let out = Command::new(&bin)
         .arg("run")
         .arg(&main_file)
-        .current_dir("C:\\Users\\Administrator\\Documents\\x-lang\\tools")
+        .current_dir(dir.path())
         .output()
         .expect("执行 x run 失败");
     if !out.status.success() {

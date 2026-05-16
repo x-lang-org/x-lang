@@ -2126,32 +2126,6 @@ impl Interpreter {
                     )),
                 }
             }
-            "__file_read" => {
-                let path = self.eval_as_string(&args[0])?;
-                match std::fs::read_to_string(&path) {
-                    Ok(s) => Ok(Value::Result(Box::new(Value::String(s)), Box::new(Value::Null))),
-                    Err(e) => Ok(Value::Result(Box::new(Value::Null), Box::new(Value::String(e.to_string())))),
-                }
-            }
-            "__file_write" => {
-                let path = self.eval_as_string(&args[0])?;
-                let content = self.eval_as_string(&args[1])?;
-                match std::fs::write(&path, content) {
-                    Ok(_) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
-                    Err(e) => Ok(Value::Result(Box::new(Value::Null), Box::new(Value::String(e.to_string())))),
-                }
-            }
-            "__file_exists" => {
-                let path = self.eval_as_string(&args[0])?;
-                Ok(Value::Boolean(std::path::Path::new(&path).exists()))
-            }
-            "__file_delete" => {
-                let path = self.eval_as_string(&args[0])?;
-                match std::fs::remove_file(&path) {
-                    Ok(_) => Ok(Value::Result(Box::new(Value::Unit), Box::new(Value::Null))),
-                    Err(e) => Ok(Value::Result(Box::new(Value::Null), Box::new(Value::String(e.to_string())))),
-                }
-            }
             "push" => {
                 let container = self.eval(&args[0])?;
                 let val = self.eval(&args[1])?;

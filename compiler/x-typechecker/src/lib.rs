@@ -8463,10 +8463,16 @@ let next: UserID = add_one(41);
 
     #[test]
     fn type_alias_generic_not_supported() {
+        // Generic type aliases are now parsed but require proper type environment
         let src = r#"
 type List<T> = Array<T>;
 "#;
         let result = parse_program(src);
+        // Parser accepts generic type aliases; type checking fails because Array is not defined
+        assert!(result.is_ok());
+        let program = result.unwrap();
+        let result = type_check(&program);
+        // Type checking should fail since Array is not in scope
         assert!(result.is_err());
     }
 
