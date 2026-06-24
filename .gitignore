@@ -24,6 +24,10 @@ test_lexer.rs
 # Generated Zig code
 **/output.zig
 
+# Local Cargo environment / cache (sandbox artifacts)
+/.cargo/
+/.cargo_home/
+
 # Git worktrees
 .worktrees/
 

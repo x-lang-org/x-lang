@@ -23,7 +23,7 @@ x-codegen-zig = { path = "../../compiler/x-codegen-zig" }
 x-codegen-typescript = { path = "../../compiler/x-codegen-typescript" }
 x-codegen-rust = { path = "../../compiler/x-codegen-rust" }
 x-codegen-csharp = { path = "../../compiler/x-codegen-csharp" }
-x-codegen-asm = { path = "../../compiler/x-codegen-asm" }
+x-codegen-native = { path = "../../compiler/x-codegen-native" }
 x-codegen-llvm = { path = "../../compiler/x-codegen-llvm" }
 x-codegen-java = { path = "../../compiler/x-codegen-java" }
 x-codegen-swift = { path = "../../compiler/x-codegen-swift" }

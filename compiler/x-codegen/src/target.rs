@@ -26,8 +26,8 @@ pub enum Target {
     Zig,
     /// LLVM 后端 - 直接生成 LLVM IR
     Llvm,
-    /// ASM 后端 - LIR 直译汇编，无需外部编译器
-    Asm,
+    /// Native 后端 - LIR 直出机器码（可重定位 ELF），仅用系统链接器
+    Native,
 }
 
 impl Target {
@@ -43,7 +43,7 @@ impl Target {
             Target::CSharp => "csharp",
             Target::Zig => "zig",
             Target::Llvm => "llvm",
-            Target::Asm => "asm",
+            Target::Native => "native",
         }
     }
 
@@ -60,7 +60,7 @@ impl Target {
             "csharp" | "cs" | "dotnet" | "net" => Some(Target::CSharp),
             "zig" => Some(Target::Zig),
             "llvm" => Some(Target::Llvm),
-            "asm" | "assembly" | "native" => Some(Target::Asm),
+            "native" => Some(Target::Native),
             _ => None,
         }
     }
@@ -77,7 +77,7 @@ impl Target {
             Target::CSharp => "cs",
             Target::Zig => "zig",
             Target::Llvm => "ll",
-            Target::Asm => "exe",
+            Target::Native => "exe",
         }
     }
 
@@ -126,7 +126,7 @@ impl Target {
 
     /// 检查目标平台是否生成原生代码
     pub fn is_native_backend(&self) -> bool {
-        matches!(self, Target::Zig | Target::Asm)
+        matches!(self, Target::Zig | Target::Native)
     }
 
     /// 获取后端 crate 名称
@@ -141,7 +141,7 @@ impl Target {
             Target::CSharp => "x-codegen-csharp",
             Target::Zig => "x-codegen-zig",
             Target::Llvm => "x-codegen-llvm",
-            Target::Asm => "x-codegen-asm",
+            Target::Native => "x-codegen-native",
         }
     }
 }

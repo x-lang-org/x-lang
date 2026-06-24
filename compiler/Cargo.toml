@@ -21,7 +21,7 @@ members = [
     "x-codegen-llvm",       # 7. LLVM 后端 - LLVM IR
     "x-codegen-swift",      # 8. Swift 后端 - Apple 生态
     "x-codegen-erlang",     # 9. Erlang 后端 - 并发/分布式系统
-    "x-codegen-asm",        # 10. ASM 后端 - LIR 直译汇编
+    "x-codegen-native",     # 10. Native 后端 - LIR 直出机器码
     # 其他
     "x-interpreter",
     # 测试
@@ -37,7 +37,7 @@ x-hir = { path = "x-hir" }
 x-mir = { path = "x-mir" }
 x-lir = { path = "x-lir" }
 x-codegen = { path = "x-codegen" }
-x-codegen-asm = { path = "x-codegen-asm" }
+x-codegen-native = { path = "x-codegen-native" }
 x-interpreter = { path = "x-interpreter" }
 
 # 常用依赖

@@ -218,11 +218,19 @@ impl HirToMirLowerer {
     }
 }
 
+/// 循环上下文：`break`/`continue` 的跳转目标
+struct LoopCtx {
+    continue_target: usize,
+    break_target: usize,
+}
+
 struct FunctionLowerer {
     function: MirFunction,
     current_block: MirBasicBlock,
     next_local: MirLocalId,
+    next_block_id: usize,
     scopes: Vec<HashMap<String, MirLocalId>>,
+    loop_stack: Vec<LoopCtx>,
 }
 
 impl FunctionLowerer {
@@ -271,7 +279,9 @@ impl FunctionLowerer {
                 terminator: MirTerminator::Unreachable,
             },
             next_local: 0,
+            next_block_id: 1,
             scopes: vec![initial_scope],
+            loop_stack: Vec::new(),
         };
 
         // 参数映射为 Param(index)，无需放进 locals
@@ -289,6 +299,38 @@ impl FunctionLowerer {
 
         lowerer.function.blocks.push(lowerer.current_block);
         Ok(lowerer.function)
+    }
+
+    /// 分配一个新的基本块 id
+    fn alloc_block_id(&mut self) -> usize {
+        let id = self.next_block_id;
+        self.next_block_id += 1;
+        id
+    }
+
+    /// 当前块是否尚未确定 terminator（即仍可继续追加跳转）
+    fn block_open(&self) -> bool {
+        matches!(self.current_block.terminator, MirTerminator::Unreachable)
+    }
+
+    /// 把当前块（terminator 由调用方设置）推入函数，并以 `id` 开启新的当前块
+    fn switch_to_block(&mut self, id: usize) {
+        let finished = std::mem::replace(
+            &mut self.current_block,
+            MirBasicBlock {
+                id,
+                instructions: Vec::new(),
+                terminator: MirTerminator::Unreachable,
+            },
+        );
+        self.function.blocks.push(finished);
+    }
+
+    /// 若当前块仍开放，则以无条件跳转到 `target` 收尾
+    fn close_open_with_branch(&mut self, target: usize) {
+        if self.block_open() {
+            self.current_block.terminator = MirTerminator::Branch { target };
+        }
     }
 
     /// 降低语句块，返回最后一条表达式语句的操作数（如果有）
@@ -336,22 +378,66 @@ impl FunctionLowerer {
                 Ok(None)
             }
             HirStatement::If(if_stmt) => {
-                let _ = self.lower_expression(&if_stmt.condition)?;
+                let cond = self.lower_expression(&if_stmt.condition)?;
+                let then_id = self.alloc_block_id();
+                let merge_id = self.alloc_block_id();
+                let else_id = if if_stmt.else_block.is_some() {
+                    self.alloc_block_id()
+                } else {
+                    merge_id
+                };
+
+                self.current_block.terminator = MirTerminator::CondBranch {
+                    cond,
+                    then_block: then_id,
+                    else_block: else_id,
+                };
+                self.switch_to_block(then_id);
+
                 self.lower_block(&if_stmt.then_block)?;
+                self.close_open_with_branch(merge_id);
+                self.switch_to_block(else_id);
+
                 if let Some(else_block) = &if_stmt.else_block {
                     self.lower_block(else_block)?;
+                    self.close_open_with_branch(merge_id);
+                    self.switch_to_block(merge_id);
                 }
                 Ok(None)
             }
             HirStatement::For(for_stmt) => {
+                // 迭代器协议尚未在 MIR 实现：保守地按线性方式降低，
+                // 至少保证 break/continue 不破坏 CFG（目前不进入循环上下文）。
                 let _ = self.lower_expression(&for_stmt.iterator)?;
                 self.bind_pattern(&for_stmt.pattern)?;
                 self.lower_block(&for_stmt.body)?;
                 Ok(None)
             }
             HirStatement::While(while_stmt) => {
-                let _ = self.lower_expression(&while_stmt.condition)?;
+                let header_id = self.alloc_block_id();
+                let body_id = self.alloc_block_id();
+                let exit_id = self.alloc_block_id();
+
+                self.current_block.terminator = MirTerminator::Branch { target: header_id };
+                self.switch_to_block(header_id);
+
+                let cond = self.lower_expression(&while_stmt.condition)?;
+                self.current_block.terminator = MirTerminator::CondBranch {
+                    cond,
+                    then_block: body_id,
+                    else_block: exit_id,
+                };
+                self.switch_to_block(body_id);
+
+                self.loop_stack.push(LoopCtx {
+                    continue_target: header_id,
+                    break_target: exit_id,
+                });
                 self.lower_block(&while_stmt.body)?;
+                self.loop_stack.pop();
+
+                self.close_open_with_branch(header_id);
+                self.switch_to_block(exit_id);
                 Ok(None)
             }
             HirStatement::Match(match_stmt) => {
@@ -381,8 +467,23 @@ impl FunctionLowerer {
                 }
                 Ok(None)
             }
-            HirStatement::Break | HirStatement::Continue => {
-                // 当前最小 lowering 先保留线性结构，不拆 CFG。
+            HirStatement::Break => {
+                if let Some(ctx) = self.loop_stack.last() {
+                    let target = ctx.break_target;
+                    self.current_block.terminator = MirTerminator::Branch { target };
+                    // break 之后的代码不可达：开启一个新块承接（通常为空）
+                    let dead = self.alloc_block_id();
+                    self.switch_to_block(dead);
+                }
+                Ok(None)
+            }
+            HirStatement::Continue => {
+                if let Some(ctx) = self.loop_stack.last() {
+                    let target = ctx.continue_target;
+                    self.current_block.terminator = MirTerminator::Branch { target };
+                    let dead = self.alloc_block_id();
+                    self.switch_to_block(dead);
+                }
                 Ok(None)
             }
             HirStatement::Unsafe(block) => self.lower_block(block),
@@ -396,8 +497,22 @@ impl FunctionLowerer {
                 Ok(None)
             }
             HirStatement::Loop(body) => {
-                // 无限循环
+                // 无限循环：header 即循环体入口，靠 break 退出
+                let header_id = self.alloc_block_id();
+                let exit_id = self.alloc_block_id();
+
+                self.current_block.terminator = MirTerminator::Branch { target: header_id };
+                self.switch_to_block(header_id);
+
+                self.loop_stack.push(LoopCtx {
+                    continue_target: header_id,
+                    break_target: exit_id,
+                });
                 self.lower_block(body)?;
+                self.loop_stack.pop();
+
+                self.close_open_with_branch(header_id);
+                self.switch_to_block(exit_id);
                 Ok(None)
             }
             HirStatement::WhenGuard(condition, body) => {
@@ -542,9 +657,34 @@ impl FunctionLowerer {
                 }
             }
             HirExpression::If(cond, then_expr, else_expr) => {
-                let _ = self.lower_expression(cond)?;
-                let _ = self.lower_expression(then_expr)?;
-                self.lower_expression(else_expr)
+                // if 表达式：通过共享结果局部变量在 merge 块汇合
+                let result = self.new_local(MirType::Unknown);
+                let cond_op = self.lower_expression(cond)?;
+                let then_id = self.alloc_block_id();
+                let else_id = self.alloc_block_id();
+                let merge_id = self.alloc_block_id();
+
+                self.current_block.terminator = MirTerminator::CondBranch {
+                    cond: cond_op,
+                    then_block: then_id,
+                    else_block: else_id,
+                };
+                self.switch_to_block(then_id);
+                let then_val = self.lower_expression(then_expr)?;
+                self.current_block.instructions.push(MirInstruction::Assign {
+                    dest: result,
+                    value: then_val,
+                });
+                self.close_open_with_branch(merge_id);
+                self.switch_to_block(else_id);
+                let else_val = self.lower_expression(else_expr)?;
+                self.current_block.instructions.push(MirInstruction::Assign {
+                    dest: result,
+                    value: else_val,
+                });
+                self.close_open_with_branch(merge_id);
+                self.switch_to_block(merge_id);
+                Ok(MirOperand::Local(result))
             }
             HirExpression::Lambda(params, body) => {
                 let synthetic_name = format!("_lambda_{}", self.function.name);
@@ -677,12 +817,10 @@ impl FunctionLowerer {
                 // Create a block for each case and a merge block at the end
                 let start_block_id = self.current_block.id;
                 let mut case_blocks = Vec::new();
-                let mut next_block_id = self.function.blocks.len() + 1;
 
                 // For each case: create a new basic block, pattern matching and jump to merge
                 for (_pattern, guard, body) in cases {
-                    let case_block_id = next_block_id;
-                    next_block_id += 1;
+                    let case_block_id = self.alloc_block_id();
 
                     // Save current block - we'll come back after adding the case block
                     let prev_current_block = std::mem::replace(
@@ -739,6 +877,8 @@ impl FunctionLowerer {
                                     dest: cmp_result,
                                 });
 
+                            let next_block_id = self.alloc_block_id();
+
                             // Branch to case block if equal
                             self.current_block.terminator = MirTerminator::CondBranch {
                                 cond: MirOperand::Local(cmp_result),
@@ -754,7 +894,6 @@ impl FunctionLowerer {
                                 instructions: Vec::new(),
                                 terminator: MirTerminator::Unreachable,
                             };
-                            next_block_id += 1;
                         }
                         _ => {
                             // For complex patterns, fall back - not implemented yet
@@ -1066,5 +1205,104 @@ mod tests {
         let mir = lower_hir_to_mir(&hir).expect("lowering should succeed");
         assert_eq!(mir.functions.len(), 1);
         assert_eq!(mir.functions[0].name, "main");
+    }
+
+    fn function_decl_hir(name: &str, body: Vec<HirStatement>) -> Hir {
+        Hir {
+            module_name: "main".to_string(),
+            declarations: vec![HirDeclaration::Function(HirFunctionDecl {
+                name: name.to_string(),
+                type_params: Vec::new(),
+                parameters: Vec::new(),
+                return_type: HirType::Int,
+                body: HirBlock { statements: body },
+                is_async: false,
+                effects: Vec::new(),
+            })],
+            statements: vec![],
+            type_env: x_hir::HirTypeEnv {
+                variables: HashMap::new(),
+                functions: HashMap::new(),
+                types: HashMap::new(),
+            },
+            perceus_info: x_hir::HirPerceusInfo::default(),
+        }
+    }
+
+    /// `if` 语句必须降低为带 CondBranch 的多基本块 CFG，而不是被线性展平。
+    #[test]
+    fn lower_if_statement_builds_cfg() {
+        let cond = HirExpression::Binary(
+            HirBinaryOp::Greater,
+            Box::new(HirExpression::Literal(HirLiteral::Integer(1))),
+            Box::new(HirExpression::Literal(HirLiteral::Integer(0))),
+        );
+        let if_stmt = HirStatement::If(x_hir::HirIfStatement {
+            condition: cond,
+            then_block: HirBlock {
+                statements: vec![HirStatement::Return(Some(HirExpression::Literal(
+                    HirLiteral::Integer(7),
+                )))],
+            },
+            else_block: None,
+        });
+        let hir = function_decl_hir("f", vec![if_stmt]);
+
+        let mir = lower_hir_to_mir(&hir).expect("lowering should succeed");
+        let func = &mir.functions[0];
+        assert!(
+            func.blocks.len() >= 2,
+            "if should produce multiple basic blocks, got {}",
+            func.blocks.len()
+        );
+        assert!(
+            func.blocks
+                .iter()
+                .any(|b| matches!(b.terminator, MirTerminator::CondBranch { .. })),
+            "if must emit a CondBranch terminator"
+        );
+    }
+
+    /// `while` 语句必须降低为含回边（Branch 回到 header）的循环 CFG。
+    #[test]
+    fn lower_while_statement_builds_loop() {
+        let cond = HirExpression::Binary(
+            HirBinaryOp::Less,
+            Box::new(HirExpression::Literal(HirLiteral::Integer(0))),
+            Box::new(HirExpression::Literal(HirLiteral::Integer(5))),
+        );
+        let while_stmt = HirStatement::While(x_hir::HirWhileStatement {
+            condition: cond,
+            body: HirBlock { statements: vec![] },
+        });
+        let hir = function_decl_hir("f", vec![while_stmt]);
+
+        let mir = lower_hir_to_mir(&hir).expect("lowering should succeed");
+        let func = &mir.functions[0];
+
+        let cond_branch_targets: Vec<usize> = func
+            .blocks
+            .iter()
+            .filter_map(|b| match &b.terminator {
+                MirTerminator::CondBranch { then_block, .. } => Some(*then_block),
+                _ => None,
+            })
+            .collect();
+        assert!(
+            !cond_branch_targets.is_empty(),
+            "while must emit a CondBranch on the loop header"
+        );
+
+        // 回边：某个块通过 Branch 跳回循环 header（即 CondBranch 所在块的 id）
+        let header_ids: Vec<usize> = func
+            .blocks
+            .iter()
+            .filter(|b| matches!(b.terminator, MirTerminator::CondBranch { .. }))
+            .map(|b| b.id)
+            .collect();
+        let has_back_edge = func.blocks.iter().any(|b| {
+            matches!(&b.terminator, MirTerminator::Branch { target } if header_ids.contains(target))
+        });
+        assert!(has_back_edge, "while loop must contain a back-edge to header");
     }
 }

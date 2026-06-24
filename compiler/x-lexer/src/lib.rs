@@ -1211,6 +1211,12 @@ impl<'a> TokenIterator<'a> {
         }
         self.peeked.as_ref()
     }
+
+    /// 设置预取缓冲区，使下一次 next() 返回指定的 token
+    /// 用于处理 >> 被词法分析为右移符号但在类型上下文中应拆分为两个 > 的情况
+    pub fn set_peek(&mut self, token: Token, span: Span) {
+        self.peeked = Some(Ok((token, span)));
+    }
 }
 
 impl<'a> Iterator for TokenIterator<'a> {

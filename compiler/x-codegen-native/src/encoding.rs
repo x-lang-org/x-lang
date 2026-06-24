@@ -529,6 +529,155 @@ impl X86_64Encoder {
         self.emit_byte(0x99);
         self
     }
+
+    // ========================================================================
+    // 直出机器码所需的扩展指令形式
+    // ========================================================================
+
+    /// MOV r64, imm32（符号扩展）
+    ///
+    /// 操作码: REX.W + C7 /0 id
+    pub fn mov_reg_imm32(&mut self, dest: X86Register, imm: i32) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0xC7);
+        self.emit_byte(self.modrm(3, 0, num & 0x07));
+        self.emit_dword(imm as u32);
+        self
+    }
+
+    /// 智能加载立即数：能放进 i32 用 C7（7 字节），否则 movabs（10 字节）
+    pub fn mov_reg_imm(&mut self, dest: X86Register, imm: i64) -> &mut Self {
+        if imm >= i32::MIN as i64 && imm <= i32::MAX as i64 {
+            self.mov_reg_imm32(dest, imm as i32)
+        } else {
+            self.mov_reg_imm64(dest, imm as u64)
+        }
+    }
+
+    /// ADD r64, imm32
+    ///
+    /// 操作码: REX.W + 81 /0 id
+    pub fn add_reg_imm32(&mut self, dest: X86Register, imm: i32) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x81);
+        self.emit_byte(self.modrm(3, 0, num & 0x07));
+        self.emit_dword(imm as u32);
+        self
+    }
+
+    /// SUB r64, imm32
+    ///
+    /// 操作码: REX.W + 81 /5 id
+    pub fn sub_reg_imm32(&mut self, dest: X86Register, imm: i32) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x81);
+        self.emit_byte(self.modrm(3, 5, num & 0x07));
+        self.emit_dword(imm as u32);
+        self
+    }
+
+    /// AND r64, r64
+    ///
+    /// 操作码: REX.W + 21 /r
+    pub fn and_reg_reg(&mut self, dest: X86Register, src: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (src_num, _) = Self::reg_number(src);
+        self.set_rex(true, src_num >= 8, false, dest_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x21);
+        self.emit_byte(self.modrm(3, src_num & 0x07, dest_num & 0x07));
+        self
+    }
+
+    /// OR r64, r64
+    ///
+    /// 操作码: REX.W + 09 /r
+    pub fn or_reg_reg(&mut self, dest: X86Register, src: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (src_num, _) = Self::reg_number(src);
+        self.set_rex(true, src_num >= 8, false, dest_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x09);
+        self.emit_byte(self.modrm(3, src_num & 0x07, dest_num & 0x07));
+        self
+    }
+
+    /// SHL r64, CL: REX.W + D3 /4
+    pub fn shl_reg_cl(&mut self, dest: X86Register) -> &mut Self {
+        self.shift_reg_cl(dest, 4)
+    }
+
+    /// SHR r64, CL: REX.W + D3 /5
+    pub fn shr_reg_cl(&mut self, dest: X86Register) -> &mut Self {
+        self.shift_reg_cl(dest, 5)
+    }
+
+    /// SAR r64, CL: REX.W + D3 /7
+    pub fn sar_reg_cl(&mut self, dest: X86Register) -> &mut Self {
+        self.shift_reg_cl(dest, 7)
+    }
+
+    fn shift_reg_cl(&mut self, dest: X86Register, ext: u8) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0xD3);
+        self.emit_byte(self.modrm(3, ext, num & 0x07));
+        self
+    }
+
+    /// SHL r64, imm8: REX.W + C1 /4 ib
+    pub fn shl_reg_imm8(&mut self, dest: X86Register, imm: u8) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0xC1);
+        self.emit_byte(self.modrm(3, 4, num & 0x07));
+        self.emit_byte(imm);
+        self
+    }
+
+    /// LEA r64, [rip + disp32]
+    ///
+    /// 操作码: REX.W + 8D /r，ModRM mod=00 rm=101 (RIP 相对)
+    /// disp32 通常先填 0，由重定位/链接器修补。
+    pub fn lea_reg_rip(&mut self, dest: X86Register, disp: i32) -> &mut Self {
+        let (num, _) = Self::reg_number(dest);
+        self.set_rex(true, num >= 8, false, false);
+        self.emit_prefixes();
+        self.emit_byte(0x8D);
+        self.emit_byte(self.modrm(0, num & 0x07, 5));
+        self.emit_dword(disp as u32);
+        self
+    }
+
+    /// MOV r64, [base] (mod=00, disp=0；base 不能是 rbp/rsp/r13)
+    pub fn mov_reg_mem0(&mut self, dest: X86Register, base: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (base_num, _) = Self::reg_number(base);
+        self.set_rex(true, dest_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x8B);
+        self.emit_byte(self.modrm(0, dest_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOV [base], r64 (mod=00, disp=0；base 不能是 rbp/rsp/r13)
+    pub fn mov_mem0_reg(&mut self, base: X86Register, src: X86Register) -> &mut Self {
+        let (src_num, _) = Self::reg_number(src);
+        let (base_num, _) = Self::reg_number(base);
+        self.set_rex(true, src_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x89);
+        self.emit_byte(self.modrm(0, src_num & 0x07, base_num & 0x07));
+        self
+    }
 }
 
 impl Default for X86_64Encoder {

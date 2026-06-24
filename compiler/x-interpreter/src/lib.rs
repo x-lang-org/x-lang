@@ -49,6 +49,10 @@ pub struct Interpreter {
     async_results: HashMap<usize, Result<Value, String>>,
     // Deferred expressions - execute when scope exits in LIFO order
     deferred: Vec<Expression>,
+    // Optional injectable input source for C FFI functions like `getline`.
+    // When `Some`, stdin-reading foreign functions read from here instead of the
+    // process stdin. This keeps tests deterministic and prevents blocking on a tty.
+    input: Option<RefCell<std::io::Cursor<Vec<u8>>>>,
 }
 
 #[derive(Debug, Clone)]
@@ -321,7 +325,15 @@ impl Interpreter {
             handle_counter: 0,
             async_results: HashMap::new(),
             deferred: Vec::new(),
+            input: None,
         }
+    }
+
+    /// Inject an input source for stdin-reading C FFI functions (e.g. `getline`).
+    /// Primarily used in tests to provide deterministic input without blocking on
+    /// the process stdin.
+    pub fn set_input(&mut self, input: impl Into<Vec<u8>>) {
+        self.input = Some(RefCell::new(std::io::Cursor::new(input.into())));
     }
 
     #[allow(dead_code)]
@@ -1842,26 +1854,46 @@ impl Interpreter {
                     )),
                 }
             }
-            ExpressionKind::Call(func, args) if matches!(&func.node, ExpressionKind::Variable(n) if n == "__index__") =>
-            {
-                if args.len() == 2 {
-                    let container = self.eval(&args[0])?;
-                    let idx = self.eval(&args[1])?;
-                    if let (Value::Array(rc), Value::Integer(i)) = (&container, &idx) {
-                        let i = *i as usize;
-                        let mut arr = rc.borrow_mut();
-                        if i < arr.len() {
-                            arr[i] = val.clone();
+            ExpressionKind::Call(func, args) => {
+                let is_index_op = matches!(&func.node, ExpressionKind::Variable(n) if n == "__index__");
+                if is_index_op {
+                    if args.len() == 2 {
+                        let container = self.eval(&args[0])?;
+                        let idx = self.eval(&args[1])?;
+                        if let (Value::Array(rc), Value::Integer(i)) = (&container, &idx) {
+                            let i = *i as usize;
+                            let mut arr = rc.borrow_mut();
+                            if i < arr.len() {
+                                arr[i] = val.clone();
+                                return Ok(val);
+                            }
+                            return Err(InterpreterError::runtime_no_span(format!(
+                                "数组索引越界: {} (长度 {})",
+                                i,
+                                arr.len()
+                            )));
+                        }
+                        if let Value::Map(entries) = &container {
+                            let mut entries = entries.borrow_mut();
+                            let idx_str = match &idx {
+                                Value::String(s) => s.clone(),
+                                Value::Integer(i) => format!("{}", i),
+                                other => format!("{:?}", other),
+                            };
+                            for (k, v) in entries.iter_mut() {
+                                if k == &idx_str {
+                                    *v = val.clone();
+                                    return Ok(val);
+                                }
+                            }
+                            entries.push((idx_str, val.clone()));
                             return Ok(val);
                         }
-                        return Err(InterpreterError::runtime_no_span(format!(
-                            "数组索引越界: {} (长度 {})",
-                            i,
-                            arr.len()
-                        )));
                     }
+                    Err(InterpreterError::runtime_no_span("无效的赋值目标"))
+                } else {
+                    Err(InterpreterError::runtime_no_span("无效的赋值目标"))
                 }
-                Err(InterpreterError::runtime_no_span("无效的赋值目标"))
             }
             _ => Err(InterpreterError::runtime_no_span("无效的赋值目标")),
         }
@@ -2699,10 +2731,15 @@ impl Interpreter {
                 use std::io::BufRead;
 
                 let mut line = String::new();
-                let stdin = std::io::stdin();
-                let mut handle = stdin.lock();
+                let read_result = if let Some(cursor) = &self.input {
+                    cursor.borrow_mut().read_line(&mut line)
+                } else {
+                    let stdin = std::io::stdin();
+                    let mut handle = stdin.lock();
+                    handle.read_line(&mut line)
+                };
 
-                match handle.read_line(&mut line) {
+                match read_result {
                     Ok(0) => Ok(Value::Integer(-1)),
                     Ok(_) => {
                         while matches!(line.chars().last(), Some('\n' | '\r')) {
@@ -4390,6 +4427,9 @@ mod tests {
         let parser = x_parser::parser::XParser::new();
         let program = parser.parse(source).expect("Failed to parse");
         let mut interpreter = Interpreter::new();
+        // Provide empty input so stdin-reading FFI functions (e.g. getline) do not
+        // block on a tty during tests.
+        interpreter.set_input(Vec::new());
         interpreter.run(&program)
     }
 
@@ -4592,38 +4632,21 @@ mod tests {
         let program = parser.parse(source).expect("Failed to parse");
 
         let mut interpreter = Interpreter::new();
+        // Inject input directly instead of redirecting the process stdin; this keeps
+        // the test deterministic and avoids blocking on a tty.
+        interpreter.set_input("你好\n");
 
-        #[cfg(unix)]
-        unsafe {
-            let mut fds = [0; 2];
-            assert_eq!(libc::pipe(fds.as_mut_ptr()), 0, "pipe should succeed");
-
-            let input = "你好\n";
-            let bytes = input.as_bytes();
-            let written = libc::write(fds[1], bytes.as_ptr() as *const libc::c_void, bytes.len());
-            assert_eq!(written, bytes.len() as isize, "write should succeed");
-            libc::close(fds[1]);
-
-            let saved_stdin = libc::dup(0);
-            assert!(saved_stdin >= 0, "dup stdin should succeed");
-            assert!(libc::dup2(fds[0], 0) >= 0, "dup2 should succeed");
-            libc::close(fds[0]);
-
-            let run_result = interpreter.run(&program);
-
-            assert!(libc::dup2(saved_stdin, 0) >= 0, "restore stdin should succeed");
-            libc::close(saved_stdin);
-
-            run_result.expect("getline should handle non-ascii input");
-            assert_eq!(interpreter.variables.get("buffer"), Some(&Value::String("你好".to_string())));
-            assert_eq!(interpreter.variables.get("capacity"), Some(&Value::Integer(2)));
-        }
-
-        #[cfg(not(unix))]
-        {
-            let _ = &program;
-            let _ = &mut interpreter;
-        }
+        interpreter
+            .run(&program)
+            .expect("getline should handle non-ascii input");
+        assert_eq!(
+            interpreter.variables.get("buffer"),
+            Some(&Value::String("你好".to_string()))
+        );
+        assert_eq!(
+            interpreter.variables.get("capacity"),
+            Some(&Value::Integer(2))
+        );
     }
 
     #[test]
@@ -4931,7 +4954,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "array methods not yet fully implemented"]
     fn test_array_length() {
         let source = r#"
             let arr = [1, 2, 3, 4, 5]
@@ -4941,7 +4963,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "array methods not yet fully implemented"]
     fn test_array_push() {
         let source = r#"
             let arr = [1, 2]
@@ -4982,7 +5003,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "map insert not yet fully implemented"]
     fn test_map_insert() {
         let source = r#"
             let m = {}
@@ -5007,7 +5027,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "higher order function with named function not yet fully implemented"]
     fn test_higher_order_function() {
         let source = r#"
             function apply(f, x) {
@@ -5186,7 +5205,6 @@ mod tests {
     // ==================== Option/Result Tests ====================
 
     #[test]
-    #[ignore = "Option type pattern matching not yet fully implemented"]
     fn test_option_some() {
         let source = r#"
             let x = Some(42)
@@ -5199,7 +5217,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "Option type pattern matching not yet fully implemented"]
     fn test_option_none() {
         let source = r#"
             let x = None
@@ -5325,7 +5342,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "block scope with let not yet fully implemented"]
     fn test_block_scope() {
         let source = r#"
             let x = 1

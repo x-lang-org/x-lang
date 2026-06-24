@@ -2012,11 +2012,11 @@ dependencies = [
  "walkdir",
  "which",
  "x-codegen",
- "x-codegen-asm",
  "x-codegen-csharp",
  "x-codegen-erlang",
  "x-codegen-java",
  "x-codegen-llvm",
+ "x-codegen-native",
  "x-codegen-python",
  "x-codegen-rust",
  "x-codegen-swift",
@@ -2037,17 +2037,6 @@ version = "0.1.0"
 dependencies = [
  "log",
  "thiserror",
- "x-lir",
-]
-
-[[package]]
-name = "x-codegen-asm"
-version = "0.1.0"
-dependencies = [
- "log",
- "thiserror",
- "which",
- "x-codegen",
  "x-lir",
 ]
 
@@ -2083,6 +2072,16 @@ dependencies = [
 
 [[package]]
 name = "x-codegen-llvm"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "thiserror",
+ "x-codegen",
+ "x-lir",
+]
+
+[[package]]
+name = "x-codegen-native"
 version = "0.1.0"
 dependencies = [
  "log",

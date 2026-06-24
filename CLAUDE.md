@@ -26,7 +26,7 @@ This project uses **Cargo** (Rust package manager). Buck2 is not used.
 
 ### Zig Compiler Dependency
 
-The Zig backend requires Zig 0.13.0 or higher installed and in PATH. Zig is used to generate native and Wasm code, and includes LLVM backend out of the box, so the Zig backend doesn't require a separate LLVM installation.
+The Zig backend requires Zig 0.16.0 (the currently supported/tested version) installed and in PATH. Zig is used to generate native and Wasm code, and includes LLVM backend out of the box, so the Zig backend doesn't require a separate LLVM installation. The generated code targets the Zig 0.16 standard-library API (e.g. lowercase `@typeInfo` tags like `.pointer`, `std.net.Server`); older Zig releases are no longer supported.
 
 Download Zig: https://ziglang.org/download/
 
@@ -128,7 +128,7 @@ LIR (Low-level IR = XIR) ← Unified input for all backends
 | Swift | 🚧 Early | Compile to Swift source code for Apple ecosystem. |
 | Erlang | 🚧 Early | Compile to Erlang source code for concurrent/distributed systems. |
 | LLVM | 🚧 Early | Generate LLVM IR for advanced optimizations. |
-| ASM | 🚧 Early | Direct machine code generation (x86_64/aarch64) via system assembler. |
+| Native | 🚧 Early | Direct machine code generation (x86_64 Linux): LIR → relocatable ELF `.o`, linked with system `cc`. No external assembler. |
 
 **Current implementation**: CLI fully integrates the complete pipeline:
 - **run**: source → parse → type check → interpret
@@ -158,7 +158,7 @@ LIR (Low-level IR = XIR) ← Unified input for all backends
 | x-codegen-llvm | `compiler/x-codegen-llvm` | LLVM IR backend. |
 | x-codegen-swift | `compiler/x-codegen-swift` | Swift backend. |
 | x-codegen-erlang | `compiler/x-codegen-erlang` | Erlang backend. |
-| x-codegen-asm | `compiler/x-codegen-asm` | Direct assembly backend (x86_64/aarch64). |
+| x-codegen-native | `compiler/x-codegen-native` | Native backend: LIR → machine code → relocatable ELF (x86_64 Linux). |
 | x-interpreter | `compiler/x-interpreter` | AST-based tree-walking interpreter. Used by the `run` command. |
 | x-test-integration | `compiler/x-test-integration` | Integration tests. |
 | x-stdlib | `library/stdlib` | Minimal standard library: Option, Result and other core language types. |

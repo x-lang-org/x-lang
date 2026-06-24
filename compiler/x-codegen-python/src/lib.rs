@@ -65,6 +65,35 @@ impl PythonBackend {
     fn dedent(&mut self) {
         self.buffer.dedent();
     }
+
+    /// Emit an indented suite for a single statement, guaranteeing the suite is
+    /// non-empty (emits `pass` if the statement produced no lines, e.g. a bare
+    /// `Goto`/`Label` which has no Python equivalent). Prevents invalid Python
+    /// like `if cond:` with an empty body.
+    fn emit_suite(&mut self, stmt: &x_lir::Statement) -> PythonResult<()> {
+        self.indent();
+        let before = self.buffer.as_str().len();
+        self.emit_lir_statement(stmt)?;
+        if self.buffer.as_str().len() == before {
+            self.line("pass")?;
+        }
+        self.dedent();
+        Ok(())
+    }
+
+    /// Like [`emit_suite`] but for a slice of statements.
+    fn emit_suite_stmts(&mut self, stmts: &[x_lir::Statement]) -> PythonResult<()> {
+        self.indent();
+        let before = self.buffer.as_str().len();
+        for s in stmts {
+            self.emit_lir_statement(s)?;
+        }
+        if self.buffer.as_str().len() == before {
+            self.line("pass")?;
+        }
+        self.dedent();
+        Ok(())
+    }
     fn output(&self) -> &str {
         self.buffer.as_str()
     }
@@ -203,22 +232,16 @@ impl PythonBackend {
             If(i) => {
                 let cond = self.emit_lir_expr(&i.condition)?;
                 self.line(&format!("if {}:", cond))?;
-                self.indent();
-                self.emit_lir_statement(&i.then_branch)?;
-                self.dedent();
+                self.emit_suite(&i.then_branch)?;
                 if let Some(else_br) = &i.else_branch {
                     self.line("else:")?;
-                    self.indent();
-                    self.emit_lir_statement(else_br)?;
-                    self.dedent();
+                    self.emit_suite(else_br)?;
                 }
             }
             While(w) => {
                 let cond = self.emit_lir_expr(&w.condition)?;
                 self.line(&format!("while {}:", cond))?;
-                self.indent();
-                self.emit_lir_statement(&w.body)?;
-                self.dedent();
+                self.emit_suite(&w.body)?;
             }
             DoWhile(d) => {
                 self.line("while True:")?;
@@ -243,10 +266,14 @@ impl PythonBackend {
                 };
                 self.line(&format!("while {}:", cond))?;
                 self.indent();
+                let before = self.buffer.as_str().len();
                 self.emit_lir_statement(&f.body)?;
                 if let Some(inc) = &f.increment {
                     let inc_str = self.emit_lir_expr(inc)?;
                     self.line(&inc_str)?;
+                }
+                if self.buffer.as_str().len() == before {
+                    self.line("pass")?;
                 }
                 self.dedent();
             }
@@ -258,15 +285,11 @@ impl PythonBackend {
                 for case in &sw.cases {
                     let val = self.emit_lir_expr(&case.value)?;
                     self.line(&format!("case {}:", val))?;
-                    self.indent();
-                    self.emit_lir_statement(&case.body)?;
-                    self.dedent();
+                    self.emit_suite(&case.body)?;
                 }
                 if let Some(default) = &sw.default {
                     self.line("case _:")?;
-                    self.indent();
-                    self.emit_lir_statement(default)?;
-                    self.dedent();
+                    self.emit_suite(default)?;
                 }
                 self.dedent();
             }
@@ -282,21 +305,13 @@ impl PythonBackend {
                     } else {
                         self.line(&format!("case {}:", pattern))?;
                     }
-                    self.indent();
-                    for s in &case.body.statements {
-                        self.emit_lir_statement(s)?;
-                    }
-                    self.dedent();
+                    self.emit_suite_stmts(&case.body.statements)?;
                 }
                 self.dedent();
             }
             Try(t) => {
                 self.line("try:")?;
-                self.indent();
-                for s in &t.body.statements {
-                    self.emit_lir_statement(s)?;
-                }
-                self.dedent();
+                self.emit_suite_stmts(&t.body.statements)?;
 
                 for catch in &t.catch_clauses {
                     let except_line = if let Some(var_name) = &catch.variable_name {
@@ -311,20 +326,12 @@ impl PythonBackend {
                         "except Exception:".to_string()
                     };
                     self.line(&except_line)?;
-                    self.indent();
-                    for s in &catch.body.statements {
-                        self.emit_lir_statement(s)?;
-                    }
-                    self.dedent();
+                    self.emit_suite_stmts(&catch.body.statements)?;
                 }
 
                 if let Some(finally) = &t.finally_block {
                     self.line("finally:")?;
-                    self.indent();
-                    for s in &finally.statements {
-                        self.emit_lir_statement(s)?;
-                    }
-                    self.dedent();
+                    self.emit_suite_stmts(&finally.statements)?;
                 }
             }
             Return(r) => {
@@ -637,12 +644,12 @@ impl PythonBackend {
                 self.line(&format!("def {}({}):", self.sanitize_identifier(&f.name), params))?;
                 self.indent();
 
-                if f.body.statements.is_empty() {
+                let before = self.buffer.as_str().len();
+                for stmt in &f.body.statements {
+                    self.emit_lir_statement(stmt)?;
+                }
+                if self.buffer.as_str().len() == before {
                     self.line("pass")?;
-                } else {
-                    for stmt in &f.body.statements {
-                        self.emit_lir_statement(stmt)?;
-                    }
                 }
 
                 self.dedent();

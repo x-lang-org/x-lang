@@ -24,7 +24,7 @@
 
 - CLI should route cleanly into compiler crates; do not re-implement stage logic here.
 - `run` and `check` use big-stack wrappers around type checking; preserve that behavior when touching deep-AST paths.
-- Backend defaults and native linking details can route into `x-codegen-asm` or target-specific backends.
+- Backend defaults and native linking details can route into `x-codegen-native` or target-specific backends.
 - Keep user-facing behavior deterministic and error messages actionable.
 
 ## COMMANDS
@@ -39,5 +39,5 @@ cd tools/x-cli && cargo run -- compile ../../examples/hello.x -o hello
 
 ## HAZARDS
 
-- Windows/native link behavior frequently crosses into `src/commands/compile.rs` and `x-codegen-asm`.
+- Native link behavior (x86_64 Linux: `.o` → `cc`) lives in `src/commands/compile.rs` (`link_object_linux`) and `x-codegen-native`.
 - Do not put workspace-wide compiler dependency notes here; keep those in `tools/AGENTS.md`.

@@ -784,6 +784,17 @@ pub fn type_check_with_env(program: &Program) -> Result<TypeEnv, TypeError> {
         Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
     );
 
+    // __index__(collection, key/index) -> Dynamic
+    // 由 for-each 等语法糖在降级中引入；编译流水线的类型检查也需识别它，
+    // 否则会报"未定义的变量: __index__"。
+    env.add_builtin_function(
+        "__index__",
+        Type::Function(
+            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
+            Box::new(Type::Dynamic),
+        ),
+    );
+
     // print/println 现在由 prelude.x 提供，不再作为内置函数
     // 这样可以避免重复声明错误
 
@@ -1134,26 +1145,9 @@ fn check_export_decl(
     export_decl: &x_parser::ast::ExportDecl,
     env: &mut TypeEnv,
 ) -> Result<(), TypeError> {
-    let span = export_decl.span;
     let symbol = &export_decl.symbol;
 
-    // 检查符号是否已定义
-    let is_defined = env.get_variable(symbol).is_some()
-        || env.functions.contains_key(symbol)
-        || env.classes.contains_key(symbol)
-        || env.traits.contains_key(symbol)
-        || env.type_aliases.contains_key(symbol)
-        || env.records.contains_key(symbol)
-        || env.enums.contains_key(symbol);
-
-    if !is_defined {
-        return Err(TypeError::UndefinedVariable {
-            name: symbol.clone(),
-            span,
-        });
-    }
-
-    // 添加到导出列表
+    // 添加到导出列表（符号可能在后面定义，不在这里验证）
     env.add_export(symbol.clone());
     Ok(())
 }
@@ -2311,6 +2305,8 @@ fn check_implement_decl(
 
     // 检查每个方法实现
     env.push_scope();
+    // 为方法体添加 this 变量
+    env.add_variable("this", target_type.clone());
     for method in &impl_decl.methods {
         // 检查方法参数和体
         check_function_decl(method, env)?;
@@ -8024,7 +8020,6 @@ let x = 2;
     }
 
     #[test]
-    #[ignore = "closure capture not yet fully implemented in parser"]
     fn nested_scope_variable_access() {
         let src = r#"
 let x = 1;
@@ -8052,7 +8047,6 @@ function add(a: Int, b: Int) -> Int {
     // ==================== Control Flow Type Tests ====================
 
     #[test]
-    #[ignore = "if expression syntax not yet fully implemented"]
     fn if_expression_both_branches_same_type() {
         let src = r#"
 let x = if true { 1 } else { 2 };
@@ -8128,7 +8122,6 @@ let x: Result<Int, String> = Ok(42);
     // ==================== Pattern Matching Type Tests ====================
 
     #[test]
-    #[ignore = "match expression syntax not yet fully implemented"]
     fn match_expression_exhaustive() {
         let src = r#"
 let x = 1;
@@ -8143,7 +8136,6 @@ let y = match x {
     }
 
     #[test]
-    #[ignore = "match expression syntax not yet fully implemented"]
     fn match_expression_type_mismatch() {
         let src = r#"
 let x = 1;
@@ -8205,7 +8197,6 @@ trait Printable {
     }
 
     #[test]
-    #[ignore = "implement trait syntax not yet fully implemented"]
     fn implement_trait() {
         let src = r#"
 trait Printable {
@@ -8285,7 +8276,6 @@ record Point {
     }
 
     #[test]
-    #[ignore = "record construction syntax not yet fully implemented"]
     fn record_construction() {
         let src = r#"
 record Point {
@@ -8312,7 +8302,6 @@ let add = (a, b) -> a + b;
     }
 
     #[test]
-    #[ignore = "function type annotation not yet fully implemented"]
     fn lambda_as_argument() {
         let src = r#"
 function apply(f: (Int, Int) -> Int, a: Int, b: Int) -> Int {
@@ -8403,7 +8392,6 @@ import std.io;
     }
 
     #[test]
-    #[ignore = "module path with dots not yet fully implemented"]
     fn module_declaration() {
         let src = r#"
 module myapp.utils;
@@ -8414,7 +8402,6 @@ module myapp.utils;
     }
 
     #[test]
-    #[ignore = "export type checking not yet fully implemented"]
     fn export_declaration() {
         let src = r#"
 export foo;

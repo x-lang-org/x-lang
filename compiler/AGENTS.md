@@ -17,7 +17,7 @@
 | Frontend | `x-lexer`, `x-parser`, `x-typechecker` | source → AST → type environment |
 | IR | `x-hir`, `x-mir`, `x-lir` | semantic lowering + Perceus + low-level IR |
 | Codegen core | `x-codegen` | shared trait/contracts for backends |
-| Backends | `x-codegen-zig`, `-typescript`, `-python`, `-rust`, `-java`, `-csharp`, `-llvm`, `-swift`, `-erlang`, `-asm` | target-specific emission |
+| Backends | `x-codegen-zig`, `-typescript`, `-python`, `-rust`, `-java`, `-csharp`, `-llvm`, `-swift`, `-erlang`, `-native` | target-specific emission |
 | Runtime/tests | `x-interpreter`, `x-test-integration` | `run` path + integration harness |
 
 ## WHERE TO LOOK
@@ -28,7 +28,7 @@
 | Type inference / diagnostics | `x-typechecker/AGENTS.md` |
 | Perceus / ownership / reuse | `x-mir/AGENTS.md` |
 | Shared backend contract | `x-codegen/AGENTS.md` |
-| Native compile/link path | `x-codegen-asm/AGENTS.md` |
+| Native compile/link path | `x-codegen-native/AGENTS.md` |
 | LLVM IR emission | `x-codegen-llvm/AGENTS.md` |
 | AST interpreter behavior | `x-interpreter/AGENTS.md` |
 
@@ -55,7 +55,7 @@ cd compiler && cargo test
 cd compiler && cargo test -p x-parser
 cd compiler && cargo test -p x-mir
 cd compiler && cargo test -p x-typechecker
-cd compiler && cargo test -p x-codegen-asm
+cd compiler && cargo test -p x-codegen-native
 cd compiler && cargo test -p x-codegen-llvm
 ```
 
@@ -63,4 +63,4 @@ cd compiler && cargo test -p x-codegen-llvm
 
 - Workspace resolver is v2.
 - `x-typechecker` and `x-interpreter` now have child AGENTS; use them for local guidance.
-- Backend family is broad, but only `x-codegen-asm` and `x-codegen-llvm` currently justify dedicated child AGENTS at this depth.
+- Backend family is broad, but only `x-codegen-native` and `x-codegen-llvm` currently justify dedicated child AGENTS at this depth.

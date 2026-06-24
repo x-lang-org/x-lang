@@ -32,7 +32,7 @@ x-lang/
 | Type error or inference bug | `compiler/x-typechecker/AGENTS.md` | Central type logic is concentrated in one large crate |
 | Perceus / dup-drop / reuse bug | `compiler/x-mir/AGENTS.md` | Memory-safety-critical |
 | New backend or backend contract change | `compiler/x-codegen/AGENTS.md` | Shared trait first, special backends after |
-| Native/asm backend issue | `compiler/x-codegen-asm/AGENTS.md` | Default native compile path |
+| Native backend issue | `compiler/x-codegen-native/AGENTS.md` | Default native compile path (LIR → ELF `.o`, x86_64 Linux) |
 | LLVM IR emission issue | `compiler/x-codegen-llvm/AGENTS.md` | Emits `.ll` text, external tooling later |
 | CLI flag / pipeline / target selection | `tools/x-cli/AGENTS.md` | `main.rs` + `pipeline.rs` + command modules |
 | LSP/editor integration | `tools/x-lsp/AGENTS.md` | stdio server, handlers, state |

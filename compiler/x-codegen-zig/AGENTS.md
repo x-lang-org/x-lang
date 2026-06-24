@@ -6,7 +6,7 @@
 
 ## OVERVIEW
 
-Zig backend - generates Zig 0.15 style source code from AST/HIR/LIR, then system `zig` compiles to native or Wasm.
+Zig backend - generates Zig 0.16 style source code from AST/HIR/LIR, then system `zig` compiles to native or Wasm.
 
 ---
 
@@ -41,7 +41,7 @@ Output: Zig source → system zig build-exe
 
 - **Input:** x_parser::ast or x_lir::Program
 - **Uses:** x_codegen::CodeBuffer
-- **Requires:** Zig 0.13+ installed
+- **Requires:** Zig 0.16 installed
 
 ---
 

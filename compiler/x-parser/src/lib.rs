@@ -819,7 +819,6 @@ import std.collections.HashMap;
     }
 
     #[test]
-    #[ignore = "import with alias not yet implemented"]
     fn parse_import_with_alias() {
         let src = r#"
 import std.collections.HashMap as Map;
@@ -1011,15 +1010,22 @@ let result = when x == 0 {
     }
 
     #[test]
-    #[ignore = "export function syntax not yet implemented"]
     fn parse_export_simple() {
         let src = r#"
 export function helper() -> Int { 42 }
 "#;
         let program = parse_program(src).expect("parse should succeed");
+        // export function creates two declarations: Function + Export
+        assert_eq!(program.declarations.len(), 2);
         match &program.declarations[0] {
+            Declaration::Function(f) => {
+                assert_eq!(f.name, "helper");
+            }
+            other => panic!("expected function declaration, got {other:?}"),
+        }
+        match &program.declarations[1] {
             Declaration::Export(e) => {
-                assert!(!e.symbol.is_empty());
+                assert_eq!(e.symbol, "helper");
             }
             other => panic!("expected export declaration, got {other:?}"),
         }
@@ -1212,7 +1218,6 @@ let tests: [(string, function() -> Bool)] = [];
     }
 
     #[test]
-    #[ignore = "function type annotation not yet implemented"]
     fn parse_function_type() {
         let src = r#"
 let f: (Int, Int) -> Int = add;
@@ -1300,7 +1305,6 @@ let add = (a, b) -> a + b;
     }
 
     #[test]
-    #[ignore = "lambda with type annotation not yet implemented"]
     fn parse_lambda_with_type() {
         let src = r#"
 let add: (Int, Int) -> Int = (a: Int, b: Int) -> a + b;
@@ -1310,7 +1314,6 @@ let add: (Int, Int) -> Int = (a: Int, b: Int) -> a + b;
     }
 
     #[test]
-    #[ignore = "closure capture syntax not yet fully implemented"]
     fn parse_closure_capture() {
         let src = r#"
 let x = 10;
@@ -1475,7 +1478,6 @@ external "c" variable stdin: *();
     // ==================== Decorator/Annotation Tests ====================
 
     #[test]
-    #[ignore = "decorator syntax not yet fully implemented"]
     fn parse_decorator() {
         let src = r#"
 @deprecated
@@ -1491,7 +1493,6 @@ function old_api() -> Int { 0 }
     }
 
     #[test]
-    #[ignore = "multiple decorators syntax not yet fully implemented"]
     fn parse_multiple_decorators() {
         let src = r#"
 @inline
@@ -1510,7 +1511,6 @@ function old_api() -> Int { 0 }
     // ==================== Nested Generics Tests ====================
 
     #[test]
-    #[ignore = "nested generic type syntax not yet fully implemented"]
     fn parse_nested_generic_type() {
         let src = r#"
 let x: Option<Option<Int>> = Some(Some(42));
@@ -1520,7 +1520,6 @@ let x: Option<Option<Int>> = Some(Some(42));
     }
 
     #[test]
-    #[ignore = "list of option type syntax not yet fully implemented"]
     fn parse_list_of_option() {
         let src = r#"
 let items: List<Option<Int>> = empty();
@@ -1530,7 +1529,6 @@ let items: List<Option<Int>> = empty();
     }
 
     #[test]
-    #[ignore = "deeply nested generics syntax not yet fully implemented"]
     fn parse_deeply_nested_generics() {
         let src = r#"
 let x: Result<Option<List<Int>>, String> = Ok(Some(empty()));

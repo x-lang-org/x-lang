@@ -1,20 +1,16 @@
 [package]
-name = "x-codegen-asm"
+name = "x-codegen-native"
 version = "0.1.0"
 edition = "2021"
-description = "X语言 ASM 后端 - LIR 直译汇编，无需外部编译器"
+description = "X语言 Native 后端 - LIR 直出机器码（可重定位 ELF），仅用系统链接器"
 
 [dependencies]
 x-lir = { workspace = true }
 x-codegen = { path = "../x-codegen" }
 thiserror = { workspace = true }
 log = { workspace = true }
-which = "6"
 
 [features]
 default = []
 # 目标架构支持
 x86_64 = []
-aarch64 = []
-riscv64 = []
-wasm32 = []

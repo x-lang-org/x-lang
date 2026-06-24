@@ -7,7 +7,7 @@
 This crate defines the common interface between LIR and target backends.
 - canonical owner for backend contracts
 - shared utilities/state used across backend implementations
-- routing point before touching `x-codegen-zig`, `x-codegen-asm`, `x-codegen-llvm`, or other targets
+- routing point before touching `x-codegen-zig`, `x-codegen-native`, `x-codegen-llvm`, or other targets
 
 ## OWNED CONCEPTS
 
@@ -36,13 +36,13 @@ This crate defines the common interface between LIR and target backends.
 
 ```bash
 cd compiler && cargo test -p x-codegen
-cd compiler && cargo test -p x-codegen-asm
+cd compiler && cargo test -p x-codegen-native
 cd compiler && cargo test -p x-codegen-llvm
 cd compiler && cargo test -p x-codegen-zig
 ```
 
 ## CHILD ROUTING
 
-- `x-codegen-asm/AGENTS.md` — native / wasm assembly path, multi-arch hazards
+- `x-codegen-native/AGENTS.md` — direct machine code → relocatable ELF (x86_64 Linux)
 - `x-codegen-llvm/AGENTS.md` — LLVM IR text emission
 - other `x-codegen-*` crates — follow this contract and local `CLAUDE.md`

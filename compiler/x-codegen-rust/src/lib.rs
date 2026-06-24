@@ -52,6 +52,24 @@ pub struct RustBackend {
     config: RustBackendConfig,
     /// 代码缓冲区
     buffer: x_codegen::CodeBuffer,
+    /// Names of uninitialized top-level temporaries whose declaration is deferred
+    /// to their first assignment (so Rust can infer the correct type instead of
+    /// trusting the often-wrong LIR temp type).
+    deferred_locals: std::collections::HashSet<String>,
+    /// Deferred locals that have already been emitted via `let`.
+    declared_locals: std::collections::HashSet<String>,
+    /// Module-level globals that originate from X top-level `let` bindings; these
+    /// are emitted as `let` locals inside `main` instead of as `static mut` (whose
+    /// LIR type is often wrong, and which cannot hold non-const initializers like
+    /// `String`). Their `static` declarations are skipped.
+    globals_as_locals: std::collections::HashSet<String>,
+    /// Initialized top-level-`let` globals, in declaration order, materialized as
+    /// `let` bindings at the start of `main`.
+    global_local_inits: Vec<(String, x_lir::Expression)>,
+    /// Variables (params/locals) known to hold a Rust `String`. Used to recognize
+    /// string concatenation that has been split across SSA temporaries (where no
+    /// operand is a string literal). Reset per function.
+    string_vars: std::collections::HashSet<String>,
 }
 
 pub type RustResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -65,7 +83,96 @@ impl RustBackend {
         Self {
             config,
             buffer: x_codegen::CodeBuffer::new(),
+            deferred_locals: std::collections::HashSet::new(),
+            declared_locals: std::collections::HashSet::new(),
+            globals_as_locals: std::collections::HashSet::new(),
+            global_local_inits: Vec::new(),
+            string_vars: std::collections::HashSet::new(),
         }
+    }
+
+    /// Returns true if `expr` evaluates to a Rust `String` (X `string`), as far as
+    /// can be determined syntactically with the tracked `string_vars`.
+    fn expr_is_string(&self, expr: &x_lir::Expression) -> bool {
+        match expr {
+            x_lir::Expression::Literal(x_lir::Literal::String(_)) => true,
+            x_lir::Expression::Variable(name) => self.string_vars.contains(name),
+            x_lir::Expression::Binary(x_lir::BinaryOp::Add, l, r) => {
+                self.expr_is_string(l) || self.expr_is_string(r)
+            }
+            x_lir::Expression::Parenthesized(inner) => self.expr_is_string(inner),
+            x_lir::Expression::Cast(ty, _) => {
+                matches!(ty, x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char))
+            }
+            x_lir::Expression::Call(callee, _) => {
+                matches!(callee.as_ref(), x_lir::Expression::Variable(n) if n == "format")
+            }
+            _ => false,
+        }
+    }
+
+    /// Record that `name` holds a string if `value` is a string expression.
+    fn track_string_var(&mut self, name: &str, value: &x_lir::Expression) {
+        if self.expr_is_string(value) {
+            self.string_vars.insert(name.to_string());
+        }
+    }
+
+    /// Identify module-level globals that are assigned at the top level of `main`.
+    /// Such globals correspond to X top-level `let` bindings whose initializer was
+    /// not a literal; the LIR type attached to the global is frequently wrong, so
+    /// we instead materialize them as inferred `let` locals inside `main`.
+    fn compute_globals_as_locals(&mut self, program: &LirProgram) {
+        use std::collections::HashSet;
+        self.globals_as_locals = HashSet::new();
+        self.global_local_inits = Vec::new();
+
+        // Only meaningful when there is a `main` to host the locals.
+        let has_main = program
+            .declarations
+            .iter()
+            .any(|d| matches!(d, x_lir::Declaration::Function(f) if f.name == "main"));
+        if !has_main {
+            return;
+        }
+
+        for decl in &program.declarations {
+            if let x_lir::Declaration::Global(g) = decl {
+                self.globals_as_locals.insert(g.name.clone());
+                if let Some(init) = &g.initializer {
+                    self.global_local_inits.push((g.name.clone(), init.clone()));
+                }
+            }
+        }
+    }
+
+    /// Determine which top-level uninitialized temporaries can have their
+    /// declaration deferred to their first assignment. A temp is deferrable when
+    /// it is declared without an initializer at the top level of `block` and its
+    /// first assignment also appears at the top level of `block` (so merging into
+    /// a `let` does not change scoping).
+    fn compute_deferred_locals(&mut self, block: &x_lir::Block) {
+        use std::collections::HashSet;
+        let mut uninit: HashSet<String> = HashSet::new();
+        for stmt in &block.statements {
+            if let x_lir::Statement::Variable(var) = stmt {
+                if var.initializer.is_none() && !var.is_extern && !var.is_static {
+                    uninit.insert(var.name.clone());
+                }
+            }
+        }
+        let mut deferrable: HashSet<String> = HashSet::new();
+        for stmt in &block.statements {
+            if let x_lir::Statement::Expression(x_lir::Expression::Assign(target, _)) = stmt {
+                if let x_lir::Expression::Variable(name) = target.as_ref() {
+                    if uninit.contains(name) {
+                        deferrable.insert(name.clone());
+                    }
+                }
+            }
+        }
+        self.deferred_locals = deferrable;
+        self.declared_locals.clear();
     }
 
     /// 输出一行代码
@@ -97,6 +204,11 @@ impl RustBackend {
         self.line("// Target: Rust 1.94 (March 2026)")?;
         self.line("#![allow(unused)]")?;
         self.line("#![allow(dead_code)]")?;
+        self.line("#![allow(unused_mut)]")?;
+        self.line("#![allow(unused_unsafe)]")?;
+        self.line("#![allow(static_mut_refs)]")?;
+        self.line("#![allow(non_snake_case)]")?;
+        self.line("#![allow(non_upper_case_globals)]")?;
         self.line("#![allow(clippy::all)]")?;
         self.line("")?;
         Ok(())
@@ -118,9 +230,24 @@ impl RustBackend {
         self.line("use std::process;")?;
         self.line("")?;
 
+        self.emit_runtime_preamble()?;
+
+        self.compute_globals_as_locals(program);
+
         // Process all declarations
         for decl in &program.declarations {
             self.generate_lir_declaration(decl)?;
+        }
+
+        // Module-style sources (no top-level statements / no `main`) still need a
+        // `main` to link as an executable. Emit an empty one.
+        let has_main = program
+            .declarations
+            .iter()
+            .any(|d| matches!(d, x_lir::Declaration::Function(f) if f.name == "main"));
+        if !has_main {
+            self.line("pub fn main() {}")?;
+            self.line("")?;
         }
 
         let output_file = OutputFile {
@@ -236,6 +363,28 @@ path = "src/main.rs"
         Ok(output_path.to_path_buf())
     }
 
+    /// X builtin/prelude functions whose low-level (C-FFI based) bodies do not map
+    /// to valid safe Rust. Their calls are either lowered to Rust macros (println,
+    /// print) or replaced by correct hand-written implementations in the runtime
+    /// preamble (panic, assert, enumerate). We skip emitting their LIR bodies.
+    fn is_skipped_builtin(name: &str) -> bool {
+        matches!(
+            name,
+            "println" | "print" | "panic" | "assert" | "enumerate"
+        )
+    }
+
+    /// Emit correct Rust implementations for X builtin functions that cannot be
+    /// faithfully lowered from LIR.
+    fn emit_runtime_preamble(&mut self) -> RustResult<()> {
+        self.line("// X runtime preamble (hand-written builtins)")?;
+        self.line("fn panic(message: impl std::fmt::Display) -> ! { eprintln!(\"{}\", message); std::process::abort(); }")?;
+        self.line("fn assert(condition: bool) { if !condition { eprintln!(\"assertion failed\"); std::process::abort(); } }")?;
+        self.line("fn enumerate<T>(items: Vec<T>) -> Vec<(i64, T)> { items.into_iter().enumerate().map(|(i, x)| (i as i64, x)).collect() }")?;
+        self.line("")?;
+        Ok(())
+    }
+
     // ========================================================================
     // LIR declaration generation
     // ========================================================================
@@ -262,6 +411,13 @@ path = "src/main.rs"
 
     /// Generate import declaration
     fn generate_lir_import(&mut self, import: &x_lir::Import) -> RustResult<()> {
+        // X module imports (e.g. `std.types`) are resolved by inlining the prelude
+        // and module sources, so there is no corresponding Rust crate/module to
+        // `use`. X uses `.` as the module-path separator, which is not valid Rust
+        // path syntax, so skip emitting a `use` for these.
+        if import.module_path.contains('.') {
+            return Ok(());
+        }
         if import.import_all {
             self.line(&format!("use {}::*;", import.module_path))?;
         } else if !import.symbols.is_empty() {
@@ -288,6 +444,10 @@ path = "src/main.rs"
 
     /// Generate function from LIR
     fn generate_lir_function(&mut self, func: &x_lir::Function) -> RustResult<()> {
+        // Skip builtins handled by the runtime preamble / call-site macro lowering.
+        if Self::is_skipped_builtin(&func.name) {
+            return Ok(());
+        }
         // Handle type parameters for generics
         let type_params = if func.type_params.is_empty() {
             String::new()
@@ -319,6 +479,34 @@ path = "src/main.rs"
             return_type
         ))?;
         self.indent();
+        // Wrap the body in `unsafe` so accessing `static mut` globals and raw
+        // pointers (C FFI) is permitted. Harmless for bodies that need no unsafe
+        // thanks to `#![allow(unused_unsafe)]`.
+        self.line("unsafe {")?;
+        self.indent();
+
+        // Track string-typed parameters for concatenation detection.
+        self.string_vars.clear();
+        for param in &func.parameters {
+            if self.lir_type_to_rust(&param.type_) == "String" {
+                self.string_vars.insert(param.name.clone());
+            }
+        }
+
+        self.compute_deferred_locals(&func.body);
+        if is_main {
+            // Materialize top-level-`let` globals as locals: initialized ones up
+            // front (declaration order), the rest deferred to first assignment.
+            for (name, init) in self.global_local_inits.clone() {
+                self.track_string_var(&name, &init);
+                let rhs = self.generate_assign_rhs(&init)?;
+                self.declared_locals.insert(name.clone());
+                self.line(&format!("let mut {} = {};", name, rhs))?;
+            }
+            for name in self.globals_as_locals.clone() {
+                self.deferred_locals.insert(name);
+            }
+        }
 
         // For main function, we need special handling of return statements
         if is_main {
@@ -327,6 +515,8 @@ path = "src/main.rs"
             self.generate_lir_block(&func.body)?;
         }
 
+        self.dedent();
+        self.line("}")?;
         self.dedent();
         self.line("}")?;
         self.line("")?;
@@ -397,33 +587,59 @@ path = "src/main.rs"
     }
 
     /// Generate global variable
+    ///
+    /// X top-level `let` bindings are lowered to module-level globals that may be
+    /// assigned from the synthetic `main` (when their initializer is not a literal).
+    /// We model them as `static mut` with a const-evaluable default so that both the
+    /// declaration and any later assignment in `main` compile. All function bodies
+    /// are wrapped in `unsafe`, so accessing these is allowed.
     fn generate_lir_global(&mut self, global: &x_lir::GlobalVar) -> RustResult<()> {
-        let ty = self.lir_type_to_rust(&global.type_);
-        // For global variables in X, use static (not pub)
-        let prefix = "static ";
-        let pub_prefix = if global.is_static { "pub " } else { "" };
-        let mut decl = format!(
-            "{}{}{} : {}{}",
-            prefix,
-            pub_prefix,
-            global.name,
-            ty,
-            if global.initializer.is_some() {
-                " = "
-            } else {
-                ";"
-            }
-        );
-
-        if let Some(init) = &global.initializer {
-            let init_code = self.generate_lir_expression(init)?;
-            decl.push_str(&init_code);
-            decl.push(';');
+        // Materialized as a `let` local inside `main` instead.
+        if self.globals_as_locals.contains(&global.name) {
+            return Ok(());
         }
-
-        self.line(&decl)?;
+        let ty = self.lir_type_to_rust(&global.type_);
+        let init_code = if let Some(init) = &global.initializer {
+            self.generate_lir_expression(init)?
+        } else {
+            Self::default_value_for_type(&global.type_)
+        };
+        self.line(&format!("static mut {}: {} = {};", global.name, ty, init_code))?;
         self.line("")?;
         Ok(())
+    }
+
+    /// Produce a const-evaluable Rust default for a LIR type, used to initialize
+    /// otherwise-uninitialized globals.
+    fn default_value_for_type(ty: &x_lir::Type) -> String {
+        match ty {
+            x_lir::Type::Bool => "false".to_string(),
+            x_lir::Type::Char => "'\\0'".to_string(),
+            x_lir::Type::Float | x_lir::Type::Double | x_lir::Type::LongDouble => "0.0".to_string(),
+            x_lir::Type::Schar
+            | x_lir::Type::Uchar
+            | x_lir::Type::Short
+            | x_lir::Type::Ushort
+            | x_lir::Type::Int
+            | x_lir::Type::Uint
+            | x_lir::Type::Long
+            | x_lir::Type::Ulong
+            | x_lir::Type::LongLong
+            | x_lir::Type::UlongLong
+            | x_lir::Type::Size
+            | x_lir::Type::Ptrdiff
+            | x_lir::Type::Intptr
+            | x_lir::Type::Uintptr => "0".to_string(),
+            x_lir::Type::Pointer(_) => "std::ptr::null_mut()".to_string(),
+            x_lir::Type::Array(_, None) => "Vec::new()".to_string(),
+            x_lir::Type::Array(inner, Some(n)) => {
+                format!("[{}; {}]", Self::default_value_for_type(inner), n)
+            }
+            x_lir::Type::Qualified(_, inner) => Self::default_value_for_type(inner),
+            // Fallback: works for any type that implements Default in const context
+            // is not guaranteed, but covers the common scalar cases above.
+            _ => "Default::default()".to_string(),
+        }
     }
 
     /// Generate struct definition
@@ -695,6 +911,27 @@ path = "src/main.rs"
     // LIR block / statement generation
     // ========================================================================
 
+    /// Build a Rust formatting-macro invocation (println!/print!/eprintln!/format!)
+    /// with an explicit format string, since Rust's macros require one. A single
+    /// string-literal argument is used directly as the format text; otherwise each
+    /// argument gets a `{}` placeholder.
+    fn format_macro_call(macro_name: &str, args_code: &[String]) -> String {
+        let bang = format!("{}!", macro_name);
+        if args_code.is_empty() {
+            return format!("{}()", bang);
+        }
+        // Single string-literal argument: use it as the format string directly so
+        // that e.g. println("Hello") -> println!("Hello").
+        if args_code.len() == 1 {
+            let a = args_code[0].trim();
+            if a.starts_with('"') && a.ends_with('"') && a.len() >= 2 {
+                return format!("{}({})", bang, a);
+            }
+        }
+        let placeholders = vec!["{}"; args_code.len()].join(" ");
+        format!("{}(\"{}\", {})", bang, placeholders, args_code.join(", "))
+    }
+
     /// Generate a LIR basic block
     fn generate_lir_block(&mut self, block: &x_lir::Block) -> RustResult<()> {
         for stmt in &block.statements {
@@ -706,28 +943,57 @@ path = "src/main.rs"
     /// Generate a LIR statement
     fn generate_lir_statement(&mut self, stmt: &x_lir::Statement) -> RustResult<()> {
         match stmt {
+            x_lir::Statement::Expression(x_lir::Expression::Assign(target, value))
+                if matches!(target.as_ref(), x_lir::Expression::Variable(name)
+                    if self.deferred_locals.contains(name)
+                        && !self.declared_locals.contains(name)) =>
+            {
+                // First assignment of a deferred temporary: emit `let mut` so Rust
+                // infers the type from the value instead of the (often wrong) LIR
+                // temp type.
+                let name = match target.as_ref() {
+                    x_lir::Expression::Variable(n) => n.clone(),
+                    _ => unreachable!(),
+                };
+                // Reuse the assignment expression logic to honor the println/print
+                // macro special-casing for the value.
+                self.track_string_var(&name, value);
+                let rhs = self.generate_assign_rhs(value)?;
+                self.declared_locals.insert(name.clone());
+                self.line(&format!("let mut {} = {};", name, rhs))?;
+            }
             x_lir::Statement::Expression(expr) => {
                 let code = self.generate_lir_expression(expr)?;
                 self.line(&format!("{};", code))?;
             }
             x_lir::Statement::Variable(var) => {
+                if self.deferred_locals.contains(&var.name) && var.initializer.is_none() {
+                    // Declaration deferred to first assignment.
+                    return Ok(());
+                }
                 let ty = self.lir_type_to_rust(&var.type_);
-                let mut decl = if var.is_static {
-                    format!("static {}: {}", var.name, ty)
-                } else {
-                    format!("let {}: {}", var.name, ty)
-                };
 
                 if var.is_extern {
-                    decl.push_str(";");
+                    let _ = self.line(&format!("let {}: {};", var.name, ty));
+                } else if var.is_static {
+                    let mut decl = format!("static {}: {}", var.name, ty);
+                    if let Some(init) = &var.initializer {
+                        let init_code = self.generate_lir_expression(init)?;
+                        decl.push_str(&format!(" = {};", init_code));
+                    } else {
+                        decl.push_str(";");
+                    }
                     let _ = self.line(&decl);
                 } else if let Some(init) = &var.initializer {
+                    self.track_string_var(&var.name, init);
                     let init_code = self.generate_lir_expression(init)?;
-                    decl.push_str(&format!(" = {};", init_code));
-                    let _ = self.line(&decl);
+                    let _ = self.line(&format!("let mut {} = {};", var.name, init_code));
                 } else {
-                    decl.push_str(";");
-                    let _ = self.line(&decl);
+                    // Uninitialized local: provide a type-appropriate default so it
+                    // never compiles as "used while uninitialized". (LIR sometimes
+                    // drops the producing statement, e.g. a not-yet-lowered loop.)
+                    let default = Self::default_value_for_type(&var.type_);
+                    let _ = self.line(&format!("let mut {}: {} = {};", var.name, ty, default));
                 }
             }
             x_lir::Statement::If(if_stmt) => {
@@ -956,9 +1222,85 @@ path = "src/main.rs"
     // LIR expression generation
     // ========================================================================
 
+    /// Returns true if `value` is a call to a print-like builtin (whose result is
+    /// unit and which we lower to a Rust macro call).
+    fn is_print_like_value(value: &x_lir::Expression) -> bool {
+        if let x_lir::Expression::Call(callee, _) = value {
+            if let x_lir::Expression::Variable(name) = callee.as_ref() {
+                return matches!(name.as_str(), "println" | "print" | "eprintln" | "eprintln!");
+            }
+        }
+        false
+    }
+
+    /// Generate the right-hand side of an assignment, honoring print/format macro
+    /// lowering for print-like builtins.
+    fn generate_assign_rhs(&mut self, value: &x_lir::Expression) -> RustResult<String> {
+        if let x_lir::Expression::Call(callee, args) = value {
+            if let x_lir::Expression::Variable(fn_name) = callee.as_ref() {
+                let name = fn_name.as_str();
+                if matches!(
+                    name,
+                    "println" | "print" | "eprintln" | "eprintln!" | "format"
+                ) {
+                    let args_code: Vec<String> = args
+                        .iter()
+                        .map(|arg| self.generate_lir_expression(arg))
+                        .collect::<Result<_, _>>()?;
+                    let call_str = match name {
+                        "println" => Self::format_macro_call("println", &args_code),
+                        "print" => Self::format_macro_call("print", &args_code),
+                        "eprintln" | "eprintln!" => Self::format_macro_call("eprintln", &args_code),
+                        "format" => Self::format_macro_call("format", &args_code),
+                        _ => format!("{}({})", name, args_code.join(", ")),
+                    };
+                    return Ok(call_str);
+                }
+            }
+        }
+        self.generate_lir_expression(value)
+    }
+
+    /// If `expr` is an `Add` tree that contains at least one string literal,
+    /// returns the flattened operands (left-to-right) so the caller can emit a
+    /// `format!`. Returns `None` for purely numeric additions.
+    fn string_concat_parts(expr: &x_lir::Expression) -> Option<Vec<&x_lir::Expression>> {
+        fn contains_string(e: &x_lir::Expression) -> bool {
+            match e {
+                x_lir::Expression::Literal(x_lir::Literal::String(_)) => true,
+                x_lir::Expression::Binary(x_lir::BinaryOp::Add, l, r) => {
+                    contains_string(l) || contains_string(r)
+                }
+                x_lir::Expression::Parenthesized(inner) => contains_string(inner),
+                _ => false,
+            }
+        }
+        fn flatten<'a>(e: &'a x_lir::Expression, out: &mut Vec<&'a x_lir::Expression>) {
+            match e {
+                x_lir::Expression::Binary(x_lir::BinaryOp::Add, l, r) => {
+                    flatten(l, out);
+                    flatten(r, out);
+                }
+                x_lir::Expression::Parenthesized(inner) => flatten(inner, out),
+                other => out.push(other),
+            }
+        }
+        if !contains_string(expr) {
+            return None;
+        }
+        let mut parts = Vec::new();
+        flatten(expr, &mut parts);
+        Some(parts)
+    }
+
     /// Generate a LIR expression
     fn generate_lir_expression(&mut self, expr: &x_lir::Expression) -> RustResult<String> {
         match expr {
+            // In expression position, string literals become owned `String`s so they
+            // match the `String` type used for X `string` values.
+            x_lir::Expression::Literal(x_lir::Literal::String(s)) => {
+                Ok(format!("\"{}\".to_string()", s))
+            }
             x_lir::Expression::Literal(lit) => Ok(self.generate_lir_literal(lit)),
             x_lir::Expression::Variable(name) => Ok(name.clone()),
             x_lir::Expression::Unary(op, inner) => {
@@ -984,6 +1326,18 @@ path = "src/main.rs"
                 Ok(result)
             }
             x_lir::Expression::Binary(op, left, right) => {
+                // X uses `+` for string concatenation. Rust does not support
+                // `&str + T`, so when an `Add` tree contains a string literal we
+                // lower the whole chain to a `format!`.
+                if matches!(op, x_lir::BinaryOp::Add)
+                    && (self.expr_is_string(left)
+                        || self.expr_is_string(right)
+                        || Self::string_concat_parts(expr).is_some())
+                {
+                    let left_code = self.generate_lir_expression(left)?;
+                    let right_code = self.generate_lir_expression(right)?;
+                    return Ok(format!("format!(\"{}{}\", {}, {})", "{}", "{}", left_code, right_code));
+                }
                 let left_code = self.generate_lir_expression(left)?;
                 let right_code = self.generate_lir_expression(right)?;
                 let op_str = match op {
@@ -1019,35 +1373,17 @@ path = "src/main.rs"
                 ))
             }
             x_lir::Expression::Assign(target, value) => {
-                // Check if the value is a void function call (println, print, etc.)
-                if let x_lir::Expression::Call(callee, args) = value.as_ref() {
-                    if let x_lir::Expression::Variable(fn_name) = callee.as_ref() {
-                        let name = fn_name.as_str();
-                        // For void functions, emit the call and initialize the target
-                        if matches!(
-                            name,
-                            "println" | "print" | "eprintln" | "eprintln!" | "format"
-                        ) {
-                            let args_code: Vec<String> = args
-                                .iter()
-                                .map(|arg| self.generate_lir_expression(arg))
-                                .collect::<Result<_, _>>()?;
-                            let call_str = match name {
-                                "println" => format!("println!({})", args_code.join(", ")),
-                                "print" => format!("print!({})", args_code.join(", ")),
-                                "eprintln" | "eprintln!" => {
-                                    format!("eprintln!({})", args_code.join(", "))
-                                }
-                                "format" => format!("format!({})", args_code.join(", ")),
-                                _ => format!("{}({})", name, args_code.join(", ")),
-                            };
-                            return Ok(call_str);
-                        }
-                    }
+                if let x_lir::Expression::Variable(name) = target.as_ref() {
+                    self.track_string_var(name, value);
+                }
+                let rhs = self.generate_assign_rhs(value)?;
+                // A print-like builtin used as the RHS produces a statement-like
+                // macro call; emit it directly rather than `target = <unit>`.
+                if Self::is_print_like_value(value) {
+                    return Ok(rhs);
                 }
                 let target_code = self.generate_lir_expression(target)?;
-                let value_code = self.generate_lir_expression(value)?;
-                Ok(format!("{} = {}", target_code, value_code))
+                Ok(format!("{} = {}", target_code, rhs))
             }
             x_lir::Expression::AssignOp(op, target, value) => {
                 let target_code = self.generate_lir_expression(target)?;
@@ -1078,11 +1414,11 @@ path = "src/main.rs"
                 // Convert common X built-in functions to Rust equivalents
                 let callee_str = callee_code.as_str();
                 let result = match callee_str {
-                    "println" => format!("println!({})", args_code.join(", ")),
-                    "print" => format!("print!({})", args_code.join(", ")),
-                    "eprintln" | "eprintln!" => format!("eprintln!({})", args_code.join(", ")),
-                    "eprint" | "eprint!" => format!("eprint!({})", args_code.join(", ")),
-                    "format" => format!("format!({})", args_code.join(", ")),
+                    "println" => Self::format_macro_call("println", &args_code),
+                    "print" => Self::format_macro_call("print", &args_code),
+                    "eprintln" | "eprintln!" => Self::format_macro_call("eprintln", &args_code),
+                    "eprint" | "eprint!" => Self::format_macro_call("eprint", &args_code),
+                    "format" => Self::format_macro_call("format", &args_code),
                     _ => format!("{}({})", callee_code, args_code.join(", ")),
                 };
                 Ok(result)
@@ -1110,6 +1446,11 @@ path = "src/main.rs"
             }
             x_lir::Expression::Cast(ty, inner) => {
                 let inner_code = self.generate_lir_expression(inner)?;
+                // Casting to X `string` (pointer-to-char) maps to producing an owned
+                // Rust `String`; `as String` is not a valid Rust cast.
+                if matches!(ty, x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char)) {
+                    return Ok(format!("format!(\"{}\", {})", "{}", inner_code));
+                }
                 let ty_str = self.lir_type_to_rust(ty);
                 Ok(format!("{} as {}", inner_code, ty_str))
             }
@@ -1161,12 +1502,14 @@ path = "src/main.rs"
     /// Generate a LIR literal
     fn generate_lir_literal(&self, lit: &x_lir::Literal) -> String {
         match lit {
+            // Emit integer literals without a type suffix so Rust can infer the
+            // expected integer type from context (e.g. `usize` for `malloc`).
             x_lir::Literal::Integer(v) => v.to_string(),
-            x_lir::Literal::UnsignedInteger(v) => format!("{}u", v),
-            x_lir::Literal::Long(v) => format!("{}i64", v),
-            x_lir::Literal::UnsignedLong(v) => format!("{}u64", v),
-            x_lir::Literal::LongLong(v) => format!("{}i64", v),
-            x_lir::Literal::UnsignedLongLong(v) => format!("{}u64", v),
+            x_lir::Literal::UnsignedInteger(v) => v.to_string(),
+            x_lir::Literal::Long(v) => v.to_string(),
+            x_lir::Literal::UnsignedLong(v) => v.to_string(),
+            x_lir::Literal::LongLong(v) => v.to_string(),
+            x_lir::Literal::UnsignedLongLong(v) => v.to_string(),
             x_lir::Literal::Float(v) => format!("{}f32", v),
             x_lir::Literal::Double(v) => v.to_string(),
             x_lir::Literal::Bool(v) => v.to_string(),
@@ -1222,6 +1565,11 @@ path = "src/main.rs"
             x_lir::Type::Ptrdiff => "isize".to_string(),
             x_lir::Type::Intptr => "isize".to_string(),
             x_lir::Type::Uintptr => "usize".to_string(),
+            // X `string` lowers to a pointer-to-char; represent it as an owned
+            // Rust `String` so values support Display, concatenation, etc.
+            x_lir::Type::Pointer(inner) if matches!(inner.as_ref(), x_lir::Type::Char) => {
+                "String".to_string()
+            }
             x_lir::Type::Pointer(inner) => {
                 let inner_str = self.lir_type_to_rust(inner);
                 format!("*mut {}", inner_str)

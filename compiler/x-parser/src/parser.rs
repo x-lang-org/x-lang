@@ -23,6 +23,12 @@ impl XParser {
             Token::Eq => Some("eq".to_string()),
             Token::Ne => Some("ne".to_string()),
             Token::SelfLower => Some("self".to_string()),
+            // 关键字也可以作为标识符名称用于变量绑定/模式匹配
+            Token::Val => Some("val".to_string()),
+            Token::Let => Some("let".to_string()),
+            Token::Given => Some("given".to_string()),
+            Token::Await => Some("await".to_string()),
+            Token::Needs => Some("needs".to_string()),
             _ => None,
         }
     }
@@ -86,6 +92,29 @@ impl XParser {
                         false,
                         MethodModifiers::default(),
                     )?));
+                }
+                Ok((Token::AtSign, _)) => {
+                    // 跳过装饰器: @decorator 或 @decorator(args)
+                    ti.next(); // consume @
+                    self.expect_token(ti, "装饰器名称")?;
+                    // 跳过可选的参数 (装饰器调用)
+                    if matches!(ti.peek(), Some(Ok((Token::LeftParen, _)))) {
+                        ti.next(); // consume (
+                        let mut paren_depth = 1;
+                        while paren_depth > 0 {
+                            match ti.next() {
+                                Some(Ok((Token::LeftParen, _))) => paren_depth += 1,
+                                Some(Ok((Token::RightParen, _))) => paren_depth -= 1,
+                                Some(Ok(_)) => {}
+                                _ => break,
+                            }
+                        }
+                    }
+                    // 检查是否有分号结束（单行装饰器语法）
+                    if matches!(ti.peek(), Some(Ok((Token::Semicolon, _)))) {
+                        ti.next();
+                    }
+                    // 继续解析下一个声明
                 }
                 Ok((Token::Let, _)) => {
                     ti.next();
@@ -472,6 +501,23 @@ impl XParser {
 
         // 解析导入符号
         match ti.peek() {
+            // 处理 import module as Alias 别名语法
+            Some(Ok((Token::As, _))) => {
+                ti.next(); // consume 'as'
+                let alias_token = self.expect_token(ti, "标识符（别名）")?;
+                match alias_token {
+                    Token::Ident(alias_name) => {
+                        // 带别名的单一导入，把模块路径最后一个分量作为符号别名
+                        symbols.push(ImportSymbol::Named(module_path.clone(), Some(alias_name)));
+                    }
+                    _ => {
+                        return Err(self.err(
+                            format!("期望标识符（别名），但得到 {:?}", alias_token),
+                            ti,
+                        ));
+                    }
+                }
+            }
             Some(Ok((Token::Dot, _))) | Some(Ok((Token::DoubleColon, _))) => {
                 ti.next();
 
@@ -620,6 +666,17 @@ impl XParser {
                 }
                 Some(Ok((Token::GreaterThan, _))) => {
                     ti.next();
+                    break;
+                }
+                // 处理 >> 在类型参数列表中应拆分为两个 > 的情况
+                Some(Ok((Token::RightShift, span))) => {
+                    let span = *span;
+                    ti.next(); // 消费 >>
+                    // 当前级别消耗一个 >，另一个 > 放回预取缓冲区
+                    ti.set_peek(Token::GreaterThan, Span {
+                        start: span.start + 1,
+                        end: span.end,
+                    });
                     break;
                 }
                 _ => return Err(self.err("期望 , 或 >", ti)),
@@ -2711,9 +2768,21 @@ impl XParser {
             // if-then-else 表达式 (需要 then 关键字)
             Token::If => self.parse_if_expr(ti),
             Token::When => self.parse_when(ti),
+            Token::Match => {
+                let stmt = self.parse_match(ti)?;
+                if let StatementKind::Match(match_stmt) = stmt.node {
+                    return Ok(self.mk_expr(
+                        ti,
+                        ExpressionKind::Match(
+                            Box::new(match_stmt.expression),
+                            match_stmt.cases,
+                        ),
+                    ));
+                }
+                unreachable!("parse_match should return Match statement")
+            }
             Token::Given => {
                 // given expression { ... match cases ... }
-                ti.next();
                 let discriminant = self.parse_expression(ti)?;
                 match self.expect_token(ti, "{")? {
                     Token::LeftBrace => {}
@@ -2800,8 +2869,10 @@ impl XParser {
                     // 尝试解析为 lambda 参数或表达式
                     let first = self.parse_expression(ti)?;
 
-                    // 检查是否后面跟着逗号（多参数 lambda）或右括号
-                    if matches!(ti.peek(), Some(Ok((Token::Comma, _)))) {
+                    // 检查是否后面跟着逗号（多参数 lambda）、冒号（带类型注解的参数）或右括号
+                    if matches!(ti.peek(), Some(Ok((Token::Comma, _))))
+                        || matches!(ti.peek(), Some(Ok((Token::Colon, _))))
+                    {
                         // 可能是多参数 lambda
                         let mut params = vec![];
 
@@ -2935,7 +3006,44 @@ impl XParser {
                 Ok(self.mk_expr(ti, ExpressionKind::Array(elems)))
             }
             Token::LeftBrace => {
-                // 处理对象字面量 (map)
+                // 智能区分：代码块 vs 字典字面量
+                // 规则：
+                // 1. 如果接下来是语句关键字 (let/if/while/for/return/break/continue/match/...) → 代码块
+                // 2. 如果接下来是 }  → 不能区分空块和空字典，暂按字典处理（因为 x = {} 需要字典语义）
+                // 3. 如果接下来是标识符或字符串，再向后再看一个 token，如果是 : 或 => → 字典
+                // 4. 否则按字典尝试（解析失败就是语法错误）
+                let is_block = match ti.peek() {
+                    Some(Ok((Token::Let, _)))
+                    | Some(Ok((Token::Const, _)))
+                    | Some(Ok((Token::Var, _)))
+                    | Some(Ok((Token::Mut, _)))
+                    | Some(Ok((Token::If, _)))
+                    | Some(Ok((Token::While, _)))
+                    | Some(Ok((Token::For, _)))
+                    | Some(Ok((Token::Return, _)))
+                    | Some(Ok((Token::Break, _)))
+                    | Some(Ok((Token::Continue, _)))
+                    | Some(Ok((Token::Match, _)))
+                    | Some(Ok((Token::Given, _)))
+                    | Some(Ok((Token::New, _)))
+                    | Some(Ok((Token::Import, _)))
+                    | Some(Ok((Token::Export, _)))
+                    | Some(Ok((Token::Module, _)))
+                    | Some(Ok((Token::Use, _)))
+                    | Some(Ok((Token::Try, _)))
+                    | Some(Ok((Token::Catch, _)))
+                    | Some(Ok((Token::Finally, _)))
+                    | Some(Ok((Token::Await, _)))
+                    | Some(Ok((Token::Async, _)))
+                    | Some(Ok((Token::Atomic, _)))
+                    | Some(Ok((Token::Concurrently, _))) => true,
+                    _ => false,
+                };
+                if is_block {
+                    let block = self.parse_block(ti)?;
+                    return Ok(self.mk_expr(ti, ExpressionKind::Block(block)));
+                }
+                // 解析字典字面量
                 let mut pairs = Vec::new();
                 if !matches!(ti.peek(), Some(Ok((Token::RightBrace, _)))) {
                     loop {
@@ -3736,6 +3844,19 @@ impl XParser {
             type_args.push(self.parse_type(ti)?);
             if matches!(ti.peek(), Some(&Ok((Token::GreaterThan, _)))) {
                 ti.next();
+                break;
+            }
+            // 处理 >> 在类型参数列表中应拆分为两个 > 的情况
+            if matches!(ti.peek(), Some(&Ok((Token::RightShift, _)))) {
+                let span = match ti.next() {
+                    Some(Ok((Token::RightShift, s))) => s,
+                    _ => unreachable!(),
+                };
+                // 当前级别消耗第一个 >，放回第二个 >
+                ti.set_peek(Token::GreaterThan, Span {
+                    start: span.start + 1,
+                    end: span.end,
+                });
                 break;
             }
             if matches!(ti.peek(), Some(&Ok((Token::Comma, _)))) {
