@@ -368,10 +368,7 @@ path = "src/main.rs"
     /// print) or replaced by correct hand-written implementations in the runtime
     /// preamble (panic, assert, enumerate). We skip emitting their LIR bodies.
     fn is_skipped_builtin(name: &str) -> bool {
-        matches!(
-            name,
-            "println" | "print" | "panic" | "assert" | "enumerate"
-        )
+        matches!(name, "println" | "print" | "panic" | "assert" | "enumerate")
     }
 
     /// Emit correct Rust implementations for X builtin functions that cannot be
@@ -604,7 +601,10 @@ path = "src/main.rs"
         } else {
             Self::default_value_for_type(&global.type_)
         };
-        self.line(&format!("static mut {}: {} = {};", global.name, ty, init_code))?;
+        self.line(&format!(
+            "static mut {}: {} = {};",
+            global.name, ty, init_code
+        ))?;
         self.line("")?;
         Ok(())
     }
@@ -1227,7 +1227,10 @@ path = "src/main.rs"
     fn is_print_like_value(value: &x_lir::Expression) -> bool {
         if let x_lir::Expression::Call(callee, _) = value {
             if let x_lir::Expression::Variable(name) = callee.as_ref() {
-                return matches!(name.as_str(), "println" | "print" | "eprintln" | "eprintln!");
+                return matches!(
+                    name.as_str(),
+                    "println" | "print" | "eprintln" | "eprintln!"
+                );
             }
         }
         false
@@ -1336,7 +1339,10 @@ path = "src/main.rs"
                 {
                     let left_code = self.generate_lir_expression(left)?;
                     let right_code = self.generate_lir_expression(right)?;
-                    return Ok(format!("format!(\"{}{}\", {}, {})", "{}", "{}", left_code, right_code));
+                    return Ok(format!(
+                        "format!(\"{}{}\", {}, {})",
+                        "{}", "{}", left_code, right_code
+                    ));
                 }
                 let left_code = self.generate_lir_expression(left)?;
                 let right_code = self.generate_lir_expression(right)?;
@@ -1448,7 +1454,8 @@ path = "src/main.rs"
                 let inner_code = self.generate_lir_expression(inner)?;
                 // Casting to X `string` (pointer-to-char) maps to producing an owned
                 // Rust `String`; `as String` is not a valid Rust cast.
-                if matches!(ty, x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char)) {
+                if matches!(ty, x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char))
+                {
                     return Ok(format!("format!(\"{}\", {})", "{}", inner_code));
                 }
                 let ty_str = self.lir_type_to_rust(ty);
@@ -1583,7 +1590,8 @@ path = "src/main.rs"
                 format!("[{}; {}]", inner_str, size)
             }
             x_lir::Type::Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|t| self.lir_type_to_rust(t)).collect();
+                let item_strs: Vec<String> =
+                    items.iter().map(|t| self.lir_type_to_rust(t)).collect();
                 format!("({})", item_strs.join(", "))
             }
             x_lir::Type::FunctionPointer(return_type, param_types) => {

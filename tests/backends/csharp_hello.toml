@@ -47,7 +47,7 @@ functions = ["multiply", "main"]
 
 # 7. 后端验证 (C#)
 [expect.backend.csharp]
-source_contains = ["public static int multiply", "public static void main"]
+source_contains = ["public static long multiply", "public static void main"]
 functions = ["multiply", "main"]
 
 # 8. 运行时验证

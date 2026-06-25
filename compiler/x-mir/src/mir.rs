@@ -27,6 +27,17 @@ pub struct MirModule {
     pub functions: Vec<MirFunction>,
     /// 全局变量
     pub globals: Vec<MirGlobal>,
+    /// 结构体定义（来自 class/record/enum 的展开）
+    pub structs: Vec<MirStruct>,
+}
+
+/// MIR 结构体（聚合类型布局）
+#[derive(Debug, Clone)]
+pub struct MirStruct {
+    /// 结构体名
+    pub name: String,
+    /// 字段：(名称, 类型)，按声明顺序即内存布局顺序
+    pub fields: Vec<(String, MirType)>,
 }
 
 /// 类型参数
@@ -146,11 +157,17 @@ pub enum MirInstruction {
         func: MirOperand,
         args: Vec<MirOperand>,
     },
-    /// 字段访问
+    /// 字段访问（读取）
     FieldAccess {
         dest: MirLocalId,
         object: MirOperand,
         field: String,
+    },
+    /// 字段写入：object.field = value
+    SetField {
+        object: MirOperand,
+        field: String,
+        value: MirOperand,
     },
     /// 数组访问
     ArrayAccess {
@@ -332,6 +349,7 @@ impl MirBuilder {
                 imports: Vec::new(),
                 functions: Vec::new(),
                 globals: Vec::new(),
+                structs: Vec::new(),
             },
             current_function: None,
             current_block: None,
@@ -431,6 +449,7 @@ impl MirModule {
             imports: Vec::new(),
             functions: Vec::new(),
             globals: Vec::new(),
+            structs: Vec::new(),
         }
     }
 }
@@ -465,7 +484,9 @@ impl MirFunction {
                             locals.push(*d);
                         }
                     }
-                    MirInstruction::Store { .. } | MirInstruction::Drop { .. } => {}
+                    MirInstruction::Store { .. }
+                    | MirInstruction::SetField { .. }
+                    | MirInstruction::Drop { .. } => {}
                 }
             }
         }

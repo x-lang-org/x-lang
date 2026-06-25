@@ -50,7 +50,7 @@ functions = ["power", "main"]
 
 # 7. 后端验证 (Java)
 [expect.backend.java]
-source_contains = ["public static int power", "public static void main"]
+source_contains = ["public static long power", "public static void main"]
 functions = ["power", "main"]
 
 # 8. 运行时验证 (2^10 = 1024)

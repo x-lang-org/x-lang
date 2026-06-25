@@ -124,7 +124,10 @@ impl SwiftBackend {
             Pointer(inner) => format!("UnsafeMutablePointer<{}>", self.lir_type_to_swift(inner)),
             Array(inner, _) => format!("[{}]", self.lir_type_to_swift(inner)),
             Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_swift(item)).collect();
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_swift(item))
+                    .collect();
                 format!("({})", item_strs.join(", "))
             }
             FunctionPointer(ret, params) => {

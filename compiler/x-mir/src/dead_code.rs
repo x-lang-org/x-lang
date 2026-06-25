@@ -105,6 +105,10 @@ impl DeadCodeElimination {
                 self.collect_used_locals_in_operand(ptr, used);
                 self.collect_used_locals_in_operand(value, used);
             }
+            MirInstruction::SetField { object, value, .. } => {
+                self.collect_used_locals_in_operand(object, used);
+                self.collect_used_locals_in_operand(value, used);
+            }
             MirInstruction::Cast { value, .. } => {
                 self.collect_used_locals_in_operand(value, used);
             }
@@ -253,6 +257,9 @@ impl DeadCodeElimination {
 
             // Store 有副作用（修改内存），不消除
             MirInstruction::Store { .. } => false,
+
+            // SetField 修改对象字段，有副作用，不消除
+            MirInstruction::SetField { .. } => false,
 
             // Drop 释放引用，有副作用，不消除
             MirInstruction::Drop { .. } => false,

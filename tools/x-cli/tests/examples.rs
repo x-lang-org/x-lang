@@ -217,10 +217,16 @@ fn smoke_compile_typescript_no_link_with_interpolation() {
     let stdout = String::from_utf8_lossy(&out.stdout);
     let stderr = String::from_utf8_lossy(&out.stderr);
     assert!(stdout.trim().is_empty(), "stdout was: {stdout}");
-    assert!(stderr.contains("已生成TypeScript代码"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("已生成TypeScript代码"),
+        "stderr was: {stderr}"
+    );
 
     let generated = std::fs::read_to_string(out_file.with_extension("ts")).expect("read ts");
-    assert!(!generated.is_empty(), "generated TypeScript should not be empty");
+    assert!(
+        !generated.is_empty(),
+        "generated TypeScript should not be empty"
+    );
 }
 
 #[test]
@@ -377,7 +383,11 @@ fn smoke_run_with_local_import() {
 fn quiet_suppresses_helper_status_output_for_check() {
     let bin = x_bin();
     let dir = tempfile::tempdir().expect("tempdir");
-    let file = write_program(&dir, "quiet_check.x", "function main() { println(\"hi\") }\n");
+    let file = write_program(
+        &dir,
+        "quiet_check.x",
+        "function main() { println(\"hi\") }\n",
+    );
 
     let out = Command::new(&bin)
         .arg("--quiet")
@@ -466,7 +476,8 @@ fn verbose_does_not_break_machine_readable_metadata_output() {
     }
 
     let stdout = String::from_utf8_lossy(&out.stdout);
-    serde_json::from_str::<serde_json::Value>(&stdout).expect("metadata stdout should be valid JSON");
+    serde_json::from_str::<serde_json::Value>(&stdout)
+        .expect("metadata stdout should be valid JSON");
 }
 
 #[test]
@@ -505,7 +516,11 @@ fn locate_project_keeps_json_on_stdout() {
 fn verbose_emits_observability_for_check_to_stderr() {
     let bin = x_bin();
     let dir = tempfile::tempdir().expect("tempdir");
-    let file = write_program(&dir, "verbose_check.x", "function main() { println(\"hi\") }\n");
+    let file = write_program(
+        &dir,
+        "verbose_check.x",
+        "function main() { println(\"hi\") }\n",
+    );
 
     let out = Command::new(&bin)
         .arg("--verbose")
@@ -524,7 +539,10 @@ fn verbose_emits_observability_for_check_to_stderr() {
 
     let stderr = String::from_utf8_lossy(&out.stderr);
     assert!(stderr.contains("INFO"), "stderr was: {stderr}");
-    assert!(stderr.contains("Finished: 检查通过（语法 + 类型）"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("Finished: 检查通过（语法 + 类型）"),
+        "stderr was: {stderr}"
+    );
 }
 
 #[test]

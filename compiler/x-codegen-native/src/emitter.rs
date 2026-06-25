@@ -5,6 +5,7 @@
 
 use std::collections::HashMap;
 
+use crate::arch::TargetArch;
 use crate::machine::{MachineObject, ObjSymbol, RelTarget, SecKind};
 use crate::NativeResult;
 
@@ -14,6 +15,17 @@ const ELFDATA2LSB: u8 = 1;
 const EV_CURRENT: u8 = 1;
 const ET_REL: u16 = 1;
 const EM_X86_64: u16 = 62;
+const EM_AARCH64: u16 = 183;
+const EM_RISCV: u16 = 243;
+
+fn elf_machine(arch: TargetArch) -> u16 {
+    match arch {
+        TargetArch::X86_64 => EM_X86_64,
+        TargetArch::AArch64 => EM_AARCH64,
+        TargetArch::RiscV64 => EM_RISCV,
+        TargetArch::Wasm32 => EM_X86_64,
+    }
+}
 
 // section 头类型
 const SHT_PROGBITS: u32 = 1;
@@ -97,8 +109,13 @@ struct Sym {
     size: u64,
 }
 
-/// 写出可重定位 ELF64 目标文件
+/// 写出可重定位 ELF64 目标文件（默认 x86_64，向后兼容）
 pub fn write_relocatable_elf(obj: &MachineObject) -> NativeResult<Vec<u8>> {
+    write_relocatable_elf_for(obj, TargetArch::X86_64)
+}
+
+/// 写出指定架构的可重定位 ELF64 目标文件
+pub fn write_relocatable_elf_for(obj: &MachineObject, arch: TargetArch) -> NativeResult<Vec<u8>> {
     let mut strtab = StrTab::new();
 
     // ---- 构建符号表 ----
@@ -170,7 +187,7 @@ pub fn write_relocatable_elf(obj: &MachineObject) -> NativeResult<Vec<u8>> {
                 crate::NativeError::CodegenError(format!("重定位引用未知符号: {}", name))
             })?,
         };
-        let r_info = ((sym_idx as u64) << 32) | (r.kind.elf_type() as u64);
+        let r_info = ((sym_idx as u64) << 32) | (r.kind.elf_type(arch) as u64);
         rela.extend_from_slice(&r.offset.to_le_bytes());
         rela.extend_from_slice(&r_info.to_le_bytes());
         rela.extend_from_slice(&(r.addend).to_le_bytes());
@@ -248,12 +265,17 @@ pub fn write_relocatable_elf(obj: &MachineObject) -> NativeResult<Vec<u8>> {
     out.push(EV_CURRENT);
     out.extend_from_slice(&[0u8; 9]); // EI_OSABI..EI_PAD
     out.extend_from_slice(&ET_REL.to_le_bytes());
-    out.extend_from_slice(&EM_X86_64.to_le_bytes());
+    out.extend_from_slice(&elf_machine(arch).to_le_bytes());
     out.extend_from_slice(&1u32.to_le_bytes()); // e_version
     out.extend_from_slice(&0u64.to_le_bytes()); // e_entry
     out.extend_from_slice(&0u64.to_le_bytes()); // e_phoff
     out.extend_from_slice(&shoff.to_le_bytes()); // e_shoff
-    out.extend_from_slice(&0u32.to_le_bytes()); // e_flags
+    let e_flags: u32 = match arch {
+        // lp64d：双精度浮点 ABI，匹配 musl/glibc 默认
+        TargetArch::RiscV64 => 0x4,
+        _ => 0,
+    };
+    out.extend_from_slice(&e_flags.to_le_bytes()); // e_flags
     out.extend_from_slice(&(ehsize as u16).to_le_bytes()); // e_ehsize
     out.extend_from_slice(&0u16.to_le_bytes()); // e_phentsize
     out.extend_from_slice(&0u16.to_le_bytes()); // e_phnum

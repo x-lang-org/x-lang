@@ -2,16 +2,85 @@ use crate::pipeline;
 use crate::utils;
 use x_codegen::CodeGenerator;
 use x_codegen::Target;
-use x_codegen_native::{NativeBackend, NativeBackendConfig};
 use x_codegen_csharp::{CSharpBackend, CSharpConfig};
 use x_codegen_erlang::{ErlangBackend, ErlangBackendConfig};
 use x_codegen_java::{JavaBackend, JavaConfig};
 use x_codegen_llvm::{LlvmBackend, LlvmBackendConfig};
+use x_codegen_native::{NativeBackend, NativeBackendConfig};
 use x_codegen_python::{PythonBackend, PythonBackendConfig};
 use x_codegen_rust::{RustBackend, RustBackendConfig};
 use x_codegen_swift::{SwiftBackend, SwiftBackendConfig};
 use x_codegen_typescript::{TypeScriptBackend, TypeScriptBackendConfig};
 use x_codegen_zig::{ZigBackend, ZigBackendConfig, ZigTarget};
+
+/// 捆绑的 C 运行时源码（与 native 目标文件一并编译链接）。
+const X_RUNTIME_SRC: &str = include_str!("../../../../library/runtime/xrt.c");
+const X_RUNTIME_HDR: &str = include_str!("../../../../library/runtime/xrt.h");
+
+/// 把 `--target` 字符串解析为 Native 后端的 (架构, 操作系统)。
+/// 返回 None 表示这不是一个 Native 三元组（应交给其它后端处理）。
+fn parse_native_triple(
+    t: &str,
+) -> Option<(x_codegen_native::TargetArch, x_codegen_native::TargetOS)> {
+    use x_codegen_native::{TargetArch, TargetOS};
+
+    if t == "native" {
+        let arch = match std::env::consts::ARCH {
+            "x86_64" => TargetArch::X86_64,
+            "aarch64" => TargetArch::AArch64,
+            "riscv64" => TargetArch::RiscV64,
+            _ => TargetArch::X86_64,
+        };
+        let os = match std::env::consts::OS {
+            "linux" => TargetOS::Linux,
+            "macos" => TargetOS::MacOS,
+            "windows" => TargetOS::Windows,
+            _ => TargetOS::Linux,
+        };
+        return Some((arch, os));
+    }
+
+    let lower = t.to_lowercase();
+    let arch = if lower.starts_with("x86_64") || lower.starts_with("amd64") {
+        TargetArch::X86_64
+    } else if lower.starts_with("aarch64") || lower.starts_with("arm64") {
+        TargetArch::AArch64
+    } else if lower.starts_with("riscv64") {
+        TargetArch::RiscV64
+    } else {
+        return None;
+    };
+
+    let os = if lower.contains("linux") {
+        TargetOS::Linux
+    } else if lower.contains("darwin") || lower.contains("macos") || lower.contains("apple") {
+        TargetOS::MacOS
+    } else if lower.contains("windows") || lower.contains("win32") || lower.contains("mingw") {
+        TargetOS::Windows
+    } else {
+        // 仅给出架构（如 "aarch64"）时默认 Linux
+        TargetOS::Linux
+    };
+
+    Some((arch, os))
+}
+
+/// 把 (arch, os) 映射为 `zig cc -target <triple>` 使用的 Zig 三元组
+fn zig_cc_triple(arch: x_codegen_native::TargetArch, os: x_codegen_native::TargetOS) -> String {
+    use x_codegen_native::{TargetArch, TargetOS};
+    let a = match arch {
+        TargetArch::X86_64 => "x86_64",
+        TargetArch::AArch64 => "aarch64",
+        TargetArch::RiscV64 => "riscv64",
+        TargetArch::Wasm32 => "wasm32",
+    };
+    match os {
+        // 交叉 Linux 用 musl 以便静态链接（qemu-user 可直接运行，无需目标 sysroot）
+        TargetOS::Linux => format!("{}-linux-musl", a),
+        TargetOS::MacOS => format!("{}-macos", a),
+        TargetOS::Windows => format!("{}-windows-gnu", a),
+    }
+}
 
 /// 获取当前主机平台的目标三元组
 fn get_host_target_triple() -> &'static str {
@@ -62,9 +131,12 @@ pub fn exec(
         Some(t) => {
             if let Some(t) = Target::from_str(t) {
                 t
+            } else if parse_native_triple(t).is_some() {
+                // 形如 x86_64-linux / aarch64-linux / riscv64-linux / *-macos / *-windows
+                Target::Native
             } else {
                 return Err(format!(
-                    "未知目标平台: {}（支持: native, wasm, wasm32-wasi, wasm32-freestanding, zig, ts/typescript, erlang/erl, python/py, rust/rs, java, csharp/cs/dotnet, swift）",
+                    "未知目标平台: {}（支持: native, <arch>-<os> 三元组, wasm, wasm32-wasi, wasm32-freestanding, zig, ts/typescript, erlang/erl, python/py, rust/rs, java, csharp/cs/dotnet, swift）",
                     t
                 ));
             }
@@ -81,57 +153,71 @@ pub fn exec(
     match parsed_target {
         // ── Native 后端 - LIR 直出机器码（可重定位 ELF），仅用系统链接器 ──────
         Target::Native => {
-            use x_codegen_native::{OutputFormat, TargetArch, TargetOS};
+            use x_codegen_native::{OutputFormat, TargetOS};
 
-            // 当前仅支持 x86_64 Linux 主机直出机器码
-            if !cfg!(target_arch = "x86_64") {
-                return Err(format!(
-                    "Native 后端目前仅支持 x86_64 主机，当前架构: {}",
-                    std::env::consts::ARCH
-                ));
-            }
-            if !cfg!(target_os = "linux") {
-                return Err(format!(
-                    "Native 后端目前仅支持 Linux 主机，当前系统: {}",
-                    std::env::consts::OS
-                ));
-            }
+            // 解析目标三元组 →(arch, os)；默认主机
+            let triple_str = target.unwrap_or("native");
+            let (arch, os) = parse_native_triple(triple_str)
+                .ok_or_else(|| format!("无法解析 Native 目标三元组: {}", triple_str))?;
+
+            // 是否为交叉编译：非主机三元组（或显式给出 triple）。
+            let is_host = matches!(triple_str, "native")
+                || (arch_matches_host(arch) && os == TargetOS::Linux && cfg!(target_os = "linux"));
 
             let mut backend = NativeBackend::new(NativeBackendConfig {
                 output_dir: None,
                 optimize: release,
                 debug_info: !release,
-                arch: TargetArch::X86_64,
+                arch,
                 format: OutputFormat::ObjectFile,
-                os: TargetOS::Linux,
+                os,
             });
 
             let codegen_output = backend
                 .generate_from_lir(&pipeline_output.lir)
                 .map_err(|e| format!("Native 代码生成失败: {}", e))?;
 
-            // 直出的可重定位 ELF 目标文件字节
             let obj_bytes = &codegen_output.files[0].content;
 
+            // 目标文件扩展名按 OS
+            let obj_ext = if os == TargetOS::Windows { "obj" } else { "o" };
             let temp_dir = std::env::temp_dir();
-            let obj_path = temp_dir.join("x_native_output.o");
-            std::fs::write(&obj_path, obj_bytes)
-                .map_err(|e| format!("无法写入目标文件: {}", e))?;
+            let obj_path = temp_dir.join(format!("x_native_output.{}", obj_ext));
+            std::fs::write(&obj_path, obj_bytes).map_err(|e| format!("无法写入目标文件: {}", e))?;
 
-            let output_path = std::path::PathBuf::from(out_path);
+            // 输出路径：Windows 目标补 .exe
+            let mut output_path = std::path::PathBuf::from(out_path);
+            if os == TargetOS::Windows && output_path.extension().is_none() {
+                output_path.set_extension("exe");
+            }
 
-            // 交系统链接器（cc）链接为可执行文件，无需外部汇编器
-            link_object_linux(&obj_path, &output_path)?;
+            // 写出捆绑的 C 运行时（xrt.c + xrt.h），与目标文件一并编译链接。
+            let runtime_path = temp_dir.join("xrt.c");
+            let header_path = temp_dir.join("xrt.h");
+            std::fs::write(&header_path, X_RUNTIME_HDR)
+                .map_err(|e| format!("无法写入运行时头文件: {}", e))?;
+            std::fs::write(&runtime_path, X_RUNTIME_SRC)
+                .map_err(|e| format!("无法写入运行时源文件: {}", e))?;
 
-            // 设置可执行权限
+            if is_host {
+                // 主机：直接用系统链接器（cc）
+                link_object_linux(&obj_path, &output_path, &runtime_path)?;
+            } else {
+                // 交叉：用 zig cc -target <triple>（自带各平台 libc/交叉链接）
+                link_object_zig(&obj_path, &output_path, arch, os, &runtime_path)?;
+            }
+
+            let _ = std::fs::remove_file(&runtime_path);
+            let _ = std::fs::remove_file(&header_path);
+
             #[cfg(unix)]
             {
                 use std::os::unix::fs::PermissionsExt;
-                let mut perms = std::fs::metadata(&output_path)
-                    .map_err(|e| e.to_string())?
-                    .permissions();
-                perms.set_mode(perms.mode() | 0o755);
-                std::fs::set_permissions(&output_path, perms).map_err(|e| e.to_string())?;
+                if let Ok(meta) = std::fs::metadata(&output_path) {
+                    let mut perms = meta.permissions();
+                    perms.set_mode(perms.mode() | 0o755);
+                    let _ = std::fs::set_permissions(&output_path, perms);
+                }
             }
 
             let _ = std::fs::remove_file(&obj_path);
@@ -232,7 +318,9 @@ pub fn exec(
                 }
                 Err(_) => {
                     eprintln!("已生成TypeScript代码: {}", ts_out_path);
-                    eprintln!("提示: 安装TypeScript后可编译为JavaScript: npm install -g typescript");
+                    eprintln!(
+                        "提示: 安装TypeScript后可编译为JavaScript: npm install -g typescript"
+                    );
                     eprintln!("      然后运行: tsc {}", ts_out_path);
                     return Err("tsc 未找到，请安装 TypeScript".to_string());
                 }
@@ -927,10 +1015,60 @@ fn emit_stage(file: &str, content: &str, stage: &str) -> Result<(), String> {
 
 // ── 链接：把直出的可重定位 ELF 目标文件交系统链接器生成可执行文件 ─────────────
 
+/// 给定 Native 架构是否与当前主机架构一致
+fn arch_matches_host(arch: x_codegen_native::TargetArch) -> bool {
+    use x_codegen_native::TargetArch;
+    matches!(
+        (arch, std::env::consts::ARCH),
+        (TargetArch::X86_64, "x86_64")
+            | (TargetArch::AArch64, "aarch64")
+            | (TargetArch::RiscV64, "riscv64")
+    )
+}
+
+/// 交叉链接：用 `zig cc -target <triple>` 把目标文件链接为可执行文件。
+/// Zig 自带各平台 libc 与交叉链接器，无需安装目标平台工具链。
+fn link_object_zig(
+    obj_path: &std::path::Path,
+    output_path: &std::path::Path,
+    arch: x_codegen_native::TargetArch,
+    os: x_codegen_native::TargetOS,
+    runtime_src: &std::path::Path,
+) -> Result<(), String> {
+    let zig = which::which("zig")
+        .map_err(|_| "交叉链接需要 zig（未找到，请安装 Zig 0.13+）".to_string())?;
+    let triple = zig_cc_triple(arch, os);
+
+    let mut cmd = std::process::Command::new(&zig);
+    cmd.arg("cc").arg("-target").arg(&triple);
+    // Linux 交叉用静态链接，便于 qemu-user 直接执行
+    if os == x_codegen_native::TargetOS::Linux {
+        cmd.arg("-static");
+    }
+    let out = cmd
+        .arg("-o")
+        .arg(output_path)
+        .arg(obj_path)
+        .arg(runtime_src)
+        .output()
+        .map_err(|e| format!("运行 zig cc 失败: {}", e))?;
+
+    if !out.status.success() {
+        let stderr = String::from_utf8_lossy(&out.stderr);
+        return Err(format!(
+            "zig cc 交叉链接失败 (target {}):\n{}",
+            triple,
+            stderr.trim()
+        ));
+    }
+    Ok(())
+}
+
 /// Linux x86_64：用 cc/clang/gcc 链接 `.o` 为可执行文件（无需外部汇编器）
 fn link_object_linux(
     obj_path: &std::path::Path,
     output_path: &std::path::Path,
+    runtime_src: &std::path::Path,
 ) -> Result<(), String> {
     let linker = which::which("cc")
         .or_else(|_| which::which("clang"))
@@ -941,6 +1079,7 @@ fn link_object_linux(
         .arg("-o")
         .arg(output_path)
         .arg(obj_path)
+        .arg(runtime_src)
         .status()
         .map_err(|e| format!("链接失败: {}", e))?;
 

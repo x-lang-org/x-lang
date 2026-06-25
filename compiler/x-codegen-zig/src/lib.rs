@@ -428,6 +428,12 @@ impl ZigBackend {
     pub fn compile_zig_code(&self, zig_code: &str, output_file: &Path) -> ZigResult<()> {
         use std::process::Command;
 
+        // 捆绑的 C 运行时（与原生后端共用）。生成的 Zig 代码通过 extern 调用这些
+        // 运行时函数（x_print/x_str_concat/x_from_* 等），因此需要一并编译链接，
+        // 并链接 libc（运行时使用 printf/malloc 等）。
+        const X_RUNTIME_SRC: &str = include_str!("../../../library/runtime/xrt.c");
+        const X_RUNTIME_HDR: &str = include_str!("../../../library/runtime/xrt.h");
+
         // 首先写入 .zig 文件到输出目录
         let zig_file = output_file.with_extension("zig");
         std::fs::write(&zig_file, zig_code)?;
@@ -438,10 +444,18 @@ impl ZigBackend {
             .map(|p| p.to_path_buf())
             .unwrap_or_else(|| std::path::PathBuf::from("."));
 
+        // 写出捆绑运行时到输出目录，供 zig 一并编译。
+        let runtime_c = output_dir.join("xrt.c");
+        let runtime_h = output_dir.join("xrt.h");
+        std::fs::write(&runtime_h, X_RUNTIME_HDR)?;
+        std::fs::write(&runtime_c, X_RUNTIME_SRC)?;
+
         // Build zig command - 在输出目录中运行
         let mut cmd = Command::new("zig");
         cmd.arg("build-exe")
             .arg(&zig_file)
+            .arg(&runtime_c)
+            .arg("-lc")
             .arg("-O")
             .arg(if self.config.optimize {
                 "ReleaseFast"
@@ -500,19 +514,27 @@ impl x_codegen::CodeGenerator for ZigBackend {
 // ============================================================================
 
 impl ZigBackend {
+    /// 渲染 extern 声明中的类型。Zig 的 `extern fn` 不能是泛型，且未解析的具名
+    /// 类型（泛型参数 `T`、装箱运行时类型 `Result`/`Option`/`XValue` 等）没有
+    /// 对应的 Zig 声明，统一按不透明机器字 `i32` 处理（与具体类型被降级为整数的
+    /// 既有行为一致）。
+    fn emit_extern_lir_type(&self, type_: &x_lir::Type) -> String {
+        match type_ {
+            x_lir::Type::Named(_) => "i32".to_string(),
+            x_lir::Type::Qualified(_, inner) => self.emit_extern_lir_type(inner),
+            x_lir::Type::Pointer(inner) => match inner.as_ref() {
+                x_lir::Type::Char | x_lir::Type::Uchar => "[*:0]const u8".to_string(),
+                x_lir::Type::Named(_) => "i32".to_string(),
+                _ => format!("*{}", self.emit_extern_lir_type(inner)),
+            },
+            other => self.emit_lir_type(other),
+        }
+    }
+
     /// 发出外部函数声明（来自 LIR）
     fn emit_lir_extern_function(&mut self, extern_func: &x_lir::ExternFunction) -> ZigResult<()> {
-        // Output generic type parameters if any: (T: type, U: type)
-        let type_params = if extern_func.type_params.is_empty() {
-            Vec::new()
-        } else {
-            extern_func
-                .type_params
-                .iter()
-                .map(|tp| format!("{}: type", tp))
-                .collect::<Vec<_>>()
-        };
-
+        // 注意：Zig 的 `extern fn` 不支持类型参数，泛型外部函数的类型参数在此
+        // 被丢弃，相关类型按不透明字处理（见 emit_extern_lir_type）。
         let params = if extern_func.parameters.is_empty() {
             Vec::new()
         } else {
@@ -520,19 +542,15 @@ impl ZigBackend {
                 .parameters
                 .iter()
                 .enumerate()
-                .map(|(i, param_type)| format!("arg{}: {}", i, self.emit_lir_type(param_type)))
+                .map(|(i, param_type)| {
+                    format!("arg{}: {}", i, self.emit_extern_lir_type(param_type))
+                })
                 .collect::<Vec<_>>()
         };
 
-        // Combine type params and regular params into a single Zig parameter list
-        let full_params = type_params
-            .into_iter()
-            .chain(params.into_iter())
-            .collect::<Vec<_>>()
-            .join(", ");
-        let full_params = format!("({})", full_params);
+        let full_params = format!("({})", params.join(", "));
 
-        let return_type = self.emit_lir_type(&extern_func.return_type);
+        let return_type = self.emit_extern_lir_type(&extern_func.return_type);
         match &extern_func.abi {
             Some(abi) if abi == "C" => {
                 self.line(&format!(
@@ -765,8 +783,7 @@ impl ZigBackend {
         let type_params = if func.type_params.is_empty() {
             Vec::new()
         } else {
-            func
-                .type_params
+            func.type_params
                 .iter()
                 .map(|tp| format!("{}: type", tp))
                 .collect::<Vec<_>>()
@@ -937,7 +954,9 @@ impl ZigBackend {
                     };
 
                     temp_suffix
-                        .map(|suffix| !suffix.is_empty() && suffix.chars().all(|c| c.is_ascii_digit()))
+                        .map(|suffix| {
+                            !suffix.is_empty() && suffix.chars().all(|c| c.is_ascii_digit())
+                        })
                         .unwrap_or(false)
                 } else {
                     false
@@ -1522,7 +1541,9 @@ impl ZigBackend {
         })
     }
 
-    fn collect_temp_assignment_counts(block: &x_lir::Block) -> std::collections::HashMap<String, usize> {
+    fn collect_temp_assignment_counts(
+        block: &x_lir::Block,
+    ) -> std::collections::HashMap<String, usize> {
         let mut counts = std::collections::HashMap::new();
         Self::collect_temp_assignment_counts_block(block, &mut counts);
         counts
@@ -1703,7 +1724,9 @@ impl ZigBackend {
             | x_lir::Expression::AddressOf(expr)
             | x_lir::Expression::Dereference(expr)
             | x_lir::Expression::Parenthesized(expr)
-            | x_lir::Expression::SizeOfExpr(expr) => Self::collect_temp_use_counts_expr(expr, counts),
+            | x_lir::Expression::SizeOfExpr(expr) => {
+                Self::collect_temp_use_counts_expr(expr, counts)
+            }
             x_lir::Expression::Binary(_, lhs, rhs)
             | x_lir::Expression::AssignOp(_, lhs, rhs)
             | x_lir::Expression::Index(lhs, rhs) => {
@@ -1752,13 +1775,17 @@ impl ZigBackend {
         counts: &mut std::collections::HashMap<String, usize>,
     ) {
         match init {
-            x_lir::Initializer::Expression(expr) => Self::collect_temp_use_counts_expr(expr, counts),
+            x_lir::Initializer::Expression(expr) => {
+                Self::collect_temp_use_counts_expr(expr, counts)
+            }
             x_lir::Initializer::List(items) => {
                 for item in items {
                     Self::collect_temp_use_counts_initializer(item, counts);
                 }
             }
-            x_lir::Initializer::Named(_, init) => Self::collect_temp_use_counts_initializer(init, counts),
+            x_lir::Initializer::Named(_, init) => {
+                Self::collect_temp_use_counts_initializer(init, counts)
+            }
             x_lir::Initializer::Indexed(expr, init) => {
                 Self::collect_temp_use_counts_expr(expr, counts);
                 Self::collect_temp_use_counts_initializer(init, counts);
@@ -1774,7 +1801,8 @@ impl ZigBackend {
     }
 
     fn block_uses_variable_direct(block: &x_lir::Block, name: &str) -> bool {
-        block.statements
+        block
+            .statements
             .iter()
             .any(|stmt| Self::stmt_uses_variable(stmt, name))
     }
@@ -1895,7 +1923,9 @@ impl ZigBackend {
                 Self::expr_uses_variable(callee, name)
                     || args.iter().any(|arg| Self::expr_uses_variable(arg, name))
             }
-            x_lir::Expression::Comma(exprs) => exprs.iter().any(|expr| Self::expr_uses_variable(expr, name)),
+            x_lir::Expression::Comma(exprs) => exprs
+                .iter()
+                .any(|expr| Self::expr_uses_variable(expr, name)),
             x_lir::Expression::InitializerList(inits)
             | x_lir::Expression::CompoundLiteral(_, inits) => inits
                 .iter()
@@ -1909,7 +1939,9 @@ impl ZigBackend {
     fn initializer_uses_variable(init: &x_lir::Initializer, name: &str) -> bool {
         match init {
             x_lir::Initializer::Expression(expr) => Self::expr_uses_variable(expr, name),
-            x_lir::Initializer::List(items) => items.iter().any(|item| Self::initializer_uses_variable(item, name)),
+            x_lir::Initializer::List(items) => items
+                .iter()
+                .any(|item| Self::initializer_uses_variable(item, name)),
             x_lir::Initializer::Named(_, init) => Self::initializer_uses_variable(init, name),
             x_lir::Initializer::Indexed(expr, init) => {
                 Self::expr_uses_variable(expr, name) || Self::initializer_uses_variable(init, name)
@@ -1927,7 +1959,8 @@ impl ZigBackend {
     }
 
     fn block_uses_type_param(block: &x_lir::Block, type_param: &str) -> bool {
-        block.statements
+        block
+            .statements
             .iter()
             .any(|stmt| Self::stmt_uses_type_param(stmt, type_param))
     }
@@ -2045,11 +2078,16 @@ impl ZigBackend {
             }
             x_lir::Expression::Call(callee, args) => {
                 Self::expr_uses_type_param(callee, type_param)
-                    || args.iter().any(|arg| Self::expr_uses_type_param(arg, type_param))
+                    || args
+                        .iter()
+                        .any(|arg| Self::expr_uses_type_param(arg, type_param))
             }
-            x_lir::Expression::SizeOf(ty)
-            | x_lir::Expression::AlignOf(ty) => Self::type_uses_name(ty, type_param),
-            x_lir::Expression::Comma(exprs) => exprs.iter().any(|expr| Self::expr_uses_type_param(expr, type_param)),
+            x_lir::Expression::SizeOf(ty) | x_lir::Expression::AlignOf(ty) => {
+                Self::type_uses_name(ty, type_param)
+            }
+            x_lir::Expression::Comma(exprs) => exprs
+                .iter()
+                .any(|expr| Self::expr_uses_type_param(expr, type_param)),
             x_lir::Expression::InitializerList(inits)
             | x_lir::Expression::CompoundLiteral(_, inits) => inits
                 .iter()
@@ -2064,7 +2102,9 @@ impl ZigBackend {
             x_lir::Initializer::List(items) => items
                 .iter()
                 .any(|item| Self::initializer_uses_type_param(item, type_param)),
-            x_lir::Initializer::Named(_, init) => Self::initializer_uses_type_param(init, type_param),
+            x_lir::Initializer::Named(_, init) => {
+                Self::initializer_uses_type_param(init, type_param)
+            }
             x_lir::Initializer::Indexed(expr, init) => {
                 Self::expr_uses_type_param(expr, type_param)
                     || Self::initializer_uses_type_param(init, type_param)
@@ -2074,13 +2114,18 @@ impl ZigBackend {
 
     fn type_uses_name(ty: &x_lir::Type, type_name: &str) -> bool {
         match ty {
-            x_lir::Type::Pointer(inner)
-            | x_lir::Type::Qualified(_, inner) => Self::type_uses_name(inner, type_name),
+            x_lir::Type::Pointer(inner) | x_lir::Type::Qualified(_, inner) => {
+                Self::type_uses_name(inner, type_name)
+            }
             x_lir::Type::Array(inner, _) => Self::type_uses_name(inner, type_name),
-            x_lir::Type::Tuple(items) => items.iter().any(|item| Self::type_uses_name(item, type_name)),
+            x_lir::Type::Tuple(items) => items
+                .iter()
+                .any(|item| Self::type_uses_name(item, type_name)),
             x_lir::Type::FunctionPointer(ret, params) => {
                 Self::type_uses_name(ret, type_name)
-                    || params.iter().any(|param| Self::type_uses_name(param, type_name))
+                    || params
+                        .iter()
+                        .any(|param| Self::type_uses_name(param, type_name))
             }
             x_lir::Type::Named(name) => name == type_name,
             _ => false,
@@ -2151,7 +2196,10 @@ mod tests {
             "[]i32"
         );
         assert_eq!(
-            backend.emit_lir_type(&x_lir::Type::Tuple(vec![x_lir::Type::Int, x_lir::Type::Bool])),
+            backend.emit_lir_type(&x_lir::Type::Tuple(vec![
+                x_lir::Type::Int,
+                x_lir::Type::Bool
+            ])),
             "struct { f0: i32, f1: bool }"
         );
     }

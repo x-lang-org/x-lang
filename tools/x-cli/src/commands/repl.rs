@@ -98,7 +98,7 @@ fn exec_interpreter() -> Result<(), String> {
 
         match parser.parse(&source) {
             Ok(program) => match interpreter.run(&program) {
-                Ok(()) => {}
+                Ok(_) => {}
                 Err(e) => {
                     println!("{}: {}", "error".red(), e);
                 }

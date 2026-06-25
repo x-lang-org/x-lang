@@ -214,9 +214,7 @@ fn declaration_identity_key(decl: &x_parser::ast::Declaration) -> Option<(&'stat
     use x_parser::ast::Declaration;
 
     match decl {
-        Declaration::Variable(var) => var
-            .simple_name()
-            .map(|name| ("variable", name.to_string())),
+        Declaration::Variable(var) => var.simple_name().map(|name| ("variable", name.to_string())),
         Declaration::Function(func) => Some(("function", func.name.clone())),
         Declaration::ExternFunction(func) => Some(("extern_function", func.name.clone())),
         Declaration::Class(class) => Some(("class", class.name.clone())),
@@ -252,10 +250,7 @@ fn should_insert_declaration(
 }
 
 /// Parse a source string, resolve imports relative to a project directory, then inject prelude.
-pub fn prepare_program(
-    source: &str,
-    project_dir: &Path,
-) -> Result<x_parser::ast::Program, String> {
+pub fn prepare_program(source: &str, project_dir: &Path) -> Result<x_parser::ast::Program, String> {
     let parser = x_parser::parser::XParser::new();
     let mut program = parser
         .parse(source)
@@ -715,7 +710,10 @@ mod tests {
         );
 
         let result = x_typechecker::type_check(&ast);
-        assert!(result.is_ok(), "Type checking should pass after nested imports are resolved");
+        assert!(
+            result.is_ok(),
+            "Type checking should pass after nested imports are resolved"
+        );
     }
 
     #[test]
@@ -732,14 +730,22 @@ mod tests {
         let puts_count = ast
             .declarations
             .iter()
-            .filter(|decl| matches!(
-                decl,
-                x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
-            ))
+            .filter(|decl| {
+                matches!(
+                    decl,
+                    x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
+                )
+            })
             .count();
 
-        assert_eq!(puts_count, 1, "prelude externs should only be injected once");
-        assert!(x_typechecker::type_check(&ast).is_ok(), "Type checking should pass");
+        assert_eq!(
+            puts_count, 1,
+            "prelude externs should only be injected once"
+        );
+        assert!(
+            x_typechecker::type_check(&ast).is_ok(),
+            "Type checking should pass"
+        );
     }
 
     #[test]
@@ -757,12 +763,17 @@ mod tests {
         let puts_count = ast
             .declarations
             .iter()
-            .filter(|decl| matches!(
-                decl,
-                x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
-            ))
+            .filter(|decl| {
+                matches!(
+                    decl,
+                    x_parser::ast::Declaration::ExternFunction(func) if func.name == "puts"
+                )
+            })
             .count();
 
-        assert_eq!(puts_count, 1, "transitive std imports should not duplicate prelude externs");
+        assert_eq!(
+            puts_count, 1,
+            "transitive std imports should not duplicate prelude externs"
+        );
     }
 }

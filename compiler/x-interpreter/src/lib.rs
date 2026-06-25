@@ -251,13 +251,7 @@ impl Interpreter {
     fn prefer_user_function_over_builtin(name: &str) -> bool {
         !matches!(
             name,
-            "Some"
-                | "None"
-                | "Ok"
-                | "Err"
-                | "print"
-                | "print_inline"
-                | "println"
+            "Some" | "None" | "Ok" | "Err" | "print" | "print_inline" | "println"
         )
     }
 
@@ -294,7 +288,8 @@ impl Interpreter {
             return None;
         }
 
-        let is_void_pointer = matches!(type_annot, Type::Pointer(inner) if matches!(inner.as_ref(), Type::Unit));
+        let is_void_pointer =
+            matches!(type_annot, Type::Pointer(inner) if matches!(inner.as_ref(), Type::Unit));
 
         if !is_void_pointer {
             return None;
@@ -353,7 +348,8 @@ impl Interpreter {
         }
     }
 
-    pub fn run(&mut self, program: &Program) -> Result<(), InterpreterError> {
+    /// 运行程序，返回进程退出码（取 `main` 的整型返回值，否则为 0）。
+    pub fn run(&mut self, program: &Program) -> Result<i32, InterpreterError> {
         // 先预注册所有函数/外部函数，保证全局初始化器可以引用后续声明的函数值
         for decl in &program.declarations {
             match decl {
@@ -386,12 +382,20 @@ impl Interpreter {
         }
 
         // 如果有 main 函数，也运行它（为了向后兼容）
+        let mut exit_code = 0i32;
         if let Some(main_func) = self.functions.get("main").cloned() {
             // 不再保存和恢复变量，让main函数可以访问全局变量
-            let _ = self.execute_block_stmt(&main_func.body)?;
+            let cf = self.execute_block_stmt(&main_func.body)?;
+            let ret = match cf {
+                ControlFlow::Return(v) | ControlFlow::BlockValue(v) => Some(v),
+                _ => None,
+            };
+            if let Some(Value::Integer(n)) = ret {
+                exit_code = n as i32;
+            }
         }
 
-        Ok(())
+        Ok(exit_code)
     }
 
     fn load_declaration(&mut self, decl: &Declaration) -> Result<(), InterpreterError> {
@@ -553,7 +557,10 @@ impl Interpreter {
 
         for stmt in &block.statements {
             if let StatementKind::Function(func_decl) = &stmt.node {
-                saved.push((func_decl.name.clone(), self.variables.get(&func_decl.name).cloned()));
+                saved.push((
+                    func_decl.name.clone(),
+                    self.variables.get(&func_decl.name).cloned(),
+                ));
                 local_functions.push(func_decl.clone());
             }
         }
@@ -564,7 +571,11 @@ impl Interpreter {
 
         for func_decl in &local_functions {
             let closure = Value::Closure {
-                params: func_decl.parameters.iter().map(|p| p.name.clone()).collect(),
+                params: func_decl
+                    .parameters
+                    .iter()
+                    .map(|p| p.name.clone())
+                    .collect(),
                 body: func_decl.body.clone(),
                 captured: Rc::new(RefCell::new(HashMap::new())),
             };
@@ -573,7 +584,9 @@ impl Interpreter {
 
         let captured_snapshot = self.variables.clone();
         for func_decl in &local_functions {
-            if let Some(Value::Closure { captured, .. }) = self.variables.get(&func_decl.name).cloned() {
+            if let Some(Value::Closure { captured, .. }) =
+                self.variables.get(&func_decl.name).cloned()
+            {
                 *captured.borrow_mut() = captured_snapshot.clone();
             }
         }
@@ -672,7 +685,8 @@ impl Interpreter {
                     Value::String(text) => {
                         for ch in text.chars() {
                             if let x_parser::ast::Pattern::Variable(name) = &for_stmt.pattern {
-                                self.variables.insert(name.clone(), Value::String(ch.to_string()));
+                                self.variables
+                                    .insert(name.clone(), Value::String(ch.to_string()));
                             }
                             match self.execute_block_stmt(&for_stmt.body)? {
                                 ControlFlow::Return(v) => return Ok(ControlFlow::Return(v)),
@@ -883,7 +897,11 @@ impl Interpreter {
                     Ok(value)
                 } else if let Some(func) = self.functions.get(name).cloned() {
                     Ok(Value::Closure {
-                        params: func.parameters.into_iter().map(|param| param.name).collect(),
+                        params: func
+                            .parameters
+                            .into_iter()
+                            .map(|param| param.name)
+                            .collect(),
                         body: func.body,
                         captured: Rc::new(RefCell::new(HashMap::new())),
                     })
@@ -1855,7 +1873,8 @@ impl Interpreter {
                 }
             }
             ExpressionKind::Call(func, args) => {
-                let is_index_op = matches!(&func.node, ExpressionKind::Variable(n) if n == "__index__");
+                let is_index_op =
+                    matches!(&func.node, ExpressionKind::Variable(n) if n == "__index__");
                 if is_index_op {
                     if args.len() == 2 {
                         let container = self.eval(&args[0])?;
@@ -2636,9 +2655,7 @@ impl Interpreter {
                 std::process::exit(code as i32);
             }
 
-            _ => {
-                self.call_user_function(name, args)
-            }
+            _ => self.call_user_function(name, args),
         }
     }
 
@@ -2748,12 +2765,18 @@ impl Interpreter {
 
                         let char_len = line.chars().count() as i64;
 
-                        if let Some(buffer_name) = args.first().and_then(|arg| Self::referenced_variable_name(arg)) {
+                        if let Some(buffer_name) = args
+                            .first()
+                            .and_then(|arg| Self::referenced_variable_name(arg))
+                        {
                             self.variables
                                 .insert(buffer_name.to_string(), Value::String(line.clone()));
                         }
 
-                        if let Some(capacity_name) = args.get(1).and_then(|arg| Self::referenced_variable_name(arg)) {
+                        if let Some(capacity_name) = args
+                            .get(1)
+                            .and_then(|arg| Self::referenced_variable_name(arg))
+                        {
                             self.variables
                                 .insert(capacity_name.to_string(), Value::Integer(char_len));
                         }
@@ -3749,7 +3772,9 @@ impl Interpreter {
                 (_, Value::String(b)) => {
                     Ok(Value::String(format!("{}{}", self.format_value(left), b)))
                 }
-                _ => Err(InterpreterError::runtime_no_span("+ 需要数字、字符串或数组")),
+                _ => Err(InterpreterError::runtime_no_span(
+                    "+ 需要数字、字符串或数组",
+                )),
             },
             Sub => self.numeric_op(left, right, |a, b| a - b, |a, b| a - b),
             Mul => self.numeric_op(left, right, |a, b| a.wrapping_mul(b), |a, b| a * b),
@@ -4430,7 +4455,7 @@ mod tests {
         // Provide empty input so stdin-reading FFI functions (e.g. getline) do not
         // block on a tty during tests.
         interpreter.set_input(Vec::new());
-        interpreter.run(&program)
+        interpreter.run(&program).map(|_| ())
     }
 
     #[test]
@@ -4558,7 +4583,9 @@ mod tests {
             .expect("load decl ok");
 
         assert_eq!(interpreter.variables.get("stdin"), Some(&Value::Pointer(1)));
-        interpreter.run(&program).expect("consume(stdin) should run");
+        interpreter
+            .run(&program)
+            .expect("consume(stdin) should run");
     }
 
     #[test]
@@ -4609,7 +4636,10 @@ mod tests {
             other => panic!("unexpected stmt: {other:?}"),
         };
 
-        assert_eq!(Interpreter::referenced_variable_name(ptr_initializer), Some("buffer"));
+        assert_eq!(
+            Interpreter::referenced_variable_name(ptr_initializer),
+            Some("buffer")
+        );
     }
 
     #[test]

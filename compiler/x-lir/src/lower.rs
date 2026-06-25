@@ -18,8 +18,8 @@
 //! 但它已经足以作为新的架构层次中的 LIR/XIR 生成入口。
 
 use crate::{
-    BinaryOp, Block, Declaration, Expression, ExternFunction, Function, GlobalVar, Literal,
-    Program, Statement, Type, UnaryOp, Variable,
+    BinaryOp, Block, Declaration, Expression, ExternFunction, Field, Function, GlobalVar, Literal,
+    Program, Statement, Struct, Type, UnaryOp, Variable,
 };
 use x_mir::{
     MirBasicBlock, MirBinOp, MirConstant, MirFunction, MirInstruction, MirModule, MirOperand,
@@ -50,6 +50,21 @@ pub fn lower_mir_to_lir(module: &MirModule) -> LirLowerResult<Program> {
             module_path: import.module_path.clone(),
             symbols: import.symbols.clone(),
             import_all: import.import_all,
+        }));
+    }
+
+    // 结构体定义（class/record/enum 展开）
+    for strct in &module.structs {
+        program.add(Declaration::Struct(Struct {
+            name: strct.name.clone(),
+            fields: strct
+                .fields
+                .iter()
+                .map(|(name, ty)| Field {
+                    name: name.clone(),
+                    type_: lower_type(ty),
+                })
+                .collect(),
         }));
     }
 
@@ -110,6 +125,56 @@ fn add_runtime_declarations(program: &mut Program) {
 
     for decl in runtime {
         program.add(Declaration::ExternFunction(decl));
+    }
+
+    // ── X 动态值运行时（library/runtime/xrt.c）────────────────────────────
+    let xptr = || Type::Pointer(Box::new(Type::Named("XValue".to_string())));
+    let cstr = || Type::Pointer(Box::new(Type::Char));
+    let xrt: Vec<ExternFunction> = vec![
+        ext("x_from_int", xptr(), vec![Type::LongLong]),
+        ext("x_from_double", xptr(), vec![Type::Double]),
+        ext("x_from_bool", xptr(), vec![Type::LongLong]),
+        ext("x_from_char", xptr(), vec![Type::LongLong]),
+        ext("x_from_str", xptr(), vec![cstr()]),
+        ext(
+            "x_from_ptr",
+            xptr(),
+            vec![Type::Pointer(Box::new(Type::Void))],
+        ),
+        ext("x_list_new", xptr(), vec![]),
+        ext("x_list_push", Type::Void, vec![xptr(), xptr()]),
+        ext("x_list_get", xptr(), vec![xptr(), Type::LongLong]),
+        ext("x_list_len", Type::LongLong, vec![xptr()]),
+        ext("x_map_new", xptr(), vec![]),
+        ext("x_map_put", Type::Void, vec![xptr(), xptr(), xptr()]),
+        ext("x_as_int", Type::LongLong, vec![xptr()]),
+        ext("x_as_double", Type::Double, vec![xptr()]),
+        ext("x_as_bool", Type::LongLong, vec![xptr()]),
+        ext("x_as_str", cstr(), vec![xptr()]),
+        ext(
+            "x_as_ptr",
+            Type::Pointer(Box::new(Type::Void)),
+            vec![xptr()],
+        ),
+        ext("x_fmt_value", cstr(), vec![xptr()]),
+        ext("x_to_str", cstr(), vec![xptr()]),
+        ext("x_str_concat", cstr(), vec![cstr(), cstr()]),
+        ext("x_print", Type::Void, vec![xptr()]),
+        ext("x_print_inline", Type::Void, vec![xptr()]),
+        ext("x_print_newline", Type::Void, vec![]),
+    ];
+    for decl in xrt {
+        program.add(Declaration::ExternFunction(decl));
+    }
+}
+
+fn ext(name: &str, return_type: Type, parameters: Vec<Type>) -> ExternFunction {
+    ExternFunction {
+        name: name.to_string(),
+        type_params: Vec::new(),
+        return_type,
+        parameters,
+        abi: Some("c".to_string()),
     }
 }
 
@@ -237,6 +302,19 @@ fn lower_instruction(instr: &MirInstruction, body: &mut Block) -> LirLowerResult
                 *dest,
                 Expression::Member(Box::new(lower_operand(object)), field.clone()),
             ));
+        }
+        MirInstruction::SetField {
+            object,
+            field,
+            value,
+        } => {
+            body.add(Statement::Expression(Expression::Assign(
+                Box::new(Expression::Member(
+                    Box::new(lower_operand(object)),
+                    field.clone(),
+                )),
+                Box::new(lower_operand(value)),
+            )));
         }
         MirInstruction::ArrayAccess { dest, array, index } => {
             body.add(assign_local_stmt(
@@ -405,7 +483,7 @@ fn lower_type(ty: &MirType) -> Type {
     match ty {
         MirType::Int(bits) => match bits {
             0..=32 => Type::Int,
-            _ => Type::LongLong,
+            _ => Type::Long,
         },
         MirType::Float(bits) => match bits {
             0..=32 => Type::Float,
@@ -425,7 +503,7 @@ fn lower_type(ty: &MirType) -> Type {
             Box::new(lower_type(ret)),
             params.iter().map(lower_type).collect(),
         ),
-        MirType::Unknown => Type::Int,
+        MirType::Unknown => Type::Long,
     }
 }
 
@@ -510,6 +588,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             functions: vec![],
             globals: vec![],
         };
@@ -523,6 +602,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "main".to_string(),
@@ -561,6 +641,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             functions: vec![],
             globals: vec![MirGlobal {
                 name: "answer".to_string(),
@@ -657,6 +738,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "test_not".to_string(),
@@ -697,6 +779,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "test_neg".to_string(),
@@ -739,6 +822,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![
                 MirFunction {
@@ -790,6 +874,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![
                 MirFunction {
@@ -863,6 +948,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "abs".to_string(),
@@ -925,6 +1011,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "loop_example".to_string(),
@@ -965,6 +1052,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "switch_test".to_string(),
@@ -1024,6 +1112,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "alloc_test".to_string(),
@@ -1058,6 +1147,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "load_store_test".to_string(),
@@ -1113,6 +1203,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "dup_test".to_string(),
@@ -1152,6 +1243,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "drop_test".to_string(),
@@ -1188,6 +1280,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "reuse_test".to_string(),
@@ -1242,6 +1335,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "float_test".to_string(),
@@ -1274,6 +1368,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "bool_test".to_string(),
@@ -1306,6 +1401,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "string_test".to_string(),
@@ -1341,6 +1437,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "external_func".to_string(),
@@ -1378,6 +1475,7 @@ mod tests {
             }],
             globals: vec![],
             functions: vec![],
+            structs: vec![],
         };
         let lir = lower_mir_to_lir(&mir).expect("lowering should succeed");
         let text = lir.to_string();
@@ -1399,6 +1497,7 @@ mod tests {
             }],
             globals: vec![],
             functions: vec![],
+            structs: vec![],
         };
         let lir = lower_mir_to_lir(&mir).expect("lowering should succeed");
         let text = lir.to_string();
@@ -1414,6 +1513,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "field_test".to_string(),
@@ -1456,6 +1556,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "array_test".to_string(),
@@ -1506,6 +1607,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "cast_test".to_string(),
@@ -1548,6 +1650,7 @@ mod tests {
         let mir = MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "unreachable_test".to_string(),
@@ -1575,6 +1678,7 @@ mod tests {
         MirModule {
             name: "main".to_string(),
             imports: Vec::new(),
+            structs: Vec::new(),
             globals: vec![],
             functions: vec![MirFunction {
                 name: "binary_op".to_string(),

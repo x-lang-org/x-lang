@@ -24,7 +24,9 @@ pub fn parse_program(input: &str) -> Result<Program, ParseError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ast::{BinaryOp, Declaration, ExpressionKind, Literal, Pattern, StatementKind, Type};
+    use crate::ast::{
+        BinaryOp, Declaration, ExpressionKind, Literal, Pattern, StatementKind, Type,
+    };
 
     #[test]
     fn parse_module_import_export() {
@@ -413,8 +415,12 @@ let dict = {"a": 1, "b": 2}
             Declaration::Variable(var) => match var.initializer.as_ref().map(|e| &e.node) {
                 Some(ExpressionKind::Dictionary(entries)) => {
                     assert_eq!(entries.len(), 2);
-                    assert!(matches!(&entries[0].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "a"));
-                    assert!(matches!(&entries[1].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "b"));
+                    assert!(
+                        matches!(&entries[0].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "a")
+                    );
+                    assert!(
+                        matches!(&entries[1].0.node, ExpressionKind::Literal(Literal::String(s)) if s == "b")
+                    );
                 }
                 other => panic!("expected dictionary initializer, got {other:?}"),
             },
@@ -530,7 +536,10 @@ when x > 0 {
 "#;
         let program = parse_program(src).expect("parse should succeed");
         assert_eq!(program.statements.len(), 1);
-        assert!(matches!(program.statements[0].node, StatementKind::WhenGuard(_, _)));
+        assert!(matches!(
+            program.statements[0].node,
+            StatementKind::WhenGuard(_, _)
+        ));
     }
 
     #[test]
@@ -978,7 +987,10 @@ export fn unwrap<T, E>(res: Result<T, E>, msg: string) -> T where E: to_string {
                 assert_eq!(func.type_parameters.len(), 2);
                 assert_eq!(func.type_parameters[1].name, "E");
                 assert_eq!(func.type_parameters[1].constraints.len(), 1);
-                assert_eq!(func.type_parameters[1].constraints[0].trait_name, "to_string");
+                assert_eq!(
+                    func.type_parameters[1].constraints[0].trait_name,
+                    "to_string"
+                );
             }
             other => panic!("expected function declaration, got {other:?}"),
         }
@@ -1393,31 +1405,29 @@ async function main() {
 "#;
         let program = parse_program(src).expect("parse should succeed");
         match &program.declarations[0] {
-            Declaration::Function(f) => {
-                match &f.body.statements[0].node {
-                    StatementKind::Variable(var) => match var.initializer.as_ref() {
-                        Some(expr) => match &expr.node {
-                            ExpressionKind::Await(inner) => match &inner.node {
-                                ExpressionKind::Call(callee, args) => {
-                                    assert!(args.is_empty());
-                                    match &callee.node {
-                                        ExpressionKind::Variable(name) => {
-                                            assert_eq!(name, "fetch");
-                                        }
-                                        other => panic!(
-                                            "expected await callee variable, got {other:?}"
-                                        ),
+            Declaration::Function(f) => match &f.body.statements[0].node {
+                StatementKind::Variable(var) => match var.initializer.as_ref() {
+                    Some(expr) => match &expr.node {
+                        ExpressionKind::Await(inner) => match &inner.node {
+                            ExpressionKind::Call(callee, args) => {
+                                assert!(args.is_empty());
+                                match &callee.node {
+                                    ExpressionKind::Variable(name) => {
+                                        assert_eq!(name, "fetch");
+                                    }
+                                    other => {
+                                        panic!("expected await callee variable, got {other:?}")
                                     }
                                 }
-                                other => panic!("expected await call expression, got {other:?}"),
-                            },
-                            other => panic!("expected await initializer, got {other:?}"),
+                            }
+                            other => panic!("expected await call expression, got {other:?}"),
                         },
-                        None => panic!("expected variable initializer"),
+                        other => panic!("expected await initializer, got {other:?}"),
                     },
-                    other => panic!("expected variable statement, got {other:?}"),
-                }
-            }
+                    None => panic!("expected variable initializer"),
+                },
+                other => panic!("expected variable statement, got {other:?}"),
+            },
             other => panic!("expected function declaration, got {other:?}"),
         }
     }

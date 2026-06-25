@@ -73,7 +73,7 @@ external function __file_delete(path: string) -> Result<unit, string>
 
 /// Builtin: 强制解包 Result 类型的 Ok 值，如果失败则运行时报错
 /// unwrap_ok(res) -> any
-external function unwrap_ok(res: Result<string, string>) -> string
+external function unwrap_ok<T, E>(res: Result<T, E>) -> T
 
 /// Builtin: 获取命令行参数
 /// __args() -> Array<string>

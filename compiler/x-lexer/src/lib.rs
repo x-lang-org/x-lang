@@ -907,7 +907,9 @@ impl<'a> Lexer<'a> {
 
     fn parse_unicode_escape(&mut self) -> Result<char, LexError> {
         if self.current_char() != Some('u') {
-            return Err(LexError::InvalidUnicodeEscape("expected unicode escape".to_string()));
+            return Err(LexError::InvalidUnicodeEscape(
+                "expected unicode escape".to_string(),
+            ));
         }
 
         self.next_char(); // consume 'u'
@@ -927,7 +929,10 @@ impl<'a> Lexer<'a> {
                 closed = true;
                 break;
             } else {
-                return Err(LexError::InvalidUnicodeEscape(format!("\\u{{{}{}}}", hex, ch)));
+                return Err(LexError::InvalidUnicodeEscape(format!(
+                    "\\u{{{}{}}}",
+                    hex, ch
+                )));
             }
         }
 
@@ -935,8 +940,8 @@ impl<'a> Lexer<'a> {
             return Err(LexError::InvalidUnicodeEscape(format!("\\u{{{}", hex)));
         }
 
-        let code_point =
-            u32::from_str_radix(&hex, 16).map_err(|_| LexError::InvalidUnicodeEscape(format!("\\u{{{}}}", hex)))?;
+        let code_point = u32::from_str_radix(&hex, 16)
+            .map_err(|_| LexError::InvalidUnicodeEscape(format!("\\u{{{}}}", hex)))?;
         char::from_u32(code_point)
             .ok_or_else(|| LexError::InvalidUnicodeEscape(format!("\\u{{{}}}", hex)))
     }
@@ -1015,10 +1020,7 @@ impl<'a> Lexer<'a> {
                         }
                         // The next token will be InterpolateStart handled by the state logic
                         break;
-                    } else if ch == '$'
-                        && self
-                            .peek_next()
-                            .is_some_and(Lexer::is_identifier_start)
+                    } else if ch == '$' && self.peek_next().is_some_and(Lexer::is_identifier_start)
                     {
                         let interpolate_start = self.position;
                         self.next_char(); // consume $
@@ -1027,14 +1029,10 @@ impl<'a> Lexer<'a> {
                         let ident = self.parse_identifier()?;
                         let ident_end = self.position;
 
-                        self.pending_tokens.push_back((
-                            ident,
-                            Span::new(ident_start, ident_end),
-                        ));
-                        self.pending_tokens.push_back((
-                            Token::InterpolateEnd,
-                            Span::new(ident_end, ident_end),
-                        ));
+                        self.pending_tokens
+                            .push_back((ident, Span::new(ident_start, ident_end)));
+                        self.pending_tokens
+                            .push_back((Token::InterpolateEnd, Span::new(ident_end, ident_end)));
 
                         if content.is_empty() {
                             return Ok(Token::InterpolateStart);
@@ -1070,10 +1068,7 @@ impl<'a> Lexer<'a> {
                             return Ok(Token::InterpolateStart);
                         }
                         break;
-                    } else if ch == '$'
-                        && self
-                            .peek_next()
-                            .is_some_and(Lexer::is_identifier_start)
+                    } else if ch == '$' && self.peek_next().is_some_and(Lexer::is_identifier_start)
                     {
                         let interpolate_start = self.position;
                         self.next_char(); // consume $
@@ -1082,14 +1077,10 @@ impl<'a> Lexer<'a> {
                         let ident = self.parse_identifier()?;
                         let ident_end = self.position;
 
-                        self.pending_tokens.push_back((
-                            ident,
-                            Span::new(ident_start, ident_end),
-                        ));
-                        self.pending_tokens.push_back((
-                            Token::InterpolateEnd,
-                            Span::new(ident_end, ident_end),
-                        ));
+                        self.pending_tokens
+                            .push_back((ident, Span::new(ident_start, ident_end)));
+                        self.pending_tokens
+                            .push_back((Token::InterpolateEnd, Span::new(ident_end, ident_end)));
 
                         if content.is_empty() {
                             return Ok(Token::InterpolateStart);
@@ -1110,7 +1101,10 @@ impl<'a> Lexer<'a> {
         }
 
         if self.current_char().is_none()
-            && matches!(self.current_state(), LexerState::String | LexerState::MultilineString)
+            && matches!(
+                self.current_state(),
+                LexerState::String | LexerState::MultilineString
+            )
         {
             self.pop_state();
             return Err(LexError::UnclosedString);
@@ -1140,9 +1134,7 @@ impl<'a> Lexer<'a> {
                 Some('\'') => '\'',
                 Some('\\') => '\\',
                 Some('0') => '\0',
-                Some('u') => {
-                    self.parse_unicode_escape()?
-                }
+                Some('u') => self.parse_unicode_escape()?,
                 Some(c) => c,
                 None => unreachable!(),
             }

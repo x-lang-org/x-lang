@@ -57,6 +57,8 @@ use x_codegen::{CodeGenerator, CodegenOutput, FileType, OutputFile};
 
 pub mod arch;
 pub mod emitter;
+pub mod emitter_coff;
+pub mod emitter_macho;
 pub mod encoding;
 pub mod machine;
 
@@ -200,32 +202,36 @@ impl NativeBackend {
         Self { config }
     }
 
-    /// 直出机器码：生成可重定位 ELF 目标文件字节
+    /// 直出机器码：生成目标文件字节（按 arch 选择生成器，按 os 选择目标格式）
     fn generate_from_lir_impl(
         &mut self,
         lir: &x_lir::Program,
     ) -> Result<CodegenOutput, NativeError> {
-        // 当前仅支持 x86_64 Linux 直出机器码
-        if self.config.arch != TargetArch::X86_64 {
-            return Err(NativeError::Unimplemented(format!(
-                "Native 直出机器码目前仅支持 x86_64，收到: {}",
-                self.config.arch
-            )));
-        }
-        if self.config.os != TargetOS::Linux {
-            return Err(NativeError::Unimplemented(format!(
-                "Native 直出机器码目前仅支持 Linux，收到: {:?}",
-                self.config.os
-            )));
-        }
+        let arch = self.config.arch;
+        let os = self.config.os;
 
-        let mut gen = MachineCodeGen::new(self.config.os);
-        let object = gen.generate(lir)?;
-        let elf = emitter::write_relocatable_elf(&object)?;
+        // ---- 按架构选择机器码生成器 ----
+        let object = match arch {
+            TargetArch::X86_64 => machine::x86_64::MachineCodeGen::new(os).generate(lir)?,
+            TargetArch::AArch64 => machine::aarch64::Aarch64CodeGen::new(os).generate(lir)?,
+            TargetArch::RiscV64 => machine::riscv64::RiscV64CodeGen::new(os).generate(lir)?,
+            TargetArch::Wasm32 => {
+                return Err(NativeError::Unimplemented(
+                    "wasm32 不走直出机器码路径".to_string(),
+                ));
+            }
+        };
+
+        // ---- 按操作系统选择目标文件格式 ----
+        let (content, ext) = match os {
+            TargetOS::Linux => (emitter::write_relocatable_elf_for(&object, arch)?, "o"),
+            TargetOS::MacOS => (emitter_macho::write_macho(&object, arch)?, "o"),
+            TargetOS::Windows => (emitter_coff::write_coff(&object, arch)?, "obj"),
+        };
 
         let output_file = OutputFile {
-            path: PathBuf::from("output.o"),
-            content: elf,
+            path: PathBuf::from(format!("output.{}", ext)),
+            content,
             file_type: FileType::ObjectFile,
         };
 
@@ -298,7 +304,7 @@ mod tests {
     }
 
     #[test]
-    fn test_non_x86_64_is_unimplemented() {
+    fn test_aarch64_emits_elf_object() {
         let mut program = lir::Program::new();
         let mut func = lir::Function::new("main", Type::Int);
         func.body
@@ -308,6 +314,29 @@ mod tests {
 
         let config = NativeBackendConfig {
             arch: TargetArch::AArch64,
+            os: TargetOS::Linux,
+            format: OutputFormat::ObjectFile,
+            ..Default::default()
+        };
+        let mut backend = NativeBackend::new(config);
+        let out = backend.generate_from_lir(&program).unwrap();
+        let obj = &out.files[0].content;
+        assert_eq!(&obj[0..4], &[0x7f, b'E', b'L', b'F']);
+        assert_eq!(obj[16], 1); // ET_REL
+        assert_eq!(obj[18], 183); // EM_AARCH64
+    }
+
+    #[test]
+    fn test_wasm32_is_unimplemented() {
+        let mut program = lir::Program::new();
+        let mut func = lir::Function::new("main", Type::Int);
+        func.body
+            .statements
+            .push(Statement::Return(Some(Expression::int(0))));
+        program.add(lir::Declaration::Function(func));
+
+        let config = NativeBackendConfig {
+            arch: TargetArch::Wasm32,
             os: TargetOS::Linux,
             format: OutputFormat::ObjectFile,
             ..Default::default()

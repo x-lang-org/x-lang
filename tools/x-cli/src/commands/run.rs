@@ -73,12 +73,17 @@ fn run_file(file: &str, quiet: bool) -> Result<bool, String> {
     pipeline::type_check_with_big_stack(&program)?;
 
     let mut interpreter = x_interpreter::Interpreter::new();
-    interpreter
+    let exit_code = interpreter
         .run(&program)
         .map_err(|e| format!("运行失败: {}", e))?;
 
     if !quiet {
         utils::status_stderr("Finished", "运行成功");
+    }
+
+    // 传播 main 的整型返回值作为进程退出码（与原生后端语义一致）。
+    if exit_code != 0 {
+        std::process::exit(exit_code);
     }
 
     Ok(true)

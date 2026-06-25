@@ -47,7 +47,7 @@ functions = ["add", "main"]
 
 # 7. 后端验证 (Java)
 [expect.backend.java]
-source_contains = ["public static int add", "public static void main"]
+source_contains = ["public static long add", "public static void main"]
 functions = ["add", "main"]
 
 # 8. 运行时验证

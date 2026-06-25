@@ -56,7 +56,7 @@ pub fn exec(filter: Option<&str>, no_run: bool) -> Result<(), String> {
                     let bench_start = Instant::now();
                     let mut interpreter = x_interpreter::Interpreter::new();
                     match interpreter.run(&program) {
-                        Ok(()) => {
+                        Ok(_) => {
                             let bench_elapsed = bench_start.elapsed();
                             println!("bench {} ... {} ns/iter", name, bench_elapsed.as_nanos());
                         }

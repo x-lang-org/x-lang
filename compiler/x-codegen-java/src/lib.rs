@@ -106,7 +106,10 @@ impl JavaBackend {
             Pointer(inner) => format!("{}[]", self.lir_type_to_java(inner)),
             Array(inner, _) => format!("{}[]", self.lir_type_to_java(inner)),
             Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_java(item)).collect();
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_java(item))
+                    .collect();
                 format!("Object /* tuple<{}> */", item_strs.join(", "))
             }
             Named(n) => n.clone(),

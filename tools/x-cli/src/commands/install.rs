@@ -79,7 +79,11 @@ fn install_from_path(path: &str, install_dir: &Path, force: bool) -> Result<(), 
     install_from_project_root(&abs, install_dir, force)
 }
 
-fn install_from_project_root(project_root: &Path, install_dir: &Path, force: bool) -> Result<(), String> {
+fn install_from_project_root(
+    project_root: &Path,
+    install_dir: &Path,
+    force: bool,
+) -> Result<(), String> {
     ensure_managed_stdlib_available()?;
     let project = crate::project::Project::find_from(project_root)?;
 
@@ -109,7 +113,8 @@ fn install_from_project_root(project_root: &Path, install_dir: &Path, force: boo
     let main_path = main_file
         .canonicalize()
         .map_err(|e| format!("无法获取绝对路径: {}", e))?;
-    let x_cli_path = std::env::current_exe().map_err(|e| format!("无法定位当前 x 可执行文件: {}", e))?;
+    let x_cli_path =
+        std::env::current_exe().map_err(|e| format!("无法定位当前 x 可执行文件: {}", e))?;
 
     #[cfg(windows)]
     {
@@ -159,8 +164,13 @@ fn ensure_managed_stdlib_available() -> Result<(), String> {
     }
 
     if managed_stdlib.exists() {
-        std::fs::remove_dir_all(&managed_stdlib)
-            .map_err(|e| format!("无法清理损坏的托管标准库 {}: {}", managed_stdlib.display(), e))?;
+        std::fs::remove_dir_all(&managed_stdlib).map_err(|e| {
+            format!(
+                "无法清理损坏的托管标准库 {}: {}",
+                managed_stdlib.display(),
+                e
+            )
+        })?;
     }
 
     let source_stdlib = crate::pipeline::find_trusted_stdlib_source()?;
@@ -172,8 +182,7 @@ fn managed_stdlib_is_valid(path: &Path) -> bool {
 }
 
 fn copy_dir_recursive(src: &Path, dest: &Path) -> Result<(), String> {
-    std::fs::create_dir_all(dest)
-        .map_err(|e| format!("无法创建 {}: {}", dest.display(), e))?;
+    std::fs::create_dir_all(dest).map_err(|e| format!("无法创建 {}: {}", dest.display(), e))?;
 
     for entry in walkdir::WalkDir::new(src).min_depth(1) {
         let entry = entry.map_err(|e| format!("无法遍历 {}: {}", src.display(), e))?;
@@ -217,8 +226,13 @@ fn install_from_git(repo: &str, install_dir: &Path, force: bool) -> Result<(), S
     let temp_checkout = managed_root.join(format!(".tmp-install-{:x}", hasher.finish()));
 
     if temp_checkout.exists() {
-        std::fs::remove_dir_all(&temp_checkout)
-            .map_err(|e| format!("无法清理旧的临时 Git 目录 {}: {}", temp_checkout.display(), e))?;
+        std::fs::remove_dir_all(&temp_checkout).map_err(|e| {
+            format!(
+                "无法清理旧的临时 Git 目录 {}: {}",
+                temp_checkout.display(),
+                e
+            )
+        })?;
     }
 
     let clone_output = Command::new("git")
@@ -229,7 +243,9 @@ fn install_from_git(repo: &str, install_dir: &Path, force: bool) -> Result<(), S
         .map_err(|e| format!("无法执行 git clone: {}", e))?;
 
     if !clone_output.status.success() {
-        let stderr = String::from_utf8_lossy(&clone_output.stderr).trim().to_string();
+        let stderr = String::from_utf8_lossy(&clone_output.stderr)
+            .trim()
+            .to_string();
         let _ = std::fs::remove_dir_all(&temp_checkout);
         return Err(if stderr.is_empty() {
             format!("git clone 失败: {}", repo)
@@ -255,17 +271,17 @@ fn install_from_git(repo: &str, install_dir: &Path, force: bool) -> Result<(), S
                 final_checkout.display()
             ));
         }
-        std::fs::remove_dir_all(&final_checkout)
-            .map_err(|e| format!("无法删除现有 Git 安装目录 {}: {}", final_checkout.display(), e))?;
+        std::fs::remove_dir_all(&final_checkout).map_err(|e| {
+            format!(
+                "无法删除现有 Git 安装目录 {}: {}",
+                final_checkout.display(),
+                e
+            )
+        })?;
     }
 
-    std::fs::rename(&temp_checkout, &final_checkout).map_err(|e| {
-        format!(
-            "无法移动 Git 项目到 {}: {}",
-            final_checkout.display(),
-            e
-        )
-    })?;
+    std::fs::rename(&temp_checkout, &final_checkout)
+        .map_err(|e| format!("无法移动 Git 项目到 {}: {}", final_checkout.display(), e))?;
 
     install_from_project_root(&final_checkout, install_dir, force).inspect_err(|_| {
         let _ = std::fs::remove_dir_all(&final_checkout);
@@ -293,19 +309,33 @@ fn install_from_registry(
     };
 
     if selected.yanked {
-        return Err(format!("{}@{} 已被撤回，无法安装", package, selected.version));
+        return Err(format!(
+            "{}@{} 已被撤回，无法安装",
+            package, selected.version
+        ));
     }
 
     let tarball = client.read_package_tarball(package, &selected.version)?;
-    let managed_root = config::x_home().join("registry").join(package).join(&selected.version);
+    let managed_root = config::x_home()
+        .join("registry")
+        .join(package)
+        .join(&selected.version);
     let project_root = managed_root.join(format!("{}-{}", package, selected.version));
 
     if project_root.exists() {
         if !force {
-            return Err(format!("{} 已存在，使用 --force 覆盖", project_root.display()));
+            return Err(format!(
+                "{} 已存在，使用 --force 覆盖",
+                project_root.display()
+            ));
         }
-        std::fs::remove_dir_all(&managed_root)
-            .map_err(|e| format!("无法清理现有注册表安装目录 {}: {}", managed_root.display(), e))?;
+        std::fs::remove_dir_all(&managed_root).map_err(|e| {
+            format!(
+                "无法清理现有注册表安装目录 {}: {}",
+                managed_root.display(),
+                e
+            )
+        })?;
     }
 
     std::fs::create_dir_all(&managed_root)

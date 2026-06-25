@@ -1343,7 +1343,7 @@ impl Type {
             Type::Array(elem, Some(len)) => elem.size_of() * (*len as usize),
             Type::Array(elem, None) => elem.size_of(), // unsized array, size is element size
             Type::Tuple(items) => items.iter().map(Type::size_of).sum(),
-            Type::Named(_) => 0,                       // named types need lookup, handled by caller
+            Type::Named(_) => 0, // named types need lookup, handled by caller
             Type::Qualified(_, ty) => ty.size_of(),
         }
     }

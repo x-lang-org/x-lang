@@ -286,6 +286,9 @@ impl ConstantPropagation {
             MirInstruction::Store { .. } => {
                 // 不影响当前局部变量表
             }
+            MirInstruction::SetField { .. } => {
+                // 字段写入，不产生新值
+            }
             MirInstruction::Drop { .. } => {
                 // 不产生新值
             }
@@ -476,6 +479,10 @@ impl ConstantPropagation {
             }
             MirInstruction::Store { ptr, value, .. } => {
                 self.replace_operand(ptr, info);
+                self.replace_operand(value, info);
+            }
+            MirInstruction::SetField { object, value, .. } => {
+                self.replace_operand(object, info);
                 self.replace_operand(value, info);
             }
             MirInstruction::Cast { value, .. } => {

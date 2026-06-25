@@ -1,8 +1,12 @@
 use crate::config::{Credentials, GlobalConfig};
+use semver::Version;
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
-use std::{collections::hash_map::DefaultHasher, hash::{Hash, Hasher}, io::Read};
-use semver::Version;
+use std::{
+    collections::hash_map::DefaultHasher,
+    hash::{Hash, Hasher},
+    io::Read,
+};
 
 pub const DEFAULT_REGISTRY: &str = "https://registry.x-lang.org";
 
@@ -125,9 +129,9 @@ impl RegistryClient {
     }
 
     pub fn get_package(&self, name: &str) -> Result<PackageInfo, String> {
-        let index_dir = self.local_index_dir().ok_or_else(|| {
-            format!("注册表查询尚未实现（注册表: {}，包: {}）", self.url, name)
-        })?;
+        let index_dir = self
+            .local_index_dir()
+            .ok_or_else(|| format!("注册表查询尚未实现（注册表: {}，包: {}）", self.url, name))?;
 
         let path = index_dir.join(format!("{}.json", name));
         let content = std::fs::read_to_string(&path)
@@ -148,10 +152,16 @@ impl RegistryClient {
         let package_info = self.build_package_info_from_tarball(tarball)?;
         let version = package_info.max_version.clone();
         let tarball_name = format!("{}-{}.tar.gz", package_info.name, version);
-        let crate_dir = registry_root.join("crate").join(&package_info.name).join(&version);
+        let crate_dir = registry_root
+            .join("crate")
+            .join(&package_info.name)
+            .join(&version);
         let tarball_path = crate_dir.join(&tarball_name);
         if tarball_path.exists() {
-            return Err(format!("{} {} 已存在于本地注册表中", package_info.name, version));
+            return Err(format!(
+                "{} {} 已存在于本地注册表中",
+                package_info.name, version
+            ));
         }
 
         std::fs::create_dir_all(&crate_dir)
@@ -178,8 +188,15 @@ impl RegistryClient {
             }
         };
 
-        if merged.versions.iter().any(|existing| existing.version == version) {
-            return Err(format!("{} {} 已存在于本地注册表索引中", merged.name, version));
+        if merged
+            .versions
+            .iter()
+            .any(|existing| existing.version == version)
+        {
+            return Err(format!(
+                "{} {} 已存在于本地注册表索引中",
+                merged.name, version
+            ));
         }
 
         if merged.description.is_none() {
@@ -323,7 +340,10 @@ impl RegistryClient {
         let mut archive = tar::Archive::new(gz);
         let mut manifest = None;
 
-        for entry in archive.entries().map_err(|e| format!("无法读取打包内容: {}", e))? {
+        for entry in archive
+            .entries()
+            .map_err(|e| format!("无法读取打包内容: {}", e))?
+        {
             let mut entry = entry.map_err(|e| format!("无法读取打包条目: {}", e))?;
             let path = entry
                 .path()
@@ -344,7 +364,9 @@ impl RegistryClient {
         }
 
         let manifest = manifest.ok_or("打包内容中未找到 x.toml".to_string())?;
-        let package = manifest.package.ok_or("打包内容缺少 [package] 元数据".to_string())?;
+        let package = manifest
+            .package
+            .ok_or("打包内容缺少 [package] 元数据".to_string())?;
         let version = package.version.clone();
         let checksum = checksum_hex(tarball);
 

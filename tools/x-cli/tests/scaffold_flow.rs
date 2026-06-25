@@ -31,10 +31,22 @@ fn new_binary_scaffold_uses_current_syntax_and_checks() {
 
     let main_file = dir.path().join("hello-app").join("src").join("main.x");
     let main_source = std::fs::read_to_string(&main_file).expect("read main.x");
-    assert!(main_source.contains("function main() -> Unit"), "main.x was: {main_source}");
-    assert!(main_source.contains("println(\"Hello, X!\")"), "main.x was: {main_source}");
-    assert!(!main_source.contains("fun main"), "main.x was: {main_source}");
-    assert!(!main_source.contains("print(\"Hello, world!\")"), "main.x was: {main_source}");
+    assert!(
+        main_source.contains("function main() -> Unit"),
+        "main.x was: {main_source}"
+    );
+    assert!(
+        main_source.contains("println(\"Hello, X!\")"),
+        "main.x was: {main_source}"
+    );
+    assert!(
+        !main_source.contains("fun main"),
+        "main.x was: {main_source}"
+    );
+    assert!(
+        !main_source.contains("print(\"Hello, world!\")"),
+        "main.x was: {main_source}"
+    );
 
     let check = Command::new(&bin)
         .arg("check")
@@ -71,9 +83,18 @@ fn init_binary_scaffold_uses_current_syntax_and_checks() {
 
     let main_file = dir.path().join("src").join("main.x");
     let main_source = std::fs::read_to_string(&main_file).expect("read main.x");
-    assert!(main_source.contains("function main() -> Unit"), "main.x was: {main_source}");
-    assert!(main_source.contains("println(\"Hello, X!\")"), "main.x was: {main_source}");
-    assert!(!main_source.contains("fun main"), "main.x was: {main_source}");
+    assert!(
+        main_source.contains("function main() -> Unit"),
+        "main.x was: {main_source}"
+    );
+    assert!(
+        main_source.contains("println(\"Hello, X!\")"),
+        "main.x was: {main_source}"
+    );
+    assert!(
+        !main_source.contains("fun main"),
+        "main.x was: {main_source}"
+    );
 
     let check = Command::new(&bin)
         .arg("check")

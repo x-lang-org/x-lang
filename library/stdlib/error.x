@@ -62,25 +62,8 @@ external "c" function __capture_stack_trace(frames: *mut StackFrame, max_frames:
 
 /// 捕获当前栈回溯
 export function capture_stack_trace() -> StackTrace {
-    // 预分配 64 个栈帧的空间
-    let mut frames: [StackFrame] = [];
-    let mut i = 0;
-    while i < 64 {
-        frames.push(StackFrame {
-            function_name: "",
-            file: "",
-            line: 0,
-            column: 0,
-        });
-        i = i + 1;
-    }
-    
-    unsafe {
-        let count = __capture_stack_trace(&frames[0] as *mut StackFrame, 64);
-        // 截取实际捕获的帧数
-        frames = frames.slice(0, count);
-    }
-    
+    // 栈回溯捕获依赖平台特定的运行时支持；在缺省实现中返回空回溯。
+    let frames: [StackFrame] = [];
     StackTrace {
         frames: frames,
         timestamp: current_time_millis(),
@@ -105,9 +88,7 @@ export function format_stack_trace(trace: StackTrace) -> string {
 external "c" function __time_millis() -> Int
 
 function current_time_millis() -> Int {
-    unsafe {
-        __time_millis()
-    }
+    0
 }
 
 // ============================================================================

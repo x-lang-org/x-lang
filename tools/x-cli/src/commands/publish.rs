@@ -59,8 +59,9 @@ pub fn exec(
 }
 
 fn default_tarball_path(project: &Project) -> PathBuf {
-    project
-        .target_dir()
-        .join("package")
-        .join(format!("{}-{}.tar.gz", project.name(), project.version()))
+    project.target_dir().join("package").join(format!(
+        "{}-{}.tar.gz",
+        project.name(),
+        project.version()
+    ))
 }

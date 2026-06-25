@@ -310,6 +310,20 @@ impl X86_64Encoder {
         self
     }
 
+    /// 编码 IMUL r64, r64, imm32
+    ///
+    /// 操作码: REX.W + 69 /r id
+    pub fn imul_reg_imm32(&mut self, dest: X86Register, src: X86Register, imm: i32) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (src_num, _) = Self::reg_number(src);
+        self.set_rex(true, dest_num >= 8, false, src_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x69);
+        self.emit_byte(self.modrm(3, dest_num & 0x07, src_num & 0x07));
+        self.emit_dword(imm as u32);
+        self
+    }
+
     /// 编码 XOR r64, r64 (常用于清零)
     ///
     /// 操作码: REX.W + 31 /r
@@ -482,11 +496,10 @@ impl X86_64Encoder {
     ///
     /// 操作码: REX.W + F7 /3
     pub fn neg_reg(&mut self, reg: X86Register) -> &mut Self {
-        let (num, needs_rex) = Self::reg_number(reg);
-        if needs_rex {
-            self.set_rex(false, false, false, num >= 8);
-            self.emit_prefixes();
-        }
+        let (num, _needs_rex) = Self::reg_number(reg);
+        // 始终使用 REX.W 保证 64 位运算（否则 neg eax 会清零高 32 位）。
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
         self.emit_byte(0xF7);
         self.emit_byte(self.modrm(3, 3, num & 0x07));
         self
@@ -496,11 +509,10 @@ impl X86_64Encoder {
     ///
     /// 操作码: REX.W + F7 /2
     pub fn not_reg(&mut self, reg: X86Register) -> &mut Self {
-        let (num, needs_rex) = Self::reg_number(reg);
-        if needs_rex {
-            self.set_rex(false, false, false, num >= 8);
-            self.emit_prefixes();
-        }
+        let (num, _needs_rex) = Self::reg_number(reg);
+        // 始终使用 REX.W 保证 64 位运算。
+        self.set_rex(true, false, false, num >= 8);
+        self.emit_prefixes();
         self.emit_byte(0xF7);
         self.emit_byte(self.modrm(3, 2, num & 0x07));
         self
@@ -673,6 +685,224 @@ impl X86_64Encoder {
         let (src_num, _) = Self::reg_number(src);
         let (base_num, _) = Self::reg_number(base);
         self.set_rex(true, src_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x89);
+        self.emit_byte(self.modrm(0, src_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    // ========================================================================
+    // SSE2 标量双精度浮点（xmm 以编号 0..15 表示）
+    // ========================================================================
+
+    /// 通用：发射 [prefix?] [REX.W?] 0F op /r （reg=xmm_a, rm=xmm_b）
+    fn sse_rr(&mut self, prefix: Option<u8>, rex_w: bool, op: u8, a: u8, b: u8) {
+        if let Some(p) = prefix {
+            self.emit_byte(p);
+        }
+        if rex_w || a >= 8 || b >= 8 {
+            self.set_rex(rex_w, a >= 8, false, b >= 8);
+            self.emit_prefixes();
+        }
+        self.emit_byte(0x0F);
+        self.emit_byte(op);
+        self.emit_byte(self.modrm(3, a & 0x07, b & 0x07));
+    }
+
+    /// MOVQ xmm, r64 : 66 REX.W 0F 6E /r
+    pub fn movq_xmm_gpr(&mut self, xmm: u8, gpr: X86Register) -> &mut Self {
+        let (g, _) = Self::reg_number(gpr);
+        self.emit_byte(0x66);
+        self.set_rex(true, xmm >= 8, false, g >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x6E);
+        self.emit_byte(self.modrm(3, xmm & 0x07, g & 0x07));
+        self
+    }
+
+    /// MOVQ r64, xmm : 66 REX.W 0F 7E /r
+    pub fn movq_gpr_xmm(&mut self, gpr: X86Register, xmm: u8) -> &mut Self {
+        let (g, _) = Self::reg_number(gpr);
+        self.emit_byte(0x66);
+        self.set_rex(true, xmm >= 8, false, g >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x7E);
+        self.emit_byte(self.modrm(3, xmm & 0x07, g & 0x07));
+        self
+    }
+
+    /// ADDSD xmm_a, xmm_b : F2 0F 58 /r
+    pub fn addsd(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(Some(0xF2), false, 0x58, a, b);
+        self
+    }
+    /// SUBSD : F2 0F 5C /r
+    pub fn subsd(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(Some(0xF2), false, 0x5C, a, b);
+        self
+    }
+    /// MULSD : F2 0F 59 /r
+    pub fn mulsd(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(Some(0xF2), false, 0x59, a, b);
+        self
+    }
+    /// DIVSD : F2 0F 5E /r
+    pub fn divsd(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(Some(0xF2), false, 0x5E, a, b);
+        self
+    }
+    /// UCOMISD xmm_a, xmm_b : 66 0F 2E /r
+    pub fn ucomisd(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(Some(0x66), false, 0x2E, a, b);
+        self
+    }
+    /// XORPS xmm_a, xmm_b : 0F 57 /r （清零）
+    pub fn xorps(&mut self, a: u8, b: u8) -> &mut Self {
+        self.sse_rr(None, false, 0x57, a, b);
+        self
+    }
+    /// CVTSI2SD xmm, r64 : F2 REX.W 0F 2A /r
+    pub fn cvtsi2sd(&mut self, xmm: u8, gpr: X86Register) -> &mut Self {
+        let (g, _) = Self::reg_number(gpr);
+        self.emit_byte(0xF2);
+        self.set_rex(true, xmm >= 8, false, g >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x2A);
+        self.emit_byte(self.modrm(3, xmm & 0x07, g & 0x07));
+        self
+    }
+    /// CVTTSD2SI r64, xmm : F2 REX.W 0F 2C /r
+    pub fn cvttsd2si(&mut self, gpr: X86Register, xmm: u8) -> &mut Self {
+        let (g, _) = Self::reg_number(gpr);
+        self.emit_byte(0xF2);
+        self.set_rex(true, g >= 8, false, xmm >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x2C);
+        self.emit_byte(self.modrm(3, g & 0x07, xmm & 0x07));
+        self
+    }
+    /// MOVSD xmm, [base+disp] : F2 0F 10 /r
+    pub fn movsd_xmm_mem(&mut self, xmm: u8, base: X86Register, disp: i32) -> &mut Self {
+        let (b, _) = Self::reg_number(base);
+        self.emit_byte(0xF2);
+        if xmm >= 8 || b >= 8 {
+            self.set_rex(false, xmm >= 8, false, b >= 8);
+        }
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x10);
+        self.emit_byte(self.modrm(2, xmm & 0x07, b & 0x07));
+        self.emit_dword(disp as u32);
+        self
+    }
+    /// MOVSD [base+disp], xmm : F2 0F 11 /r
+    pub fn movsd_mem_xmm(&mut self, base: X86Register, disp: i32, xmm: u8) -> &mut Self {
+        let (b, _) = Self::reg_number(base);
+        self.emit_byte(0xF2);
+        if xmm >= 8 || b >= 8 {
+            self.set_rex(false, xmm >= 8, false, b >= 8);
+        }
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0x11);
+        self.emit_byte(self.modrm(2, xmm & 0x07, b & 0x07));
+        self.emit_dword(disp as u32);
+        self
+    }
+
+    /// MOVZX r64, byte [base] : 0F B6 /r
+    pub fn movzx_r64_m8(&mut self, dest: X86Register, base: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (base_num, _) = Self::reg_number(base);
+        self.set_rex(true, dest_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0xB6);
+        self.emit_byte(self.modrm(0, dest_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOVZX r64, word [base] : 0F B7 /r
+    pub fn movzx_r64_m16(&mut self, dest: X86Register, base: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (base_num, _) = Self::reg_number(base);
+        self.set_rex(true, dest_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x0F);
+        self.emit_byte(0xB7);
+        self.emit_byte(self.modrm(0, dest_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOVSXD r64, dword [base] : REX.W 63 /r
+    pub fn movsxd_r64_m32(&mut self, dest: X86Register, base: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (base_num, _) = Self::reg_number(base);
+        self.set_rex(true, dest_num >= 8, false, base_num >= 8);
+        self.emit_prefixes();
+        self.emit_byte(0x63);
+        self.emit_byte(self.modrm(0, dest_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOV r32, dword [base] (零扩展到 r64) : 8B /r (无 REX.W)
+    pub fn mov_r32_m32(&mut self, dest: X86Register, base: X86Register) -> &mut Self {
+        let (dest_num, _) = Self::reg_number(dest);
+        let (base_num, _) = Self::reg_number(base);
+        if dest_num >= 8 || base_num >= 8 {
+            self.set_rex(false, dest_num >= 8, false, base_num >= 8);
+        }
+        self.emit_prefixes();
+        self.emit_byte(0x8B);
+        self.emit_byte(self.modrm(0, dest_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOV byte [base], r8 : 88 /r
+    pub fn mov_mem0_reg8(&mut self, base: X86Register, src: X86Register) -> &mut Self {
+        let (src_num, _) = Self::reg_number(src);
+        let (base_num, _) = Self::reg_number(base);
+        // 对 sil/dil/bpl/spl 需要 REX 前缀
+        let need_rex = src_num >= 8
+            || base_num >= 8
+            || matches!(
+                src,
+                X86Register::Sil | X86Register::Dil | X86Register::Bpl | X86Register::Spl
+            );
+        if need_rex {
+            self.set_rex(false, src_num >= 8, false, base_num >= 8);
+        }
+        self.emit_prefixes();
+        self.emit_byte(0x88);
+        self.emit_byte(self.modrm(0, src_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOV word [base], r16 : 66 89 /r
+    pub fn mov_mem0_reg16(&mut self, base: X86Register, src: X86Register) -> &mut Self {
+        let (src_num, _) = Self::reg_number(src);
+        let (base_num, _) = Self::reg_number(base);
+        self.emit_byte(0x66);
+        if src_num >= 8 || base_num >= 8 {
+            self.set_rex(false, src_num >= 8, false, base_num >= 8);
+        }
+        self.emit_prefixes();
+        self.emit_byte(0x89);
+        self.emit_byte(self.modrm(0, src_num & 0x07, base_num & 0x07));
+        self
+    }
+
+    /// MOV dword [base], r32 : 89 /r (无 REX.W)
+    pub fn mov_mem0_reg32(&mut self, base: X86Register, src: X86Register) -> &mut Self {
+        let (src_num, _) = Self::reg_number(src);
+        let (base_num, _) = Self::reg_number(base);
+        if src_num >= 8 || base_num >= 8 {
+            self.set_rex(false, src_num >= 8, false, base_num >= 8);
+        }
         self.emit_prefixes();
         self.emit_byte(0x89);
         self.emit_byte(self.modrm(0, src_num & 0x07, base_num & 0x07));
@@ -868,6 +1098,74 @@ mod tests {
 
         assert_eq!(result[0], 0x55); // PUSH rbp
         assert_eq!(result[1], 0x5D); // POP rbp
+    }
+
+    #[test]
+    fn test_imul_reg_imm32() {
+        let mut encoder = X86_64Encoder::new();
+        encoder.imul_reg_imm32(X86Register::Rcx, X86Register::Rcx, 24);
+        let r = encoder.result();
+        // REX.W 69 /r id
+        assert_eq!(r[0], 0x48);
+        assert_eq!(r[1], 0x69);
+        assert_eq!(r[2], 0xC9); // modrm: 11 001 001
+        assert_eq!(&r[3..7], &24i32.to_le_bytes());
+    }
+
+    #[test]
+    fn test_sized_loads() {
+        let mut e = X86_64Encoder::new();
+        e.movzx_r64_m8(X86Register::Rax, X86Register::Rax);
+        assert_eq!(&e.result()[..3], &[0x48, 0x0F, 0xB6]);
+
+        let mut e = X86_64Encoder::new();
+        e.movzx_r64_m16(X86Register::Rax, X86Register::Rax);
+        assert_eq!(&e.result()[..3], &[0x48, 0x0F, 0xB7]);
+
+        let mut e = X86_64Encoder::new();
+        e.movsxd_r64_m32(X86Register::Rax, X86Register::Rax);
+        assert_eq!(&e.result()[..2], &[0x48, 0x63]);
+    }
+
+    #[test]
+    fn test_sized_stores() {
+        let mut e = X86_64Encoder::new();
+        e.mov_mem0_reg8(X86Register::Rax, X86Register::Rcx);
+        assert_eq!(e.result()[0], 0x88); // MOV byte [rax], cl
+
+        let mut e = X86_64Encoder::new();
+        e.mov_mem0_reg16(X86Register::Rax, X86Register::Rcx);
+        assert_eq!(e.result()[0], 0x66); // operand-size prefix
+        assert_eq!(e.result()[1], 0x89);
+
+        let mut e = X86_64Encoder::new();
+        e.mov_mem0_reg32(X86Register::Rax, X86Register::Rcx);
+        assert_eq!(e.result()[0], 0x89); // no REX.W
+    }
+
+    #[test]
+    fn test_sse_ops() {
+        let mut e = X86_64Encoder::new();
+        e.movq_xmm_gpr(0, X86Register::Rax);
+        // 66 48 0F 6E C0
+        assert_eq!(&e.result()[..3], &[0x66, 0x48, 0x0F]);
+        assert_eq!(e.result()[3], 0x6E);
+
+        let mut e = X86_64Encoder::new();
+        e.addsd(0, 1);
+        assert_eq!(&e.result()[..3], &[0xF2, 0x0F, 0x58]);
+
+        let mut e = X86_64Encoder::new();
+        e.ucomisd(0, 1);
+        assert_eq!(&e.result()[..3], &[0x66, 0x0F, 0x2E]);
+
+        let mut e = X86_64Encoder::new();
+        e.cvtsi2sd(0, X86Register::Rax);
+        assert_eq!(&e.result()[..4], &[0xF2, 0x48, 0x0F, 0x2A]);
+
+        let mut e = X86_64Encoder::new();
+        e.cvttsd2si(X86Register::Rax, 0);
+        assert_eq!(&e.result()[..4], &[0xF2, 0x48, 0x0F, 0x2C]);
     }
 
     #[test]

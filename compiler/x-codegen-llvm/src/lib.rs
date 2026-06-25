@@ -2223,7 +2223,11 @@ impl LlvmBackend {
             Type::Double => 8,
             Type::LongDouble => 16,
             Type::Pointer(_) => 8,
-            Type::Tuple(items) => items.iter().map(|item| self.type_align(item)).max().unwrap_or(1),
+            Type::Tuple(items) => items
+                .iter()
+                .map(|item| self.type_align(item))
+                .max()
+                .unwrap_or(1),
             _ => 8,
         }
     }

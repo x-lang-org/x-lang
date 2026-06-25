@@ -110,9 +110,17 @@ fn local_git_repo_flow_and_cleanup() {
     );
 
     let wrapper = wrapper_path(&install_dir, "hello-git");
-    assert!(wrapper.exists(), "wrapper should exist at {}", wrapper.display());
     assert!(
-        x_home.join("toolchain").join("stdlib").join("prelude.x").exists(),
+        wrapper.exists(),
+        "wrapper should exist at {}",
+        wrapper.display()
+    );
+    assert!(
+        x_home
+            .join("toolchain")
+            .join("stdlib")
+            .join("prelude.x")
+            .exists(),
         "managed stdlib should be provisioned into X_HOME"
     );
 
@@ -126,7 +134,10 @@ fn local_git_repo_flow_and_cleanup() {
         .expect("x install --list should run");
     assert!(list.status.success(), "x install --list should succeed");
     let list_stdout = String::from_utf8_lossy(&list.stdout);
-    assert!(list_stdout.contains("hello-git"), "stdout was: {list_stdout}");
+    assert!(
+        list_stdout.contains("hello-git"),
+        "stdout was: {list_stdout}"
+    );
 
     let run_wrapper = Command::new(&wrapper)
         .current_dir(temp.path())
@@ -165,7 +176,10 @@ fn local_git_repo_flow_and_cleanup() {
     );
 
     assert!(!wrapper.exists(), "wrapper should be removed");
-    assert!(!managed_checkout.exists(), "managed checkout should be removed");
+    assert!(
+        !managed_checkout.exists(),
+        "managed checkout should be removed"
+    );
 }
 
 #[test]
@@ -228,7 +242,10 @@ fn installed_wrapper_prefers_managed_stdlib_over_cwd_shadow_copy() {
         String::from_utf8_lossy(&run_wrapper.stderr)
     );
     let stdout = String::from_utf8_lossy(&run_wrapper.stdout);
-    assert!(stdout.contains("managed stdlib won"), "stdout was: {stdout}");
+    assert!(
+        stdout.contains("managed stdlib won"),
+        "stdout was: {stdout}"
+    );
 }
 
 #[test]
@@ -278,10 +295,9 @@ fn install_time_managed_stdlib_seed_ignores_hostile_cwd_shadow() {
         String::from_utf8_lossy(&install.stderr)
     );
 
-    let managed_prelude = std::fs::read_to_string(
-        x_home.join("toolchain").join("stdlib").join("prelude.x"),
-    )
-    .expect("managed prelude should exist");
+    let managed_prelude =
+        std::fs::read_to_string(x_home.join("toolchain").join("stdlib").join("prelude.x"))
+            .expect("managed prelude should exist");
     assert!(
         !managed_prelude.contains("definitely_not_real"),
         "managed stdlib should not be copied from hostile cwd"
@@ -333,5 +349,8 @@ fn git_mode_rejects_version_flag() {
 
     assert!(!out.status.success(), "command should fail");
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("--version 暂不支持与 --git 一起使用"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("--version 暂不支持与 --git 一起使用"),
+        "stderr was: {stderr}"
+    );
 }

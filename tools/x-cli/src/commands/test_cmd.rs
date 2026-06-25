@@ -2,8 +2,8 @@ use crate::pipeline;
 use crate::project::Project;
 use crate::utils;
 use colored::*;
-use std::io::Write;
 use std::fs;
+use std::io::Write;
 use std::path::PathBuf;
 use std::time::Instant;
 
@@ -15,7 +15,9 @@ struct IntegrationExpectations {
 }
 
 fn repo_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..").join("..")
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("..")
+        .join("..")
 }
 
 fn integration_tests_dir() -> PathBuf {
@@ -79,7 +81,10 @@ fn verify_integration_output(
     let mut search_start = 0usize;
     for expected in &expectations.stdout_lines {
         let Some(relative_idx) = normalized_stdout[search_start..].find(expected) else {
-            return Err(format!("stdout missing expected fragment in order: {}", expected));
+            return Err(format!(
+                "stdout missing expected fragment in order: {}",
+                expected
+            ));
         };
         search_start += relative_idx + expected.len();
     }
@@ -111,7 +116,10 @@ fn discover_integration_tests(integration_dir: &std::path::Path) -> Vec<(String,
             continue;
         }
 
-        let category = if relative.parent().is_none_or(|parent| parent.as_os_str().is_empty()) {
+        let category = if relative
+            .parent()
+            .is_none_or(|parent| parent.as_os_str().is_empty())
+        {
             "root".to_string()
         } else {
             relative
@@ -125,9 +133,7 @@ fn discover_integration_tests(integration_dir: &std::path::Path) -> Vec<(String,
     }
 
     tests.sort_by(|(category_a, path_a), (category_b, path_b)| {
-        category_a
-            .cmp(category_b)
-            .then_with(|| path_a.cmp(path_b))
+        category_a.cmp(category_b).then_with(|| path_a.cmp(path_b))
     });
 
     tests
@@ -236,7 +242,7 @@ pub fn exec(
                 if !no_run {
                     let mut interpreter = x_interpreter::Interpreter::new();
                     match interpreter.run(&program) {
-                        Ok(()) => {
+                        Ok(_) => {
                             println!("test {} ... {}", name, "ok".green());
                             passed += 1;
                         }
@@ -319,7 +325,10 @@ pub fn run_integration_tests(category: Option<&str>, verbose: bool) -> Result<()
     let skipped = 0usize;
     let mut total = 0usize;
 
-    let tests = filter_integration_tests_by_category(discover_integration_tests(&integration_dir), category);
+    let tests = filter_integration_tests_by_category(
+        discover_integration_tests(&integration_dir),
+        category,
+    );
     if tests.is_empty() {
         let target = category.unwrap_or("<all>");
         return Err(format!("未找到 integration 测试分类 `{}`", target));
@@ -366,7 +375,11 @@ pub fn run_integration_tests(category: Option<&str>, verbose: bool) -> Result<()
         }
 
         let result = if let Some(stdin) = &expectations.stdin {
-            match command.stdout(Stdio::piped()).stderr(Stdio::piped()).spawn() {
+            match command
+                .stdout(Stdio::piped())
+                .stderr(Stdio::piped())
+                .spawn()
+            {
                 Ok(mut child) => {
                     if let Some(mut child_stdin) = child.stdin.take() {
                         if let Err(e) = child_stdin.write_all(stdin.as_bytes()) {
@@ -469,21 +482,40 @@ mod tests {
     #[test]
     fn repo_root_contains_workspace_markers() {
         let root = repo_root();
-        assert!(root.join("tools").exists(), "repo root should contain tools/: {}", root.display());
-        assert!(root.join("tests").exists(), "repo root should contain tests/: {}", root.display());
+        assert!(
+            root.join("tools").exists(),
+            "repo root should contain tools/: {}",
+            root.display()
+        );
+        assert!(
+            root.join("tests").exists(),
+            "repo root should contain tests/: {}",
+            root.display()
+        );
     }
 
     #[test]
     fn integration_tests_dir_exists() {
         let dir = integration_tests_dir();
-        assert!(dir.exists(), "integration tests dir should exist: {}", dir.display());
+        assert!(
+            dir.exists(),
+            "integration tests dir should exist: {}",
+            dir.display()
+        );
     }
 
     #[test]
     fn find_x_cli_resolves_existing_binary() {
         let resolved = find_x_cli().expect("should find built x-cli binary");
-        assert!(resolved.exists(), "resolved path should exist: {}", resolved.display());
-        assert_eq!(resolved.file_stem().and_then(|stem| stem.to_str()), Some("x"));
+        assert!(
+            resolved.exists(),
+            "resolved path should exist: {}",
+            resolved.display()
+        );
+        assert_eq!(
+            resolved.file_stem().and_then(|stem| stem.to_str()),
+            Some("x")
+        );
     }
 
     #[test]
@@ -517,7 +549,10 @@ println("placeholder")
 
         let expectations = parse_integration_expectations(content);
         assert_eq!(expectations.stdin.as_deref(), Some("hello from stdin\n"));
-        assert_eq!(expectations.stdout_lines, vec!["hello from stdin".to_string()]);
+        assert_eq!(
+            expectations.stdout_lines,
+            vec!["hello from stdin".to_string()]
+        );
     }
 
     #[test]
@@ -555,23 +590,48 @@ println("placeholder")
         let tests = discover_integration_tests(&integration_tests_dir());
         let paths: Vec<_> = tests
             .iter()
-            .map(|(category, path)| (category.clone(), path.file_name().unwrap().to_string_lossy().to_string()))
+            .map(|(category, path)| {
+                (
+                    category.clone(),
+                    path.file_name().unwrap().to_string_lossy().to_string(),
+                )
+            })
             .collect();
 
-        assert!(paths.iter().any(|(category, name)| category == "modules" && name == "main.x"));
-        assert!(paths.iter().any(|(category, name)| category == "root" && name == "error_handling.x"));
-        assert!(!paths.iter().any(|(category, _)| category == "error_handling.x"));
-        assert!(!paths.iter().any(|(category, name)| category == "modules" && name == "helper.x"));
-        assert!(!paths.iter().any(|(category, name)| category == "modules" && name == "base.x"));
-        assert!(!paths.iter().any(|(category, name)| category == "modules" && name == "a.x"));
-        assert!(!paths.iter().any(|(category, name)| category == "modules" && name == "b.x"));
+        assert!(paths
+            .iter()
+            .any(|(category, name)| category == "modules" && name == "main.x"));
+        assert!(paths
+            .iter()
+            .any(|(category, name)| category == "root" && name == "error_handling.x"));
+        assert!(!paths
+            .iter()
+            .any(|(category, _)| category == "error_handling.x"));
+        assert!(!paths
+            .iter()
+            .any(|(category, name)| category == "modules" && name == "helper.x"));
+        assert!(!paths
+            .iter()
+            .any(|(category, name)| category == "modules" && name == "base.x"));
+        assert!(!paths
+            .iter()
+            .any(|(category, name)| category == "modules" && name == "a.x"));
+        assert!(!paths
+            .iter()
+            .any(|(category, name)| category == "modules" && name == "b.x"));
     }
 
     #[test]
     fn parse_integration_filter_supports_full_suite_and_category_runs() {
         assert_eq!(parse_integration_filter(Some("integration")), Some(None));
-        assert_eq!(parse_integration_filter(Some("integration/basic")), Some(Some("basic")));
-        assert_eq!(parse_integration_filter(Some("integration/stdlib")), Some(Some("stdlib")));
+        assert_eq!(
+            parse_integration_filter(Some("integration/basic")),
+            Some(Some("basic"))
+        );
+        assert_eq!(
+            parse_integration_filter(Some("integration/stdlib")),
+            Some(Some("stdlib"))
+        );
         assert_eq!(parse_integration_filter(Some("basic")), None);
         assert_eq!(parse_integration_filter(None), None);
     }
@@ -580,7 +640,10 @@ println("placeholder")
     fn filter_integration_tests_by_category_limits_results() {
         let tests = discover_integration_tests(&integration_tests_dir());
         let basic_only = filter_integration_tests_by_category(tests.clone(), Some("basic"));
-        assert!(!basic_only.is_empty(), "basic category should contain tests");
+        assert!(
+            !basic_only.is_empty(),
+            "basic category should contain tests"
+        );
         assert!(basic_only.iter().all(|(category, _)| category == "basic"));
 
         let all = filter_integration_tests_by_category(tests, None);

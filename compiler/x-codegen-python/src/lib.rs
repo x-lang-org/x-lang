@@ -100,12 +100,11 @@ impl PythonBackend {
 
     fn sanitize_identifier(&self, name: &str) -> String {
         match name {
-            "False" | "None" | "True" | "and" | "as" | "assert" | "async" | "await"
-            | "break" | "class" | "continue" | "def" | "del" | "elif" | "else"
-            | "except" | "finally" | "for" | "from" | "global" | "if" | "import"
-            | "in" | "is" | "lambda" | "nonlocal" | "not" | "or" | "pass"
-            | "raise" | "return" | "try" | "while" | "with" | "yield" | "match"
-            | "case" => format!("{}_x", name),
+            "False" | "None" | "True" | "and" | "as" | "assert" | "async" | "await" | "break"
+            | "class" | "continue" | "def" | "del" | "elif" | "else" | "except" | "finally"
+            | "for" | "from" | "global" | "if" | "import" | "in" | "is" | "lambda" | "nonlocal"
+            | "not" | "or" | "pass" | "raise" | "return" | "try" | "while" | "with" | "yield"
+            | "match" | "case" => format!("{}_x", name),
             _ => name.to_string(),
         }
     }
@@ -129,6 +128,90 @@ impl PythonBackend {
         self.line("import builtins")?;
         self.line("import sys")?;
         self.line("")?;
+        self.emit_runtime_prelude()?;
+        Ok(())
+    }
+
+    /// 发射 X 动态值运行时（library/runtime/xrt.c）的纯 Python 等价实现，
+    /// 使生成的 Python 代码能够直接执行（println / 集合 / 装箱与格式化）。
+    /// 格式化逻辑与 `xrt.c` 的 `x_fmt_value` 保持一致，确保输出一致。
+    fn emit_runtime_prelude(&mut self) -> PythonResult<()> {
+        const PRELUDE: &str = r#"# --- X runtime (mirrors library/runtime/xrt.c) ---
+class _XV:
+    __slots__ = ("t", "v")
+    def __init__(self, t, v):
+        self.t = t
+        self.v = v
+
+def x_from_int(v): return _XV("int", int(v))
+def x_from_double(v): return _XV("float", float(v))
+def x_from_bool(v): return _XV("bool", bool(v))
+def x_from_char(v): return _XV("char", v)
+def x_from_str(s): return _XV("str", "" if s is None else (s.v if isinstance(s, _XV) else s))
+def x_from_ptr(p): return _XV("ptr", p)
+
+def x_list_new(): return _XV("list", [])
+def x_list_push(l, item): l.v.append(item)
+def x_list_get(l, i): return l.v[i] if 0 <= i < len(l.v) else x_from_int(0)
+def x_list_len(l): return len(l.v)
+def x_map_new(): return _XV("map", [])
+def x_map_put(m, k, val): m.v.append((k, val))
+
+def x_as_int(v):
+    if v is None: return 0
+    if v.t in ("int", "bool", "char", "float"): return int(v.v)
+    return 0
+def x_as_double(v):
+    if v is None: return 0.0
+    if v.t == "float": return v.v
+    if v.t == "int": return float(v.v)
+    return 0.0
+def x_as_bool(v): return bool(v.v) if v is not None else False
+def x_as_str(v):
+    if v is None: return ""
+    if v.t == "str": return v.v
+    return x_fmt_value(v)
+def x_as_ptr(v): return v.v if (v is not None and v.t == "ptr") else v
+
+def _x_fmt_double(d):
+    if d == int(d) and abs(d) < 1e18:
+        return "%.1f" % d
+    for prec in range(1, 18):
+        s = "%.*g" % (prec, d)
+        if float(s) == d:
+            return s
+    return repr(d)
+
+def x_fmt_value(v):
+    if v is None: return "null"
+    t = v.t
+    if t == "int": return str(v.v)
+    if t == "float": return _x_fmt_double(v.v)
+    if t == "bool": return "true" if v.v else "false"
+    if t == "char": return chr(v.v) if isinstance(v.v, int) else str(v.v)
+    if t == "str": return v.v
+    if t == "ptr": return "Pointer(0x%x)" % (id(v.v) & 0xffffffffffffffff)
+    if t == "list": return "[" + ", ".join(x_fmt_value(i) for i in v.v) + "]"
+    if t == "map": return "{" + ", ".join(x_fmt_value(k) + ": " + x_fmt_value(val) for k, val in v.v) + "}"
+    return ""
+
+def x_to_str(v): return x_fmt_value(v)
+def x_str_concat(a, b):
+    a = a.v if isinstance(a, _XV) else ("" if a is None else a)
+    b = b.v if isinstance(b, _XV) else ("" if b is None else b)
+    return str(a) + str(b)
+def x_print(v):
+    sys.stdout.write(x_fmt_value(v) + "\n")
+def x_print_inline(v):
+    sys.stdout.write(x_fmt_value(v))
+def x_print_newline():
+    sys.stdout.write("\n")
+# --- end X runtime ---
+"#;
+        for l in PRELUDE.lines() {
+            self.line(l)?;
+        }
+        self.line("")?;
         Ok(())
     }
 
@@ -151,7 +234,10 @@ impl PythonBackend {
             Pointer(inner) => format!("list[{}]", self.lir_type_to_python(inner)),
             Array(inner, _) => format!("list[{}]", self.lir_type_to_python(inner)),
             Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_python(item)).collect();
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_python(item))
+                    .collect();
                 format!("tuple[{}]", item_strs.join(", "))
             }
             Named(n) => n.clone(),
@@ -223,7 +309,11 @@ impl PythonBackend {
             Variable(v) => {
                 if let Some(init) = &v.initializer {
                     let init_str = self.emit_lir_expr(init)?;
-                    self.line(&format!("{} = {}", self.sanitize_identifier(&v.name), init_str))?;
+                    self.line(&format!(
+                        "{} = {}",
+                        self.sanitize_identifier(&v.name),
+                        init_str
+                    ))?;
                 } else {
                     // Python variables need a value; use None as default
                     self.line(&format!("{} = None", self.sanitize_identifier(&v.name)))?;
@@ -388,7 +478,11 @@ impl PythonBackend {
                     .iter()
                     .map(|(k, v)| format!("{}={}", k, self.emit_lir_pattern(v)))
                     .collect();
-                format!("{}({})", self.sanitize_identifier(name), field_strs.join(", "))
+                format!(
+                    "{}({})",
+                    self.sanitize_identifier(name),
+                    field_strs.join(", ")
+                )
             }
             Or(left, right) => {
                 let l = self.emit_lir_pattern(left);
@@ -641,7 +735,11 @@ impl PythonBackend {
         match decl {
             x_lir::Declaration::Function(f) => {
                 let params = self.sanitize_parameters(&f.parameters);
-                self.line(&format!("def {}({}):", self.sanitize_identifier(&f.name), params))?;
+                self.line(&format!(
+                    "def {}({}):",
+                    self.sanitize_identifier(&f.name),
+                    params
+                ))?;
                 self.indent();
 
                 let before = self.buffer.as_str().len();
@@ -659,9 +757,18 @@ impl PythonBackend {
                 let ty = self.lir_type_to_python(&v.type_);
                 if let Some(init) = &v.initializer {
                     let init_str = self.emit_lir_expr(init)?;
-                    self.line(&format!("{}: {} = {}", self.sanitize_identifier(&v.name), ty, init_str))?;
+                    self.line(&format!(
+                        "{}: {} = {}",
+                        self.sanitize_identifier(&v.name),
+                        ty,
+                        init_str
+                    ))?;
                 } else {
-                    self.line(&format!("{}: {} = None", self.sanitize_identifier(&v.name), ty))?;
+                    self.line(&format!(
+                        "{}: {} = None",
+                        self.sanitize_identifier(&v.name),
+                        ty
+                    ))?;
                 }
             }
             x_lir::Declaration::Struct(s) => {
@@ -832,7 +939,11 @@ impl PythonBackend {
                                 }
                             })
                             .collect();
-                        self.line(&format!("# from {} import {}", imp.module_path, syms.join(", ")))?;
+                        self.line(&format!(
+                            "# from {} import {}",
+                            imp.module_path,
+                            syms.join(", ")
+                        ))?;
                     }
                 } else if imp.import_all {
                     self.line(&format!("from {} import *", imp.module_path))?;

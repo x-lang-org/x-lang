@@ -543,7 +543,10 @@ impl CSharpBackend {
             Pointer(inner) => format!("{}*", self.lir_type_to_csharp(inner)), // unsafe
             Array(inner, _) => format!("{}[]", self.lir_type_to_csharp(inner)),
             Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_csharp(item)).collect();
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_csharp(item))
+                    .collect();
                 format!("({})", item_strs.join(", "))
             }
             FunctionPointer(_, _) => "Func<object, object>".to_string(),
@@ -770,7 +773,7 @@ impl CSharpBackend {
             }
             Declaration(d) => {
                 self.emit_lir_declaration(d)?;
-            },
+            }
         }
         Ok(())
     }

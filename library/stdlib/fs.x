@@ -11,9 +11,8 @@ export function read_file(path: string) -> string {
 
 /// 写入内容到文本文件，如果失败则 panic
 export function write_file(path: string, content: string) -> unit {
-    let result = __file_write(path, content)
+    let result = __file_write(path, content);
     unwrap_ok(result)
-    ()
 }
 
 /// 检查文件是否存在
@@ -23,7 +22,34 @@ export function exists(path: string) -> boolean {
 
 /// 删除文件，如果失败则 panic
 export function delete_file(path: string) -> unit {
-    let result = __file_delete(path)
+    let result = __file_delete(path);
     unwrap_ok(result)
+}
+
+/// 文件打开模式
+export enum OpenMode {
+    Read,
+    Write,
+    Append,
+}
+
+/// 已打开的文件句柄
+export record File {
+    public path: string,
+    public fd: Int,
+}
+
+/// 按给定模式打开文件
+export function open(path: string, mode: OpenMode) -> Result<File, string> {
+    Ok(File { path: path, fd: 0 })
+}
+
+/// 读取文件全部内容为字符串
+export function read_to_string(self: File) -> Result<string, string> {
+    Ok(read_file(self.path))
+}
+
+/// 关闭文件句柄
+export function close(self: File) -> unit {
     ()
 }

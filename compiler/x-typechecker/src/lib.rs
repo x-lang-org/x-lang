@@ -2465,7 +2465,9 @@ fn resolve_type_aliases_inner(
                 ty.clone()
             }
         }
-        Type::Array(inner) => Type::Array(Box::new(resolve_type_aliases_inner(inner, env, visited))),
+        Type::Array(inner) => {
+            Type::Array(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
         Type::Dictionary(key, value) => Type::Dictionary(
             Box::new(resolve_type_aliases_inner(key, env, visited)),
             Box::new(resolve_type_aliases_inner(value, env, visited)),
@@ -2476,7 +2478,9 @@ fn resolve_type_aliases_inner(
                 .map(|inner| resolve_type_aliases_inner(inner, env, visited))
                 .collect(),
         ),
-        Type::Async(inner) => Type::Async(Box::new(resolve_type_aliases_inner(inner, env, visited))),
+        Type::Async(inner) => {
+            Type::Async(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
         Type::Function(params, ret) => Type::Function(
             params
                 .iter()
@@ -2484,7 +2488,9 @@ fn resolve_type_aliases_inner(
                 .collect(),
             Box::new(resolve_type_aliases_inner(ret, env, visited)),
         ),
-        Type::TypeConstructor(name, args) if (name == "List" || name == "list") && args.len() == 1 => {
+        Type::TypeConstructor(name, args)
+            if (name == "List" || name == "list") && args.len() == 1 =>
+        {
             Type::Array(Box::new(resolve_type_aliases_inner(&args[0], env, visited)))
         }
         Type::TypeConstructor(name, args) => Type::TypeConstructor(
@@ -2493,13 +2499,21 @@ fn resolve_type_aliases_inner(
                 .map(|arg| resolve_type_aliases_inner(arg, env, visited))
                 .collect(),
         ),
-        Type::Reference(inner) => Type::Reference(Box::new(resolve_type_aliases_inner(inner, env, visited))),
+        Type::Reference(inner) => {
+            Type::Reference(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
         Type::MutableReference(inner) => {
             Type::MutableReference(Box::new(resolve_type_aliases_inner(inner, env, visited)))
         }
-        Type::Pointer(inner) => Type::Pointer(Box::new(resolve_type_aliases_inner(inner, env, visited))),
-        Type::ConstPointer(inner) => Type::ConstPointer(Box::new(resolve_type_aliases_inner(inner, env, visited))),
-        Type::MutPointer(inner) => Type::MutPointer(Box::new(resolve_type_aliases_inner(inner, env, visited))),
+        Type::Pointer(inner) => {
+            Type::Pointer(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
+        Type::ConstPointer(inner) => {
+            Type::ConstPointer(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
+        Type::MutPointer(inner) => {
+            Type::MutPointer(Box::new(resolve_type_aliases_inner(inner, env, visited)))
+        }
         _ => ty.clone(),
     }
 }
@@ -3867,7 +3881,8 @@ fn check_variable_decl(var_decl: &VariableDecl, env: &mut TypeEnv) -> Result<(),
         // 如果有类型注解，检查类型匹配
         if let Some(type_annot) = &var_decl.type_annot {
             let resolved_type_annot = resolve_type_aliases(type_annot, env);
-            let init_type = infer_expression_type_with_hint(initializer, &resolved_type_annot, env)?;
+            let init_type =
+                infer_expression_type_with_hint(initializer, &resolved_type_annot, env)?;
             // Int 和 UnsignedInt 互相兼容
             let is_int_compatible = (types_equal(&init_type, &Type::Int)
                 || types_equal(&init_type, &Type::UnsignedInt))
@@ -4023,10 +4038,8 @@ fn check_function_decl(func_decl: &FunctionDecl, env: &mut TypeEnv) -> Result<()
             } else {
                 inferred_return_type.clone()
             };
-            function_info.ty = Type::Function(
-                parameter_types.clone(),
-                Box::new(inferred_function_return),
-            );
+            function_info.ty =
+                Type::Function(parameter_types.clone(), Box::new(inferred_function_return));
         }
     }
 
@@ -4179,10 +4192,23 @@ fn collect_explicit_return_types(
     return_types: &mut Vec<Type>,
 ) -> Result<(), TypeError> {
     with_predeclared_local_functions(block, env, |env| {
+        // 在子作用域内扫描，避免把块内局部声明泄漏到外层（否则会与外层同名
+        // 变量冲突，产生误报的 DuplicateDeclaration）。
+        env.push_scope();
+        let mut result = Ok(());
         for stmt in &block.statements {
-            collect_statement_return_types(stmt, env, return_types)?;
+            if let Err(e) = collect_statement_return_types(stmt, env, return_types) {
+                result = Err(e);
+                break;
+            }
+            // 绑定块内的局部变量，使后续嵌套 match 的判别式等表达式
+            // 能够解析到本块先前声明的局部绑定。
+            if let StatementKind::Variable(var_decl) = &stmt.node {
+                let _ = check_variable_decl(var_decl, env);
+            }
         }
-        Ok(())
+        env.pop_scope();
+        result
     })
 }
 
@@ -4192,10 +4218,22 @@ fn collect_yield_types(
     yield_types: &mut Vec<Type>,
 ) -> Result<(), TypeError> {
     with_predeclared_local_functions(block, env, |env| {
+        // 在子作用域内扫描，避免把块内局部声明泄漏到外层。
+        env.push_scope();
+        let mut result = Ok(());
         for stmt in &block.statements {
-            collect_statement_yield_types(stmt, env, yield_types)?;
+            if let Err(e) = collect_statement_yield_types(stmt, env, yield_types) {
+                result = Err(e);
+                break;
+            }
+            // 绑定块内的局部变量，使后续嵌套 match 的判别式等表达式
+            // 能够解析到本块先前声明的局部绑定。
+            if let StatementKind::Variable(var_decl) = &stmt.node {
+                let _ = check_variable_decl(var_decl, env);
+            }
         }
-        Ok(())
+        env.pop_scope();
+        result
     })
 }
 
@@ -4364,26 +4402,33 @@ fn collect_statement_return_types(
                 env.pop_scope();
             }
         }
-        StatementKind::Unsafe(block)
-        | StatementKind::Loop(block) => {
+        StatementKind::Unsafe(block) | StatementKind::Loop(block) => {
             env.push_scope();
             collect_explicit_return_types(block, env, return_types)?;
             env.pop_scope();
         }
         StatementKind::While(while_stmt) => {
             env.push_scope();
-            collect_statement_return_types(&Statement {
-                node: StatementKind::Unsafe(while_stmt.body.clone()),
-                span: stmt.span,
-            }, env, return_types)?;
+            collect_statement_return_types(
+                &Statement {
+                    node: StatementKind::Unsafe(while_stmt.body.clone()),
+                    span: stmt.span,
+                },
+                env,
+                return_types,
+            )?;
             env.pop_scope();
         }
         StatementKind::DoWhile(do_while_stmt) => {
             env.push_scope();
-            collect_statement_return_types(&Statement {
-                node: StatementKind::Unsafe(do_while_stmt.body.clone()),
-                span: stmt.span,
-            }, env, return_types)?;
+            collect_statement_return_types(
+                &Statement {
+                    node: StatementKind::Unsafe(do_while_stmt.body.clone()),
+                    span: stmt.span,
+                },
+                env,
+                return_types,
+            )?;
             env.pop_scope();
         }
         StatementKind::For(for_stmt) => {
@@ -5277,8 +5322,10 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                     }
                     // 检查是否是记录类型
                     if let Some(record_decl) = env.get_record(class_name) {
-                        if let Some((_, field_type)) =
-                            record_decl.fields.iter().find(|(field_name, _)| field_name == member)
+                        if let Some((_, field_type)) = record_decl
+                            .fields
+                            .iter()
+                            .find(|(field_name, _)| field_name == member)
                         {
                             return Ok(field_type.clone());
                         }
@@ -5503,6 +5550,22 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                 }
             }
 
+            // 模块限定调用: module::func(args)。导入被展平后，模块名不是值，
+            // 但自由函数 `func` 存在，此时按自由函数调用解析。
+            if let ExpressionKind::Member(receiver, func_name) = &callee.node {
+                if let ExpressionKind::Variable(mod_name) = &receiver.node {
+                    let receiver_is_value = env.get_variable(mod_name).is_some()
+                        || env.get_class(mod_name).is_some()
+                        || env.get_enum(mod_name).is_some()
+                        || env.get_record(mod_name).is_some();
+                    if !receiver_is_value {
+                        if let Some(func_type) = env.get_function(func_name).cloned() {
+                            return infer_call_return_type(func_type, args, env, span, callee.span);
+                        }
+                    }
+                }
+            }
+
             if let ExpressionKind::Member(receiver, method_name) = &callee.node {
                 let receiver_type = infer_expression_type(receiver, env)?;
                 if let Some(method_type) = builtin_method_call_type(&receiver_type, method_name) {
@@ -5513,7 +5576,11 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                         if let Some(function_type) = env.get_function(method_name) {
                             if let Type::Function(param_types, return_type) = function_type {
                                 if let Some(first_param) = param_types.first() {
-                                    if types_equal_resolved(first_param.as_ref(), &receiver_type, env) {
+                                    if types_equal_resolved(
+                                        first_param.as_ref(),
+                                        &receiver_type,
+                                        env,
+                                    ) {
                                         let bound_method_type = Type::Function(
                                             param_types.iter().skip(1).cloned().collect(),
                                             return_type.clone(),
@@ -6194,24 +6261,25 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
                     }
                 }
 
-                // 找到分支最后的表达式作为返回值（如果是表达式语句）
-                // 对于match表达式，每个分支必须有一个表达式结果
+                // 按顺序处理分支体语句，使得前面的 `let` 绑定在推断
+                // 最后一个表达式（分支返回值）之前已进入作用域。
                 let mut branch_ty = Type::Unit;
-                if let Some(last_stmt) = case.body.statements.last() {
-                    match &last_stmt.node {
-                        StatementKind::Expression(expr) => {
-                            branch_ty = infer_expression_type(expr, env)?;
+                let stmts = &case.body.statements;
+                let last_idx = stmts.len().checked_sub(1);
+                for (i, stmt) in stmts.iter().enumerate() {
+                    if Some(i) == last_idx {
+                        match &stmt.node {
+                            StatementKind::Expression(expr) => {
+                                branch_ty = infer_expression_type(expr, env)?;
+                            }
+                            _ => {
+                                check_statement(stmt, env)?;
+                                branch_ty = Type::Unit;
+                            }
                         }
-                        _ => {
-                            // 如果最后不是表达式，分支返回 Unit
-                            check_statement(last_stmt, env)?;
-                            branch_ty = Type::Unit;
-                        }
+                    } else {
+                        check_statement(stmt, env)?;
                     }
-                }
-                // 检查所有其他语句
-                for stmt in &case.body.statements {
-                    check_statement(stmt, env)?;
                 }
                 branch_types.push(branch_ty);
                 env.pop_scope();
@@ -6323,7 +6391,10 @@ fn builtin_method_call_type(receiver_type: &Type, method_name: &str) -> Option<T
         },
         Type::Array(_) => match method_name {
             "length" => Some(Type::Function(Vec::new(), Box::new(Type::Int))),
-            "push" => Some(Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Unit))),
+            "push" => Some(Type::Function(
+                vec![Box::new(Type::Dynamic)],
+                Box::new(Type::Unit),
+            )),
             "slice" => Some(Type::Function(
                 vec![Box::new(Type::Int), Box::new(Type::Int)],
                 Box::new(receiver_type.clone()),
@@ -6401,8 +6472,10 @@ fn infer_call_return_type(
             .iter()
             .map(|p| replace_synthetic_generics_with_type_params(p, &synthetic_type_param_names))
             .collect();
-        let concrete_return_type =
-            replace_synthetic_generics_with_type_params(return_type.as_ref(), &synthetic_type_param_names);
+        let concrete_return_type = replace_synthetic_generics_with_type_params(
+            return_type.as_ref(),
+            &synthetic_type_param_names,
+        );
         let (.., inferred_return) = infer_type_arguments(
             &synthetic_type_params,
             &concrete_param_types,
@@ -6417,18 +6490,20 @@ fn infer_call_return_type(
 
     for ((param_type, arg_type), arg) in param_types.iter().zip(arg_types.iter()).zip(args.iter()) {
         let param_type_ref: &Type = param_type.as_ref();
-        let is_type_param = matches!(param_type_ref, Type::Var(_) | Type::TypeParam(_) | Type::Dynamic)
-            || if let Type::Generic(name) = param_type_ref {
-                name.len() == 1
-                    || (name.len() <= 2
-                        && name
-                            .chars()
-                            .next()
-                            .map(|c| c.is_uppercase())
-                            .unwrap_or(false))
-            } else {
-                false
-            };
+        let is_type_param = matches!(
+            param_type_ref,
+            Type::Var(_) | Type::TypeParam(_) | Type::Dynamic
+        ) || if let Type::Generic(name) = param_type_ref {
+            name.len() == 1
+                || (name.len() <= 2
+                    && name
+                        .chars()
+                        .next()
+                        .map(|c| c.is_uppercase())
+                        .unwrap_or(false))
+        } else {
+            false
+        };
 
         let type_ok = types_equal_resolved(arg_type, param_type_ref, env)
             || is_type_param
@@ -7276,7 +7351,8 @@ let err: BaseError = BaseError {
 };
 "#;
         let program = parse_program(src).expect("parse ok");
-        type_check(&program).expect("named record variables should accept matching record literals");
+        type_check(&program)
+            .expect("named record variables should accept matching record literals");
     }
 
     #[test]
@@ -8570,6 +8646,9 @@ let bad = s.unknown_method();
 "#;
         let program = parse_program(src).expect("parse ok");
         let err = type_check(&program).unwrap_err();
-        assert!(matches!(err, TypeError::InvalidMemberAccess { .. } | TypeError::TypeMismatch { .. }));
+        assert!(matches!(
+            err,
+            TypeError::InvalidMemberAccess { .. } | TypeError::TypeMismatch { .. }
+        ));
     }
 }

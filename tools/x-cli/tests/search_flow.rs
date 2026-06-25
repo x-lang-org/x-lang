@@ -5,7 +5,11 @@ fn x_bin() -> PathBuf {
     PathBuf::from(env!("CARGO_BIN_EXE_x"))
 }
 
-fn write_registry_config(x_home: &std::path::Path, registry_name: &str, index_path: &std::path::Path) {
+fn write_registry_config(
+    x_home: &std::path::Path,
+    registry_name: &str,
+    index_path: &std::path::Path,
+) {
     std::fs::create_dir_all(x_home).expect("create X_HOME");
     let config = format!(
         "[registry]\ndefault = \"{registry_name}\"\n\n[registry.registries.{registry_name}]\nindex = '{}'\n",
@@ -86,7 +90,10 @@ fn local_registry_search_returns_matching_packages() {
 
     let stdout = String::from_utf8_lossy(&out.stdout);
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stdout.contains("hello-http = \"1.2.3\"    # HTTP client for X"), "stdout was: {stdout}");
+    assert!(
+        stdout.contains("hello-http = \"1.2.3\"    # HTTP client for X"),
+        "stdout was: {stdout}"
+    );
     assert!(!stdout.contains("world-db"), "stdout was: {stdout}");
     assert!(stderr.contains("Searching"), "stderr was: {stderr}");
 }
@@ -111,7 +118,10 @@ fn local_registry_search_reports_no_matches_cleanly() {
         .output()
         .expect("x search should run");
 
-    assert!(out.status.success(), "x search should succeed without matches");
+    assert!(
+        out.status.success(),
+        "x search should succeed without matches"
+    );
     let stdout = String::from_utf8_lossy(&out.stdout);
     assert!(stdout.contains("未找到匹配的包"), "stdout was: {stdout}");
 }
@@ -135,9 +145,15 @@ fn remote_registry_search_remains_explicitly_unimplemented() {
         .output()
         .expect("x search should run");
 
-    assert!(!out.status.success(), "remote registry search should stay unimplemented");
+    assert!(
+        !out.status.success(),
+        "remote registry search should stay unimplemented"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("当前仅支持本地文件注册表索引目录搜索"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("当前仅支持本地文件注册表索引目录搜索"),
+        "stderr was: {stderr}"
+    );
 }
 
 #[test]
@@ -155,9 +171,15 @@ fn explicit_registry_name_requires_active_config_entry() {
         .output()
         .expect("x search should run");
 
-    assert!(!out.status.success(), "search should fail when registry config is missing");
+    assert!(
+        !out.status.success(),
+        "search should fail when registry config is missing"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("配置中未定义注册表 `local`"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("配置中未定义注册表 `local`"),
+        "stderr was: {stderr}"
+    );
     assert!(stderr.contains("请设置 X_HOME"), "stderr was: {stderr}");
 }
 
@@ -177,9 +199,15 @@ fn missing_default_registry_config_fails_install_cleanly() {
         .output()
         .expect("x install should run");
 
-    assert!(!out.status.success(), "install should fail when default registry config is missing");
+    assert!(
+        !out.status.success(),
+        "install should fail when default registry config is missing"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("当前未配置默认注册表"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("当前未配置默认注册表"),
+        "stderr was: {stderr}"
+    );
     assert!(stderr.contains("请设置 X_HOME"), "stderr was: {stderr}");
 }
 
@@ -200,9 +228,15 @@ fn broken_default_registry_entry_fails_cleanly() {
         .output()
         .expect("x search should run");
 
-    assert!(!out.status.success(), "search should fail when default registry entry is missing");
+    assert!(
+        !out.status.success(),
+        "search should fail when default registry entry is missing"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("配置中未定义注册表 `local`"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("配置中未定义注册表 `local`"),
+        "stderr was: {stderr}"
+    );
 }
 
 #[test]
@@ -212,8 +246,11 @@ fn malformed_config_toml_fails_search_with_config_path_and_parse_reason() {
     let x_home = dir.path().join("x-home");
 
     std::fs::create_dir_all(&x_home).expect("create X_HOME");
-    std::fs::write(x_home.join("config.toml"), "[registry\ndefault = \"local\"\n")
-        .expect("write malformed config");
+    std::fs::write(
+        x_home.join("config.toml"),
+        "[registry\ndefault = \"local\"\n",
+    )
+    .expect("write malformed config");
 
     let out = Command::new(&bin)
         .arg("search")
@@ -222,11 +259,17 @@ fn malformed_config_toml_fails_search_with_config_path_and_parse_reason() {
         .output()
         .expect("x search should run");
 
-    assert!(!out.status.success(), "search should fail on malformed config");
+    assert!(
+        !out.status.success(),
+        "search should fail on malformed config"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
     assert!(stderr.contains("无法解析全局配置"), "stderr was: {stderr}");
     assert!(stderr.contains("config.toml"), "stderr was: {stderr}");
-    assert!(stderr.contains("invalid table header"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("invalid table header"),
+        "stderr was: {stderr}"
+    );
 }
 
 #[test]
@@ -252,7 +295,10 @@ fn invalid_registry_config_shape_fails_install_with_config_path_and_reason() {
         .output()
         .expect("x install should run");
 
-    assert!(!out.status.success(), "install should fail on invalid config shape");
+    assert!(
+        !out.status.success(),
+        "install should fail on invalid config shape"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
     assert!(stderr.contains("无法解析全局配置"), "stderr was: {stderr}");
     assert!(stderr.contains("config.toml"), "stderr was: {stderr}");
@@ -267,8 +313,11 @@ fn malformed_config_toml_fails_publish_before_registry_resolution() {
     let project_dir = dir.path().join("publisher");
 
     std::fs::create_dir_all(&x_home).expect("create X_HOME");
-    std::fs::write(x_home.join("config.toml"), "[registry\ndefault = \"local\"\n")
-        .expect("write malformed config");
+    std::fs::write(
+        x_home.join("config.toml"),
+        "[registry\ndefault = \"local\"\n",
+    )
+    .expect("write malformed config");
     write_project(&project_dir, "offline-tool", "Offline local registry tool");
 
     let out = Command::new(&bin)
@@ -279,11 +328,17 @@ fn malformed_config_toml_fails_publish_before_registry_resolution() {
         .output()
         .expect("x publish should run");
 
-    assert!(!out.status.success(), "publish should fail on malformed config");
+    assert!(
+        !out.status.success(),
+        "publish should fail on malformed config"
+    );
     let stderr = String::from_utf8_lossy(&out.stderr);
     assert!(stderr.contains("无法解析全局配置"), "stderr was: {stderr}");
     assert!(stderr.contains("config.toml"), "stderr was: {stderr}");
-    assert!(stderr.contains("invalid table header"), "stderr was: {stderr}");
+    assert!(
+        stderr.contains("invalid table header"),
+        "stderr was: {stderr}"
+    );
 }
 
 #[test]
@@ -324,7 +379,10 @@ fn local_registry_publish_and_install_flow_works_end_to_end() {
         .expect("x search should run");
     assert!(search.status.success(), "x search should succeed");
     let search_stdout = String::from_utf8_lossy(&search.stdout);
-    assert!(search_stdout.contains("offline-tool = \"0.1.0\""), "stdout was: {search_stdout}");
+    assert!(
+        search_stdout.contains("offline-tool = \"0.1.0\""),
+        "stdout was: {search_stdout}"
+    );
 
     let install = Command::new(&bin)
         .arg("install")
@@ -346,7 +404,11 @@ fn local_registry_publish_and_install_flow_works_end_to_end() {
     } else {
         install_dir.join("offline-tool")
     };
-    assert!(wrapper.exists(), "wrapper should exist at {}", wrapper.display());
+    assert!(
+        wrapper.exists(),
+        "wrapper should exist at {}",
+        wrapper.display()
+    );
 
     let run = Command::new(&wrapper)
         .current_dir(dir.path())
@@ -356,9 +418,16 @@ fn local_registry_publish_and_install_flow_works_end_to_end() {
         .expect("installed wrapper should run");
     assert!(run.status.success(), "wrapper should run successfully");
     let run_stdout = String::from_utf8_lossy(&run.stdout);
-    assert!(run_stdout.contains("offline-tool works"), "stdout was: {run_stdout}");
     assert!(
-        x_home.join("toolchain").join("stdlib").join("prelude.x").exists(),
+        run_stdout.contains("offline-tool works"),
+        "stdout was: {run_stdout}"
+    );
+    assert!(
+        x_home
+            .join("toolchain")
+            .join("stdlib")
+            .join("prelude.x")
+            .exists(),
         "managed stdlib should be provisioned into X_HOME"
     );
 }
@@ -373,7 +442,12 @@ fn local_registry_keeps_highest_version_when_published_out_of_order() {
     let project_dir = dir.path().join("publisher");
 
     write_registry_config(&x_home, "local", &registry_root);
-    write_versioned_project(&project_dir, "offline-tool", "1.0.0", "Offline local registry tool");
+    write_versioned_project(
+        &project_dir,
+        "offline-tool",
+        "1.0.0",
+        "Offline local registry tool",
+    );
 
     let publish_v1 = Command::new(&bin)
         .arg("publish")
@@ -386,7 +460,12 @@ fn local_registry_keeps_highest_version_when_published_out_of_order() {
         .expect("x publish should run");
     assert!(publish_v1.status.success(), "first publish should succeed");
 
-    write_versioned_project(&project_dir, "offline-tool", "0.9.0", "Offline local registry tool");
+    write_versioned_project(
+        &project_dir,
+        "offline-tool",
+        "0.9.0",
+        "Offline local registry tool",
+    );
     let publish_v09 = Command::new(&bin)
         .arg("publish")
         .arg("--registry")
@@ -396,11 +475,17 @@ fn local_registry_keeps_highest_version_when_published_out_of_order() {
         .env("X_HOME", &x_home)
         .output()
         .expect("x publish should run");
-    assert!(publish_v09.status.success(), "second publish should succeed");
+    assert!(
+        publish_v09.status.success(),
+        "second publish should succeed"
+    );
 
     let index = std::fs::read_to_string(registry_root.join("index").join("offline-tool.json"))
         .expect("read index json");
-    assert!(index.contains("\"max_version\": \"1.0.0\""), "index was: {index}");
+    assert!(
+        index.contains("\"max_version\": \"1.0.0\""),
+        "index was: {index}"
+    );
 
     let install = Command::new(&bin)
         .arg("install")
@@ -430,7 +515,10 @@ fn local_registry_keeps_highest_version_when_published_out_of_order() {
         .expect("installed wrapper should run");
     assert!(run.status.success(), "wrapper should run successfully");
     let run_stdout = String::from_utf8_lossy(&run.stdout);
-    assert!(run_stdout.contains("offline-tool 1.0.0 works"), "stdout was: {run_stdout}");
+    assert!(
+        run_stdout.contains("offline-tool 1.0.0 works"),
+        "stdout was: {run_stdout}"
+    );
 }
 
 #[test]
@@ -478,9 +566,13 @@ fn local_registry_yank_and_unyank_gate_installability() {
         String::from_utf8_lossy(&yank.stderr)
     );
 
-    let index_after_yank = std::fs::read_to_string(registry_root.join("index").join("offline-tool.json"))
-        .expect("read index after yank");
-    assert!(index_after_yank.contains("\"yanked\": true"), "index was: {index_after_yank}");
+    let index_after_yank =
+        std::fs::read_to_string(registry_root.join("index").join("offline-tool.json"))
+            .expect("read index after yank");
+    assert!(
+        index_after_yank.contains("\"yanked\": true"),
+        "index was: {index_after_yank}"
+    );
 
     let install_yanked = Command::new(&bin)
         .arg("install")
@@ -490,9 +582,15 @@ fn local_registry_yank_and_unyank_gate_installability() {
         .env("X_HOME", &x_home)
         .output()
         .expect("x install should run");
-    assert!(!install_yanked.status.success(), "install should fail for yanked version");
+    assert!(
+        !install_yanked.status.success(),
+        "install should fail for yanked version"
+    );
     let install_yanked_stderr = String::from_utf8_lossy(&install_yanked.stderr);
-    assert!(install_yanked_stderr.contains("offline-tool@0.1.0 已被撤回，无法安装"), "stderr was: {install_yanked_stderr}");
+    assert!(
+        install_yanked_stderr.contains("offline-tool@0.1.0 已被撤回，无法安装"),
+        "stderr was: {install_yanked_stderr}"
+    );
 
     let unyank = Command::new(&bin)
         .arg("yank")
@@ -512,9 +610,13 @@ fn local_registry_yank_and_unyank_gate_installability() {
         String::from_utf8_lossy(&unyank.stderr)
     );
 
-    let index_after_unyank = std::fs::read_to_string(registry_root.join("index").join("offline-tool.json"))
-        .expect("read index after unyank");
-    assert!(index_after_unyank.contains("\"yanked\": false"), "index was: {index_after_unyank}");
+    let index_after_unyank =
+        std::fs::read_to_string(registry_root.join("index").join("offline-tool.json"))
+            .expect("read index after unyank");
+    assert!(
+        index_after_unyank.contains("\"yanked\": false"),
+        "index was: {index_after_unyank}"
+    );
 
     let install = Command::new(&bin)
         .arg("install")

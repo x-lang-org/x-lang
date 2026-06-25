@@ -190,7 +190,10 @@ impl ErlangBackend {
             Pointer(_) => "term()".to_string(),
             Array(_, _) => "[term()]".to_string(),
             Tuple(items) => {
-                let item_strs: Vec<String> = items.iter().map(|item| self.lir_type_to_erlang(item)).collect();
+                let item_strs: Vec<String> = items
+                    .iter()
+                    .map(|item| self.lir_type_to_erlang(item))
+                    .collect();
                 format!("{{{}}}", item_strs.join(", "))
             }
             FunctionPointer(_, _) => "fun()".to_string(),
