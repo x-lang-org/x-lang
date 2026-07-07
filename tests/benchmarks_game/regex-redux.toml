@@ -1,0 +1,96 @@
+# Regex-redux benchmark
+name = "regex-redux"
+description = "Regex-redux benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+stdin = """>header1
+agggtaaa
+tttaccct
+>header2
+agggtaaa
+tttaccctB
+"""
+
+source = """
+external "c" function regex_match_count(text: string, pattern: string) -> integer
+external "c" function regex_replace_all(text: string, pattern: string, replacement: string) -> string
+
+import std.io
+
+function main() -> integer {
+    let mutable initial_len = 0
+    let mutable seq = ""
+    let mutable running = true
+    while running {
+        match read_line() {
+            Ok(line) => {
+                if line.length() > 0 {
+                    initial_len = initial_len + line.length() + 1
+                    let first = line.substring(0, 1)
+                    if first != ">" {
+                        seq = seq + line
+                    }
+                } else {
+                    initial_len = initial_len + 1
+                }
+            }
+            Err(_) => {
+                running = false
+            }
+        }
+    }
+    
+    let clean_len = seq.length()
+    
+    let patterns = [
+        "agggtaaa|tttaccct",
+        "[cgt]gggtaaa|tttaccc[acg]",
+        "a[act]ggtaaa|tttacc[agt]t",
+        "ag[act]gtaaa|tttac[agt]ct",
+        "agg[act]taaa|ttta[agt]cct",
+        "aggg[acg]aaa|ttt[cgt]ccct",
+        "agggt[cgt]aa|tt[acg]accct",
+        "agggta[cgt]a|t[acg]taccct",
+        "agggtaa[cgt]|[acg]ttaccct"
+    ]
+    
+    let mutable i = 0
+    while i < patterns.length() {
+        let pat = patterns[i] as string
+        let count = regex_match_count(seq, pat)
+        println(pat + " " + count)
+        i = i + 1
+    }
+    
+    let mutable replaced = seq
+    replaced = regex_replace_all(replaced, "B", "(c|g|t)")
+    replaced = regex_replace_all(replaced, "D", "(a|g|t)")
+    replaced = regex_replace_all(replaced, "H", "(a|c|t)")
+    replaced = regex_replace_all(replaced, "K", "(g|t)")
+    replaced = regex_replace_all(replaced, "M", "(a|c)")
+    replaced = regex_replace_all(replaced, "N", "(a|c|g|t)")
+    replaced = regex_replace_all(replaced, "R", "(a|g)")
+    replaced = regex_replace_all(replaced, "S", "(c|g)")
+    replaced = regex_replace_all(replaced, "V", "(a|c|g)")
+    replaced = regex_replace_all(replaced, "W", "(a|t)")
+    replaced = regex_replace_all(replaced, "Y", "(c|t)")
+    
+    println("")
+    println(initial_len)
+    println(clean_len)
+    println(replaced.length())
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "agggtaaa|tttaccct 4",
+    "55",
+    "33",
+    "39"
+]

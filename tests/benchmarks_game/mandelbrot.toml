@@ -1,0 +1,58 @@
+# Mandelbrot benchmark
+name = "mandelbrot"
+description = "Mandelbrot fractal ASCII generator from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+function main() -> integer {
+    let max_iter = 50
+    let mutable y = 0
+    while y < 40 {
+        let _unused1 = 0
+        let ci = -1.25 + (y as Float) * 2.5 / 39.0
+        let mutable line = ""
+        let mutable x = 0
+        while x < 40 {
+            let _unused2 = 0
+            let cr = -2.0 + (x as Float) * 2.5 / 39.0
+            
+            let mutable zr = 0.0
+            let mutable zi = 0.0
+            let mutable is_in = true
+            let mutable iter = 0
+            while iter < max_iter {
+                let _unused3 = 0
+                let zr_new = zr * zr - zi * zi + cr
+                let zi_new = 2.0 * zr * zi + ci
+                zr = zr_new
+                zi = zi_new
+                if (zr * zr + zi * zi) > 4.0 {
+                    is_in = false
+                    iter = max_iter
+                } else {
+                    iter = iter + 1
+                }
+            }
+            if is_in {
+                line = line + "*"
+            } else {
+                line = line + " "
+            }
+            x = x + 1
+        }
+        println(line)
+        y = y + 1
+    }
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "*****  ******************",
+    "***************************"
+]

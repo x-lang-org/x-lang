@@ -1,0 +1,95 @@
+# Fasta DNA sequence generator benchmark
+name = "fasta"
+description = "Fasta DNA sequence generator from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+function random(max: Float, last_state: [integer]) -> Float {
+    let last = last_state[0] as integer
+    let next_last = (last * 3877 + 29573) % 139968
+    last_state[0] = next_last
+    return max * (next_last as Float) / 139968.0
+}
+
+function select_random(chars: [string], probs: [Float], last_state: [integer]) -> string {
+    let r = random(1.0, last_state)
+    let n = probs.length()
+    let mutable i = 0
+    while i < n {
+        let p = probs[i] as Float
+        if r < p {
+            return chars[i] as string
+        }
+        i = i + 1
+    }
+    return chars[n - 1] as string
+}
+
+function make_repeated_fasta(desc: string, alu: string, n: integer) -> unit {
+    println(desc)
+    let alu_len = alu.length()
+    let mutable i = 0
+    let mutable line = ""
+    while i < n {
+        let _unused = 0
+        let char_idx = i % alu_len
+        line = line + alu.substring(char_idx, char_idx + 1)
+        if line.length() == 60 {
+            println(line)
+            line = ""
+        }
+        i = i + 1
+    }
+    if line.length() > 0 {
+        println(line)
+    }
+}
+
+function make_random_fasta(desc: string, chars: [string], probs: [Float], n: integer, last_state: [integer]) -> unit {
+    println(desc)
+    let mutable i = 0
+    let mutable line = ""
+    while i < n {
+        let _unused = 0
+        line = line + select_random(chars, probs, last_state)
+        if line.length() == 60 {
+            println(line)
+            line = ""
+        }
+        i = i + 1
+    }
+    if line.length() > 0 {
+        println(line)
+    }
+}
+
+function main() -> integer {
+    let alu = "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA"
+    
+    let iub_chars = ["a", "c", "g", "t", "B", "D", "H", "K", "M", "N", "R", "S", "V", "W", "Y"]
+    let iub_probs = [0.27, 0.39, 0.51, 0.78, 0.80, 0.82, 0.84, 0.86, 0.88, 0.90, 0.92, 0.94, 0.96, 0.98, 1.00]
+    
+    let homo_chars = ["a", "c", "g", "t"]
+    let homo_probs = [0.3029549426680, 0.5009432431601, 0.6984905497992, 1.0000000000000]
+    
+    let last_state = [42]
+    
+    make_repeated_fasta(">ONE Homo sapiens alu", alu, 1000)
+    make_random_fasta(">TWO IUB ambiguity codes", iub_chars, iub_probs, 1000, last_state)
+    make_random_fasta(">THREE Homo sapiens frequency", homo_chars, homo_probs, 1000, last_state)
+    
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    ">ONE Homo sapiens alu",
+    "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGA",
+    ">TWO IUB ambiguity codes",
+    ">THREE Homo sapiens frequency"
+]

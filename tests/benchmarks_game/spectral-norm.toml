@@ -1,0 +1,118 @@
+# Spectral-norm benchmark
+name = "spectral-norm"
+description = "Spectral-norm benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+function create_float_array(size: integer, default_val: Float) -> [Float] {
+    let mutable arr = [] as [Float]
+    let mutable i = 0
+    while i < size {
+        let _unused = 0
+        arr.push(default_val)
+        i = i + 1
+    }
+    return arr
+}
+
+function eval_A(i: integer, j: integer) -> Float {
+    return 1.0 / (((i + j) * (i + j + 1) / 2 + i + 1) as Float)
+}
+
+function eval_A_times_u(n: integer, u: [Float], au: [Float]) -> unit {
+    let mutable i = 0
+    while i < n {
+        let _unused = 0
+        let mutable sum = 0.0
+        let mutable j = 0
+        while j < n {
+            sum = sum + eval_A(i, j) * (u[j] as Float)
+            j = j + 1
+        }
+        au[i] = sum
+        i = i + 1
+    }
+}
+
+function eval_At_times_u(n: integer, u: [Float], atu: [Float]) -> unit {
+    let mutable i = 0
+    while i < n {
+        let _unused = 0
+        let mutable sum = 0.0
+        let mutable j = 0
+        while j < n {
+            sum = sum + eval_A(j, i) * (u[j] as Float)
+            j = j + 1
+        }
+        atu[i] = sum
+        i = i + 1
+    }
+}
+
+function eval_AtA_times_u(n: integer, u: [Float], atau: [Float], temp: [Float]) -> unit {
+    eval_A_times_u(n, u, temp)
+    eval_At_times_u(n, temp, atau)
+}
+
+function format_float_9(x: Float) -> string {
+    let mutable sign = ""
+    let mutable v = x
+    if v < 0.0 {
+        sign = "-"
+        v = -v
+    }
+    v = v + 0.0000000005
+    let ip = v.floor() as Int
+    let mutable fp = v - (ip as Float)
+    let mutable frac_str = ""
+    let mutable temp = fp
+    let mutable i = 0
+    while i < 9 {
+        temp = temp * 10.0
+        let digit = temp.floor() as Int
+        frac_str = frac_str + digit
+        temp = temp - (digit as Float)
+        i = i + 1
+    }
+    return sign + ip + "." + frac_str
+}
+
+function main() -> integer {
+    let n = 100
+    let u = create_float_array(n, 1.0)
+    let v = create_float_array(n, 0.0)
+    let temp = create_float_array(n, 0.0)
+    
+    let mutable i = 0
+    while i < 10 {
+        let _unused1 = 0
+        eval_AtA_times_u(n, u, v, temp)
+        eval_AtA_times_u(n, v, u, temp)
+        i = i + 1
+    }
+    
+    let mutable vBv = 0.0
+    let mutable vv = 0.0
+    let mutable j = 0
+    while j < n {
+        let u_val = u[j] as Float
+        let v_val = v[j] as Float
+        vBv = vBv + u_val * v_val
+        vv = vv + v_val * v_val
+        j = j + 1
+    }
+    
+    let spectral_norm = (vBv / vv).sqrt()
+    println(format_float_9(spectral_norm))
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "1.274219991"
+]

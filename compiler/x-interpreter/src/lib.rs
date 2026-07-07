@@ -252,6 +252,7 @@ impl Interpreter {
         !matches!(
             name,
             "Some" | "None" | "Ok" | "Err" | "print" | "print_inline" | "println"
+            | "regex_match_count" | "regex_replace_all" | "compute_pi_digits"
         )
     }
 

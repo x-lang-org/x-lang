@@ -63,6 +63,8 @@ class TestConfig:
     expect: dict = field(default_factory=dict)
     compile_fail: bool = False
     error_contains: list = field(default_factory=list)
+    stdin: Optional[str] = None
+
 
 
 class TestRunner:
@@ -104,6 +106,7 @@ class TestRunner:
             expect=data.get("expect", {}),
             compile_fail=data.get("compile_fail", False),
             error_contains=data.get("error_contains", []),
+            stdin=data.get("stdin", None),
         )
 
     def run_cli(self, args: list, input_source: Optional[str] = None) -> tuple[int, str, str]:
@@ -200,7 +203,7 @@ class TestRunner:
         finally:
             os.unlink(temp_path)
 
-    def run_program(self, source: str) -> tuple[bool, str, str, int]:
+    def run_program(self, source: str, stdin: Optional[str] = None) -> tuple[bool, str, str, int]:
         """运行程序并获取输出"""
         with tempfile.NamedTemporaryFile(mode='w', suffix='.x', delete=False, encoding='utf-8') as f:
             f.write(source)
@@ -208,7 +211,8 @@ class TestRunner:
 
         try:
             returncode, stdout, stderr = self.run_cli(
-                ["run", temp_path]
+                ["run", temp_path],
+                input_source=stdin
             )
             return returncode == 0, stdout, stderr, returncode
         finally:
@@ -734,7 +738,7 @@ class TestRunner:
 
         # 运行时测试
         if expect.get("compile", True):
-            success, output, stderr, returncode = self.run_program(config.source)
+            success, output, stderr, returncode = self.run_program(config.source, stdin=config.stdin)
             runtime_expect = self.build_runtime_expectation(expect)
             if runtime_expect:
                 if success:

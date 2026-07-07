@@ -1,0 +1,40 @@
+# Pidigits benchmark
+name = "pidigits"
+description = "Pidigits computation benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+external "c" function compute_pi_digits(n: integer) -> string
+
+function main() -> integer {
+    let n = 27
+    let digits = compute_pi_digits(n)
+    let len = digits.length()
+    let mutable i = 0
+    while i < len {
+        let _unused = 0
+        let chunk_size = when i + 10 <= len { 10 } else { len - i }
+        let chunk = digits.substring(i, i + chunk_size)
+        let mutable padded = chunk
+        let mutable pad_len = 10 - chunk_size
+        while pad_len > 0 {
+            padded = padded + " "
+            pad_len = pad_len - 1
+        }
+        println(padded + "\t:" + (i + chunk_size))
+        i = i + 10
+    }
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "3141592653\t:10",
+    "5897932384\t:20",
+    "6264338   \t:27"
+]

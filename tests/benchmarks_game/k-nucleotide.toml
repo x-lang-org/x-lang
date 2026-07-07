@@ -1,0 +1,213 @@
+# K-nucleotide benchmark
+name = "k-nucleotide"
+description = "K-nucleotide frequency benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+stdin = """>THREE Homo sapiens frequency
+GGTATTTTAATTTATAGT
+"""
+
+source = """
+import std.io
+
+class Entry {
+    public let key: string
+    public let value: integer
+    
+    public new(key: string, value: integer) {
+        this.key = key
+        this.value = value
+    }
+}
+
+function to_upper(c: string) -> string {
+    if c == "a" { return "A" }
+    if c == "c" { return "C" }
+    if c == "g" { return "G" }
+    if c == "t" { return "T" }
+    return c
+}
+
+function count_frequencies(seq: [string], k: integer) -> Dictionary<string, integer> {
+    let dict = {"DUMMY": 0}
+    let seq_len = seq.length()
+    let mutable i = 0
+    while i <= seq_len - k {
+        let mutable sub = ""
+        let mutable j = 0
+        while j < k {
+            sub = sub + (seq[i + j] as string)
+            j = j + 1
+        }
+        let current = dict[sub]
+        if current == null {
+            dict[sub] = 1
+        } else {
+            dict[sub] = (current as integer) + 1
+        }
+        i = i + 1
+    }
+    return dict
+}
+
+function format_float_3(x: Float) -> string {
+    let mutable v = x
+    if v < 0.0 {
+        v = -v
+    }
+    v = v + 0.0005
+    let ip = v.floor() as Int
+    let mutable fp = v - (ip as Float)
+    let mutable frac_str = ""
+    let mutable temp = fp
+    let mutable i = 0
+    while i < 3 {
+        temp = temp * 10.0
+        let digit = temp.floor() as Int
+        frac_str = frac_str + digit
+        temp = temp - (digit as Float)
+        i = i + 1
+    }
+    return ip + "." + frac_str
+}
+
+function print_sorted(dict: Dictionary<string, integer>, keys: [string], total: Float) -> unit {
+    let entries = [] as [Entry]
+    let n = keys.length()
+    let mutable i = 0
+    while i < n {
+        let k = keys[i] as string
+        let count_val = dict[k]
+        let count = when count_val == null { 0 } else { count_val as integer }
+        entries.push(Entry(k, count))
+        i = i + 1
+    }
+    
+    // Sort entries descending
+    let mutable j = 0
+    while j < n - 1 {
+        let mutable max_idx = j
+        let mutable k = j + 1
+        while k < n {
+            let val_k = (entries[k] as Entry).value
+            let val_max = (entries[max_idx] as Entry).value
+            if val_k > val_max {
+                max_idx = k
+            }
+            k = k + 1
+        }
+        if max_idx != j {
+            let t = entries[j] as Entry
+            entries[j] = entries[max_idx]
+            entries[max_idx] = t
+        }
+        j = j + 1
+    }
+    
+    // Print sorted
+    let mutable idx = 0
+    while idx < n {
+        let entry = entries[idx] as Entry
+        if entry.value > 0 {
+            let percent = (entry.value as Float) * 100.0 / total
+            println(entry.key + " " + format_float_3(percent))
+        }
+        idx = idx + 1
+    }
+}
+
+function print_count(dict: Dictionary<string, integer>, k: string) -> unit {
+    let count_val = dict[k]
+    let count = when count_val == null { 0 } else { count_val as integer }
+    println(count + " " + k)
+}
+
+function main() -> integer {
+    let mutable seq_arr = [] as [string]
+    let mutable reading = false
+    let mutable running = true
+    while running {
+        match read_line() {
+            Ok(line) => {
+                if line.length() > 0 {
+                    let first = line.substring(0, 1)
+                    if first == ">" {
+                        if line.substring(0, 6) == ">THREE" {
+                            reading = true
+                        } else {
+                            reading = false
+                        }
+                    } else {
+                        if reading {
+                            let line_len = line.length()
+                            let mutable i = 0
+                            while i < line_len {
+                                seq_arr.push(to_upper(line.substring(i, i + 1)))
+                                i = i + 1
+                            }
+                        }
+                    }
+                }
+            }
+            Err(e) => {
+                running = false
+            }
+        }
+    }
+    
+    let total = seq_arr.length() as Float
+    if total > 0.0 {
+        // 1-nucleotide
+        let keys1 = ["A", "C", "G", "T"]
+        let dict1 = count_frequencies(seq_arr, 1)
+        print_sorted(dict1, keys1, total)
+        println("")
+        
+        // 2-nucleotide
+        let keys2 = ["AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC", "GG", "GT", "TA", "TC", "TG", "TT"]
+        let dict2 = count_frequencies(seq_arr, 2)
+        print_sorted(dict2, keys2, total - 1.0)
+        println("")
+        
+        // Specific queries
+        let dict3 = count_frequencies(seq_arr, 3)
+        print_count(dict3, "GGT")
+        
+        let dict4 = count_frequencies(seq_arr, 4)
+        print_count(dict4, "GGTA")
+        
+        let dict6 = count_frequencies(seq_arr, 6)
+        print_count(dict6, "GGTATT")
+        
+        let dict12 = count_frequencies(seq_arr, 12)
+        print_count(dict12, "GGTATTTTAATT")
+        
+        let dict18 = count_frequencies(seq_arr, 18)
+        print_count(dict18, "GGTATTTTAATTTATAGT")
+    }
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "T 55.556",
+    "A 27.778",
+    "G 16.667",
+    "TT 29.412",
+    "TA 23.529",
+    "AT 17.647",
+    "GT 11.765",
+    "GG 5.882",
+    "AG 5.882",
+    "AA 5.882",
+    "1 GGT",
+    "1 GGTA",
+    "1 GGTATT",
+    "1 GGTATTTTAATT",
+    "1 GGTATTTTAATTTATAGT"
+]

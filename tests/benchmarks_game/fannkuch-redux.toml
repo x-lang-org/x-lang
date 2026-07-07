@@ -1,0 +1,139 @@
+# Fannkuch-redux benchmark
+name = "fannkuch-redux"
+description = "Fannkuch-redux permutation benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+function create_array(size: integer, default_val: integer) -> [integer] {
+    let mutable arr = [] as [integer]
+    let mutable i = 0
+    while i < size {
+        let _unused = 0
+        arr.push(default_val)
+        i = i + 1
+    }
+    return arr
+}
+
+function fannkuch(n: integer) -> integer {
+    let perm = create_array(n, 0)
+    let perm1 = create_array(n, 0)
+    let count = create_array(n, 0)
+    
+    let mutable i = 0
+    while i < n {
+        perm1[i] = i
+        i = i + 1
+    }
+    
+    let mutable r = n
+    let mutable maxFlipsCount = 0
+    let mutable checksum = 0
+    let mutable permCount = 0
+    
+    let mutable running = true
+    while running {
+        let _unused1 = 0
+        while r != 1 {
+            let _unused2 = 0
+            count[r - 1] = r
+            r = r - 1
+        }
+        
+        // Copy perm1 to perm
+        let mutable k = 0
+        while k < n {
+            perm[k] = perm1[k]
+            k = k + 1
+        }
+        
+        let mutable flipsCount = 0
+        let mutable k0 = perm[0] as integer
+        if k0 != 0 {
+            let _unused3 = 0
+            flipsCount = 0
+            // Flip perm
+            let mutable loop_flip = true
+            while loop_flip {
+                let _unused4 = 0
+                // Flip the first k0 + 1 elements
+                let mutable lo = 1
+                let mutable hi = k0 - 1
+                while lo < hi {
+                    let _unused5 = 0
+                    let t = perm[lo] as integer
+                    perm[lo] = perm[hi]
+                    perm[hi] = t
+                    lo = lo + 1
+                    hi = hi - 1
+                }
+                
+                // Swap index 0 and k0
+                let t = perm[0] as integer
+                perm[0] = perm[k0]
+                perm[k0] = t
+                
+                flipsCount = flipsCount + 1
+                k0 = perm[0] as integer
+                if k0 == 0 {
+                    loop_flip = false
+                }
+            }
+            if flipsCount > maxFlipsCount {
+                maxFlipsCount = flipsCount
+            }
+        }
+        
+        if permCount % 2 == 0 {
+            checksum = checksum + flipsCount
+        } else {
+            checksum = checksum - flipsCount
+        }
+        
+        // Next permutation
+        let mutable next_perm = true
+        while next_perm {
+            let _unused6 = 0
+            if r == n {
+                println(checksum)
+                running = false
+                next_perm = false
+            } else {
+                // Rotate perm1 left by 1 for elements 0 to r
+                let first = perm1[0] as integer
+                let mutable j = 0
+                while j < r {
+                    perm1[j] = perm1[j + 1]
+                    j = j + 1
+                }
+                perm1[r] = first
+                
+                count[r] = (count[r] as integer) - 1
+                if (count[r] as integer) > 0 {
+                    next_perm = false
+                } else {
+                    r = r + 1
+                }
+            }
+        }
+        permCount = permCount + 1
+    }
+    return maxFlipsCount
+}
+
+function main() -> integer {
+    let max_flips = fannkuch(7)
+    println("Pfannkuchen(7) = " + max_flips)
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "228",
+    "Pfannkuchen(7) = 16"
+]

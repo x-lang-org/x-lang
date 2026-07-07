@@ -1,0 +1,90 @@
+# Reverse-complement benchmark
+name = "reverse-complement"
+description = "Reverse-complement benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+stdin = """>header1
+AAAAACCCCC
+"""
+
+source = """
+import std.io
+
+function complement(c: string) -> string {
+    if c == "A" or c == "a" { return "T" }
+    if c == "T" or c == "t" or c == "U" or c == "u" { return "A" }
+    if c == "C" or c == "c" { return "G" }
+    if c == "G" or c == "g" { return "C" }
+    if c == "R" or c == "r" { return "Y" }
+    if c == "Y" or c == "y" { return "R" }
+    if c == "S" or c == "s" { return "S" }
+    if c == "W" or c == "w" { return "W" }
+    if c == "K" or c == "k" { return "M" }
+    if c == "M" or c == "m" { return "K" }
+    if c == "B" or c == "b" { return "V" }
+    if c == "D" or c == "d" { return "H" }
+    if c == "H" or c == "h" { return "D" }
+    if c == "V" or c == "v" { return "B" }
+    if c == "N" or c == "n" { return "N" }
+    return c
+}
+
+function print_reverse_complement(seq: [string]) -> unit {
+    let seq_len = seq.length()
+    let mutable i = seq_len - 1
+    let mutable line = ""
+    while i >= 0 {
+        let c = seq[i] as string
+        line = line + complement(c)
+        if line.length() == 60 {
+            println(line)
+            line = ""
+        }
+        i = i - 1
+    }
+    if line.length() > 0 {
+        println(line)
+    }
+}
+
+function main() -> integer {
+    let mutable seq = [] as [string]
+    let mutable running = true
+    while running {
+        match read_line() {
+            Ok(line) => {
+                if line.length() > 0 {
+                    let first = line.substring(0, 1)
+                    if first == ">" {
+                        print_reverse_complement(seq)
+                        seq = [] as [string]
+                        println(line)
+                    } else {
+                        let line_len = line.length()
+                        let mutable i = 0
+                        while i < line_len {
+                            seq.push(line.substring(i, i + 1))
+                            i = i + 1
+                        }
+                    }
+                }
+            }
+            Err(e) => {
+                running = false
+            }
+        }
+    }
+    print_reverse_complement(seq)
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    ">header1",
+    "GGGGGTTTTT"
+]

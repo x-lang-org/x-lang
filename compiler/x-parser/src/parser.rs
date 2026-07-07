@@ -248,6 +248,53 @@ impl XParser {
                                 span: self.current_span(ti),
                             }));
                         }
+                        Some(Ok((Token::Let, _)))
+                        | Some(Ok((Token::Constant, _)))
+                        | Some(Ok((Token::Val, _)))
+                        | Some(Ok((Token::Var, _)))
+                        | Some(Ok((Token::Const, _)))
+                        | Some(Ok((Token::Static, _))) => {
+                            let next_tok = ti.next().unwrap().unwrap().0;
+                            let var = match next_tok {
+                                Token::Let => {
+                                    let is_constant = self.eat_constant(ti);
+                                    let m = self.eat_mut(ti);
+                                    let mut v = self.parse_variable(ti, m)?;
+                                    v.is_constant = is_constant;
+                                    v
+                                }
+                                Token::Constant => {
+                                    let mut v = self.parse_variable(ti, false)?;
+                                    v.is_constant = true;
+                                    v
+                                }
+                                Token::Val => {
+                                    self.parse_variable(ti, false)?
+                                }
+                                Token::Var => {
+                                    self.parse_variable(ti, true)?
+                                }
+                                Token::Const => {
+                                    let mut v = self.parse_variable(ti, false)?;
+                                    v.is_constant = true;
+                                    v
+                                }
+                                Token::Static => {
+                                    let is_mutable = self.eat_mut(ti);
+                                    self.parse_variable(ti, is_mutable)?
+                                }
+                                _ => unreachable!(),
+                            };
+                            let name = match var.simple_name() {
+                                Some(n) => n.to_string(),
+                                None => return Err(self.err("期望导出变量有简单名称".to_string(), ti)),
+                            };
+                            declarations.push(Declaration::Variable(var));
+                            declarations.push(Declaration::Export(ExportDecl {
+                                symbol: name,
+                                span: self.current_span(ti),
+                            }));
+                        }
                         _ => {
                             // Traditional export declaration: export name;
                             declarations.push(Declaration::Export(self.parse_export(ti)?));
@@ -3038,6 +3085,7 @@ impl XParser {
                     | Some(Ok((Token::Catch, _)))
                     | Some(Ok((Token::Finally, _)))
                     | Some(Ok((Token::Await, _)))
+                    | Some(Ok((Token::When, _)))
                     | Some(Ok((Token::Async, _)))
                     | Some(Ok((Token::Atomic, _)))
                     | Some(Ok((Token::Concurrently, _))) => true,

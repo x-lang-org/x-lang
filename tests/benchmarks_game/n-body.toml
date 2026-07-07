@@ -1,0 +1,195 @@
+# N-body simulation benchmark
+name = "n-body"
+description = "N-body simulation of Jovian planets from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+class Body {
+    public let mutable x: Float
+    public let mutable y: Float
+    public let mutable z: Float
+    public let mutable vx: Float
+    public let mutable vy: Float
+    public let mutable vz: Float
+    public let mass: Float
+
+    public new(x: Float, y: Float, z: Float, vx: Float, vy: Float, vz: Float, mass: Float) {
+        this.x = x
+        this.y = y
+        this.z = z
+        this.vx = vx
+        this.vy = vy
+        this.vz = vz
+        this.mass = mass
+    }
+}
+
+function energy(bodies: [Body]) -> Float {
+    let mutable e = 0.0
+    let n = bodies.length()
+    let mutable i = 0
+    while i < n {
+        let b1 = bodies[i] as Body
+        e = e + 0.5 * b1.mass * (b1.vx * b1.vx + b1.vy * b1.vy + b1.vz * b1.vz)
+        let mutable j = i + 1
+        while j < n {
+            let b2 = bodies[j] as Body
+            let dx = b1.x - b2.x
+            let dy = b1.y - b2.y
+            let dz = b1.z - b2.z
+            let distance = (dx * dx + dy * dy + dz * dz).sqrt()
+            e = e - (b1.mass * b2.mass) / distance
+            j = j + 1
+        }
+        i = i + 1
+    }
+    return e
+}
+
+function advance(bodies: [Body], dt: Float) -> unit {
+    let n = bodies.length()
+    let mutable i = 0
+    while i < n {
+        let b1 = bodies[i] as Body
+        let mutable j = i + 1
+        while j < n {
+            let b2 = bodies[j] as Body
+            let dx = b1.x - b2.x
+            let dy = b1.y - b2.y
+            let dz = b1.z - b2.z
+            let dist_sq = dx * dx + dy * dy + dz * dz
+            let distance = dist_sq.sqrt()
+            let mag = dt / (dist_sq * distance)
+            
+            b1.vx = b1.vx - dx * b2.mass * mag
+            b1.vy = b1.vy - dy * b2.mass * mag
+            b1.vz = b1.vz - dz * b2.mass * mag
+            
+            b2.vx = b2.vx + dx * b1.mass * mag
+            b2.vy = b2.vy + dy * b1.mass * mag
+            b2.vz = b2.vz + dz * b1.mass * mag
+            
+            j = j + 1
+        }
+        i = i + 1
+    }
+    
+    // Update positions
+    let mutable k = 0
+    while k < n {
+        let b = bodies[k] as Body
+        b.x = b.x + dt * b.vx
+        b.y = b.y + dt * b.vy
+        b.z = b.z + dt * b.vz
+        k = k + 1
+    }
+}
+
+function format_float_9(x: Float) -> string {
+    let mutable sign = ""
+    let mutable v = x
+    if v < 0.0 {
+        sign = "-"
+        v = -v
+    }
+    v = v + 0.0000000005
+    let ip = v.floor() as Int
+    let mutable fp = v - (ip as Float)
+    let mutable frac_str = ""
+    let mutable temp = fp
+    let mutable i = 0
+    while i < 9 {
+        temp = temp * 10.0
+        let digit = temp.floor() as Int
+        frac_str = frac_str + digit
+        temp = temp - (digit as Float)
+        i = i + 1
+    }
+    return sign + ip + "." + frac_str
+}
+
+function main() -> integer {
+    let pi = 3.141592653589793
+    let solar_mass = 4.0 * pi * pi
+    let days_per_year = 365.24
+
+    let jupiter = Body(
+        4.84143144246472090,
+        -1.16032004402742839,
+        -0.103622044471123109,
+        0.00166007664274403694 * days_per_year,
+        0.00769901118419740425 * days_per_year,
+        -0.0000690460016972063023 * days_per_year,
+        0.000954791938424326609 * solar_mass
+    )
+
+    let saturn = Body(
+        8.34336671824457987,
+        4.12479856412430479,
+        -0.403523417114321381,
+        -0.00276742510726862411 * days_per_year,
+        0.00499852801234917238 * days_per_year,
+        0.0000230417297573763929 * days_per_year,
+        0.000285885980666130812 * solar_mass
+    )
+
+    let uranus = Body(
+        12.8943695621391310,
+        -15.1111514016986312,
+        -0.223307578892655734,
+        0.00296460137564761618 * days_per_year,
+        0.00237847173959480950 * days_per_year,
+        -0.0000296589568540237556 * days_per_year,
+        0.0000436624404335156298 * solar_mass
+    )
+
+    let neptune = Body(
+        15.3796971141409417,
+        -25.9193146099879641,
+        0.179258772950371181,
+        0.00268067772490389322 * days_per_year,
+        0.00162824170038242295 * days_per_year,
+        -0.0000951592254519715870 * days_per_year,
+        0.0000515138902046611451 * solar_mass
+    )
+
+    let sun = Body(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, solar_mass)
+
+    let bodies = [sun, jupiter, saturn, uranus, neptune]
+
+    // Offset momentum
+    let mutable px = 0.0
+    let mutable py = 0.0
+    let mutable pz = 0.0
+    for b in bodies {
+        let b_body = b as Body
+        px = px + b_body.vx * b_body.mass
+        py = py + b_body.vy * b_body.mass
+        pz = pz + b_body.vz * b_body.mass
+    }
+    sun.vx = -px / solar_mass
+    sun.vy = -py / solar_mass
+    sun.vz = -pz / solar_mass
+
+    println(format_float_9(energy(bodies)))
+
+    let mutable i = 0
+    while i < 1000 {
+        advance(bodies, 0.01)
+        i = i + 1
+    }
+
+    println(format_float_9(energy(bodies)))
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "-0.169075164",
+    "-0.169087605"
+]

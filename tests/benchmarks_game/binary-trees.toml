@@ -1,0 +1,99 @@
+# Binary-trees benchmark
+name = "binary-trees"
+description = "Binary-trees allocation benchmark from the Computer Language Benchmarks Game"
+category = "benchmarks_game"
+
+source = """
+enum TreeOption {
+    Some(TreeNode)
+    None
+}
+
+class TreeNode {
+    public let left: TreeOption
+    public let right: TreeOption
+
+    public new(left: TreeOption, right: TreeOption) {
+        this.left = left
+        this.right = right
+    }
+}
+
+function bottom_up_tree(depth: integer) -> TreeNode {
+    if depth > 0 {
+        TreeNode(
+            TreeOption.Some(bottom_up_tree(depth - 1)),
+            TreeOption.Some(bottom_up_tree(depth - 1))
+        )
+    } else {
+        TreeNode(TreeOption.None, TreeOption.None)
+    }
+}
+
+function item_check(node: TreeNode) -> integer {
+    when node.left is {
+        TreeOption.Some(left) => when node.right is {
+            TreeOption.Some(right) => 1 + item_check(left) + item_check(right)
+            TreeOption.None => 1
+        }
+        TreeOption.None => 1
+    }
+}
+
+function power_of_two(p: integer) -> integer {
+    let mutable res = 1
+    let mutable i = 0
+    while i < p {
+        res = res * 2
+        i = i + 1
+    }
+    return res
+}
+
+function main() -> integer {
+    let min_depth = 4
+    let max_depth = 10
+    let stretch_depth = max_depth + 1
+    
+    // Stretch tree
+    let stretch_tree = bottom_up_tree(stretch_depth)
+    println("stretch tree of depth " + stretch_depth + " check: " + item_check(stretch_tree))
+    
+    // Long-lived tree
+    let long_lived_tree = bottom_up_tree(max_depth)
+    
+    // Iterate over depths
+    let mutable depth = min_depth
+    while depth <= max_depth {
+        let _unused1 = 0
+        let iterations = power_of_two(max_depth - depth + min_depth)
+        let mutable check = 0
+        let mutable i = 0
+        while i < iterations {
+            let _unused2 = 0
+            let t = bottom_up_tree(depth)
+            check = check + item_check(t)
+            i = i + 1
+        }
+        println(iterations + " trees of depth " + depth + " check: " + check)
+        depth = depth + 2
+    }
+    
+    println("long lived tree of depth " + max_depth + " check: " + item_check(long_lived_tree))
+    return 0
+}
+"""
+
+[expect]
+compile = true
+exit_code = 0
+
+[expect.runtime]
+output_contains = [
+    "stretch tree of depth 11 check: 4095",
+    "1024 trees of depth 4 check: 31744",
+    "256 trees of depth 6 check: 32512",
+    "64 trees of depth 8 check: 32704",
+    "16 trees of depth 10 check: 32752",
+    "long lived tree of depth 10 check: 2047"
+]
