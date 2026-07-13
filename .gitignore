@@ -30,7 +30,11 @@ test_lexer.rs
 
 # Git worktrees
 .worktrees/
+.claude/
 
 # LeetCode
 leetcode-mcp-server/
 .playwright-mcp/
+
+# Benchmark outputs
+tests/benchmarks_game/zig_output/
