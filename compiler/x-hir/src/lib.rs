@@ -163,6 +163,8 @@ pub struct HirVariableDecl {
     pub is_mutable: bool,
     pub ty: HirType,
     pub initializer: Option<HirExpression>,
+    /// Set for `external "abi" variable ...` declarations.
+    pub extern_abi: Option<String>,
 }
 
 /// 函数声明
@@ -981,6 +983,15 @@ pub struct HirConverter<'a> {
     type_env: Option<&'a x_typechecker::TypeEnv>,
 }
 
+/// Receiver class for stdlib method → free-function desugaring.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum StdlibReceiverKind {
+    String,
+    Array,
+    Float,
+    Int,
+}
+
 impl<'a> Default for HirConverter<'a> {
     fn default() -> Self {
         Self::new()
@@ -1002,6 +1013,105 @@ impl<'a> HirConverter<'a> {
             variables: HashMap::new(),
             functions: HashMap::new(),
             type_env: Some(type_env),
+        }
+    }
+
+    /// Map `receiver.method` to the canonical prelude free-function name.
+    /// Keep in sync with `x_typechecker::stdlib_method_free_function`.
+    fn stdlib_method_free_function(
+        &self,
+        receiver: &HirExpression,
+        method: &str,
+    ) -> Option<&'static str> {
+        let kind = self.receiver_stdlib_kind(receiver)?;
+        match (kind, method) {
+            (StdlibReceiverKind::String, "length") => Some("string_length"),
+            (StdlibReceiverKind::String, "substring") => Some("string_substring"),
+            (StdlibReceiverKind::String, "contains") => Some("string_contains"),
+            (StdlibReceiverKind::String, "trim") => Some("string_trim"),
+            (StdlibReceiverKind::String, "split") => Some("string_split"),
+            (StdlibReceiverKind::String, "to_upper") | (StdlibReceiverKind::String, "toUpperCase") => {
+                Some("string_to_upper")
+            }
+            (StdlibReceiverKind::String, "to_lower") | (StdlibReceiverKind::String, "toLowerCase") => {
+                Some("string_to_lower")
+            }
+            (StdlibReceiverKind::Array, "length") => Some("array_length"),
+            (StdlibReceiverKind::Array, "push") => Some("array_push"),
+            (StdlibReceiverKind::Float, "sqrt") => Some("sqrt"),
+            (StdlibReceiverKind::Float, "floor") => Some("floor"),
+            (StdlibReceiverKind::Float, "ceil") => Some("ceil"),
+            (StdlibReceiverKind::Float, "pow") => Some("pow"),
+            (StdlibReceiverKind::Float, "abs") => Some("fabs"),
+            (StdlibReceiverKind::Int, "abs") => Some("abs"),
+            _ => None,
+        }
+    }
+
+    fn receiver_stdlib_kind(&self, expr: &HirExpression) -> Option<StdlibReceiverKind> {
+        match expr {
+            HirExpression::Typed(_, ty) => Self::hir_type_stdlib_kind(ty),
+            HirExpression::Variable(name) => self
+                .type_env
+                .and_then(|env| env.get_variable(name))
+                .and_then(Self::x_type_stdlib_kind)
+                .or_else(|| {
+                    self.variables
+                        .get(name)
+                        .and_then(|ty| Self::hir_type_stdlib_kind(ty))
+                }),
+            HirExpression::Literal(HirLiteral::String(_)) => Some(StdlibReceiverKind::String),
+            HirExpression::Literal(HirLiteral::Float(_)) => Some(StdlibReceiverKind::Float),
+            HirExpression::Literal(HirLiteral::Integer(_)) => Some(StdlibReceiverKind::Int),
+            HirExpression::Array(_) => Some(StdlibReceiverKind::Array),
+            HirExpression::Binary(HirBinaryOp::Concat, _, _) => Some(StdlibReceiverKind::String),
+            HirExpression::Binary(HirBinaryOp::Add, left, right) => {
+                match (
+                    self.receiver_stdlib_kind(left),
+                    self.receiver_stdlib_kind(right),
+                ) {
+                    (Some(StdlibReceiverKind::String), _)
+                    | (_, Some(StdlibReceiverKind::String)) => Some(StdlibReceiverKind::String),
+                    _ => None,
+                }
+            }
+            HirExpression::Call(callee, _) => {
+                if let HirExpression::Variable(name) = callee.as_ref() {
+                    if let Some(info) = self.functions.get(name) {
+                        return Self::hir_type_stdlib_kind(&info.return_type);
+                    }
+                    if name.starts_with("string_") {
+                        return Some(StdlibReceiverKind::String);
+                    }
+                    if name == "array_length" || name == "array_push" {
+                        return Some(StdlibReceiverKind::Array);
+                    }
+                }
+                None
+            }
+            _ => None,
+        }
+    }
+
+    fn hir_type_stdlib_kind(ty: &HirType) -> Option<StdlibReceiverKind> {
+        match ty {
+            HirType::String | HirType::CString => Some(StdlibReceiverKind::String),
+            HirType::Array(_) => Some(StdlibReceiverKind::Array),
+            HirType::Float => Some(StdlibReceiverKind::Float),
+            HirType::Int | HirType::UnsignedInt | HirType::CInt | HirType::CLong | HirType::CLongLong => {
+                Some(StdlibReceiverKind::Int)
+            }
+            _ => None,
+        }
+    }
+
+    fn x_type_stdlib_kind(ty: &x_typechecker::Type) -> Option<StdlibReceiverKind> {
+        match ty {
+            x_typechecker::Type::String => Some(StdlibReceiverKind::String),
+            x_typechecker::Type::Array(_) => Some(StdlibReceiverKind::Array),
+            x_typechecker::Type::Float => Some(StdlibReceiverKind::Float),
+            x_typechecker::Type::Int => Some(StdlibReceiverKind::Int),
+            _ => None,
         }
     }
 
@@ -1201,6 +1311,19 @@ impl<'a> HirConverter<'a> {
                     .map(|tp| tp.name.clone())
                     .collect();
 
+                self.functions.insert(
+                    extern_func_decl.name.clone(),
+                    HirFunctionInfo {
+                        name: extern_func_decl.name.clone(),
+                        parameters: parameters
+                            .iter()
+                            .map(|p| (p.name.clone(), p.ty.clone()))
+                            .collect(),
+                        return_type: return_type.clone(),
+                        is_async: false,
+                    },
+                );
+
                 Ok(HirDeclaration::ExternFunction(HirExternFunctionDecl {
                     abi: extern_func_decl.abi.clone(),
                     type_params,
@@ -1275,6 +1398,7 @@ impl<'a> HirConverter<'a> {
             is_mutable: var_decl.is_mutable,
             ty,
             initializer,
+            extern_abi: var_decl.extern_abi.clone(),
         })
     }
 
@@ -1431,6 +1555,7 @@ impl<'a> HirConverter<'a> {
                         ),
                     ),
                     initializer: Some(lambda),
+                    extern_abi: None,
                 };
                 self.variables
                     .insert(hir_decl.name.clone(), hir_decl.ty.clone());
@@ -1559,6 +1684,24 @@ impl<'a> HirConverter<'a> {
                 let mut hir_args = Vec::new();
                 for arg in args {
                     hir_args.push(self.convert_expression(arg)?);
+                }
+                // Stdlib method calls (`s.length()`, `a.push(x)`, …) resolve via UFCS
+                // in the typechecker. Desugar colliding names here to prelude free
+                // functions so MIR/backends see ordinary calls — not FieldAccess+Call.
+                if let ExpressionKind::Member(receiver, method) = &callee.node {
+                    let recv = self.convert_expression(receiver)?;
+                    if let Some(func) = self.stdlib_method_free_function(&recv, method) {
+                        let mut full_args = vec![recv];
+                        full_args.extend(hir_args);
+                        return Ok(HirExpression::Call(
+                            Box::new(HirExpression::Variable(func.to_string())),
+                            full_args,
+                        ));
+                    }
+                    return Ok(HirExpression::Call(
+                        Box::new(HirExpression::Member(Box::new(recv), method.clone())),
+                        hir_args,
+                    ));
                 }
                 Ok(HirExpression::Call(
                     Box::new(self.convert_expression(callee)?),
@@ -1894,6 +2037,21 @@ impl<'a> HirConverter<'a> {
                 } else {
                     HirType::Unknown
                 }
+            }
+            ExpressionKind::Call(callee, _) => {
+                if let ExpressionKind::Variable(name) = &callee.node {
+                    if let Some(info) = self.functions.get(name) {
+                        return info.return_type.clone();
+                    }
+                    if let Some(env) = self.type_env {
+                        if let Some(fty) = env.get_function_type(name) {
+                            if let x_typechecker::Type::Function(_, ret) = fty {
+                                return HirType::from_x_type(ret);
+                            }
+                        }
+                    }
+                }
+                HirType::Unknown
             }
             _ => HirType::Unknown,
         }

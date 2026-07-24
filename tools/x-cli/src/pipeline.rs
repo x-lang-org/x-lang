@@ -259,6 +259,8 @@ pub fn prepare_program(source: &str, project_dir: &Path) -> Result<x_parser::ast
     let stdlib_dir = find_stdlib_path()?;
     resolve_imports(&mut program, &stdlib_dir, project_dir)?;
     inject_std_prelude(&mut program)?;
+    // Prelude may contain `import std.types` and similar — resolve after inject.
+    resolve_imports(&mut program, &stdlib_dir, project_dir)?;
 
     Ok(program)
 }

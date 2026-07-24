@@ -3830,6 +3830,7 @@ impl XParser {
             "character" | "char" | "Character" => Type::Char,
             "unit" | "Unit" => Type::Unit,
             "never" | "Never" => Type::Never,
+            "any" | "Any" | "dynamic" | "Dynamic" => Type::Dynamic,
             // 无符号整数
             "unsigned" | "uint" | "UnsignedInt" | "Uint32" | "u32" | "Uint64" | "u64"
             | "Uint16" | "u16" | "Uint8" | "u8" | "Byte" | "byte" | "Uint128" | "u128"

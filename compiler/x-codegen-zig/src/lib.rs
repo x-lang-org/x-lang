@@ -235,7 +235,11 @@ impl ZigBackend {
 
         // Helper function for equality comparison (handles strings and other types)
         self.line("fn xEqual(__lhs: anytype, __rhs: @TypeOf(__lhs)) bool {")?;
-        self.line("    return if (@typeInfo(@TypeOf(__lhs)) == .pointer)")?;
+        self.line("    const T = @TypeOf(__lhs);")?;
+        self.line("    if (comptime (T == [*:0]const u8 or T == [*:0]u8 or T == [*c]u8 or T == [*c]const u8)) {")?;
+        self.line("        return std.mem.eql(u8, std.mem.span(__lhs), std.mem.span(__rhs));")?;
+        self.line("    }")?;
+        self.line("    return if (@typeInfo(T) == .pointer)")?;
         self.line("        std.mem.eql(u8, __lhs, __rhs)")?;
         self.line("    else")?;
         self.line("        __lhs == __rhs;")?;
@@ -257,9 +261,26 @@ impl ZigBackend {
         self.line("}")?;
         self.line("")?;
 
-        self.line("fn __x_list_get(list: i32, idx: anytype) i64 {")?;
+        // Returns the raw XValue handle; callers unbox via x_as_int / x_as_double
+        // based on the destination type (see maybe_unbox_list_get).
+        self.line("fn __x_list_get(list: i32, idx: anytype) i32 {")?;
         self.indent();
-        self.line("return x_as_int(x_list_get(list, @intCast(idx)));")?;
+        self.line("return x_list_get(list, @intCast(idx));")?;
+        self.dedent();
+        self.line("}")?;
+        self.line("")?;
+
+        // Indexing: lists are XValue handles (i32); strings are C pointers and
+        // must be boxed before calling the runtime __index__.
+        self.line("fn __x_index(coll: anytype, idx: anytype) i32 {")?;
+        self.indent();
+        self.line("const T = @TypeOf(coll);")?;
+        self.line("if (comptime (T == [*:0]const u8 or T == [*:0]u8 or T == [*c]u8 or T == [*c]const u8)) {")?;
+        self.indent();
+        self.line("return __index__(x_from_str(coll), @intCast(idx));")?;
+        self.dedent();
+        self.line("}")?;
+        self.line("return x_list_get(coll, @intCast(idx));")?;
         self.dedent();
         self.line("}")?;
         self.line("")?;
@@ -361,93 +382,87 @@ impl ZigBackend {
     // Built-in function mapping
     // ========================================================================
 
+    /// Call emission: no language-API builtins. Library functions come from
+    /// std.prelude / user code; only representation/ABI helpers are special-cased.
     fn emit_builtin_or_call(&mut self, name: &str, args: &[String]) -> String {
         match name {
-            "print" | "println" => {
-                if args.len() == 1 {
-                    // Detect if the argument is a string literal (starts and ends with quotes)
-                    let arg = &args[0];
-                    let is_string_literal = arg.starts_with('"') && arg.ends_with('"');
-                    let format_spec = if is_string_literal { "{s}" } else { "{any}" };
-                    // Zig 的 print 使用 .{} 语法，不需要额外的花括号
-                    format!("std.debug.print(\"{}\\n\", .{{{}}})", format_spec, arg)
-                } else {
-                    "std.debug.print(\"\\n\", .{{}})".to_string()
-                }
+            "x_as_ptr" => {
+                let p = args.first().map(|s| s.as_str()).unwrap_or("0");
+                format!("x_as_ptr(@intCast({}))", p)
             }
-            // 对于返回 void 的内置函数，标记它们以便调用时不赋值
-            "print_inline" => {
-                if args.len() == 1 {
-                    let arg = &args[0];
-                    let is_string_literal = arg.starts_with('"') && arg.ends_with('"');
-                    let format_spec = if is_string_literal { "{s}" } else { "{any}" };
-                    format!("std.debug.print(\"{}\", .{{{}}})", format_spec, arg)
-                } else {
-                    "std.debug.print(\"\", .{{}})".to_string()
-                }
+            "x_as_double" | "x_as_int" | "x_as_bool" | "x_as_str" => {
+                let p = args.first().map(|s| s.as_str()).unwrap_or("0");
+                format!("{}(@intCast({}))", name, p)
             }
-            "concat" => {
-                if args.len() == 2 {
-                    format!(
-                        "std.mem.concat(allocator, u8, &[_][]const u8{{ {}, {} }}) catch unreachable",
-                        args[0], args[1]
-                    )
-                } else {
-                    "\"\"".to_string()
-                }
-            }
-            "to_string" => format!(
-                "std.fmt.allocPrint(allocator, \"{{}}\", .{{{}}}) catch unreachable",
-                args.first().map(|s| s.as_str()).unwrap_or("null")
-            ),
-            "string_length" => {
-                let s = args.first().map(|s| s.as_str()).unwrap_or("\"\"");
-                format!("{}.len", s)
-            }
-            "string_find" => {
-                let s = args.first().map(|s| s.as_str()).unwrap_or("\"\"");
-                let substr = args.get(1).map(|s| s.as_str()).unwrap_or("\"\"");
-                format!(
-                    r#"(blk: {{
-    const idx = std.mem.indexOf(u8, {}, {});
-    break :blk if (idx) |i| @as(i32, @intCast(i)) else @as(i32, -1);
-}})"#,
-                    s, substr
-                )
-            }
-            "string_substring" => {
-                let s = args.first().map(|s| s.as_str()).unwrap_or("\"\"");
-                let start = args.get(1).map(|s| s.as_str()).unwrap_or("0");
-                let end = args.get(2).map(|s| s.as_str()).unwrap_or("0");
-                format!("{}[{}..{}]", s, start, end)
-            }
-            "int_to_string" => {
-                let n = args.first().map(|s| s.as_str()).unwrap_or("0");
-                format!(
-                    "std.fmt.allocPrint(allocator, \"{{d}}\", .{{{}}}) catch unreachable",
-                    n
-                )
-            }
-            "type_of" => format!(
-                "@typeName(@TypeOf({}))",
-                args.first().map(|s| s.as_str()).unwrap_or("null")
-            ),
-            "panic" => {
-                if args.len() == 1 {
-                    format!("std.debug.panic(\"{{}}\", .{{{}}})", args[0])
-                } else {
-                    "std.debug.panic(\"panic\", .{{}})".to_string()
-                }
-            }
-            "len" => format!("{}.len", args.first().map(|s| s.as_str()).unwrap_or("null")),
             "__index__" => {
                 if args.len() == 2 {
-                    format!("x_list_get({}, @intCast({}))", args[0], args[1])
-                } else { "null".to_string() }
+                    format!("__x_index({}, {})", args[0], args[1])
+                } else {
+                    "null".to_string()
+                }
             }
-            _ => {
-                format!("{}({})", name, args.join(", "))
+            _ => format!("{}({})", name, args.join(", ")),
+        }
+    }
+
+    /// If `value` is an XValue from list/string indexing, unbox to match `type_str`.
+    fn maybe_unbox_list_get(value: &str, type_str: &str) -> String {
+        let is_list_get = value.contains("x_list_get(")
+            || value.contains("__x_list_get(")
+            || value.contains("__x_index(")
+            || (value.contains("__index__(") && !value.contains("x_from_str"));
+        let is_as_ptr = value.contains("x_as_ptr(");
+        if !is_list_get && !is_as_ptr {
+            return value.to_string();
+        }
+        if type_str.starts_with('*') {
+            let inner = if is_list_get {
+                format!("x_as_ptr({})", value)
+            } else {
+                value.to_string()
+            };
+            return format!("@as({}, @ptrCast(@alignCast({})))", type_str, inner);
+        }
+        if !is_list_get {
+            return value.to_string();
+        }
+        match type_str {
+            "f32" | "f64" | "f128" => format!("x_as_double({})", value),
+            "bool" => format!("(x_as_bool({}) != 0)", value),
+            "[*:0]const u8" | "[*:0]u8" => format!("x_as_str({})", value),
+            // i32 is the XValue handle width — leave indexed values boxed.
+            "i64" | "i128" | "isize" | "u64" | "u128" | "usize" => {
+                format!("@intCast(x_as_int({}))", value)
             }
+            _ => value.to_string(),
+        }
+    }
+
+    /// Whether an expression should use floating-point `/` instead of `@divTrunc`.
+    fn expr_is_float(&self, expr: &x_lir::Expression) -> bool {
+        match expr {
+            x_lir::Expression::Literal(x_lir::Literal::Float(_) | x_lir::Literal::Double(_)) => true,
+            x_lir::Expression::Variable(name) => {
+                let key = name.strip_prefix('_').unwrap_or(name);
+                self.temp_var_types
+                    .get(name)
+                    .or_else(|| self.temp_var_types.get(key))
+                    .map(|t| matches!(t.as_str(), "f32" | "f64" | "f128"))
+                    .unwrap_or(false)
+            }
+            x_lir::Expression::Cast(ty, _) => {
+                matches!(self.emit_lir_type(ty).as_str(), "f32" | "f64" | "f128")
+            }
+            x_lir::Expression::Unary(_, inner) => self.expr_is_float(inner),
+            x_lir::Expression::Binary(
+                x_lir::BinaryOp::Add
+                | x_lir::BinaryOp::Subtract
+                | x_lir::BinaryOp::Multiply
+                | x_lir::BinaryOp::Divide,
+                lhs,
+                rhs,
+            ) => self.expr_is_float(lhs) || self.expr_is_float(rhs),
+            _ => false,
         }
     }
 
@@ -481,18 +496,31 @@ impl ZigBackend {
         std::fs::write(&runtime_h, X_RUNTIME_HDR)?;
         std::fs::write(&runtime_c, X_RUNTIME_SRC)?;
 
-        // Build zig command - 在输出目录中运行
+        // Zig 0.16: passing absolute paths while also setting current_dir to the
+        // same folder triggers CacheCheckFailed / FileNotFound. Use basenames
+        // relative to output_dir, and pin the emit path explicitly.
+        let zig_name = zig_file.file_name().ok_or_else(|| {
+            x_codegen::CodeGenError::CompilerError("output zig path has no file name".into())
+        })?;
+        let runtime_name = runtime_c.file_name().ok_or_else(|| {
+            x_codegen::CodeGenError::CompilerError("runtime c path has no file name".into())
+        })?;
+        let out_name = output_file.file_name().ok_or_else(|| {
+            x_codegen::CodeGenError::CompilerError("output binary path has no file name".into())
+        })?;
+
         let mut cmd = Command::new("zig");
         cmd.arg("build-exe")
-            .arg(&zig_file)
-            .arg(&runtime_c)
+            .arg(zig_name)
+            .arg(runtime_name)
             .arg("-lc")
             .arg("-O")
             .arg(if self.config.optimize {
                 "ReleaseFast"
             } else {
                 "Debug"
-            });
+            })
+            .arg(format!("-femit-bin={}", out_name.to_string_lossy()));
 
         // Add target if not native
         if self.config.target != ZigTarget::Native {
@@ -508,6 +536,8 @@ impl ZigBackend {
         let output = cmd.output()?;
 
         if !output.status.success() {
+            // Remove a partial/corrupt emit so callers do not try to exec junk.
+            let _ = std::fs::remove_file(output_file);
             let stderr = String::from_utf8_lossy(&output.stderr);
             let stdout = String::from_utf8_lossy(&output.stdout);
             return Err(x_codegen::CodeGenError::CompilerError(format!(
@@ -552,10 +582,27 @@ impl ZigBackend {
     fn emit_extern_lir_type(&self, type_: &x_lir::Type) -> String {
         match type_ {
             x_lir::Type::Named(_) => "i32".to_string(),
-            x_lir::Type::Qualified(_, inner) => self.emit_extern_lir_type(inner),
+            x_lir::Type::Qualified(q, inner) => {
+                if q.is_const {
+                    if let x_lir::Type::Pointer(p) = inner.as_ref() {
+                        if matches!(p.as_ref(), x_lir::Type::Char | x_lir::Type::Uchar) {
+                            return "[*:0]const u8".to_string();
+                        }
+                    }
+                }
+                self.emit_extern_lir_type(inner)
+            }
             x_lir::Type::Pointer(inner) => match inner.as_ref() {
+                // `char**` (getline): mutable nullable inner pointer.
+                x_lir::Type::Pointer(inner2)
+                    if matches!(inner2.as_ref(), x_lir::Type::Char | x_lir::Type::Uchar) =>
+                {
+                    "*[*c]u8".to_string()
+                }
+                // libc `const char*` APIs (strlen, …): accept X strings.
                 x_lir::Type::Char | x_lir::Type::Uchar => "[*:0]const u8".to_string(),
                 x_lir::Type::Named(_) => "i32".to_string(),
+                x_lir::Type::Void => "*anyopaque".to_string(),
                 _ => format!("*{}", self.emit_extern_lir_type(inner)),
             },
             other => self.emit_lir_type(other),
@@ -607,7 +654,18 @@ impl ZigBackend {
 
     /// 发出全局变量（来自 LIR）
     fn emit_lir_global_var(&mut self, global_var: &x_lir::GlobalVar) -> ZigResult<()> {
-        let type_str = self.emit_lir_type(&global_var.type_);
+        let type_str = if let Some(_abi) = &global_var.extern_abi {
+            self.emit_extern_lir_type(&global_var.type_)
+        } else {
+            self.emit_lir_type(&global_var.type_)
+        };
+        if let Some(abi) = &global_var.extern_abi {
+            self.line(&format!(
+                "pub extern \"{}\" var {}: {};",
+                abi, global_var.name, type_str
+            ))?;
+            return Ok(());
+        }
         if let Some(initializer) = &global_var.initializer {
             let init_str = self.emit_lir_expression(initializer)?;
             self.line(&format!(
@@ -845,13 +903,11 @@ impl ZigBackend {
         self.temp_assignment_counts = Self::collect_temp_assignment_counts(&func.body);
         self.temp_use_counts = Self::collect_temp_use_counts(&func.body);
         self.temp_var_types.clear();
-        for stmt in &func.body.statements {
-            if let x_lir::Statement::Variable(var) = stmt {
-                if var.name.starts_with('t') && var.name.len() > 1
-                    && var.name[1..].chars().all(|c| c.is_ascii_digit())
-                { self.temp_var_types.insert(var.name.clone(), self.emit_lir_type(&var.type_)); }
-            }
+        for param in &func.parameters {
+            self.temp_var_types
+                .insert(param.name.clone(), self.emit_lir_type(&param.type_));
         }
+        self.collect_var_types_from_block(&func.body);
         self.used_params = func
             .parameters
             .iter()
@@ -897,6 +953,43 @@ impl ZigBackend {
             }
         }
 
+        // 在函数作用域预声明所有会被赋值/使用的临时变量，避免嵌套块作用域问题。
+        let mut hoist: Vec<(String, String, usize)> = Vec::new();
+        for (name, ty) in &self.temp_var_types {
+            let is_temp = (name.starts_with('t')
+                && name.len() > 1
+                && name[1..].chars().all(|c| c.is_ascii_digit()))
+                || (name.starts_with("_t")
+                    && name.len() > 2
+                    && name[2..].chars().all(|c| c.is_ascii_digit()));
+            if !is_temp {
+                continue;
+            }
+            let var_name = if name.starts_with('t') && !name.starts_with("_t") {
+                format!("_{}", name)
+            } else {
+                name.clone()
+            };
+            let uses = self.temp_use_counts.get(&var_name).copied().unwrap_or(0);
+            let assigns = self
+                .temp_assignment_counts
+                .get(&var_name)
+                .copied()
+                .unwrap_or(0);
+            // Hoist if used, or multi-assigned across blocks (phi-style).
+            if uses == 0 && assigns <= 1 {
+                continue;
+            }
+            hoist.push((var_name, ty.clone(), uses));
+        }
+        hoist.sort_by(|a, b| a.0.cmp(&b.0));
+        for (var_name, ty, _uses) in hoist {
+            self.declared_temp_vars.insert(var_name.clone());
+            self.line(&format!("var {} : {} = undefined;", var_name, ty))?;
+            // Zig treats write-only locals as unused; keep a use.
+            self.line(&format!("_ = &{};", var_name))?;
+        }
+
         // Emit function body
         let transformed_body = Self::transform_xvalue_method_calls(func.body.clone(), &self.temp_var_types);
         self.emit_lir_block(&transformed_body)?;
@@ -906,33 +999,10 @@ impl ZigBackend {
         Ok(())
     }
 
-    fn emit_runtime_helper_body(&mut self, func: &x_lir::Function) -> ZigResult<bool> {
-        match func.name.as_str() {
-            "println" if func.parameters.len() == 1 => {
-                self.line("std.debug.print(\"{s}\\n\", .{arg0});")?;
-                self.line("return;")?;
-                Ok(true)
-            }
-            "print" if func.parameters.len() == 1 => {
-                self.line("std.debug.print(\"{s}\", .{arg0});")?;
-                self.line("return;")?;
-                Ok(true)
-            }
-            "panic" if func.parameters.len() == 1 => {
-                self.line("std.debug.panic(\"{s}\", .{arg0});")?;
-                Ok(true)
-            }
-            "assert" if func.parameters.len() == 1 => {
-                self.line("if (!arg0) {")?;
-                self.indent();
-                self.line("std.debug.panic(\"{s}\", .{\"assertion failed\"});")?;
-                self.dedent();
-                self.line("}")?;
-                self.line("return;")?;
-                Ok(true)
-            }
-            _ => Ok(false),
-        }
+    fn emit_runtime_helper_body(&mut self, _func: &x_lir::Function) -> ZigResult<bool> {
+        // No language-API bodies here — println/print/panic/assert come from
+        // std.prelude (and libc FFI), compiled like ordinary functions.
+        Ok(false)
     }
 
     /// 发出块（来自 LIR）
@@ -1020,17 +1090,32 @@ impl ZigBackend {
                             .copied()
                             .unwrap_or(1);
 
-                        if use_count == 0 {
-                            self.line(&format!("_ = {};", value_part))?;
+                        if use_count == 0 && assignment_count <= 1 {
+                            // Zig rejects `_ = some_local;` as a pointless discard.
+                            let bare_local = value_part.starts_with('_')
+                                && value_part[1..]
+                                    .chars()
+                                    .all(|c| c.is_ascii_alphanumeric() || c == '_');
+                            if !bare_local {
+                                self.line(&format!("_ = {};", value_part))?;
+                            }
                         } else if self.declared_temp_vars.insert(var_name.clone()) {
                             let decl_keyword = if assignment_count > 1 { "var" } else { "const" };
                             let lir_name = var_name.strip_prefix('_').unwrap_or(&var_name);
-                            if let Some(type_str) = self.temp_var_types.get(lir_name) {
+                            if let Some(type_str) = self.temp_var_types.get(lir_name).cloned() {
+                                let value_part = Self::maybe_unbox_list_get(value_part, &type_str);
                                 self.line(&format!("{} {} : {} = {};", decl_keyword, var_name, type_str, value_part))?;
                             } else {
+                                // Keep XValue handles opaque; only unbox when typed.
                                 self.line(&format!("{} {} = {};", decl_keyword, var_name, value_part))?;
                             }
                         } else {
+                            let lir_name = var_name.strip_prefix('_').unwrap_or(&var_name);
+                            let value_part = if let Some(type_str) = self.temp_var_types.get(lir_name) {
+                                Self::maybe_unbox_list_get(value_part, type_str)
+                            } else {
+                                value_part.to_string()
+                            };
                             self.line(&format!("{} = {};", var_name, value_part))?;
                         }
                         return Ok(());
@@ -1066,31 +1151,28 @@ impl ZigBackend {
                     return Ok(());
                 }
 
-                // 跳过所有仅作为 SSA 临时值占位的未初始化临时变量（t0, t1 等）。
-                // 它们在首次赋值处懒声明，从而避免错误的预设类型。
-                if var.initializer.is_none()
-                    && var.name.starts_with('t')
+                // 临时变量已在函数入口预声明；此处跳过 LIR Variable 占位。
+                let is_temp_var = (var.name.starts_with('t')
                     && var.name.len() > 1
-                    && var.name[1..].chars().all(|c| c.is_ascii_digit())
-                {
+                    && var.name[1..].chars().all(|c| c.is_ascii_digit()))
+                    || (var.name.starts_with("_t")
+                        && var.name.len() > 2
+                        && var.name[2..].chars().all(|c| c.is_ascii_digit()));
+                if is_temp_var && var.initializer.is_none() {
                     return Ok(());
                 }
 
                 let type_str = self.emit_lir_type(&var.type_);
-                // 对于临时变量，使用 const 声明（因为它们不会被修改）
-                // 注意：变量名可能是 "t0" 或 "_t0"，需要统一处理
-                let is_temp_var = var.name.starts_with("t")
+                let var_name = if var.name.starts_with('t')
                     && var.name.len() > 1
-                    && var.name[1..].chars().all(|c| c.is_ascii_digit());
-
-                let var_name = if is_temp_var {
+                    && var.name[1..].chars().all(|c| c.is_ascii_digit())
+                {
                     format!("_{}", var.name)
                 } else {
                     var.name.clone()
                 };
 
-                // 临时变量使用 var，因为后续会被赋值
-                let keyword = "var";
+                let keyword = if is_temp_var { "var" } else { "const" };
                 if let Some(initializer) = &var.initializer {
                     let init_str = self.emit_lir_expression(initializer)?;
                     self.line(&format!(
@@ -1099,8 +1181,8 @@ impl ZigBackend {
                     ))?;
                 } else {
                     self.line(&format!(
-                        "{} {} : {} = undefined;",
-                        keyword, var_name, type_str
+                        "var {} : {} = undefined;",
+                        var_name, type_str
                     ))?;
                 }
             }
@@ -1171,7 +1253,9 @@ impl ZigBackend {
                 }
 
                 if let Some(default) = &switch_stmt.default {
-                    self.line("_ => {")?;
+                    // Zig: `_` is only valid on non-exhaustive enums; LIR switch
+                    // defaults are ordinary catch-alls → use `else`.
+                    self.line("else => {")?;
                     self.indent();
                     self.emit_lir_statement(default)?;
                     self.dedent();
@@ -1321,30 +1405,83 @@ impl ZigBackend {
             x_lir::Expression::Binary(op, lhs, rhs) => {
                 let lhs_str = self.emit_lir_expression(lhs)?;
                 let rhs_str = self.emit_lir_expression(rhs)?;
+                // xEqual handles both pointer/string (std.mem.eql) and ints (==).
+                match op {
+                    x_lir::BinaryOp::Equal => {
+                        return Ok(format!("xEqual({}, {})", lhs_str, rhs_str));
+                    }
+                    x_lir::BinaryOp::NotEqual => {
+                        return Ok(format!("!xEqual({}, {})", lhs_str, rhs_str));
+                    }
+                    x_lir::BinaryOp::LessThan
+                    | x_lir::BinaryOp::LessThanEqual
+                    | x_lir::BinaryOp::GreaterThan
+                    | x_lir::BinaryOp::GreaterThanEqual => {
+                        // Sentinel C strings: compare contents, not pointer addresses.
+                        let ord = match op {
+                            x_lir::BinaryOp::LessThan => "lt",
+                            x_lir::BinaryOp::LessThanEqual => "lt", // + eq below
+                            x_lir::BinaryOp::GreaterThan => "gt",
+                            x_lir::BinaryOp::GreaterThanEqual => "gt",
+                            _ => unreachable!(),
+                        };
+                        let eq_ok = matches!(
+                            op,
+                            x_lir::BinaryOp::LessThanEqual | x_lir::BinaryOp::GreaterThanEqual
+                        );
+                        return Ok(format!(
+                            "(blk: {{ const __a = {lhs}; const __b = {rhs}; const __Ta = @TypeOf(__a); if (comptime (__Ta == [*:0]const u8 or __Ta == [*:0]u8 or __Ta == [*c]u8 or __Ta == [*c]const u8)) {{ const __o = std.mem.order(u8, std.mem.span(__a), std.mem.span(__b)); break :blk (__o == .{ord}{eq}); }} break :blk (__a {op} __b); }})",
+                            lhs = lhs_str,
+                            rhs = rhs_str,
+                            ord = ord,
+                            eq = if eq_ok {
+                                " or __o == .eq"
+                            } else {
+                                ""
+                            },
+                            op = match op {
+                                x_lir::BinaryOp::LessThan => "<",
+                                x_lir::BinaryOp::LessThanEqual => "<=",
+                                x_lir::BinaryOp::GreaterThan => ">",
+                                x_lir::BinaryOp::GreaterThanEqual => ">=",
+                                _ => unreachable!(),
+                            },
+                        ));
+                    }
+                    x_lir::BinaryOp::Divide => {
+                        if self.expr_is_float(lhs) || self.expr_is_float(rhs) {
+                            return Ok(format!("({} / {})", lhs_str, rhs_str));
+                        }
+                        return Ok(format!("@divTrunc({}, {})", lhs_str, rhs_str));
+                    }
+                    x_lir::BinaryOp::Modulo => {
+                        return Ok(format!("@mod({}, {})", lhs_str, rhs_str));
+                    }
+                    _ => {}
+                }
                 let op_str = match op {
                     x_lir::BinaryOp::Add => "+",
                     x_lir::BinaryOp::Subtract => "-",
                     x_lir::BinaryOp::Multiply => "*",
-                    x_lir::BinaryOp::Divide => "@divTrunc",
-                    x_lir::BinaryOp::Modulo => "@mod",
                     x_lir::BinaryOp::LeftShift => "<<",
                     x_lir::BinaryOp::RightShift => ">>>",
                     x_lir::BinaryOp::RightShiftArithmetic => ">>",
-                    x_lir::BinaryOp::LessThan => "<",
-                    x_lir::BinaryOp::LessThanEqual => "<=",
-                    x_lir::BinaryOp::GreaterThan => ">",
-                    x_lir::BinaryOp::GreaterThanEqual => ">=",
-                    x_lir::BinaryOp::Equal => "==",
-                    x_lir::BinaryOp::NotEqual => "!=",
                     x_lir::BinaryOp::BitAnd => "&",
                     x_lir::BinaryOp::BitXor => "^",
                     x_lir::BinaryOp::BitOr => "|",
                     x_lir::BinaryOp::LogicalAnd => "and",
                     x_lir::BinaryOp::LogicalOr => "or",
+                    // Handled above
+                    x_lir::BinaryOp::Divide
+                    | x_lir::BinaryOp::Modulo
+                    | x_lir::BinaryOp::Equal
+                    | x_lir::BinaryOp::NotEqual
+                    | x_lir::BinaryOp::LessThan
+                    | x_lir::BinaryOp::LessThanEqual
+                    | x_lir::BinaryOp::GreaterThan
+                    | x_lir::BinaryOp::GreaterThanEqual => unreachable!(),
                 };
-                let is_func = matches!(op, x_lir::BinaryOp::Divide | x_lir::BinaryOp::Modulo);
-                if is_func { Ok(format!("{}({}, {})", op_str, lhs_str, rhs_str)) }
-                else { Ok(format!("({} {} {})", lhs_str, op_str, rhs_str)) }
+                Ok(format!("({} {} {})", lhs_str, op_str, rhs_str))
             }
             x_lir::Expression::Call(callee, args) => {
                 let callee_str = self.emit_lir_expression(callee)?;
@@ -1375,8 +1512,29 @@ impl ZigBackend {
             x_lir::Expression::Cast(type_, expr) => {
                 let expr_str = self.emit_lir_expression(expr)?;
                 let type_str = self.emit_lir_type(type_);
-                if matches!(type_str.as_str(), "f32" | "f64" | "f128") {
+                // Zig 0.16: *T cannot be created with @as from *anyopaque/malloc; use ptrCast.
+                if type_str.starts_with('*')
+                    && (expr_str.contains("malloc") || expr_str.contains("alloc"))
+                {
+                    Ok(format!(
+                        "@as({}, @ptrCast(@alignCast({})))",
+                        type_str, expr_str
+                    ))
+                } else if expr_str.contains("x_list_get(") || expr_str.contains("__x_list_get(") {
+                    Ok(Self::maybe_unbox_list_get(&expr_str, &type_str))
+                } else if expr_str.contains("x_as_ptr(") && type_str.starts_with('*') {
+                    Ok(format!(
+                        "@as({}, @ptrCast(@alignCast({})))",
+                        type_str, expr_str
+                    ))
+                } else if matches!(type_str.as_str(), "f32" | "f64" | "f128") {
                     Ok(format!("@floatFromInt({})", expr_str))
+                } else if matches!(
+                    type_str.as_str(),
+                    "i8" | "i16" | "i32" | "i64" | "i128" | "u8" | "u16" | "u32" | "u64"
+                        | "isize" | "usize"
+                ) {
+                    Ok(format!("@as({}, @intFromFloat({}))", type_str, expr_str))
                 } else {
                     Ok(format!("@as({}, {})", type_str, expr_str))
                 }
@@ -1555,7 +1713,7 @@ impl ZigBackend {
         match type_ {
             x_lir::Type::Void => "void".to_string(),
             x_lir::Type::Bool => "bool".to_string(),
-            x_lir::Type::Char => "u8".to_string(),
+            x_lir::Type::Char => "i64".to_string(),
             x_lir::Type::Schar => "i8".to_string(),
             x_lir::Type::Uchar => "u8".to_string(),
             x_lir::Type::Short => "i16".to_string(),
@@ -1564,8 +1722,10 @@ impl ZigBackend {
             x_lir::Type::Uint => "u32".to_string(),
             x_lir::Type::Long => "i64".to_string(),
             x_lir::Type::Ulong => "u64".to_string(),
-            x_lir::Type::LongLong => "i128".to_string(),
-            x_lir::Type::UlongLong => "u128".to_string(),
+            // Match C `long long` / xrt.h (64-bit), not Zig i128 — otherwise
+            // calls like `x_as_int` fail with "expected i64, found i128".
+            x_lir::Type::LongLong => "i64".to_string(),
+            x_lir::Type::UlongLong => "u64".to_string(),
             x_lir::Type::Float => "f32".to_string(),
             x_lir::Type::Double => "f64".to_string(),
             x_lir::Type::LongDouble => "f128".to_string(),
@@ -1574,7 +1734,10 @@ impl ZigBackend {
             x_lir::Type::Intptr => "isize".to_string(),
             x_lir::Type::Uintptr => "usize".to_string(),
             x_lir::Type::Pointer(inner) => match inner.as_ref() {
-                x_lir::Type::Char | x_lir::Type::Uchar => "[*:0]const u8".to_string(),
+                // Mutable C `char*` (e.g. getline buffer): nullable.
+                x_lir::Type::Char | x_lir::Type::Uchar => "[*c]u8".to_string(),
+                // Zig has no `*void`; C `void*` is `*anyopaque`.
+                x_lir::Type::Void => "*anyopaque".to_string(),
                 _ => format!("*{}", self.emit_lir_type(inner)),
             },
             x_lir::Type::Array(inner, Some(size)) => {
@@ -1601,11 +1764,33 @@ impl ZigBackend {
                 format!("fn({}) {}", param_str, self.emit_lir_type(ret_type))
             }
             x_lir::Type::Named(name) => {
-                if matches!(name.as_str(), "XValue" | "Option" | "Result" | "Box" | "Ref")
-                    || (name.len() == 1 && name.chars().next().map_or(false, |ch| ch.is_uppercase()))
-                { "i32".to_string() } else { name.clone() }
+                // XValue is an opaque boxed handle (i32). User/ADT structs
+                // (Result, Option, Entry, …) keep their Zig struct names so
+                // `.tag` / field access type-check.
+                if name == "XValue"
+                    || (name.len() == 1
+                        && name
+                            .chars()
+                            .next()
+                            .map_or(false, |ch| ch.is_uppercase()))
+                {
+                    "i32".to_string()
+                } else {
+                    name.clone()
+                }
             }
-            x_lir::Type::Qualified(_, inner) => self.emit_lir_type(inner),
+            x_lir::Type::Qualified(q, inner) => {
+                // X `string` is const char* (sentinel); keep distinct from mutable
+                // `*character` (`[*c]u8`) so string literals type-check.
+                if q.is_const {
+                    if let x_lir::Type::Pointer(p) = inner.as_ref() {
+                        if matches!(p.as_ref(), x_lir::Type::Char | x_lir::Type::Uchar) {
+                            return "[*:0]const u8".to_string();
+                        }
+                    }
+                }
+                self.emit_lir_type(inner)
+            }
         }
     }
 
@@ -1628,48 +1813,217 @@ impl ZigBackend {
         })
     }
 
-    fn transform_xvalue_method_calls(mut block: x_lir::Block, var_types: &std::collections::HashMap<String, String>) -> x_lir::Block {
+    fn collect_var_types_from_block(&mut self, block: &x_lir::Block) {
+        for stmt in &block.statements {
+            self.collect_var_types_from_stmt(stmt);
+        }
+    }
+
+    fn collect_var_types_from_stmt(&mut self, stmt: &x_lir::Statement) {
+        match stmt {
+            x_lir::Statement::Variable(var) => {
+                self.temp_var_types
+                    .insert(var.name.clone(), self.emit_lir_type(&var.type_));
+            }
+            x_lir::Statement::If(if_stmt) => {
+                self.collect_var_types_from_stmt(&if_stmt.then_branch);
+                if let Some(else_branch) = &if_stmt.else_branch {
+                    self.collect_var_types_from_stmt(else_branch);
+                }
+            }
+            x_lir::Statement::While(while_stmt) => {
+                self.collect_var_types_from_stmt(&while_stmt.body);
+            }
+            x_lir::Statement::DoWhile(do_while_stmt) => {
+                self.collect_var_types_from_stmt(&do_while_stmt.body);
+            }
+            x_lir::Statement::For(for_stmt) => {
+                if let Some(init) = &for_stmt.initializer {
+                    self.collect_var_types_from_stmt(init);
+                }
+                self.collect_var_types_from_stmt(&for_stmt.body);
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                for case in &switch_stmt.cases {
+                    self.collect_var_types_from_stmt(&case.body);
+                }
+                if let Some(default) = &switch_stmt.default {
+                    self.collect_var_types_from_stmt(default);
+                }
+            }
+            x_lir::Statement::Match(match_stmt) => {
+                for case in &match_stmt.cases {
+                    self.collect_var_types_from_block(&case.body);
+                }
+            }
+            x_lir::Statement::Try(try_stmt) => {
+                self.collect_var_types_from_block(&try_stmt.body);
+                for catch in &try_stmt.catch_clauses {
+                    self.collect_var_types_from_block(&catch.body);
+                }
+                if let Some(finally_block) = &try_stmt.finally_block {
+                    self.collect_var_types_from_block(finally_block);
+                }
+            }
+            x_lir::Statement::Compound(block) => {
+                self.collect_var_types_from_block(block);
+            }
+            _ => {}
+        }
+    }
+
+    fn transform_xvalue_method_calls(
+        mut block: x_lir::Block,
+        var_types: &std::collections::HashMap<String, String>,
+    ) -> x_lir::Block {
+        // Recurse into nested Compound / If / While / etc. first so method
+        // rewrites apply inside control-flow bodies.
+        block.statements = block
+            .statements
+            .into_iter()
+            .map(|stmt| Self::transform_xvalue_stmt_nested(stmt, var_types))
+            .collect();
+        block.statements = Self::transform_xvalue_stmts_flat(block.statements, var_types);
+        block
+    }
+
+    fn transform_xvalue_stmt_nested(
+        stmt: x_lir::Statement,
+        var_types: &std::collections::HashMap<String, String>,
+    ) -> x_lir::Statement {
+        use x_lir::Statement;
+        match stmt {
+            Statement::Compound(block) => {
+                Statement::Compound(Self::transform_xvalue_method_calls(block, var_types))
+            }
+            Statement::If(mut if_stmt) => {
+                if_stmt.then_branch = Box::new(Self::transform_xvalue_stmt_nested(
+                    *if_stmt.then_branch,
+                    var_types,
+                ));
+                if let Some(else_branch) = if_stmt.else_branch.take() {
+                    if_stmt.else_branch = Some(Box::new(Self::transform_xvalue_stmt_nested(
+                        *else_branch,
+                        var_types,
+                    )));
+                }
+                Statement::If(if_stmt)
+            }
+            Statement::While(mut while_stmt) => {
+                while_stmt.body =
+                    Box::new(Self::transform_xvalue_stmt_nested(*while_stmt.body, var_types));
+                Statement::While(while_stmt)
+            }
+            Statement::DoWhile(mut do_while_stmt) => {
+                do_while_stmt.body = Box::new(Self::transform_xvalue_stmt_nested(
+                    *do_while_stmt.body,
+                    var_types,
+                ));
+                Statement::DoWhile(do_while_stmt)
+            }
+            Statement::For(mut for_stmt) => {
+                if let Some(init) = for_stmt.initializer.take() {
+                    for_stmt.initializer =
+                        Some(Box::new(Self::transform_xvalue_stmt_nested(*init, var_types)));
+                }
+                for_stmt.body =
+                    Box::new(Self::transform_xvalue_stmt_nested(*for_stmt.body, var_types));
+                Statement::For(for_stmt)
+            }
+            Statement::Switch(mut switch_stmt) => {
+                for case in &mut switch_stmt.cases {
+                    case.body = Box::new(Self::transform_xvalue_stmt_nested(
+                        (*case.body).clone(),
+                        var_types,
+                    ));
+                }
+                if let Some(default) = switch_stmt.default.take() {
+                    switch_stmt.default = Some(Box::new(Self::transform_xvalue_stmt_nested(
+                        *default,
+                        var_types,
+                    )));
+                }
+                Statement::Switch(switch_stmt)
+            }
+            Statement::Match(mut match_stmt) => {
+                for case in &mut match_stmt.cases {
+                    case.body = Self::transform_xvalue_method_calls(case.body.clone(), var_types);
+                }
+                Statement::Match(match_stmt)
+            }
+            Statement::Try(mut try_stmt) => {
+                try_stmt.body = Self::transform_xvalue_method_calls(try_stmt.body, var_types);
+                for catch in &mut try_stmt.catch_clauses {
+                    catch.body = Self::transform_xvalue_method_calls(catch.body.clone(), var_types);
+                }
+                if let Some(finally_block) = try_stmt.finally_block.take() {
+                    try_stmt.finally_block =
+                        Some(Self::transform_xvalue_method_calls(finally_block, var_types));
+                }
+                Statement::Try(try_stmt)
+            }
+            other => other,
+        }
+    }
+
+    fn transform_xvalue_stmts_flat(
+        statements: Vec<x_lir::Statement>,
+        var_types: &std::collections::HashMap<String, String>,
+    ) -> Vec<x_lir::Statement> {
         use x_lir::{Expression, Statement};
-        let known = ["push", "get", "length", "put"];
-        let mut out: Vec<Statement> = Vec::with_capacity(block.statements.len());
+        let known = ["push", "get", "put"];
+        let mut out: Vec<Statement> = Vec::with_capacity(statements.len());
         let mut i = 0;
-        while i < block.statements.len() {
-            if let Statement::Expression(Expression::Assign(lhs, rhs)) = &block.statements[i] {
-                if let (Expression::Variable(tn), Expression::Member(obj, m)) = (lhs.as_ref(), rhs.as_ref()) {
-                    if known.contains(&m.as_str()) {
+        while i < statements.len() {
+            if let Statement::Expression(Expression::Assign(lhs, rhs)) = &statements[i] {
+                if let Expression::Variable(tn) = lhs.as_ref() {
+                    let member = match rhs.as_ref() {
+                        Expression::Member(obj, m) => Some((obj.as_ref(), m.as_str())),
+                        Expression::PointerMember(obj, m) => Some((obj.as_ref(), m.as_str())),
+                        _ => None,
+                    };
+                    if let Some((obj, m)) = member {
+                    if known.contains(&m) {
                         let mut found = false;
-                        for j in (i+1)..std::cmp::min(i+4, block.statements.len()) {
-                            let call_match: Option<_> = match &block.statements[j] {
-                                Statement::Expression(Expression::Call(c, a)) if matches!(c.as_ref(), Expression::Variable(n) if n == tn) =>
-                                    Some((None, a.clone())),
+                        for j in (i + 1)..std::cmp::min(i + 4, statements.len()) {
+                            let call_match: Option<_> = match &statements[j] {
+                                Statement::Expression(Expression::Call(c, a))
+                                    if matches!(c.as_ref(), Expression::Variable(n) if n == tn) =>
+                                {
+                                    Some((None, a.clone()))
+                                }
                                 Statement::Expression(Expression::Assign(r, ce)) => {
                                     if let Expression::Call(c, a) = ce.as_ref() {
-                                        if matches!(c.as_ref(), Expression::Variable(n) if n == tn) {
+                                        if matches!(c.as_ref(), Expression::Variable(n) if n == tn)
+                                        {
                                             Some((Some(r.as_ref().clone()), a.clone()))
-                                        } else { None }
-                                    } else { None }
+                                        } else {
+                                            None
+                                        }
+                                    } else {
+                                        None
+                                    }
                                 }
                                 _ => None,
                             };
                             if let Some((res, args)) = call_match {
-                                let rf = match m.as_str() {
+                                let rf = match m {
                                     "push" => "__x_list_push",
                                     "get" => "__x_list_get",
-                                    "length" => {
-                                        if let Expression::Variable(vn) = obj.as_ref() {
-                                            if var_types.get(vn.as_str()).map_or(false, |t| t == "[*:0]const u8") {
-                                                "std.mem.len"
-                                            } else { "x_list_len" }
-                                        } else { "x_list_len" }
-                                    }
                                     "put" => "x_map_put",
                                     _ => unreachable!(),
                                 };
-                                let mut na = vec![obj.as_ref().clone()];
+                                let mut na = vec![obj.clone()];
                                 na.extend(args);
-                                let ce = Expression::Call(Box::new(Expression::Variable(rf.to_string())), na);
+                                let ce = Expression::Call(
+                                    Box::new(Expression::Variable(rf.to_string())),
+                                    na,
+                                );
                                 if let Some(r) = res {
-                                    out.push(Statement::Expression(Expression::Assign(Box::new(r), Box::new(ce))));
+                                    out.push(Statement::Expression(Expression::Assign(
+                                        Box::new(r),
+                                        Box::new(ce),
+                                    )));
                                 } else {
                                     out.push(Statement::Expression(ce));
                                 }
@@ -1678,15 +2032,17 @@ impl ZigBackend {
                                 break;
                             }
                         }
-                        if found { continue; }
+                        if found {
+                            continue;
+                        }
+                    }
                     }
                 }
             }
-            out.push(block.statements[i].clone());
+            out.push(statements[i].clone());
             i += 1;
         }
-        block.statements = out;
-        block
+        out
     }
 
     fn collect_temp_assignment_counts(

@@ -1,116 +1,91 @@
 module std.list
-import std.prelude
 import std.types
 
+/// Growable list (Swift Array / Kotlin MutableList).
+export class List {
+    public let items: [any]
 
-
-
-/// 动态数组类型
-export record List<T> {
-    data: [T],
-    length: Int,
-    capacity: Int,
-}
-
-export function empty<T>() -> List<T> {
-    List {
-        data: [],
-        length: 0,
-        capacity: 0,
+    public new() {
+        this.items = [] as [any]
     }
 }
 
-export function from_array<T>(arr: [T]) -> List<T> {
-    List {
-        data: arr,
-        length: arr.len(),
-        capacity: arr.len(),
-    }
+export function empty() -> List {
+    List()
 }
 
-export function get<T>(self: List<T>, index: Int) -> Option<T> {
-    if index < 0 or index >= self.length {
+export function count(self: List) -> integer {
+    self.items.length()
+}
+
+export function len(self: List) -> integer {
+    count(self)
+}
+
+export function is_empty(self: List) -> boolean {
+    count(self) == 0
+}
+
+export function push(self: List, value: any) -> unit {
+    self.items.push(value)
+}
+
+export function get(self: List, index: integer) -> Option<any> {
+    let n = self.items.length()
+    if index < 0 or index >= n {
         None
     } else {
-        Some(self.data[index])
+        Some(self.items[index])
     }
 }
 
-export function first<T>(self: List<T>) -> Option<T> {
-    if self.is_empty() {
+export function first(self: List) -> Option<any> {
+    get(self, 0)
+}
+
+export function last(self: List) -> Option<any> {
+    let n = self.items.length()
+    if n == 0 {
         None
     } else {
-        Some(self.data[0])
+        Some(self.items[n - 1])
     }
 }
 
-export function last<T>(self: List<T>) -> Option<T> {
-    if self.is_empty() {
+export function pop(self: List) -> Option<any> {
+    let n = self.items.length()
+    if n == 0 {
         None
     } else {
-        Some(self.data[self.length - 1])
-    }
-}
-
-export function push<T>(self: &mut List<T>, value: T) -> unit {
-    if self.length >= self.capacity {
-        if self.capacity == 0 {
-            self.capacity = 1
-        } else {
-            self.capacity = self.capacity * 2
+        let v = self.items[n - 1]
+        let mutable new_items = [] as [any]
+        let mutable i = 0
+        while i < n - 1 {
+            new_items.push(self.items[i])
+            i = i + 1
         }
-    }
-    self.data.push(value)
-    self.length = self.length + 1
-}
-
-export function pop<T>(self: &mut List<T>) -> Option<T> {
-    if self.is_empty() {
-        None
-    } else {
-        self.length = self.length - 1
-        self.data.pop()
+        self.items = new_items
+        Some(v)
     }
 }
 
-export function insert<T>(self: &mut List<T>, index: Int, value: T) -> unit {
-    if index < 0 or index > self.length {
-        panic("List.insert: index out of bounds")
-    }
-    self.data.insert(index, value)
-    self.length = self.length + 1
-}
-
-export function remove<T>(self: &mut List<T>, index: Int) -> T {
-    if index < 0 or index >= self.length {
-        panic("List.remove: index out of bounds")
-    }
-    self.length = self.length - 1
-    self.data.remove(index)
-}
-
-export function clear<T>(self: &mut List<T>) -> unit {
-    self.data.clear()
-    self.length = 0
-}
-
-export function len<T>(self: List<T>) -> Int {
-    self.length
-}
-
-export function is_empty<T>(self: List<T>) -> Bool {
-    self.length == 0
-}
-
-export function contains<T: Eq>(self: List<T>, value: T) -> Bool {
-    for i in 0..self.length {
-        if value == self.data[i] {
+export function contains(self: List, value: any) -> boolean {
+    let n = self.items.length()
+    let mutable i = 0
+    while i < n {
+        if self.items[i] == value {
             return true
         }
+        i = i + 1
     }
     false
 }
 
-export function to_array<T>(self: List<T>) -> [T] {
-    self.data
+export function clear(self: List) -> unit {
+    self.items = [] as [any]
+}
+
+/// Copy out the underlying array.
+export function to_array(self: List) -> [any] {
+    self.items
 }

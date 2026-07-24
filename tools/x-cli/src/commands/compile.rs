@@ -1050,6 +1050,7 @@ fn link_object_zig(
         .arg(output_path)
         .arg(obj_path)
         .arg(runtime_src)
+        .arg("-lm")
         .output()
         .map_err(|e| format!("运行 zig cc 失败: {}", e))?;
 
@@ -1075,16 +1076,18 @@ fn link_object_linux(
         .or_else(|_| which::which("gcc"))
         .map_err(|_| "未找到 cc/clang/gcc 链接器".to_string())?;
 
-    let status = std::process::Command::new(&linker)
+    let out = std::process::Command::new(&linker)
         .arg("-o")
         .arg(output_path)
         .arg(obj_path)
         .arg(runtime_src)
-        .status()
+        .arg("-lm")
+        .output()
         .map_err(|e| format!("链接失败: {}", e))?;
 
-    if !status.success() {
-        return Err("Linux 链接失败".to_string());
+    if !out.status.success() {
+        let stderr = String::from_utf8_lossy(&out.stderr);
+        return Err(format!("Linux 链接失败:\n{}", stderr.trim()));
     }
 
     Ok(())

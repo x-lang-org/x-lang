@@ -138,8 +138,10 @@ pub struct MachineCodeGen {
 
     /// 字符串 -> .rodata 偏移
     string_offsets: HashMap<String, u64>,
-    /// 全局变量名 -> .bss 槽
+    /// 全局变量名 -> .bss/.data 槽
     globals: HashMap<String, GlobalSlot>,
+    /// `extern "c" var` 等：不分配本地存储，链接期解析
+    extern_globals: HashSet<String>,
     /// 全局变量名 -> 静态类型
     global_types: HashMap<String, lir::Type>,
     /// 函数名 -> 返回类型（用于浮点返回值搬运）
@@ -186,6 +188,7 @@ impl MachineCodeGen {
             bss_size: 0,
             string_offsets: HashMap::new(),
             globals: HashMap::new(),
+            extern_globals: HashSet::new(),
             global_types: HashMap::new(),
             func_return_types: HashMap::new(),
             field_types: HashMap::new(),
@@ -266,10 +269,20 @@ impl MachineCodeGen {
         for decl in &program.declarations {
             match decl {
                 lir::Declaration::Global(global) => {
-                    let size = self.type_size(&global.type_).max(8);
-                    let slot = round_up(size, 8) as u64;
                     self.global_types
                         .insert(global.name.clone(), global.type_.clone());
+
+                    // libc 等外部变量：只登记未定义符号，禁止本地 .bss 占位（否则 stdin 等为 NULL）
+                    if global.extern_abi.is_some() && global.initializer.is_none() {
+                        self.extern_globals.insert(global.name.clone());
+                        if !self.external_syms.iter().any(|s| s == &global.name) {
+                            self.external_syms.push(global.name.clone());
+                        }
+                        continue;
+                    }
+
+                    let size = self.type_size(&global.type_).max(8);
+                    let slot = round_up(size, 8) as u64;
 
                     // 常量初始化器 → .data；否则 → .bss（零初始化）
                     let init_bytes = global
@@ -408,8 +421,19 @@ impl MachineCodeGen {
         });
     }
 
-    /// lea reg, [rip + global]，登记指向 .data/.bss 的 PC32 重定位
+    /// lea reg, [rip + global]，登记指向 .data/.bss 或外部符号的 PC32 重定位
     fn emit_lea_global(&mut self, dest: X86Register, name: &str) -> NativeResult<()> {
+        if self.extern_globals.contains(name) {
+            emit!(self, lea_reg_rip(dest, 0));
+            let field = self.text.len() - 4;
+            self.relocations.push(ObjReloc {
+                offset: field as u64,
+                target: RelTarget::Symbol(name.to_string()),
+                kind: RelKind::Pc32,
+                addend: -4,
+            });
+            return Ok(());
+        }
         let (off, section) = self
             .globals
             .get(name)
@@ -424,6 +448,10 @@ impl MachineCodeGen {
             addend: off as i64 - 4,
         });
         Ok(())
+    }
+
+    fn is_global_var(&self, name: &str) -> bool {
+        self.globals.contains_key(name) || self.extern_globals.contains(name)
     }
 
     /// 尝试把全局变量的常量初始化器编码为字节（小端）。仅支持标量字面量。
@@ -783,6 +811,8 @@ impl MachineCodeGen {
         for (i, case) in sw.cases.iter().enumerate() {
             self.define_label(&case_labels[i]);
             self.gen_statement(&case.body)?;
+            // Prevent C-style fallthrough into the next case / default.
+            self.emit_jmp(&end);
         }
         self.define_label(&default_label);
         if let Some(def) = &sw.default {
@@ -849,7 +879,7 @@ impl MachineCodeGen {
             Expression::Variable(name) => {
                 if let Some(&offset) = self.local_offsets.get(name) {
                     self.load_local(X86Register::Rax, offset);
-                } else if self.globals.contains_key(name) {
+                } else if self.is_global_var(name) {
                     self.emit_lea_global(X86Register::Rax, name)?;
                     emit!(self, mov_reg_mem0(X86Register::Rax, X86Register::Rax));
                 } else {
@@ -861,7 +891,16 @@ impl MachineCodeGen {
                 match op {
                     UnaryOp::Minus => {
                         self.gen_expr(e)?;
-                        emit!(self, neg_reg(X86Register::Rax));
+                        if self.expr_is_float(e) {
+                            // Flip IEEE-754 sign bit (integer `neg` corrupts float bit patterns).
+                            emit!(
+                                self,
+                                mov_reg_imm64(X86Register::Rcx, 0x8000_0000_0000_0000)
+                            );
+                            emit!(self, xor_reg_reg(X86Register::Rax, X86Register::Rcx));
+                        } else {
+                            emit!(self, neg_reg(X86Register::Rax));
+                        }
                     }
                     UnaryOp::BitNot => {
                         self.gen_expr(e)?;
@@ -956,7 +995,7 @@ impl MachineCodeGen {
                             lea_reg_mem(X86Register::Rax, X86Register::Rbp, -offset)
                         );
                         Ok(())
-                    } else if self.globals.contains_key(name) {
+                    } else if self.is_global_var(name) {
                         self.emit_lea_global(X86Register::Rax, name)
                     } else {
                         self.gen_expr(inner)
@@ -992,8 +1031,10 @@ impl MachineCodeGen {
                 Ok(())
             }
             Expression::PointerMember(obj, field) => {
+                // `ptr->field`: `obj` is already the address of the struct
+                // (e.g. `*Body` from malloc). Do not dereference before adding
+                // the field offset.
                 self.gen_expr(obj)?;
-                emit!(self, mov_reg_mem0(X86Register::Rax, X86Register::Rax));
                 let offset = self.resolve_field_offset(obj, field, true).unwrap_or(0);
                 if offset > 0 {
                     emit!(self, add_reg_imm32(X86Register::Rax, offset as i32));
@@ -1099,6 +1140,13 @@ impl MachineCodeGen {
             return self.gen_binary_float(op, left, right, lf, rf);
         }
 
+        // C strings must use strcmp — pointer equality is wrong for heap substrings.
+        if matches!(op, BinaryOp::Equal | BinaryOp::NotEqual)
+            && (self.expr_is_cstr(left) || self.expr_is_cstr(right))
+        {
+            return self.gen_cstr_compare(op, left, right);
+        }
+
         self.gen_expr(left)?;
         self.push(X86Register::Rax);
         self.gen_expr(right)?;
@@ -1135,6 +1183,32 @@ impl MachineCodeGen {
         Ok(())
     }
 
+    /// Compare two C strings via `strcmp` (0 → equal).
+    fn gen_cstr_compare(
+        &mut self,
+        op: lir::BinaryOp,
+        left: &lir::Expression,
+        right: &lir::Expression,
+    ) -> NativeResult<()> {
+        use lir::BinaryOp;
+        self.emit_named_call_values("strcmp", 2, 0, |s, i| {
+            if i == 0 {
+                s.gen_expr(left)
+            } else {
+                s.gen_expr(right)
+            }
+        })?;
+        emit!(self, test_reg_reg(X86Register::Rax, X86Register::Rax));
+        let cond = match op {
+            BinaryOp::Equal => Condition::E,
+            BinaryOp::NotEqual => Condition::NE,
+            _ => Condition::E,
+        };
+        emit!(self, setcc(cond, X86Register::Al));
+        emit!(self, movzx_r64_r8(X86Register::Rax, X86Register::Al));
+        Ok(())
+    }
+
     fn gen_cmp_set(&mut self, cond: Condition) {
         emit!(self, cmp_reg_reg(X86Register::Rax, X86Register::Rcx));
         emit!(self, setcc(cond, X86Register::Al));
@@ -1143,8 +1217,14 @@ impl MachineCodeGen {
 
     /// 表达式静态类型是否为浮点
     fn expr_is_float(&self, e: &lir::Expression) -> bool {
+        fn unwrap_ty(ty: &lir::Type) -> &lir::Type {
+            match ty {
+                lir::Type::Qualified(_, inner) => unwrap_ty(inner),
+                other => other,
+            }
+        }
         matches!(
-            self.infer_expr_type(e),
+            self.infer_expr_type(e).as_ref().map(unwrap_ty),
             Some(lir::Type::Float) | Some(lir::Type::Double) | Some(lir::Type::LongDouble)
         )
     }
@@ -1226,7 +1306,7 @@ impl MachineCodeGen {
                 self.gen_expr(value)?;
                 if let Some(&offset) = self.local_offsets.get(name) {
                     self.store_local(offset, X86Register::Rax);
-                } else if self.globals.contains_key(name) {
+                } else if self.is_global_var(name) {
                     emit!(self, mov_reg_reg(X86Register::Rcx, X86Register::Rax));
                     self.emit_lea_global(X86Register::Rax, name)?;
                     emit!(self, mov_mem0_reg(X86Register::Rax, X86Register::Rcx));
@@ -1256,10 +1336,10 @@ impl MachineCodeGen {
                 emit!(self, mov_mem0_reg(X86Register::Rax, X86Register::Rcx));
             }
             Expression::PointerMember(obj, field) => {
+                // `ptr->field = value`: base is the pointer itself, not *ptr.
                 self.gen_expr(value)?;
                 self.push(X86Register::Rax);
                 self.gen_expr(obj)?;
-                emit!(self, mov_reg_mem0(X86Register::Rax, X86Register::Rax));
                 let offset = self.resolve_field_offset(obj, field, true).unwrap_or(0);
                 if offset > 0 {
                     emit!(self, add_reg_imm32(X86Register::Rax, offset as i32));
@@ -1309,7 +1389,7 @@ impl MachineCodeGen {
         // 若被调用者是局部/全局变量（函数指针值），则走间接调用。
         let direct_name = match func {
             Expression::Variable(name)
-                if !self.local_offsets.contains_key(name) && !self.globals.contains_key(name) =>
+                if !self.local_offsets.contains_key(name) && !self.is_global_var(name) =>
             {
                 Some(name.clone())
             }
@@ -1323,6 +1403,12 @@ impl MachineCodeGen {
                 "println" | "print" | "print_inline" | "eprintln" | "eprint"
             ) {
                 return self.gen_print_call(name, args);
+            }
+            // Runtime `__index__` expects an XValue* collection. C strings are
+            // raw `char*` in LIR and must be boxed via `x_from_str` first
+            // (same as Zig's `__x_index` helper).
+            if name == "__index__" && args.len() == 2 {
+                return self.gen_index_call(&args[0], &args[1]);
             }
         }
 
@@ -1473,6 +1559,57 @@ impl MachineCodeGen {
             emit!(self, add_reg_imm32(X86Register::Rsp, 8));
         }
         Ok(())
+    }
+
+    /// `__index__(coll, idx)` — box C-string collections before calling runtime.
+    fn gen_index_call(
+        &mut self,
+        coll: &lir::Expression,
+        idx: &lir::Expression,
+    ) -> NativeResult<()> {
+        if self.expr_is_cstr(coll) {
+            // __index__(x_from_str(coll), idx) — mirrors Zig `__x_index`.
+            self.emit_named_call_values("__index__", 2, 0, |s, i| {
+                if i == 0 {
+                    s.emit_named_call_values("x_from_str", 1, 0, |s2, _| s2.gen_expr(coll))
+                } else {
+                    s.gen_expr(idx)
+                }
+            })
+        } else {
+            self.emit_named_call_values("__index__", 2, 0, |s, i| {
+                if i == 0 {
+                    s.gen_expr(coll)
+                } else {
+                    s.gen_expr(idx)
+                }
+            })
+        }
+    }
+
+    /// True when the expression is a C string pointer (`char*` / `*character`).
+    fn expr_is_cstr(&self, e: &lir::Expression) -> bool {
+        fn unwrap_ty(ty: &lir::Type) -> &lir::Type {
+            match ty {
+                lir::Type::Qualified(_, inner) => unwrap_ty(inner),
+                other => other,
+            }
+        }
+        match self.infer_expr_type(e).as_ref().map(unwrap_ty) {
+            Some(lir::Type::Pointer(inner)) => {
+                matches!(
+                    unwrap_ty(inner),
+                    lir::Type::Char | lir::Type::Schar | lir::Type::Uchar
+                )
+            }
+            Some(lir::Type::Array(inner, _)) => {
+                matches!(
+                    unwrap_ty(inner),
+                    lir::Type::Char | lir::Type::Schar | lir::Type::Uchar
+                )
+            }
+            _ => matches!(e, lir::Expression::Literal(lir::Literal::String(_))),
+        }
     }
 
     /// 生成 println/print/eprintln 等的 printf/dprintf 调用。
@@ -1966,6 +2103,7 @@ mod tests {
             type_: Type::Long,
             initializer: Some(Expression::Literal(lir::Literal::Long(7))),
             is_static: true,
+            extern_abi: None,
         }));
         let mut main = lir::Function::new("main", Type::Int);
         main.body

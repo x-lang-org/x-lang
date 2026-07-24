@@ -1,65 +1,71 @@
 module std.set
-import std.prelude
 import std.types
+import std.map
 
+/// Unordered unique strings for now (Swift Set / Kotlin MutableSet).
+/// Backed by `Map` keys; values are unused placeholders.
+export class Set {
+    public let data: Map
 
-
-
-
-/// 哈希集合类型
-export record Set<T> {
-    items: List<T>,
-}
-
-export function empty<T>() -> Set<T> {
-    Set {
-        items: List.empty<T>(),
+    public new() {
+        this.data = Map()
     }
 }
 
-export function from_array<T: Eq>(arr: [T]) -> Set<T> {
-    let mut set = Set.empty<T>()
-    for elem in arr {
-        set.insert(elem)
-    }
-    set
+export function empty() -> Set {
+    Set()
 }
 
-export function insert<T: Eq>(self: &mut Set<T>, value: T) -> Bool {
-    if self.contains(value) {
-        return false
-    }
-    self.items.push(value)
-    true
+export function count(self: Set) -> integer {
+    self.data.keys.length()
 }
 
-export function remove<T: Eq>(self: &mut Set<T>, value: T) -> Bool {
-    for i in 0..self.items.len() {
-        if value == self.items.get(i).unwrap() {
-            self.items.remove(i)
+export function len(self: Set) -> integer {
+    self.data.keys.length()
+}
+
+export function is_empty(self: Set) -> boolean {
+    self.data.keys.length() == 0
+}
+
+/// Insert. Returns true if the value was already present.
+export function insert(self: Set, value: string) -> boolean {
+    let existed = contains_key(self.data, value)
+    let old = put(self.data, value, 1)
+    existed
+}
+
+export function contains(self: Set, value: string) -> boolean {
+    contains_key(self.data, value)
+}
+
+export function remove(self: Set, value: string) -> boolean {
+    // Call map.remove via a local alias pattern: rebuild without the key
+    // to avoid free-function name clash with this `remove`.
+    let n = self.data.keys.length()
+    let mutable i = 0
+    while i < n {
+        if (self.data.keys[i] as string) == value {
+            let mutable new_keys = [] as [string]
+            let mutable new_values = [] as [any]
+            let mutable j = 0
+            while j < n {
+                if j != i {
+                    new_keys.push(self.data.keys[j] as string)
+                    new_values.push(self.data.values[j])
+                }
+                j = j + 1
+            }
+            self.data.keys = new_keys
+            self.data.values = new_values
             return true
         }
+        i = i + 1
     }
     false
 }
 
-export function contains<T: Eq>(self: Set<T>, value: T) -> Bool {
-    for i in 0..self.items.len() {
-        if value == self.items.get(i).unwrap() {
-            return true
-        }
-    }
-    false
-}
-
-export function len<T>(self: Set<T>) -> Int {
-    self.items.len()
-}
-
-export function is_empty<T>(self: Set<T>) -> Bool {
-    self.items.is_empty()
-}
-
-export function to_list<T>(self: Set<T>) -> List<T> {
-    self.items
+export function clear(self: Set) -> unit {
+    self.data.keys = [] as [string]
+    self.data.values = [] as [any]
 }

@@ -1185,6 +1185,7 @@ impl Interpreter {
                     Type::Int => match val {
                         Value::Integer(n) => Ok(Value::Integer(n)),
                         Value::Float(f) => Ok(Value::Integer(f as i64)),
+                        Value::Char(c) => Ok(Value::Integer(c as i64)),
                         _ => Err(InterpreterError::runtime_no_span(
                             "只能将整数或浮点数转换为 Int",
                         )),
@@ -1196,8 +1197,19 @@ impl Interpreter {
                             "只能将布尔值或整数转换为 Bool",
                         )),
                     },
+                    Type::Char | Type::CChar => match val {
+                        Value::Char(c) => Ok(Value::Char(c)),
+                        Value::Integer(n) => Ok(Value::Char(
+                            char::from_u32(n as u32).unwrap_or('\0'),
+                        )),
+                        Value::String(s) => Ok(Value::Char(s.chars().next().unwrap_or('\0'))),
+                        _ => Err(InterpreterError::runtime_no_span(
+                            "只能将整数/字符转换为 Char",
+                        )),
+                    },
                     Type::String => match val {
                         Value::String(s) => Ok(Value::String(s)),
+                        Value::Char(c) => Ok(Value::String(c.to_string())),
                         Value::Integer(n) => Ok(Value::String(n.to_string())),
                         Value::Float(f) => Ok(Value::String(f.to_string())),
                         Value::Boolean(b) => Ok(Value::String(b.to_string())),
@@ -1210,6 +1222,19 @@ impl Interpreter {
             }
             ExpressionKind::Member(obj, member) => {
                 let obj_val = self.eval(obj)?;
+                // UFCS zero-arg method property sugar: s.length → string_length(s)
+                if let Some(free_name) = Self::stdlib_ufcs_name(&obj_val, member) {
+                    if let Some(func) = self.functions.get(free_name).cloned() {
+                        return self.call_user_function_with_values(
+                            &func,
+                            free_name,
+                            vec![obj_val],
+                        );
+                    }
+                    if self.foreign_functions.contains_key(free_name) {
+                        return self.dispatch_stdlib_ffi(free_name, &[obj_val]);
+                    }
+                }
                 if let Some(value) = self.call_builtin_method(&obj_val, member, &[])? {
                     return Ok(value);
                 }
@@ -1941,7 +1966,7 @@ impl Interpreter {
                 let i = *i as usize;
                 s.chars()
                     .nth(i)
-                    .map(|c| Value::String(c.to_string()))
+                    .map(Value::Char)
                     .ok_or_else(|| InterpreterError::runtime_no_span("字符串索引越界"))
             }
             (Value::Map(rc), Value::String(key)) => {
@@ -2795,23 +2820,35 @@ impl Interpreter {
                     Ok(Value::Integer(0))
                 }
             }
+            "x_list_len" => match arg_vals.first() {
+                Some(Value::Array(rc)) => Ok(Value::Integer(rc.borrow().len() as i64)),
+                _ => Ok(Value::Integer(0)),
+            },
+            "x_list_push" => {
+                if arg_vals.len() >= 2 {
+                    if let Value::Array(rc) = &arg_vals[0] {
+                        rc.borrow_mut().push(arg_vals[1].clone());
+                    }
+                }
+                Ok(Value::Unit)
+            }
             "strcpy" | "strcat" => Ok(Value::Pointer(0)),
             // === 标准库 C FFI 绑定 ===
             // prelude: libc functions
             "puts" => {
-                let msg_ptr = self.eval(&args[0])?;
-                // In X, *character is a pointer to a C-style string
-                // We need to read it - but in interpreter we expect it's actually a String
-                // that was cast to *character
-                if let Value::Pointer(_addr) = msg_ptr {
-                    // Heuristic: when puts is called from println, the message is actually
-                    // stored in the argument as a String and cast to pointer
-                    // For interpreter purposes, we just print the argument
-                    // since in std::println it's already a string
-                    println!();
-                    Ok(Value::Integer(0))
-                } else {
-                    Ok(Value::Integer(0))
+                match arg_vals.first() {
+                    Some(Value::String(s)) => {
+                        println!("{}", s);
+                        Ok(Value::Integer(0))
+                    }
+                    Some(other) => {
+                        println!("{}", self.format_value(other));
+                        Ok(Value::Integer(0))
+                    }
+                    None => {
+                        println!();
+                        Ok(Value::Integer(0))
+                    }
                 }
             }
             "putchar" => {
@@ -3296,6 +3333,21 @@ impl Interpreter {
     ) -> Result<Value, InterpreterError> {
         let obj_val = self.eval(obj_expr)?;
 
+        // UFCS → std.prelude / libc extern (no host language-API primitives).
+        if let Some(free_name) = Self::stdlib_ufcs_name(&obj_val, method_name) {
+            let mut method_args = Vec::with_capacity(args.len() + 1);
+            method_args.push(obj_val.clone());
+            for a in args {
+                method_args.push(self.eval(a)?);
+            }
+            if let Some(func) = self.functions.get(free_name).cloned() {
+                return self.call_user_function_with_values(&func, free_name, method_args);
+            }
+            if self.foreign_functions.contains_key(free_name) {
+                return self.dispatch_stdlib_ffi(free_name, &method_args);
+            }
+        }
+
         if let Some(value) = self.call_builtin_method(&obj_val, method_name, args)? {
             return Ok(value);
         }
@@ -3595,70 +3647,95 @@ impl Interpreter {
         )))
     }
 
+    fn stdlib_ufcs_name(obj_val: &Value, method_name: &str) -> Option<&'static str> {
+        match obj_val {
+            Value::String(_) => match method_name {
+                "length" => Some("string_length"),
+                "substring" => Some("string_substring"),
+                "contains" => Some("string_contains"),
+                "trim" => Some("string_trim"),
+                "split" => Some("string_split"),
+                "to_upper" | "toUpperCase" => Some("string_to_upper"),
+                "to_lower" | "toLowerCase" => Some("string_to_lower"),
+                _ => None,
+            },
+            Value::Array(_) => match method_name {
+                "length" => Some("array_length"),
+                "push" => Some("array_push"),
+                _ => None,
+            },
+            Value::Float(_) => match method_name {
+                "sqrt" => Some("sqrt"),
+                "floor" => Some("floor"),
+                "ceil" => Some("ceil"),
+                "abs" => Some("fabs"),
+                "pow" => Some("pow"),
+                _ => None,
+            },
+            Value::Integer(_) => match method_name {
+                "abs" => Some("abs"),
+                _ => None,
+            },
+            _ => None,
+        }
+    }
+
+    /// Representation / libc FFI used by std.prelude (values already evaluated).
+    fn dispatch_stdlib_ffi(
+        &mut self,
+        name: &str,
+        args: &[Value],
+    ) -> Result<Value, InterpreterError> {
+        match name {
+            "sqrt" => Ok(Value::Float(self.as_f64(&args[0])?.sqrt())),
+            "fabs" => Ok(Value::Float(self.as_f64(&args[0])?.abs())),
+            "floor" => Ok(Value::Float(self.as_f64(&args[0])?.floor())),
+            "ceil" => Ok(Value::Float(self.as_f64(&args[0])?.ceil())),
+            "pow" => Ok(Value::Float(
+                self.as_f64(&args[0])?.powf(self.as_f64(&args[1])?),
+            )),
+            "strlen" => match args.first() {
+                Some(Value::String(s)) => Ok(Value::Integer(s.len() as i64)),
+                _ => Ok(Value::Integer(0)),
+            },
+            "x_list_len" => match args.first() {
+                Some(Value::Array(rc)) => Ok(Value::Integer(rc.borrow().len() as i64)),
+                _ => Ok(Value::Integer(0)),
+            },
+            "x_list_push" => {
+                if args.len() >= 2 {
+                    if let Value::Array(rc) = &args[0] {
+                        rc.borrow_mut().push(args[1].clone());
+                    }
+                }
+                Ok(Value::Unit)
+            }
+            "puts" => {
+                if let Some(v) = args.first() {
+                    println!("{}", self.format_value(v));
+                } else {
+                    println!();
+                }
+                Ok(Value::Integer(0))
+            }
+            other => Err(InterpreterError::runtime_no_span(format!(
+                "未实现的 stdlib FFI: {}",
+                other
+            ))),
+        }
+    }
+
     fn call_builtin_method(
         &mut self,
         obj_val: &Value,
         method_name: &str,
         args: &[Expression],
     ) -> Result<Option<Value>, InterpreterError> {
+        // Language-surface string/array/math APIs are std.prelude-only.
+        // Keep only non-stdlib helpers here (e.g. array slice) until they move too.
         match obj_val {
-            Value::String(s) => match method_name {
-                "length" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer(s.chars().count() as i64)))
-                }
-                "contains" => {
-                    self.expect_method_arity(method_name, args, 1)?;
-                    let pat = self.eval_as_string(&args[0])?;
-                    Ok(Some(Value::Boolean(s.contains(&pat))))
-                }
-                "substring" => {
-                    self.expect_method_arity(method_name, args, 2)?;
-                    let start_value = self.eval(&args[0])?;
-                    let end_value = self.eval(&args[1])?;
-                    let start = self.as_i64(&start_value)? as usize;
-                    let end = self.as_i64(&end_value)? as usize;
-                    let chars: Vec<char> = s.chars().collect();
-                    if start > chars.len() || end > chars.len() || start > end {
-                        Ok(Some(Value::String(String::new())))
-                    } else {
-                        Ok(Some(Value::String(chars[start..end].iter().collect())))
-                    }
-                }
-                "toUpperCase" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::String(s.to_uppercase())))
-                }
-                "toLowerCase" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::String(s.to_lowercase())))
-                }
-                "trim" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::String(s.trim().to_string())))
-                }
-                "split" => {
-                    self.expect_method_arity(method_name, args, 1)?;
-                    let delim = self.eval_as_string(&args[0])?;
-                    let parts = s
-                        .split(&delim)
-                        .map(|part| Value::String(part.to_string()))
-                        .collect();
-                    Ok(Some(Value::new_array(parts)))
-                }
-                _ => Ok(None),
-            },
+            Value::String(_) | Value::Integer(_) | Value::Float(_) => Ok(None),
             Value::Array(rc) => match method_name {
-                "length" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer(rc.borrow().len() as i64)))
-                }
-                "push" => {
-                    self.expect_method_arity(method_name, args, 1)?;
-                    let value = self.eval(&args[0])?;
-                    rc.borrow_mut().push(value);
-                    Ok(Some(Value::Unit))
-                }
                 "slice" => {
                     self.expect_method_arity(method_name, args, 2)?;
                     let start_value = self.eval(&args[0])?;
@@ -3666,59 +3743,11 @@ impl Interpreter {
                     let start = self.as_i64(&start_value)? as usize;
                     let end = self.as_i64(&end_value)? as usize;
                     let array = rc.borrow();
-
                     if start > array.len() || end > array.len() || start > end {
                         Ok(Some(Value::new_array(Vec::new())))
                     } else {
                         Ok(Some(Value::new_array(array[start..end].to_vec())))
                     }
-                }
-                _ => Ok(None),
-            },
-            Value::Integer(n) => match method_name {
-                "abs" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer(n.abs())))
-                }
-                "sqrt" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer((*n as f64).sqrt() as i64)))
-                }
-                "pow" => {
-                    self.expect_method_arity(method_name, args, 1)?;
-                    let exp_value = self.eval(&args[0])?;
-                    let exp = self.as_i64(&exp_value)?;
-                    if exp < 0 {
-                        return Err(InterpreterError::runtime_no_span(
-                            "pow 指数必须是非负整数".to_string(),
-                        ));
-                    }
-                    Ok(Some(Value::Integer(n.pow(exp as u32))))
-                }
-                _ => Ok(None),
-            },
-            Value::Float(f) => match method_name {
-                "abs" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Float(f.abs())))
-                }
-                "sqrt" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Float(f.sqrt())))
-                }
-                "pow" => {
-                    self.expect_method_arity(method_name, args, 1)?;
-                    let exp_value = self.eval(&args[0])?;
-                    let exp = self.as_f64(&exp_value)?;
-                    Ok(Some(Value::Float(f.powf(exp))))
-                }
-                "floor" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer(f.floor() as i64)))
-                }
-                "ceil" => {
-                    self.expect_method_arity(method_name, args, 0)?;
-                    Ok(Some(Value::Integer(f.ceil() as i64)))
                 }
                 _ => Ok(None),
             },
@@ -3804,6 +3833,17 @@ impl Interpreter {
                 _ => Err(InterpreterError::runtime_no_span("% 需要数字")),
             },
             LessEqual | Less | GreaterEqual | Greater => {
+                // Strings: lexicographic order (needed for Map/bench tie-breaks).
+                if let (Value::String(a), Value::String(b)) = (left, right) {
+                    let ok = match op {
+                        LessEqual => a <= b,
+                        Less => a < b,
+                        GreaterEqual => a >= b,
+                        Greater => a > b,
+                        _ => unreachable!(),
+                    };
+                    return Ok(Value::Boolean(ok));
+                }
                 let (a, b) = (self.as_f64(left)?, self.as_f64(right)?);
                 let ok = match op {
                     LessEqual => a <= b,
@@ -3858,6 +3898,9 @@ impl Interpreter {
             (Value::Float(a), Value::Float(b)) => Ok(Value::Float(float_op(*a, *b))),
             (Value::Integer(a), Value::Float(b)) => Ok(Value::Float(float_op(*a as f64, *b))),
             (Value::Float(a), Value::Integer(b)) => Ok(Value::Float(float_op(*a, *b as f64))),
+            (Value::Char(a), Value::Integer(b)) => Ok(Value::Integer(int_op(*a as i64, *b))),
+            (Value::Integer(a), Value::Char(b)) => Ok(Value::Integer(int_op(*a, *b as i64))),
+            (Value::Char(a), Value::Char(b)) => Ok(Value::Integer(int_op(*a as i64, *b as i64))),
             _ => Err(InterpreterError::runtime_no_span("运算需要数字")),
         }
     }
@@ -3866,6 +3909,7 @@ impl Interpreter {
         match v {
             Value::Integer(n) => Ok(*n as f64),
             Value::Float(f) => Ok(*f),
+            Value::Char(c) => Ok(*c as u32 as f64),
             _ => Err(InterpreterError::runtime_no_span("需要数字")),
         }
     }
@@ -3874,6 +3918,7 @@ impl Interpreter {
         match v {
             Value::Integer(n) => Ok(*n),
             Value::Float(f) => Ok(*f as i64),
+            Value::Char(c) => Ok(*c as i64),
             _ => Err(InterpreterError::runtime_no_span("需要整数")),
         }
     }
@@ -4451,12 +4496,33 @@ mod tests {
 
     fn run_ok(source: &str) -> Result<(), InterpreterError> {
         let parser = x_parser::parser::XParser::new();
-        let program = parser.parse(source).expect("Failed to parse");
+        let mut program = parser.parse(source).expect("Failed to parse");
+        inject_stdlib_for_tests(&mut program);
         let mut interpreter = Interpreter::new();
         // Provide empty input so stdin-reading FFI functions (e.g. getline) do not
         // block on a tty during tests.
         interpreter.set_input(Vec::new());
         interpreter.run(&program).map(|_| ())
+    }
+
+    fn inject_stdlib_for_tests(program: &mut x_parser::ast::Program) {
+        let root = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let parser = x_parser::parser::XParser::new();
+        let types_src =
+            std::fs::read_to_string(root.join("library/stdlib/types.x")).expect("read types.x");
+        let prelude_src =
+            std::fs::read_to_string(root.join("library/stdlib/prelude.x")).expect("read prelude.x");
+        let prelude_src = prelude_src
+            .lines()
+            .filter(|l| !l.trim_start().starts_with("import "))
+            .collect::<Vec<_>>()
+            .join("\n");
+        let types_prog = parser.parse(&types_src).expect("parse types.x");
+        let prelude_prog = parser.parse(&prelude_src).expect("parse prelude.x");
+        let mut decls = types_prog.declarations;
+        decls.extend(prelude_prog.declarations);
+        decls.extend(program.declarations.clone());
+        program.declarations = decls;
     }
 
     #[test]

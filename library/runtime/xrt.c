@@ -131,10 +131,34 @@ XValue *x_list_get(XValue *list, long long index) {
     return l->items[index];
 }
 
+void x_list_set(XValue *list, long long index, XValue *item) {
+    if (!list || list->tag != X_LIST)
+        return;
+    struct XList *l = list->u.list;
+    if (index < 0 || index >= l->len)
+        return;
+    l->items[index] = item;
+}
+
 long long x_list_len(XValue *list) {
     if (!list || list->tag != X_LIST)
         return 0;
     return list->u.list->len;
+}
+
+XValue *__index__(XValue *collection, long long index) {
+    if (!collection)
+        return x_from_int(0);
+    if (collection->tag == X_LIST)
+        return x_list_get(collection, index);
+    if (collection->tag == X_STR) {
+        const char *s = collection->u.s ? collection->u.s : "";
+        size_t len = strlen(s);
+        if (index < 0 || (size_t)index >= len)
+            return x_from_str("");
+        return x_from_char((unsigned char)s[index]);
+    }
+    return x_from_int(0);
 }
 
 /* ------------------------------------------------------------------ maps */
@@ -149,10 +173,40 @@ XValue *x_map_new(void) {
     return x;
 }
 
+static int x_value_eq(XValue *a, XValue *b) {
+    if (a == b)
+        return 1;
+    if (!a || !b || a->tag != b->tag)
+        return 0;
+    switch (a->tag) {
+    case X_INT:
+    case X_BOOL:
+    case X_CHAR:
+        return a->u.i == b->u.i;
+    case X_DOUBLE:
+        return a->u.d == b->u.d;
+    case X_STR: {
+        const char *sa = a->u.s ? a->u.s : "";
+        const char *sb = b->u.s ? b->u.s : "";
+        return strcmp(sa, sb) == 0;
+    }
+    case X_PTR:
+        return a->u.p == b->u.p;
+    default:
+        return 0;
+    }
+}
+
 void x_map_put(XValue *map, XValue *key, XValue *value) {
     if (!map || map->tag != X_MAP)
         return;
     struct XMap *m = map->u.map;
+    for (long long i = 0; i < m->len; i++) {
+        if (x_value_eq(m->entries[i].key, key)) {
+            m->entries[i].val = value;
+            return;
+        }
+    }
     if (m->len == m->cap) {
         m->cap = m->cap ? m->cap * 2 : 4;
         m->entries = (struct XMapEntry *)realloc(
@@ -165,6 +219,17 @@ void x_map_put(XValue *map, XValue *key, XValue *value) {
     m->entries[m->len].key = key;
     m->entries[m->len].val = value;
     m->len++;
+}
+
+XValue *x_map_get(XValue *map, XValue *key) {
+    if (!map || map->tag != X_MAP)
+        return x_from_int(0);
+    struct XMap *m = map->u.map;
+    for (long long i = 0; i < m->len; i++) {
+        if (x_value_eq(m->entries[i].key, key))
+            return m->entries[i].val;
+    }
+    return x_from_int(0);
 }
 
 /* ------------------------------------------------------------- unboxing */
@@ -391,3 +456,222 @@ void x_print_inline(XValue *v) {
 }
 
 void x_print_newline(void) { fputc('\n', stdout); }
+
+/* ------------------------------------------- pi digits (Rabinowitz–Wagon) */
+
+char *compute_pi_digits(long long n) {
+    if (n <= 0) {
+        char *empty = (char *)x_xalloc(1);
+        empty[0] = '\0';
+        return empty;
+    }
+    /* Generate n+1 digits then drop the leading 0 that precedes '3'. */
+    long long want = n + 1;
+    long long len = (10 * want) / 3 + 2;
+    int *a = (int *)x_xalloc((size_t)len * sizeof(int));
+    for (long long i = 0; i < len; i++)
+        a[i] = 2;
+
+    char *buf = (char *)x_xalloc((size_t)want + 2);
+    long long produced = 0;
+    int nines = 0;
+    int predigit = 0;
+
+    while (produced < want) {
+        long long q = 0;
+        for (long long i = len - 1; i >= 0; i--) {
+            long long x = 10 * a[i] + q * (i + 1);
+            a[i] = (int)(x % (2 * i + 1));
+            q = x / (2 * i + 1);
+        }
+        a[0] = (int)(q % 10);
+        q = q / 10;
+        if (q == 9) {
+            nines++;
+        } else if (q == 10) {
+            buf[produced++] = (char)('0' + predigit + 1);
+            for (int k = 0; k < nines && produced < want; k++)
+                buf[produced++] = '0';
+            predigit = 0;
+            nines = 0;
+        } else {
+            buf[produced++] = (char)('0' + predigit);
+            predigit = (int)q;
+            for (int k = 0; k < nines && produced < want; k++)
+                buf[produced++] = '9';
+            nines = 0;
+        }
+    }
+    free(a);
+
+    char *out = (char *)x_xalloc((size_t)n + 1);
+    /* Skip leading 0; take next n digits (starting with 3). */
+    memcpy(out, buf + 1, (size_t)n);
+    out[n] = '\0';
+    free(buf);
+    return out;
+}
+
+/* ----------------------------------------------------------- simple regex */
+
+static size_t x_pattern_len(const char *pat) {
+    size_t len = 0;
+    for (const char *p = pat; *p;) {
+        if (*p == '[') {
+            while (*p && *p != ']')
+                p++;
+            if (*p == ']')
+                p++;
+            len++;
+        } else {
+            p++;
+            len++;
+        }
+    }
+    return len;
+}
+
+static int x_match_at(const char *text, size_t start, const char *pat) {
+    size_t ti = start;
+    const char *p = pat;
+    size_t tlen = strlen(text);
+    while (*p) {
+        if (ti >= tlen)
+            return 0;
+        if (*p == '[') {
+            p++;
+            int matched = 0;
+            while (*p && *p != ']') {
+                if (text[ti] == *p)
+                    matched = 1;
+                p++;
+            }
+            if (!matched)
+                return 0;
+            if (*p == ']')
+                p++;
+            ti++;
+        } else {
+            if (text[ti] != *p)
+                return 0;
+            ti++;
+            p++;
+        }
+    }
+    return 1;
+}
+
+static long long x_regex_count_one(const char *text, const char *pattern) {
+    if (strchr(pattern, '|')) {
+        char *dup = strdup(pattern);
+        if (!dup)
+            return 0;
+        long long total = 0;
+        char *save = NULL;
+        for (char *tok = strtok_r(dup, "|", &save); tok;
+             tok = strtok_r(NULL, "|", &save)) {
+            total += x_regex_count_one(text, tok);
+        }
+        free(dup);
+        return total;
+    }
+    if (strchr(pattern, '[')) {
+        size_t tlen = strlen(text);
+        size_t plen = x_pattern_len(pattern);
+        if (plen == 0)
+            return 0;
+        long long count = 0;
+        size_t i = 0;
+        while (i + plen <= tlen) {
+            if (x_match_at(text, i, pattern)) {
+                count++;
+                i += plen;
+            } else {
+                i++;
+            }
+        }
+        return count;
+    }
+    long long count = 0;
+    size_t plen = strlen(pattern);
+    if (plen == 0)
+        return 0;
+    const char *s = text;
+    while ((s = strstr(s, pattern)) != NULL) {
+        count++;
+        s += plen;
+    }
+    return count;
+}
+
+long long regex_match_count(const char *text, const char *pattern) {
+    if (!text)
+        text = "";
+    if (!pattern)
+        pattern = "";
+    return x_regex_count_one(text, pattern);
+}
+
+char *regex_replace_all(const char *text, const char *pattern,
+                        const char *replacement) {
+    if (!text)
+        text = "";
+    if (!pattern)
+        pattern = "";
+    if (!replacement)
+        replacement = "";
+
+    size_t tlen = strlen(text);
+    struct XBuf b;
+    buf_init(&b);
+
+    if (strchr(pattern, '[') || strchr(pattern, '|')) {
+        char *dup = strdup(pattern);
+        char *alts[64];
+        int nalt = 0;
+        if (dup) {
+            char *save = NULL;
+            for (char *tok = strtok_r(dup, "|", &save); tok && nalt < 64;
+                 tok = strtok_r(NULL, "|", &save)) {
+                alts[nalt++] = tok;
+            }
+        }
+        size_t i = 0;
+        while (i < tlen) {
+            int matched = 0;
+            for (int a = 0; a < nalt; a++) {
+                size_t plen = x_pattern_len(alts[a]);
+                if (i + plen <= tlen && x_match_at(text, i, alts[a])) {
+                    buf_puts(&b, replacement);
+                    i += plen;
+                    matched = 1;
+                    break;
+                }
+            }
+            if (!matched) {
+                char ch[2] = {text[i], '\0'};
+                buf_puts(&b, ch);
+                i++;
+            }
+        }
+        free(dup);
+    } else {
+        size_t plen = strlen(pattern);
+        size_t i = 0;
+        if (plen == 0) {
+            buf_puts(&b, text);
+        } else {
+            while (i < tlen) {
+                if (i + plen <= tlen && memcmp(text + i, pattern, plen) == 0) {
+                    buf_puts(&b, replacement);
+                    i += plen;
+                } else {
+                    char ch[2] = {text[i], '\0'};
+                    buf_puts(&b, ch);
+                    i++;
+                }
+            }
+        }
+    }
+    return b.data;
+}

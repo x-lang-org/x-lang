@@ -50,6 +50,45 @@ fn is_xvalue(ty: &MirType) -> bool {
     matches!(ty, MirType::Struct(name, _) if name == "XValue")
 }
 
+fn mir_stdlib_ufcs_name(recv: &MirType, method: &str) -> Option<&'static str> {
+    match (recv, method) {
+        (MirType::String, "length") => Some("string_length"),
+        (MirType::String, "substring") => Some("string_substring"),
+        (MirType::String, "contains") => Some("string_contains"),
+        (MirType::String, "trim") => Some("string_trim"),
+        (MirType::String, "split") => Some("string_split"),
+        (MirType::String, "to_upper" | "toUpperCase") => Some("string_to_upper"),
+        (MirType::String, "to_lower" | "toLowerCase") => Some("string_to_lower"),
+        (MirType::Array(_, _), "length") => Some("array_length"),
+        (MirType::Array(_, _), "push") => Some("array_push"),
+        // XValue lists (heterogeneous runtime arrays)
+        (MirType::Struct(name, _), "length") if name == "XValue" => Some("array_length"),
+        (MirType::Struct(name, _), "push") if name == "XValue" => Some("array_push"),
+        (MirType::Float(_), "sqrt") => Some("sqrt"),
+        (MirType::Float(_), "floor") => Some("floor"),
+        (MirType::Float(_), "ceil") => Some("ceil"),
+        (MirType::Float(_), "abs") => Some("fabs"),
+        (MirType::Float(_), "pow") => Some("pow"),
+        (MirType::Int(_), "abs") => Some("abs"),
+        _ => None,
+    }
+}
+
+fn mir_types_compatible(a: &MirType, b: &MirType) -> bool {
+    match (a, b) {
+        (MirType::Unknown, _) | (_, MirType::Unknown) => true,
+        (MirType::Unit, MirType::Unit) => true,
+        (MirType::Bool, MirType::Bool) => true,
+        (MirType::Char, MirType::Char) => true,
+        (MirType::String, MirType::String) => true,
+        (MirType::Int(_), MirType::Int(_)) => true,
+        (MirType::Float(_), MirType::Float(_)) => true,
+        (MirType::Pointer(_), MirType::Pointer(_)) => true,
+        (MirType::Struct(a, _), MirType::Struct(b, _)) => a == b,
+        _ => a == b,
+    }
+}
+
 /// 类信息（字段布局 + 方法返回类型）
 #[derive(Clone)]
 struct ClassInfo {
@@ -76,7 +115,10 @@ struct TypeCtx {
     classes: HashMap<String, ClassInfo>,
     enums: HashMap<String, EnumInfo>,
     records: HashMap<String, Vec<(String, MirType)>>,
+    /// Function name → return type.
     functions: HashMap<String, MirType>,
+    /// Function name → parameter types (for boxing scalars into `any` / XValue).
+    function_params: HashMap<String, Vec<MirType>>,
     globals: HashMap<String, MirType>,
     /// 变体名 -> (枚举名, 负载数量)。用于裸构造器（Some/None/Ok/Err 等）。
     variant_to_enum: HashMap<String, (String, usize)>,
@@ -243,87 +285,103 @@ impl HirToMirLowerer {
     // 预扫描：建立类型环境
     // ------------------------------------------------------------------
     fn prescan(&mut self, hir: &Hir) {
+        // Pass 1: enums (so class fields / function signatures can treat them as heap ptrs).
+        for decl in &hir.declarations {
+            if let HirDeclaration::Enum(e) = decl {
+                let mut payloads: HashMap<String, Vec<HirType>> = HashMap::new();
+                let variants: Vec<(String, usize)> = e
+                    .variants
+                    .iter()
+                    .map(|v| {
+                        let tys: Vec<HirType> = match &v.data {
+                            HirEnumVariantData::Unit => Vec::new(),
+                            HirEnumVariantData::Tuple(t) => t.clone(),
+                            HirEnumVariantData::Record(r) => {
+                                r.iter().map(|(_, t)| t.clone()).collect()
+                            }
+                        };
+                        let arity = tys.len();
+                        payloads.insert(v.name.clone(), tys);
+                        (v.name.clone(), arity)
+                    })
+                    .collect();
+                let max_payload = variants.iter().map(|(_, a)| *a).max().unwrap_or(0);
+                let mut type_params: Vec<String> = Vec::new();
+                for (vname, _) in &variants {
+                    if let Some(tys) = payloads.get(vname) {
+                        for t in tys {
+                            if let HirType::Generic(g) = t {
+                                if !type_params.contains(g) {
+                                    type_params.push(g.clone());
+                                }
+                            }
+                        }
+                    }
+                }
+                for (vname, arity) in &variants {
+                    self.ctx
+                        .variant_to_enum
+                        .entry(vname.clone())
+                        .or_insert_with(|| (e.name.clone(), *arity));
+                }
+                self.ctx.enums.insert(
+                    e.name.clone(),
+                    EnumInfo {
+                        variants,
+                        max_payload,
+                        payloads,
+                        type_params,
+                    },
+                );
+            }
+        }
+
+        // Pass 2: classes / records / functions (class+enum names → pointers).
         for decl in &hir.declarations {
             match decl {
                 HirDeclaration::Function(f) => {
                     self.ctx
                         .functions
-                        .insert(f.name.clone(), lower_type(&f.return_type));
+                        .insert(f.name.clone(), lower_user_type(&f.return_type, &self.ctx));
+                    self.ctx.function_params.insert(
+                        f.name.clone(),
+                        f.parameters
+                            .iter()
+                            .map(|p| lower_user_type(&p.ty, &self.ctx))
+                            .collect(),
+                    );
                 }
                 HirDeclaration::ExternFunction(f) => {
                     self.ctx
                         .functions
-                        .insert(f.name.clone(), lower_type(&f.return_type));
+                        .insert(f.name.clone(), lower_user_type(&f.return_type, &self.ctx));
+                    self.ctx.function_params.insert(
+                        f.name.clone(),
+                        f.parameters
+                            .iter()
+                            .map(|p| lower_user_type(&p.ty, &self.ctx))
+                            .collect(),
+                    );
                 }
                 HirDeclaration::Class(c) => {
                     let fields = c
                         .fields
                         .iter()
-                        .map(|fld| (fld.name.clone(), field_repr_ty(&fld.ty)))
+                        .map(|fld| (fld.name.clone(), field_repr_ty(&fld.ty, &self.ctx)))
                         .collect::<Vec<_>>();
                     let mut methods = HashMap::new();
                     for m in &c.methods {
-                        methods.insert(m.name.clone(), lower_type(&m.return_type));
+                        methods.insert(m.name.clone(), lower_user_type(&m.return_type, &self.ctx));
                     }
                     self.ctx
                         .classes
                         .insert(c.name.clone(), ClassInfo { fields, methods });
                 }
-                HirDeclaration::Enum(e) => {
-                    let mut payloads: HashMap<String, Vec<HirType>> = HashMap::new();
-                    let variants: Vec<(String, usize)> = e
-                        .variants
-                        .iter()
-                        .map(|v| {
-                            let tys: Vec<HirType> = match &v.data {
-                                HirEnumVariantData::Unit => Vec::new(),
-                                HirEnumVariantData::Tuple(t) => t.clone(),
-                                HirEnumVariantData::Record(r) => {
-                                    r.iter().map(|(_, t)| t.clone()).collect()
-                                }
-                            };
-                            let arity = tys.len();
-                            payloads.insert(v.name.clone(), tys);
-                            (v.name.clone(), arity)
-                        })
-                        .collect();
-                    let max_payload = variants.iter().map(|(_, a)| *a).max().unwrap_or(0);
-                    // 按负载中泛型名首次出现推断类型参数顺序。
-                    let mut type_params: Vec<String> = Vec::new();
-                    for (vname, _) in &variants {
-                        if let Some(tys) = payloads.get(vname) {
-                            for t in tys {
-                                if let HirType::Generic(g) = t {
-                                    if !type_params.contains(g) {
-                                        type_params.push(g.clone());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    for (vname, arity) in &variants {
-                        self.ctx
-                            .variant_to_enum
-                            .entry(vname.clone())
-                            .or_insert_with(|| (e.name.clone(), *arity));
-                    }
-                    self.ctx.enums.insert(
-                        e.name.clone(),
-                        EnumInfo {
-                            variants,
-                            max_payload,
-                            payloads,
-                            type_params,
-                        },
-                    );
-                }
                 HirDeclaration::Record(r) => {
-                    // 记录“语义”字段类型（保留 Bool/Char），供成员类型推断与装箱使用；
-                    // 内存布局所需的统一表示在 lower_record 中再折叠。
                     let fields = r
                         .fields
                         .iter()
-                        .map(|(n, t)| (n.clone(), lower_type(t)))
+                        .map(|(n, t)| (n.clone(), lower_user_type(t, &self.ctx)))
                         .collect::<Vec<_>>();
                     self.ctx.records.insert(r.name.clone(), fields);
                 }
@@ -339,7 +397,7 @@ impl HirToMirLowerer {
                     .as_ref()
                     .map(|init| self.infer_type(init))
                     .filter(|t| !matches!(t, MirType::Unknown))
-                    .unwrap_or_else(|| lower_type(&var.ty));
+                    .unwrap_or_else(|| lower_user_type(&var.ty, &self.ctx));
                 self.ctx.globals.insert(var.name.clone(), ty);
             }
         }
@@ -392,6 +450,7 @@ impl HirToMirLowerer {
                     ty,
                     initializer: init,
                     mutable: var.is_mutable,
+                    extern_abi: var.extern_abi.clone(),
                 });
             }
             HirDeclaration::ExternFunction(ext) => {
@@ -456,7 +515,7 @@ impl HirToMirLowerer {
         Ok(())
     }
 
-    /// 把 class 展开为：MirStruct + 合成构造器(以类名命名) + 方法(Class__method)
+    /// 把 class 展开为：MirStruct + 合成构造器(Class__new) + 方法(Class__method)
     fn lower_class(&mut self, class: &HirClassDecl) -> MirLowerResult<()> {
         let info = self.ctx.classes.get(&class.name).cloned().ok_or_else(|| {
             MirLowerError::Internal(format!("类未在预扫描中登记: {}", class.name))
@@ -468,17 +527,17 @@ impl HirToMirLowerer {
             fields: info.fields.clone(),
         });
 
-        // 2) 构造器（命名为类名本身）
+        // 2) 构造器（Class__new，避免与类型名冲突）
         let ctor = class.constructors.first();
         let mir_ctor = self.synthesize_constructor(&class.name, &info, ctor)?;
         self.module.functions.push(mir_ctor);
 
-        // 3) 方法（Class__method，首参为 self）
+        // 3) 方法（Class__method，首参为 self；lookup 时 this 别名到 self）
         for method in &class.methods {
             let mangled = format!("{}__{}", class.name, method.name);
             let mut decl = method.clone();
             decl.name = mangled;
-            let self_ty = HirType::Record(class.name.clone(), Vec::new());
+            let self_ty = HirType::Pointer(Box::new(HirType::Record(class.name.clone(), Vec::new())));
             decl.parameters.insert(
                 0,
                 HirParameter {
@@ -503,23 +562,25 @@ impl HirToMirLowerer {
         let params: Vec<HirParameter> = ctor.map(|c| c.parameters.clone()).unwrap_or_default();
 
         // 合成构造器体：
-        //   let self = alloc(C);
-        //   <ctor body, with self.field = ...>
+        //   let self = alloc(C);  // this 与 self 同绑定；类实例以指针表示
+        //   <ctor body, with this.field = ...>
         //   return self
+        let class_ty = MirType::Struct(class_name.to_string(), Vec::new());
+        let self_ty = MirType::Pointer(Box::new(class_ty.clone()));
         let mut lowerer = FunctionLowerer::new(
             MirFunction {
-                name: class_name.to_string(),
+                name: format!("{}__new", class_name),
                 type_params: Vec::new(),
                 parameters: params
                     .iter()
                     .enumerate()
                     .map(|(index, p)| MirParameter {
                         name: p.name.clone(),
-                        ty: lower_type(&p.ty),
+                        ty: lower_user_type(&p.ty, &self.ctx),
                         index,
                     })
                     .collect(),
-                return_type: MirType::Struct(class_name.to_string(), Vec::new()),
+                return_type: self_ty.clone(),
                 blocks: Vec::new(),
                 locals: HashMap::new(),
                 name_to_local: HashMap::new(),
@@ -528,20 +589,19 @@ impl HirToMirLowerer {
             &self.ctx,
         );
 
-        // self = malloc(size)
-        let self_local = lowerer.new_local(MirType::Struct(class_name.to_string(), Vec::new()));
+        // self/this = malloc(size)
+        let self_local = lowerer.new_local(self_ty.clone());
         lowerer.bind_local("self".to_string(), self_local);
-        lowerer.var_types.insert(
-            "self".to_string(),
-            MirType::Struct(class_name.to_string(), Vec::new()),
-        );
+        lowerer.bind_local("this".to_string(), self_local);
+        lowerer.var_types.insert("self".to_string(), self_ty.clone());
+        lowerer.var_types.insert("this".to_string(), self_ty.clone());
         let size = (info.fields.len().max(1)) * 8;
         lowerer
             .current_block
             .instructions
             .push(MirInstruction::Alloc {
                 dest: self_local,
-                ty: MirType::Struct(class_name.to_string(), Vec::new()),
+                ty: class_ty,
                 size,
             });
 
@@ -698,11 +758,11 @@ impl<'ctx> FunctionLowerer<'ctx> {
                 .enumerate()
                 .map(|(index, p)| MirParameter {
                     name: p.name.clone(),
-                    ty: lower_type(&p.ty),
+                    ty: lower_user_type(&p.ty, ctx),
                     index,
                 })
                 .collect(),
-            return_type: lower_type(&func.return_type),
+            return_type: lower_user_type(&func.return_type, ctx),
             blocks: Vec::new(),
             locals: HashMap::new(),
             name_to_local: HashMap::new(),
@@ -781,18 +841,34 @@ impl<'ctx> FunctionLowerer<'ctx> {
                 Ok(Some(value))
             }
             HirStatement::Variable(var) => {
-                let ty = var
+                // Prefer the declared type when present. Initializer inference
+                // of `null` is Unit/Unknown and must not erase `*T` annotations.
+                let declared = lower_user_type(&var.ty, &self.ctx);
+                let from_init = var
                     .initializer
                     .as_ref()
                     .map(|init| self.type_of(init))
-                    .filter(|t| !matches!(t, MirType::Unknown))
-                    .unwrap_or_else(|| lower_type(&var.ty));
+                    .filter(|t| !matches!(t, MirType::Unknown | MirType::Unit));
+                let ty = match (&declared, from_init) {
+                    (MirType::Unknown | MirType::Unit, Some(t)) => t,
+                    (d, _) if !matches!(d, MirType::Unknown) => declared,
+                    (_, Some(t)) => t,
+                    _ => declared,
+                };
                 let local = self.new_local(ty.clone());
                 self.bind_local(var.name.clone(), local);
-                self.var_types.insert(var.name.clone(), ty);
+                self.var_types.insert(var.name.clone(), ty.clone());
 
                 if let Some(init) = &var.initializer {
-                    let value = self.lower_expression(init)?;
+                    let value = match init {
+                        // `null` is lowered as Unit in HIR; materialize as Null for pointers.
+                        HirExpression::Literal(HirLiteral::Unit)
+                            if matches!(ty, MirType::Pointer(_)) =>
+                        {
+                            MirOperand::Constant(MirConstant::Null)
+                        }
+                        _ => self.lower_expression(init)?,
+                    };
                     self.current_block
                         .instructions
                         .push(MirInstruction::Assign { dest: local, value });
@@ -817,6 +893,20 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     merge_id
                 };
 
+                // If both arms end in an expression value, treat the if as a
+                // value-producing expression (needed for `function f() -> T {
+                //   if c { e1 } else { e2 } }` without an explicit return).
+                // Only yield when arm types are compatible — statement-level
+                // ifs often end in assignments of different types (bool vs int).
+                let result_ty = {
+                    if !matches!(self.function.return_type, MirType::Unit | MirType::Unknown) {
+                        self.function.return_type.clone()
+                    } else {
+                        MirType::Unknown
+                    }
+                };
+                let result = self.new_local(result_ty);
+
                 self.current_block.terminator = MirTerminator::CondBranch {
                     cond,
                     then_block: then_id,
@@ -824,16 +914,55 @@ impl<'ctx> FunctionLowerer<'ctx> {
                 };
                 self.switch_to_block(then_id);
 
-                self.lower_block(&if_stmt.then_block)?;
+                let then_val = self.lower_block(&if_stmt.then_block)?;
+                let then_open = self.block_open();
                 self.close_open_with_branch(merge_id);
 
+                let mut else_val = None;
+                let mut else_open = false;
                 if let Some(else_block) = &if_stmt.else_block {
                     self.switch_to_block(else_id);
-                    self.lower_block(else_block)?;
+                    else_val = self.lower_block(else_block)?;
+                    else_open = self.block_open();
                     self.close_open_with_branch(merge_id);
                 }
                 self.switch_to_block(merge_id);
-                Ok(None)
+
+                let yield_pair = match (&then_val, &else_val) {
+                    (Some(t), Some(e)) if then_open && else_open => {
+                        let tt = self.operand_mir_type(t);
+                        let et = self.operand_mir_type(e);
+                        if mir_types_compatible(&tt, &et) {
+                            Some((t.clone(), e.clone(), tt))
+                        } else {
+                            None
+                        }
+                    }
+                    _ => None,
+                };
+
+                if let Some((tv, ev, ty)) = yield_pair {
+                    if !matches!(ty, MirType::Unknown | MirType::Unit) {
+                        self.function.locals.insert(result, ty);
+                    }
+                    self.append_assign_in_block(
+                        then_id,
+                        MirInstruction::Assign {
+                            dest: result,
+                            value: tv,
+                        },
+                    );
+                    self.append_assign_in_block(
+                        else_id,
+                        MirInstruction::Assign {
+                            dest: result,
+                            value: ev,
+                        },
+                    );
+                    Ok(Some(MirOperand::Local(result)))
+                } else {
+                    Ok(None)
+                }
             }
             HirStatement::For(for_stmt) => {
                 self.lower_for_each(for_stmt)?;
@@ -1098,7 +1227,22 @@ impl<'ctx> FunctionLowerer<'ctx> {
             HirExpression::Binary(op, lhs, rhs) => self.lower_binary(op, lhs, rhs),
             HirExpression::Unary(op, e) => {
                 let operand = self.lower_expression(e)?;
-                let dest = self.new_local(self.type_of(e));
+                let dest_ty = match op {
+                    HirUnaryOp::Reference | HirUnaryOp::MutableReference => {
+                        let inner = match &operand {
+                            MirOperand::Local(id) => self
+                                .function
+                                .locals
+                                .get(id)
+                                .cloned()
+                                .unwrap_or_else(|| self.type_of(e)),
+                            _ => self.type_of(e),
+                        };
+                        MirType::Pointer(Box::new(inner))
+                    }
+                    _ => self.type_of(e),
+                };
+                let dest = self.new_local(dest_ty);
                 self.current_block
                     .instructions
                     .push(MirInstruction::UnaryOp {
@@ -1118,15 +1262,22 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     AstType::Int | AstType::UnsignedInt => Some(MirType::Int(64)),
                     AstType::Float => Some(MirType::Float(64)),
                     AstType::Bool => Some(MirType::Bool),
+                    AstType::Char | AstType::CChar => Some(MirType::Char),
+                    AstType::Generic(name) if self.ctx.classes.contains_key(name) => Some(
+                        MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new()))),
+                    ),
+                    AstType::Generic(name) if self.ctx.enums.contains_key(name) => Some(
+                        MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new()))),
+                    ),
                     _ => None,
                 };
                 let src = self.type_of(e);
                 let op = self.lower_expression(e)?;
                 // 数值类型间转换（int<->float、宽度变化）发一条 Cast 指令；其余原样传递。
                 let numeric =
-                    |t: &MirType| matches!(t, MirType::Int(_) | MirType::Float(_) | MirType::Bool);
+                    |t: &MirType| matches!(t, MirType::Int(_) | MirType::Float(_) | MirType::Bool | MirType::Char);
                 if let Some(target) = target {
-                    if numeric(&src) && src != target {
+                    if numeric(&src) && numeric(&target) && src != target {
                         let dest = self.new_local(target.clone());
                         self.current_block.instructions.push(MirInstruction::Cast {
                             dest,
@@ -1135,12 +1286,69 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         });
                         return Ok(MirOperand::Local(dest));
                     }
+                    // XValue / opaque → class/enum pointer
+                    if matches!(
+                        &target,
+                        MirType::Pointer(inner)
+                            if matches!(inner.as_ref(), MirType::Struct(n, _) if n != "XValue")
+                    ) {
+                        let dest = self.new_local(target.clone());
+                        self.current_block.instructions.push(MirInstruction::Call {
+                            dest: Some(dest),
+                            func: MirOperand::Global("x_as_ptr".to_string()),
+                            args: vec![op],
+                        });
+                        return Ok(MirOperand::Local(dest));
+                    }
+                    // XValue → float/int/bool/char unbox
+                    if !numeric(&src) {
+                        let (func, ret) = match &target {
+                            MirType::Float(_) => ("x_as_double", target.clone()),
+                            MirType::Int(_) => ("x_as_int", target.clone()),
+                            MirType::Char => ("x_as_int", MirType::Char),
+                            MirType::Bool => ("x_as_bool", MirType::Int(64)),
+                            _ => {
+                                return Ok(op);
+                            }
+                        };
+                        let dest = self.new_local(ret);
+                        self.current_block.instructions.push(MirInstruction::Call {
+                            dest: Some(dest),
+                            func: MirOperand::Global(func.to_string()),
+                            args: vec![op],
+                        });
+                        if matches!(target, MirType::Bool) {
+                            let bdest = self.new_local(MirType::Bool);
+                            self.current_block.instructions.push(MirInstruction::BinaryOp {
+                                dest: bdest,
+                                op: MirBinOp::Ne,
+                                left: MirOperand::Local(dest),
+                                right: MirOperand::Constant(MirConstant::Int(0)),
+                            });
+                            return Ok(MirOperand::Local(bdest));
+                        }
+                        return Ok(MirOperand::Local(dest));
+                    }
                 }
                 Ok(op)
             }
             HirExpression::Assign(target, value) => self.lower_assign(target, value),
             HirExpression::If(cond, then_expr, else_expr) => {
-                let result = self.new_local(self.type_of(then_expr));
+                let then_ty = self.type_of(then_expr);
+                let else_ty = self.type_of(else_expr);
+                let result_ty = if !matches!(then_ty, MirType::Unknown | MirType::Unit) {
+                    then_ty
+                } else if !matches!(else_ty, MirType::Unknown | MirType::Unit) {
+                    else_ty
+                } else if !matches!(
+                    self.function.return_type,
+                    MirType::Unit | MirType::Unknown
+                ) {
+                    self.function.return_type.clone()
+                } else {
+                    MirType::Unknown
+                };
+                let result = self.new_local(result_ty);
                 let cond_op = self.lower_expression(cond)?;
                 let then_id = self.alloc_block_id();
                 let else_id = self.alloc_block_id();
@@ -1325,10 +1533,11 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         .get(method)
                         .cloned()
                         .unwrap_or(MirType::Unknown);
-                    let lowered_args = args
-                        .iter()
-                        .map(|a| self.lower_expression(a))
-                        .collect::<MirLowerResult<Vec<_>>>()?;
+                    let params = self.params_of(method);
+                    let mut lowered_args = Vec::with_capacity(args.len());
+                    for (i, a) in args.iter().enumerate() {
+                        lowered_args.push(self.lower_arg_for_param(a, params.get(i).cloned())?);
+                    }
                     let dest = self.new_local(ret);
                     self.current_block.instructions.push(MirInstruction::Call {
                         dest: Some(dest),
@@ -1369,56 +1578,184 @@ impl<'ctx> FunctionLowerer<'ctx> {
                 }
             }
 
-            // UFCS：obj.method(args) -> method(obj, args)，当 method 是已知自由函数
-            // （记录/枚举的方法以 self 为首参的自由函数形式实现）。
-            if self.ctx.functions.contains_key(method) {
-                let ret = self
-                    .ctx
-                    .functions
-                    .get(method)
-                    .cloned()
-                    .unwrap_or(MirType::Unknown);
-                let obj_op = self.lower_expression(obj)?;
-                let mut lowered_args = vec![obj_op];
-                for a in args {
-                    lowered_args.push(self.lower_expression(a)?);
+            // UFCS：obj.method(args) → free_fn(obj, args)
+            // Prefer prelude aliases (length → string_length) based on receiver type.
+            let ufcs_name = {
+                let recv_ty = self.type_of(obj);
+                mir_stdlib_ufcs_name(&recv_ty, method)
+                    .map(|s| s.to_string())
+                    .or_else(|| {
+                        if self.ctx.functions.contains_key(method) {
+                            Some(method.clone())
+                        } else {
+                            None
+                        }
+                    })
+            };
+            if let Some(free_name) = ufcs_name {
+                if self.ctx.functions.contains_key(&free_name) {
+                    let ret = self
+                        .ctx
+                        .functions
+                        .get(&free_name)
+                        .cloned()
+                        .unwrap_or(MirType::Unknown);
+                    let params = self.params_of(&free_name);
+                    let obj_op = self.lower_expression(obj)?;
+                    // UFCS inserts the receiver as the first formal parameter.
+                    let mut lowered_args = vec![obj_op];
+                    for (i, a) in args.iter().enumerate() {
+                        // `array_push(list, item)` stores boxed XValues.
+                        if free_name == "array_push" && i == 0 {
+                            lowered_args.push(self.box_for_print(a)?);
+                        } else {
+                            // Arg i maps to formal parameter i+1 (after self).
+                            lowered_args.push(
+                                self.lower_arg_for_param(a, params.get(i + 1).cloned())?,
+                            );
+                        }
+                    }
+                    let dest = self.new_local(ret);
+                    self.current_block.instructions.push(MirInstruction::Call {
+                        dest: Some(dest),
+                        func: MirOperand::Global(free_name),
+                        args: lowered_args,
+                    });
+                    return Ok(MirOperand::Local(dest));
                 }
-                let dest = self.new_local(ret);
+            }
+        }
+
+        // 普通调用（含构造器：Variable(ClassName) → Class__new）
+        let (func, runtime_name) = if let HirExpression::Variable(name) = callee {
+            if self.lookup_local(name).is_none()
+                && self.lookup_param(name).is_none()
+                && self.ctx.classes.contains_key(name)
+            {
+                (MirOperand::Global(format!("{}__new", name)), "")
+            } else {
+                (self.lower_expression(callee)?, name.as_str())
+            }
+        } else {
+            (self.lower_expression(callee)?, "")
+        };
+
+        // Dictionary indexing: dict[key] with string/non-int key → x_map_get.
+        if runtime_name == "__index__" && args.len() == 2 {
+            let idx_ty = self.type_of(&args[1]);
+            if matches!(idx_ty, MirType::String)
+                || !matches!(idx_ty, MirType::Int(_) | MirType::Unknown | MirType::Char)
+            {
+                let map = self.lower_expression(&args[0])?;
+                let key = self.box_for_print(&args[1])?;
+                let dest = self.new_local(xvalue_ty());
                 self.current_block.instructions.push(MirInstruction::Call {
                     dest: Some(dest),
-                    func: MirOperand::Global(method.clone()),
-                    args: lowered_args,
+                    func: MirOperand::Global("x_map_get".to_string()),
+                    args: vec![map, key],
                 });
                 return Ok(MirOperand::Local(dest));
             }
         }
 
-        // 普通调用（含构造器：Variable(ClassName)）
-        let func = self.lower_expression(callee)?;
-        let lowered_args = args
-            .iter()
-            .map(|arg| self.lower_expression(arg))
-            .collect::<MirLowerResult<Vec<_>>>()?;
-        let ret = self.call_return_type(callee);
-        let dest = self.new_local(ret);
+        // Representation FFI: list push stores boxed XValues. Prelude
+        // `array_push` / runtime `x_list_push` both need a boxed item.
+        let lowered_args = if (runtime_name == "x_list_push" || runtime_name == "array_push")
+            && args.len() == 2
+        {
+            vec![
+                self.lower_expression(&args[0])?,
+                self.box_for_print(&args[1])?,
+            ]
+        } else if runtime_name == "__index__" && args.len() == 2 {
+            // List/string index: box collection if needed; keep int index.
+            vec![
+                self.lower_expression(&args[0])?,
+                self.lower_expression(&args[1])?,
+            ]
+        } else {
+            let params = if runtime_name.is_empty() {
+                Vec::new()
+            } else {
+                self.params_of(runtime_name)
+            };
+            let mut out = Vec::with_capacity(args.len());
+            for (i, arg) in args.iter().enumerate() {
+                out.push(self.lower_arg_for_param(arg, params.get(i).cloned())?);
+            }
+            out
+        };
+        let ret = if runtime_name == "x_list_push" || runtime_name == "array_push" {
+            MirType::Unit
+        } else {
+            self.call_return_type(callee)
+        };
+        let dest = if matches!(ret, MirType::Unit) {
+            None
+        } else {
+            Some(self.new_local(ret))
+        };
         self.current_block.instructions.push(MirInstruction::Call {
-            dest: Some(dest),
+            dest,
             func,
             args: lowered_args,
         });
-        Ok(MirOperand::Local(dest))
+        Ok(match dest {
+            Some(d) => MirOperand::Local(d),
+            None => MirOperand::Constant(MirConstant::Unit),
+        })
     }
 
     fn call_return_type(&self, callee: &HirExpression) -> MirType {
         if let HirExpression::Variable(name) = callee {
+            if name == "__index__" {
+                return xvalue_ty();
+            }
             if let Some(rt) = self.ctx.functions.get(name) {
                 return rt.clone();
             }
             if self.ctx.classes.contains_key(name) {
-                return MirType::Struct(name.clone(), Vec::new());
+                return MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new())));
             }
         }
         MirType::Unknown
+    }
+
+    fn operand_mir_type(&self, op: &MirOperand) -> MirType {
+        match op {
+            MirOperand::Local(id) => self
+                .function
+                .locals
+                .get(id)
+                .cloned()
+                .unwrap_or(MirType::Unknown),
+            MirOperand::Param(idx) => self
+                .function
+                .parameters
+                .get(*idx)
+                .map(|p| p.ty.clone())
+                .unwrap_or(MirType::Unknown),
+            MirOperand::Constant(c) => match c {
+                MirConstant::Int(_) => MirType::Int(64),
+                MirConstant::Float(_) => MirType::Float(64),
+                MirConstant::Bool(_) => MirType::Bool,
+                MirConstant::Char(_) => MirType::Char,
+                MirConstant::String(_) => MirType::String,
+                MirConstant::Null => MirType::Unknown,
+                MirConstant::Unit => MirType::Unit,
+            },
+            MirOperand::Global(_) => MirType::Unknown,
+        }
+    }
+
+    fn append_assign_in_block(&mut self, block_id: usize, instr: MirInstruction) {
+        if self.current_block.id == block_id {
+            self.current_block.instructions.push(instr);
+            return;
+        }
+        if let Some(block) = self.function.blocks.iter_mut().find(|b| b.id == block_id) {
+            block.instructions.push(instr);
+        }
     }
 
     /// println/print 统一降级为 x_print / x_print_inline，对实参按静态类型装箱。
@@ -1467,6 +1804,27 @@ impl<'ctx> FunctionLowerer<'ctx> {
         }
         let op = self.lower_expression(arg)?;
         Ok(self.box_scalar(op, &ty))
+    }
+
+    /// Lower a call argument, boxing scalars when the formal parameter is `any` / XValue.
+    fn lower_arg_for_param(
+        &mut self,
+        arg: &HirExpression,
+        param_ty: Option<MirType>,
+    ) -> MirLowerResult<MirOperand> {
+        if param_ty.as_ref().is_some_and(is_xvalue) {
+            return self.box_for_print(arg);
+        }
+        self.lower_expression(arg)
+    }
+
+    /// Parameter types for a free function (empty if unknown).
+    fn params_of(&self, name: &str) -> Vec<MirType> {
+        self.ctx
+            .function_params
+            .get(name)
+            .cloned()
+            .unwrap_or_default()
     }
 
     /// 把标量操作数装箱为 XValue
@@ -1537,22 +1895,41 @@ impl<'ctx> FunctionLowerer<'ctx> {
         Ok(MirOperand::Local(dest))
     }
 
-    /// 把表达式转换为 C 字符串(char*)操作数：字符串原样；其它先装箱再 x_to_str
+    /// 把表达式转换为 C 字符串(char*)操作数：字符串原样；其它先装箱再转字符串。
+    /// `__index__` 等已返回 XValue 时不得再经 `x_from_int`（会把句柄当整数）。
     fn as_cstr(&mut self, e: &HirExpression) -> MirLowerResult<MirOperand> {
         let ty = self.type_of(e);
         if matches!(ty, MirType::String) {
             return self.lower_expression(e);
         }
-        let boxed = if is_xvalue(&ty) {
-            self.lower_expression(e)?
+        let op = self.lower_expression(e)?;
+        let op_ty = match &op {
+            MirOperand::Local(id) => self
+                .function
+                .locals
+                .get(id)
+                .cloned()
+                .unwrap_or_else(|| ty.clone()),
+            _ => ty.clone(),
+        };
+        if matches!(op_ty, MirType::String) {
+            return Ok(op);
+        }
+        let boxed = if is_xvalue(&op_ty) || is_xvalue(&ty) {
+            op
         } else {
-            let op = self.lower_expression(e)?;
             self.box_scalar(op, &ty)
         };
         let dest = self.new_local(MirType::String);
+        // XValue 字符串负载用 x_as_str；其它标签走格式化。
+        let func = if is_xvalue(&op_ty) || is_xvalue(&ty) {
+            "x_as_str"
+        } else {
+            "x_to_str"
+        };
         self.current_block.instructions.push(MirInstruction::Call {
             dest: Some(dest),
-            func: MirOperand::Global("x_to_str".to_string()),
+            func: MirOperand::Global(func.to_string()),
             args: vec![boxed],
         });
         Ok(MirOperand::Local(dest))
@@ -1607,6 +1984,48 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         field: field.clone(),
                         value: value_op.clone(),
                     });
+                Ok(value_op)
+            }
+            // arr[i] = v  →  __index__(arr, i) = v
+            // dict[k] = v → x_map_put when key is a string (or non-int).
+            HirExpression::Call(callee, args)
+                if matches!(callee.as_ref(), HirExpression::Variable(n) if n == "__index__")
+                    && args.len() == 2 =>
+            {
+                let coll = self.lower_expression(&args[0])?;
+                let idx_ty = self.type_of(&args[1]);
+                let value_ty = self.type_of(value);
+                let op_ty = match &value_op {
+                    MirOperand::Local(id) => self
+                        .function
+                        .locals
+                        .get(id)
+                        .cloned()
+                        .unwrap_or_else(|| value_ty.clone()),
+                    _ => value_ty.clone(),
+                };
+                let boxed = if is_xvalue(&op_ty) || is_xvalue(&value_ty) {
+                    value_op.clone()
+                } else {
+                    self.box_scalar(value_op.clone(), &value_ty)
+                };
+                if matches!(idx_ty, MirType::String)
+                    || !matches!(idx_ty, MirType::Int(_) | MirType::Unknown | MirType::Char)
+                {
+                    let key = self.box_for_print(&args[1])?;
+                    self.current_block.instructions.push(MirInstruction::Call {
+                        dest: None,
+                        func: MirOperand::Global("x_map_put".to_string()),
+                        args: vec![coll, key, boxed],
+                    });
+                } else {
+                    let idx = self.lower_expression(&args[1])?;
+                    self.current_block.instructions.push(MirInstruction::Call {
+                        dest: None,
+                        func: MirOperand::Global("x_list_set".to_string()),
+                        args: vec![coll, idx, boxed],
+                    });
+                }
                 Ok(value_op)
             }
             _ => {
@@ -1669,10 +2088,11 @@ impl<'ctx> FunctionLowerer<'ctx> {
             .map(|f| f.len())
             .unwrap_or(fields.len())
             .max(1);
-        let obj = self.new_local(MirType::Struct(name.to_string(), Vec::new()));
+        let struct_ty = MirType::Struct(name.to_string(), Vec::new());
+        let obj = self.new_local(MirType::Pointer(Box::new(struct_ty.clone())));
         self.current_block.instructions.push(MirInstruction::Alloc {
             dest: obj,
-            ty: MirType::Struct(name.to_string(), Vec::new()),
+            ty: struct_ty,
             size: nfields * 8,
         });
         for (fname, value) in fields {
@@ -1702,10 +2122,11 @@ impl<'ctx> FunctionLowerer<'ctx> {
             .get(enum_name)
             .map(|e| e.max_payload)
             .unwrap_or(args.len());
-        let obj = self.new_local(MirType::Struct(enum_name.to_string(), Vec::new()));
+        let struct_ty = MirType::Struct(enum_name.to_string(), Vec::new());
+        let obj = self.new_local(MirType::Pointer(Box::new(struct_ty.clone())));
         self.current_block.instructions.push(MirInstruction::Alloc {
             dest: obj,
-            ty: MirType::Struct(enum_name.to_string(), Vec::new()),
+            ty: struct_ty,
             size: nfields * 8,
         });
         self.current_block
@@ -1776,9 +2197,14 @@ impl<'ctx> FunctionLowerer<'ctx> {
         cases: Vec<NormCase>,
     ) -> MirLowerResult<Option<MirOperand>> {
         // 判别式的具体类型实参（如 Result<Int, ErrorStack> -> [Int, ErrorStack]），
-        // 用于把泛型负载投影为真实类型。
+        // 用于把泛型负载投影为真实类型。 Enums are heap pointers, so unwrap
+        // Pointer(Struct(...)) as well as bare Struct.
         let type_args: Vec<MirType> = match self.type_of(discriminant) {
             MirType::Struct(name, args) if name == enum_name => args,
+            MirType::Pointer(inner) => match inner.as_ref() {
+                MirType::Struct(name, args) if name == enum_name => args.clone(),
+                _ => Vec::new(),
+            },
             _ => Vec::new(),
         };
 
@@ -1968,6 +2394,13 @@ impl<'ctx> FunctionLowerer<'ctx> {
             .iter()
             .map(|t| {
                 if let HirType::Generic(g) = t {
+                    // Class/enum/record names are also Generic in HIR — not type params.
+                    if self.ctx.classes.contains_key(g)
+                        || self.ctx.enums.contains_key(g)
+                        || self.ctx.records.contains_key(g)
+                    {
+                        return lower_user_type(t, &self.ctx);
+                    }
                     if let Some(pos) = info.type_params.iter().position(|p| p == g) {
                         if let Some(ta) = type_args.get(pos) {
                             return ta.clone();
@@ -1977,7 +2410,7 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     // 避免误用 x_as_ptr 把整数/布尔当指针拆箱。
                     return xvalue_ty();
                 }
-                lower_type(t)
+                lower_user_type(t, &self.ctx)
             })
             .collect()
     }
@@ -1990,7 +2423,9 @@ impl<'ctx> FunctionLowerer<'ctx> {
             MirType::Float(_) => ("x_as_double", MirType::Float(64)),
             MirType::Char => ("x_as_int", MirType::Char),
             MirType::String => ("x_as_str", MirType::String),
-            MirType::Struct(name, _) if name != "XValue" => ("x_as_ptr", pty.clone()),
+            MirType::Struct(name, _) if name != "XValue" => {
+                ("x_as_ptr", MirType::Pointer(Box::new(pty.clone())))
+            }
             MirType::Pointer(_) => ("x_as_ptr", pty.clone()),
             // 已是 XValue / 未知：保持装箱。
             _ => return (boxed, xvalue_ty()),
@@ -2007,6 +2442,10 @@ impl<'ctx> FunctionLowerer<'ctx> {
     fn class_of_expr(&self, expr: &HirExpression) -> Option<String> {
         match self.type_of(expr) {
             MirType::Struct(name, _) if name != "XValue" && name != "tuple" => Some(name),
+            MirType::Pointer(inner) => match *inner {
+                MirType::Struct(name, _) if name != "XValue" && name != "tuple" => Some(name),
+                _ => None,
+            },
             _ => None,
         }
     }
@@ -2022,6 +2461,10 @@ impl<'ctx> FunctionLowerer<'ctx> {
         }
         match self.type_of(expr) {
             MirType::Struct(name, _) if self.ctx.enums.contains_key(&name) => Some(name),
+            MirType::Pointer(inner) => match *inner {
+                MirType::Struct(name, _) if self.ctx.enums.contains_key(&name) => Some(name),
+                _ => None,
+            },
             _ => None,
         }
     }
@@ -2113,10 +2556,12 @@ impl<'ctx> FunctionLowerer<'ctx> {
     }
 
     fn lookup_param(&self, name: &str) -> Option<usize> {
+        // 方法体内 `this` 与 `self` 同义（对齐解释器）
+        let key = if name == "this" { "self" } else { name };
         self.function
             .parameters
             .iter()
-            .find(|p| p.name == name)
+            .find(|p| p.name == key)
             .map(|p| p.index)
     }
 
@@ -2243,6 +2688,13 @@ fn infer_expr_type(
                 AstType::Int | AstType::UnsignedInt => MirType::Int(64),
                 AstType::Float => MirType::Float(64),
                 AstType::Bool => MirType::Bool,
+                AstType::Char | AstType::CChar => MirType::Char,
+                AstType::Generic(name) if ctx.classes.contains_key(name) => {
+                    MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new())))
+                }
+                AstType::Generic(name) if ctx.enums.contains_key(name) => {
+                    MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new())))
+                }
                 _ => infer_expr_type(inner, ctx, locals),
             }
         }
@@ -2259,11 +2711,19 @@ fn infer_expr_type(
             // 枚举命名空间成员（EnumName.Variant）→ 该枚举类型
             if let HirExpression::Variable(tyname) = obj.as_ref() {
                 if ctx.enums.contains_key(tyname) {
-                    return MirType::Struct(tyname.clone(), Vec::new());
+                    return MirType::Pointer(Box::new(MirType::Struct(tyname.clone(), Vec::new())));
                 }
             }
             let obj_ty = infer_expr_type(obj, ctx, locals);
-            if let MirType::Struct(name, _) = obj_ty {
+            let struct_name = match &obj_ty {
+                MirType::Struct(name, _) => Some(name.clone()),
+                MirType::Pointer(inner) => match inner.as_ref() {
+                    MirType::Struct(name, _) => Some(name.clone()),
+                    _ => None,
+                },
+                _ => None,
+            };
+            if let Some(name) = struct_name {
                 if let Some(info) = ctx.classes.get(&name) {
                     if let Some((_, t)) = info.fields.iter().find(|(n, _)| n == field) {
                         return t.clone();
@@ -2279,10 +2739,12 @@ fn infer_expr_type(
         }
         HirExpression::Call(callee, _) => match callee.as_ref() {
             HirExpression::Variable(name) => {
-                if let Some(rt) = ctx.functions.get(name) {
+                if name == "__index__" {
+                    xvalue_ty()
+                } else if let Some(rt) = ctx.functions.get(name) {
                     rt.clone()
                 } else if ctx.classes.contains_key(name) {
-                    MirType::Struct(name.clone(), Vec::new())
+                    MirType::Pointer(Box::new(MirType::Struct(name.clone(), Vec::new())))
                 } else {
                     MirType::Unknown
                 }
@@ -2291,7 +2753,10 @@ fn infer_expr_type(
                 // 枚举构造
                 if let HirExpression::Variable(tyname) = obj.as_ref() {
                     if ctx.enums.contains_key(tyname) {
-                        return MirType::Struct(tyname.clone(), Vec::new());
+                        return MirType::Pointer(Box::new(MirType::Struct(
+                            tyname.clone(),
+                            Vec::new(),
+                        )));
                     }
                 }
                 let obj_ty = infer_expr_type(obj, ctx, locals);
@@ -2302,7 +2767,12 @@ fn infer_expr_type(
                         }
                     }
                 }
-                // UFCS：obj.method() -> 自由函数 method 的返回类型
+                // UFCS：obj.method() -> prelude free function return type
+                if let Some(free) = mir_stdlib_ufcs_name(&obj_ty, method) {
+                    if let Some(rt) = ctx.functions.get(free) {
+                        return rt.clone();
+                    }
+                }
                 if let Some(rt) = ctx.functions.get(method) {
                     return rt.clone();
                 }
@@ -2314,9 +2784,23 @@ fn infer_expr_type(
             xvalue_ty()
         }
         HirExpression::Record(name, _) => MirType::Struct(name.clone(), Vec::new()),
-        HirExpression::If(_, t, _) => infer_expr_type(t, ctx, locals),
+        HirExpression::If(_, t, e) => {
+            let tt = infer_expr_type(t, ctx, locals);
+            if !matches!(tt, MirType::Unknown | MirType::Unit) {
+                tt
+            } else {
+                infer_expr_type(e, ctx, locals)
+            }
+        }
         HirExpression::Assign(_, v) => infer_expr_type(v, ctx, locals),
-        HirExpression::Block(_) => MirType::Unknown,
+        HirExpression::Block(block) => {
+            for stmt in block.statements.iter().rev() {
+                if let HirStatement::Expression(expr) = stmt {
+                    return infer_expr_type(expr, ctx, locals);
+                }
+            }
+            MirType::Unknown
+        }
         HirExpression::TryPropagate(e) | HirExpression::Await(e) | HirExpression::Given(_, e) => {
             infer_expr_type(e, ctx, locals)
         }
@@ -2372,8 +2856,21 @@ fn lower_literal_to_constant(lit: &HirLiteral) -> MirConstant {
 }
 
 /// 字段的内存表示类型：统一为 8 字节宽度，避免后端 8 字节存取破坏紧凑布局。
-fn field_repr_ty(ty: &HirType) -> MirType {
-    repr_of(lower_type(ty))
+fn field_repr_ty(ty: &HirType, ctx: &TypeCtx) -> MirType {
+    repr_of(lower_user_type(ty, ctx))
+}
+
+/// 用户类/枚举在运行时以堆指针表示（构造器 malloc）。
+fn lower_user_type(ty: &HirType, ctx: &TypeCtx) -> MirType {
+    let lowered = lower_type(ty);
+    match &lowered {
+        MirType::Struct(name, _)
+            if ctx.classes.contains_key(name) || ctx.enums.contains_key(name) =>
+        {
+            MirType::Pointer(Box::new(lowered))
+        }
+        _ => lowered,
+    }
 }
 
 /// 把语义类型折叠为内存布局表示（标量统一为 8 字节槽）。
@@ -2430,7 +2927,9 @@ fn lower_type(ty: &HirType) -> MirType {
         }
         HirType::Generic(name) => MirType::Struct(name.clone(), Vec::new()),
 
-        HirType::TypeParam(_) | HirType::Dynamic | HirType::Unknown => MirType::Unknown,
+        HirType::TypeParam(_) | HirType::Unknown => MirType::Unknown,
+        // Dynamic values use the boxed XValue representation (lists, maps, `any`).
+        HirType::Dynamic => xvalue_ty(),
 
         HirType::Reference(inner)
         | HirType::MutableReference(inner)

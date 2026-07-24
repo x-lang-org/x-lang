@@ -1,17 +1,42 @@
-# X 语言标准库（源码）
+# X 标准库
 
-本目录包含 X 语言的**标准库源代码**（`.x` 文件），由编译器在解析 `import` / 预置搜索路径时加载，**不是** Rust `Cargo` crate。
+按 **Swift Foundation + Kotlin stdlib** 习惯设计：可读、一种写法、失败用 `Option`/`Result`（无异常）。
 
-## 模块一览
+权威约束见仓库根目录 [DESIGN_GOALS.md](../../DESIGN_GOALS.md)。
 
-| 文件 | 说明 |
+## 约定
+
+| 主题 | 规则 |
 |------|------|
-| `prelude.x` | 预导入符号 |
-| `types.x` | 核心类型与内建相关定义 |
-| `collections.x` | 集合类型 |
-| `io.x` / `fs.x` / `net.x` | I/O、文件系统、网络 |
-| `math.x` / `random.x` / `time.x` | 数学、随机、时间 |
-| `encoding.x` / `hash.x` | 编码与哈希 |
-| `process.x` / `panic.x` / `unsafe.x` | 进程、恐慌、不安全操作 |
+| 命名 | 英文全称关键字；集合动词偏 Kotlin（`get`/`put`/`remove`）；可选值偏 Swift（`Option`） |
+| 错误 | 可能失败 → `Result<T, E>`；可能缺失 → `Option<T>` |
+| 实现 | 表面纯 X；C FFI / runtime 表示层只出现在 `unsafe` 边界 |
+| 禁止 | 用户代码依赖 `x_list_*` / `x_map_*` 等 runtime 符号 |
+| Prelude | 仅预导入日常表面（打印、字符串/数组 UFCS、断言）；完整集合用 `import std.map` 等 |
 
-更完整的语言与标准库说明见仓库根目录下的 [spec/README.md](../../spec/README.md) 与文档站点中的标准库章节。
+## 模块
+
+| 模块 | 职责 |
+|------|------|
+| `std.types` | `Option` / `Result` |
+| `std.list` | 可变列表 |
+| `std.map` | 键值映射 |
+| `std.set` | 集合 |
+| `std.string` | 字符串（`count`/`has_prefix`/…；与 prelude UFCS 对齐） |
+| `std.math` | 数学常数 + libc 绑定 + `clamp_*`/`lerp` |
+| `std.io` / `std.fs` / `std.net` / `std.process` | 系统能力（C 库封装；fs 提供 `Result` 与 panic 两套） |
+| `std.time` / `std.encoding` / `std.hash` | 时间、编码、哈希（部分模块仍在整理） |
+| `std.panic` / `std.error` | 恐慌与错误；`std.errors` 仅为兼容再导出 |
+| `sqlite/` | 独立包，不进 prelude |
+
+## 集合 API（Swift / Kotlin 对照）
+
+| X | Swift 近似 | Kotlin 近似 |
+|---|------------|-------------|
+| `Map.empty` / `get` → `Option` / `put` / `remove` | `Dictionary` | `MutableMap` |
+| `List.empty` / `push` / `get` → `Option` | `Array` | `MutableList` |
+| `Set.empty` / `insert` / `contains` | `Set` | `MutableSet` |
+
+## 状态
+
+集合层（`list` / `map` / `set`）以 **class + 动态数组** 实现，优先正确与可编译；哈希表与完整 trait 体系后续增强。

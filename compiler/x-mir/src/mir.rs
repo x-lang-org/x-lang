@@ -330,6 +330,8 @@ pub struct MirGlobal {
     pub initializer: Option<MirConstant>,
     /// 是否可变
     pub mutable: bool,
+    /// `external "abi" variable` — link against a foreign symbol.
+    pub extern_abi: Option<String>,
 }
 
 /// MIR 构建器

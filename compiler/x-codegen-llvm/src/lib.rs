@@ -2649,6 +2649,7 @@ mod tests {
                     type_: Type::Int,
                     initializer: Some(Expression::int(42)),
                     is_static: false,
+                    extern_abi: None,
                 }),
                 Declaration::Function(Function {
                     name: "main".to_string(),
@@ -2682,6 +2683,7 @@ mod tests {
                 type_: Type::Pointer(Box::new(Type::Char)),
                 initializer: Some(Expression::string("Hello, World!")),
                 is_static: false,
+                extern_abi: None,
             })],
         };
 

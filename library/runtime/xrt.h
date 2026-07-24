@@ -39,11 +39,22 @@ XValue *x_from_ptr(void *p);
 XValue *x_list_new(void);
 void x_list_push(XValue *list, XValue *item);
 XValue *x_list_get(XValue *list, long long index);
+void x_list_set(XValue *list, long long index, XValue *item);
 long long x_list_len(XValue *list);
 
 /* Maps (insertion-ordered, boxed keys/values). */
 XValue *x_map_new(void);
 void x_map_put(XValue *map, XValue *key, XValue *value);
+XValue *x_map_get(XValue *map, XValue *key);
+
+/* Indexing desugar target: a[i] → __index__(a, i). */
+XValue *__index__(XValue *collection, long long index);
+
+/* Benchmark / stdlib FFI used via `external "c"`. */
+char *compute_pi_digits(long long n);
+long long regex_match_count(const char *text, const char *pattern);
+char *regex_replace_all(const char *text, const char *pattern,
+                        const char *replacement);
 
 /* Unboxing accessors: extract the underlying representation from a boxed
  * XValue (used when an enum payload is projected back to its real type). */

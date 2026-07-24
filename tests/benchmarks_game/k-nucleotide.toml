@@ -9,6 +9,8 @@ GGTATTTTAATTTATAGT
 
 source = """
 import std.io
+import std.map
+import std.types
 
 class Entry {
     public let key: string
@@ -28,8 +30,8 @@ function to_upper(c: string) -> string {
     return c
 }
 
-function count_frequencies(seq: [string], k: integer) -> Dictionary<string, integer> {
-    let dict = {"DUMMY": 0}
+function count_frequencies(seq: [string], k: integer) -> Map {
+    let dict = Map()
     let seq_len = seq.length()
     let mutable i = 0
     while i <= seq_len - k {
@@ -39,11 +41,13 @@ function count_frequencies(seq: [string], k: integer) -> Dictionary<string, inte
             sub = sub + (seq[i + j] as string)
             j = j + 1
         }
-        let current = dict[sub]
-        if current == null {
-            dict[sub] = 1
-        } else {
-            dict[sub] = (current as integer) + 1
+        match get(dict, sub) {
+            Some(current) => {
+                let old = put(dict, sub, (current as integer) + 1)
+            },
+            None => {
+                let old = put(dict, sub, 1)
+            },
         }
         i = i + 1
     }
@@ -71,19 +75,22 @@ function format_float_3(x: Float) -> string {
     return ip + "." + frac_str
 }
 
-function print_sorted(dict: Dictionary<string, integer>, keys: [string], total: Float) -> unit {
+function print_sorted(dict: Map, keys: [string], total: Float) -> unit {
     let entries = [] as [Entry]
     let n = keys.length()
     let mutable i = 0
     while i < n {
         let k = keys[i] as string
-        let count_val = dict[k]
-        let count = when count_val == null { 0 } else { count_val as integer }
+        let count = match get(dict, k) {
+            Some(v) => v as integer,
+            None => 0,
+        }
         entries.push(Entry(k, count))
         i = i + 1
     }
     
-    // Sort entries descending
+    // Sort entries descending by count, then ascending by key (matches
+    // the Computer Language Benchmarks Game reference ordering).
     let mutable j = 0
     while j < n - 1 {
         let mutable max_idx = j
@@ -91,7 +98,9 @@ function print_sorted(dict: Dictionary<string, integer>, keys: [string], total: 
         while k < n {
             let val_k = (entries[k] as Entry).value
             let val_max = (entries[max_idx] as Entry).value
-            if val_k > val_max {
+            let key_k = (entries[k] as Entry).key
+            let key_max = (entries[max_idx] as Entry).key
+            if val_k > val_max or (val_k == val_max and key_k < key_max) {
                 max_idx = k
             }
             k = k + 1
@@ -116,9 +125,11 @@ function print_sorted(dict: Dictionary<string, integer>, keys: [string], total: 
     }
 }
 
-function print_count(dict: Dictionary<string, integer>, k: string) -> unit {
-    let count_val = dict[k]
-    let count = when count_val == null { 0 } else { count_val as integer }
+function print_count(dict: Map, k: string) -> unit {
+    let count = match get(dict, k) {
+        Some(v) => v as integer,
+        None => 0,
+    }
     println(count + " " + k)
 }
 

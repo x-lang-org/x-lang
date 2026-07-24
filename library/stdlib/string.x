@@ -1,371 +1,159 @@
 module std.string
+import std.prelude
+import std.types
 
-import std.prelude;
-import std.types;
-import std.types { Option, Some, None };
-import std.prelude { panic };
-
-/// 字符串长度
-extern function strlen(s: *character) -> unsigned 64-bit integer
-
-/// 获取字符串长度
-export function length(s: string) -> unsigned 64-bit integer {
-    unsafe {
-        strlen(s.as(*character))
-    }
+/// Character count (Swift `count` / Kotlin `length`).
+export function count(s: string) -> integer {
+    string_length(s)
 }
 
-/// 字符串是否为空
+export function length(s: string) -> integer {
+    string_length(s)
+}
+
 export function is_empty(s: string) -> boolean {
-    length(s) == 0
+    string_length(s) == 0
 }
 
-/// 字符串拼接
 export function concat(a: string, b: string) -> string {
     a ++ b
 }
 
-/// 重复字符串
-export function repeat(s: string, n: unsigned 64-bit integer) -> string {
-    let mut result = "";
-    let mut i = 0.as(unsigned 64-bit integer);
-    
-    while i < n {
-        result = result ++ s;
-        i = i + 1;
-    }
-    
-    result
-}
-
-/// 字符串包含
-extern function strstr(haystack: *character, needle: *character) -> *character
-
 export function contains(s: string, substring: string) -> boolean {
-    unsafe {
-        let result = strstr(s.as(*character), substring.as(*character));
-        not (result is Pointer.null())
-    }
+    string_contains(s, substring)
 }
 
-/// 字符串以指定前缀开始
-export function starts_with(s: string, prefix: string) -> boolean {
-    if prefix.length() > s.length() {
-        return false;
+/// Swift `hasPrefix` / Kotlin `startsWith`.
+export function has_prefix(s: string, prefix: string) -> boolean {
+    let n = string_length(s)
+    let m = string_length(prefix)
+    if m > n {
+        return false
     }
-    
-    let mut i = 0;
-    while i < prefix.length().as(signed 64-bit integer) {
-        if s[i] != prefix[i] {
-            return false;
-        }
-        i = i + 1;
-    }
-    
-    true
+    string_substring(s, 0, m) == prefix
 }
 
-/// 字符串以指定后缀结束
-export function ends_with(s: string, suffix: string) -> boolean {
-    if suffix.length() > s.length() {
-        return false;
+/// Swift `hasSuffix` / Kotlin `endsWith`.
+export function has_suffix(s: string, suffix: string) -> boolean {
+    let n = string_length(s)
+    let m = string_length(suffix)
+    if m > n {
+        return false
     }
-    
-    let start = s.length().as(signed 64-bit integer) - suffix.length().as(signed 64-bit integer);
-    let mut i = 0;
-    
-    while i < suffix.length().as(signed 64-bit integer) {
-        if s[start + i] != suffix[i] {
-            return false;
-        }
-        i = i + 1;
-    }
-    
-    true
+    string_substring(s, n - m, n) == suffix
 }
 
-/// 查找子字符串位置
-export function find(s: string, substring: string) -> Option<signed 64-bit integer> {
-    if substring.length() == 0 {
-        return Some(0);
-    }
-    
-    if substring.length() > s.length() {
-        return None;
-    }
-    
-    let mut i = 0;
-    let max_pos = (s.length() - substring.length()).as(signed 64-bit integer);
-    
-    while i <= max_pos {
-        let mut match = true;
-        let mut j = 0;
-        
-        while j < substring.length().as(signed 64-bit integer) {
-            if s[i + j] != substring[j] {
-                match = false;
-                break;
-            }
-            j = j + 1;
-        }
-        
-        if match {
-            return Some(i);
-        }
-        
-        i = i + 1;
-    }
-    
-    None
+export function substring(s: string, start: integer, end: integer) -> string {
+    string_substring(s, start, end)
 }
 
-/// 从右侧查找子字符串
-export function rfind(s: string, substring: string) -> Option<signed 64-bit integer> {
-    if substring.length() == 0 {
-        return Some(s.length().as(signed 64-bit integer));
-    }
-    
-    if substring.length() > s.length() {
-        return None;
-    }
-    
-    let mut i = (s.length() - substring.length()).as(signed 64-bit integer);
-    
-    while i >= 0 {
-        let mut match = true;
-        let mut j = 0;
-        
-        while j < substring.length().as(signed 64-bit integer) {
-            if s[i + j] != substring[j] {
-                match = false;
-                break;
-            }
-            j = j + 1;
-        }
-        
-        if match {
-            return Some(i);
-        }
-        
-        i = i - 1;
-    }
-    
-    None
-}
-
-/// 子字符串
-export function substring(s: string, start: signed 64-bit integer, end: signed 64-bit integer) -> string {
-    if start < 0 or end > s.length().as(signed 64-bit integer) or start > end {
-        return "";
-    }
-    
-    let mut result = "";
-    let mut i = start;
-    
-    while i < end {
-        result = result ++ s[i].as(string);
-        i = i + 1;
-    }
-    
-    result
-}
-
-/// 去除左侧空白
-export function trim_left(s: string) -> string {
-    let mut i = 0;
-    
-    while i < s.length().as(signed 64-bit integer) {
-        let c = s[i];
-        if c != ' ' and c != '\t' and c != '\n' and c != '\r' {
-            break;
-        }
-        i = i + 1;
-    }
-    
-    substring(s, i, s.length().as(signed 64-bit integer))
-}
-
-/// 去除右侧空白
-export function trim_right(s: string) -> string {
-    let mut i = s.length().as(signed 64-bit integer) - 1;
-    
-    while i >= 0 {
-        let c = s[i];
-        if c != ' ' and c != '\t' and c != '\n' and c != '\r' {
-            break;
-        }
-        i = i - 1;
-    }
-    
-    substring(s, 0, i + 1)
-}
-
-/// 去除两侧空白
 export function trim(s: string) -> string {
-    trim_right(trim_left(s))
+    string_trim(s)
 }
 
-/// 转换为大写
-export function to_upper(s: string) -> string {
-    let mut result = "";
-    let mut i = 0;
-    
-    while i < s.length().as(signed 64-bit integer) {
-        let c = s[i];
-        if c >= 'a' and c <= 'z' {
-            result = result ++ (c.as(signed 32-bit integer) - 32).as(character).as(string);
-        } else {
-            result = result ++ c.as(string);
-        }
-        i = i + 1;
+/// Swift `uppercased` / Kotlin `uppercase`.
+export function uppercased(s: string) -> string {
+    let mutable out = ""
+    let n = string_length(s)
+    let mutable i = 0
+    while i < n {
+        let ch = string_substring(s, i, i + 1)
+        if ch == "a" { out = out ++ "A" }
+        else if ch == "b" { out = out ++ "B" }
+        else if ch == "c" { out = out ++ "C" }
+        else if ch == "d" { out = out ++ "D" }
+        else if ch == "e" { out = out ++ "E" }
+        else if ch == "f" { out = out ++ "F" }
+        else if ch == "g" { out = out ++ "G" }
+        else if ch == "h" { out = out ++ "H" }
+        else if ch == "i" { out = out ++ "I" }
+        else if ch == "j" { out = out ++ "J" }
+        else if ch == "k" { out = out ++ "K" }
+        else if ch == "l" { out = out ++ "L" }
+        else if ch == "m" { out = out ++ "M" }
+        else if ch == "n" { out = out ++ "N" }
+        else if ch == "o" { out = out ++ "O" }
+        else if ch == "p" { out = out ++ "P" }
+        else if ch == "q" { out = out ++ "Q" }
+        else if ch == "r" { out = out ++ "R" }
+        else if ch == "s" { out = out ++ "S" }
+        else if ch == "t" { out = out ++ "T" }
+        else if ch == "u" { out = out ++ "U" }
+        else if ch == "v" { out = out ++ "V" }
+        else if ch == "w" { out = out ++ "W" }
+        else if ch == "x" { out = out ++ "X" }
+        else if ch == "y" { out = out ++ "Y" }
+        else if ch == "z" { out = out ++ "Z" }
+        else { out = out ++ ch }
+        i = i + 1
     }
-    
-    result
+    out
 }
 
-/// 转换为小写
-export function to_lower(s: string) -> string {
-    let mut result = "";
-    let mut i = 0;
-    
-    while i < s.length().as(signed 64-bit integer) {
-        let c = s[i];
-        if c >= 'A' and c <= 'Z' {
-            result = result ++ (c.as(signed 32-bit integer) + 32).as(character).as(string);
-        } else {
-            result = result ++ c.as(string);
-        }
-        i = i + 1;
+/// Swift `lowercased` / Kotlin `lowercase`.
+export function lowercased(s: string) -> string {
+    let mutable out = ""
+    let n = string_length(s)
+    let mutable i = 0
+    while i < n {
+        let ch = string_substring(s, i, i + 1)
+        if ch == "A" { out = out ++ "a" }
+        else if ch == "B" { out = out ++ "b" }
+        else if ch == "C" { out = out ++ "c" }
+        else if ch == "D" { out = out ++ "d" }
+        else if ch == "E" { out = out ++ "e" }
+        else if ch == "F" { out = out ++ "f" }
+        else if ch == "G" { out = out ++ "g" }
+        else if ch == "H" { out = out ++ "h" }
+        else if ch == "I" { out = out ++ "i" }
+        else if ch == "J" { out = out ++ "j" }
+        else if ch == "K" { out = out ++ "k" }
+        else if ch == "L" { out = out ++ "l" }
+        else if ch == "M" { out = out ++ "m" }
+        else if ch == "N" { out = out ++ "n" }
+        else if ch == "O" { out = out ++ "o" }
+        else if ch == "P" { out = out ++ "p" }
+        else if ch == "Q" { out = out ++ "q" }
+        else if ch == "R" { out = out ++ "r" }
+        else if ch == "S" { out = out ++ "s" }
+        else if ch == "T" { out = out ++ "t" }
+        else if ch == "U" { out = out ++ "u" }
+        else if ch == "V" { out = out ++ "v" }
+        else if ch == "W" { out = out ++ "w" }
+        else if ch == "X" { out = out ++ "x" }
+        else if ch == "Y" { out = out ++ "y" }
+        else if ch == "Z" { out = out ++ "z" }
+        else { out = out ++ ch }
+        i = i + 1
     }
-    
-    result
+    out
 }
 
-/// 替换子字符串
-export function replace(s: string, from: string, to: string) -> string {
-    if from.length() == 0 {
-        return s;
-    }
-    
-    let mut result = "";
-    let mut i = 0;
-    
-    while i < s.length().as(signed 64-bit integer) {
-        if i + from.length().as(signed 64-bit integer) <= s.length().as(signed 64-bit integer) {
-            let mut match = true;
-            let mut j = 0;
-            
-            while j < from.length().as(signed 64-bit integer) {
-                if s[i + j] != from[j] {
-                    match = false;
-                    break;
-                }
-                j = j + 1;
-            }
-            
-            if match {
-                result = result ++ to;
-                i = i + from.length().as(signed 64-bit integer);
-                continue;
-            }
-        }
-        
-        result = result ++ s[i].as(string);
-        i = i + 1;
-    }
-    
-    result
-}
-
-/// 分割字符串
 export function split(s: string, delimiter: string) -> [string] {
-    if delimiter.length() == 0 {
-        return [s];
-    }
-    
-    let mut result: [string] = [];
-    let mut start = 0;
-    let mut i = 0;
-    
-    while i < s.length().as(signed 64-bit integer) {
-        if i + delimiter.length().as(signed 64-bit integer) <= s.length().as(signed 64-bit integer) {
-            let mut match = true;
-            let mut j = 0;
-            
-            while j < delimiter.length().as(signed 64-bit integer) {
-                if s[i + j] != delimiter[j] {
-                    match = false;
-                    break;
-                }
-                j = j + 1;
-            }
-            
-            if match {
-                result = result ++ [substring(s, start, i)];
-                start = i + delimiter.length().as(signed 64-bit integer);
-                i = start;
-                continue;
-            }
-        }
-        
-        i = i + 1;
-    }
-    
-    result = result ++ [substring(s, start, s.length().as(signed 64-bit integer))];
-    result
+    string_split(s, delimiter)
 }
 
-/// 用分隔符连接字符串数组
-export function join(parts: [string], delimiter: string) -> string {
-    if parts.length() == 0 {
-        return "";
+/// Join string parts with a separator (Swift `joined(separator:)`).
+export function joined(parts: [string], separator: string) -> string {
+    let n = parts.length()
+    if n == 0 {
+        return ""
     }
-    
-    let mut result = parts[0];
-    let mut i = 1;
-    
-    while i < parts.length().as(signed 64-bit integer) {
-        result = result ++ delimiter ++ parts[i];
-        i = i + 1;
+    let mutable out = parts[0] as string
+    let mutable i = 1
+    while i < n {
+        out = out ++ separator ++ (parts[i] as string)
+        i = i + 1
     }
-    
-    result
+    out
 }
 
-/// 将整数转换为字符串
-extern function snprintf(buffer: *character, size: unsigned 64-bit integer, format: *character, ...) -> signed 32-bit integer
-
-export function from_int(n: signed 64-bit integer) -> string {
-    unsafe {
-        let buffer: [character; 32] = ['\0'; 32];
-        snprintf(buffer.as(*character), 32, "%lld".as(*character), n);
-        buffer_to_string(buffer)
+export function repeat(s: string, n: integer) -> string {
+    let mutable out = ""
+    let mutable i = 0
+    while i < n {
+        out = out ++ s
+        i = i + 1
     }
-}
-
-/// 将浮点数转换为字符串
-export function from_float(f: 64-bit float) -> string {
-    unsafe {
-        let buffer: [character; 64] = ['\0'; 64];
-        snprintf(buffer.as(*character), 64, "%f".as(*character), f);
-        buffer_to_string(buffer)
-    }
-}
-
-/// 将布尔值转换为字符串
-export function from_bool(b: boolean) -> string {
-    if b { "true" } else { "false" }
-}
-
-/// 缓冲区转字符串
-function buffer_to_string(buffer: [character; 32]) -> string {
-    let mut s = "";
-    let mut i = 0;
-    
-    while i < 32 and buffer[i] != '\0' {
-        s = s ++ buffer[i].as(string);
-        i = i + 1;
-    }
-    
-    s
+    out
 }

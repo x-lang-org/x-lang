@@ -1,55 +1,39 @@
 module std.fs
+import std.prelude
+import std.types
 
-import std.types;
-
-/// 读取整个文本文件内容，如果失败则 panic
+/// Read entire file as text (Swift `String(contentsOfFile:)` / Kotlin `readText`).
+/// Panics on failure — prefer `read_to_string` for fallible use.
 export function read_file(path: string) -> string {
-    let result = __file_read(path)
-    // 强制转换为 string
-    unwrap_ok(result) as string
+    unwrap_ok(__file_read(path))
 }
 
-/// 写入内容到文本文件，如果失败则 panic
+/// Write text, panicking on failure.
 export function write_file(path: string, content: string) -> unit {
-    let result = __file_write(path, content);
-    unwrap_ok(result)
+    unwrap_ok(__file_write(path, content))
 }
 
-/// 检查文件是否存在
+/// True if a file exists at `path`.
 export function exists(path: string) -> boolean {
     __file_exists(path)
 }
 
-/// 删除文件，如果失败则 panic
-export function delete_file(path: string) -> unit {
-    let result = __file_delete(path);
-    unwrap_ok(result)
+/// Delete a file, panicking on failure.
+export function remove(path: string) -> unit {
+    unwrap_ok(__file_delete(path))
 }
 
-/// 文件打开模式
-export enum OpenMode {
-    Read,
-    Write,
-    Append,
+/// Fallible read (Swift / Kotlin Result style).
+export function read_to_string(path: string) -> Result<string, string> {
+    __file_read(path)
 }
 
-/// 已打开的文件句柄
-export record File {
-    public path: string,
-    public fd: Int,
+/// Fallible write.
+export function write(path: string, content: string) -> Result<unit, string> {
+    __file_write(path, content)
 }
 
-/// 按给定模式打开文件
-export function open(path: string, mode: OpenMode) -> Result<File, string> {
-    Ok(File { path: path, fd: 0 })
-}
-
-/// 读取文件全部内容为字符串
-export function read_to_string(self: File) -> Result<string, string> {
-    Ok(read_file(self.path))
-}
-
-/// 关闭文件句柄
-export function close(self: File) -> unit {
-    ()
+/// Fallible delete.
+export function remove_file(path: string) -> Result<unit, string> {
+    __file_delete(path)
 }

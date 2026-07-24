@@ -81,6 +81,8 @@ pub struct GlobalVar {
     pub type_: Type,
     pub initializer: Option<Expression>,
     pub is_static: bool,
+    /// When set, emit as `extern "abi" var` rather than a defined global.
+    pub extern_abi: Option<String>,
 }
 
 /// 结构体定义

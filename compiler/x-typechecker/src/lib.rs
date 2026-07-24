@@ -495,101 +495,13 @@ impl TypeEnv {
 /// 类型检查器主函数
 pub fn type_check(program: &Program) -> Result<(), TypeError> {
     let mut env = TypeEnv::new();
-    // 预置内置函数，避免 CLI `check/run` 对基础 I/O 直接报"未定义变量"
-    // 目前类型系统尚不支持泛型/可变参数，这里先用最小可用签名约束住常用 builtin。
+    install_core_constructors(&mut env);
+    check_program(program, &mut env)
+}
 
-    // 内置函数现在由 prelude.x 提供，不再在这里预先添加
-    // 这样可以避免重复声明错误，并且更灵活
-
-    // String functions
-    // string_length(s: string) -> integer
-    env.add_builtin_function(
-        "string_length",
-        Type::Function(vec![Box::new(Type::String)], Box::new(Type::Int)),
-    );
-    // string_find(s: string, substr: string) -> integer
-    env.add_builtin_function(
-        "string_find",
-        Type::Function(
-            vec![Box::new(Type::String), Box::new(Type::String)],
-            Box::new(Type::Int),
-        ),
-    );
-    // string_substring(s: string, start: integer, end: integer) -> string
-    env.add_builtin_function(
-        "string_substring",
-        Type::Function(
-            vec![
-                Box::new(Type::String),
-                Box::new(Type::Int),
-                Box::new(Type::Int),
-            ],
-            Box::new(Type::String),
-        ),
-    );
-    // int_to_string(n: integer) -> string
-    env.add_builtin_function(
-        "int_to_string",
-        Type::Function(vec![Box::new(Type::Int)], Box::new(Type::String)),
-    );
-    // concat(a: string, b: string) -> string
-    env.add_builtin_function(
-        "concat",
-        Type::Function(
-            vec![Box::new(Type::String), Box::new(Type::String)],
-            Box::new(Type::String),
-        ),
-    );
-
-    // len - 获取数组/字符串长度
-    env.add_builtin_function(
-        "len",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Int)),
-    );
-
-    env.add_builtin_function(
-        "min",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "max",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "abs",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "sqrt",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "pow",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "floor",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "ceil",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-
-    // print/println 现在由 prelude.x 提供，不再作为内置函数
-    // 这样可以避免重复声明错误
-
-    // Add Option/Result constructors as builtin types
-    // Some<T> -> Option<T>
+/// ADT constructors and indexing sugar. Library APIs (`string_length`, etc.)
+/// come from `std.prelude` after CLI inject — not compiler builtins.
+fn install_core_constructors(env: &mut TypeEnv) {
     env.add_builtin_function(
         "Some",
         Type::Function(
@@ -600,12 +512,10 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
             )),
         ),
     );
-    // None -> Option<T> (using Dynamic for T)
     env.add_builtin_function(
         "None",
         Type::TypeConstructor("Option".to_string(), vec![Type::Dynamic]),
     );
-    // Ok<T> -> Result<T, E>
     env.add_builtin_function(
         "Ok",
         Type::Function(
@@ -616,7 +526,6 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
             )),
         ),
     );
-    // Err<E> -> Result<T, E>
     env.add_builtin_function(
         "Err",
         Type::Function(
@@ -627,9 +536,6 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
             )),
         ),
     );
-
-    // Builtin I/O functions - 这些现在由 std.prelude 提供
-    // __index__(collection, key/index) -> Dynamic
     env.add_builtin_function(
         "__index__",
         Type::Function(
@@ -637,8 +543,6 @@ pub fn type_check(program: &Program) -> Result<(), TypeError> {
             Box::new(Type::Dynamic),
         ),
     );
-
-    check_program(program, &mut env)
 }
 
 /// 检查程序
@@ -702,105 +606,8 @@ fn check_program(program: &Program, env: &mut TypeEnv) -> Result<(), TypeError> 
 /// 供 HIR 降阶使用来整合类型注解
 pub fn type_check_with_env(program: &Program) -> Result<TypeEnv, TypeError> {
     let mut env = TypeEnv::new();
-    // 预置内置函数，避免 CLI `check/run/compile` 对基础 I/O 直接报"未定义变量"
-    // 使用 Dynamic 类型接受任何参数，以便 println(Int) 这样的调用能通过
-
-    // String functions
-    env.add_builtin_function(
-        "string_length",
-        Type::Function(vec![Box::new(Type::String)], Box::new(Type::Int)),
-    );
-    env.add_builtin_function(
-        "string_find",
-        Type::Function(
-            vec![Box::new(Type::String), Box::new(Type::String)],
-            Box::new(Type::Int),
-        ),
-    );
-    env.add_builtin_function(
-        "string_substring",
-        Type::Function(
-            vec![
-                Box::new(Type::String),
-                Box::new(Type::Int),
-                Box::new(Type::Int),
-            ],
-            Box::new(Type::String),
-        ),
-    );
-    env.add_builtin_function(
-        "int_to_string",
-        Type::Function(vec![Box::new(Type::Int)], Box::new(Type::String)),
-    );
-    env.add_builtin_function(
-        "concat",
-        Type::Function(
-            vec![Box::new(Type::String), Box::new(Type::String)],
-            Box::new(Type::String),
-        ),
-    );
-
-    // len - 获取数组/字符串长度
-    env.add_builtin_function(
-        "len",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Int)),
-    );
-
-    env.add_builtin_function(
-        "min",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "max",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "abs",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "sqrt",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "pow",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-    env.add_builtin_function(
-        "floor",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-    env.add_builtin_function(
-        "ceil",
-        Type::Function(vec![Box::new(Type::Dynamic)], Box::new(Type::Dynamic)),
-    );
-
-    // __index__(collection, key/index) -> Dynamic
-    // 由 for-each 等语法糖在降级中引入；编译流水线的类型检查也需识别它，
-    // 否则会报"未定义的变量: __index__"。
-    env.add_builtin_function(
-        "__index__",
-        Type::Function(
-            vec![Box::new(Type::Dynamic), Box::new(Type::Dynamic)],
-            Box::new(Type::Dynamic),
-        ),
-    );
-
-    // print/println 现在由 prelude.x 提供，不再作为内置函数
-    // 这样可以避免重复声明错误
-
-    // 检查程序，填充环境
+    install_core_constructors(&mut env);
     check_program(program, &mut env)?;
-
     Ok(env)
 }
 
@@ -5283,7 +5090,7 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             // 推断对象类型
             let obj_type = infer_expression_type(obj, env)?;
 
-            if let Some(method_type) = builtin_method_call_type(&obj_type, member) {
+            if let Some(method_type) = resolve_stdlib_method_type(&obj_type, member, env) {
                 if let Type::Function(params, ret) = method_type {
                     if params.is_empty() {
                         return Ok((*ret).clone());
@@ -5568,7 +5375,9 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
 
             if let ExpressionKind::Member(receiver, method_name) = &callee.node {
                 let receiver_type = infer_expression_type(receiver, env)?;
-                if let Some(method_type) = builtin_method_call_type(&receiver_type, method_name) {
+                if let Some(method_type) =
+                    resolve_stdlib_method_type(&receiver_type, method_name, env)
+                {
                     return infer_call_return_type(method_type, args, env, span, callee.span);
                 }
                 if let Type::Generic(record_name) = &receiver_type {
@@ -6368,59 +6177,79 @@ fn infer_expression_type_with_hint(
     }
 }
 
-fn builtin_method_call_type(receiver_type: &Type, method_name: &str) -> Option<Type> {
+/// Colliding method names (`length` on string vs array) map to distinct prelude APIs.
+/// Prefer this over inventing types in the compiler.
+fn stdlib_method_free_function(receiver_type: &Type, method_name: &str) -> Option<&'static str> {
     match receiver_type {
         Type::String => match method_name {
-            "length" => Some(Type::Function(Vec::new(), Box::new(Type::Int))),
-            "contains" => Some(Type::Function(
-                vec![Box::new(Type::String)],
-                Box::new(Type::Bool),
-            )),
-            "substring" => Some(Type::Function(
-                vec![Box::new(Type::Int), Box::new(Type::Int)],
-                Box::new(Type::String),
-            )),
-            "toUpperCase" | "toLowerCase" | "trim" => {
-                Some(Type::Function(Vec::new(), Box::new(Type::String)))
-            }
-            "split" => Some(Type::Function(
-                vec![Box::new(Type::String)],
-                Box::new(Type::Array(Box::new(Type::String))),
-            )),
+            "length" => Some("string_length"),
+            "substring" => Some("string_substring"),
+            "contains" => Some("string_contains"),
+            "trim" => Some("string_trim"),
+            "split" => Some("string_split"),
+            "to_upper" | "toUpperCase" => Some("string_to_upper"),
+            "to_lower" | "toLowerCase" => Some("string_to_lower"),
             _ => None,
         },
         Type::Array(_) => match method_name {
-            "length" => Some(Type::Function(Vec::new(), Box::new(Type::Int))),
-            "push" => Some(Type::Function(
-                vec![Box::new(Type::Dynamic)],
-                Box::new(Type::Unit),
-            )),
-            "slice" => Some(Type::Function(
-                vec![Box::new(Type::Int), Box::new(Type::Int)],
-                Box::new(receiver_type.clone()),
-            )),
-            _ => None,
-        },
-        Type::Int => match method_name {
-            "abs" | "sqrt" => Some(Type::Function(Vec::new(), Box::new(Type::Int))),
-            "pow" => Some(Type::Function(
-                vec![Box::new(Type::Int)],
-                Box::new(Type::Int),
-            )),
-            "to_string" => Some(Type::Function(Vec::new(), Box::new(Type::String))),
+            "length" => Some("array_length"),
+            "push" => Some("array_push"),
             _ => None,
         },
         Type::Float => match method_name {
-            "abs" | "sqrt" => Some(Type::Function(Vec::new(), Box::new(Type::Float))),
-            "pow" => Some(Type::Function(
-                vec![Box::new(Type::Float)],
-                Box::new(Type::Float),
-            )),
-            "floor" | "ceil" => Some(Type::Function(Vec::new(), Box::new(Type::Int))),
+            "abs" => Some("fabs"),
+            // sqrt/floor/ceil/pow share names with prelude libc bindings
+            "sqrt" | "floor" | "ceil" | "pow" => Some(match method_name {
+                "sqrt" => "sqrt",
+                "floor" => "floor",
+                "ceil" => "ceil",
+                "pow" => "pow",
+                _ => unreachable!(),
+            }),
+            _ => None,
+        },
+        Type::Int => match method_name {
+            "abs" => Some("abs"),
             _ => None,
         },
         _ => None,
     }
+}
+
+/// Resolve `recv.method` as a bound free function from the environment (UFCS / prelude).
+fn resolve_stdlib_method_type(
+    receiver_type: &Type,
+    method_name: &str,
+    env: &TypeEnv,
+) -> Option<Type> {
+    // Enum/class names used as namespaces (`TreeOption.Some`) are not method receivers.
+    if let Type::Generic(name) = receiver_type {
+        if env.get_enum(name).is_some() || env.get_class(name).is_some() {
+            return None;
+        }
+    }
+
+    let free_name = stdlib_method_free_function(receiver_type, method_name).unwrap_or(method_name);
+    let func_type = env.get_function(free_name)?;
+    let Type::Function(params, ret) = func_type else {
+        return None;
+    };
+    let first = params.first()?;
+    let aliased = stdlib_method_free_function(receiver_type, method_name).is_some();
+    if !aliased {
+        // Dynamic first params must not UFCS-match arbitrary receivers (would turn
+        // `TreeOption.Some(x)` into a 0-arg call after stripping `Some`'s Dynamic).
+        if matches!(first.as_ref(), Type::Dynamic) {
+            return None;
+        }
+        if !is_type_compatible(receiver_type, first) {
+            return None;
+        }
+    }
+    Some(Type::Function(
+        params.iter().skip(1).cloned().collect(),
+        ret.clone(),
+    ))
 }
 
 fn infer_call_return_type(
@@ -7129,11 +6958,11 @@ function abs(x: Int) -> Int {
 }
 
 function main() -> Unit {
-    println(abs(-42));
+    // println comes from std.prelude in the CLI; unit tests declare a stub.
 }
 "#;
         let program = parse_program(src).expect("parse ok");
-        type_check(&program).expect("user function should override seeded builtin");
+        type_check(&program).expect("user abs function should type-check");
     }
 
     #[test]
@@ -7453,6 +7282,7 @@ let frames: [String] = [];
     #[test]
     fn type_check_array_push_accepts_element_type() {
         let src = r#"
+external function array_push(xs: any, item: any) -> unit
 let mut frames: [String] = [];
 frames.push("x");
 "#;
@@ -8606,8 +8436,17 @@ function sum_array(nums: list<Int>) -> Int {
     }
 
     #[test]
-    fn builtin_string_methods_type_check() {
+    fn stdlib_string_methods_type_check() {
+        // Unit tests do not inject std.prelude; declare the surface APIs that
+        // method sugar resolves to (same names as library/stdlib/prelude.x).
         let src = r#"
+external function string_length(s: string) -> integer
+external function string_contains(s: string, substring: string) -> boolean
+external function string_substring(s: string, start: integer, end: integer) -> string
+external function string_trim(s: string) -> string
+external function string_split(s: string, delimiter: string) -> [string]
+external function string_to_upper(s: string) -> string
+external function string_to_lower(s: string) -> string
 let s = "Hello";
 let len = s.length();
 let ok = s.contains("H");
@@ -8619,12 +8458,19 @@ let lower = s.toLowerCase();
 "#;
         let program = parse_program(src).expect("parse ok");
         let result = type_check(&program);
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{:?}", result);
     }
 
     #[test]
-    fn builtin_array_and_float_methods_type_check() {
+    fn stdlib_array_methods_type_check() {
         let src = r#"
+external function array_length(xs: any) -> integer
+external function array_push(xs: any, item: any) -> unit
+external function sqrt(x: Float) -> Float
+external function pow(x: Float, y: Float) -> Float
+external function floor(x: Float) -> Float
+external function ceil(x: Float) -> Float
+external function abs(x: integer) -> integer
 let numbers = [1, 2, 3];
 let len = numbers.length();
 let root = 4.0.sqrt();
@@ -8635,11 +8481,11 @@ let abs_val = (-4).abs();
 "#;
         let program = parse_program(src).expect("parse ok");
         let result = type_check(&program);
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "{:?}", result);
     }
 
     #[test]
-    fn builtin_unknown_method_still_fails() {
+    fn unknown_method_still_fails() {
         let src = r#"
 let s = "Hello";
 let bad = s.unknown_method();
