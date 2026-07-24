@@ -90,6 +90,157 @@ impl JavaBackend {
         Ok(())
     }
 
+    /// Emit a pure-Java implementation of the X runtime (mirrors xrt.c).
+    fn emit_runtime_prelude(&mut self) -> JavaResult<()> {
+        const PRELUDE: &str = r#"// --- X runtime (mirrors library/runtime/xrt.c) ---
+static XValue x_from_int(long v) { XValue x = new XValue(); x.tag = 0; x.payload0 = v; return x; }
+static XValue x_from_double(double v) { XValue x = new XValue(); x.tag = 1; x.payload0 = v; return x; }
+static XValue x_from_bool(long v) { XValue x = new XValue(); x.tag = 2; x.payload0 = v; return x; }
+static XValue x_from_char(long v) { XValue x = new XValue(); x.tag = 3; x.payload0 = v; return x; }
+static XValue x_from_str(String s) { XValue x = new XValue(); x.tag = 4; x.payload0 = s; return x; }
+static XValue x_from_ptr(Object p) { XValue x = new XValue(); x.tag = 5; x.payload0 = p; return x; }
+
+// Opaque heap allocation for class/struct construction.
+static XValue malloc(long n) { return x_from_ptr(new HashMap<String, Object>()); }
+static void free(XValue p) {}
+
+// Helper to convert a value to XValue (for struct field assignment).
+static XValue x_from_value(Object v) {
+    if (v instanceof XValue) return (XValue) v;
+    if (v instanceof Number) return x_from_int(((Number) v).longValue());
+    if (v instanceof Boolean) return x_from_bool(((Boolean) v) ? 1L : 0L);
+    if (v != null) return x_from_str(v.toString());
+    return x_from_int(0);
+}
+
+// Struct field access helpers (XValue payload0 is a Map for struct types).
+@SuppressWarnings("unchecked")
+static Object x_struct_get(XValue v, String field) {
+    if (v == null || v.payload0 == null || !(v.payload0 instanceof Map)) return x_from_int(0);
+    Map<String, Object> map = (Map<String, Object>) v.payload0;
+    Object val = map.get(field);
+    return val != null ? val : x_from_int(0);
+}
+@SuppressWarnings("unchecked")
+static long x_struct_get_long(XValue v, String field) {
+    Object val = x_struct_get(v, field);
+    if (val instanceof Number) return ((Number) val).longValue();
+    if (val instanceof XValue) return x_as_int((XValue) val);
+    return 0;
+}
+@SuppressWarnings("unchecked")
+static XValue x_struct_get_xvalue(XValue v, String field) {
+    Object val = x_struct_get(v, field);
+    if (val instanceof XValue) return (XValue) val;
+    if (val instanceof Number) return x_from_int(((Number) val).longValue());
+    if (val != null) return x_from_str(val.toString());
+    return x_from_int(0);
+}
+@SuppressWarnings("unchecked")
+static void x_struct_set(XValue v, String field, XValue val) {
+    if (v == null) return;
+    if (!(v.payload0 instanceof Map)) {
+        v.payload0 = new HashMap<String, Object>();
+    }
+    ((Map<String, Object>) v.payload0).put(field, val);
+}
+
+static XValue x_list_new() { XValue x = new XValue(); x.tag = 6; x.payload0 = new ArrayList<XValue>(); return x; }
+@SuppressWarnings("unchecked")
+static void x_list_push(XValue l, XValue item) { ((ArrayList<XValue>) l.payload0).add(item); }
+@SuppressWarnings("unchecked")
+static XValue x_list_get(XValue l, long i) {
+    ArrayList<XValue> arr = (ArrayList<XValue>) l.payload0;
+    return (i >= 0 && i < arr.size()) ? arr.get((int) i) : x_from_int(0);
+}
+@SuppressWarnings("unchecked")
+static void x_list_set(XValue l, long i, XValue v) {
+    ArrayList<XValue> arr = (ArrayList<XValue>) l.payload0;
+    if (i >= 0 && i < arr.size()) arr.set((int) i, v);
+}
+static long x_list_len(XValue l) { return ((ArrayList<XValue>) l.payload0).size(); }
+static XValue x_map_new() { XValue x = new XValue(); x.tag = 7; x.payload0 = new ArrayList<>(); return x; }
+
+static long x_as_int(XValue v) {
+    if (v == null) return 0;
+    if (v.tag == 0 || v.tag == 2 || v.tag == 3) return ((Number) v.payload0).longValue();
+    if (v.tag == 1) return (long) ((Number) v.payload0).doubleValue();
+    return 0;
+}
+static double x_as_double(XValue v) {
+    if (v == null) return 0.0;
+    if (v.tag == 1) return ((Number) v.payload0).doubleValue();
+    if (v.tag == 0) return ((Number) v.payload0).longValue();
+    return 0.0;
+}
+static long x_as_bool(XValue v) { return (v != null && v.payload0 != null && !v.payload0.equals(0) && !v.payload0.equals(0.0)) ? 1 : 0; }
+static String x_as_str(XValue v) {
+    if (v == null) return "";
+    if (v.tag == 4) return (String) v.payload0;
+    return x_fmt_value(v);
+}
+static Object x_as_ptr(XValue v) { return v != null && v.tag == 5 ? v.payload0 : v; }
+
+static String _x_fmt_double(double d) {
+    if (d == Math.rint(d) && Math.abs(d) < 1e18 && !Double.isInfinite(d)) {
+        return String.format("%.1f", d);
+    }
+    return Double.toString(d);
+}
+
+static String x_fmt_value(XValue v) {
+    if (v == null) return "null";
+    int t = v.tag;
+    switch (t) {
+        case 0: return Long.toString(((Number) v.payload0).longValue());
+        case 1: return _x_fmt_double(((Number) v.payload0).doubleValue());
+        case 2: return v.payload0 != null && !v.payload0.equals(0) ? "true" : "false";
+        case 3: return String.valueOf((char) ((Number) v.payload0).intValue());
+        case 4: return (String) v.payload0;
+        case 5: return "Pointer(0x" + Integer.toHexString(System.identityHashCode(v.payload0)) + ")";
+        case 6: {
+            StringBuilder sb = new StringBuilder("[");
+            ArrayList<XValue> arr = (ArrayList<XValue>) v.payload0;
+            for (int i = 0; i < arr.size(); i++) {
+                if (i > 0) sb.append(", ");
+                sb.append(x_fmt_value(arr.get(i)));
+            }
+            return sb.append("]").toString();
+        }
+        default: return "";
+    }
+}
+
+static String x_to_str(XValue v) { return x_fmt_value(v); }
+static String x_str_concat(Object a, Object b) {
+    String sa = (a instanceof XValue) ? x_fmt_value((XValue) a) : (a == null ? "" : a.toString());
+    String sb = (b instanceof XValue) ? x_fmt_value((XValue) b) : (b == null ? "" : b.toString());
+    return sa + sb;
+}
+static void x_print(XValue v) { System.out.println(x_fmt_value(v)); }
+static void x_print_inline(XValue v) { System.out.print(x_fmt_value(v)); }
+static void x_print_newline() { System.out.println(); }
+// __index__ is the desugared target of `a[i]` indexing.
+static XValue __index__(XValue a, long i) {
+    if (a == null) return x_from_int(0);
+    if (a.tag == 6) return x_list_get(a, i);
+    return x_from_int(0);
+}
+static int strlen(String s) { return s == null ? 0 : s.length(); }
+static double sqrt(double x) { return Math.sqrt(x); }
+static double floor(double x) { return Math.floor(x); }
+static double ceil(double x) { return Math.ceil(x); }
+static double fabs(double x) { return Math.abs(x); }
+static double pow(double x, double y) { return Math.pow(x, y); }
+// --- end X runtime ---
+"#;
+        for l in PRELUDE.lines() {
+            self.line(l)?;
+        }
+        self.line("")?;
+        Ok(())
+    }
+
     /// 映射 LIR 类型到 Java 类型
     fn lir_type_to_java(&self, ty: &x_lir::Type) -> String {
         use x_lir::Type::*;
@@ -99,11 +250,22 @@ impl JavaBackend {
             Char => "char".to_string(),
             Schar | Short => "short".to_string(),
             Uchar | Ushort | Int | Uint => "int".to_string(),
+            CInt => "int".to_string(),
             Long | Ulong | LongLong | UlongLong => "long".to_string(),
             Float => "float".to_string(),
             Double | LongDouble => "double".to_string(),
             Size | Ptrdiff | Intptr | Uintptr => "long".to_string(),
-            Pointer(inner) => format!("{}[]", self.lir_type_to_java(inner)),
+            Pointer(inner) => {
+                // In Java, `char*` (C string) is represented as `String`.
+                if matches!(inner.as_ref(), Char) {
+                    "String".to_string()
+                } else if matches!(inner.as_ref(), Named(_)) {
+                    // Pointers to named types (classes/structs) are represented as XValue.
+                    "XValue".to_string()
+                } else {
+                    format!("{}[]", self.lir_type_to_java(inner))
+                }
+            }
             Array(inner, _) => format!("{}[]", self.lir_type_to_java(inner)),
             Tuple(items) => {
                 let item_strs: Vec<String> = items
@@ -551,6 +713,21 @@ impl JavaBackend {
                         }
                     }
                     // 对于其他赋值
+                    // Check if target is a member access (PointerMember)
+                    if let x_lir::Expression::PointerMember(obj, field) = target.as_ref() {
+                        let obj_str = self.emit_lir_expr(obj)?;
+                        let value_str = self.emit_lir_expr(value)?;
+                        // Wrap the value in x_from_value to ensure it's an XValue
+                        self.line(&format!("x_struct_set({}, \"{}\", x_from_value({}));", obj_str, field, value_str))?;
+                        return Ok(());
+                    }
+                    if let x_lir::Expression::Member(obj, field) = target.as_ref() {
+                        let obj_str = self.emit_lir_expr(obj)?;
+                        let value_str = self.emit_lir_expr(value)?;
+                        // Wrap the value in x_from_value to ensure it's an XValue
+                        self.line(&format!("x_struct_set({}, \"{}\", x_from_value({}));", obj_str, field, value_str))?;
+                        return Ok(());
+                    }
                     let target_str = self.emit_lir_expr(target)?;
                     let value_str = self.emit_lir_expr(value)?;
                     // 直接赋值（Java 会在赋值前初始化）
@@ -701,7 +878,9 @@ impl JavaBackend {
     fn emit_lir_statement_inline(&mut self, stmt: &x_lir::Statement) -> JavaResult<String> {
         match stmt {
             x_lir::Statement::Variable(v) => {
-                let ty = self.lir_type_to_java(&v.type_);
+                // Use Object for all variables to avoid type mismatch issues.
+                // The actual type will be handled by the runtime.
+                let ty = "Object".to_string();
                 if let Some(init) = &v.initializer {
                     let init_str = self.emit_lir_expr(init)?;
                     Ok(format!("{} {} = {}", ty, v.name, init_str))
@@ -888,8 +1067,33 @@ impl JavaBackend {
             }
             // 赋值表达式（如 t0 = println(...)）
             Assign(target, value) => {
-                let target_str = self.emit_lir_expr(target)?;
                 let value_str = self.emit_lir_expr(value)?;
+                // Check if target is a member access (x_struct_get)
+                println!("DEBUG: target = {:?}", target);
+                if let x_lir::Expression::Member(obj, field) = target.as_ref() {
+                    println!("DEBUG: matched Member");
+                    let obj_str = self.emit_lir_expr(obj)?;
+                    return Ok(format!("x_struct_set({}, \"{}\", {})", obj_str, field, value_str));
+                }
+                if let x_lir::Expression::PointerMember(obj, field) = target.as_ref() {
+                    println!("DEBUG: matched PointerMember");
+                    let obj_str = self.emit_lir_expr(obj)?;
+                    return Ok(format!("x_struct_set({}, \"{}\", {})", obj_str, field, value_str));
+                }
+                println!("DEBUG: no match, target = {:?}", target);
+                // Check if target is a member access that was already emitted as x_struct_get
+                let target_str = self.emit_lir_expr(target)?;
+                if target_str.starts_with("x_struct_get(") {
+                    // Extract the object and field from x_struct_get(obj, "field")
+                    // This is a fallback for when the pattern matching doesn't work
+                    if let Some(start) = target_str.find('(') {
+                        if let Some(comma) = target_str.find(',') {
+                            let obj = &target_str[start+1..comma];
+                            let field = &target_str[comma+2..target_str.len()-2];
+                            return Ok(format!("x_struct_set({}, \"{}\", {})", obj, field, value_str));
+                        }
+                    }
+                }
                 Ok(format!("{} = {}", target_str, value_str))
             }
             AssignOp(op, target, value) => {
@@ -913,12 +1117,14 @@ impl JavaBackend {
             }
             Member(obj, member) => {
                 let obj_str = self.emit_lir_expr(obj)?;
-                Ok(format!("{}.{}", obj_str, member))
+                // For XValue objects, use a Map for struct fields.
+                // Use x_struct_get_xvalue for most cases (safer).
+                Ok(format!("x_struct_get_xvalue({}, \"{}\")", obj_str, member))
             }
             PointerMember(obj, member) => {
                 // Java has no pointer members; treat same as regular member access
                 let obj_str = self.emit_lir_expr(obj)?;
-                Ok(format!("{}.{}", obj_str, member))
+                Ok(format!("x_struct_get_xvalue({}, \"{}\")", obj_str, member))
             }
             Index(arr, idx) => {
                 let arr_str = self.emit_lir_expr(arr)?;
@@ -1098,6 +1304,14 @@ impl JavaBackend {
         // 开始类定义
         self.line(&format!("public class {} {{", self.config.class_name))?;
         self.indent();
+
+        // Opaque boxed runtime value type (from xrt.c) — nested static class.
+        self.line("static class XValue { int tag; Object payload0; }")?;
+        self.line("static class T { int tag; Object payload0; }")?;
+        self.line("")?;
+
+        // Emit the X runtime (mirrors xrt.c) as static methods of the Main class.
+        self.emit_runtime_prelude()?;
 
         // Collect the main function reference for later; process all other declarations
         let mut main_function: Option<&x_lir::Function> = None;

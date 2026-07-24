@@ -1720,6 +1720,7 @@ impl ZigBackend {
             x_lir::Type::Ushort => "u16".to_string(),
             x_lir::Type::Int => "i32".to_string(),
             x_lir::Type::Uint => "u32".to_string(),
+            x_lir::Type::CInt => "i32".to_string(),
             x_lir::Type::Long => "i64".to_string(),
             x_lir::Type::Ulong => "u64".to_string(),
             // Match C `long long` / xrt.h (64-bit), not Zig i128 — otherwise

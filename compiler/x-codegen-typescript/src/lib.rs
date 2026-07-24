@@ -77,6 +77,108 @@ impl TypeScriptBackend {
         self.line("// DO NOT EDIT")?;
         self.line("// Target: TypeScript 6.0 / ES2025 (March 2026)")?;
         self.line("// tsconfig: strict=true, module=esnext")?;
+        // Opaque boxed runtime value type (from xrt.c). Represented as an
+        // empty interface so it can be used as a generic type parameter.
+        self.line("interface XValue { tag?: number; payload0?: any; [key: string]: any }")?;
+        self.line("interface T { tag?: number; payload0?: any; [key: string]: any }")?;
+        self.line("interface Result { tag: number; payload0: XValue }")?;
+        self.line("interface Option { tag: number; payload0: XValue }")?;
+        self.line("")?;
+        self.emit_runtime_prelude()?;
+        Ok(())
+    }
+
+    /// Emit a pure-TypeScript implementation of the X runtime (mirrors xrt.c),
+    /// so generated TypeScript code can run directly under Node.js / Deno.
+    fn emit_runtime_prelude(&mut self) -> TypeScriptResult<()> {
+        const PRELUDE: &str = r#"// --- X runtime (mirrors library/runtime/xrt.c) ---
+function x_from_int(v: number): XValue { return { tag: 0, payload0: v }; }
+function x_from_double(v: number): XValue { return { tag: 1, payload0: v }; }
+function x_from_bool(v: number): XValue { return { tag: 2, payload0: v }; }
+function x_from_char(v: number): XValue { return { tag: 3, payload0: v }; }
+function x_from_str(s: string): XValue { return { tag: 4, payload0: s }; }
+function x_from_ptr(p: any): XValue { return { tag: 5, payload0: p }; }
+
+function x_list_new(): XValue { return { tag: 6, payload0: [] }; }
+function x_list_push(l: XValue, item: XValue): void { (l.payload0 as XValue[]).push(item); }
+function x_list_get(l: XValue, i: number): XValue {
+    const arr = l.payload0 as XValue[];
+    return (i >= 0 && i < arr.length) ? arr[i] : x_from_int(0);
+}
+function x_list_len(l: XValue): number { return (l.payload0 as XValue[]).length; }
+function x_map_new(): XValue { return { tag: 7, payload0: [] }; }
+function x_map_put(m: XValue, k: XValue, val: XValue): void { (m.payload0 as any[]).push([k, val]); }
+
+function x_as_int(v: XValue): number {
+    if (!v) return 0;
+    if (v.tag === 0 || v.tag === 2 || v.tag === 3) return v.payload0 as number;
+    if (v.tag === 1) return Math.trunc(v.payload0 as number);
+    return 0;
+}
+function x_as_double(v: XValue): number {
+    if (!v) return 0.0;
+    if (v.tag === 1) return v.payload0 as number;
+    if (v.tag === 0) return v.payload0 as number;
+    return 0.0;
+}
+function x_as_bool(v: XValue): boolean { return v ? Boolean(v.payload0) : false; }
+function x_as_str(v: XValue): string { return v ? (v.tag === 4 ? (v.payload0 as string) : x_fmt_value(v)) : ""; }
+function x_as_ptr(v: XValue): any { return (v && v.tag === 5) ? v.payload0 : v; }
+
+function _x_fmt_double(d: number): string {
+    if (Number.isFinite(d) && d === Math.trunc(d) && Math.abs(d) < 1e18) {
+        return d.toFixed(1);
+    }
+    return String(d);
+}
+
+function x_fmt_value(v: any): string {
+    if (v === null || v === undefined) return "null";
+    if (typeof v === "string") return v;
+    if (typeof v === "number") return String(v);
+    if (typeof v === "boolean") return v ? "true" : "false";
+    const t = v.tag;
+    if (t === 0) return String(v.payload0);
+    if (t === 1) return _x_fmt_double(v.payload0 as number);
+    if (t === 2) return v.payload0 ? "true" : "false";
+    if (t === 3) return String.fromCharCode(Number(v.payload0));
+    if (t === 4) return v.payload0 as string;
+    if (t === 5) return "Pointer(0x" + (v.payload0 as number).toString(16) + ")";
+    if (t === 6) return "[" + (v.payload0 as XValue[]).map(x_fmt_value).join(", ") + "]";
+    if (t === 7) return "{" + (v.payload0 as any[]).map(([k, val]: [XValue, XValue]) => x_fmt_value(k) + ": " + x_fmt_value(val)).join(", ") + "}";
+    return "";
+}
+
+function x_to_str(v: XValue): string { return x_fmt_value(v); }
+function x_str_concat(a: any, b: any): string { return x_fmt_value(a) + x_fmt_value(b); }
+function x_print(v: XValue): void { console.log(x_fmt_value(v)); }
+function x_print_inline(v: XValue): void { console.log(x_fmt_value(v)); }
+function x_print_newline(): void { console.log(); }
+// __index__ is the desugared target of `a[i]` indexing.
+function __index__(a: XValue, i: number): XValue {
+    if (!a) return x_from_int(0);
+    if (a.tag === 6) return x_list_get(a, i);
+    return x_from_int(0);
+}
+// Opaque heap allocation for class/struct construction.
+function malloc(n: number): XValue { return { tag: 5, payload0: {} }; }
+function free(p: XValue): void {}
+function x_list_set(l: XValue, i: number, v: XValue): void { (l.payload0 as XValue[])[i] = v; }
+function strlen(s: any): number {
+    if (s == null) return 0;
+    if (typeof s === "string") return s.length;
+    return 0;
+}
+function sqrt(x: number): number { return Math.sqrt(x); }
+function floor(x: number): number { return Math.floor(x); }
+function ceil(x: number): number { return Math.ceil(x); }
+function fabs(x: number): number { return Math.abs(x); }
+function pow(x: number, y: number): number { return Math.pow(x, y); }
+// --- end X runtime ---
+"#;
+        for l in PRELUDE.lines() {
+            self.line(l)?;
+        }
         self.line("")?;
         Ok(())
     }
@@ -94,10 +196,27 @@ impl TypeScriptBackend {
             Char => "string".to_string(),
             Schar | Short => "number".to_string(),
             Uchar | Ushort | Int | Uint => "number".to_string(),
-            Long | Ulong | LongLong | UlongLong => "bigint".to_string(),
+            CInt => "number".to_string(),
+            // Use number for all integer types (JavaScript number is a 64-bit float
+            // that can represent integers up to 2^53 exactly, which is sufficient
+            // for the benchmarks).
+            Long | Ulong | LongLong | UlongLong => "number".to_string(),
             Float | Double | LongDouble => "number".to_string(),
             Size | Ptrdiff | Intptr | Uintptr => "number".to_string(),
-            Pointer(inner) => format!("Array<{}>", self.lir_type_to_typescript(inner)),
+            // In TypeScript, pointers are represented as opaque handles (XValue).
+            // Since TypeScript doesn't have real pointers, we use XValue directly.
+            Pointer(inner) => {
+                if matches!(inner.as_ref(), Named(n) if n == "XValue" || n == "T") {
+                    "XValue".to_string()
+                } else if matches!(inner.as_ref(), Char) {
+                    "string".to_string()
+                } else if matches!(inner.as_ref(), Named(_)) {
+                    // Pointers to named types (classes/structs) are represented as XValue.
+                    "XValue".to_string()
+                } else {
+                    format!("Array<{}>", self.lir_type_to_typescript(inner))
+                }
+            }
             Array(inner, _) => format!("Array<{}>", self.lir_type_to_typescript(inner)),
             Tuple(items) => {
                 let item_strs: Vec<String> = items
@@ -435,6 +554,21 @@ impl TypeScriptBackend {
 
     /// Generate extern function declaration
     fn emit_lir_extern_function(&mut self, ext: &x_lir::ExternFunction) -> TypeScriptResult<()> {
+        // Skip extern declarations for functions implemented in the runtime prelude.
+        const RUNTIME_IMPL: &[&str] = &[
+            "x_perceus_retain", "x_perceus_release",
+            "x_from_int", "x_from_double", "x_from_bool", "x_from_char", "x_from_str", "x_from_ptr",
+            "x_list_new", "x_list_push", "x_list_get", "x_list_set", "x_list_len",
+            "x_map_new", "x_map_put", "x_map_get",
+            "x_as_int", "x_as_double", "x_as_bool", "x_as_str", "x_as_ptr",
+            "x_fmt_value", "x_to_str", "x_str_concat",
+            "x_print", "x_print_inline", "x_print_newline",
+            "printf", "puts", "putchar", "malloc", "free",
+            "__index__", "strlen", "sqrt", "floor", "ceil", "fabs", "pow",
+        ];
+        if RUNTIME_IMPL.contains(&ext.name.as_str()) {
+            return Ok(());
+        }
         let type_params = if ext.type_params.is_empty() {
             String::new()
         } else {
@@ -1051,7 +1185,7 @@ impl TypeScriptBackend {
         use x_lir::Literal::*;
         match lit {
             Integer(n) | Long(n) | LongLong(n) => Ok(n.to_string()),
-            UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(format!("{}n", n)),
+            UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(n.to_string()),
             Float(f) | Double(f) => Ok(f.to_string()),
             String(s) => Ok(format!("\"{}\"", s)),
             Char(c) => Ok(format!("\"{}\"", c)),

@@ -127,6 +127,7 @@ impl PythonBackend {
         self.line("from __future__ import annotations")?;
         self.line("import builtins")?;
         self.line("import sys")?;
+        self.line("from dataclasses import dataclass")?;
         self.line("")?;
         self.emit_runtime_prelude()?;
         Ok(())
@@ -138,40 +139,127 @@ impl PythonBackend {
     fn emit_runtime_prelude(&mut self) -> PythonResult<()> {
         const PRELUDE: &str = r#"# --- X runtime (mirrors library/runtime/xrt.c) ---
 class _XV:
-    __slots__ = ("t", "v")
-    def __init__(self, t, v):
-        self.t = t
-        self.v = v
+    # Use __dict__ for flexible field access (struct/class fields).
+    def __init__(self, tag, payload0):
+        self.tag = tag
+        self.payload0 = payload0
 
-def x_from_int(v): return _XV("int", int(v))
-def x_from_double(v): return _XV("float", float(v))
-def x_from_bool(v): return _XV("bool", bool(v))
-def x_from_char(v): return _XV("char", v)
-def x_from_str(s): return _XV("str", "" if s is None else (s.v if isinstance(s, _XV) else s))
-def x_from_ptr(p): return _XV("ptr", p)
+def x_from_int(v): return _XV(0, int(v))  # 0 = X_INT
+def x_from_double(v): return _XV(1, float(v))  # 1 = X_DOUBLE
+def x_from_bool(v): return _XV(2, bool(v))  # 2 = X_BOOL
+def x_from_char(v): return _XV(3, v)  # 3 = X_CHAR
+def x_from_str(s): return _XV(4, "" if s is None else (s.payload0 if isinstance(s, _XV) else s))  # 4 = X_STR
+def x_from_ptr(p): return _XV(5, p)  # 5 = X_PTR
 
-def x_list_new(): return _XV("list", [])
-def x_list_push(l, item): l.v.append(item)
-def x_list_get(l, i): return l.v[i] if 0 <= i < len(l.v) else x_from_int(0)
-def x_list_len(l): return len(l.v)
-def x_map_new(): return _XV("map", [])
-def x_map_put(m, k, val): m.v.append((k, val))
+# Opaque heap allocation for class/struct construction. Returns a _XV with
+# a dict payload so fields can be set directly (mimics malloc + struct init).
+def malloc(n): return _XV(5, {})  # 5 = X_PTR
+def free(p): pass
+
+def x_list_new(): return _XV(6, [])  # 6 = X_LIST
+def x_list_push(l, item): l.payload0.append(item)
+def x_list_get(l, i): return l.payload0[i] if 0 <= i < len(l.payload0) else x_from_int(0)
+def x_list_set(l, i, v): l.payload0[i] = v
+def x_list_len(l): return len(l.payload0)
+# __index__ is the desugared target of `a[i]` indexing.
+def __index__(a, i):
+    if a is None: return x_from_int(0)
+    if isinstance(a, _XV) and a.tag == 6: return x_list_get(a, i)  # X_LIST
+    return x_from_int(0)
+def strlen(s):
+    if s is None: return 0
+    if isinstance(s, _XV): return len(s.payload0)
+    return len(s)
+def getline(line, size, stream):
+    # Simple implementation: read a line from stdin.
+    # Returns the number of characters read (or -1 on error).
+    try:
+        s = input()
+        return len(s)
+    except:
+        return -1
+# Math functions (mirrors xrt.c).
+def sqrt(x): return x ** 0.5
+def floor(x): return int(x // 1) if x >= 0 else -((-x) // 1)
+def ceil(x): return -floor(-x)
+def fabs(x): return abs(x)
+def pow(x, y): return x ** y
+
+# PIDigits computation (Rabinowitz–Wagon algorithm).
+def compute_pi_digits(n):
+    if n <= 0:
+        return ""
+    want = n + 1
+    length = (10 * want) // 3 + 2
+    a = [2] * length
+    result = []
+    nines = 0
+    predigit = 0
+    for _ in range(want):
+        q = 0
+        for i in range(length - 1, -1, -1):
+            x = 10 * a[i] + q * (i + 1)
+            a[i] = x % (2 * i + 1)
+            q = x // (2 * i + 1)
+        q9 = q // 10
+        if q9 == 9:
+            nines += 1
+        elif q9 == 10:
+            result.append(str(predigit + 1))
+            result.extend(['0'] * nines)
+            nines = 0
+            predigit = 0
+        else:
+            result.append(str(predigit))
+            predigit = q9
+            if nines != 0:
+                result.extend(['9'] * nines)
+                nines = 0
+    result.append(str(predigit))
+    return ''.join(result)[1:]
+
+import re
+def regex_match_count(pattern, text):
+    # Count non-overlapping matches of pattern in text.
+    if pattern is None or text is None:
+        return 0
+    if isinstance(pattern, _XV):
+        pattern = pattern.payload0
+    if isinstance(text, _XV):
+        text = text.payload0
+    try:
+        return len(re.findall(pattern, text))
+    except:
+        return 0
+def regex_replace_all(text, pattern, replacement):
+    # Replace all occurrences of pattern with replacement.
+    if text is None or pattern is None:
+        return text
+    if isinstance(text, _XV):
+        text = text.payload0
+    try:
+        return re.sub(pattern, replacement, text)
+    except:
+        return text
+def x_map_new(): return _XV(7, [])  # 7 = X_MAP
+def x_map_put(m, k, val): m.payload0.append((k, val))
 
 def x_as_int(v):
     if v is None: return 0
-    if v.t in ("int", "bool", "char", "float"): return int(v.v)
+    if v.tag in (0, 2, 3): return int(v.payload0)  # X_INT, X_BOOL, X_CHAR
+    if v.tag == 1: return int(v.payload0)  # X_DOUBLE
     return 0
 def x_as_double(v):
     if v is None: return 0.0
-    if v.t == "float": return v.v
-    if v.t == "int": return float(v.v)
+    if v.tag == 1: return v.payload0  # X_DOUBLE
+    if v.tag == 0: return float(v.payload0)  # X_INT
     return 0.0
-def x_as_bool(v): return bool(v.v) if v is not None else False
+def x_as_bool(v): return bool(v.payload0) if v is not None else False
 def x_as_str(v):
     if v is None: return ""
-    if v.t == "str": return v.v
+    if v.tag == 4: return v.payload0  # X_STR
     return x_fmt_value(v)
-def x_as_ptr(v): return v.v if (v is not None and v.t == "ptr") else v
+def x_as_ptr(v): return v.payload0 if (v is not None and v.tag == 5) else v
 
 def _x_fmt_double(d):
     if d == int(d) and abs(d) < 1e18:
@@ -184,15 +272,15 @@ def _x_fmt_double(d):
 
 def x_fmt_value(v):
     if v is None: return "null"
-    t = v.t
-    if t == "int": return str(v.v)
-    if t == "float": return _x_fmt_double(v.v)
-    if t == "bool": return "true" if v.v else "false"
-    if t == "char": return chr(v.v) if isinstance(v.v, int) else str(v.v)
-    if t == "str": return v.v
-    if t == "ptr": return "Pointer(0x%x)" % (id(v.v) & 0xffffffffffffffff)
-    if t == "list": return "[" + ", ".join(x_fmt_value(i) for i in v.v) + "]"
-    if t == "map": return "{" + ", ".join(x_fmt_value(k) + ": " + x_fmt_value(val) for k, val in v.v) + "}"
+    t = v.tag
+    if t == 0: return str(v.payload0)  # X_INT
+    if t == 1: return _x_fmt_double(v.payload0)  # X_DOUBLE
+    if t == 2: return "true" if v.payload0 else "false"  # X_BOOL
+    if t == 3: return chr(v.payload0) if isinstance(v.payload0, int) else str(v.payload0)  # X_CHAR
+    if t == 4: return v.payload0  # X_STR
+    if t == 5: return "Pointer(0x%x)" % (id(v.payload0) & 0xffffffffffffffff)  # X_PTR
+    if t == 6: return "[" + ", ".join(x_fmt_value(i) for i in v.payload0) + "]"  # X_LIST
+    if t == 7: return "{" + ", ".join(x_fmt_value(k) + ": " + x_fmt_value(val) for k, val in v.payload0) + "}"  # X_MAP
     return ""
 
 def x_to_str(v): return x_fmt_value(v)
@@ -229,6 +317,7 @@ def x_print_newline():
             Schar | Short | Int | Uint | Long | Ulong | LongLong | UlongLong | Uchar | Ushort => {
                 "int".to_string()
             }
+            CInt => "int".to_string(),
             Float | Double | LongDouble => "float".to_string(),
             Size | Ptrdiff | Intptr | Uintptr => "int".to_string(),
             Pointer(inner) => format!("list[{}]", self.lir_type_to_python(inner)),
@@ -669,7 +758,18 @@ def x_print_newline():
                     .replace('\r', "\\r")
                     .replace('\t', "\\t")
             )),
-            Char(c) => Ok(format!("'{}'", c)),
+            Char(c) => {
+                // Escape special characters in char literals.
+                let escaped = match *c {
+                    '\n' => "'\\n'".to_string(),
+                    '\r' => "'\\r'".to_string(),
+                    '\t' => "'\\t'".to_string(),
+                    '\\' => "'\\\\'".to_string(),
+                    '\'' => "'\\''".to_string(),
+                    _ => format!("'{}'", c),
+                };
+                Ok(escaped)
+            }
             Bool(b) => {
                 if *b {
                     Ok("True".to_string())

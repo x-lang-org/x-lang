@@ -184,6 +184,7 @@ impl ErlangBackend {
             Bool => "boolean()".to_string(),
             Char => "char()".to_string(),
             Schar | Short | Int | Uint => "integer()".to_string(),
+            CInt => "integer()".to_string(),
             Uchar | Ushort | Long | Ulong | LongLong | UlongLong => "non_neg_integer()".to_string(),
             Float | Double | LongDouble => "float()".to_string(),
             Size | Ptrdiff | Intptr | Uintptr => "integer()".to_string(),
@@ -229,8 +230,9 @@ impl ErlangBackend {
         let mut has_main = false;
         for decl in &lir.declarations {
             if let x_lir::Declaration::Function(f) = decl {
+                let fn_name = self.erlang_atom(&f.name);
                 self.exports
-                    .push(format!("{}/{}", f.name, f.parameters.len()));
+                    .push(format!("{}/{}", fn_name, f.parameters.len()));
                 if f.name == "main" {
                     has_main = true;
                 }
@@ -503,6 +505,7 @@ impl ErlangBackend {
     /// Emit extern function as a comment (Erlang uses NIFs or port drivers)
     fn emit_lir_extern_function(&mut self, ext: &x_lir::ExternFunction) -> ErlangResult<()> {
         let abi = ext.abi.as_deref().unwrap_or("C");
+        let fn_name = self.erlang_atom(&ext.name);
         let params: Vec<String> = ext
             .parameters
             .iter()
@@ -516,13 +519,13 @@ impl ErlangBackend {
         self.line(&format!("%% extern \"{}\" function: {}", abi, ext.name))?;
         self.line(&format!(
             "%% -spec {}({}) -> {}.",
-            ext.name,
+            fn_name,
             params.join(", "),
             ret
         ))?;
         self.line(&format!(
             "{}({}) -> erlang:nif_error(not_loaded).",
-            ext.name,
+            fn_name,
             (0..ext.parameters.len())
                 .map(|i| format!("_Arg{}", i))
                 .collect::<Vec<_>>()
@@ -552,6 +555,8 @@ impl ErlangBackend {
     }
 
     fn emit_lir_function(&mut self, f: &x_lir::Function) -> ErlangResult<()> {
+        // Erlang function names must start with a lowercase letter.
+        let fn_name = self.erlang_atom(&f.name);
         let ret_spec = self.lir_type_to_erlang(&f.return_type);
         let param_specs: Vec<String> = f
             .parameters
@@ -563,13 +568,13 @@ impl ErlangBackend {
         } else {
             format!("({})", param_specs.join(", "))
         };
-        self.line(&format!("-spec {}{} -> {}.", f.name, spec_params, ret_spec))?;
+        self.line(&format!("-spec {}{} -> {}.", fn_name, spec_params, ret_spec))?;
         let params: Vec<String> = f
             .parameters
             .iter()
             .map(|p| self.erlang_variable(&p.name))
             .collect();
-        self.line(&format!("{}({}) ->", f.name, params.join(", ")))?;
+        self.line(&format!("{}({}) ->", fn_name, params.join(", ")))?;
         self.indent();
         let n = f.body.statements.len();
         if n == 0 {
@@ -1106,6 +1111,12 @@ impl ErlangBackend {
             }
         }
         let callee_str = self.emit_lir_expr(callee)?;
+        // Erlang function names must start with a lowercase letter.
+        let callee_str = if callee_str.contains("__") || callee_str.chars().next().map_or(false, |c| c.is_uppercase()) {
+            self.erlang_atom(&callee_str)
+        } else {
+            callee_str
+        };
         let args_str: Vec<String> = args
             .iter()
             .map(|a| self.emit_lir_expr(a))

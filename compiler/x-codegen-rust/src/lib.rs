@@ -70,6 +70,9 @@ pub struct RustBackend {
     /// string concatenation that has been split across SSA temporaries (where no
     /// operand is a string literal). Reset per function.
     string_vars: std::collections::HashSet<String>,
+    /// Names of extern functions already emitted, to avoid duplicate `extern`
+    /// blocks (the LIR prelude declares each runtime function twice).
+    emitted_externs: std::collections::HashSet<String>,
 }
 
 pub type RustResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -88,6 +91,7 @@ impl RustBackend {
             globals_as_locals: std::collections::HashSet::new(),
             global_local_inits: Vec::new(),
             string_vars: std::collections::HashSet::new(),
+            emitted_externs: std::collections::HashSet::new(),
         }
     }
 
@@ -226,7 +230,7 @@ impl RustBackend {
 
         // Add necessary imports that are commonly used
         self.line("use std::collections::HashMap;")?;
-        self.line("use std::ffi::c_void;")?;
+        self.line("use std::ffi::{c_void, CString, CStr};")?;
         self.line("use std::process;")?;
         self.line("")?;
 
@@ -283,6 +287,31 @@ impl RustBackend {
             x_codegen::CodeGenError::GenerationError(format!("Failed to write Rust source: {}", e))
         })?;
 
+        // 写入捆绑的 C 运行时（xrt.c），通过 build.rs 编译并链接。
+        let xrt_src = runtime::XRT_C_SRC;
+        let xrt_hdr = runtime::XRT_C_HDR;
+        let xrt_path = temp_dir.join("xrt.c");
+        let xrt_hdr_path = temp_dir.join("xrt.h");
+        std::fs::write(&xrt_path, xrt_src).map_err(|e| {
+            x_codegen::CodeGenError::GenerationError(format!("Failed to write xrt.c: {}", e))
+        })?;
+        std::fs::write(&xrt_hdr_path, xrt_hdr).map_err(|e| {
+            x_codegen::CodeGenError::GenerationError(format!("Failed to write xrt.h: {}", e))
+        })?;
+
+        // build.rs — 编译 xrt.c 并指示 cargo 链接
+        let build_rs = r#"fn main() {
+    cc::Build::new()
+        .file("xrt.c")
+        .opt_level(2)
+        .compile("xrt");
+}
+"#;
+        let build_rs_path = temp_dir.join("build.rs");
+        std::fs::write(&build_rs_path, build_rs).map_err(|e| {
+            x_codegen::CodeGenError::GenerationError(format!("Failed to write build.rs: {}", e))
+        })?;
+
         // 创建 Cargo.toml
         let cargo_toml = r#"[package]
 name = "xlang_output"
@@ -292,6 +321,9 @@ edition = "2021"
 [[bin]]
 name = "xlang_output"
 path = "src/main.rs"
+
+[build-dependencies]
+cc = "1.0"
 
 [dependencies]
 "#;
@@ -378,6 +410,15 @@ path = "src/main.rs"
         self.line("fn panic(message: impl std::fmt::Display) -> ! { eprintln!(\"{}\", message); std::process::abort(); }")?;
         self.line("fn assert(condition: bool) { if !condition { eprintln!(\"assertion failed\"); std::process::abort(); } }")?;
         self.line("fn enumerate<T>(items: Vec<T>) -> Vec<(i64, T)> { items.into_iter().enumerate().map(|(i, x)| (i as i64, x)).collect() }")?;
+        // Opaque handle type for the boxed runtime value `XValue` from xrt.c.
+        // The runtime only ever passes it around by pointer, so an empty
+        // enum / trait object placeholder is enough for type-correctness.
+        self.line("#[derive(Debug, Clone, PartialEq)]")?;
+        self.line("pub enum XValue {}")?;
+        // Opaque placeholder for the generic return type of `unwrap_ok` (the
+        // runtime helper does not expose a concrete Rust type).
+        self.line("#[derive(Debug, Clone, PartialEq)]")?;
+        self.line("pub enum T {}")?;
         self.line("")?;
         Ok(())
     }
@@ -872,6 +913,13 @@ path = "src/main.rs"
 
     /// Generate extern function declaration
     fn generate_lir_extern_function(&mut self, ext: &x_lir::ExternFunction) -> RustResult<()> {
+        // The LIR prelude declares each runtime function twice (once as an
+        // ExternFunction, once via an implicit Call); emit each name only once
+        // to avoid `error[E0428]: the name is defined multiple times`.
+        if !self.emitted_externs.insert(ext.name.clone()) {
+            return Ok(());
+        }
+
         // Use uppercase "C" for Rust ABI
         let abi = ext.abi.clone().unwrap_or_else(|| "C".to_string());
         let abi_display = if abi.to_lowercase() == "c" { "C" } else { &abi };
@@ -1425,6 +1473,18 @@ path = "src/main.rs"
                     "eprintln" | "eprintln!" => Self::format_macro_call("eprintln", &args_code),
                     "eprint" | "eprint!" => Self::format_macro_call("eprint", &args_code),
                     "format" => Self::format_macro_call("format", &args_code),
+                    // Runtime helpers that take a C string: convert `String` to a
+                    // raw `*const char`. The CString must be bound to a local so
+                    // it lives long enough for the pointer to be valid.
+                    "x_from_str" => {
+                        // Emit as a separate expression; the caller wraps it in
+                        // a `let` binding, so we return a block expression that
+                        // keeps the CString alive for the duration of the call.
+                        format!(
+                            "{{ let __x_cstr = CString::new({}).unwrap(); x_from_str(__x_cstr.as_ptr()) }}",
+                            args_code.join(", ")
+                        )
+                    }
                     _ => format!("{}({})", callee_code, args_code.join(", ")),
                 };
                 Ok(result)
@@ -1554,13 +1614,16 @@ path = "src/main.rs"
         match ty {
             x_lir::Type::Void => "()".to_string(),
             x_lir::Type::Bool => "bool".to_string(),
-            x_lir::Type::Char => "char".to_string(),
+            x_lir::Type::Char => "std::ffi::c_char".to_string(),
+            x_lir::Type::Schar => "i8".to_string(),
+            x_lir::Type::Uchar => "u8".to_string(),
             x_lir::Type::Schar => "i8".to_string(),
             x_lir::Type::Uchar => "u8".to_string(),
             x_lir::Type::Short => "i16".to_string(),
             x_lir::Type::Ushort => "u16".to_string(),
             x_lir::Type::Int => "i32".to_string(),
             x_lir::Type::Uint => "u32".to_string(),
+            x_lir::Type::CInt => "i32".to_string(),
             x_lir::Type::Long => "i64".to_string(),
             x_lir::Type::Ulong => "u64".to_string(),
             x_lir::Type::LongLong => "i64".to_string(),
@@ -1604,11 +1667,21 @@ path = "src/main.rs"
             }
             x_lir::Type::Named(name) => name.clone(),
             x_lir::Type::Qualified(quals, inner) => {
-                let mut inner_str = self.lir_type_to_rust(inner);
+                // In Rust extern blocks, `const T` is not valid as a function
+                // parameter/return type. Map `const char*` (C string) to
+                // `*const c_char` and drop the qualifier for other pointer
+                // types; for non-pointer types, keep the inner type.
                 if quals.is_const {
-                    inner_str = format!("const {}", inner_str);
+                    if let x_lir::Type::Pointer(inner) = inner.as_ref() {
+                        let inner_str = self.lir_type_to_rust(inner);
+                        format!("*const {}", inner_str)
+                    } else {
+                        self.lir_type_to_rust(inner)
+                    }
+                } else {
+                    let inner_str = self.lir_type_to_rust(inner);
+                    format!("*mut {}", inner_str)
                 }
-                inner_str
             }
         }
     }
@@ -1654,4 +1727,11 @@ mod tests {
         assert!(!config.debug_info);
         assert!(config.output_dir.is_some());
     }
+}
+
+/// Bundled C runtime (xrt.c / xrt.h) so the Rust backend can link against the
+/// same boxed-value runtime used by the other native backends.
+pub mod runtime {
+    pub const XRT_C_SRC: &str = include_str!("../../../library/runtime/xrt.c");
+    pub const XRT_C_HDR: &str = include_str!("../../../library/runtime/xrt.h");
 }

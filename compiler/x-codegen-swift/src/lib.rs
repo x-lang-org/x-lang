@@ -115,6 +115,7 @@ impl SwiftBackend {
             Uchar | Ushort => "UInt16".to_string(),
             Int => "Int".to_string(),
             Uint => "UInt".to_string(),
+            CInt => "Int32".to_string(),
             Long | LongLong => "Int64".to_string(),
             Ulong | UlongLong => "UInt64".to_string(),
             Float => "Float".to_string(),

@@ -536,6 +536,7 @@ impl CSharpBackend {
             Char => "char".to_string(),
             Schar | Short => "short".to_string(),
             Uchar | Ushort | Int | Uint => "int".to_string(),
+            CInt => "int".to_string(),
             Long | Ulong | LongLong | UlongLong => "long".to_string(),
             Float => "float".to_string(),
             Double | LongDouble => "double".to_string(),

@@ -91,6 +91,8 @@ pub struct LlvmBackend {
     extern_decls: HashMap<String, String>,
     /// 已定义的结构体类型
     struct_defs: Vec<(String, Vec<(String, Type)>)>,
+    /// 当前函数的返回类型（用于 ret 指令类型推断）
+    current_func_return_type: Type,
 }
 
 impl LlvmBackend {
@@ -107,6 +109,7 @@ impl LlvmBackend {
             local_var_types: HashMap::new(),
             extern_decls: HashMap::new(),
             struct_defs: Vec::new(),
+            current_func_return_type: Type::Void,
         }
     }
 
@@ -145,8 +148,9 @@ impl LlvmBackend {
             Type::Uchar => Ok("i8".to_string()),
             Type::Short => Ok("i16".to_string()),
             Type::Ushort => Ok("i16".to_string()),
-            Type::Int => Ok("i32".to_string()),
-            Type::Uint => Ok("i32".to_string()),
+            Type::Int => Ok("i64".to_string()),
+            Type::Uint => Ok("i64".to_string()),
+            Type::CInt => Ok("i32".to_string()),
             Type::Long => Ok("i64".to_string()),
             Type::Ulong => Ok("i64".to_string()),
             Type::LongLong => Ok("i64".to_string()),
@@ -188,7 +192,8 @@ impl LlvmBackend {
             Type::Bool => Ok(1),
             Type::Char | Type::Schar | Type::Uchar => Ok(8),
             Type::Short | Type::Ushort => Ok(16),
-            Type::Int | Type::Uint => Ok(32),
+            Type::Int | Type::Uint => Ok(64),
+            Type::CInt => Ok(32),
             Type::Long
             | Type::Ulong
             | Type::LongLong
@@ -256,6 +261,16 @@ impl LlvmBackend {
 
     /// 生成结构体类型定义
     fn emit_struct_defs(&mut self) {
+        // Forward-declare opaque structs that may be referenced by extern
+        // functions but whose fields are not known to the compiler (e.g. the
+        // boxed runtime value type `XValue` from xrt.c).
+        let opaque = ["XValue", "T"];
+        for name in opaque {
+            if !self.struct_defs.iter().any(|(n, _)| n == name) {
+                self.emit(&format!("%struct.{} = type opaque", name));
+            }
+        }
+
         if self.struct_defs.is_empty() {
             return;
         }
@@ -388,6 +403,7 @@ impl LlvmBackend {
         self.temp_counter = 0;
         self.local_vars.clear();
         self.local_var_types.clear();
+        self.current_func_return_type = func.return_type.clone();
 
         let ret_ty = self.llvm_type(&func.return_type)?;
 
@@ -481,7 +497,20 @@ impl LlvmBackend {
 
         // 如果没有返回指令，添加一个
         if !emitted_return {
-            self.emit_indent(2, "ret i32 0");
+            match func.return_type {
+                Type::Void => self.emit_indent(2, "ret void"),
+                Type::Bool => self.emit_indent(2, "ret i1 0"),
+                Type::Char | Type::Schar | Type::Uchar => self.emit_indent(2, "ret i8 0"),
+                Type::Short | Type::Ushort => self.emit_indent(2, "ret i16 0"),
+                Type::Int | Type::Uint | Type::Long | Type::Ulong | Type::LongLong | Type::UlongLong
+                | Type::Size | Type::Uintptr | Type::Ptrdiff | Type::Intptr => {
+                    self.emit_indent(2, "ret i64 0")
+                }
+                Type::Float => self.emit_indent(2, "ret float 0.0"),
+                Type::Double | Type::LongDouble => self.emit_indent(2, "ret double 0.0"),
+                Type::Pointer(_) => self.emit_indent(2, "ret i8* null"),
+                _ => self.emit_indent(2, "ret i64 0"),
+            }
         }
 
         self.emit("}");
@@ -502,9 +531,20 @@ impl LlvmBackend {
     fn emit_statement(&mut self, stmt: &Statement, indent: usize) -> Result<(), LlvmError> {
         match stmt {
             Statement::Return(Some(expr)) => {
-                let (value, _ty) = self.emit_expression(expr)?;
-                let ret_ty = self.llvm_type(&self.infer_expr_type(expr))?;
-                self.emit_indent(indent, &format!("ret {} {}", ret_ty, value));
+                let (value, expr_ty) = self.emit_expression(expr)?;
+                // Use the function's return type for the ret instruction, not the
+                // inferred expression type. The expression value may need a bitcast
+                // if the types don't match (e.g., pointer stored as i64).
+                let func_ret_ty = self.llvm_type(&self.current_func_return_type)?;
+                let expr_llvm_ty = self.llvm_type(&expr_ty)?;
+                if func_ret_ty == expr_llvm_ty {
+                    self.emit_indent(indent, &format!("ret {} {}", func_ret_ty, value));
+                } else {
+                    // Types don't match — bitcast the value to the function's return type.
+                    let cast_temp = self.new_temp();
+                    self.emit_indent(indent, &format!("{} = bitcast {} {} to {}", cast_temp, expr_llvm_ty, value, func_ret_ty));
+                    self.emit_indent(indent, &format!("ret {} {}", func_ret_ty, cast_temp));
+                }
             }
             Statement::Return(None) => {
                 self.emit_indent(indent, "ret void");
@@ -521,8 +561,17 @@ impl LlvmBackend {
                     .insert(var.name.clone(), var.type_.clone());
 
                 if let Some(init) = &var.initializer {
-                    let (value, _) = self.emit_expression(init)?;
-                    self.emit_indent(indent, &format!("store {} {}, {}* {}", ty, value, ty, ptr));
+                    let (value, expr_ty) = self.emit_expression(init)?;
+                    // Use the value's actual LLVM type for the store; if it doesn't
+                    // match the variable's type, bitcast first.
+                    let value_llvm_ty = self.llvm_type(&expr_ty)?;
+                    if value_llvm_ty == ty {
+                        self.emit_indent(indent, &format!("store {} {}, {}* {}", ty, value, ty, ptr));
+                    } else {
+                        let cast_temp = self.new_temp();
+                        self.emit_indent(indent, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value, ty));
+                        self.emit_indent(indent, &format!("store {} {}, {}* {}", ty, cast_temp, ty, ptr));
+                    }
                 }
             }
             Statement::If(if_stmt) => {
@@ -1234,14 +1283,27 @@ impl LlvmBackend {
             Expression::Call(func, args) => self.emit_call(func, args),
             Expression::Assign(target, value) => {
                 let (value_reg, value_ty) = self.emit_expression(value)?;
-                let llvm_ty = self.llvm_type(&value_ty)?;
+                let value_llvm_ty = self.llvm_type(&value_ty)?;
 
                 if let Expression::Variable(name) = target.as_ref() {
-                    if let Some(ptr) = self.local_vars.get(name) {
-                        self.emit_indent(
-                            2,
-                            &format!("store {} {}, {}* {}", llvm_ty, value_reg, llvm_ty, ptr),
-                        );
+                    if let Some(ptr) = self.local_vars.get(name).cloned() {
+                        // Use the variable's declared type for the pointer; bitcast
+                        // the value if it doesn't match.
+                        let var_ty = self.local_var_types.get(name).cloned().unwrap_or(value_ty.clone());
+                        let var_llvm_ty = self.llvm_type(&var_ty)?;
+                        if value_llvm_ty == var_llvm_ty {
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, {}* {}", var_llvm_ty, value_reg, var_llvm_ty, &ptr),
+                            );
+                        } else {
+                            let cast_temp = self.new_temp();
+                            self.emit_indent(2, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, {}* {}", var_llvm_ty, cast_temp, var_llvm_ty, &ptr),
+                            );
+                        }
                     }
                 }
                 Ok((value_reg, value_ty))
@@ -1542,11 +1604,13 @@ impl LlvmBackend {
                 let field_ptr = self.new_temp();
                 let ty = Type::Int;
                 let llvm_ty = self.llvm_type(&ty)?;
+                // Get the pointer's LLVM type (e.g., i8* for opaque pointers).
+                let ptr_llvm_ty = self.llvm_type(&Type::Pointer(Box::new(Type::Void)))?;
                 self.emit_indent(
                     2,
                     &format!(
-                        "{} = getelementptr inbounds {}* {}, i32 0, i32 0",
-                        field_ptr, llvm_ty, ptr_val
+                        "{} = getelementptr inbounds {}, {} {}, i32 0, i32 0",
+                        field_ptr, llvm_ty, ptr_llvm_ty, ptr_val
                     ),
                 );
                 let result = self.new_temp();
@@ -2178,14 +2242,17 @@ impl LlvmBackend {
         }
     }
 
-    /// 推断函数返回类型（简化实现）
+    /// 推断函数返回类型（简化实现）。
+    /// 对于 C 库函数（printf/puts 等），返回 CInt 以在 LLVM IR 中保留 i32 宽度。
     fn infer_call_return_type(&self, func_name: &str) -> Type {
         match func_name {
-            "printf" | "puts" => Type::Int,
+            "printf" | "puts" => Type::CInt,
             "malloc" => Type::Pointer(Box::new(Type::Void)),
             "free" => Type::Void,
             "strlen" => Type::Ulong,
-            _ => Type::Int,
+            // For unknown functions (like user-defined functions), default to i8*
+            // (opaque pointer) to avoid type mismatches.
+            _ => Type::Pointer(Box::new(Type::Void)),
         }
     }
 
@@ -2195,7 +2262,8 @@ impl LlvmBackend {
             Type::Bool => 1,
             Type::Char | Type::Schar | Type::Uchar => 1,
             Type::Short | Type::Ushort => 2,
-            Type::Int | Type::Uint => 4,
+            Type::Int | Type::Uint => 8,
+            Type::CInt => 4,
             Type::Long | Type::Ulong | Type::LongLong | Type::UlongLong => 8,
             Type::Float => 4,
             Type::Double => 8,
@@ -2217,7 +2285,8 @@ impl LlvmBackend {
             Type::Bool => 1,
             Type::Char | Type::Schar | Type::Uchar => 1,
             Type::Short | Type::Ushort => 2,
-            Type::Int | Type::Uint => 4,
+            Type::Int | Type::Uint => 8,
+            Type::CInt => 4,
             Type::Long | Type::Ulong | Type::LongLong | Type::UlongLong => 8,
             Type::Float => 4,
             Type::Double => 8,
@@ -2248,7 +2317,7 @@ impl LlvmBackend {
         if let Some(init) = &global.initializer {
             if let Expression::Literal(lit) = init {
                 match lit {
-                    Literal::Integer(n) => decl.push_str(&format!("i32 {}", n)),
+                    Literal::Integer(n) => decl.push_str(&format!("i64 {}", n)),
                     Literal::Long(n) => decl.push_str(&format!("i64 {}", n)),
                     Literal::Double(n) => {
                         let bits = n.to_bits();
@@ -2392,12 +2461,12 @@ impl LlvmBackend {
                     self.emit_function(func)?;
                 }
                 Declaration::Enum(enum_def) => {
-                    // Emit enum variants as named i32 constants
+                    // Emit enum variants as named i64 constants (X Int is i64).
                     self.emit(&format!("; Enum {}", enum_def.name));
                     for (i, variant) in enum_def.variants.iter().enumerate() {
                         let val = variant.value.unwrap_or(i as i64);
                         self.emit(&format!(
-                            "@{}.{} = private unnamed_addr constant i32 {}",
+                            "@{}.{} = private unnamed_addr constant i64 {}",
                             enum_def.name, variant.name, val
                         ));
                     }
@@ -2557,7 +2626,7 @@ mod tests {
         assert_eq!(backend.llvm_type(&Type::Void).unwrap(), "void");
         assert_eq!(backend.llvm_type(&Type::Bool).unwrap(), "i1");
         assert_eq!(backend.llvm_type(&Type::Char).unwrap(), "i8");
-        assert_eq!(backend.llvm_type(&Type::Int).unwrap(), "i32");
+        assert_eq!(backend.llvm_type(&Type::Int).unwrap(), "i64");
         assert_eq!(backend.llvm_type(&Type::Long).unwrap(), "i64");
         assert_eq!(backend.llvm_type(&Type::Float).unwrap(), "float");
         assert_eq!(backend.llvm_type(&Type::Double).unwrap(), "double");
@@ -2608,8 +2677,8 @@ mod tests {
         assert_eq!(output.files[0].file_type, FileType::LlvmIr);
 
         let content = String::from_utf8(output.files[0].content.clone()).unwrap();
-        assert!(content.contains("define i32 @add"));
-        assert!(content.contains("add i32"));
+        assert!(content.contains("define i64 @add"));
+        assert!(content.contains("add i64"));
     }
 
     #[test]
@@ -2634,8 +2703,8 @@ mod tests {
         assert!(result.is_ok());
 
         let content = String::from_utf8(result.unwrap().files[0].content.clone()).unwrap();
-        assert!(content.contains("define i32 @main"));
-        assert!(content.contains("ret i32 0"));
+        assert!(content.contains("define i64 @main"));
+        assert!(content.contains("ret i64 0"));
     }
 
     #[test]
@@ -2670,7 +2739,7 @@ mod tests {
 
         let content = String::from_utf8(result.unwrap().files[0].content.clone()).unwrap();
         assert!(content.contains("@counter"));
-        assert!(content.contains("global i32 42"));
+        assert!(content.contains("global i64 42"));
     }
 
     #[test]
@@ -2848,7 +2917,7 @@ mod tests {
         assert!(result.is_ok());
 
         let content = String::from_utf8(result.unwrap().files[0].content.clone()).unwrap();
-        assert!(content.contains("phi i32"));
+        assert!(content.contains("phi i64"));
     }
 
     #[test]
@@ -2920,7 +2989,7 @@ mod tests {
         assert!(result.is_ok());
 
         let content = String::from_utf8(result.unwrap().files[0].content.clone()).unwrap();
-        assert!(content.contains("declare i32 @external_func"));
+        assert!(content.contains("declare i64 @external_func"));
     }
 
     #[test]
