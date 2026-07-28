@@ -84,7 +84,14 @@ impl fmt::Display for Type {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Type::Int => write!(f, "Int"),
-            Type::UnsignedInt => write!(f, "UnsignedInt"),
+            Type::UnsignedInt(None) => write!(f, "UnsignedInt"),
+            Type::UnsignedInt(Some(w)) => match w {
+                UnsignedWidth::W8 => write!(f, "u8"),
+                UnsignedWidth::W16 => write!(f, "u16"),
+                UnsignedWidth::W32 => write!(f, "u32"),
+                UnsignedWidth::W64 => write!(f, "u64"),
+                UnsignedWidth::W128 => write!(f, "u128"),
+            },
             Type::Float => write!(f, "Float"),
             Type::Bool => write!(f, "Bool"),
             Type::String => write!(f, "String"),
@@ -145,6 +152,14 @@ impl fmt::Display for Type {
             Type::CChar => write!(f, "CChar"),
             Type::CSize => write!(f, "CSize"),
             Type::CString => write!(f, "CString"),
+            Type::IntSized(None) => write!(f, "Int"),
+            Type::IntSized(Some(w)) => match w {
+                SignedWidth::W8 => write!(f, "i8"),
+                SignedWidth::W16 => write!(f, "i16"),
+                SignedWidth::W32 => write!(f, "i32"),
+                SignedWidth::W64 => write!(f, "i64"),
+                SignedWidth::W128 => write!(f, "i128"),
+            },
         }
     }
 }
@@ -318,6 +333,19 @@ pub struct ImplementDecl {
     pub span: Span,
 }
 
+/// 记录类型的内存布局属性
+#[derive(Debug, PartialEq, Clone, Copy, Eq, Hash)]
+pub enum LayoutAttr {
+    /// 默认布局（编译器决定）
+    Default,
+    /// 紧凑布局（无填充字节）
+    Packed,
+    /// C 兼容布局
+    C,
+    /// 指定对齐字节数
+    Align(usize),
+}
+
 /// 记录声明：`record Name { field: Type, ... }`
 #[derive(Debug, PartialEq, Clone)]
 pub struct RecordDecl {
@@ -328,6 +356,8 @@ pub struct RecordDecl {
     pub fields: Vec<(String, Type)>,
     /// 类型约束（where 子句）
     pub where_clause: Vec<TypeConstraint>,
+    /// 内存布局属性
+    pub layout: LayoutAttr,
     /// 源码位置
     pub span: Span,
 }
@@ -635,6 +665,8 @@ pub enum ExpressionKind {
 #[derive(Debug, PartialEq, Clone)]
 pub enum Literal {
     Integer(i64),
+    /// 无符号整数字面量，带位宽信息
+    UnsignedInteger(u64, UnsignedWidth),
     Float(f64),
     Boolean(bool),
     String(String),
@@ -644,12 +676,47 @@ pub enum Literal {
     Unit,
 }
 
+/// 无符号整数位宽
+#[derive(Debug, PartialEq, Clone, Copy, Eq, Hash)]
+pub enum UnsignedWidth {
+    /// 8 位无符号整数 (u8 / byte)
+    W8,
+    /// 16 位无符号整数 (u16)
+    W16,
+    /// 32 位无符号整数 (u32)
+    W32,
+    /// 64 位无符号整数 (u64)
+    W64,
+    /// 128 位无符号整数 (u128)
+    W128,
+}
+
+/// 有符号整数位宽
+#[derive(Debug, PartialEq, Clone, Copy, Eq, Hash)]
+pub enum SignedWidth {
+    /// 8 位有符号整数 (i8)
+    W8,
+    /// 16 位有符号整数 (i16)
+    W16,
+    /// 32 位有符号整数 (i32)
+    W32,
+    /// 64 位有符号整数 (i64)
+    W64,
+    /// 128 位有符号整数 (i128)
+    W128,
+}
+
 /// 类型定义
 #[derive(Debug, PartialEq, Clone)]
 pub enum Type {
     // 基本类型
     Int,
-    UnsignedInt,
+    /// 无符号整数类型，可选位宽
+    /// None 表示平台相关（默认 32 位），Some(W8/W16/W32/W64/W128) 表示指定位宽
+    UnsignedInt(Option<UnsignedWidth>),
+    /// 有符号整数类型，可选位宽
+    /// None 表示平台相关（默认 32 位），Some(W8/W16/W32/W64/W128) 表示指定位宽
+    IntSized(Option<SignedWidth>),
     Float,
     Bool,
     String,

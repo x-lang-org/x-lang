@@ -1196,7 +1196,7 @@ impl CfgBuilder {
 fn lower_hir_type_to_mir(ty: &HirType) -> MirType {
     match ty {
         HirType::Int => MirType::Int(32),
-        HirType::UnsignedInt => MirType::Int(32),
+        HirType::UnsignedInt(_) => MirType::Int(32),
         HirType::Float => MirType::Float(64),
         HirType::Bool => MirType::Bool,
         HirType::String | HirType::CString => MirType::String,

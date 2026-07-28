@@ -38,3 +38,6 @@ leetcode-mcp-server/
 
 # Benchmark outputs
 tests/benchmarks_game/zig_output/
+
+erl_crash.dump
+__pycache__/

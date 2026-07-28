@@ -93,6 +93,10 @@ pub struct LlvmBackend {
     struct_defs: Vec<(String, Vec<(String, Type)>)>,
     /// 当前函数的返回类型（用于 ret 指令类型推断）
     current_func_return_type: Type,
+    /// 用户定义函数的返回类型表（用于 call 指令类型推断）
+    fn_return_types: HashMap<String, Type>,
+    /// 当前循环的 (continue_label, end_label) 栈，用于 break/continue
+    loop_stack: Vec<(String, String)>,
 }
 
 impl LlvmBackend {
@@ -108,6 +112,8 @@ impl LlvmBackend {
             local_vars: HashMap::new(),
             local_var_types: HashMap::new(),
             extern_decls: HashMap::new(),
+            fn_return_types: HashMap::new(),
+            loop_stack: Vec::new(),
             struct_defs: Vec::new(),
             current_func_return_type: Type::Void,
         }
@@ -160,7 +166,7 @@ impl LlvmBackend {
             Type::LongDouble => Ok("x86_fp80".to_string()), // x86 扩展精度浮点
             Type::Size | Type::Uintptr => Ok("i64".to_string()),
             Type::Ptrdiff | Type::Intptr => Ok("i64".to_string()),
-            Type::Pointer(_) => Ok("i8*".to_string()), // 通用指针类型
+            Type::Pointer(_) => Ok("ptr".to_string()), // opaque pointer (LLVM 15+)
             Type::Array(inner, size) => {
                 let inner_ty = self.llvm_type(inner)?;
                 let size = size.unwrap_or(0);
@@ -306,6 +312,48 @@ impl LlvmBackend {
         }
     }
 
+    /// Convert a legacy typed-pointer LLVM type (e.g. `%struct.Foo*` or `i8*`)
+    /// to the opaque `ptr` form used by LLVM 15+. Non-pointer types are returned
+    /// unchanged.
+    fn opaque_ptr(llvm_ty: &str) -> &str {
+        if llvm_ty.ends_with('*') {
+            "ptr"
+        } else {
+            llvm_ty
+        }
+    }
+
+    /// Given a legacy typed-pointer LLVM type like `%struct.Foo*` or `i8*`,
+    /// return the corresponding opaque-pointer type `ptr`.
+    /// Used to update legacy `load`/`store`/`alloca` instructions to LLVM 15+.
+    fn ptr_ty(&self, ty: &Type) -> Result<String, LlvmError> {
+        let llvm = self.llvm_type(ty)?;
+        Ok(Self::opaque_ptr(&llvm).to_string())
+    }
+
+    /// 查找结构体字段索引和类型。返回 `(struct_name, field_index, field_type)`。
+    fn resolve_struct_field(&self, struct_name: &str, field_name: &str) -> Option<(String, u32, Type)> {
+        for (name, fields) in &self.struct_defs {
+            if name == struct_name {
+                for (i, (fname, fty)) in fields.iter().enumerate() {
+                    if fname == field_name {
+                        return Some((name.clone(), i as u32, fty.clone()));
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    /// 根据 LLVM 指针类型推断结构体名。
+    /// 对于 `%struct.Foo*` 返回 `Foo`，其他返回 `None`。
+    /// Also matches `ptr` (opaque pointer) — in that case, we cannot determine
+    /// the struct from the pointer type alone, so we return `None`.
+    fn struct_name_from_ptr(&self, llvm_ty: &str) -> Option<String> {
+        let s = llvm_ty.strip_suffix('*')?;
+        s.strip_prefix("%struct.").map(|n| n.to_string())
+    }
+
     /// 转义 LLVM 字符串中的特殊字符
     fn escape_llvm_string(&self, s: &str) -> String {
         let mut escaped = String::new();
@@ -343,7 +391,7 @@ impl LlvmBackend {
             .unwrap_or_else(|_| "i32".to_string());
         let params: Vec<String> = param_types
             .iter()
-            .map(|t| self.llvm_type(t).unwrap_or_else(|_| "i8*".to_string()))
+            .map(|t| self.llvm_type(t).unwrap_or_else(|_| "ptr".to_string()))
             .collect();
 
         let decl = if params.is_empty() {
@@ -362,36 +410,36 @@ impl LlvmBackend {
 
         // printf - 使用已有的声明（如果 emit_extern_function 已经声明过，就不再重复）
         if !self.extern_decls.contains_key("printf") {
-            self.emit("declare i32 @printf(i8*, ...)");
+            self.emit("declare i32 @printf(ptr, ...)");
         }
 
         // puts
         if !self.extern_decls.contains_key("puts") {
-            self.emit("declare i32 @puts(i8*)");
+            self.emit("declare i32 @puts(ptr)");
         }
 
         // malloc / free
         if !self.extern_decls.contains_key("malloc") {
-            self.emit("declare i8* @malloc(i64)");
+            self.emit("declare ptr @malloc(i64)");
         }
         if !self.extern_decls.contains_key("free") {
-            self.emit("declare void @free(i8*)");
+            self.emit("declare void @free(ptr)");
         }
 
         // memcpy / memset
         if !self.extern_decls.contains_key("memcpy") {
-            self.emit("declare i8* @memcpy(i8*, i8*, i64)");
+            self.emit("declare ptr @memcpy(ptr, ptr, i64)");
         }
         if !self.extern_decls.contains_key("memset") {
-            self.emit("declare i8* @memset(i8*, i32, i64)");
+            self.emit("declare ptr @memset(ptr, i32, i64)");
         }
 
         // 字符串操作
         if !self.extern_decls.contains_key("strlen") {
-            self.emit("declare i64 @strlen(i8*)");
+            self.emit("declare i64 @strlen(ptr)");
         }
         if !self.extern_decls.contains_key("strcpy") {
-            self.emit("declare i8* @strcpy(i8*, i8*)");
+            self.emit("declare ptr @strcpy(ptr, ptr)");
         }
 
         self.emit("");
@@ -415,7 +463,7 @@ impl LlvmBackend {
             .map(|(_i, p)| {
                 let ty = self
                     .llvm_type(&p.type_)
-                    .unwrap_or_else(|_| "i8*".to_string());
+                    .unwrap_or_else(|_| "ptr".to_string());
                 format!("{} %{}.param", ty, p.name)
             })
             .collect();
@@ -445,7 +493,7 @@ impl LlvmBackend {
             let param_reg = format!("%{}.param", param.name);
             self.emit_indent(
                 2,
-                &format!("store {} {}, {}* {}", param_ty, param_reg, param_ty, ptr),
+                &format!("store {} {}, ptr {}", param_ty, param_reg, ptr),
             );
             self.local_vars.insert(param.name.clone(), ptr);
             self.local_var_types
@@ -508,7 +556,15 @@ impl LlvmBackend {
                 }
                 Type::Float => self.emit_indent(2, "ret float 0.0"),
                 Type::Double | Type::LongDouble => self.emit_indent(2, "ret double 0.0"),
-                Type::Pointer(_) => self.emit_indent(2, "ret i8* null"),
+                Type::Pointer(_) => self.emit_indent(2, "ret ptr null"),
+                Type::Qualified(_, _) => {
+                    // Check if the inner type is a pointer
+                    if Self::is_ptr_ty(&func.return_type) {
+                        self.emit_indent(2, "ret ptr null")
+                    } else {
+                        self.emit_indent(2, "ret i64 0")
+                    }
+                }
                 _ => self.emit_indent(2, "ret i64 0"),
             }
         }
@@ -533,14 +589,24 @@ impl LlvmBackend {
             Statement::Return(Some(expr)) => {
                 let (value, expr_ty) = self.emit_expression(expr)?;
                 // Use the function's return type for the ret instruction, not the
-                // inferred expression type. The expression value may need a bitcast
-                // if the types don't match (e.g., pointer stored as i64).
+                // inferred expression type. The expression value may need a cast
+                // if the types don't match (e.g., integer to pointer).
                 let func_ret_ty = self.llvm_type(&self.current_func_return_type)?;
                 let expr_llvm_ty = self.llvm_type(&expr_ty)?;
                 if func_ret_ty == expr_llvm_ty {
                     self.emit_indent(indent, &format!("ret {} {}", func_ret_ty, value));
+                } else if matches!(self.current_func_return_type, Type::Pointer(_)) && !matches!(expr_ty, Type::Pointer(_)) {
+                    // integer -> pointer: use inttoptr
+                    let cast_temp = self.new_temp();
+                    self.emit_indent(indent, &format!("{} = inttoptr {} {} to ptr", cast_temp, expr_llvm_ty, value));
+                    self.emit_indent(indent, &format!("ret ptr {}", cast_temp));
+                } else if !matches!(self.current_func_return_type, Type::Pointer(_)) && matches!(expr_ty, Type::Pointer(_)) {
+                    // pointer -> integer: use ptrtoint
+                    let cast_temp = self.new_temp();
+                    self.emit_indent(indent, &format!("{} = ptrtoint ptr {} to {}", cast_temp, value, func_ret_ty));
+                    self.emit_indent(indent, &format!("ret {} {}", func_ret_ty, cast_temp));
                 } else {
-                    // Types don't match — bitcast the value to the function's return type.
+                    // Same-sized types — bitcast
                     let cast_temp = self.new_temp();
                     self.emit_indent(indent, &format!("{} = bitcast {} {} to {}", cast_temp, expr_llvm_ty, value, func_ret_ty));
                     self.emit_indent(indent, &format!("ret {} {}", func_ret_ty, cast_temp));
@@ -553,6 +619,10 @@ impl LlvmBackend {
                 self.emit_expression(expr)?;
             }
             Statement::Variable(var) => {
+                // Skip void-typed variables (unused temporaries from LIR lowering).
+                if matches!(var.type_, Type::Void) {
+                    return Ok(());
+                }
                 let ty = self.llvm_type(&var.type_)?;
                 let ptr = self.new_temp();
                 self.emit_indent(indent, &format!("{} = alloca {}", ptr, ty));
@@ -566,11 +636,11 @@ impl LlvmBackend {
                     // match the variable's type, bitcast first.
                     let value_llvm_ty = self.llvm_type(&expr_ty)?;
                     if value_llvm_ty == ty {
-                        self.emit_indent(indent, &format!("store {} {}, {}* {}", ty, value, ty, ptr));
+                        self.emit_indent(indent, &format!("store {} {}, ptr {}", ty, value, ptr));
                     } else {
                         let cast_temp = self.new_temp();
                         self.emit_indent(indent, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value, ty));
-                        self.emit_indent(indent, &format!("store {} {}, {}* {}", ty, cast_temp, ty, ptr));
+                        self.emit_indent(indent, &format!("store {} {}, ptr {}", ty, cast_temp, ptr));
                     }
                 }
             }
@@ -580,19 +650,17 @@ impl LlvmBackend {
 
                 // 创建标签
                 let then_label = self.new_label("then");
-                let else_label = if if_stmt.else_branch.is_some() {
-                    self.new_label("else")
-                } else {
-                    self.new_label("endif")
-                };
+                let has_else = if_stmt.else_branch.is_some();
+                let else_label = self.new_label("else");
                 let end_label = self.new_label("endif");
 
                 // 条件跳转
+                let fallthrough_label = if has_else { else_label.clone() } else { end_label.clone() };
                 self.emit_indent(
                     indent,
                     &format!(
                         "br i1 {}, label %{}, label %{}",
-                        cond, then_label, else_label
+                        cond, then_label, fallthrough_label
                     ),
                 );
 
@@ -616,6 +684,8 @@ impl LlvmBackend {
                 let body_label = self.new_label("while.body");
                 let end_label = self.new_label("while.end");
 
+                self.loop_stack.push((cond_label.clone(), end_label.clone()));
+
                 // 跳转到条件检查
                 self.emit_indent(indent, &format!("br label %{}", cond_label));
 
@@ -637,12 +707,16 @@ impl LlvmBackend {
 
                 // 结束
                 self.emit_indent(indent - 1, &format!("{}:", end_label));
+
+                self.loop_stack.pop();
             }
             Statement::For(for_stmt) => {
                 let cond_label = self.new_label("for.cond");
                 let body_label = self.new_label("for.body");
                 let incr_label = self.new_label("for.incr");
                 let end_label = self.new_label("for.end");
+
+                self.loop_stack.push((incr_label.clone(), end_label.clone()));
 
                 // 初始化
                 if let Some(init) = &for_stmt.initializer {
@@ -679,11 +753,15 @@ impl LlvmBackend {
 
                 // 结束
                 self.emit_indent(indent - 1, &format!("{}:", end_label));
+
+                self.loop_stack.pop();
             }
             Statement::DoWhile(do_while) => {
                 let body_label = self.new_label("do.body");
                 let cond_label = self.new_label("do.cond");
                 let end_label = self.new_label("do.end");
+
+                self.loop_stack.push((cond_label.clone(), end_label.clone()));
 
                 // 跳转到循环体
                 self.emit_indent(indent, &format!("br label %{}", body_label));
@@ -706,20 +784,22 @@ impl LlvmBackend {
 
                 // 结束
                 self.emit_indent(indent - 1, &format!("{}:", end_label));
+
+                self.loop_stack.pop();
             }
             Statement::Break => {
-                // 需要上下文来知道跳转到哪个标签
-                // 简化实现：添加注释
-                self.emit_indent(
-                    indent,
-                    "; break - not fully implemented without loop context",
-                );
+                if let Some((_, end_label)) = self.loop_stack.last() {
+                    self.emit_indent(indent, &format!("br label %{}", end_label));
+                } else {
+                    self.emit_indent(indent, "; break - outside loop");
+                }
             }
             Statement::Continue => {
-                self.emit_indent(
-                    indent,
-                    "; continue - not fully implemented without loop context",
-                );
+                if let Some((continue_label, _)) = self.loop_stack.last() {
+                    self.emit_indent(indent, &format!("br label %{}", continue_label));
+                } else {
+                    self.emit_indent(indent, "; continue - outside loop");
+                }
             }
             Statement::Empty => {}
             Statement::Compound(block) => {
@@ -822,7 +902,7 @@ impl LlvmBackend {
                 self.emit_indent(indent + 1, &format!("{} = alloca {}", ptr, llvm_ty));
                 self.emit_indent(
                     indent + 1,
-                    &format!("store {} {}, {}* {}", llvm_ty, scrutinee_reg, llvm_ty, ptr),
+                    &format!("store {} {}, ptr {}", llvm_ty, scrutinee_reg, ptr),
                 );
                 self.local_vars.insert(var_name.clone(), ptr);
                 self.local_var_types
@@ -948,7 +1028,7 @@ impl LlvmBackend {
                     ),
                 );
                 let tag_val = self.new_temp();
-                self.emit_indent(indent, &format!("{} = load i32, i32* {}", tag_val, tag_ptr));
+                self.emit_indent(indent, &format!("{} = load i32, ptr {}", tag_val, tag_ptr));
 
                 // Simple tag value: use a deterministic hash of the constructor name
                 let tag_const = Self::constructor_tag_value(tag_name);
@@ -997,7 +1077,7 @@ impl LlvmBackend {
                         // Assume i32 elements for simplicity
                         self.emit_indent(
                             indent,
-                            &format!("{} = load i32, i32* {}", elem_val, elem_ptr),
+                            &format!("{} = load i32, ptr {}", elem_val, elem_ptr),
                         );
 
                         let sub_match_label = if idx == sub_patterns.len() - 1 {
@@ -1066,7 +1146,7 @@ impl LlvmBackend {
                         let field_val = self.new_temp();
                         self.emit_indent(
                             indent,
-                            &format!("{} = load i32, i32* {}", field_val, field_ptr),
+                            &format!("{} = load i32, ptr {}", field_val, field_ptr),
                         );
 
                         let sub_match_label = if idx == field_patterns.len() - 1 {
@@ -1215,16 +1295,15 @@ impl LlvmBackend {
             self.emit_indent(
                 indent + 1,
                 &format!(
-                    "{} = icmp eq {}, {}, {}",
+                    "{} = icmp eq {} {}, {}",
                     cmp_result, llvm_ty, expr_reg, value_reg
                 ),
             );
-            let br_target = self.new_temp();
             self.emit_indent(
                 indent + 1,
                 &format!(
                     "br i1 {}, label %{}, label %{}",
-                    br_target, case_label, switch_end
+                    cmp_result, case_label, switch_end
                 ),
             );
             self.emit_indent(indent, &format!("{}:", case_label));
@@ -1263,7 +1342,7 @@ impl LlvmBackend {
                     let result = self.new_temp();
                     self.emit_indent(
                         2,
-                        &format!("{} = load {}, {}* {}", result, llvm_ty, llvm_ty, ptr),
+                        &format!("{} = load {}, ptr {}", result, llvm_ty, ptr),
                     );
                     Ok((result, ty))
                 } else {
@@ -1273,7 +1352,7 @@ impl LlvmBackend {
                     let llvm_ty = self.llvm_type(&ty)?;
                     self.emit_indent(
                         2,
-                        &format!("{} = load {}, {}* @{}", result, llvm_ty, llvm_ty, name),
+                        &format!("{} = load {}, ptr @{}", result, llvm_ty, name),
                     );
                     Ok((result, ty))
                 }
@@ -1294,14 +1373,131 @@ impl LlvmBackend {
                         if value_llvm_ty == var_llvm_ty {
                             self.emit_indent(
                                 2,
-                                &format!("store {} {}, {}* {}", var_llvm_ty, value_reg, var_llvm_ty, &ptr),
+                                &format!("store {} {}, ptr {}", var_llvm_ty, value_reg, &ptr),
+                            );
+                        } else if matches!(var_ty, Type::Pointer(_)) && !matches!(value_ty, Type::Pointer(_)) {
+                            // integer -> pointer: use inttoptr
+                            let cast_temp = self.new_temp();
+                            self.emit_indent(2, &format!("{} = inttoptr {} {} to ptr", cast_temp, value_llvm_ty, value_reg));
+                            self.emit_indent(
+                                2,
+                                &format!("store ptr {}, ptr {}", cast_temp, &ptr),
+                            );
+                        } else if matches!(value_ty, Type::Pointer(_)) && !matches!(var_ty, Type::Pointer(_)) {
+                            // pointer -> integer: use ptrtoint
+                            let cast_temp = self.new_temp();
+                            self.emit_indent(2, &format!("{} = ptrtoint {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, ptr {}", var_llvm_ty, cast_temp, &ptr),
+                            );
+                        } else if Self::is_integer_ty(&var_ty) && Self::is_integer_ty(&value_ty) {
+                            // integer -> integer: use zext/sext/trunc
+                            let from_bits = self.type_bits(&value_ty)?;
+                            let to_bits = self.type_bits(&var_ty)?;
+                            let cast_temp = self.new_temp();
+                            if to_bits > from_bits {
+                                if matches!(value_ty, Type::Bool) {
+                                    self.emit_indent(2, &format!("{} = zext {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                                } else {
+                                    self.emit_indent(2, &format!("{} = sext {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                                }
+                            } else if to_bits < from_bits {
+                                self.emit_indent(2, &format!("{} = trunc {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                            } else {
+                                // Same size - should not happen if types differ, but use bitcast as fallback
+                                self.emit_indent(2, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
+                            }
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, ptr {}", var_llvm_ty, cast_temp, &ptr),
                             );
                         } else {
                             let cast_temp = self.new_temp();
                             self.emit_indent(2, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value_reg, var_llvm_ty));
                             self.emit_indent(
                                 2,
-                                &format!("store {} {}, {}* {}", var_llvm_ty, cast_temp, var_llvm_ty, &ptr),
+                                &format!("store {} {}, ptr {}", var_llvm_ty, cast_temp, &ptr),
+                            );
+                        }
+                    }
+                } else if let Expression::PointerMember(ptr_expr, field_name) = target.as_ref() {
+                    // *(ptr).field = value: compute field pointer via GEP, then store.
+                    let (ptr_val, ptr_ty) = self.emit_expression(ptr_expr)?;
+                    // Look up the struct type to find the correct field index and type.
+                    let resolved = match &ptr_ty {
+                        Type::Pointer(inner) => {
+                            if let Type::Named(sname) = inner.as_ref() {
+                                self.resolve_struct_field(sname, field_name)
+                                    .map(|(_, idx, ty)| (sname.clone(), idx, ty))
+                            } else {
+                                None
+                            }
+                        }
+                        _ => None,
+                    };
+                    if let Some((struct_name, field_idx, field_ty)) = resolved {
+                        let field_llvm_ty = self.llvm_type(&field_ty)?;
+                        let field_ptr = self.new_temp();
+                        self.emit_indent(
+                            2,
+                            &format!(
+                                "{} = getelementptr inbounds %struct.{}, ptr {}, i32 0, i32 {}",
+                                field_ptr, struct_name, ptr_val, field_idx
+                            ),
+                        );
+                        if value_llvm_ty == field_llvm_ty {
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, ptr {}", field_llvm_ty, value_reg, field_ptr),
+                            );
+                        } else {
+                            let cast_temp = self.new_temp();
+                            self.emit_indent(2, &format!("{} = bitcast {} {} to {}", cast_temp, value_llvm_ty, value_reg, field_llvm_ty));
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, ptr {}", field_llvm_ty, cast_temp, field_ptr),
+                            );
+                        }
+                    } else {
+                        // Fallback: assume i8* storage and store value bits via ptrtoint.
+                        let field_ptr = self.new_temp();
+                        self.emit_indent(
+                            2,
+                            &format!(
+                                "{} = getelementptr inbounds i8, ptr {}, i32 0",
+                                field_ptr, ptr_val
+                            ),
+                        );
+                        if matches!(value_ty, Type::Pointer(_)) {
+                            // pointer value: ptrtoint then store as i64
+                            let int_val = self.new_temp();
+                            self.emit_indent(
+                                2,
+                                &format!(
+                                    "{} = ptrtoint {} {} to i64",
+                                    int_val, value_llvm_ty, value_reg
+                                ),
+                            );
+                            let cast_ptr = self.new_temp();
+                            self.emit_indent(
+                                2,
+                                &format!("{} = bitcast ptr {} to i64*", cast_ptr, field_ptr),
+                            );
+                            self.emit_indent(
+                                2,
+                                &format!("store i64 {}, ptr {}", int_val, cast_ptr),
+                            );
+                        } else {
+                            let val_llvm = self.llvm_type(&value_ty)?;
+                            let cast_ptr = self.new_temp();
+                            self.emit_indent(
+                                2,
+                                &format!("{} = bitcast ptr {} to {}", cast_ptr, field_ptr, val_llvm),
+                            );
+                            self.emit_indent(
+                                2,
+                                &format!("store {} {}, ptr {}", val_llvm, value_reg, cast_ptr),
                             );
                         }
                     }
@@ -1322,7 +1518,7 @@ impl LlvmBackend {
                         let current_val = self.new_temp();
                         self.emit_indent(
                             2,
-                            &format!("{} = load {}, {}* {}", current_val, llvm_ty, llvm_ty, ptr),
+                            &format!("{} = load {}, ptr {}", current_val, llvm_ty, ptr),
                         );
 
                         // 执行运算
@@ -1445,7 +1641,7 @@ impl LlvmBackend {
                         // 存储结果
                         self.emit_indent(
                             2,
-                            &format!("store {} {}, {}* {}", llvm_ty, result, llvm_ty, ptr),
+                            &format!("store {} {}, ptr {}", llvm_ty, result, ptr),
                         );
 
                         return Ok((result, value_ty));
@@ -1466,44 +1662,8 @@ impl LlvmBackend {
                 let is_from_float =
                     matches!(expr_ty, Type::Float | Type::Double | Type::LongDouble);
                 let is_to_float = matches!(ty, Type::Float | Type::Double | Type::LongDouble);
-                let is_from_integer = matches!(
-                    expr_ty,
-                    Type::Bool
-                        | Type::Char
-                        | Type::Schar
-                        | Type::Uchar
-                        | Type::Short
-                        | Type::Ushort
-                        | Type::Int
-                        | Type::Uint
-                        | Type::Long
-                        | Type::Ulong
-                        | Type::LongLong
-                        | Type::UlongLong
-                        | Type::Size
-                        | Type::Ptrdiff
-                        | Type::Intptr
-                        | Type::Uintptr
-                );
-                let is_to_integer = matches!(
-                    ty,
-                    Type::Bool
-                        | Type::Char
-                        | Type::Schar
-                        | Type::Uchar
-                        | Type::Short
-                        | Type::Ushort
-                        | Type::Int
-                        | Type::Uint
-                        | Type::Long
-                        | Type::Ulong
-                        | Type::LongLong
-                        | Type::UlongLong
-                        | Type::Size
-                        | Type::Ptrdiff
-                        | Type::Intptr
-                        | Type::Uintptr
-                );
+                let is_from_integer = Self::is_integer_ty(&expr_ty);
+                let is_to_integer = Self::is_integer_ty(&ty);
 
                 // 确定转换类型
                 if is_from_float && is_to_integer {
@@ -1529,10 +1689,18 @@ impl LlvmBackend {
                     let from_bits = self.type_bits(&expr_ty)?;
                     let to_bits = self.type_bits(ty)?;
                     if to_bits > from_bits {
-                        self.emit_indent(
-                            2,
-                            &format!("{} = sext {} {} to {}", result, source_ty, value, target_ty),
-                        );
+                        // Use zext for bool (i1) to int, sext for signed integers
+                        if matches!(expr_ty, Type::Bool) {
+                            self.emit_indent(
+                                2,
+                                &format!("{} = zext {} {} to {}", result, source_ty, value, target_ty),
+                            );
+                        } else {
+                            self.emit_indent(
+                                2,
+                                &format!("{} = sext {} {} to {}", result, source_ty, value, target_ty),
+                            );
+                        }
                     } else {
                         self.emit_indent(
                             2,
@@ -1542,6 +1710,27 @@ impl LlvmBackend {
                             ),
                         );
                     }
+                } else if matches!(expr_ty, Type::Pointer(_)) && is_to_integer {
+                    // pointer -> integer: use ptrtoint
+                    self.emit_indent(
+                        2,
+                        &format!(
+                            "{} = ptrtoint ptr {} to {}",
+                            result, value, target_ty
+                        ),
+                    );
+                } else if is_from_integer && matches!(ty, Type::Pointer(_)) {
+                    // integer -> pointer: use inttoptr
+                    self.emit_indent(
+                        2,
+                        &format!(
+                            "{} = inttoptr {} {} to ptr",
+                            result, source_ty, value
+                        ),
+                    );
+                } else if matches!(expr_ty, Type::Pointer(_)) && matches!(ty, Type::Pointer(_)) {
+                    // pointer -> pointer: no-op with opaque pointers, both are `ptr`.
+                    return Ok((value, ty.clone()));
                 } else {
                     // 位转换
                     self.emit_indent(
@@ -1572,7 +1761,7 @@ impl LlvmBackend {
                 let result = self.new_temp();
                 self.emit_indent(
                     2,
-                    &format!("{} = load {}, {}* {}", result, llvm_ty, llvm_ty, ptr),
+                    &format!("{} = load {}, ptr {}", result, llvm_ty, ptr),
                 );
                 Ok((result, ty))
             }
@@ -1585,40 +1774,69 @@ impl LlvmBackend {
                 self.emit_indent(
                     2,
                     &format!(
-                        "{} = getelementptr inbounds %struct.{}* {}, i32 0, i32 0",
+                        "{} = getelementptr inbounds %struct.{} {}, i32 0, i32 0",
                         field_ptr, name, obj_ptr
                     ),
                 );
                 let result = self.new_temp();
                 self.emit_indent(
                     2,
-                    &format!("{} = load {}, {}* {}", result, llvm_ty, llvm_ty, field_ptr),
+                    &format!("{} = load {}, ptr {}", result, llvm_ty, field_ptr),
                 );
                 Ok((result, ty))
             }
-            Expression::PointerMember(ptr, _name) => {
+            Expression::PointerMember(ptr, field_name) => {
                 // ptr->field 等价于 (*ptr).field
-                // TODO: 使用 _name 来获取正确的字段偏移
-                let (ptr_val, _ptr_ty) = self.emit_expression(ptr)?;
-                // 简化：假设字段偏移为 0
+                let (ptr_val, ptr_ty) = self.emit_expression(ptr)?;
+                // Try to resolve the struct type from the pointer's pointee type.
+                let resolved = match &ptr_ty {
+                    Type::Pointer(inner) => {
+                        if let Type::Named(sname) = inner.as_ref() {
+                            self.resolve_struct_field(sname, field_name)
+                                .map(|(_, idx, ty)| (sname.clone(), idx, ty))
+                        } else {
+                            None
+                        }
+                    }
+                    _ => None,
+                };
+                if let Some((struct_name, field_idx, field_ty)) = resolved {
+                    let field_llvm_ty = self.llvm_type(&field_ty)?;
+                    let field_ptr = self.new_temp();
+                    self.emit_indent(
+                        2,
+                        &format!(
+                            "{} = getelementptr inbounds %struct.{}, ptr {}, i32 0, i32 {}",
+                            field_ptr, struct_name, ptr_val, field_idx
+                        ),
+                    );
+                    let result = self.new_temp();
+                    self.emit_indent(
+                        2,
+                        &format!("{} = load {}, ptr {}", result, field_llvm_ty, field_ptr),
+                    );
+                    return Ok((result, field_ty));
+                }
+                // Fallback: assume opaque pointer, load from offset 0 as i64.
                 let field_ptr = self.new_temp();
-                let ty = Type::Int;
-                let llvm_ty = self.llvm_type(&ty)?;
-                // Get the pointer's LLVM type (e.g., i8* for opaque pointers).
-                let ptr_llvm_ty = self.llvm_type(&Type::Pointer(Box::new(Type::Void)))?;
                 self.emit_indent(
                     2,
                     &format!(
-                        "{} = getelementptr inbounds {}, {} {}, i32 0, i32 0",
-                        field_ptr, llvm_ty, ptr_llvm_ty, ptr_val
+                        "{} = getelementptr inbounds i8, ptr {}, i32 0",
+                        field_ptr, ptr_val
                     ),
+                );
+                let cast_ptr = self.new_temp();
+                self.emit_indent(
+                    2,
+                    &format!("{} = bitcast ptr {} to i64*", cast_ptr, field_ptr),
                 );
                 let result = self.new_temp();
                 self.emit_indent(
                     2,
-                    &format!("{} = load {}, {}* {}", result, llvm_ty, llvm_ty, field_ptr),
+                    &format!("{} = load i64, ptr {}", result, cast_ptr),
                 );
-                Ok((result, ty))
+                Ok((result, Type::Int))
             }
             Expression::Index(arr, idx) => {
                 let (arr_ptr, _arr_ty) = self.emit_expression(arr)?;
@@ -1636,7 +1854,7 @@ impl LlvmBackend {
                 let result = self.new_temp();
                 self.emit_indent(
                     2,
-                    &format!("{} = load {}, {}* {}", result, llvm_ty, llvm_ty, elem_ptr),
+                    &format!("{} = load {}, ptr {}", result, llvm_ty, elem_ptr),
                 );
                 Ok((result, ty))
             }
@@ -1733,7 +1951,7 @@ impl LlvmBackend {
                         let (val, _val_ty) = self.emit_expression(expr)?;
                         self.emit_indent(
                             2,
-                            &format!("store {} {}, {}* {}", llvm_ty, val, llvm_ty, ptr),
+                            &format!("store {} {}, ptr {}", llvm_ty, val, ptr),
                         );
                     }
                 }
@@ -1751,7 +1969,7 @@ impl LlvmBackend {
                         let (val, _val_ty) = self.emit_expression(expr)?;
                         self.emit_indent(
                             2,
-                            &format!("store {} {}, {}* {}", llvm_ty, val, llvm_ty, ptr),
+                            &format!("store {} {}, ptr {}", llvm_ty, val, ptr),
                         );
                     }
                 }
@@ -1808,6 +2026,41 @@ impl LlvmBackend {
     }
 
     /// 生成二元运算
+    /// Helper to detect pointer-like types (including Qualified)
+    fn is_ptr_ty(ty: &Type) -> bool {
+        match ty {
+            Type::Pointer(_) => true,
+            Type::Qualified(_, inner) => Self::is_ptr_ty(inner),
+            _ => false,
+        }
+    }
+
+    /// Helper to detect integer-like types (including Qualified)
+    fn is_integer_ty(ty: &Type) -> bool {
+        match ty {
+            Type::Bool
+            | Type::Char
+            | Type::Schar
+            | Type::Uchar
+            | Type::Short
+            | Type::Ushort
+            | Type::Int
+            | Type::Uint
+            | Type::CInt
+            | Type::Long
+            | Type::Ulong
+            | Type::LongLong
+            | Type::UlongLong
+            | Type::Size
+            | Type::Ptrdiff
+            | Type::Intptr
+            | Type::Uintptr => true,
+            Type::Qualified(_, inner) => Self::is_integer_ty(inner),
+            _ => false,
+        }
+    }
+
+
     fn emit_binary_op(
         &mut self,
         op: BinaryOp,
@@ -1815,7 +2068,27 @@ impl LlvmBackend {
         right: &Expression,
     ) -> Result<(String, Type), LlvmError> {
         let (left_val, left_ty) = self.emit_expression(left)?;
-        let (right_val, _right_ty) = self.emit_expression(right)?;
+        let (right_val, right_ty) = self.emit_expression(right)?;
+
+        // If comparing pointers for equality/inequality, ptrtoint both to i64
+        // so the comparison is well-defined in LLVM 22's opaque pointer model.
+        let (left_val, left_ty, right_val, right_ty) = if Self::is_ptr_ty(&left_ty) && Self::is_ptr_ty(&right_ty) {
+            let left_int = self.new_temp();
+            let right_int = self.new_temp();
+            self.emit_indent(2, &format!("{} = ptrtoint ptr {} to i64", left_int, left_val));
+            self.emit_indent(2, &format!("{} = ptrtoint ptr {} to i64", right_int, right_val));
+            (left_int, Type::Int, right_int, Type::Int)
+        } else if Self::is_ptr_ty(&left_ty) {
+            let int_val = self.new_temp();
+            self.emit_indent(2, &format!("{} = ptrtoint ptr {} to i64", int_val, left_val));
+            (int_val, Type::Int, right_val, right_ty)
+        } else if Self::is_ptr_ty(&right_ty) {
+            let int_val = self.new_temp();
+            self.emit_indent(2, &format!("{} = ptrtoint ptr {} to i64", int_val, right_val));
+            (left_val, left_ty, int_val, Type::Int)
+        } else {
+            (left_val, left_ty, right_val, right_ty)
+        };
 
         let result = self.new_temp();
         let llvm_ty = self.llvm_type(&left_ty)?;
@@ -2033,7 +2306,7 @@ impl LlvmBackend {
                         } else {
                             self.emit_indent(2, &format!("{} = add {} {}, 1", new_val, lt, val));
                         }
-                        self.emit_indent(2, &format!("store {} {}, {}* {}", lt, new_val, lt, ptr));
+                        self.emit_indent(2, &format!("store {} {}, ptr {}", lt, new_val, ptr));
                         return Ok((new_val, ty));
                     }
                 }
@@ -2059,7 +2332,7 @@ impl LlvmBackend {
                         } else {
                             self.emit_indent(2, &format!("{} = sub {} {}, 1", new_val, lt, val));
                         }
-                        self.emit_indent(2, &format!("store {} {}, {}* {}", lt, new_val, lt, ptr));
+                        self.emit_indent(2, &format!("store {} {}, ptr {}", lt, new_val, ptr));
                         return Ok((new_val, ty));
                     }
                 }
@@ -2086,7 +2359,7 @@ impl LlvmBackend {
                         } else {
                             self.emit_indent(2, &format!("{} = add {} {}, 1", new_val, lt, val));
                         }
-                        self.emit_indent(2, &format!("store {} {}, {}* {}", lt, new_val, lt, ptr));
+                        self.emit_indent(2, &format!("store {} {}, ptr {}", lt, new_val, ptr));
                         return Ok((val, ty)); // return old value
                     }
                 }
@@ -2112,7 +2385,7 @@ impl LlvmBackend {
                         } else {
                             self.emit_indent(2, &format!("{} = sub {} {}, 1", new_val, lt, val));
                         }
-                        self.emit_indent(2, &format!("store {} {}, {}* {}", lt, new_val, lt, ptr));
+                        self.emit_indent(2, &format!("store {} {}, ptr {}", lt, new_val, ptr));
                         return Ok((val, ty)); // return old value
                     }
                 }
@@ -2181,11 +2454,25 @@ impl LlvmBackend {
             .collect();
 
         if args_str.is_empty() {
+            if llvm_ret == "void" {
+                self.emit_indent(
+                    2,
+                    &format!("call {} @{}()", llvm_ret, llvm_func_name),
+                );
+                return Ok(("".to_string(), ret_type));
+            }
             self.emit_indent(
                 2,
                 &format!("{} = call {} @{}()", result, llvm_ret, llvm_func_name),
             );
         } else {
+            if llvm_ret == "void" {
+                self.emit_indent(
+                    2,
+                    &format!("call {} @{}({})", llvm_ret, llvm_func_name, args_str.join(", ")),
+                );
+                return Ok(("".to_string(), ret_type));
+            }
             self.emit_indent(
                 2,
                 &format!(
@@ -2245,14 +2532,17 @@ impl LlvmBackend {
     /// 推断函数返回类型（简化实现）。
     /// 对于 C 库函数（printf/puts 等），返回 CInt 以在 LLVM IR 中保留 i32 宽度。
     fn infer_call_return_type(&self, func_name: &str) -> Type {
+        // Look up user-defined functions first.
+        if let Some(ty) = self.fn_return_types.get(func_name) {
+            return ty.clone();
+        }
         match func_name {
             "printf" | "puts" => Type::CInt,
             "malloc" => Type::Pointer(Box::new(Type::Void)),
             "free" => Type::Void,
             "strlen" => Type::Ulong,
-            // For unknown functions (like user-defined functions), default to i8*
-            // (opaque pointer) to avoid type mismatches.
-            _ => Type::Pointer(Box::new(Type::Void)),
+            // For unknown functions, default to i64 (X integer).
+            _ => Type::Int,
         }
     }
 
@@ -2348,6 +2638,19 @@ impl LlvmBackend {
         self.string_counter = 0;
         self.string_constants.clear();
         self.extern_decls.clear();
+        self.fn_return_types.clear();
+        // 收集用户定义函数和外部函数的返回类型
+        for decl in &lir.declarations {
+            match decl {
+                Declaration::Function(f) => {
+                    self.fn_return_types.insert(f.name.clone(), f.return_type.clone());
+                }
+                Declaration::ExternFunction(ef) => {
+                    self.fn_return_types.insert(ef.name.clone(), ef.return_type.clone());
+                }
+                _ => {}
+            }
+        }
 
         // 生成模块头部
         self.emit_module_header();
@@ -2487,7 +2790,7 @@ impl LlvmBackend {
                                 .function_type
                                 .param_types
                                 .iter()
-                                .map(|t| self.llvm_type(t).unwrap_or_else(|_| "i8*".to_string()))
+                                .map(|t| self.llvm_type(t).unwrap_or_else(|_| "ptr".to_string()))
                                 .collect();
                             let _fn_ty = format!("{} ({})", ret_ty, param_tys.join(", "));
                             // Reference the method function by name: @ClassName.methodName
@@ -2515,7 +2818,7 @@ impl LlvmBackend {
                     // direct type usage handles resolution.
                     let target_ty = self
                         .llvm_type(&alias.type_)
-                        .unwrap_or_else(|_| "i8*".to_string());
+                        .unwrap_or_else(|_| "ptr".to_string());
                     self.emit(&format!("; TypeAlias {} = {}", alias.name, target_ty));
                 }
                 Declaration::Trait(trait_def) => {
@@ -2634,7 +2937,7 @@ mod tests {
             backend
                 .llvm_type(&Type::Pointer(Box::new(Type::Int)))
                 .unwrap(),
-            "i8*"
+            "ptr"
         );
     }
 

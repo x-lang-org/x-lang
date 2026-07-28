@@ -10,7 +10,9 @@ pub mod constant_folding;
 
 pub use constant_folding::{constant_fold, constant_fold_module, try_constant_fold};
 use std::collections::HashMap;
-use x_parser::ast::{self, BinaryOp, ExpressionKind, Literal, StatementKind, Type, UnaryOp};
+use x_parser::ast::{
+    self, BinaryOp, ExpressionKind, Literal, StatementKind, Type, UnaryOp, UnsignedWidth, SignedWidth,
+};
 
 /// HIR 根结构
 #[derive(Debug, PartialEq, Clone)]
@@ -417,6 +419,7 @@ pub enum HirExpression {
 #[derive(Debug, PartialEq, Clone)]
 pub enum HirLiteral {
     Integer(i64),
+    UnsignedInteger(u64, UnsignedWidth),
     Float(f64),
     Boolean(bool),
     String(String),
@@ -491,8 +494,12 @@ pub enum HirPattern {
 #[derive(Debug, PartialEq, Clone)]
 pub enum HirType {
     // 基本类型
+    /// 有符号整数，可选位宽
     Int,
-    UnsignedInt,
+    /// 无符号整数，可选位宽
+    UnsignedInt(Option<UnsignedWidth>),
+    /// 有符号整数，指定位宽
+    IntSized(Option<SignedWidth>),
     Float,
     Bool,
     String,
@@ -566,7 +573,8 @@ impl HirType {
     pub fn from_ast(ty: &Type) -> Self {
         match ty {
             Type::Int => HirType::Int,
-            Type::UnsignedInt => HirType::UnsignedInt,
+            Type::UnsignedInt(w) => HirType::UnsignedInt(*w),
+            Type::IntSized(w) => HirType::IntSized(*w),
             Type::Float => HirType::Float,
             Type::Bool => HirType::Bool,
             Type::String => HirType::String,
@@ -634,7 +642,8 @@ impl HirType {
     pub fn from_x_type(ty: &x_typechecker::Type) -> Self {
         match ty {
             x_typechecker::Type::Int => HirType::Int,
-            x_typechecker::Type::UnsignedInt => HirType::UnsignedInt,
+            x_typechecker::Type::UnsignedInt(w) => HirType::UnsignedInt(*w),
+            x_typechecker::Type::IntSized(w) => HirType::IntSized(*w),
             x_typechecker::Type::Float => HirType::Float,
             x_typechecker::Type::Bool => HirType::Bool,
             x_typechecker::Type::String => HirType::String,
@@ -824,7 +833,8 @@ impl HirOwnershipInfo {
         match ty {
             // Copy 类型不需要 drop
             HirType::Int
-            | HirType::UnsignedInt
+            | HirType::UnsignedInt(_)
+            | HirType::IntSized(_)
             | HirType::Float
             | HirType::Bool
             | HirType::Char
@@ -1098,7 +1108,7 @@ impl<'a> HirConverter<'a> {
             HirType::String | HirType::CString => Some(StdlibReceiverKind::String),
             HirType::Array(_) => Some(StdlibReceiverKind::Array),
             HirType::Float => Some(StdlibReceiverKind::Float),
-            HirType::Int | HirType::UnsignedInt | HirType::CInt | HirType::CLong | HirType::CLongLong => {
+            HirType::Int | HirType::UnsignedInt(_) | HirType::IntSized(_) | HirType::CInt | HirType::CLong | HirType::CLongLong => {
                 Some(StdlibReceiverKind::Int)
             }
             _ => None,
@@ -1884,6 +1894,7 @@ impl<'a> HirConverter<'a> {
     fn convert_literal(&self, lit: &Literal) -> HirLiteral {
         match lit {
             Literal::Integer(n) => HirLiteral::Integer(*n),
+            Literal::UnsignedInteger(n, w) => HirLiteral::UnsignedInteger(*n, *w),
             Literal::Float(f) => HirLiteral::Float(*f),
             Literal::Boolean(b) => HirLiteral::Boolean(*b),
             Literal::String(s) => HirLiteral::String(s.clone()),
@@ -1980,6 +1991,7 @@ impl<'a> HirConverter<'a> {
         match &expr.node {
             ExpressionKind::Literal(lit) => match lit {
                 Literal::Integer(_) => HirType::Int,
+                Literal::UnsignedInteger(_, w) => HirType::UnsignedInt(Some(*w)),
                 Literal::Float(_) => HirType::Float,
                 Literal::Boolean(_) => HirType::Bool,
                 Literal::String(_) => HirType::String,

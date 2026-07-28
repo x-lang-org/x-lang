@@ -13,7 +13,8 @@ use std::collections::{HashMap, HashSet};
 use x_lexer::span::Span;
 use x_parser::ast::{
     Block, ClassDecl, ClassMember, Declaration, Expression, ExpressionKind, FunctionDecl, Literal,
-    Newtype, Program, Statement, StatementKind, TraitDecl, TypeAlias, VariableDecl, Visibility,
+    Newtype, Program, Statement, StatementKind, TraitDecl, TypeAlias, UnsignedWidth, VariableDecl,
+    Visibility,
 };
 
 /// 类型检查结果（支持多错误收集）
@@ -2132,7 +2133,8 @@ fn is_valid_type_with_params(
     match ty {
         // 基本类型始终有效
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -2451,7 +2453,8 @@ fn is_valid_type(ty: &Type, env: &TypeEnv) -> bool {
     match ty {
         // 基本类型始终有效
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -2647,7 +2650,8 @@ fn check_recursive_type_definition(
 
         // 基本类型和其他不会形成递归
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -2730,7 +2734,8 @@ pub fn apply_type_substitution(ty: &Type, subst: &HashMap<String, Type>) -> Type
 
         // 基本类型和泛型类型名不变
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -2970,6 +2975,12 @@ pub fn unify(t1: &Type, t2: &Type) -> Result<HashMap<String, Type>, UnificationE
         | (Type::Unit, Type::Unit)
         | (Type::Never, Type::Never) => Ok(HashMap::new()),
 
+        // Int 和 UnsignedInt 可以相互转换（隐式转换）
+        (Type::Int, Type::UnsignedInt(_)) | (Type::UnsignedInt(_), Type::Int) => Ok(HashMap::new()),
+        (Type::UnsignedInt(w1), Type::UnsignedInt(w2)) if w1 == w2 => Ok(HashMap::new()),
+        // 不同位宽的 UnsignedInt 也可以相互转换
+        (Type::UnsignedInt(_), Type::UnsignedInt(_)) => Ok(HashMap::new()),
+
         // 泛型类型名必须相等
         (Type::Generic(n1), Type::Generic(n2)) if n1 == n2 => Ok(HashMap::new()),
 
@@ -3072,7 +3083,8 @@ pub fn occurs_in(var_name: &str, ty: &Type) -> bool {
         Type::TypeConstructor(_, args) => args.iter().any(|t| occurs_in(var_name, t)),
 
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -3200,7 +3212,8 @@ fn collect_free_vars(ty: &Type, vars: &mut Vec<String>) {
         }
 
         Type::Int
-        | Type::UnsignedInt
+        | Type::UnsignedInt(_)
+        | Type::IntSized(_)
         | Type::Float
         | Type::Bool
         | Type::String
@@ -3692,9 +3705,9 @@ fn check_variable_decl(var_decl: &VariableDecl, env: &mut TypeEnv) -> Result<(),
                 infer_expression_type_with_hint(initializer, &resolved_type_annot, env)?;
             // Int 和 UnsignedInt 互相兼容
             let is_int_compatible = (types_equal(&init_type, &Type::Int)
-                || types_equal(&init_type, &Type::UnsignedInt))
+                || matches!(init_type, Type::UnsignedInt(_)))
                 && (types_equal(&resolved_type_annot, &Type::Int)
-                    || types_equal(&resolved_type_annot, &Type::UnsignedInt));
+                    || matches!(resolved_type_annot, Type::UnsignedInt(_)));
 
             if !types_equal_resolved(&init_type, &resolved_type_annot, env)
                 && !is_type_compatible(&init_type, &resolved_type_annot)
@@ -4631,6 +4644,7 @@ fn check_pattern(
             // 检查字面量类型是否匹配预期类型
             let lit_ty = match lit {
                 Literal::Integer(_) => Type::Int,
+                Literal::UnsignedInteger(_, w) => Type::UnsignedInt(Some(*w)),
                 Literal::Float(_) => Type::Float,
                 Literal::Boolean(_) => Type::Bool,
                 Literal::String(_) => Type::String,
@@ -5504,12 +5518,16 @@ fn infer_expression_type(expr: &Expression, env: &mut TypeEnv) -> Result<Type, T
             // 如果两边都是类型变量，假设它们可以合一
             // Int + Float 混合运算也是允许的
             // 字符串连接（Add 操作）允许任意类型
+            // Int 和 UnsignedInt 之间的转换也是允许的
             let types_match = types_equal(&left_type, &right_type)
                 || is_inference_placeholder(&left_type)
                 || is_inference_placeholder(&right_type)
                 || is_int_float_mixed
                 || (matches!(op, x_parser::ast::BinaryOp::Add) && is_string_concat)
-                || is_array_concat;
+                || is_array_concat
+                || (matches!(op, x_parser::ast::BinaryOp::Less)
+                    && ((types_equal(&left_type, &Type::Int) && matches!(right_type, Type::UnsignedInt(_)))
+                        || (matches!(left_type, Type::UnsignedInt(_)) && types_equal(&right_type, &Type::Int))));
 
             if !types_match {
                 return Err(TypeError::TypeMismatch {
@@ -6656,6 +6674,7 @@ fn match_result_member_function(method_name: &str, ok_type: Type, err_type: Type
 fn infer_literal_type(lit: &Literal, _span: Span) -> Result<Type, TypeError> {
     match lit {
         Literal::Integer(_) => Ok(Type::Int),
+        Literal::UnsignedInteger(_, w) => Ok(Type::UnsignedInt(Some(*w))),
         Literal::Float(_) => Ok(Type::Float),
         Literal::Boolean(_) => Ok(Type::Bool),
         Literal::String(_) => Ok(Type::String),
@@ -6678,7 +6697,8 @@ fn types_equal(ty1: &Type, ty2: &Type) -> bool {
 
         // 基本类型
         (Type::Int, Type::Int) => true,
-        (Type::UnsignedInt, Type::UnsignedInt) => true,
+        (Type::UnsignedInt(w1), Type::UnsignedInt(w2)) => w1 == w2,
+        (Type::IntSized(w1), Type::IntSized(w2)) => w1 == w2,
         (Type::Float, Type::Float) => true,
         (Type::Bool, Type::Bool) => true,
         (Type::String, Type::String) => true,
@@ -6800,6 +6820,10 @@ fn is_type_compatible(source: &Type, target: &Type) -> bool {
 
         // Int 可以隐式转换为 Float
         (Type::Int, Type::Float) => true,
+
+        // Int 和 UnsignedInt 可以相互隐式转换
+        (Type::Int, Type::UnsignedInt(_)) => true,
+        (Type::UnsignedInt(_), Type::Int) => true,
 
         // Union 类型兼容性：检查 source 是否是 union 的某个变体
         (source, Type::Union(_, variants)) => {

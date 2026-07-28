@@ -58,6 +58,8 @@ pub struct ErlangBackend {
     exports: Vec<String>,
     /// 用于生成唯一的 while/do-while/loop 辅助函数名
     loop_counter: usize,
+    /// Track emitted function names to avoid duplicate definitions
+    emitted_fns: std::collections::HashSet<String>,
 }
 
 pub type ErlangResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -78,6 +80,7 @@ impl ErlangBackend {
             module_name,
             exports: Vec::new(),
             loop_counter: 0,
+            emitted_fns: std::collections::HashSet::new(),
         }
     }
 
@@ -503,6 +506,8 @@ impl ErlangBackend {
     }
 
     /// Emit extern function as a comment (Erlang uses NIFs or port drivers)
+    /// Note: We track emitted function names to avoid duplicate definitions
+    /// when the same function is declared multiple times as extern.
     fn emit_lir_extern_function(&mut self, ext: &x_lir::ExternFunction) -> ErlangResult<()> {
         let abi = ext.abi.as_deref().unwrap_or("C");
         let fn_name = self.erlang_atom(&ext.name);
@@ -523,14 +528,17 @@ impl ErlangBackend {
             params.join(", "),
             ret
         ))?;
-        self.line(&format!(
-            "{}({}) -> erlang:nif_error(not_loaded).",
-            fn_name,
-            (0..ext.parameters.len())
-                .map(|i| format!("_Arg{}", i))
-                .collect::<Vec<_>>()
-                .join(", ")
-        ))?;
+        // Only emit stub if we haven't already emitted a definition for this function
+        if self.emitted_fns.insert(fn_name.clone()) {
+            self.line(&format!(
+                "{}({}) -> erlang:nif_error(not_loaded).",
+                fn_name,
+                (0..ext.parameters.len())
+                    .map(|i| format!("_Arg{}", i))
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ))?;
+        }
         Ok(())
     }
 
@@ -557,18 +565,23 @@ impl ErlangBackend {
     fn emit_lir_function(&mut self, f: &x_lir::Function) -> ErlangResult<()> {
         // Erlang function names must start with a lowercase letter.
         let fn_name = self.erlang_atom(&f.name);
-        let ret_spec = self.lir_type_to_erlang(&f.return_type);
-        let param_specs: Vec<String> = f
-            .parameters
-            .iter()
-            .map(|p| self.lir_type_to_erlang(&p.type_))
-            .collect();
-        let spec_params = if param_specs.is_empty() {
-            "()".to_string()
-        } else {
-            format!("({})", param_specs.join(", "))
-        };
-        self.line(&format!("-spec {}{} -> {}.", fn_name, spec_params, ret_spec))?;
+        // If we already emitted an extern stub for this function, skip the spec line
+        // to avoid duplicate -spec declarations, but still emit the function body.
+        let already_extern = self.emitted_fns.contains(&fn_name);
+        if !already_extern {
+            let ret_spec = self.lir_type_to_erlang(&f.return_type);
+            let param_specs: Vec<String> = f
+                .parameters
+                .iter()
+                .map(|p| self.lir_type_to_erlang(&p.type_))
+                .collect();
+            let spec_params = if param_specs.is_empty() {
+                "()".to_string()
+            } else {
+                format!("({})", param_specs.join(", "))
+            };
+            self.line(&format!("-spec {}{} -> {}.", fn_name, spec_params, ret_spec))?;
+        }
         let params: Vec<String> = f
             .parameters
             .iter()
@@ -585,6 +598,9 @@ impl ErlangBackend {
             }
         }
         self.dedent();
+        self.line("")?;
+        // Track this function name
+        self.emitted_fns.insert(fn_name);
         Ok(())
     }
 
@@ -598,6 +614,20 @@ impl ErlangBackend {
                 Ok(())
             }
             s => self.emit_lir_statement_seq(s, true),
+        }
+    }
+
+    /// Emit a branch that is NOT the last branch in a case expression.
+    /// This uses is_last=false so statements end with "," not ".".
+    fn emit_lir_branch_boxed_nonlast(&mut self, stmt: &x_lir::Statement) -> ErlangResult<()> {
+        match stmt {
+            x_lir::Statement::Compound(b) => {
+                for s in b.statements.iter() {
+                    self.emit_lir_statement_seq(s, false)?;
+                }
+                Ok(())
+            }
+            s => self.emit_lir_statement_seq(s, false),
         }
     }
 
@@ -684,9 +714,9 @@ impl ErlangBackend {
                 self.indent();
                 self.line("true ->")?;
                 self.indent();
-                self.emit_lir_branch_boxed(&i.then_branch)?;
+                // Use is_last=false so branches end with "," not "."
+                self.emit_lir_branch_boxed_nonlast(&i.then_branch)?;
                 self.dedent();
-                self.line(";")?;
                 self.line("false ->")?;
                 self.indent();
                 match &i.else_branch {

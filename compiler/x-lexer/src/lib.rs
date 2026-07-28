@@ -873,8 +873,64 @@ impl<'a> Lexer<'a> {
             }
         }
 
+        // 检查是否有整数后缀 (u8, u16, u32, u64, i8, i16, i32, i64, u128, i128)
+        let suffix = self.parse_int_suffix();
+        if !suffix.is_empty() {
+            return Ok(Token::SuffixInt(num_str, suffix));
+        }
+
         // 这是整数
         Ok(Token::DecimalInt(num_str))
+    }
+
+    /// 解析整数字面量后缀
+    /// 支持: u8, u16, u32, u64, u128, i8, i16, i32, i64, i128
+    fn parse_int_suffix(&mut self) -> String {
+        let mut suffix = String::new();
+
+        // 检查后缀的第一个字符
+        let first = match self.current_char() {
+            Some('u') | Some('U') => 'u',
+            Some('i') | Some('I') => 'i',
+            _ => return suffix,
+        };
+
+        // 尝试读取后缀
+        let mut chars = String::new();
+        chars.push(first);
+        let mut probe = self.chars.clone();
+        probe.next(); // 跳过第一个字符
+
+        // 读取后续数字
+        while let Some(&ch) = probe.peek() {
+            if ch.is_ascii_digit() {
+                chars.push(ch);
+                probe.next();
+            } else {
+                break;
+            }
+        }
+
+        // 验证是否是合法后缀
+        let valid_suffixes = [
+            "u8", "u16", "u32", "u64", "u128", "i8", "i16", "i32", "i64", "i128",
+        ];
+
+        let suffix_lower = chars.to_lowercase();
+        if valid_suffixes.contains(&suffix_lower.as_str()) {
+            // 消费字符
+            self.next_char(); // 消费第一个字符
+            for _ in 1..chars.len() {
+                self.next_char();
+            }
+            // 更新缓存
+            let mut cloned = self.chars.clone();
+            cloned.next();
+            self.cached_next = cloned.peek().copied();
+            suffix = suffix_lower;
+        }
+
+        suffix
     }
 
     /// 解析原始字符串（反引号包围）
@@ -1556,6 +1612,65 @@ mod tests {
         assert_eq!(tokens.len(), 2);
         assert!(matches!(&tokens[0], Token::DecimalInt(s) if s == "1_000_000"));
         assert!(matches!(&tokens[1], Token::HexInt(s) if s == "1_a"));
+    }
+
+    // ----- 整数后缀 (u8, u16, u32, u64, i8, i16, i32, i64) -----
+    #[test]
+    fn test_lex_integer_suffix_unsigned() {
+        let input = "255u8 65535u16 4294967295u32 18446744073709551615u64";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 4);
+        assert!(matches!(&tokens[0], Token::SuffixInt(val, suffix) if val == "255" && suffix == "u8"));
+        assert!(matches!(&tokens[1], Token::SuffixInt(val, suffix) if val == "65535" && suffix == "u16"));
+        assert!(matches!(&tokens[2], Token::SuffixInt(val, suffix) if val == "4294967295" && suffix == "u32"));
+        assert!(matches!(&tokens[3], Token::SuffixInt(val, suffix) if val == "18446744073709551615" && suffix == "u64"));
+    }
+
+    #[test]
+    fn test_lex_integer_suffix_signed() {
+        let input = "127i8 32767i16 2147483647i32 9223372036854775807i64";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 4);
+        assert!(matches!(&tokens[0], Token::SuffixInt(val, suffix) if val == "127" && suffix == "i8"));
+        assert!(matches!(&tokens[1], Token::SuffixInt(val, suffix) if val == "32767" && suffix == "i16"));
+        assert!(matches!(&tokens[2], Token::SuffixInt(val, suffix) if val == "2147483647" && suffix == "i32"));
+        assert!(matches!(&tokens[3], Token::SuffixInt(val, suffix) if val == "9223372036854775807" && suffix == "i64"));
+    }
+
+    #[test]
+    fn test_lex_integer_suffix_case_insensitive() {
+        let input = "255U8 100U64 127I8";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(&tokens[0], Token::SuffixInt(val, suffix) if val == "255" && suffix == "u8"));
+        assert!(matches!(&tokens[1], Token::SuffixInt(val, suffix) if val == "100" && suffix == "u64"));
+        assert!(matches!(&tokens[2], Token::SuffixInt(val, suffix) if val == "127" && suffix == "i8"));
+    }
+
+    #[test]
+    fn test_lex_integer_no_suffix() {
+        // 确保没有后缀的数字仍然解析为 DecimalInt
+        let input = "42 100 0";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 3);
+        assert!(matches!(&tokens[0], Token::DecimalInt(s) if s == "42"));
+        assert!(matches!(&tokens[1], Token::DecimalInt(s) if s == "100"));
+        assert!(matches!(&tokens[2], Token::DecimalInt(s) if s == "0"));
+    }
+
+    #[test]
+    fn test_lex_integer_suffix_with_identifier() {
+        // 确保后缀后跟标识符能正确分割
+        let input = "255u8foo";
+        let iter = new_lexer(input);
+        let tokens: Vec<_> = iter.filter_map(Result::ok).map(|(t, _)| t).collect();
+        assert_eq!(tokens.len(), 2);
+        assert!(matches!(&tokens[0], Token::SuffixInt(val, suffix) if val == "255" && suffix == "u8"));
+        assert!(matches!(&tokens[1], Token::Ident(s) if s == "foo"));
     }
 
     // ----- 多行字符串 -----

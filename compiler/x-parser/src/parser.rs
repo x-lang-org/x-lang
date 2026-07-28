@@ -2,10 +2,10 @@ use crate::ast::{
     spanned, BinaryOp, Block, CatchClause, ClassDecl, ClassMember, ClassModifiers, ConstructorDecl,
     Declaration, DoWhileStatement, Effect, EffectDecl, EnumDecl, EnumVariant, EnumVariantData,
     ExportDecl, Expression, ExpressionKind, ExternFunctionDecl, ForStatement, FunctionDecl,
-    IfStatement, ImplementDecl, ImportDecl, ImportSymbol, Literal, MatchCase, MatchStatement,
-    MethodModifiers, ModuleDecl, Newtype, Parameter, Pattern, Program, RecordDecl, Statement,
-    StatementKind, TraitDecl, TryStatement, Type, TypeAlias, TypeConstraint, TypeParameter,
-    UnaryOp, VariableDecl, Visibility, WaitType, WhileStatement,
+    IfStatement, ImplementDecl, ImportDecl, ImportSymbol, Literal, LayoutAttr, MatchCase,
+    MatchStatement, MethodModifiers, ModuleDecl, Newtype, Parameter, Pattern, Program, RecordDecl,
+    Statement, StatementKind, TraitDecl, TryStatement, Type, TypeAlias, TypeConstraint,
+    TypeParameter, UnaryOp, UnsignedWidth, VariableDecl, Visibility, WaitType, WhileStatement,
 };
 use crate::errors::ParseError;
 use x_lexer::span::Span;
@@ -2750,6 +2750,38 @@ impl XParser {
                     i64::from_str_radix(&s, 2).map_err(|_| self.err("无效二进制整数", ti))?;
                 Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::Integer(n))))
             }
+            // 带后缀的整数字面量 (如 255u8, 100u64)
+            Token::SuffixInt(s, suffix) => {
+                match suffix.as_str() {
+                    "u8" => {
+                        let n: u8 = s.parse().map_err(|_| self.err("无效 u8 整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::UnsignedInteger(n as u64, UnsignedWidth::W8))))
+                    }
+                    "u16" => {
+                        let n: u16 = s.parse().map_err(|_| self.err("无效 u16 整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::UnsignedInteger(n as u64, UnsignedWidth::W16))))
+                    }
+                    "u32" => {
+                        let n: u32 = s.parse().map_err(|_| self.err("无效 u32 整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::UnsignedInteger(n as u64, UnsignedWidth::W32))))
+                    }
+                    "u64" => {
+                        let n: u64 = s.parse().map_err(|_| self.err("无效 u64 整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::UnsignedInteger(n, UnsignedWidth::W64))))
+                    }
+                    "i8" | "i16" | "i32" | "i64" | "i128" => {
+                        // 有符号整数后缀，按 i64 处理
+                        let n: i64 = s.parse().map_err(|_| self.err("无效整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::Integer(n))))
+                    }
+                    "u128" => {
+                        // u128 超出 i64 范围，暂按 u64 处理
+                        let n: u64 = s.parse().map_err(|_| self.err("无效 u128 整数", ti))?;
+                        Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::UnsignedInteger(n, UnsignedWidth::W64))))
+                    }
+                    _ => Err(self.err(format!("未知的整数后缀: {}", suffix), ti)),
+                }
+            }
             Token::Float(s) => {
                 let f: f64 = s.parse().map_err(|_| self.err("无效浮点数", ti))?;
                 Ok(self.mk_expr(ti, ExpressionKind::Literal(Literal::Float(f))))
@@ -3777,20 +3809,29 @@ impl XParser {
                 // short form: signed integer / unsigned integer
                 Token::Ident(ref name) if name == "integer" => {
                     if base_type_name == "unsigned" {
-                        return Ok(Type::UnsignedInt);
+                        return Ok(Type::UnsignedInt(None));
                     } else {
                         return Ok(Type::Int);
                     }
                 }
                 // full form: signed N-bit integer / unsigned N-bit integer
                 // N is a number, then -, then bit, then integer
-                Token::DecimalInt(_) => {
+                Token::DecimalInt(n) => {
                     // consume N (already consumed by expect_token), consume '-', consume 'bit'
                     self.expect_token(ti, "'-' 分隔符")?; // the '-' in 32-bit
                     self.expect_token(ti, "'bit'")?; // the 'bit' in 32-bit
                     self.expect_token(ti, "integer")?; // the final 'integer' keyword
+                    // 解析位宽
+                    let width = n.parse::<u32>().ok().and_then(|bits| match bits {
+                        8 => Some(UnsignedWidth::W8),
+                        16 => Some(UnsignedWidth::W16),
+                        32 => Some(UnsignedWidth::W32),
+                        64 => Some(UnsignedWidth::W64),
+                        128 => Some(UnsignedWidth::W128),
+                        _ => None,
+                    });
                     if base_type_name == "unsigned" {
-                        return Ok(Type::UnsignedInt);
+                        return Ok(Type::UnsignedInt(width));
                     } else {
                         return Ok(Type::Int);
                     }
@@ -3799,7 +3840,7 @@ impl XParser {
                     // could be something like "long" - we just ignore it and expect integer next
                     self.expect_token(ti, "integer")?;
                     if base_type_name == "unsigned" {
-                        return Ok(Type::UnsignedInt);
+                        return Ok(Type::UnsignedInt(None));
                     } else {
                         return Ok(Type::Int);
                     }
@@ -3832,9 +3873,12 @@ impl XParser {
             "never" | "Never" => Type::Never,
             "any" | "Any" | "dynamic" | "Dynamic" => Type::Dynamic,
             // 无符号整数
-            "unsigned" | "uint" | "UnsignedInt" | "Uint32" | "u32" | "Uint64" | "u64"
-            | "Uint16" | "u16" | "Uint8" | "u8" | "Byte" | "byte" | "Uint128" | "u128"
-            | "usize" => Type::UnsignedInt,
+            "unsigned" | "uint" | "UnsignedInt" | "usize" => Type::UnsignedInt(None),
+            "Uint8" | "u8" | "Byte" | "byte" => Type::UnsignedInt(Some(UnsignedWidth::W8)),
+            "Uint16" | "u16" => Type::UnsignedInt(Some(UnsignedWidth::W16)),
+            "Uint32" | "u32" => Type::UnsignedInt(Some(UnsignedWidth::W32)),
+            "Uint64" | "u64" => Type::UnsignedInt(Some(UnsignedWidth::W64)),
+            "Uint128" | "u128" => Type::UnsignedInt(Some(UnsignedWidth::W128)),
             // FFI 类型
             "void" | "Void" => Type::Void,
             // C FFI 类型
@@ -4804,6 +4848,10 @@ impl XParser {
             }
         }
 
+        // 解析内存布局属性（可选）
+        // TODO: 暂时禁用 layout 属性，因为它与 record 字段解析冲突
+        let layout = LayoutAttr::Default;
+
         match self.expect_token(ti, "{")? {
             Token::LeftBrace => {}
             t => return Err(self.err(format!("期望 {{，但得到 {:?}", t), ti)),
@@ -4874,8 +4922,56 @@ impl XParser {
             type_parameters,
             fields,
             where_clause,
+            layout,
             span: self.current_span(ti),
         })
+    }
+
+    /// 解析内存布局属性
+    /// 支持: layout(packed), layout(c), layout(align(N))
+    fn parse_layout_attribute(&self, ti: &mut TokenIterator) -> Result<LayoutAttr, ParseError> {
+        // 检查是否有 layout 关键字
+        if !matches!(ti.peek(), Some(Ok((Token::Ident(ref name), _))) if name == "layout") {
+            return Ok(LayoutAttr::Default);
+        }
+
+        ti.next(); // 消费 layout
+
+        // 期望 (
+        match self.expect_token(ti, "(")? {
+            Token::LeftParen => {}
+            t => return Err(self.err(format!("期望 (，但得到 {:?}", t), ti)),
+        }
+
+        // 解析布局类型
+        let layout = match self.expect_token(ti, "布局类型")? {
+            Token::Ident(name) => match name.as_str() {
+                "packed" => LayoutAttr::Packed,
+                "c" | "C" => LayoutAttr::C,
+                "align" => {
+                    // 解析对齐字节数
+                    match self.expect_token(ti, "对齐字节数")? {
+                        Token::DecimalInt(n) => {
+                            match n.parse::<usize>() {
+                                Ok(align) => LayoutAttr::Align(align),
+                                Err(_) => return Err(self.err(format!("无效的对齐字节数: {}", n), ti)),
+                            }
+                        }
+                        t => return Err(self.err(format!("期望数字，但得到 {:?}", t), ti)),
+                    }
+                }
+                _ => return Err(self.err(format!("未知的布局类型: {}", name), ti)),
+            },
+            t => return Err(self.err(format!("期望布局类型，但得到 {:?}", t), ti)),
+        };
+
+        // 期望 )
+        match self.expect_token(ti, ")")? {
+            Token::RightParen => {}
+            t => return Err(self.err(format!("期望 )，但得到 {:?}", t), ti)),
+        }
+
+        Ok(layout)
     }
 
     /// 解析效果声明：`effect Name<T> { op: Input -> Output, ... }`

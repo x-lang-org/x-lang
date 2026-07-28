@@ -247,32 +247,27 @@ impl ZigBackend {
         self.line("")?;
 
         // XValue wrappers
-        self.line("fn __x_list_push(list: i32, value: anytype) void {")?;
+        // Note: values are already boxed by the LIR lowering (x_from_double, etc.),
+        // so we pass them directly to x_list_push without re-boxing.
+        self.line("fn __x_list_push(list: i64, value: i64) void {")?;
         self.indent();
-        self.line("const xv = switch (@typeInfo(@TypeOf(value))) {")?;
-        self.indent();
-        self.line(".int, .comptime_int => x_from_int(@intCast(value)),")?;
-        self.line(".float, .comptime_float => x_from_double(@floatCast(value)),")?;
-        self.line("else => @compileError(\"push unsupported\"),")?;
-        self.dedent();
-        self.line("};")?;
-        self.line("_ = x_list_push(list, xv);")?;
+        self.line("_ = x_list_push(list, value);")?;
         self.dedent();
         self.line("}")?;
         self.line("")?;
 
         // Returns the raw XValue handle; callers unbox via x_as_int / x_as_double
         // based on the destination type (see maybe_unbox_list_get).
-        self.line("fn __x_list_get(list: i32, idx: anytype) i32 {")?;
+        self.line("fn __x_list_get(list: i64, idx: anytype) i64 {")?;
         self.indent();
         self.line("return x_list_get(list, @intCast(idx));")?;
         self.dedent();
         self.line("}")?;
         self.line("")?;
 
-        // Indexing: lists are XValue handles (i32); strings are C pointers and
+        // Indexing: lists are XValue handles (i64); strings are C pointers and
         // must be boxed before calling the runtime __index__.
-        self.line("fn __x_index(coll: anytype, idx: anytype) i32 {")?;
+        self.line("fn __x_index(coll: anytype, idx: anytype) i64 {")?;
         self.indent();
         self.line("const T = @TypeOf(coll);")?;
         self.line("if (comptime (T == [*:0]const u8 or T == [*:0]u8 or T == [*c]u8 or T == [*c]const u8)) {")?;
@@ -390,6 +385,13 @@ impl ZigBackend {
                 let p = args.first().map(|s| s.as_str()).unwrap_or("0");
                 format!("x_as_ptr(@intCast({}))", p)
             }
+            "x_from_ptr" => {
+                // x_from_ptr expects *anyopaque
+                let p = args.first().map(|s| s.as_str()).unwrap_or("0");
+                // If the argument is already a pointer, pass it directly
+                // If the argument is an integer, cast it to *anyopaque
+                format!("x_from_ptr(if (@typeInfo(@TypeOf({})) == .pointer) {} else @ptrFromInt(@as(usize, @intCast({}))))", p, p, p)
+            }
             "x_as_double" | "x_as_int" | "x_as_bool" | "x_as_str" => {
                 let p = args.first().map(|s| s.as_str()).unwrap_or("0");
                 format!("{}(@intCast({}))", name, p)
@@ -430,9 +432,16 @@ impl ZigBackend {
             "f32" | "f64" | "f128" => format!("x_as_double({})", value),
             "bool" => format!("(x_as_bool({}) != 0)", value),
             "[*:0]const u8" | "[*:0]u8" => format!("x_as_str({})", value),
-            // i32 is the XValue handle width — leave indexed values boxed.
+            // i64 is the XValue handle width — leave indexed values boxed.
+            // Only unbox if the value actually came from a list get AND needs
+            // to be treated as an integer (not an XValue handle).
             "i64" | "i128" | "isize" | "u64" | "u128" | "usize" => {
-                format!("@intCast(x_as_int({}))", value)
+                // If the value is already a list get returning XValue*, don't unbox
+                if is_list_get && !is_as_ptr {
+                    value.to_string()
+                } else {
+                    format!("@intCast(x_as_int({}))", value)
+                }
             }
             _ => value.to_string(),
         }
@@ -577,11 +586,11 @@ impl x_codegen::CodeGenerator for ZigBackend {
 impl ZigBackend {
     /// 渲染 extern 声明中的类型。Zig 的 `extern fn` 不能是泛型，且未解析的具名
     /// 类型（泛型参数 `T`、装箱运行时类型 `Result`/`Option`/`XValue` 等）没有
-    /// 对应的 Zig 声明，统一按不透明机器字 `i32` 处理（与具体类型被降级为整数的
+    /// 对应的 Zig 声明，统一按不透明机器字 `i64` 处理（与具体类型被降级为整数的
     /// 既有行为一致）。
     fn emit_extern_lir_type(&self, type_: &x_lir::Type) -> String {
         match type_ {
-            x_lir::Type::Named(_) => "i32".to_string(),
+            x_lir::Type::Named(_) => "i64".to_string(),
             x_lir::Type::Qualified(q, inner) => {
                 if q.is_const {
                     if let x_lir::Type::Pointer(p) = inner.as_ref() {
@@ -601,7 +610,7 @@ impl ZigBackend {
                 }
                 // libc `const char*` APIs (strlen, …): accept X strings.
                 x_lir::Type::Char | x_lir::Type::Uchar => "[*:0]const u8".to_string(),
-                x_lir::Type::Named(_) => "i32".to_string(),
+                x_lir::Type::Named(_) => "i64".to_string(),
                 x_lir::Type::Void => "*anyopaque".to_string(),
                 _ => format!("*{}", self.emit_extern_lir_type(inner)),
             },
@@ -1739,6 +1748,8 @@ impl ZigBackend {
                 x_lir::Type::Char | x_lir::Type::Uchar => "[*c]u8".to_string(),
                 // Zig has no `*void`; C `void*` is `*anyopaque`.
                 x_lir::Type::Void => "*anyopaque".to_string(),
+                // XValue is an opaque boxed handle (i64 on 64-bit), so Pointer(XValue) is i64.
+                x_lir::Type::Named(name) if name == "XValue" => "i64".to_string(),
                 _ => format!("*{}", self.emit_lir_type(inner)),
             },
             x_lir::Type::Array(inner, Some(size)) => {
@@ -1765,7 +1776,7 @@ impl ZigBackend {
                 format!("fn({}) {}", param_str, self.emit_lir_type(ret_type))
             }
             x_lir::Type::Named(name) => {
-                // XValue is an opaque boxed handle (i32). User/ADT structs
+                // XValue is an opaque boxed handle (i64 on 64-bit). User/ADT structs
                 // (Result, Option, Entry, …) keep their Zig struct names so
                 // `.tag` / field access type-check.
                 if name == "XValue"
@@ -1775,7 +1786,7 @@ impl ZigBackend {
                             .next()
                             .map_or(false, |ch| ch.is_uppercase()))
                 {
-                    "i32".to_string()
+                    "i64".to_string()
                 } else {
                     name.clone()
                 }

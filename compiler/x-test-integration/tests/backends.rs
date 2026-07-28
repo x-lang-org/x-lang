@@ -64,6 +64,7 @@ mod backend_tests {
                 output_path.to_str().unwrap(),
                 "--target",
                 backend,
+                "--no-link",
             ])
             .current_dir(&cli_dir)
             .output();

@@ -85,6 +85,16 @@ pub fn lower_mir_to_lir(module: &MirModule) -> LirLowerResult<Program> {
 
 /// 添加运行时外部声明
 fn add_runtime_declarations(program: &mut Program) {
+    // Collect existing extern function names to avoid duplicates.
+    let existing: std::collections::HashSet<String> = program
+        .declarations
+        .iter()
+        .filter_map(|d| match d {
+            Declaration::ExternFunction(ef) => Some(ef.name.clone()),
+            _ => None,
+        })
+        .collect();
+
     let runtime = [
         ExternFunction {
             name: "printf".to_string(),
@@ -124,7 +134,9 @@ fn add_runtime_declarations(program: &mut Program) {
     ];
 
     for decl in runtime {
-        program.add(Declaration::ExternFunction(decl));
+        if !existing.contains(&decl.name) {
+            program.add(Declaration::ExternFunction(decl));
+        }
     }
 
     // ── X 动态值运行时（library/runtime/xrt.c）────────────────────────────
@@ -177,7 +189,9 @@ fn add_runtime_declarations(program: &mut Program) {
         ext("x_print_newline", Type::Void, vec![]),
     ];
     for decl in xrt {
-        program.add(Declaration::ExternFunction(decl));
+        if !existing.contains(&decl.name) {
+            program.add(Declaration::ExternFunction(decl));
+        }
     }
 }
 
@@ -887,10 +901,20 @@ fn lower_type(ty: &MirType) -> Type {
         ),
         MirType::Char => Type::Char,
         MirType::Unit => Type::Void,
-        MirType::Pointer(inner) => Type::Pointer(Box::new(lower_type(inner))),
+        MirType::Pointer(inner) => match inner.as_ref() {
+            // XValue is a heap-allocated boxed value, so Pointer(XValue) is just Pointer(Named("XValue")).
+            MirType::Struct(name, _) if name == "XValue" => {
+                Type::Pointer(Box::new(Type::Named(name.clone())))
+            }
+            _ => Type::Pointer(Box::new(lower_type(inner))),
+        },
         MirType::Array(inner, len) => Type::Array(Box::new(lower_type(inner)), Some(*len as u64)),
         MirType::Struct(name, fields) if name == "tuple" => {
             Type::Tuple(fields.iter().map(lower_type).collect())
+        }
+        // XValue is a heap-allocated boxed value, so it's represented as a pointer in LIR.
+        MirType::Struct(name, _) if name == "XValue" => {
+            Type::Pointer(Box::new(Type::Named(name.clone())))
         }
         MirType::Struct(name, _) => Type::Named(name.clone()),
         MirType::Function(params, ret) => Type::FunctionPointer(

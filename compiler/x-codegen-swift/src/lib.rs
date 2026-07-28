@@ -97,6 +97,19 @@ impl SwiftBackend {
         self.line("")?;
         self.line("import Foundation")?;
         self.line("")?;
+        // Define XValue type used by FFI functions
+        self.line("class XValue {")?;
+        self.line("    var tag: Int64")?;
+        self.line("    var payload0: Any")?;
+        self.line("    init(tag: Int64, payload0: Any) {")?;
+        self.line("        self.tag = tag")?;
+        self.line("        self.payload0 = payload0")?;
+        self.line("    }")?;
+        self.line("}")?;
+        self.line("")?;
+        // Opaque placeholder for the generic return type of `unwrap_ok`.
+        self.line("class T {}")?;
+        self.line("")?;
         Ok(())
     }
 
@@ -435,6 +448,17 @@ impl SwiftBackend {
                         // Swift string interpolation
                         return Ok(format!("\"\\({})\"", args_str.join(", ")));
                     }
+                    // Runtime helpers that take a C string: convert `String` to a
+                    // raw `UnsafeMutablePointer<Character>`.
+                    "x_from_str" => {
+                        if args_str.is_empty() {
+                            return Ok("x_from_str(\"\")".to_string());
+                        }
+                        return Ok(format!(
+                            "{{ {}.withCString {{ x_from_str(unsafeBitCast($0, to: UnsafeMutablePointer<Character>.self)) }} }}()",
+                            args_str.join(", ")
+                        ));
+                    }
                     _ => {}
                 }
                 Ok(format!("{}({})", callee_str, args_str.join(", ")))
@@ -668,12 +692,11 @@ impl SwiftBackend {
                 self.indent();
 
                 for stmt in &f.body.statements {
-                    // Skip `return 0` in main (Swift main is Void)
+                    // Swift main function cannot have return values
                     if f.name == "main" {
-                        if let x_lir::Statement::Return(Some(expr)) = stmt {
-                            if let x_lir::Expression::Literal(x_lir::Literal::Integer(0)) = expr {
-                                continue;
-                            }
+                        if let x_lir::Statement::Return(_) = stmt {
+                            // Skip all return statements in main
+                            continue;
                         }
                     }
                     self.emit_lir_statement(stmt)?;
@@ -871,10 +894,10 @@ impl SwiftBackend {
                     .enumerate()
                     .map(|(i, ty)| format!("_ arg{}: {}", i, self.lir_type_to_swift(ty)))
                     .collect();
-                let abi_name = ef.abi.as_deref().unwrap_or(&ef.name);
+                // Use the function name as the silgen name, not the ABI.
                 self.line(&format!(
                     "@_silgen_name(\"{}\") func {}({}) -> {}",
-                    abi_name,
+                    ef.name,
                     ef.name,
                     params.join(", "),
                     ret

@@ -2,8 +2,6 @@ module std.io
 import std.prelude
 import std.types
 
-
-
 /// 外部 C 库函数：getline - 读取一行
 external "c" function getline(line: **character, capacity: *CSize, stream: *()) -> CLong
 
@@ -32,7 +30,7 @@ export function read_line() -> Result<string, string> {
         } else {
             // 转换 buffer 到 X 字符串
             // 这里需要复制内容到 X 管理的字符串
-            let end = when read_len > 0 and buffer[read_len - 1] as character == '\n' {
+            let end = when read_len > 0 and buffer[read_len - 1] == '\n' {
                 read_len - 1
             } else {
                 read_len
@@ -40,7 +38,7 @@ export function read_line() -> Result<string, string> {
             let mut s = "";
             let mut i = 0;
             while i < end {
-                let c = (buffer[i] as character);
+                let c = buffer[i];
                 s = s ++ c;
                 i = i + 1;
             }

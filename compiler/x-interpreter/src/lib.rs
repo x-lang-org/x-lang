@@ -58,6 +58,7 @@ pub struct Interpreter {
 #[derive(Debug, Clone)]
 pub enum Value {
     Integer(i64),
+    UnsignedInteger(u64),
     Float(f64),
     Boolean(bool),
     String(String),
@@ -2496,6 +2497,7 @@ impl Interpreter {
                 let v = self.eval(&args[0])?;
                 let t = match &v {
                     Value::Integer(_) => "Int".to_string(),
+                    Value::UnsignedInteger(_) => "UnsignedInt".to_string(),
                     Value::Float(_) => "Float".to_string(),
                     Value::Boolean(_) => "Bool".to_string(),
                     Value::String(_) => "String".to_string(),
@@ -3917,6 +3919,7 @@ impl Interpreter {
     fn as_i64(&self, v: &Value) -> Result<i64, InterpreterError> {
         match v {
             Value::Integer(n) => Ok(*n),
+            Value::UnsignedInteger(n) => Ok(*n as i64),
             Value::Float(f) => Ok(*f as i64),
             Value::Char(c) => Ok(*c as i64),
             _ => Err(InterpreterError::runtime_no_span("需要整数")),
@@ -3926,6 +3929,7 @@ impl Interpreter {
     fn eval_literal(&self, lit: &Literal) -> Value {
         match lit {
             Literal::Integer(i) => Value::Integer(*i),
+            Literal::UnsignedInteger(n, _) => Value::UnsignedInteger(*n),
             Literal::Float(f) => Value::Float(*f),
             Literal::Boolean(b) => Value::Boolean(*b),
             Literal::String(s) => Value::String(s.clone()),
@@ -3940,6 +3944,7 @@ impl Interpreter {
     fn format_value(&self, value: &Value) -> String {
         match value {
             Value::Integer(i) => i.to_string(),
+            Value::UnsignedInteger(n) => n.to_string(),
             Value::Float(f) => {
                 if f.fract() == 0.0 && !f.is_infinite() && !f.is_nan() {
                     format!("{:.1}", f)
@@ -4017,6 +4022,7 @@ impl Interpreter {
     fn value_to_json(&self, value: &Value) -> String {
         match value {
             Value::Integer(i) => i.to_string(),
+            Value::UnsignedInteger(n) => n.to_string(),
             Value::Float(f) => {
                 if f.fract() == 0.0 && !f.is_infinite() && !f.is_nan() {
                     format!("{:.1}", f)

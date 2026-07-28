@@ -675,3 +675,9 @@ char *regex_replace_all(const char *text, const char *pattern,
     }
     return b.data;
 }
+
+/* x_getline implementation - wrapper around POSIX getline */
+ssize_t x_getline(char **lineptr, size_t *n, FILE *stream) {
+    if (!lineptr || !n || !stream) return -1;
+    return getline(lineptr, n, stream);
+}

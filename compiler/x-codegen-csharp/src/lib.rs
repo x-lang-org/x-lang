@@ -88,6 +88,7 @@ impl CSharpBackend {
         self.line("using System.Collections.Generic;")?;
         self.line("using System.Threading.Tasks;")?;
         self.line("using System.Linq;")?;
+        self.line("using System.Runtime.InteropServices;")?;
         self.line("")?;
         Ok(())
     }
@@ -317,8 +318,8 @@ impl CSharpBackend {
             .collect::<Vec<_>>()
             .join(", ");
         self.line(&format!(
-            "[DllImport(\"{}\")] public static extern {} {}({});",
-            ext.abi.as_deref().unwrap_or(&ext.name),
+            "[DllImport(\"libc\", EntryPoint = \"{}\")] public static extern {} {}({});",
+            ext.name,
             self.lir_type_to_csharp(&ext.return_type),
             ext.name,
             params_str
@@ -465,8 +466,8 @@ impl CSharpBackend {
             self.line("")?;
         }
 
-        // Main 方法入口 - 保持与测试期望一致，生成小写 main 包装器
-        self.line("    public static void main(string[] args) {")?;
+        // Main 方法入口 - C# requires uppercase Main as entry point
+        self.line("    public static void Main(string[] args) {")?;
         self.indent();
 
         if let Some(main_fn) = main_function {
@@ -541,7 +542,11 @@ impl CSharpBackend {
             Float => "float".to_string(),
             Double | LongDouble => "double".to_string(),
             Size | Ptrdiff | Intptr | Uintptr => "long".to_string(),
-            Pointer(inner) => format!("{}*", self.lir_type_to_csharp(inner)), // unsafe
+            Pointer(inner) => {
+                // In C#, pointer types in DllImport are problematic
+                // Use int for all pointer types to avoid unsafe context issues
+                "int".to_string()
+            }
             Array(inner, _) => format!("{}[]", self.lir_type_to_csharp(inner)),
             Tuple(items) => {
                 let item_strs: Vec<String> = items

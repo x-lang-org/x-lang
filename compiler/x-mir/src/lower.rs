@@ -64,6 +64,9 @@ fn mir_stdlib_ufcs_name(recv: &MirType, method: &str) -> Option<&'static str> {
         // XValue lists (heterogeneous runtime arrays)
         (MirType::Struct(name, _), "length") if name == "XValue" => Some("array_length"),
         (MirType::Struct(name, _), "push") if name == "XValue" => Some("array_push"),
+        // Pointer to XValue (also an XValue handle)
+        (MirType::Pointer(inner), "length") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => Some("array_length"),
+        (MirType::Pointer(inner), "push") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => Some("array_push"),
         (MirType::Float(_), "sqrt") => Some("sqrt"),
         (MirType::Float(_), "floor") => Some("floor"),
         (MirType::Float(_), "ceil") => Some("ceil"),
@@ -1105,6 +1108,12 @@ impl<'ctx> FunctionLowerer<'ctx> {
             return Ok(());
         }
 
+        // Determine the element type of the loop variable
+        let elem_ty = match &iter_ty {
+            MirType::Array(inner, _) => *inner.clone(),
+            _ => xvalue_ty(), // XValue list - element is XValue
+        };
+
         // iter 操作数
         let iter_op = self.lower_expression(&for_stmt.iterator)?;
         let iter_local = self.materialize(iter_op, xvalue_ty());
@@ -1160,7 +1169,8 @@ impl<'ctx> FunctionLowerer<'ctx> {
         });
         if let HirPattern::Variable(name) = &for_stmt.pattern {
             self.bind_local(name.clone(), item_local);
-            self.var_types.insert(name.clone(), xvalue_ty());
+            // Use the element type for the loop variable, not XValue
+            self.var_types.insert(name.clone(), elem_ty);
         } else {
             self.bind_pattern(&for_stmt.pattern)?;
         }
@@ -1211,6 +1221,19 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         return self.construct_enum(tyname, field, &[]);
                     }
                 }
+                // Check if this is a known method call (like .length, .push, etc.)
+                // and generate a Call instead of a FieldAccess.
+                let obj_ty = self.type_of(object);
+                if let Some(free_name) = mir_stdlib_ufcs_name(&obj_ty, field) {
+                    if self.ctx.functions.contains_key(free_name) {
+                        // Generate a Call to the free function
+                        let args: Vec<HirExpression> = vec![*object.clone()];
+                        return self.lower_call(
+                            &HirExpression::Variable(free_name.to_string()),
+                            &args,
+                        );
+                    }
+                }
                 let object_op = self.lower_expression(object)?;
                 let fty = self.member_type(object, field);
                 let dest = self.new_local(fty);
@@ -1259,7 +1282,7 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     return self.as_cstr(e);
                 }
                 let target = match ty {
-                    AstType::Int | AstType::UnsignedInt => Some(MirType::Int(64)),
+                    AstType::Int | AstType::UnsignedInt(_) | AstType::IntSized(_) => Some(MirType::Int(64)),
                     AstType::Float => Some(MirType::Float(64)),
                     AstType::Bool => Some(MirType::Bool),
                     AstType::Char | AstType::CChar => Some(MirType::Char),
@@ -1835,6 +1858,8 @@ impl<'ctx> FunctionLowerer<'ctx> {
             MirType::String => "x_from_str",
             MirType::Char => "x_from_char",
             MirType::Struct(name, _) if name == "XValue" => return op,
+            // Pointer to XValue is already boxed - don't box again
+            MirType::Pointer(inner) if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => return op,
             MirType::Struct(_, _) | MirType::Pointer(_) => "x_from_ptr",
             _ => "x_from_int",
         };
@@ -2661,6 +2686,7 @@ fn infer_expr_type(
     match expr {
         HirExpression::Literal(lit) => match lit {
             HirLiteral::Integer(_) => MirType::Int(64),
+            HirLiteral::UnsignedInteger(_, _) => MirType::Int(64),
             HirLiteral::Float(_) => MirType::Float(64),
             HirLiteral::Boolean(_) => MirType::Bool,
             HirLiteral::String(_) => MirType::String,
@@ -2685,7 +2711,7 @@ fn infer_expr_type(
             use x_parser::ast::Type as AstType;
             match ty {
                 AstType::String => MirType::String,
-                AstType::Int | AstType::UnsignedInt => MirType::Int(64),
+                AstType::Int | AstType::UnsignedInt(_) | AstType::IntSized(_) => MirType::Int(64),
                 AstType::Float => MirType::Float(64),
                 AstType::Bool => MirType::Bool,
                 AstType::Char | AstType::CChar => MirType::Char,
@@ -2846,6 +2872,7 @@ fn is_simple_global_literal(lit: &HirLiteral) -> bool {
 fn lower_literal_to_constant(lit: &HirLiteral) -> MirConstant {
     match lit {
         HirLiteral::Integer(v) => MirConstant::Int(*v),
+        HirLiteral::UnsignedInteger(v, _) => MirConstant::Int(*v as i64),
         HirLiteral::Float(v) => MirConstant::Float(*v),
         HirLiteral::Boolean(v) => MirConstant::Bool(*v),
         HirLiteral::String(v) => MirConstant::String(v.clone()),
@@ -2860,12 +2887,14 @@ fn field_repr_ty(ty: &HirType, ctx: &TypeCtx) -> MirType {
     repr_of(lower_user_type(ty, ctx))
 }
 
-/// 用户类/枚举在运行时以堆指针表示（构造器 malloc）。
+/// 用户类/枚举/XValue 在运行时以堆指针表示（构造器 malloc）。
 fn lower_user_type(ty: &HirType, ctx: &TypeCtx) -> MirType {
     let lowered = lower_type(ty);
     match &lowered {
         MirType::Struct(name, _)
-            if ctx.classes.contains_key(name) || ctx.enums.contains_key(name) =>
+            if ctx.classes.contains_key(name)
+                || ctx.enums.contains_key(name)
+                || name == "XValue" =>
         {
             MirType::Pointer(Box::new(lowered))
         }
@@ -2897,7 +2926,8 @@ fn lower_type_opt(ty: &HirType) -> Option<MirType> {
 fn lower_type(ty: &HirType) -> MirType {
     match ty {
         HirType::Int => MirType::Int(64),
-        HirType::UnsignedInt => MirType::Int(64),
+        HirType::UnsignedInt(_) => MirType::Int(64),
+        HirType::IntSized(_) => MirType::Int(64),
         HirType::Float => MirType::Float(64),
         HirType::Bool => MirType::Bool,
         HirType::String | HirType::CString => MirType::String,

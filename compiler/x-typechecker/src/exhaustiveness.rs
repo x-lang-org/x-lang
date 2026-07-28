@@ -136,6 +136,7 @@ fn normalize_pattern(p: &Pattern) -> Vec<NormalizedPattern> {
 fn literal_to_value(lit: &Literal) -> LiteralValue {
     match lit {
         Literal::Integer(n) => LiteralValue::Integer(*n),
+        Literal::UnsignedInteger(n, _) => LiteralValue::Integer(*n as i64),
         Literal::Float(f) => LiteralValue::Float(*f),
         Literal::Boolean(b) => LiteralValue::Boolean(*b),
         Literal::String(s) => LiteralValue::String(s.clone()),

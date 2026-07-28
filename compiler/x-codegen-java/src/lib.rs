@@ -44,6 +44,8 @@ pub struct JavaBackend {
     config: JavaConfig,
     /// 代码缓冲区（统一管理输出和缩进）
     buffer: x_codegen::CodeBuffer,
+    /// 变量类型映射（用于在赋值时插入类型转换）
+    var_types: std::collections::HashMap<String, String>,
 }
 
 pub type JavaResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -53,6 +55,7 @@ impl JavaBackend {
         Self {
             config,
             buffer: x_codegen::CodeBuffer::new(),
+            var_types: std::collections::HashMap::new(),
         }
     }
 
@@ -71,6 +74,40 @@ impl JavaBackend {
     /// 减少缩进
     fn dedent(&mut self) {
         self.buffer.dedent();
+    }
+
+    /// Wrap a value expression with a cast if the target variable's declared type
+    /// expects a different type than what the expression produces.
+    /// For example, `long t1 = x_struct_get_xvalue(...)` needs a cast because
+    /// `x_struct_get_xvalue` returns XValue but `t1` is long.
+    fn wrap_with_cast(&self, var_name: &str, value_str: &str) -> String {
+        let target_ty = match self.var_types.get(var_name) {
+            Some(ty) => ty.as_str(),
+            None => return value_str.to_string(),
+        };
+        // If the value is already a function call that returns the right type, no cast needed.
+        // Heuristic: if value_str starts with x_struct_get_xvalue, it returns XValue.
+        if value_str.starts_with("x_struct_get_xvalue(") {
+            match target_ty {
+                "long" | "int" | "short" | "byte" => return format!("x_as_int({})", value_str),
+                "double" | "float" => return format!("x_as_double({})", value_str),
+                "boolean" => return format!("x_as_bool({})", value_str),
+                "String" => return format!("x_as_str({})", value_str),
+                "XValue" => return value_str.to_string(),
+                _ => return value_str.to_string(),
+            }
+        }
+        // If the value is a function call that returns XValue but target is primitive.
+        if value_str.starts_with("x_from_ptr(") || value_str.starts_with("x_struct_get(") {
+            match target_ty {
+                "long" | "int" | "short" | "byte" => return format!("x_as_int({})", value_str),
+                "double" | "float" => return format!("x_as_double({})", value_str),
+                "boolean" => return format!("x_as_bool({})", value_str),
+                "String" => return format!("x_as_str({})", value_str),
+                _ => {}
+            }
+        }
+        value_str.to_string()
     }
 
     /// 获取当前输出
@@ -179,7 +216,7 @@ static String x_as_str(XValue v) {
     if (v.tag == 4) return (String) v.payload0;
     return x_fmt_value(v);
 }
-static Object x_as_ptr(XValue v) { return v != null && v.tag == 5 ? v.payload0 : v; }
+static XValue x_as_ptr(XValue v) { return v != null && v.tag == 5 ? (XValue) v.payload0 : v; }
 
 static String _x_fmt_double(double d) {
     if (d == Math.rint(d) && Math.abs(d) < 1e18 && !Double.isInfinite(d)) {
@@ -730,8 +767,14 @@ static double pow(double x, double y) { return Math.pow(x, y); }
                     }
                     let target_str = self.emit_lir_expr(target)?;
                     let value_str = self.emit_lir_expr(value)?;
+                    // Check if we need a type conversion based on the target variable's declared type.
+                    let final_value = if let x_lir::Expression::Variable(var_name) = target.as_ref() {
+                        self.wrap_with_cast(var_name, &value_str)
+                    } else {
+                        value_str
+                    };
                     // 直接赋值（Java 会在赋值前初始化）
-                    self.line(&format!("{} = {};", target_str, value_str))?;
+                    self.line(&format!("{} = {};", target_str, final_value))?;
                     return Ok(());
                 }
                 // 常规表达式处理
@@ -740,6 +783,8 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             }
             Variable(v) => {
                 let ty = self.lir_type_to_java(&v.type_);
+                // Track the variable type for later casts.
+                self.var_types.insert(v.name.clone(), ty.clone());
                 if v.is_static {
                     if let Some(init) = &v.initializer {
                         let init_str = self.emit_lir_expr(init)?;
@@ -900,7 +945,13 @@ static double pow(double x, double y) { return Math.pow(x, y); }
     /// Emit a switch statement
     fn emit_lir_switch(&mut self, switch: &x_lir::SwitchStatement) -> JavaResult<()> {
         let expr = self.emit_lir_expr(&switch.expression)?;
-        self.line(&format!("switch ({}) {{", expr))?;
+        // Java doesn't support switch on long, so cast to int if needed.
+        let switch_expr = if self.is_long_expr(&switch.expression) {
+            format!("((int) ({}))", expr)
+        } else {
+            expr
+        };
+        self.line(&format!("switch ({}) {{", switch_expr))?;
         self.indent();
 
         for case in &switch.cases {
@@ -908,7 +959,10 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             self.line(&format!("case {}:", value))?;
             self.indent();
             self.emit_lir_statement(&case.body)?;
-            self.line("break;")?;
+            // Only emit break if the case body doesn't end with return
+            if !self.ends_with_return(&case.body) {
+                self.line("break;")?;
+            }
             self.dedent();
         }
 
@@ -916,13 +970,48 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             self.line("default:")?;
             self.indent();
             self.emit_lir_statement(default_body)?;
-            self.line("break;")?;
+            if !self.ends_with_return(default_body) {
+                self.line("break;")?;
+            }
             self.dedent();
         }
 
         self.dedent();
         self.line("}")?;
         Ok(())
+    }
+
+    /// Check if a statement ends with a return statement
+    fn ends_with_return(&self, stmt: &x_lir::Statement) -> bool {
+        match stmt {
+            x_lir::Statement::Return(_) => true,
+            x_lir::Statement::Compound(block) => {
+                block.statements.last().map_or(false, |s| self.ends_with_return(s))
+            }
+            x_lir::Statement::If(if_stmt) => {
+                // Both branches must end with return for the if to be considered ending with return
+                let then_returns = self.ends_with_return(&if_stmt.then_branch);
+                let else_returns = if_stmt.else_branch.as_ref().map_or(false, |b| self.ends_with_return(b));
+                then_returns && else_returns
+            }
+            x_lir::Statement::Switch(switch_stmt) => {
+                // All cases (including default) must end with return
+                let all_cases_return = switch_stmt.cases.iter().all(|c| self.ends_with_return(&c.body));
+                let default_returns = switch_stmt.default.as_ref().map_or(true, |d| self.ends_with_return(d));
+                all_cases_return && default_returns
+            }
+            _ => false,
+        }
+    }
+
+    /// Check if an expression is of type long (needs casting for switch).
+    fn is_long_expr(&self, expr: &x_lir::Expression) -> bool {
+        if let x_lir::Expression::Variable(name) = expr {
+            if let Some(ty) = self.var_types.get(name) {
+                return ty == "long";
+            }
+        }
+        false
     }
 
     /// Emit a match statement (Java 21+ pattern matching switch)

@@ -1485,6 +1485,20 @@ cc = "1.0"
                             args_code.join(", ")
                         )
                     }
+                    "x_from_ptr" => {
+                        // x_from_ptr expects *mut (), cast the argument
+                        format!(
+                            "x_from_ptr({} as *mut ())",
+                            args_code.join(", ")
+                        )
+                    }
+                    "x_as_ptr" => {
+                        // x_as_ptr returns *mut (), cast to the expected type
+                        format!(
+                            "x_as_ptr({})",
+                            args_code.join(", ")
+                        )
+                    }
                     _ => format!("{}({})", callee_code, args_code.join(", ")),
                 };
                 Ok(result)
@@ -1500,7 +1514,8 @@ cc = "1.0"
             }
             x_lir::Expression::PointerMember(base, field) => {
                 let base_code = self.generate_lir_expression(base)?;
-                Ok(format!("{}->{}", base_code, field))
+                // In Rust, raw pointers must be dereferenced before field access.
+                Ok(format!("(*{}).{}", base_code, field))
             }
             x_lir::Expression::AddressOf(inner) => {
                 let inner_code = self.generate_lir_expression(inner)?;

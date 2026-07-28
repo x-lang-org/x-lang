@@ -109,6 +109,9 @@ pub enum Token {
     BinInt(String),
     Float(String),
     DecimalInt(String),
+    /// 带后缀的整数字面量，如 "255u8", "100u64", "127i8"
+    /// 第一个 String 是数值部分，第二个 String 是后缀
+    SuffixInt(String, String),
 
     // 字符串字面量
     StringQuote,
