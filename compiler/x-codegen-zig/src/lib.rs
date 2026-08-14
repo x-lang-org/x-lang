@@ -493,9 +493,10 @@ impl ZigBackend {
         let zig_file = output_file.with_extension("zig");
         std::fs::write(&zig_file, zig_code)?;
 
-        // 获取输出目录
+        // 获取输出目录（相对路径的 parent() 是空串，须归一化为 "."）
         let output_dir = output_file
             .parent()
+            .filter(|p| !p.as_os_str().is_empty())
             .map(|p| p.to_path_buf())
             .unwrap_or_else(|| std::path::PathBuf::from("."));
 
@@ -1504,7 +1505,10 @@ impl ZigBackend {
             x_lir::Expression::Index(array, index) => {
                 let array_str = self.emit_lir_expression(array)?;
                 let index_str = self.emit_lir_expression(index)?;
-                Ok(format!("{}[{}]", array_str, index_str))
+                // Raw pointer/array indexing (`buffer[i]` on a char*): Zig
+                // requires a usize index; the MIR produces these only for raw
+                // C-string byte access (XValue lists go through __x_index).
+                Ok(format!("{}[@intCast({})]", array_str, index_str))
             }
             x_lir::Expression::Member(obj, field) => {
                 let obj_str = self.emit_lir_expression(obj)?;

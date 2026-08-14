@@ -50,6 +50,12 @@ fn is_xvalue(ty: &MirType) -> bool {
     matches!(ty, MirType::Struct(name, _) if name == "XValue")
 }
 
+/// True for the XValue runtime representation: the bare boxed struct or the
+/// `*XValue` handle produced by `lower_user_type` for `any` / array types.
+fn is_xvalue_repr(ty: &MirType) -> bool {
+    is_xvalue(ty) || matches!(ty, MirType::Pointer(inner) if is_xvalue(inner))
+}
+
 fn mir_stdlib_ufcs_name(recv: &MirType, method: &str) -> Option<&'static str> {
     match (recv, method) {
         (MirType::String, "length") => Some("string_length"),
@@ -65,8 +71,12 @@ fn mir_stdlib_ufcs_name(recv: &MirType, method: &str) -> Option<&'static str> {
         (MirType::Struct(name, _), "length") if name == "XValue" => Some("array_length"),
         (MirType::Struct(name, _), "push") if name == "XValue" => Some("array_push"),
         // Pointer to XValue (also an XValue handle)
-        (MirType::Pointer(inner), "length") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => Some("array_length"),
-        (MirType::Pointer(inner), "push") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => Some("array_push"),
+        (MirType::Pointer(inner), "length") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => {
+            Some("array_length")
+        }
+        (MirType::Pointer(inner), "push") if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => {
+            Some("array_push")
+        }
         (MirType::Float(_), "sqrt") => Some("sqrt"),
         (MirType::Float(_), "floor") => Some("floor"),
         (MirType::Float(_), "ceil") => Some("ceil"),
@@ -540,7 +550,8 @@ impl HirToMirLowerer {
             let mangled = format!("{}__{}", class.name, method.name);
             let mut decl = method.clone();
             decl.name = mangled;
-            let self_ty = HirType::Pointer(Box::new(HirType::Record(class.name.clone(), Vec::new())));
+            let self_ty =
+                HirType::Pointer(Box::new(HirType::Record(class.name.clone(), Vec::new())));
             decl.parameters.insert(
                 0,
                 HirParameter {
@@ -596,8 +607,12 @@ impl HirToMirLowerer {
         let self_local = lowerer.new_local(self_ty.clone());
         lowerer.bind_local("self".to_string(), self_local);
         lowerer.bind_local("this".to_string(), self_local);
-        lowerer.var_types.insert("self".to_string(), self_ty.clone());
-        lowerer.var_types.insert("this".to_string(), self_ty.clone());
+        lowerer
+            .var_types
+            .insert("self".to_string(), self_ty.clone());
+        lowerer
+            .var_types
+            .insert("this".to_string(), self_ty.clone());
         let size = (info.fields.len().max(1)) * 8;
         lowerer
             .current_block
@@ -854,6 +869,11 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     .filter(|t| !matches!(t, MirType::Unknown | MirType::Unit));
                 let ty = match (&declared, from_init) {
                     (MirType::Unknown | MirType::Unit, Some(t)) => t,
+                    // A declared `any`/Dynamic (boxed as *XValue) must not erase a
+                    // concrete initializer type: the value really is a scalar
+                    // (e.g. `c` from `buffer[i]` on a char*), and boxing happens
+                    // at use sites via box_for_print / as_cstr.
+                    (d, Some(t)) if is_xvalue_repr(d) && !is_xvalue_repr(&t) => t,
                     (d, _) if !matches!(d, MirType::Unknown) => declared,
                     (_, Some(t)) => t,
                     _ => declared,
@@ -1095,7 +1115,13 @@ impl<'ctx> FunctionLowerer<'ctx> {
     ///   body: item = x_list_get(iter, i); <body>; i = i + 1; -> header
     fn lower_for_each(&mut self, for_stmt: &x_hir::HirForStatement) -> MirLowerResult<()> {
         let iter_ty = self.type_of(&for_stmt.iterator);
-        let is_listlike = is_xvalue(&iter_ty) || matches!(iter_ty, MirType::Array(_, _));
+        // XValue list handles are represented as *XValue after lower_user_type
+        // (e.g. `let xs = [..]` gets HIR type Array(_) -> Pointer(XValue)); treat
+        // both the bare struct and the pointer handle as listlike so for-loops
+        // over such lists lower to a real CFG loop, not the one-shot fallback.
+        let is_listlike = is_xvalue(&iter_ty)
+            || matches!(iter_ty, MirType::Array(_, _))
+            || matches!(&iter_ty, MirType::Pointer(inner) if is_xvalue(inner));
 
         if !is_listlike {
             // 回退：保守地求值迭代器并执行一次循环体（用于无法识别的可迭代对象，
@@ -1228,10 +1254,8 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     if self.ctx.functions.contains_key(free_name) {
                         // Generate a Call to the free function
                         let args: Vec<HirExpression> = vec![*object.clone()];
-                        return self.lower_call(
-                            &HirExpression::Variable(free_name.to_string()),
-                            &args,
-                        );
+                        return self
+                            .lower_call(&HirExpression::Variable(free_name.to_string()), &args);
                     }
                 }
                 let object_op = self.lower_expression(object)?;
@@ -1282,7 +1306,9 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     return self.as_cstr(e);
                 }
                 let target = match ty {
-                    AstType::Int | AstType::UnsignedInt(_) | AstType::IntSized(_) => Some(MirType::Int(64)),
+                    AstType::Int | AstType::UnsignedInt(_) | AstType::IntSized(_) => {
+                        Some(MirType::Int(64))
+                    }
                     AstType::Float => Some(MirType::Float(64)),
                     AstType::Bool => Some(MirType::Bool),
                     AstType::Char | AstType::CChar => Some(MirType::Char),
@@ -1297,8 +1323,12 @@ impl<'ctx> FunctionLowerer<'ctx> {
                 let src = self.type_of(e);
                 let op = self.lower_expression(e)?;
                 // 数值类型间转换（int<->float、宽度变化）发一条 Cast 指令；其余原样传递。
-                let numeric =
-                    |t: &MirType| matches!(t, MirType::Int(_) | MirType::Float(_) | MirType::Bool | MirType::Char);
+                let numeric = |t: &MirType| {
+                    matches!(
+                        t,
+                        MirType::Int(_) | MirType::Float(_) | MirType::Bool | MirType::Char
+                    )
+                };
                 if let Some(target) = target {
                     if numeric(&src) && numeric(&target) && src != target {
                         let dest = self.new_local(target.clone());
@@ -1342,12 +1372,14 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         });
                         if matches!(target, MirType::Bool) {
                             let bdest = self.new_local(MirType::Bool);
-                            self.current_block.instructions.push(MirInstruction::BinaryOp {
-                                dest: bdest,
-                                op: MirBinOp::Ne,
-                                left: MirOperand::Local(dest),
-                                right: MirOperand::Constant(MirConstant::Int(0)),
-                            });
+                            self.current_block
+                                .instructions
+                                .push(MirInstruction::BinaryOp {
+                                    dest: bdest,
+                                    op: MirBinOp::Ne,
+                                    left: MirOperand::Local(dest),
+                                    right: MirOperand::Constant(MirConstant::Int(0)),
+                                });
                             return Ok(MirOperand::Local(bdest));
                         }
                         return Ok(MirOperand::Local(dest));
@@ -1363,10 +1395,7 @@ impl<'ctx> FunctionLowerer<'ctx> {
                     then_ty
                 } else if !matches!(else_ty, MirType::Unknown | MirType::Unit) {
                     else_ty
-                } else if !matches!(
-                    self.function.return_type,
-                    MirType::Unit | MirType::Unknown
-                ) {
+                } else if !matches!(self.function.return_type, MirType::Unit | MirType::Unknown) {
                     self.function.return_type.clone()
                 } else {
                     MirType::Unknown
@@ -1633,9 +1662,8 @@ impl<'ctx> FunctionLowerer<'ctx> {
                             lowered_args.push(self.box_for_print(a)?);
                         } else {
                             // Arg i maps to formal parameter i+1 (after self).
-                            lowered_args.push(
-                                self.lower_arg_for_param(a, params.get(i + 1).cloned())?,
-                            );
+                            lowered_args
+                                .push(self.lower_arg_for_param(a, params.get(i + 1).cloned())?);
                         }
                     }
                     let dest = self.new_local(ret);
@@ -1665,6 +1693,27 @@ impl<'ctx> FunctionLowerer<'ctx> {
 
         // Dictionary indexing: dict[key] with string/non-int key → x_map_get.
         if runtime_name == "__index__" && args.len() == 2 {
+            // Raw C-string indexing: `buffer[i]` on a char* must read the byte
+            // directly. The boxed __index__/x_from_char path yields an XValue
+            // handle, which breaks char comparisons in callers (e.g. the
+            // newline strip in std.io read_line).
+            let coll_ty = self.type_of(&args[0]);
+            if matches!(
+                &coll_ty,
+                MirType::Pointer(inner) if matches!(inner.as_ref(), MirType::Char)
+            ) {
+                let coll = self.lower_expression(&args[0])?;
+                let idx = self.lower_expression(&args[1])?;
+                let dest = self.new_local(MirType::Char);
+                self.current_block
+                    .instructions
+                    .push(MirInstruction::ArrayAccess {
+                        dest,
+                        array: coll,
+                        index: idx,
+                    });
+                return Ok(MirOperand::Local(dest));
+            }
             let idx_ty = self.type_of(&args[1]);
             if matches!(idx_ty, MirType::String)
                 || !matches!(idx_ty, MirType::Int(_) | MirType::Unknown | MirType::Char)
@@ -1683,31 +1732,30 @@ impl<'ctx> FunctionLowerer<'ctx> {
 
         // Representation FFI: list push stores boxed XValues. Prelude
         // `array_push` / runtime `x_list_push` both need a boxed item.
-        let lowered_args = if (runtime_name == "x_list_push" || runtime_name == "array_push")
-            && args.len() == 2
-        {
-            vec![
-                self.lower_expression(&args[0])?,
-                self.box_for_print(&args[1])?,
-            ]
-        } else if runtime_name == "__index__" && args.len() == 2 {
-            // List/string index: box collection if needed; keep int index.
-            vec![
-                self.lower_expression(&args[0])?,
-                self.lower_expression(&args[1])?,
-            ]
-        } else {
-            let params = if runtime_name.is_empty() {
-                Vec::new()
+        let lowered_args =
+            if (runtime_name == "x_list_push" || runtime_name == "array_push") && args.len() == 2 {
+                vec![
+                    self.lower_expression(&args[0])?,
+                    self.box_for_print(&args[1])?,
+                ]
+            } else if runtime_name == "__index__" && args.len() == 2 {
+                // List/string index: box collection if needed; keep int index.
+                vec![
+                    self.lower_expression(&args[0])?,
+                    self.lower_expression(&args[1])?,
+                ]
             } else {
-                self.params_of(runtime_name)
+                let params = if runtime_name.is_empty() {
+                    Vec::new()
+                } else {
+                    self.params_of(runtime_name)
+                };
+                let mut out = Vec::with_capacity(args.len());
+                for (i, arg) in args.iter().enumerate() {
+                    out.push(self.lower_arg_for_param(arg, params.get(i).cloned())?);
+                }
+                out
             };
-            let mut out = Vec::with_capacity(args.len());
-            for (i, arg) in args.iter().enumerate() {
-                out.push(self.lower_arg_for_param(arg, params.get(i).cloned())?);
-            }
-            out
-        };
         let ret = if runtime_name == "x_list_push" || runtime_name == "array_push" {
             MirType::Unit
         } else {
@@ -1822,11 +1870,24 @@ impl<'ctx> FunctionLowerer<'ctx> {
     /// 把一个实参装箱为 XValue 操作数（用于打印）
     fn box_for_print(&mut self, arg: &HirExpression) -> MirLowerResult<MirOperand> {
         let ty = self.type_of(arg);
-        if is_xvalue(&ty) {
-            return self.lower_expression(arg);
-        }
         let op = self.lower_expression(arg)?;
-        Ok(self.box_scalar(op, &ty))
+        // Decide by the operand's concrete MIR type: a variable whose declared
+        // HIR type is `any`/Dynamic may still hold a raw scalar (e.g. `c` from
+        // `buffer[i]` on a char*), so trusting the declared type would skip the
+        // boxing and hand a raw int/char to the runtime.
+        let op_ty = match &op {
+            MirOperand::Local(id) => self
+                .function
+                .locals
+                .get(id)
+                .cloned()
+                .unwrap_or_else(|| ty.clone()),
+            _ => ty.clone(),
+        };
+        if is_xvalue_repr(&op_ty) {
+            return Ok(op);
+        }
+        Ok(self.box_scalar(op, &op_ty))
     }
 
     /// Lower a call argument, boxing scalars when the formal parameter is `any` / XValue.
@@ -1835,7 +1896,7 @@ impl<'ctx> FunctionLowerer<'ctx> {
         arg: &HirExpression,
         param_ty: Option<MirType>,
     ) -> MirLowerResult<MirOperand> {
-        if param_ty.as_ref().is_some_and(is_xvalue) {
+        if param_ty.as_ref().is_some_and(is_xvalue_repr) {
             return self.box_for_print(arg);
         }
         self.lower_expression(arg)
@@ -1859,7 +1920,9 @@ impl<'ctx> FunctionLowerer<'ctx> {
             MirType::Char => "x_from_char",
             MirType::Struct(name, _) if name == "XValue" => return op,
             // Pointer to XValue is already boxed - don't box again
-            MirType::Pointer(inner) if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => return op,
+            MirType::Pointer(inner) if matches!(inner.as_ref(), MirType::Struct(name, _) if name == "XValue") => {
+                return op
+            }
             MirType::Struct(_, _) | MirType::Pointer(_) => "x_from_ptr",
             _ => "x_from_int",
         };
@@ -1940,14 +2003,17 @@ impl<'ctx> FunctionLowerer<'ctx> {
         if matches!(op_ty, MirType::String) {
             return Ok(op);
         }
-        let boxed = if is_xvalue(&op_ty) || is_xvalue(&ty) {
+        // Trust the operand's concrete MIR type: a variable declared `any` may
+        // hold a raw scalar (e.g. `c` from `buffer[i]` on a char*); the declared
+        // type alone would wrongly route it through x_as_str.
+        let boxed = if is_xvalue_repr(&op_ty) {
             op
         } else {
-            self.box_scalar(op, &ty)
+            self.box_scalar(op, &op_ty)
         };
         let dest = self.new_local(MirType::String);
         // XValue 字符串负载用 x_as_str；其它标签走格式化。
-        let func = if is_xvalue(&op_ty) || is_xvalue(&ty) {
+        let func = if is_xvalue_repr(&op_ty) {
             "x_as_str"
         } else {
             "x_to_str"
@@ -2029,10 +2095,10 @@ impl<'ctx> FunctionLowerer<'ctx> {
                         .unwrap_or_else(|| value_ty.clone()),
                     _ => value_ty.clone(),
                 };
-                let boxed = if is_xvalue(&op_ty) || is_xvalue(&value_ty) {
+                let boxed = if is_xvalue_repr(&op_ty) {
                     value_op.clone()
                 } else {
-                    self.box_scalar(value_op.clone(), &value_ty)
+                    self.box_scalar(value_op.clone(), &op_ty)
                 };
                 if matches!(idx_ty, MirType::String)
                     || !matches!(idx_ty, MirType::Int(_) | MirType::Unknown | MirType::Char)
@@ -2763,9 +2829,20 @@ fn infer_expr_type(
             }
             MirType::Unknown
         }
-        HirExpression::Call(callee, _) => match callee.as_ref() {
+        HirExpression::Call(callee, args) => match callee.as_ref() {
             HirExpression::Variable(name) => {
                 if name == "__index__" {
+                    // `buffer[i]` on a raw C string lowers to ArrayAccess and
+                    // yields a char; other collections stay boxed XValue.
+                    if let Some(coll) = args.first() {
+                        let ct = infer_expr_type(coll, ctx, locals);
+                        if matches!(
+                            &ct,
+                            MirType::Pointer(inner) if matches!(inner.as_ref(), MirType::Char)
+                        ) {
+                            return MirType::Char;
+                        }
+                    }
                     xvalue_ty()
                 } else if let Some(rt) = ctx.functions.get(name) {
                     rt.clone()

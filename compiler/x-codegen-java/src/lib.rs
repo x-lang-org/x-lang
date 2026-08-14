@@ -46,6 +46,8 @@ pub struct JavaBackend {
     buffer: x_codegen::CodeBuffer,
     /// 变量类型映射（用于在赋值时插入类型转换）
     var_types: std::collections::HashMap<String, String>,
+    /// 是否正在发射 main 函数体（决定 Return 的形态：void 方法内只能 return;）
+    in_main_body: bool,
 }
 
 pub type JavaResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -56,6 +58,7 @@ impl JavaBackend {
             config,
             buffer: x_codegen::CodeBuffer::new(),
             var_types: std::collections::HashMap::new(),
+            in_main_body: false,
         }
     }
 
@@ -85,6 +88,15 @@ impl JavaBackend {
             Some(ty) => ty.as_str(),
             None => return value_str.to_string(),
         };
+        // boolean -> numeric: the LIR may assign a Bool temp to a Long slot
+        // (e.g. `let mutable running = true` lowered with a Long-typed var).
+        if matches!(target_ty, "long" | "int" | "short" | "byte" | "double" | "float") {
+            if let Some(vty) = self.var_types.get(value_str) {
+                if vty == "boolean" {
+                    return format!("({} ? 1L : 0L)", value_str);
+                }
+            }
+        }
         // If the value is already a function call that returns the right type, no cast needed.
         // Heuristic: if value_str starts with x_struct_get_xvalue, it returns XValue.
         if value_str.starts_with("x_struct_get_xvalue(") {
@@ -108,6 +120,38 @@ impl JavaBackend {
             }
         }
         value_str.to_string()
+    }
+
+    /// True when a LIR expression statically represents a Java String
+    /// (C string / char*): string literals, String-typed variables, or casts
+    /// to Pointer(Char).
+    fn is_string_operand(&self, e: &x_lir::Expression) -> bool {
+        use x_lir::Expression;
+        match e {
+            Expression::Literal(x_lir::Literal::String(_)) => true,
+            Expression::Variable(n) => self
+                .var_types
+                .get(n)
+                .map(|t| t == "String")
+                .unwrap_or(false),
+            Expression::Cast(ty, _) => matches!(
+                Self::peel_qualified(ty),
+                x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char)
+            ),
+            Expression::Call(callee, _) => matches!(
+                callee.as_ref(),
+                Expression::Variable(n)
+                    if matches!(n.as_str(), "x_as_str" | "string_substring" | "string_trim" | "string_to_upper" | "string_to_lower" | "x_str_concat" | "compute_pi_digits" | "regex_replace_all" | "string_split")
+            ),
+            _ => false,
+        }
+    }
+
+    fn peel_qualified(ty: &x_lir::Type) -> &x_lir::Type {
+        match ty {
+            x_lir::Type::Qualified(_, inner) => Self::peel_qualified(inner),
+            other => other,
+        }
     }
 
     /// 获取当前输出
@@ -138,12 +182,13 @@ static XValue x_from_str(String s) { XValue x = new XValue(); x.tag = 4; x.paylo
 static XValue x_from_ptr(Object p) { XValue x = new XValue(); x.tag = 5; x.payload0 = p; return x; }
 
 // Opaque heap allocation for class/struct construction.
-static XValue malloc(long n) { return x_from_ptr(new HashMap<String, Object>()); }
-static void free(XValue p) {}
+static XValue malloc(long n) { return x_from_ptr(new java.util.HashMap<String, Object>()); }
+static void free(Object p) {}
 
 // Helper to convert a value to XValue (for struct field assignment).
 static XValue x_from_value(Object v) {
     if (v instanceof XValue) return (XValue) v;
+    if (v instanceof Double || v instanceof Float) return x_from_double(((Number) v).doubleValue());
     if (v instanceof Number) return x_from_int(((Number) v).longValue());
     if (v instanceof Boolean) return x_from_bool(((Boolean) v) ? 1L : 0L);
     if (v != null) return x_from_str(v.toString());
@@ -153,8 +198,8 @@ static XValue x_from_value(Object v) {
 // Struct field access helpers (XValue payload0 is a Map for struct types).
 @SuppressWarnings("unchecked")
 static Object x_struct_get(XValue v, String field) {
-    if (v == null || v.payload0 == null || !(v.payload0 instanceof Map)) return x_from_int(0);
-    Map<String, Object> map = (Map<String, Object>) v.payload0;
+    if (v == null || v.payload0 == null || !(v.payload0 instanceof java.util.Map)) return x_from_int(0);
+    java.util.Map<String, Object> map = (java.util.Map<String, Object>) v.payload0;
     Object val = map.get(field);
     return val != null ? val : x_from_int(0);
 }
@@ -176,15 +221,18 @@ static XValue x_struct_get_xvalue(XValue v, String field) {
 @SuppressWarnings("unchecked")
 static void x_struct_set(XValue v, String field, XValue val) {
     if (v == null) return;
-    if (!(v.payload0 instanceof Map)) {
-        v.payload0 = new HashMap<String, Object>();
+    if (!(v.payload0 instanceof java.util.Map)) {
+        v.payload0 = new java.util.HashMap<String, Object>();
     }
-    ((Map<String, Object>) v.payload0).put(field, val);
+    ((java.util.Map<String, Object>) v.payload0).put(field, val);
 }
 
 static XValue x_list_new() { XValue x = new XValue(); x.tag = 6; x.payload0 = new ArrayList<XValue>(); return x; }
 @SuppressWarnings("unchecked")
-static void x_list_push(XValue l, XValue item) { ((ArrayList<XValue>) l.payload0).add(item); }
+// Returns the list so `t = array_push(...)` assignments compile (the LIR
+// treats push as an expression; Java cannot assign a void call).
+static XValue x_list_push(XValue l, XValue item) { ((ArrayList<XValue>) l.payload0).add(item); return l; }
+static XValue array_push(XValue l, XValue item) { return x_list_push(l, item); }
 @SuppressWarnings("unchecked")
 static XValue x_list_get(XValue l, long i) {
     ArrayList<XValue> arr = (ArrayList<XValue>) l.payload0;
@@ -257,10 +305,22 @@ static String x_str_concat(Object a, Object b) {
 static void x_print(XValue v) { System.out.println(x_fmt_value(v)); }
 static void x_print_inline(XValue v) { System.out.print(x_fmt_value(v)); }
 static void x_print_newline() { System.out.println(); }
-// __index__ is the desugared target of `a[i]` indexing.
-static XValue __index__(XValue a, long i) {
+// __index__ is the desugared target of `a[i]` indexing. Accepts Object so
+// both XValue lists and raw Strings (C strings) can be indexed.
+static XValue __index__(Object a, long i) {
     if (a == null) return x_from_int(0);
-    if (a.tag == 6) return x_list_get(a, i);
+    if (a instanceof String) {
+        String s = (String) a;
+        if (i >= 0 && i < s.length()) return x_from_char(s.charAt((int) i));
+        return x_from_str("");
+    }
+    XValue x = (XValue) a;
+    if (x.tag == 6) return x_list_get(x, i);
+    if (x.tag == 4) {
+        String s = (String) x.payload0;
+        if (i >= 0 && i < s.length()) return x_from_char(s.charAt((int) i));
+        return x_from_str("");
+    }
     return x_from_int(0);
 }
 static int strlen(String s) { return s == null ? 0 : s.length(); }
@@ -269,6 +329,85 @@ static double floor(double x) { return Math.floor(x); }
 static double ceil(double x) { return Math.ceil(x); }
 static double fabs(double x) { return Math.abs(x); }
 static double pow(double x, double y) { return Math.pow(x, y); }
+
+// getline: read a line from stdin. The String buffer argument is immutable,
+// so the line is stashed in a static and indexed via __x_buf_char (the codegen
+// routes `buffer[i]` on char* through it, falling back to the stash).
+static java.io.BufferedReader __x_reader = null;
+static String __x_line = null;
+static long getline(Object line, Object size, Object stream) {
+    try {
+        if (__x_reader == null) __x_reader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+        __x_line = __x_reader.readLine();
+        return __x_line == null ? -1 : __x_line.length();
+    } catch (Exception e) {
+        return -1;
+    }
+}
+static char __x_buf_char(String s, long i) {
+    String src = s != null ? s : __x_line;
+    if (src == null) return '\0';
+    return (i >= 0 && i < src.length()) ? src.charAt((int) i) : '\0';
+}
+
+// compute_pi_digits: Rabinowitz-Wagon, ported from xrt.c.
+static String compute_pi_digits(long n) {
+    if (n <= 0) return "";
+    long want = n + 1;
+    int len = (int) ((10 * want) / 3 + 2);
+    int[] a = new int[len];
+    java.util.Arrays.fill(a, 2);
+    StringBuilder buf = new StringBuilder();
+    int produced = 0;
+    int nines = 0;
+    int predigit = 0;
+    while (produced < want) {
+        long q = 0;
+        for (int i = len - 1; i >= 0; i--) {
+            long x = 10L * a[i] + q * (i + 1);
+            a[i] = (int) (x % (2 * i + 1));
+            q = x / (2 * i + 1);
+        }
+        a[0] = (int) (q % 10);
+        q = q / 10;
+        if (q == 9) {
+            nines++;
+        } else if (q == 10) {
+            buf.append((char) ('0' + predigit + 1));
+            produced++;
+            for (int k = 0; k < nines && produced < want; k++) { buf.append('0'); produced++; }
+            predigit = 0;
+            nines = 0;
+        } else {
+            buf.append((char) ('0' + predigit));
+            produced++;
+            predigit = (int) q;
+            for (int k = 0; k < nines && produced < want; k++) { buf.append('9'); produced++; }
+            nines = 0;
+        }
+    }
+    return buf.substring(1);
+}
+
+static long regex_match_count(String text, String pattern) {
+    if (text == null || pattern == null) return 0;
+    try {
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile(pattern).matcher(text);
+        long c = 0;
+        while (m.find()) c++;
+        return c;
+    } catch (Exception e) {
+        return 0;
+    }
+}
+static String regex_replace_all(String text, String pattern, String replacement) {
+    if (text == null || pattern == null) return text;
+    try {
+        return text.replaceAll(pattern, replacement);
+    } catch (Exception e) {
+        return text;
+    }
+}
 // --- end X runtime ---
 "#;
         for l in PRELUDE.lines() {
@@ -300,7 +439,10 @@ static double pow(double x, double y) { return Math.pow(x, y); }
                     // Pointers to named types (classes/structs) are represented as XValue.
                     "XValue".to_string()
                 } else {
-                    format!("{}[]", self.lir_type_to_java(inner))
+                    // All remaining pointer forms (`void*`, `char**`, `*CSize`, ...)
+                    // are extern-shim handles with no sensible Java array type;
+                    // use Object.
+                    "Object".to_string()
                 }
             }
             Array(inner, _) => format!("{}[]", self.lir_type_to_java(inner)),
@@ -367,7 +509,30 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             return Ok(());
         }
 
+        // Runtime-provided shims (emitted in the PRELUDE) must not be generated
+        // again from their LIR declarations; the prelude versions have the
+        // correct Java signatures/return types (e.g. array_push returns XValue).
+        const RUNTIME_PROVIDED: &[&str] = &[
+            "x_from_int", "x_from_double", "x_from_bool", "x_from_char", "x_from_str",
+            "x_from_ptr", "malloc", "free", "x_from_value", "x_struct_get",
+            "x_struct_get_long", "x_struct_get_xvalue", "x_struct_set", "x_list_new",
+            "x_list_push", "array_push", "x_list_get", "x_list_set", "x_list_len",
+            "x_map_new", "x_as_int", "x_as_double", "x_as_bool", "x_as_str", "x_as_ptr",
+            "_x_fmt_double", "x_fmt_value", "x_to_str", "x_str_concat", "x_print",
+            "x_print_inline", "x_print_newline", "__index__", "strlen", "sqrt", "floor",
+            "ceil", "fabs", "pow", "getline", "__x_buf_char", "compute_pi_digits",
+            "regex_match_count", "regex_replace_all",
+        ];
+        if RUNTIME_PROVIDED.contains(&func.name.as_str()) {
+            return Ok(());
+        }
+
         let ret = self.lir_type_to_java(&func.return_type);
+        // Track parameter types so string comparisons/assignments involving
+        // parameters (e.g. `if c == "A"` in complement) use equals/compareTo.
+        for p in &func.parameters {
+            self.var_types.insert(p.name.clone(), self.lir_type_to_java(&p.type_));
+        }
         let params: Vec<String> = func
             .parameters
             .iter()
@@ -782,15 +947,32 @@ static double pow(double x, double y) { return Math.pow(x, y); }
                 self.line(&format!("{};", s))?;
             }
             Variable(v) => {
-                let ty = self.lir_type_to_java(&v.type_);
+                // Void temporaries cannot be declared in Java; use Object.
+                let ty = if matches!(v.type_, x_lir::Type::Void) {
+                    "Object".to_string()
+                } else {
+                    self.lir_type_to_java(&v.type_)
+                };
                 // Track the variable type for later casts.
                 self.var_types.insert(v.name.clone(), ty.clone());
+                // Java definite-assignment: uninitialized locals must still be
+                // provably assigned before use, so give every declaration a
+                // type-appropriate default.
+                let default = match ty.as_str() {
+                    "boolean" => "false".to_string(),
+                    "char" => "Character.MIN_VALUE".to_string(),
+                    "int" | "short" | "byte" => "0".to_string(),
+                    "long" => "0L".to_string(),
+                    "float" => "0f".to_string(),
+                    "double" => "0.0".to_string(),
+                    _ => "null".to_string(),
+                };
                 if v.is_static {
                     if let Some(init) = &v.initializer {
                         let init_str = self.emit_lir_expr(init)?;
                         self.line(&format!("static {} {} = {};", ty, v.name, init_str))?;
                     } else {
-                        self.line(&format!("static {} {};", ty, v.name))?;
+                        self.line(&format!("static {} {} = {};", ty, v.name, default))?;
                     }
                 } else if v.is_extern {
                     self.line(&format!("/* extern */ {} {};", ty, v.name))?;
@@ -798,7 +980,7 @@ static double pow(double x, double y) { return Math.pow(x, y); }
                     let init_str = self.emit_lir_expr(init)?;
                     self.line(&format!("{} {} = {};", ty, v.name, init_str))?;
                 } else {
-                    self.line(&format!("{} {};", ty, v.name))?;
+                    self.line(&format!("{} {} = {};", ty, v.name, default))?;
                 }
             }
             If(i) => {
@@ -887,7 +1069,10 @@ static double pow(double x, double y) { return Math.pow(x, y); }
                 self.line("}")?;
             }
             Return(r) => {
-                if let Some(e) = r {
+                if self.in_main_body {
+                    // Java main is void: nested returns in main drop the value.
+                    self.line("return;")?;
+                } else if let Some(e) = r {
                     let val = self.emit_lir_expr(e)?;
                     self.line(&format!("return {};", val))?;
                 } else {
@@ -1100,6 +1285,24 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             Binary(op, l, r) => {
                 let left = self.emit_lir_expr(l)?;
                 let right = self.emit_lir_expr(r)?;
+                // String comparisons: `==`/`<` are reference/numeric in Java;
+                // use equals/compareTo for string content semantics.
+                if self.is_string_operand(l) && self.is_string_operand(r) {
+                    use x_lir::BinaryOp::*;
+                    let cmp = match op {
+                        Equal => format!("java.util.Objects.equals({}, {})", left, right),
+                        NotEqual => format!("!java.util.Objects.equals({}, {})", left, right),
+                        Less => format!("({}).compareTo({}) < 0", left, right),
+                        LessEqual => format!("({}).compareTo({}) <= 0", left, right),
+                        Greater => format!("({}).compareTo({}) > 0", left, right),
+                        GreaterEqual => format!("({}).compareTo({}) >= 0", left, right),
+                        _ => {
+                            let op_str = self.map_lir_binop(op);
+                            format!("({} {} {})", left, op_str, right)
+                        }
+                    };
+                    return Ok(cmp);
+                }
                 let op_str = self.map_lir_binop(op);
                 Ok(format!("({} {} {})", left, op_str, right))
             }
@@ -1158,18 +1361,14 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             Assign(target, value) => {
                 let value_str = self.emit_lir_expr(value)?;
                 // Check if target is a member access (x_struct_get)
-                println!("DEBUG: target = {:?}", target);
                 if let x_lir::Expression::Member(obj, field) = target.as_ref() {
-                    println!("DEBUG: matched Member");
                     let obj_str = self.emit_lir_expr(obj)?;
                     return Ok(format!("x_struct_set({}, \"{}\", {})", obj_str, field, value_str));
                 }
                 if let x_lir::Expression::PointerMember(obj, field) = target.as_ref() {
-                    println!("DEBUG: matched PointerMember");
                     let obj_str = self.emit_lir_expr(obj)?;
                     return Ok(format!("x_struct_set({}, \"{}\", {})", obj_str, field, value_str));
                 }
-                println!("DEBUG: no match, target = {:?}", target);
                 // Check if target is a member access that was already emitted as x_struct_get
                 let target_str = self.emit_lir_expr(target)?;
                 if target_str.starts_with("x_struct_get(") {
@@ -1218,6 +1417,14 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             Index(arr, idx) => {
                 let arr_str = self.emit_lir_expr(arr)?;
                 let idx_str = self.emit_lir_expr(idx)?;
+                // Raw C-string byte access (`buffer[i]` on a char*): Java
+                // strings index via the __x_buf_char helper, which falls back to
+                // the getline stash when the variable is null (immutable buffer).
+                if let x_lir::Expression::Variable(n) = arr.as_ref() {
+                    if self.var_types.get(n).map(|t| t == "String").unwrap_or(false) {
+                        return Ok(format!("__x_buf_char({}, (long) ({}))", arr_str, idx_str));
+                    }
+                }
                 Ok(format!("{}[{}]", arr_str, idx_str))
             }
             AddressOf(inner) => {
@@ -1296,7 +1503,21 @@ static double pow(double x, double y) { return Math.pow(x, y); }
             UnsignedInteger(n) | UnsignedLong(n) | UnsignedLongLong(n) => Ok(format!("{}L", n)),
             Float(f) | Double(f) => Ok(f.to_string()),
             String(s) => Ok(format!("\"{}\"", s)),
-            Char(c) => Ok(format!("'{}'", c)),
+            Char(c) => {
+                // Escape control characters so the emitted char literal stays
+                // on one line (e.g. '\n' must become '\\n').
+                let esc = match c {
+                    '\n' => "\\n".to_string(),
+                    '\t' => "\\t".to_string(),
+                    '\r' => "\\r".to_string(),
+                    '\0' => "\\0".to_string(),
+                    '\'' => "\\'".to_string(),
+                    '\\' => "\\\\".to_string(),
+                    c if c.is_control() => format!("\\u{:04x}", *c as u32),
+                    c => c.to_string(),
+                };
+                Ok(format!("'{}'", esc))
+            }
             Bool(b) => Ok(b.to_string()),
             NullPointer => Ok("null".to_string()),
         }
@@ -1422,6 +1643,7 @@ static double pow(double x, double y) { return Math.pow(x, y); }
         self.line("public static void main(String[] args) {")?;
         self.indent();
 
+        self.in_main_body = true;
         if let Some(main_fn) = main_function {
             // 内联 main 函数的代码
             let mut has_output = false;

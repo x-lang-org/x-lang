@@ -73,6 +73,16 @@ pub struct RustBackend {
     /// Names of extern functions already emitted, to avoid duplicate `extern`
     /// blocks (the LIR prelude declares each runtime function twice).
     emitted_externs: std::collections::HashSet<String>,
+    /// Extern signatures: name -> (parameter types, return type). Used to wrap
+    /// Rust `String` arguments into C strings and unwrap C-string results.
+    extern_sigs: std::collections::HashMap<String, (Vec<x_lir::Type>, x_lir::Type)>,
+    /// Variable name -> Rust type, recorded at declaration. Used to cast
+    /// `x_as_ptr(...)` results to the target pointer type at assignment.
+    var_rust_types: std::collections::HashMap<String, String>,
+    /// Struct name -> field name -> Rust type (for String field clones).
+    struct_field_types: std::collections::HashMap<String, std::collections::HashMap<String, String>>,
+    /// Name of the function currently being generated (main returns ()).
+    current_fn: String,
 }
 
 pub type RustResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -92,6 +102,10 @@ impl RustBackend {
             global_local_inits: Vec::new(),
             string_vars: std::collections::HashSet::new(),
             emitted_externs: std::collections::HashSet::new(),
+            extern_sigs: std::collections::HashMap::new(),
+            var_rust_types: std::collections::HashMap::new(),
+            struct_field_types: std::collections::HashMap::new(),
+            current_fn: String::new(),
         }
     }
 
@@ -112,6 +126,70 @@ impl RustBackend {
                 matches!(callee.as_ref(), x_lir::Expression::Variable(n) if n == "format")
             }
             _ => false,
+        }
+    }
+
+    /// True when `field` of the struct behind `base` is a Rust String.
+    fn field_is_string(&self, base: &x_lir::Expression, field: &str) -> bool {
+        use x_lir::Expression;
+        let struct_name = match base {
+            Expression::Variable(n) => {
+                let ty = self.var_rust_types.get(n).cloned().unwrap_or_default();
+                if let Some(stripped) = ty.strip_prefix("*mut ") {
+                    stripped.to_string()
+                } else {
+                    ty
+                }
+            }
+            Expression::Cast(ty, _) => {
+                if let x_lir::Type::Pointer(inner) = Self::peel_quals(ty) {
+                    if let x_lir::Type::Named(n) = inner.as_ref() {
+                        return self
+                            .struct_field_types
+                            .get(n)
+                            .and_then(|m| m.get(field))
+                            .map(|t| t == "String")
+                            .unwrap_or(false);
+                    }
+                }
+                return false;
+            }
+            _ => return false,
+        };
+        self.struct_field_types
+            .get(&struct_name)
+            .and_then(|m| m.get(field))
+            .map(|t| t == "String")
+            .unwrap_or(false)
+    }
+
+    /// True when a LIR expression statically represents an f64/f32 value.
+    fn expr_is_float(&self, e: &x_lir::Expression) -> bool {
+        use x_lir::Expression;
+        match e {
+            Expression::Literal(x_lir::Literal::Float(_)) | Expression::Literal(x_lir::Literal::Double(_)) => true,
+            Expression::Variable(n) => self
+                .var_rust_types
+                .get(n)
+                .map(|t| t == "f64" || t == "f32")
+                .unwrap_or(false),
+            Expression::Cast(ty, _) => Self::is_float_ty(Self::peel_quals(ty)),
+            Expression::Call(callee, _) => matches!(
+                callee.as_ref(),
+                Expression::Variable(n) if matches!(n.as_str(), "x_as_double" | "sqrt" | "floor" | "ceil" | "fabs" | "pow")
+            ),
+            Expression::Unary(x_lir::UnaryOp::Minus, inner) => self.expr_is_float(inner),
+            Expression::Binary(x_lir::BinaryOp::Add | x_lir::BinaryOp::Subtract | x_lir::BinaryOp::Multiply | x_lir::BinaryOp::Divide, l, r) => {
+                self.expr_is_float(l) || self.expr_is_float(r)
+            }
+            _ => false,
+        }
+    }
+
+    fn peel_quals(ty: &x_lir::Type) -> &x_lir::Type {
+        match ty {
+            x_lir::Type::Qualified(_, inner) => Self::peel_quals(inner),
+            other => other,
         }
     }
 
@@ -403,6 +481,44 @@ cc = "1.0"
         matches!(name, "println" | "print" | "panic" | "assert" | "enumerate")
     }
 
+    fn is_int_ty(ty: &x_lir::Type) -> bool {
+        matches!(
+            ty,
+            x_lir::Type::Int
+                | x_lir::Type::Long
+                | x_lir::Type::LongLong
+                | x_lir::Type::Uint
+                | x_lir::Type::Ulong
+                | x_lir::Type::UlongLong
+                | x_lir::Type::Char
+                | x_lir::Type::Bool
+                | x_lir::Type::CInt
+                | x_lir::Type::Short
+                | x_lir::Type::Ushort
+                | x_lir::Type::Schar
+                | x_lir::Type::Uchar
+        )
+    }
+
+    fn is_float_ty(ty: &x_lir::Type) -> bool {
+        matches!(
+            ty,
+            x_lir::Type::Float | x_lir::Type::Double | x_lir::Type::LongDouble
+        )
+    }
+
+    /// True for C-string types (`char*` / `const char*`), possibly qualified.
+    fn is_cstr_ty(ty: &x_lir::Type) -> bool {
+        let unqualified = match ty {
+            x_lir::Type::Qualified(_, inner) => inner.as_ref(),
+            other => other,
+        };
+        matches!(
+            unqualified,
+            x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char)
+        )
+    }
+
     /// Emit correct Rust implementations for X builtin functions that cannot be
     /// faithfully lowered from LIR.
     fn emit_runtime_preamble(&mut self) -> RustResult<()> {
@@ -410,6 +526,27 @@ cc = "1.0"
         self.line("fn panic(message: impl std::fmt::Display) -> ! { eprintln!(\"{}\", message); std::process::abort(); }")?;
         self.line("fn assert(condition: bool) { if !condition { eprintln!(\"assertion failed\"); std::process::abort(); } }")?;
         self.line("fn enumerate<T>(items: Vec<T>) -> Vec<(i64, T)> { items.into_iter().enumerate().map(|(i, x)| (i as i64, x)).collect() }")?;
+        // stdin shim for std.io read_line: POSIX getline semantics (returns the
+        // line length INCLUDING the trailing newline, or -1 at EOF), storing the
+        // line so __x_buf_char can index it (Rust Strings are not indexable).
+        self.line("static mut __X_LINE: String = String::new();")?;
+        self.line("fn __x_getline() -> i64 {")?;
+        self.indent();
+        self.line("use std::io::BufRead;")?;
+        self.line("let mut line = String::new();")?;
+        self.line("let n = std::io::stdin().lock().read_line(&mut line).unwrap_or(0);")?;
+        self.line("if n == 0 { return -1; }")?;
+        self.line("unsafe { __X_LINE = line; }")?;
+        self.line("n as i64")?;
+        self.dedent();
+        self.line("}")?;
+        self.line("fn __x_buf_char(s: &String, i: i64) -> i64 {")?;
+        self.indent();
+        self.line("let src: &String = if !s.is_empty() { s } else { unsafe { &__X_LINE } };")?;
+        self.line("let bytes = src.as_bytes();")?;
+        self.line("if i >= 0 && (i as usize) < bytes.len() { bytes[i as usize] as i64 } else { 0 }")?;
+        self.dedent();
+        self.line("}")?;
         // Opaque handle type for the boxed runtime value `XValue` from xrt.c.
         // The runtime only ever passes it around by pointer, so an empty
         // enum / trait object placeholder is enough for type-correctness.
@@ -482,6 +619,7 @@ cc = "1.0"
 
     /// Generate function from LIR
     fn generate_lir_function(&mut self, func: &x_lir::Function) -> RustResult<()> {
+        self.current_fn = func.name.clone();
         // Skip builtins handled by the runtime preamble / call-site macro lowering.
         if Self::is_skipped_builtin(&func.name) {
             return Ok(());
@@ -494,6 +632,10 @@ cc = "1.0"
         };
 
         // Build parameters
+        for param in &func.parameters {
+            self.var_rust_types
+                .insert(param.name.clone(), self.lir_type_to_rust(&param.type_));
+        }
         let params: Vec<String> = func
             .parameters
             .iter()
@@ -539,6 +681,15 @@ cc = "1.0"
                 self.track_string_var(&name, &init);
                 let rhs = self.generate_assign_rhs(&init)?;
                 self.declared_locals.insert(name.clone());
+                // A deferred String temp whose first value is null (raw buffer)
+                // must still be a String, not an inferred raw pointer.
+                let rhs = if rhs == "std::ptr::null_mut()"
+                    && self.var_rust_types.get(&name).map(|t| t == "String").unwrap_or(false)
+                {
+                    "String::new()".to_string()
+                } else {
+                    rhs
+                };
                 self.line(&format!("let mut {} = {};", name, rhs))?;
             }
             for name in self.globals_as_locals.clone() {
@@ -655,7 +806,7 @@ cc = "1.0"
     fn default_value_for_type(ty: &x_lir::Type) -> String {
         match ty {
             x_lir::Type::Bool => "false".to_string(),
-            x_lir::Type::Char => "'\\0'".to_string(),
+            x_lir::Type::Char => "0i64".to_string(),
             x_lir::Type::Float | x_lir::Type::Double | x_lir::Type::LongDouble => "0.0".to_string(),
             x_lir::Type::Schar
             | x_lir::Type::Uchar
@@ -671,6 +822,11 @@ cc = "1.0"
             | x_lir::Type::Ptrdiff
             | x_lir::Type::Intptr
             | x_lir::Type::Uintptr => "0".to_string(),
+            // X strings are owned Rust Strings: an uninitialized String temp
+            // must default to String::new(), not a raw null pointer.
+            x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char) => {
+                "String::new()".to_string()
+            }
             x_lir::Type::Pointer(_) => "std::ptr::null_mut()".to_string(),
             x_lir::Type::Array(_, None) => "Vec::new()".to_string(),
             x_lir::Type::Array(inner, Some(n)) => {
@@ -689,10 +845,13 @@ cc = "1.0"
         self.line(&format!("pub struct {} {{", struct_.name))?;
         self.indent();
 
+        let mut field_tys = std::collections::HashMap::new();
         for field in &struct_.fields {
             let ty = self.lir_type_to_rust(&field.type_);
+            field_tys.insert(field.name.clone(), ty.clone());
             self.line(&format!("pub {}: {},", field.name, ty))?;
         }
+        self.struct_field_types.insert(struct_.name.clone(), field_tys);
 
         self.dedent();
         self.line("}")?;
@@ -930,15 +1089,50 @@ cc = "1.0"
             format!("<{}>", ext.type_params.join(", "))
         };
 
+        // Record the signature so call sites can wrap String args into C
+        // strings and unwrap C-string results.
+        self.extern_sigs.insert(
+            ext.name.clone(),
+            (ext.parameters.clone(), ext.return_type.clone()),
+        );
+
+        // C-string ABI: X strings are owned Rust `String`s, but the C runtime
+        // takes/returns `*const c_char`; declare the extern with the raw pointer
+        // type and convert at call sites.
+        fn cstr_ty(ty: &x_lir::Type) -> String {
+            match ty {
+                x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char) => {
+                    "*const std::ffi::c_char".to_string()
+                }
+                x_lir::Type::Qualified(_, inner) => cstr_ty(inner),
+                other => other.to_string(),
+            }
+        }
+
         // Parameters are just types, generate with numbered names
         let params: Vec<String> = ext
             .parameters
             .iter()
             .enumerate()
-            .map(|(i, ty)| format!("arg{}: {}", i, self.lir_type_to_rust(ty)))
+            .map(|(i, ty)| {
+                let rust_ty = self.lir_type_to_rust(ty);
+                // C-string parameters must be declared as raw pointers.
+                let declared = if Self::is_cstr_ty(ty) {
+                    "*const std::ffi::c_char".to_string()
+                } else {
+                    rust_ty
+                };
+                format!("arg{}: {}", i, declared)
+            })
             .collect();
 
         let return_type = self.lir_type_to_rust(&ext.return_type);
+        // C-string returns are declared as raw pointers; call sites convert.
+        let return_type = if Self::is_cstr_ty(&ext.return_type) {
+            "*const std::ffi::c_char".to_string()
+        } else {
+            return_type
+        };
         self.line(&format!("#[link(name = \"{}\")]", abi.to_lowercase()))?;
         self.line(&format!("extern \"{}\" {{", abi_display))?;
         self.indent();
@@ -1008,6 +1202,15 @@ cc = "1.0"
                 self.track_string_var(&name, value);
                 let rhs = self.generate_assign_rhs(value)?;
                 self.declared_locals.insert(name.clone());
+                // A deferred String temp whose first value is null (raw buffer)
+                // must still be a String, not an inferred raw pointer.
+                let rhs = if rhs == "std::ptr::null_mut()"
+                    && self.var_rust_types.get(&name).map(|t| t == "String").unwrap_or(false)
+                {
+                    "String::new()".to_string()
+                } else {
+                    rhs
+                };
                 self.line(&format!("let mut {} = {};", name, rhs))?;
             }
             x_lir::Statement::Expression(expr) => {
@@ -1015,11 +1218,12 @@ cc = "1.0"
                 self.line(&format!("{};", code))?;
             }
             x_lir::Statement::Variable(var) => {
+                let ty = self.lir_type_to_rust(&var.type_);
+                self.var_rust_types.insert(var.name.clone(), ty.clone());
                 if self.deferred_locals.contains(&var.name) && var.initializer.is_none() {
                     // Declaration deferred to first assignment.
                     return Ok(());
                 }
-                let ty = self.lir_type_to_rust(&var.type_);
 
                 if var.is_extern {
                     let _ = self.line(&format!("let {}: {};", var.name, ty));
@@ -1034,7 +1238,11 @@ cc = "1.0"
                     let _ = self.line(&decl);
                 } else if let Some(init) = &var.initializer {
                     self.track_string_var(&var.name, init);
-                    let init_code = self.generate_lir_expression(init)?;
+                    let mut init_code = self.generate_lir_expression(init)?;
+                    // `null` initializers on String temps must become String::new().
+                    if Self::is_cstr_ty(&var.type_) && init_code == "std::ptr::null_mut()" {
+                        init_code = "String::new()".to_string();
+                    }
                     let _ = self.line(&format!("let mut {} = {};", var.name, init_code));
                 } else {
                     // Uninitialized local: provide a type-appropriate default so it
@@ -1098,7 +1306,10 @@ cc = "1.0"
                 self.line("}")?;
             }
             x_lir::Statement::Return(opt_expr) => {
-                if let Some(expr) = opt_expr {
+                if self.current_fn == "main" {
+                    // Rust main returns (): nested returns drop the value.
+                    self.line("return;")?;
+                } else if let Some(expr) = opt_expr {
                     let code = self.generate_lir_expression(expr)?;
                     self.line(&format!("return {};", code))?;
                 } else {
@@ -1415,6 +1626,24 @@ cc = "1.0"
                     x_lir::BinaryOp::LogicalAnd => "&&",
                     x_lir::BinaryOp::LogicalOr => "||",
                 };
+                // Float arithmetic: Rust requires both operands to be f64;
+                // cast when one side is float (no-op when both already f64).
+                let lhs_float = self.expr_is_float(left);
+                let rhs_float = self.expr_is_float(right);
+                if (lhs_float || rhs_float)
+                    && matches!(
+                        op,
+                        x_lir::BinaryOp::Add
+                            | x_lir::BinaryOp::Subtract
+                            | x_lir::BinaryOp::Multiply
+                            | x_lir::BinaryOp::Divide
+                            | x_lir::BinaryOp::Modulo
+                    )
+                {
+                    let lc = format!("({} as f64)", left_code);
+                    let rc = format!("({} as f64)", right_code);
+                    return Ok(format!("({} {} {})", lc, op_str, rc));
+                }
                 Ok(format!("{} {} {}", left_code, op_str, right_code))
             }
             x_lir::Expression::Ternary(cond, then, else_) => {
@@ -1436,7 +1665,75 @@ cc = "1.0"
                 if Self::is_print_like_value(value) {
                     return Ok(rhs);
                 }
+                // Member/field assignment: emit `base.field = rhs` directly so the
+                // field access is not wrapped in a clone; String fields clone the
+                // RHS instead (moving it would break later uses).
+                if let x_lir::Expression::PointerMember(obj, field) = target.as_ref() {
+                    let obj_code = self.generate_lir_expression(obj)?;
+                    let rhs2 = if self.field_is_string(obj, field) {
+                        format!("({}).clone()", rhs)
+                    } else {
+                        rhs.clone()
+                    };
+                    return Ok(format!("(*{}).{} = {}", obj_code, field, rhs2));
+                }
+                if let x_lir::Expression::Member(obj, field) = target.as_ref() {
+                    let obj_code = self.generate_lir_expression(obj)?;
+                    let rhs2 = if self.field_is_string(obj, field) {
+                        format!("({}).clone()", rhs)
+                    } else {
+                        rhs.clone()
+                    };
+                    return Ok(format!("{}.{} = {}", obj_code, field, rhs2));
+                }
                 let target_code = self.generate_lir_expression(target)?;
+                // Plain variable-to-variable copy of a Rust `String`: the LIR
+                // emits SSA copies (`t41 = t10`) that are value copies in X,
+                // but Rust assignment would MOVE the String and break later uses.
+                // Clone the RHS so both variables stay live.
+                if let x_lir::Expression::Variable(_) = target.as_ref() {
+                    if self.expr_is_string(value)
+                        || matches!(value.as_ref(), x_lir::Expression::Variable(n) if self.var_rust_types.get(n).map(|t| t == "String").unwrap_or(false))
+                    {
+                        return Ok(format!("{} = {}.clone()", target_code, rhs));
+                    }
+                }
+                let target_code = self.generate_lir_expression(target)?;
+                // `x_as_ptr` returns `*mut ()`: cast it to the target variable's
+                // pointer type so field access compiles.
+                let rhs = if rhs.trim_start().starts_with("x_as_ptr(") {
+                    if let x_lir::Expression::Variable(name) = target.as_ref() {
+                        if let Some(ty) = self.var_rust_types.get(name) {
+                            if ty != "String" && ty != "()" {
+                                format!("({} as {})", rhs, ty)
+                            } else {
+                                rhs
+                            }
+                        } else {
+                            rhs
+                        }
+                    } else {
+                        rhs
+                    }
+                } else {
+                    rhs
+                };
+                // bool -> numeric: the LIR may assign a Bool temp to an int slot.
+                let rhs = if let x_lir::Expression::Variable(name) = target.as_ref() {
+                    let target_int = self
+                        .var_rust_types
+                        .get(name)
+                        .map(|t| matches!(t.as_str(), "i64" | "i32" | "i16" | "i8" | "u64" | "u32" | "usize" | "isize"))
+                        .unwrap_or(false);
+                    let value_is_bool = matches!(value.as_ref(), x_lir::Expression::Variable(v) if self.var_rust_types.get(v).map(|t| t == "bool").unwrap_or(false));
+                    if target_int && value_is_bool {
+                        format!("({} as i64)", rhs)
+                    } else {
+                        rhs
+                    }
+                } else {
+                    rhs
+                };
                 Ok(format!("{} = {}", target_code, rhs))
             }
             x_lir::Expression::AssignOp(op, target, value) => {
@@ -1477,11 +1774,11 @@ cc = "1.0"
                     // raw `*const char`. The CString must be bound to a local so
                     // it lives long enough for the pointer to be valid.
                     "x_from_str" => {
-                        // Emit as a separate expression; the caller wraps it in
-                        // a `let` binding, so we return a block expression that
-                        // keeps the CString alive for the duration of the call.
+                        // The boxed XValue outlives this expression, so the C
+                        // string must be leaked (mirrors the leaky xrt.c
+                        // allocations) rather than dropped at block end.
                         format!(
-                            "{{ let __x_cstr = CString::new({}).unwrap(); x_from_str(__x_cstr.as_ptr()) }}",
+                            "x_from_str(Box::leak(CString::new(&*{}).unwrap().into_boxed_c_str()).as_ptr())",
                             args_code.join(", ")
                         )
                     }
@@ -1499,22 +1796,112 @@ cc = "1.0"
                             args_code.join(", ")
                         )
                     }
-                    _ => format!("{}({})", callee_code, args_code.join(", ")),
+                    // String indexing: __index__(str, i) reads a byte of the X
+                    // string; the runtime helper falls back to the getline stash.
+                    "__index__" => {
+                        if !args_code.is_empty()
+                            && (self.expr_is_string(&args[0])
+                                || matches!(&args[0], x_lir::Expression::Variable(n) if self.var_rust_types.get(n).map(|t| t == "String").unwrap_or(false)))
+                        {
+                            format!("x_from_char(__x_buf_char(&{}, {}))", args_code[0], args_code.get(1).cloned().unwrap_or_default())
+                        } else {
+                            format!("{}({})", callee_code, args_code.join(", "))
+                        }
+                    }
+                    // free of X string buffers is a no-op (the runtime owns the line).
+                    "free" => "free(std::ptr::null_mut())".to_string(),
+                    // std.io read_line drives getline through a raw char** buffer
+                    // which Rust Strings cannot model; route to the runtime shim
+                    // that reads into a static stash.
+                    "getline" => "__x_getline()".to_string(),
+                    _ => {
+                        // Generated (non-extern) functions take String params by
+                        // value: clone String-typed variable args so reusing a
+                        // string across calls does not move it.
+                        if !self.extern_sigs.contains_key(callee_str) {
+                            let cloned: Vec<String> = args_code
+                                .iter()
+                                .zip(args.iter())
+                                .map(|(code, a)| {
+                                    let is_str = self.expr_is_string(a)
+                                        || matches!(a, x_lir::Expression::Variable(n) if self.var_rust_types.get(n).map(|t| t == "String").unwrap_or(false));
+                                    if is_str && matches!(a, x_lir::Expression::Variable(_)) {
+                                        format!("{}.clone()", code)
+                                    } else {
+                                        code.clone()
+                                    }
+                                })
+                                .collect();
+                            return Ok(format!("{}({})", callee_code, cloned.join(", ")));
+                        }
+                        // Extern call with known signature: wrap Rust String args
+                        // into C strings (with a block so the CStrings outlive the
+                        // call) and unwrap C-string returns into owned Strings.
+                        if let Some((param_tys, ret_ty)) = self.extern_sigs.get(callee_str) {
+                            let is_cstr = |t: &x_lir::Type| Self::is_cstr_ty(t);
+                            let mut binds = Vec::new();
+                            let mut call_args = Vec::new();
+                            for (i, (arg, pty)) in args_code.iter().zip(param_tys.iter()).enumerate() {
+                                if is_cstr(pty) {
+                                    binds.push(format!("__c{} = CString::new(&*{}).unwrap()", i, arg));
+                                    call_args.push(format!("__c{}.as_ptr()", i));
+                                } else if Self::is_int_ty(pty) {
+                                    // Cast to the extern integer width (no-op when already matching).
+                                    call_args.push(format!("({} as i64)", arg));
+                                } else if Self::is_float_ty(pty) {
+                                    call_args.push(format!("({} as f64)", arg));
+                                } else {
+                                    call_args.push(arg.clone());
+                                }
+                            }
+                            let call = format!("{}({})", callee_code, call_args.join(", "));
+                            if is_cstr(&ret_ty) {
+                                binds.push(format!("__r = {}", call));
+                                return Ok(format!(
+                                    "{{ let {}; CStr::from_ptr(__r).to_string_lossy().into_owned() }}",
+                                    binds.join("; let ")
+                                ));
+                            } else if !binds.is_empty() {
+                                return Ok(format!(
+                                    "{{ let {}; {} }}",
+                                    binds.join("; let "),
+                                    call
+                                ));
+                            }
+                        }
+                        format!("{}({})", callee_code, args_code.join(", "))
+                    }
                 };
                 Ok(result)
             }
             x_lir::Expression::Index(base, index) => {
                 let base_code = self.generate_lir_expression(base)?;
                 let index_code = self.generate_lir_expression(index)?;
+                // X strings cannot be indexed with `s[i]` in Rust; route raw
+                // char* byte access through the runtime helper (which falls back
+                // to the getline stash for std.io read_line buffers).
+                let base_is_string = self.expr_is_string(base)
+                    || matches!(base.as_ref(), x_lir::Expression::Variable(n) if self.var_rust_types.get(n).map(|t| t == "String").unwrap_or(false));
+                if base_is_string {
+                    return Ok(format!("__x_buf_char(&{}, {})", base_code, index_code));
+                }
                 Ok(format!("{}[{}]", base_code, index_code))
             }
             x_lir::Expression::Member(base, field) => {
                 let base_code = self.generate_lir_expression(base)?;
+                // String fields cannot be moved out (raw pointer structs).
+                if self.field_is_string(base, field) {
+                    return Ok(format!("{}.{}.clone()", base_code, field));
+                }
                 Ok(format!("{}.{}", base_code, field))
             }
             x_lir::Expression::PointerMember(base, field) => {
                 let base_code = self.generate_lir_expression(base)?;
                 // In Rust, raw pointers must be dereferenced before field access.
+                // String fields cannot be moved out of a raw-pointer struct.
+                if self.field_is_string(base, field) {
+                    return Ok(format!("(*{}).{}.clone()", base_code, field));
+                }
                 Ok(format!("(*{}).{}", base_code, field))
             }
             x_lir::Expression::AddressOf(inner) => {
@@ -1532,6 +1919,41 @@ cc = "1.0"
                 if matches!(ty, x_lir::Type::Pointer(p) if matches!(p.as_ref(), x_lir::Type::Char))
                 {
                     return Ok(format!("format!(\"{}\", {})", "{}", inner_code));
+                }
+                // `free(buffer as *())` on a String buffer: Rust cannot cast
+                // String to *mut (); the runtime shim owns the line, so null is
+                // the correct (no-op) pointer.
+                if matches!(
+                    ty,
+                    x_lir::Type::Pointer(p)
+                        if matches!(p.as_ref(), x_lir::Type::Void)
+                ) && self.expr_is_string(inner)
+                {
+                    return Ok("std::ptr::null_mut()".to_string());
+                }
+                // User structs whose fields include Rust `String` (24 bytes) are
+                // larger than the pointer-based `nfields * 8` size that MIR/LIR
+                // attach to `Alloc` (e.g. Entry { key: String, value: i64 } needs
+                // 32 bytes, not 16). Ask Rust for the true layout instead of trusting
+                // the LIR literal; writing past a `malloc(16)` allocation is UB
+                // that LLVM exploits by replacing the stores with `ud2` traps.
+                // Also zero the allocation: field assignments like
+                // `(*t0).key = v` run drop glue on the OLD value, which is
+                // uninitialized garbage right after malloc - UB that LLVM again
+                // exploits. Zeroed String fields (ptr=null, cap=0) drop as no-ops.
+                if let x_lir::Type::Pointer(inner_ty) = ty {
+                    if let x_lir::Type::Named(name) = inner_ty.as_ref() {
+                        if matches!(
+                            inner.as_ref(),
+                            x_lir::Expression::Call(callee, _)
+                                if matches!(callee.as_ref(), x_lir::Expression::Variable(n) if n == "malloc")
+                        ) {
+                            return Ok(format!(
+                                "{{ let __m = malloc(std::mem::size_of::<{}>()) as *mut {}; std::ptr::write_bytes(__m as *mut u8, 0, std::mem::size_of::<{}>()); __m }}",
+                                name, name, name
+                            ));
+                        }
+                    }
                 }
                 let ty_str = self.lir_type_to_rust(ty);
                 Ok(format!("{} as {}", inner_code, ty_str))
@@ -1593,9 +2015,23 @@ cc = "1.0"
             x_lir::Literal::LongLong(v) => v.to_string(),
             x_lir::Literal::UnsignedLongLong(v) => v.to_string(),
             x_lir::Literal::Float(v) => format!("{}f32", v),
-            x_lir::Literal::Double(v) => v.to_string(),
+            x_lir::Literal::Double(v) => format!("{}f64", v),
             x_lir::Literal::Bool(v) => v.to_string(),
-            x_lir::Literal::Char(c) => format!("'{}'", c),
+            // Emit char literals as i64 (escaped) so they compare against the
+            // i64 values produced by __x_buf_char / x_as_int etc.
+            x_lir::Literal::Char(c) => {
+                let esc = match c {
+                    '\n' => "\\n".to_string(),
+                    '\t' => "\\t".to_string(),
+                    '\r' => "\\r".to_string(),
+                    '\0' => "\\0".to_string(),
+                    '\'' => "\\'".to_string(),
+                    '\\' => "\\\\".to_string(),
+                    c if c.is_control() => format!("\\u{:04x}", *c as u32),
+                    c => c.to_string(),
+                };
+                format!("'{}' as i64", esc)
+            }
             x_lir::Literal::String(s) => format!("\"{}\"", s),
             x_lir::Literal::NullPointer => "std::ptr::null_mut()".to_string(),
         }
@@ -1629,7 +2065,7 @@ cc = "1.0"
         match ty {
             x_lir::Type::Void => "()".to_string(),
             x_lir::Type::Bool => "bool".to_string(),
-            x_lir::Type::Char => "std::ffi::c_char".to_string(),
+            x_lir::Type::Char => "i64".to_string(),
             x_lir::Type::Schar => "i8".to_string(),
             x_lir::Type::Uchar => "u8".to_string(),
             x_lir::Type::Schar => "i8".to_string(),
@@ -1682,12 +2118,15 @@ cc = "1.0"
             }
             x_lir::Type::Named(name) => name.clone(),
             x_lir::Type::Qualified(quals, inner) => {
-                // In Rust extern blocks, `const T` is not valid as a function
-                // parameter/return type. Map `const char*` (C string) to
-                // `*const c_char` and drop the qualifier for other pointer
-                // types; for non-pointer types, keep the inner type.
+                // Qualifiers have no runtime meaning for locals: X strings are
+                // owned Rust `String`s regardless of `const`; extern blocks are
+                // handled separately in generate_lir_extern_function.
                 if quals.is_const {
                     if let x_lir::Type::Pointer(inner) = inner.as_ref() {
+                        // `const char*` is still an X string -> String.
+                        if matches!(inner.as_ref(), x_lir::Type::Char) {
+                            return "String".to_string();
+                        }
                         let inner_str = self.lir_type_to_rust(inner);
                         format!("*const {}", inner_str)
                     } else {

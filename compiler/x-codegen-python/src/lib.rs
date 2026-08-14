@@ -164,6 +164,13 @@ def x_list_len(l): return len(l.payload0)
 # __index__ is the desugared target of `a[i]` indexing.
 def __index__(a, i):
     if a is None: return x_from_int(0)
+    if isinstance(a, str):
+        if 0 <= i < len(a): return x_from_char(a[i])
+        return x_from_str("")
+    if isinstance(a, _XV) and a.tag == 4:  # X_STR
+        s = a.payload0 or ""
+        if 0 <= i < len(s): return x_from_char(s[i])
+        return x_from_str("")
     if isinstance(a, _XV) and a.tag == 6: return x_list_get(a, i)  # X_LIST
     return x_from_int(0)
 def strlen(s):
@@ -172,9 +179,15 @@ def strlen(s):
     return len(s)
 def getline(line, size, stream):
     # Simple implementation: read a line from stdin.
+    # Fills the caller buffer (a list, as emitted for `*character = null`) with
+    # the line characters so `buffer[i]` indexing works like the C runtime.
     # Returns the number of characters read (or -1 on error).
     try:
         s = input()
+        if isinstance(line, list):
+            line[:] = list(s)
+        if isinstance(size, list) and len(size) > 0:
+            size[0] = len(s)
         return len(s)
     except:
         return -1
@@ -185,7 +198,7 @@ def ceil(x): return -floor(-x)
 def fabs(x): return abs(x)
 def pow(x, y): return x ** y
 
-# PIDigits computation (Rabinowitz–Wagon algorithm).
+# PIDigits computation (Rabinowitz–Wagon algorithm, ported from xrt.c).
 def compute_pi_digits(n):
     if n <= 0:
         return ""
@@ -193,34 +206,47 @@ def compute_pi_digits(n):
     length = (10 * want) // 3 + 2
     a = [2] * length
     result = []
+    produced = 0
     nines = 0
     predigit = 0
-    for _ in range(want):
+    while produced < want:
         q = 0
         for i in range(length - 1, -1, -1):
             x = 10 * a[i] + q * (i + 1)
             a[i] = x % (2 * i + 1)
             q = x // (2 * i + 1)
-        q9 = q // 10
-        if q9 == 9:
+        a[0] = q % 10
+        q = q // 10
+        if q == 9:
             nines += 1
-        elif q9 == 10:
+        elif q == 10:
             result.append(str(predigit + 1))
-            result.extend(['0'] * nines)
-            nines = 0
+            produced += 1
+            for _ in range(nines):
+                if produced >= want:
+                    break
+                result.append("0")
+                produced += 1
             predigit = 0
+            nines = 0
         else:
             result.append(str(predigit))
-            predigit = q9
-            if nines != 0:
-                result.extend(['9'] * nines)
-                nines = 0
-    result.append(str(predigit))
+            produced += 1
+            predigit = q
+            for _ in range(nines):
+                if produced >= want:
+                    break
+                result.append("9")
+                produced += 1
+            nines = 0
+    # The C runtime never flushes the pending predigit after the loop: each
+    # iteration produced exactly one digit, so result already holds `want`
+    # digits; dropping the leading one yields the requested `n` digits.
     return ''.join(result)[1:]
 
 import re
-def regex_match_count(pattern, text):
-    # Count non-overlapping matches of pattern in text.
+def regex_match_count(text, pattern):
+    # Count non-overlapping matches of pattern in text (text first, like xrt.c).
     if pattern is None or text is None:
         return 0
     if isinstance(pattern, _XV):
@@ -777,7 +803,10 @@ def x_print_newline():
                     Ok("False".to_string())
                 }
             }
-            NullPointer => Ok("None".to_string()),
+            // Emit an empty list so C-string buffers (e.g. std.io read_line's
+            // `buffer: *character = null`) are mutable and indexable: the getline
+            // shim fills it in place, matching the C runtime semantics.
+            NullPointer => Ok("[]".to_string()),
         }
     }
 

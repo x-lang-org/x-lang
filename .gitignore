@@ -41,3 +41,14 @@ tests/benchmarks_game/zig_output/
 
 erl_crash.dump
 __pycache__/
+target/
+**/*.o
+**/*.exe
+**/*.class
+.toolchains/zig-cache/
+tmpdbg/
+core.*
+rust/target/
+.toolchains/
+tests/benchmarks_game/native_output/
+tools/x-cli/tests/benchmarks_game/zig_output/

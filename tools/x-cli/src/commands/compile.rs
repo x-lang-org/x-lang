@@ -293,6 +293,7 @@ pub fn exec(
             // Compile .ts → .js via tsc
             let out_dir = std::path::Path::new(out_path)
                 .parent()
+                .filter(|p| !p.as_os_str().is_empty())
                 .unwrap_or(std::path::Path::new("."));
 
             let status = std::process::Command::new("tsc")
@@ -513,6 +514,7 @@ pub fn exec(
             // Get the directory and module name
             let out_dir = std::path::Path::new(out_path)
                 .parent()
+                .filter(|p| !p.as_os_str().is_empty())
                 .unwrap_or(std::path::Path::new("."));
             let module_name = "main";
 
@@ -597,6 +599,7 @@ pub fn exec(
             // Write the .java source (always use Main.java to match class name)
             let out_dir = std::path::Path::new(out_path)
                 .parent()
+                .filter(|p| !p.as_os_str().is_empty())
                 .unwrap_or(std::path::Path::new("."));
             let java_out_path = out_dir.join("Main.java");
 
