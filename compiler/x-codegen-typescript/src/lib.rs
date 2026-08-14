@@ -193,14 +193,14 @@ function fabs(x: number): number { return Math.abs(x); }
 function pow(x: number, y: number): number { return Math.pow(x, y); }
 // getline implementation for reading lines from stdin
 declare const stdin: Array<void>;
+let __x_line_index: number = 0;
 function getline(lineptr: Array<string>, n: Array<number>, stream: Array<void>): number {
     const fs = require('fs');
     // Read all input at once and split into lines
     const data = fs.readFileSync(0, 'utf-8');
     const lines = data.split('\n');
-    if (getline._lineIndex === undefined) getline._lineIndex = 0;
-    if (getline._lineIndex >= lines.length) return -1;
-    const line = lines[getline._lineIndex++];
+    if (__x_line_index >= lines.length) return -1;
+    const line = lines[__x_line_index++];
     if (!lineptr) lineptr = [''];
     lineptr[0] = line;
     if (!n) n = [0];

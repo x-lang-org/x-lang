@@ -62,8 +62,14 @@ def main():
                     jrrc, rout, rerr = run(["java", "-cp", td, "Main"], stdin=stdin)
                     rrc = jrrc
             elif backend == "ts":
+                # The backend emits real TypeScript (interfaces, type annotations);
+                # transpile with tsc (installed on the fly) then run the JS output.
                 rrc, rout, rerr = run(["docker", "run", "--rm", "-v", td + ":/w", "-w", "/w",
-                                       "node:20-bookworm", "node", "out.ts"], stdin=stdin)
+                                       "node:20-bookworm", "sh", "-c",
+                                       "npm init -y >/dev/null 2>&1 && "
+                                       "npm i typescript@5.4 @types/node >/dev/null 2>&1 && "
+                                       "npx tsc --target es2020 --module commonjs --strict false --types node "
+                                       "--skipLibCheck out.ts >/dev/null 2>&1 && node out.js"], stdin=stdin, timeout=600)
             elif backend == "erlang":
                 rrc, _, rerr = run(["docker", "run", "--rm", "-v", td + ":/w", "-w", "/w",
                                     "erlang:27", "sh", "-c", "erlc out.erl && erl -noshell -s main main -s init stop"], timeout=300)
@@ -116,7 +122,7 @@ def main():
     print("ALL PASS" if all_ok else "SOME FAILED")
     return 0 if all_ok else 1
 
-ext_map = {"zig": ".zig", "rust": ".rs", "python": ".py", "ts": ".ts", "java": ".java",
+ext_map = {"zig": ".zig", "rust": ".rs", "python": ".py", "ts": ".ts", "typescript": ".ts", "java": ".java",
            "csharp": ".cs", "llvm": ".ll", "swift": ".swift", "erlang": ".erl"}
 
 if __name__ == "__main__":
