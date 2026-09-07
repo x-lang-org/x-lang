@@ -61,6 +61,8 @@ pub struct TypeScriptBackend {
     config: TypeScriptBackendConfig,
     /// 代码缓冲区
     buffer: x_codegen::CodeBuffer,
+    /// 变量名 -> TypeScript 类型（用于 Index 路由 char* buffer）
+    var_types: std::collections::HashMap<String, String>,
 }
 
 pub type TypeScriptResult<T> = Result<T, x_codegen::CodeGenError>;
@@ -70,6 +72,7 @@ impl TypeScriptBackend {
         Self {
             config,
             buffer: x_codegen::CodeBuffer::new(),
+            var_types: std::collections::HashMap::new(),
         }
     }
 
@@ -112,7 +115,7 @@ impl TypeScriptBackend {
 function x_from_int(v: number): XValue { return { tag: 0, payload0: v }; }
 function x_from_double(v: number): XValue { return { tag: 1, payload0: v }; }
 function x_from_bool(v: number): XValue { return { tag: 2, payload0: v }; }
-function x_from_char(v: number): XValue { return { tag: 3, payload0: v }; }
+function x_from_char(v: any): XValue { return { tag: 3, payload0: v }; }
 function x_from_str(s: string): XValue { return { tag: 4, payload0: s }; }
 function x_from_ptr(p: any): XValue { return { tag: 5, payload0: p }; }
 
@@ -158,7 +161,7 @@ function x_fmt_value(v: any): string {
     if (t === 0) return String(v.payload0);
     if (t === 1) return _x_fmt_double(v.payload0 as number);
     if (t === 2) return v.payload0 ? "true" : "false";
-    if (t === 3) return String.fromCharCode(Number(v.payload0));
+    if (t === 3) return typeof v.payload0 === "number" ? String.fromCharCode(v.payload0) : String(v.payload0 ?? "");
     if (t === 4) return v.payload0 as string;
     if (t === 5) return "Pointer(0x" + (v.payload0 as number).toString(16) + ")";
     if (t === 6) return "[" + (v.payload0 as XValue[]).map(x_fmt_value).join(", ") + "]";
@@ -172,8 +175,17 @@ function x_print(v: XValue): void { console.log(x_fmt_value(v)); }
 function x_print_inline(v: XValue): void { console.log(x_fmt_value(v)); }
 function x_print_newline(): void { console.log(); }
 // __index__ is the desugared target of `a[i]` indexing.
-function __index__(a: XValue, i: number): XValue {
-    if (!a) return x_from_int(0);
+function __index__(a: any, i: number): XValue {
+    if (a === null || a === undefined) return x_from_int(0);
+    if (typeof a === "string") {
+        if (i >= 0 && i < a.length) return x_from_char(a[i]);
+        return x_from_str("");
+    }
+    if (a.tag === 4) { // X_STR (boxed)
+        const s = (a.payload0 ?? "") as string;
+        if (i >= 0 && i < s.length) return x_from_char(s[i]);
+        return x_from_str("");
+    }
     if (a.tag === 6) return x_list_get(a, i);
     return x_from_int(0);
 }
@@ -184,6 +196,8 @@ function x_list_set(l: XValue, i: number, v: XValue): void { (l.payload0 as XVal
 function strlen(s: any): number {
     if (s == null) return 0;
     if (typeof s === "string") return s.length;
+    if (typeof s === "object" && s.tag === 4) return ((s.payload0 ?? "") as string).length;
+    if (typeof s === "object" && s.tag === 3) return 1;
     return 0;
 }
 function sqrt(x: number): number { return Math.sqrt(x); }
@@ -191,21 +205,36 @@ function floor(x: number): number { return Math.floor(x); }
 function ceil(x: number): number { return Math.ceil(x); }
 function fabs(x: number): number { return Math.abs(x); }
 function pow(x: number, y: number): number { return Math.pow(x, y); }
-// getline implementation for reading lines from stdin
+// getline implementation for reading lines from stdin.
+// C callers pass `&buffer` where buffer is `*character` (null); there is no
+// address-of in TypeScript, so the line is stashed in __x_line and indexed
+// via __x_buf_char (the codegen routes `buffer[i]` on char* through it).
 declare const stdin: Array<void>;
+let __x_stdin_lines: Array<string> | null = null;
 let __x_line_index: number = 0;
-function getline(lineptr: Array<string>, n: Array<number>, stream: Array<void>): number {
+let __x_line: string = "";
+function getline(lineptr: any, n: any, stream: any): number {
     const fs = require('fs');
-    // Read all input at once and split into lines
-    const data = fs.readFileSync(0, 'utf-8');
-    const lines = data.split('\n');
+    // Read stdin once; later calls consume the cached lines. Each call
+    // returns one line (like the C runtime minus the trailing newline).
+    if (__x_stdin_lines === null) {
+        const data = fs.readFileSync(0, 'utf-8');
+        __x_stdin_lines = data.split('\n');
+        // A trailing newline terminates the last line; it is not an extra line.
+        if (__x_stdin_lines.length > 0 && __x_stdin_lines[__x_stdin_lines.length - 1] === "") {
+            __x_stdin_lines.pop();
+        }
+    }
+    const lines = __x_stdin_lines as Array<string>;
     if (__x_line_index >= lines.length) return -1;
     const line = lines[__x_line_index++];
-    if (!lineptr) lineptr = [''];
-    lineptr[0] = line;
-    if (!n) n = [0];
-    n[0] = line.length;
+    __x_line = line;
     return line.length;
+}
+function __x_buf_char(s: any, i: number): string {
+    const src: string = (typeof s === "string") ? s : __x_line;
+    if (!src) return "";
+    return (i >= 0 && i < src.length) ? src[i] : "";
 }
 // compute_pi_digits implementation
 function compute_pi_digits(n: number): string {
@@ -625,6 +654,7 @@ function regex_replace_all(text: string, pattern: string, replacement: string): 
             "x_print", "x_print_inline", "x_print_newline",
             "printf", "puts", "putchar", "malloc", "free",
             "__index__", "strlen", "sqrt", "floor", "ceil", "fabs", "pow",
+            "getline", "__x_buf_char",
         ];
         if RUNTIME_IMPL.contains(&ext.name.as_str()) {
             return Ok(());
@@ -707,6 +737,8 @@ function regex_replace_all(text: string, pattern: string, replacement: string): 
             }
             Variable(v) => {
                 let ty = self.lir_type_to_typescript(&v.type_);
+                // Track the variable type for Index routing (char* buffers).
+                self.var_types.insert(v.name.clone(), ty.clone());
                 let keyword = if v.is_extern {
                     "declare let"
                 } else if v.is_static {
@@ -1136,6 +1168,14 @@ function regex_replace_all(text: string, pattern: string, replacement: string): 
             Index(arr, idx) => {
                 let arr_str = self.emit_lir_expr(arr)?;
                 let idx_str = self.emit_lir_expr(idx)?;
+                // Raw C-string byte access (`buffer[i]` on a char*): the
+                // buffer variable stays null in TypeScript, so index via the
+                // __x_buf_char helper, which falls back to the getline stash.
+                if let x_lir::Expression::Variable(n) = arr.as_ref() {
+                    if self.var_types.get(n).map(|t| t == "string").unwrap_or(false) {
+                        return Ok(format!("__x_buf_char({}, ({}))", arr_str, idx_str));
+                    }
+                }
                 Ok(format!("{}[{}]", arr_str, idx_str))
             }
             AddressOf(inner) => {
@@ -1323,6 +1363,10 @@ function regex_replace_all(text: string, pattern: string, replacement: string): 
             format!("<{}>", func.type_params.join(", "))
         };
 
+        for p in &func.parameters {
+            self.var_types
+                .insert(p.name.clone(), self.lir_type_to_typescript(&p.type_));
+        }
         let params: Vec<String> = func
             .parameters
             .iter()
