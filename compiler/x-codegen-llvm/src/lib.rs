@@ -1268,6 +1268,21 @@ impl LlvmBackend {
     }
 
     /// 生成 switch 语句
+    /// Conservative check whether a statement ends with an LLVM terminator
+    /// (return / unconditional branch out). Used to avoid emitting a second
+    /// terminator after switch case bodies.
+    fn stmt_is_terminator(stmt: &Statement) -> bool {
+        match stmt {
+            Statement::Return(_) | Statement::Goto(_) => true,
+            Statement::Compound(b) => b
+                .statements
+                .last()
+                .map(Self::stmt_is_terminator)
+                .unwrap_or(false),
+            _ => false,
+        }
+    }
+
     fn emit_switch(
         &mut self,
         indent: usize,
@@ -1314,8 +1329,17 @@ impl LlvmBackend {
 
         // Default case
         if let Some(default_body) = &switch_stmt.default {
-            self.emit_indent(indent + 1, &format!("br label %{}", switch_end));
+            // The default body needs its own label: the previous block may
+            // already end with a terminator (br to switch_end), and emitting
+            // body instructions right after it would leave them outside any
+            // basic block (invalid IR).
+            let default_label = self.new_label("default");
+            self.emit_indent(indent + 1, &format!("br label %{}", default_label));
+            self.emit_indent(indent, &format!("{}:", default_label));
             self.emit_statement(default_body, indent)?;
+            if !Self::stmt_is_terminator(default_body) {
+                self.emit_indent(indent + 1, &format!("br label %{}", switch_end));
+            }
         }
 
         // Switch end
@@ -1658,6 +1682,12 @@ impl LlvmBackend {
 
                 let result = self.new_temp();
 
+                // Same-type conversion is a no-op (e.g. `trunc i8 to i8`
+                // would be invalid IR).
+                if self.llvm_type(&expr_ty)? == target_ty {
+                    return Ok((value, ty.clone()));
+                }
+
                 // 判断是否为浮点或整数类型
                 let is_from_float =
                     matches!(expr_ty, Type::Float | Type::Double | Type::LongDouble);
@@ -1839,16 +1869,23 @@ impl LlvmBackend {
                 Ok((result, Type::Int))
             }
             Expression::Index(arr, idx) => {
-                let (arr_ptr, _arr_ty) = self.emit_expression(arr)?;
-                let (idx_val, _idx_ty) = self.emit_expression(idx)?;
-                let ty = Type::Int;
+                let (arr_ptr, arr_ty) = self.emit_expression(arr)?;
+                let (idx_val, idx_ty) = self.emit_expression(idx)?;
+                // Element type follows the pointee: indexing a `char*`
+                // buffer must step by 1 byte (i8), not by 8 (i64).
+                let ty = match &arr_ty {
+                    Type::Pointer(inner) => inner.as_ref().clone(),
+                    Type::Array(inner, _) => inner.as_ref().clone(),
+                    _ => Type::Int,
+                };
                 let llvm_ty = self.llvm_type(&ty)?;
+                let idx_llvm_ty = self.llvm_type(&idx_ty)?;
                 let elem_ptr = self.new_temp();
                 self.emit_indent(
                     2,
                     &format!(
-                        "{} = getelementptr inbounds {}* {}, i32 {}",
-                        elem_ptr, llvm_ty, arr_ptr, idx_val
+                        "{} = getelementptr inbounds {}, ptr {}, {} {}",
+                        elem_ptr, llvm_ty, arr_ptr, idx_llvm_ty, idx_val
                     ),
                 );
                 let result = self.new_temp();
@@ -2597,6 +2634,13 @@ impl LlvmBackend {
             .llvm_type(&global.type_)
             .unwrap_or_else(|_| "i32".to_string());
         let name = format!("@{}", global.name);
+        // `stdin`/`stdout` are C library globals (FILE*): reference them
+        // instead of defining our own (a local zeroinitializer would make
+        // getline/fflush dereference null and segfault).
+        if matches!(global.name.as_str(), "stdin" | "stdout") {
+            self.emit(&format!("{} = external global {}", name, ty));
+            return;
+        }
 
         let mut decl = format!("{} = ", name);
         if global.is_static {

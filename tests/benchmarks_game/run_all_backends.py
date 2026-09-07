@@ -230,7 +230,7 @@ def compile_and_run_benchmark(name, backend, run_timeout=120):
             # LLVM: compile .ll → executable via clang, linking with xrt.c
             xrt_c = PROJECT_ROOT / "library" / "runtime" / "xrt.c"
             run_cmd(["clang", "-O2", str(out_path), str(xrt_c),
-                     "-o", tmpdir / name, "-lc"],
+                     "-o", tmpdir / name, "-lc", "-lm"],
                     timeout=run_timeout)
             run_path = tmpdir / name
         elif config.get("compile_cmd"):
